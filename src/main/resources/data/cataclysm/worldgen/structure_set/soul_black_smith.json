@@ -1,0 +1,18 @@
+{
+  "structures": [
+    {
+      "structure": "cataclysm:soul_black_smith",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 1234567890,
+    "spacing": 112,
+    "separation": 60,
+    "type": "minecraft:random_spread"
+  },
+  "exclusion_zone": {
+    "chunk_count": 10,
+    "other_set": "minecraft:bastion_remnant"
+  }
+}

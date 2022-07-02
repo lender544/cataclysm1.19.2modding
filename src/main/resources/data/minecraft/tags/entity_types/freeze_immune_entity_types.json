@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "cataclysm:ender_golem",
+    "cataclysm:ender_guardian",
+    "cataclysm:ignis",
+    "cataclysm:netherite_monstrosity"
+  ]
+}

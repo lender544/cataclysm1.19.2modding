@@ -1,0 +1,26 @@
+{
+  "replace": false,
+  "values": [
+    "cataclysm:obsidian_explosion_trap_bricks",
+    "cataclysm:obsidian_brick_wall",
+    "cataclysm:obsidian_brick_stairs",
+    "cataclysm:chiseled_obsidian_bricks",
+    "cataclysm:obsidian_bricks",
+    "cataclysm:obsidian_brick_slab",
+    "cataclysm:void_stone",
+    "cataclysm:void_lantern_block",
+    "cataclysm:ignitium_block",
+    "cataclysm:witherite_block",
+    "cataclysm:enderite_block",
+    "cataclysm:polished_end_stone",
+    "cataclysm:polished_end_stone_slab",
+    "cataclysm:polished_end_stone_stairs",
+    "cataclysm:chiseled_end_stone_bricks",
+    "cataclysm:void_infused_end_stone_bricks",
+    "cataclysm:end_stone_pillar",
+    "cataclysm:chiseled_purpur_block",
+    "cataclysm:purpur_wall",
+    "cataclysm:purpur_void_rune_trap_block",
+    "cataclysm:end_stone_teleport_trap_bricks"
+  ]
+}

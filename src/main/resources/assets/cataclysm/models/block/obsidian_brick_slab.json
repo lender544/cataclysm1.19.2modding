@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "bottom":  "cataclysm:blocks/obsidian_bricks",
+    "top": "cataclysm:blocks/obsidian_bricks",
+    "side": "cataclysm:blocks/obsidian_bricks"
+  }
+}

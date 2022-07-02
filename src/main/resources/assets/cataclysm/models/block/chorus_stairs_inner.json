@@ -1,0 +1,8 @@
+{
+  "parent": "block/inner_stairs",
+  "textures": {
+    "bottom":  "cataclysm:blocks/chorus_planks",
+    "top": "cataclysm:blocks/chorus_planks",
+    "side": "cataclysm:blocks/chorus_planks"
+  }
+}

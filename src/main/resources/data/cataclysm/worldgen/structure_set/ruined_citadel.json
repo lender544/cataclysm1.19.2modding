@@ -1,0 +1,18 @@
+{
+  "structures": [
+    {
+      "structure": "cataclysm:ruined_citadel",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 1234567890,
+    "spacing": 30,
+    "separation": 15,
+    "type": "minecraft:random_spread"
+  },
+  "exclusion_zone": {
+    "chunk_count": 10,
+    "other_set": "minecraft:end_city"
+  }
+}
