@@ -177,7 +177,7 @@ public class Ignis_Entity extends Boss_monster {
             damage = Math.min(CMConfig.IgnisDamageCap, damage);
         }
 
-        if (this.getAnimation() == PHASE_2 && !source.isBypassInvul()) {
+        if ((this.getAnimation() == PHASE_3 || this.getAnimation() == PHASE_2) && !source.isBypassInvul()) {
             return false;
         }
 
@@ -469,6 +469,9 @@ public class Ignis_Entity extends Boss_monster {
             else if(this.getAnimation() == POKED_ATTACK) {
                 setIsShield(false);
             }
+            else if(this.getAnimation() == BREAK_THE_SHIELD) {
+                setIsShield(false);
+            }
             else if (this.getAnimation() == HORIZONTAL_SWING_ATTACK) {
                 setIsShield(this.getAnimationTick() > 31);
             }
@@ -619,6 +622,21 @@ public class Ignis_Entity extends Boss_monster {
 
             if (this.getAnimationTick() == 108) {
                 BodyCheckAttack(4.85f,6,60,1.0f,0.01f,40,0);
+            }
+        }
+
+        if (this.getAnimation() == FOUR_COMBO) {
+            if (this.getAnimationTick() == 115) {
+                this.playSound(ModSounds.FLAME_BURST.get(), 1.0f, 1F + this.getRandom().nextFloat() * 0.1F);
+                this.playSound(ModSounds.SWORD_STOMP.get(), 1.0f, 0.75F + this.getRandom().nextFloat() * 0.1F);
+                ScreenShake_Entity.ScreenShake(level, this.position(), 30, 0.15f, 0, 50);
+                AreaAttack(4f,4f,45,1.2f,0.1f,200,5,150);
+                ShieldSmashparticle(0.5f,1.0f,-0.15f);
+            }
+
+            if (this.getAnimationTick() > 115 && this.getAnimationTick() < 125){
+                Sphereparticle(0.5f,1.0f,4);
+                Phase_Transition(57,0.4f,0.03f,5,150);
             }
         }
     }
