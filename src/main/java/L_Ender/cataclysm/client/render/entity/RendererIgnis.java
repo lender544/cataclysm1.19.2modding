@@ -3,6 +3,7 @@ package L_Ender.cataclysm.client.render.entity;
 
 import L_Ender.cataclysm.client.model.entity.ModelIgnis;
 import L_Ender.cataclysm.client.render.RenderUtils;
+import L_Ender.cataclysm.client.render.layer.Ignis_Shield_Crack_Layer;
 import L_Ender.cataclysm.entity.Ignis_Entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -23,6 +24,7 @@ public class RendererIgnis extends MobRenderer<Ignis_Entity, ModelIgnis> {
 
     public RendererIgnis(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new ModelIgnis(), 1.0F);
+        this.addLayer(new Ignis_Shield_Crack_Layer(this));
 
     }
     @Override
