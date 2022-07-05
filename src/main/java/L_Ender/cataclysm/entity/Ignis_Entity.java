@@ -13,6 +13,7 @@ import L_Ender.cataclysm.init.ModSounds;
 import L_Ender.cataclysm.init.ModTag;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
+import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -57,9 +58,11 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
+import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Stream;
 
 public class Ignis_Entity extends Boss_monster {
     private final ServerBossEvent bossInfo = (ServerBossEvent) (new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(false);
@@ -169,6 +172,8 @@ public class Ignis_Entity extends Boss_monster {
     public boolean hurt(DamageSource source, float damage) {
         double range = calculateRange(source);
 
+        boolean flag = super.hurt(source, damage);
+
         if (range > CMConfig.IgnisLongRangelimit * CMConfig.IgnisLongRangelimit) {
             return false;
         }
@@ -179,6 +184,11 @@ public class Ignis_Entity extends Boss_monster {
 
         if ((this.getAnimation() == PHASE_3 || this.getAnimation() == PHASE_2) && !source.isBypassInvul()) {
             return false;
+        }
+        Ignis_Entity.Crackiness ignis$crackiness = this.getCrackiness();
+
+        if (this.getBossPhase() > 2 && flag && this.getCrackiness() != ignis$crackiness) {
+            this.playSound(SoundEvents.IRON_GOLEM_DAMAGE, 1.0F, 1.0F);
         }
 
         Entity entity = source.getDirectEntity();
@@ -199,7 +209,7 @@ public class Ignis_Entity extends Boss_monster {
             return false;
         }
 
-        return super.hurt(source, damage);
+        return flag;
     }
 
     private boolean canBlockDamageSource(DamageSource damageSourceIn) {
@@ -307,6 +317,10 @@ public class Ignis_Entity extends Boss_monster {
 
     public int getBossPhase() {
         return this.entityData.get(BOSS_PHASE);
+    }
+
+    public Ignis_Entity.Crackiness getCrackiness() {
+        return Ignis_Entity.Crackiness.byFraction(this.getHealth() / this.getMaxHealth());
     }
 
     public static AttributeSupplier.Builder ignis() {
@@ -1053,6 +1067,32 @@ public class Ignis_Entity extends Boss_monster {
     public void stopSeenByPlayer(ServerPlayer player) {
         super.stopSeenByPlayer(player);
         this.bossInfo.removePlayer(player);
+    }
+
+    public static enum Crackiness {
+        NONE(1.0F),
+        LOW(0.35F),
+        MEDIUM(0.25F),
+        HIGH(0.1F);
+
+        private static final List<Ignis_Entity.Crackiness> BY_DAMAGE = Stream.of(values()).sorted(Comparator.comparingDouble((p_28904_) -> {
+            return (double)p_28904_.fraction;
+        })).collect(ImmutableList.toImmutableList());
+        private final float fraction;
+
+        private Crackiness(float p_28900_) {
+            this.fraction = p_28900_;
+        }
+
+        public static Ignis_Entity.Crackiness byFraction(float p_28902_) {
+            for(Ignis_Entity.Crackiness ignis$crackiness : BY_DAMAGE) {
+                if (p_28902_ < ignis$crackiness.fraction) {
+                    return ignis$crackiness;
+                }
+            }
+
+            return NONE;
+        }
     }
 
     private boolean shouldFollowUp(float Range) {

@@ -3,6 +3,7 @@ package L_Ender.cataclysm.client.render.entity;
 
 import L_Ender.cataclysm.client.model.entity.ModelIgnis;
 import L_Ender.cataclysm.client.render.RenderUtils;
+import L_Ender.cataclysm.client.render.layer.Ignis_Armor_Crack_Layer;
 import L_Ender.cataclysm.client.render.layer.Ignis_Shield_Crack_Layer;
 import L_Ender.cataclysm.entity.Ignis_Entity;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -18,13 +19,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class RendererIgnis extends MobRenderer<Ignis_Entity, ModelIgnis> {
 
-    private static final ResourceLocation IGNIS_TEXTURES = new ResourceLocation("cataclysm:textures/entity/ignis.png");
+    private static final ResourceLocation IGNIS_TEXTURES = new ResourceLocation("cataclysm:textures/entity/ignis/ignis.png");
 
-    private static final ResourceLocation IGNIS_SOUL_TEXTURES = new ResourceLocation("cataclysm:textures/entity/ignis_soul.png");
+    private static final ResourceLocation IGNIS_SOUL_TEXTURES = new ResourceLocation("cataclysm:textures/entity/ignis/ignis_soul.png");
 
     public RendererIgnis(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new ModelIgnis(), 1.0F);
         this.addLayer(new Ignis_Shield_Crack_Layer(this));
+        this.addLayer(new Ignis_Armor_Crack_Layer(this));
 
     }
     @Override
