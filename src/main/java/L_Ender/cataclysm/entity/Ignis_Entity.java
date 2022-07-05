@@ -172,8 +172,6 @@ public class Ignis_Entity extends Boss_monster {
     public boolean hurt(DamageSource source, float damage) {
         double range = calculateRange(source);
 
-        boolean flag = super.hurt(source, damage);
-
         if (range > CMConfig.IgnisLongRangelimit * CMConfig.IgnisLongRangelimit) {
             return false;
         }
@@ -187,7 +185,7 @@ public class Ignis_Entity extends Boss_monster {
         }
         Ignis_Entity.Crackiness ignis$crackiness = this.getCrackiness();
 
-        if (this.getBossPhase() > 2 && flag && this.getCrackiness() != ignis$crackiness) {
+        if (this.getBossPhase() > 0 && super.hurt(source, damage) && this.getCrackiness() != ignis$crackiness) {
             this.playSound(SoundEvents.IRON_GOLEM_DAMAGE, 1.0F, 1.0F);
         }
 
@@ -209,7 +207,7 @@ public class Ignis_Entity extends Boss_monster {
             return false;
         }
 
-        return flag;
+        return super.hurt(source, damage);
     }
 
     private boolean canBlockDamageSource(DamageSource damageSourceIn) {
@@ -558,9 +556,16 @@ public class Ignis_Entity extends Boss_monster {
                 ScreenShake_Entity.ScreenShake(level, this.position(), 30, 0.15f, 0, 50);
                 ShieldSmashparticle(0.5f,1.0f,-0.15f);
             }
-            if (this.getAnimationTick() > 58 && this.getAnimationTick() < 68){
-                Sphereparticle(0.5f,1.0f,6);
-                Phase_Transition(27,0.6f,0.05f,5,150);
+            if (this.getAnimationTick() > 58){
+                if( this.getAnimationTick() < 68) {
+                    Sphereparticle(0.5f, 1.0f, 6);
+                    Phase_Transition(27, 0.6f, 0.05f, 5, 150);
+                }
+                if(this.getAnimationTick() < 78) {
+                    if (this.getHealth() <= this.getMaxHealth() * 0.5f) {
+                        this.heal((float) (6 * CMConfig.IgnisHealthMultiplier));
+                    }
+                }
             }
         }
 
