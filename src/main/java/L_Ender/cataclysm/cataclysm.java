@@ -11,6 +11,7 @@ import L_Ender.cataclysm.util.Modcompat;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -58,12 +59,14 @@ public class cataclysm {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(this::setup);
         bus.addListener(this::setupClient);
+        bus.addListener(this::setupParticleEvent);
         bus.addListener(this::onModConfigEvent);
         bus.addListener(this::setupEntityModelLayers);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigHolder.COMMON_SPEC, "cataclysm.toml");
         ModItems.ITEMS.register(bus);
         ModEffect.EFFECTS.register(bus);
         ModBlocks.BLOCKS.register(bus);
+        ModParticle.PARTICLE.register(bus);
         ModStructures.STRUCTURE_PIECE_DEF_REG.register(bus);
         ModStructures.STRUCTURE_TYPE_DEF_REG.register(bus);
         ModTileentites.TILE_ENTITY_TYPES.register(bus);
@@ -85,6 +88,10 @@ public class cataclysm {
         if (config.getSpec() == ConfigHolder.COMMON_SPEC) {
             CMConfig.bake(config);
         }
+    }
+
+    private void setupParticleEvent(ParticleFactoryRegisterEvent event) {
+        PROXY.setupParticles();
     }
 
     private void setupClient(FMLClientSetupEvent event) {

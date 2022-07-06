@@ -16,6 +16,8 @@ public class CommonProxy {
     public void clientInit() {
     }
 
+    public void setupParticles() {
+    }
 
     public Player getClientSidePlayer() {
         return null;

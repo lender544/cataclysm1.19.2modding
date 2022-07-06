@@ -9,6 +9,7 @@ import L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import L_Ender.cataclysm.entity.etc.CMPathNavigateGround;
 import L_Ender.cataclysm.entity.etc.SmartBodyHelper2;
 import L_Ender.cataclysm.init.ModEffect;
+import L_Ender.cataclysm.init.ModParticle;
 import L_Ender.cataclysm.init.ModSounds;
 import L_Ender.cataclysm.init.ModTag;
 import com.github.alexthe666.citadel.animation.Animation;
@@ -40,6 +41,7 @@ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.monster.Blaze;
@@ -184,7 +186,6 @@ public class Ignis_Entity extends Boss_monster {
             return false;
         }
         Ignis_Entity.Crackiness ignis$crackiness = this.getCrackiness();
-
         if (this.getBossPhase() > 0 && super.hurt(source, damage) && this.getCrackiness() != ignis$crackiness) {
             this.playSound(SoundEvents.IRON_GOLEM_DAMAGE, 1.0F, 1.0F);
         }
@@ -390,10 +391,33 @@ public class Ignis_Entity extends Boss_monster {
             if (this.random.nextInt(24) == 0 && !this.isSilent()) {
                 this.level.playLocalSound(this.getX() + 0.5D, this.getY() + 0.5D, this.getZ() + 0.5D, SoundEvents.BLAZE_BURN, this.getSoundSource(), 1.0F + this.random.nextFloat(), this.random.nextFloat() * 0.7F + 0.3F, false);
             }
-
-            for(int i = 0; i < 2; ++i) {
-                this.level.addParticle(ParticleTypes.LARGE_SMOKE, this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
+            if(this.getBossPhase() > 1){
+                if(this.getCrackiness() == Crackiness.NONE){
+                    if (random.nextInt(5) == 0) {
+                        this.level.addParticle(ModParticle.SOUL_LAVA.get(), this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
+                    }
+                }
+                else if(this.getCrackiness() == Crackiness.LOW){
+                    if (random.nextInt(4) == 0) {
+                        this.level.addParticle(ModParticle.SOUL_LAVA.get(), this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
+                    }
+                }
+                else if(this.getCrackiness() == Crackiness.MEDIUM){
+                    if (random.nextInt(3) == 0) {
+                        this.level.addParticle(ModParticle.SOUL_LAVA.get(), this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
+                    }
+                }
+                else if(this.getCrackiness() == Crackiness.HIGH){
+                    if (random.nextInt(2) == 0) {
+                        this.level.addParticle(ModParticle.SOUL_LAVA.get(), this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
+                    }
+                }
+            }else{
+                for(int i = 0; i < 2; ++i) {
+                    this.level.addParticle(ParticleTypes.LARGE_SMOKE, this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0.0D, 0.0D, 0.0D);
+                }
             }
+
         }else{
             timeWithoutTarget++;
             if (target != null) {
@@ -456,18 +480,18 @@ public class Ignis_Entity extends Boss_monster {
                     this.setAnimation(SMASH_IN_AIR);
                 } else if ((blockingProgress == 10 || swordProgress == 10) && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 7F && this.getRandom().nextFloat() * 100.0F < 6f) {
                     Animation animation = getRandomPoke(random);
-                    this.setAnimation(FOUR_COMBO);
+                    this.setAnimation(HORIZONTAL_SWING_ATTACK);
                 } else if ((blockingProgress == 10 || swordProgress == 10) && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 5F && this.getRandom().nextFloat() * 100.0F < 12f) {
                     if (this.random.nextInt(3) == 0) {
-                        this.setAnimation(FOUR_COMBO);
+                        this.setAnimation(HORIZONTAL_SWING_ATTACK);
                     } else {
-                        this.setAnimation(FOUR_COMBO);
+                        this.setAnimation(HORIZONTAL_SWING_ATTACK);
                     }
                 } else if ((blockingProgress == 10 || swordProgress == 10) && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 3F && this.getRandom().nextFloat() * 100.0F < 20f && this.getIsShield()) {
-                    this.setAnimation(FOUR_COMBO);
+                    this.setAnimation(HORIZONTAL_SWING_ATTACK);
                 } else if ((blockingProgress == 10 || swordProgress == 10) && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 3F && this.getRandom().nextFloat() * 100.0F < 10f && body_check_cooldown <= 0) {
                     body_check_cooldown = BODY_CHECK_COOLDOWN;
-                    this.setAnimation(FOUR_COMBO);
+                    this.setAnimation(HORIZONTAL_SWING_ATTACK);
                 }
             }
         }
@@ -1074,7 +1098,7 @@ public class Ignis_Entity extends Boss_monster {
         this.bossInfo.removePlayer(player);
     }
 
-    public static enum Crackiness {
+    public enum Crackiness {
         NONE(1.0F),
         LOW(0.35F),
         MEDIUM(0.25F),
@@ -1139,9 +1163,6 @@ public class Ignis_Entity extends Boss_monster {
             if (Ignis_Entity.this.getAnimationTick() == 36 && shouldFollowUp(3.5f) && Ignis_Entity.this.random.nextInt(3) == 0 && body_check_cooldown <= 0) {
                 body_check_cooldown = BODY_CHECK_COOLDOWN;
                 AnimationHandler.INSTANCE.sendAnimationMessage(Ignis_Entity.this, BODY_CHECK_ATTACK2);
-            }
-            if(Ignis_Entity.this.getAnimationTick() > 32 || Ignis_Entity.this.getAnimationTick() < 26){
-                Ignis_Entity.this.setDeltaMovement(0, Ignis_Entity.this.getDeltaMovement().y, 0);
             }
         }
     }
