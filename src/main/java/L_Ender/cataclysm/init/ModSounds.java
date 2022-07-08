@@ -89,6 +89,9 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> IGNIS_AMBIENT = SOUNDS.register("ignis_ambient",
             () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"ignis_ambient")));
 
+    public static final RegistryObject<SoundEvent> IGNIS_SHIELD_BREAK = SOUNDS.register("ignisshieldbreak",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"ignisshieldbreak")));
+
     public static final RegistryObject<SoundEvent> SWORD_STOMP = SOUNDS.register("sword_stomp",
             () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"sword_stomp")));
 }

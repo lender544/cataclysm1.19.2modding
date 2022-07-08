@@ -128,6 +128,20 @@
       }
     ]
   },
+  "ignisshieldbreak": {
+    "subtitle": "ignisshieldbreak.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/ignis_shield01"
+      },
+      {
+        "name": "cataclysm:entity/ignis_shield02"
+      },
+      {
+        "name": "cataclysm:entity/ignis_shield03"
+      }
+    ]
+  },
   "monstrosityland": {
     "subtitle": "monstrosityland.sub",
     "sounds": [

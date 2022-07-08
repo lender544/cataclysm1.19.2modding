@@ -1205,18 +1205,8 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
         animator.resetKeyframe(15);
 
         animator.setAnimation(Ignis_Entity.BREAK_THE_SHIELD);
-        animator.startKeyframe(8);
-        animator.rotate(root, 0, (float)Math.toRadians(-30F), 0);
-        animator.rotate(upperbody, (float)Math.toRadians(-30F), (float)Math.toRadians(-25F), (float)Math.toRadians(-5F));
-        animator.rotate(head, (float)Math.toRadians(5F), (float)Math.toRadians(-10F), (float)Math.toRadians(-2.5F));
-        animator.rotate(right_arm_joint, (float)Math.toRadians(5F), (float)Math.toRadians(15F), 0);
-        animator.rotate(left_arm_joint, 0, (float)Math.toRadians(-30F), (float)Math.toRadians(7.5F));
-        animator.rotate(left_hand, (float)Math.toRadians(7.5F), (float)Math.toRadians(-10F), (float)Math.toRadians(-15F));
-        animator.endKeyframe();
 
-        animator.setStaticKeyframe(5);
-
-        animator.startKeyframe(5);
+        animator.startKeyframe(15);
         animator.rotate(root, 0, (float)Math.toRadians(-42.5F), 0);
         animator.rotate(upperbody, (float)Math.toRadians(-30F), (float)Math.toRadians(-37.5F), (float)Math.toRadians(-5F));
         animator.rotate(head, (float)Math.toRadians(5F), (float)Math.toRadians(-22.5F), (float)Math.toRadians(-2.5F));

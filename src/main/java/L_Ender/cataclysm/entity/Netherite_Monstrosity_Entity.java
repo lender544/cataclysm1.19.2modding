@@ -207,7 +207,7 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
             return false;
         }
         if (!source.isBypassInvul()) {
-            damage = Math.min(22, damage);
+            damage = Math.min(CMConfig.MonstrosityDamageCap, damage);
         }
         double range = calculateRange(source);
 
