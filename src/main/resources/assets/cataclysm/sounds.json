@@ -142,6 +142,80 @@
       }
     ]
   },
+  "ignisimpact": {
+    "subtitle": "ignisimpact.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/ignis_impact"
+      },
+      {
+        "name": "cataclysm:entity/ignis_impact2"
+      },
+      {
+        "name": "cataclysm:entity/ignis_impact3"
+      }
+    ]
+  },
+  "ignishurt": {
+    "subtitle": "ignishurt.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/ignis_hurt",
+        "volume": 1.0, "pitch": 0.5
+      },
+      {
+        "name": "cataclysm:entity/ignis_hurt2",
+        "volume": 1.0, "pitch": 0.5
+      },
+      {
+        "name": "cataclysm:entity/ignis_hurt3",
+        "volume": 1.0, "pitch": 0.5
+      },
+      {
+        "name": "cataclysm:entity/ignis_hurt4",
+        "volume": 1.0, "pitch": 0.5
+      }
+    ]
+  },
+  "ignisswing": {
+    "subtitle": "ignisswing.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/ignis_swing"
+      },
+      {
+        "name": "cataclysm:entity/ignis_swing2"
+      },
+      {
+        "name": "cataclysm:entity/ignis_swing3"
+      },
+      {
+        "name": "cataclysm:entity/ignis_swing4"
+      }
+
+    ]
+  },
+  "ignisdeath": {
+    "subtitle": "ignisdeath.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/ignis_death",
+        "volume": 1.0, "pitch": 0.8
+      }
+
+    ]
+  },
+  "ignisangry": {
+    "subtitle": "ignisangry.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/ignis_angry"
+      },
+      {
+        "name": "cataclysm:entity/ignis_angry2"
+      }
+    ]
+  },
   "monstrosityland": {
     "subtitle": "monstrosityland.sub",
     "sounds": [

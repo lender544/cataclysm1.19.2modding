@@ -1116,6 +1116,10 @@ public class Ignis_Entity extends Boss_monster {
 
     }
 
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return ModSounds.IGNIS_HURT.get();
+    }
+
     @Override
     protected BodyRotationControl createBodyControl() {
         return new SmartBodyHelper2(this);
