@@ -95,15 +95,19 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> SWORD_STOMP = SOUNDS.register("sword_stomp",
             () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"sword_stomp")));
 
-    public static final RegistryObject<SoundEvent> IGNIS_HURT = SOUNDS.register("ignishurt",
-            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"ignishurt")));
+    public static final RegistryObject<SoundEvent> IGNIS_HURT = SOUNDS.register("ignis_hurt",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"ignis_hurt")));
 
-    public static final RegistryObject<SoundEvent> IGNIS_IMPACT = SOUNDS.register("ignisimpact",
-            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"ignisimpact")));
+    public static final RegistryObject<SoundEvent> IGNIS_IMPACT = SOUNDS.register("ignis_impact",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"ignis_impact")));
 
-    public static final RegistryObject<SoundEvent> IGNIS_DEATH = SOUNDS.register("ignisdeath",
-            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"ignisdeath")));
+    public static final RegistryObject<SoundEvent> IGNIS_ARMOR_BREAK = SOUNDS.register("ignis_armor_break",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"ignis_armor_break")));
 
-    public static final RegistryObject<SoundEvent> ignisangry = SOUNDS.register("ignisangry",
-            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"ignisangry")));
+    public static final RegistryObject<SoundEvent> IGNIS_POKE = SOUNDS.register("ignis_poke",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"ignis_poke")));
+
+    public static final RegistryObject<SoundEvent> IGNIS_DEATH = SOUNDS.register("ignis_death",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"ignis_death")));
+
 }

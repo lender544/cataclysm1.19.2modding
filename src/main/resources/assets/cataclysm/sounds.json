@@ -128,7 +128,7 @@
       }
     ]
   },
-  "ignisshieldbreak": {
+  "ignis_shield_break": {
     "subtitle": "ignisshieldbreak.sub",
     "sounds": [
       {
@@ -142,7 +142,7 @@
       }
     ]
   },
-  "ignisimpact": {
+  "ignis_impact": {
     "subtitle": "ignisimpact.sub",
     "sounds": [
       {
@@ -156,8 +156,22 @@
       }
     ]
   },
-  "ignishurt": {
-    "subtitle": "ignishurt.sub",
+  "ignis_armor_break": {
+    "subtitle": "ignis_armor_break.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/ignis_impact"
+      },
+      {
+        "name": "cataclysm:entity/ignis_impact2"
+      },
+      {
+        "name": "cataclysm:entity/ignis_impact3"
+      }
+    ]
+  },
+  "ignis_hurt": {
+    "subtitle": "ignis_hurt.sub",
     "sounds": [
       {
         "name": "cataclysm:entity/ignis_hurt",
@@ -177,43 +191,31 @@
       }
     ]
   },
-  "ignisswing": {
-    "subtitle": "ignisswing.sub",
+  "ignis_poke": {
+    "subtitle": "ignis_poke.sub",
     "sounds": [
       {
-        "name": "cataclysm:entity/ignis_swing"
+        "name": "cataclysm:entity/ignis_poke"
       },
       {
-        "name": "cataclysm:entity/ignis_swing2"
+        "name": "cataclysm:entity/ignis_poke2"
       },
       {
-        "name": "cataclysm:entity/ignis_swing3"
+        "name": "cataclysm:entity/ignis_poke3"
       },
       {
-        "name": "cataclysm:entity/ignis_swing4"
+        "name": "cataclysm:entity/ignis_poke4"
       }
-
     ]
   },
-  "ignisdeath": {
-    "subtitle": "ignisdeath.sub",
+  "ignis_death": {
+    "subtitle": "ignis_death.sub",
     "sounds": [
       {
         "name": "cataclysm:entity/ignis_death",
         "volume": 1.0, "pitch": 0.8
       }
 
-    ]
-  },
-  "ignisangry": {
-    "subtitle": "ignisangry.sub",
-    "sounds": [
-      {
-        "name": "cataclysm:entity/ignis_angry"
-      },
-      {
-        "name": "cataclysm:entity/ignis_angry2"
-      }
     ]
   },
   "monstrosityland": {
