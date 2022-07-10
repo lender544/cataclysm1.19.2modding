@@ -7,6 +7,7 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 
 public class Ignitium_Armor extends ArmorItem {
 
@@ -14,10 +15,10 @@ public class Ignitium_Armor extends ArmorItem {
         super(material, slot, properties);
 
     }
-
+    
     @Override
-    public void initializeClient(java.util.function.Consumer<net.minecraftforge.client.IItemRenderProperties> consumer) {
-        consumer.accept((net.minecraftforge.client.IItemRenderProperties) cataclysm.PROXY.getArmorRenderProperties());
+    public void initializeClient(java.util.function.Consumer<IClientItemExtensions> consumer) {
+        consumer.accept((IClientItemExtensions) cataclysm.PROXY.getArmorRenderProperties());
     }
 
     @Override

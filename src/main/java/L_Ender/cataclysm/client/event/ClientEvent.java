@@ -14,15 +14,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.FogType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.EntityViewRenderEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import net.minecraftforge.client.event.ViewportEvent;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientEvent {
 
     @SubscribeEvent
-    public void onCameraSetup(EntityViewRenderEvent.CameraSetup event) {
+    public void onCameraSetup(ViewportEvent.ComputeCameraAngles event) {
         Player player = Minecraft.getInstance().player;
         float delta = Minecraft.getInstance().getFrameTime();
         float ticksExistedDelta = player.tickCount + delta;
@@ -53,7 +54,7 @@ public class ClientEvent {
 
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
-    public void onFogDensity(EntityViewRenderEvent.RenderFogEvent event) {
+    public void onFogDensity(ViewportEvent.RenderFog event) {
         FogType fogType = event.getCamera().getFluidInCamera();
         ItemStack itemstack = Minecraft.getInstance().player.getInventory().getArmor(3);
         if (itemstack.is(ModItems.IGNITIUM_HELMET.get()) && fogType == FogType.LAVA) {
@@ -64,12 +65,15 @@ public class ClientEvent {
     }
 
     @SubscribeEvent
-    public void onRenderHUD(RenderGameOverlayEvent.Pre event) {
+    public void onRenderHUD(RenderGuiOverlayEvent.Pre event) {
         Player player = Minecraft.getInstance().player;
         if (player != null && player.isPassenger()) {
             if (player.getVehicle() instanceof Ignis_Entity) {
-                if (event.getType().equals(RenderGameOverlayEvent.ElementType.ALL)) {
+                if (event.getOverlay().id().equals(VanillaGuiOverlay.HELMET.id())) {
                     Minecraft.getInstance().gui.setOverlayMessage(Component.translatable("you_cant_escape"), false);
+                }
+                if (event.getOverlay().id().equals(VanillaGuiOverlay.MOUNT_HEALTH.id())) {
+                    event.setCanceled(true);
                 }
             }
         }

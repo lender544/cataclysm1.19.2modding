@@ -31,8 +31,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,6 +46,15 @@ public class ClientProxy extends CommonProxy {
 
     public static final Map<Integer, SoundMonstrosityMusic> MONSTROSITY_SOUND_MAP = new HashMap<>();
     public static final Map<Integer, SoundEnderGuardianMusic> GUARDIAN_SOUND_MAP = new HashMap<>();
+
+    public void init() {
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientProxy::setupParticles);
+    }
+
+    public static void setupParticles(RegisterParticleProvidersEvent registry) {
+        cataclysm.LOGGER.debug("Registered particle factories");
+        registry.register(ModParticle.SOUL_LAVA.get(), SoulLavaParticle.Factory::new);
+    }
 
     public void clientInit() {
         ItemRenderer itemRendererIn = Minecraft.getInstance().getItemRenderer();
@@ -128,10 +139,6 @@ public class ClientProxy extends CommonProxy {
         }
     }
 
-    public void setupParticles() {
-        cataclysm.LOGGER.debug("Registered particle factories");
-        Minecraft.getInstance().particleEngine.register(ModParticle.SOUL_LAVA.get(), SoulLavaParticle.Factory::new);
-    }
 
     @Override
     public Object getISTERProperties() {

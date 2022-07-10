@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.FallingBlockRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.core.BlockPos;
@@ -24,9 +25,12 @@ import java.util.Random;
 
 @OnlyIn(Dist.CLIENT)
 public class RendererCm_Falling_Block extends EntityRenderer<Cm_Falling_Block_Entity> {
+    private final BlockRenderDispatcher dispatcher;
+
     public RendererCm_Falling_Block(EntityRendererProvider.Context p_174112_) {
         super(p_174112_);
         this.shadowRadius = 0.5F;
+        this.dispatcher = p_174112_.getBlockRenderDispatcher();
     }
 
     public void render(Cm_Falling_Block_Entity p_114634_, float p_114635_, float p_114636_, PoseStack p_114637_, MultiBufferSource p_114638_, int p_114639_) {
@@ -37,18 +41,14 @@ public class RendererCm_Falling_Block extends EntityRenderer<Cm_Falling_Block_En
                 p_114637_.pushPose();
                 BlockPos blockpos = new BlockPos(p_114634_.getX(), p_114634_.getBoundingBox().maxY, p_114634_.getZ());
                 p_114637_.translate(-0.5D, 0.0D, -0.5D);
-                BlockRenderDispatcher blockrenderdispatcher = Minecraft.getInstance().getBlockRenderer();
-                for (net.minecraft.client.renderer.RenderType type : net.minecraft.client.renderer.RenderType.chunkBufferLayers()) {
-                    if (ItemBlockRenderTypes.canRenderInLayer(blockstate, type)) {
-                        net.minecraftforge.client.ForgeHooksClient.setRenderType(type);
-                        blockrenderdispatcher.getModelRenderer().tesselateBlock(level, blockrenderdispatcher.getBlockModel(blockstate), blockstate, blockpos, p_114637_, p_114638_.getBuffer(type), false, RandomSource.create(), blockstate.getSeed(p_114634_.getStartPos()), OverlayTexture.NO_OVERLAY);
-                    }
-                }
-                net.minecraftforge.client.ForgeHooksClient.setRenderType(null);
+                var model = this.dispatcher.getBlockModel(blockstate);
+                for (var renderType : model.getRenderTypes(blockstate, RandomSource.create(blockstate.getSeed(p_114634_.getStartPos())), net.minecraftforge.client.model.data.ModelData.EMPTY))
+                    this.dispatcher.getModelRenderer().tesselateBlock(level, model, blockstate, blockpos, p_114637_, p_114638_.getBuffer(renderType), false, RandomSource.create(), blockstate.getSeed(p_114634_.getStartPos()), OverlayTexture.NO_OVERLAY, net.minecraftforge.client.model.data.ModelData.EMPTY, renderType);
                 p_114637_.popPose();
                 super.render(p_114634_, p_114635_, p_114636_, p_114637_, p_114638_, p_114639_);
             }
         }
+
     }
 
     public ResourceLocation getTextureLocation(Cm_Falling_Block_Entity p_114632_) {

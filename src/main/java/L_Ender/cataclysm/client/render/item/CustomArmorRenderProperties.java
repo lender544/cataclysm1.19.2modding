@@ -9,9 +9,9 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 
-public class CustomArmorRenderProperties implements IItemRenderProperties {
+public class CustomArmorRenderProperties implements IClientItemExtensions {
 
     private static boolean init;
 
@@ -27,7 +27,7 @@ public class CustomArmorRenderProperties implements IItemRenderProperties {
         IGNITIUM_ARMOR_MODEL_LEGS = new ModelIgnitium_Armor(Minecraft.getInstance().getEntityModels().bakeLayer(CMModelLayers.IGNITIUM_ARMOR_MODEL_LEGS));
     }
 
-    public HumanoidModel<?> getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
+    public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
         if(!init){
             initializeModels();
         }

@@ -41,10 +41,6 @@ public class BlockEnderGuardianSpawner extends BaseEntityBlock {
 		return state.getDestroySpeed(world, pos) >= 0f;
 	}
 
-	public ItemStack getCloneItemStack(BlockGetter p_56785_, BlockPos p_56786_, BlockState p_56787_) {
-		return ItemStack.EMPTY;
-	}
-
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_152180_, BlockState p_152181_, BlockEntityType<T> p_152182_) {
 		return createTickerHelper(p_152182_, ModTileentites.ENDER_GUARDIAN_SPAWNER.get(), TileEntityBossSpawner::commonTick);
