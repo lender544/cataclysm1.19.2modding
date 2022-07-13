@@ -90,6 +90,7 @@ public class Ignis_Entity extends Boss_monster {
     public static final Animation BODY_CHECK_ATTACK_SOUL2 = Animation.create(45);
     public static final Animation BODY_CHECK_ATTACK_SOUL3 = Animation.create(45);
     public static final Animation BODY_CHECK_ATTACK_SOUL4 = Animation.create(45);
+    public static final Animation IGNIS_DEATH = Animation.create(150);
     public static final Animation BURNS_THE_EARTH = Animation.create(67);
     public static final Animation COUNTER = Animation.create(115);
     public static final Animation STRIKE = Animation.create(47);
@@ -159,7 +160,8 @@ public class Ignis_Entity extends Boss_monster {
                 BURNS_THE_EARTH,
                 TRIPLE_ATTACK,
                 BREAK_THE_SHIELD,
-                FOUR_COMBO};
+                FOUR_COMBO,
+                IGNIS_DEATH};
     }
 
     protected void registerGoals() {
@@ -766,6 +768,12 @@ public class Ignis_Entity extends Boss_monster {
                 Phase_Transition(56,0.4f,0.03f,5,150);
             }
         }
+    }
+
+    @Nullable
+    public Animation getDeathAnimation()
+    {
+        return IGNIS_DEATH;
     }
 
     private void AreaAttack(float range,float height,float arc ,float damage, float hpdamage ,int shieldbreakticks, int firetime, int brandticks) {
