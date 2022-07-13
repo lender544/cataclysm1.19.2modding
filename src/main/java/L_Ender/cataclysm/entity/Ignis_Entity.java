@@ -552,7 +552,7 @@ public class Ignis_Entity extends Boss_monster {
             }else if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.getHealth() <= this.getMaxHealth() * 0.15 && this.getBossPhase() < 2) {
                 this.setAnimation(PHASE_3);
             } else if (target != null && target.isAlive()) {
-                if ((blockingProgress == 10 || swordProgress == 10) && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceToSqr(target) >= 64 && this.distanceToSqr(target) <= 1024.0D && target.isOnGround()) {
+                if ((blockingProgress == 10 || swordProgress == 10) && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceToSqr(target) >= 64 && this.distanceToSqr(target) <= 1024.0D && target.isOnGround() && this.getRandom().nextFloat() * 100.0F < 0.9f) {
                     this.setAnimation(SMASH_IN_AIR);
                 } else if ((blockingProgress == 10 || swordProgress == 10) && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 7F && this.getRandom().nextFloat() * 100.0F < 6f) {
                     Animation animation = getRandomPoke(random);
@@ -611,10 +611,11 @@ public class Ignis_Entity extends Boss_monster {
             if (this.getAnimationTick() == 79){
                 this.setIsShieldBreak(true);
             }
-            if (this.getAnimationTick() == 59){
+            if (this.getAnimationTick() == 55){
+                this.playSound(SoundEvents.ENDER_DRAGON_GROWL, 1.0f, 0.4F);
                 ScreenShake_Entity.ScreenShake(level, this.position(), 30, 0.15f, 0, 50);
                 List<LivingEntity> entities = getEntityLivingBaseNearby(12, 12, 12, 12);
-                this.playSound(ModSounds.FLAME_BURST.get(), 1.0f, 0.8F);
+                //this.playSound(ModSounds.FLAME_BURST.get(), 1.0f, 0.8F);
                 for (LivingEntity inRange : entities) {
                     if (inRange instanceof Player && ((Player) inRange).getAbilities().invulnerable) continue;
                     if (isAlliedTo(inRange)) continue;
