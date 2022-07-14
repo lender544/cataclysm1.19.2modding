@@ -90,7 +90,7 @@ public class Ignis_Entity extends Boss_monster {
     public static final Animation BODY_CHECK_ATTACK_SOUL2 = Animation.create(45);
     public static final Animation BODY_CHECK_ATTACK_SOUL3 = Animation.create(45);
     public static final Animation BODY_CHECK_ATTACK_SOUL4 = Animation.create(45);
-    public static final Animation IGNIS_DEATH = Animation.create(150);
+    public static final Animation IGNIS_DEATH = Animation.create(124);
     public static final Animation BURNS_THE_EARTH = Animation.create(67);
     public static final Animation COUNTER = Animation.create(115);
     public static final Animation STRIKE = Animation.create(47);
@@ -409,7 +409,7 @@ public class Ignis_Entity extends Boss_monster {
     }
 
     public void tick() {
-        if (!this.onGround && this.getDeltaMovement().y < 0.0D && this.getAnimation() == NO_ANIMATION) {
+        if (!this.onGround && this.getDeltaMovement().y < 0.0D && this.getAnimation() == NO_ANIMATION && !this.getIsBlocking() && !this.getIsSword()) {
             this.setDeltaMovement(this.getDeltaMovement().multiply(1.0D, 0.6D, 1.0D));
         }
 
