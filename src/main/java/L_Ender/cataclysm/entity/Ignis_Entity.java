@@ -223,6 +223,13 @@ public class Ignis_Entity extends Boss_monster {
         if ((this.getAnimation() == PHASE_3 || this.getAnimation() == PHASE_2) && !source.isBypassInvul()) {
             return false;
         }
+        if(this.getAnimation() == COUNTER && source.getDirectEntity() != null) {
+            if (this.getAnimationTick() > 24 && this.getAnimationTick() < 85) {
+                AnimationHandler.INSTANCE.sendAnimationMessage(this, STRIKE);
+                this.playSound(SoundEvents.BLAZE_HURT, 0.5f, 0.4F + this.getRandom().nextFloat() * 0.1F);
+                return false;
+            }
+        }
         Entity entity = source.getDirectEntity();
         if (damage > 0.0F && this.canBlockDamageSource(source)) {
             this.hurtCurrentlyUsedShield(damage);
@@ -238,12 +245,6 @@ public class Ignis_Entity extends Boss_monster {
                             this.setShieldDurability(this.getShieldDurability() + 1);
                             this.playSound(ModSounds.IGNIS_SHIELD_BREAK.get(), 3.0f, 0.4F + this.getRandom().nextFloat() * 0.1F);
                         }
-                    }
-                }
-            }else{
-                if(this.getAnimation() == COUNTER) {
-                    if (this.getAnimationTick() > 24 && this.getAnimationTick() < 85) {
-                        AnimationHandler.INSTANCE.sendAnimationMessage(this, STRIKE);
                     }
                 }
             }
@@ -667,14 +668,14 @@ public class Ignis_Entity extends Boss_monster {
                 this.playSound(SoundEvents.TOTEM_USE, 1.5f, 0.8F + this.getRandom().nextFloat() * 0.1F);
                 ScreenShake_Entity.ScreenShake(level, this.position(), 20, 0.3f, 0, 20);
                 AreaAttack(4.85f,2.5f,45,1.5f,0.15f,200,0,0);
-                ShieldSmashDamage(4,2.75f);
+                ShieldSmashDamage(2,4,2.75f);
                 ShieldSmashparticle(1.3f, 2.75f,-0.1f);
             }
             if (this.getAnimationTick() == 37) {
-                ShieldSmashDamage(5,2.75f);
+                ShieldSmashDamage(2,5,2.75f);
             }
             if (this.getAnimationTick() == 40) {
-                ShieldSmashDamage(6,2.75f);
+                ShieldSmashDamage(2,6,2.75f);
             }
         }
         if (this.getAnimation() == SMASH) {
@@ -682,17 +683,40 @@ public class Ignis_Entity extends Boss_monster {
                 this.playSound(SoundEvents.TOTEM_USE, 1.5f, 0.8F + this.getRandom().nextFloat() * 0.1F);
                 ScreenShake_Entity.ScreenShake(level, this.position(), 20, 0.3f, 0, 20);
                 AreaAttack(4.85f,2.5f,45,1.5f,0.15f,200,0,0);
-                ShieldSmashDamage(3,1.5f);
+                ShieldSmashDamage(2,3,1.5f);
                 ShieldSmashparticle(1.3f,1.5f,0.0f);
             }
             if (this.getAnimationTick() == 8) {
-                ShieldSmashDamage(4,1.5f);
+                ShieldSmashDamage(2,4,1.5f);
             }
             if (this.getAnimationTick() == 11) {
-                ShieldSmashDamage(5,1.5f);
+                ShieldSmashDamage(2,5,1.5f);
             }
             if (this.getAnimationTick() == 14) {
-                ShieldSmashDamage(6,1.5f);
+                ShieldSmashDamage(2,6,1.5f);
+            }
+        }
+
+        if (this.getAnimation() == STRIKE) {
+            if (this.getAnimationTick() == 27) {
+                StrikeParticle(0.5f,3,0);
+                ShieldSmashDamage(0.75f,4,0);
+                ShieldSmashDamage(0.75f,5,0);
+                ShieldSmashDamage(0.75f,6,0);
+            }
+            if (this.getAnimationTick() == 29) {
+                ShieldSmashDamage(0.75f,7,0);
+                ShieldSmashDamage(0.75f,8,0);
+                ShieldSmashDamage(0.75f,9,0);
+            }
+            if (this.getAnimationTick() == 31) {
+                ShieldSmashDamage(0.75f,10,0);
+                ShieldSmashDamage(0.75f,11,0);
+                ShieldSmashDamage(0.75f,12,0);
+            }
+            if (this.getAnimationTick() == 33) {
+                ShieldSmashDamage(0.75f,13,0);
+                ShieldSmashDamage(0.75f,14,0);
             }
         }
 
@@ -995,11 +1019,11 @@ public class Ignis_Entity extends Boss_monster {
     }
 
 
-    private void ShieldSmashDamage(int distance, float vec) {
+    private void ShieldSmashDamage(float spreadarc,int distance, float vec) {
         double perpFacing = this.yBodyRot * (Math.PI / 180);
         double facingAngle = perpFacing + Math.PI / 2;
         int hitY = Mth.floor(this.getBoundingBox().minY - 0.5);
-        double spread = Math.PI * 2;
+        double spread = Math.PI * spreadarc;
         int arcLen = Mth.ceil(distance * spread);
         double minY = this.getY() - 1;
         double maxY = this.getY() + 1.5;
@@ -1032,6 +1056,30 @@ public class Ignis_Entity extends Boss_monster {
                         double airborne = 0.1 * distance + level.random.nextDouble() * 0.15;
                         entity.setDeltaMovement(entity.getDeltaMovement().add(0.0D, airborne, 0.0D));
                     }
+                }
+            }
+
+        }
+    }
+
+    private void StrikeParticle(float spreadarc,int distance, float vec) {
+        double perpFacing = this.yBodyRot * (Math.PI / 180);
+        double facingAngle = perpFacing + Math.PI / 2;
+        double spread = Math.PI * spreadarc;
+        int arcLen = Mth.ceil(distance * spread);
+        for (int i = 0; i < arcLen; i++) {
+            double theta = (i / (arcLen - 1.0) - 0.5) * spread + facingAngle;
+            double vx = Math.cos(theta);
+            double vz = Math.sin(theta);
+            double px = this.getX() + vx * distance + vec * Math.cos((yBodyRot + 90) * Math.PI / 180);
+            double pz = this.getZ() + vz * distance + vec * Math.sin((yBodyRot + 90) * Math.PI / 180);
+            if (this.level.isClientSide) {
+                for (int i1 = 0; i1 < 80 + random.nextInt(12); i1++) {
+                    double motionX = getRandom().nextGaussian() * 0.07D;
+                    double motionY = getRandom().nextGaussian() * 0.07D;
+                    double motionZ = getRandom().nextGaussian() * 0.07D;
+                    this.level.addParticle(ParticleTypes.FLAME, px, this.getY(), pz, 0, motionY, 0);
+
                 }
             }
 
