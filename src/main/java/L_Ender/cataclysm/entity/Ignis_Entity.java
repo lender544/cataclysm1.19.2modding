@@ -91,7 +91,7 @@ public class Ignis_Entity extends Boss_monster {
     public static final Animation IGNIS_DEATH = Animation.create(124);
     public static final Animation BURNS_THE_EARTH = Animation.create(67);
     public static final Animation COUNTER = Animation.create(115);
-    public static final Animation STRIKE = Animation.create(47);
+    public static final Animation STRIKE = Animation.create(57);
     public static final Animation TRIPLE_ATTACK = Animation.create(139);
     public static final Animation FOUR_COMBO = Animation.create(141);
     public static final Animation BREAK_THE_SHIELD = Animation.create(87);
@@ -204,6 +204,13 @@ public class Ignis_Entity extends Boss_monster {
 
     @Override
     public boolean hurt(DamageSource source, float damage) {
+        if(this.getAnimation() == COUNTER && source.getDirectEntity() != null) {
+            if (this.getAnimationTick() > 20 && this.getAnimationTick() <= 100) {
+                AnimationHandler.INSTANCE.sendAnimationMessage(this, STRIKE);
+                this.playSound(SoundEvents.BLAZE_HURT, 0.5f, 0.4F + this.getRandom().nextFloat() * 0.1F);
+                return false;
+            }
+        }
         double range = calculateRange(source);
 
         if (range > CMConfig.IgnisLongRangelimit * CMConfig.IgnisLongRangelimit) {
@@ -223,13 +230,6 @@ public class Ignis_Entity extends Boss_monster {
 
         if ((this.getAnimation() == PHASE_3 || this.getAnimation() == PHASE_2) && !source.isBypassInvul()) {
             return false;
-        }
-        if(this.getAnimation() == COUNTER && source.getDirectEntity() != null) {
-            if (this.getAnimationTick() > 24 && this.getAnimationTick() < 85) {
-                AnimationHandler.INSTANCE.sendAnimationMessage(this, STRIKE);
-                this.playSound(SoundEvents.BLAZE_HURT, 0.5f, 0.4F + this.getRandom().nextFloat() * 0.1F);
-                return false;
-            }
         }
         Entity entity = source.getDirectEntity();
         if (damage > 0.0F && this.canBlockDamageSource(source)) {
@@ -699,28 +699,42 @@ public class Ignis_Entity extends Boss_monster {
         }
 
         if (this.getAnimation() == STRIKE) {
-            if (this.getAnimationTick() == 27) {
+            if (this.getAnimationTick() == 26) {
+                AreaAttack(5.25f,6,120,1.1f,0.08f,100,5 ,150);
+                this.playSound(ModSounds.STRONGSWING.get(), 1.0f, 1F + this.getRandom().nextFloat() * 0.1F);
+            }
+
+            if (this.getAnimationTick() == 31) {
                 ShieldSmashDamage(0.75f,4,0);
                 ShieldSmashDamage(0.75f,5,0);
-                ShieldSmashDamage(0.75f,6,0);
             }
-            if (this.getAnimationTick() == 29) {
+            if (this.getAnimationTick() == 33) {
+                ShieldSmashDamage(0.75f,6,0);
                 ShieldSmashDamage(0.75f,7,0);
+            }
+            if (this.getAnimationTick() == 35) {
                 ShieldSmashDamage(0.75f,8,0);
                 ShieldSmashDamage(0.75f,9,0);
             }
-            if (this.getAnimationTick() == 31) {
+            if (this.getAnimationTick() == 37) {
                 ShieldSmashDamage(0.75f,10,0);
                 ShieldSmashDamage(0.75f,11,0);
-                ShieldSmashDamage(0.75f,12,0);
             }
-            if (this.getAnimationTick() == 33) {
+            if (this.getAnimationTick() == 39) {
+                ShieldSmashDamage(0.75f,12,0);
                 ShieldSmashDamage(0.75f,13,0);
+            }
+            if (this.getAnimationTick() == 41) {
                 ShieldSmashDamage(0.75f,14,0);
+                ShieldSmashDamage(0.75f,15,0);
+            }
+            if (this.getAnimationTick() == 43) {
+                ShieldSmashDamage(0.75f,16,0);
+                ShieldSmashDamage(0.75f,17,0);
             }
 
-            if(this.getAnimationTick() > 27 && this.getAnimationTick() < 40){
-                StrikeParticle(0.5f,3,0);
+            if(this.getAnimationTick() > 26 && this.getAnimationTick() < 35){
+                StrikeParticle(0.75f,5,0);
             }
         }
 
@@ -1071,7 +1085,7 @@ public class Ignis_Entity extends Boss_monster {
         double perpFacing = this.yBodyRot * (Math.PI / 180);
         double facingAngle = perpFacing + Math.PI / 2;
         double spread = Math.PI * spreadarc;
-        int arcLen = Mth.ceil((distance + 2) * spread);
+        int arcLen = Mth.ceil((distance) * spread);
         for (int i = 0; i < arcLen; i++) {
             double theta = (i / (arcLen - 1.0) - 0.5) * spread + facingAngle;
             double vx = Math.cos(theta);
@@ -1083,18 +1097,18 @@ public class Ignis_Entity extends Boss_monster {
                 if (this.tickCount % 2 == 0) {
                     for (int i1 = 0; i1 < 80 + random.nextInt(12); i1++) {
                         double motionX = 0.2D * Mth.lerp(1, vx * distance + 3, vx * distance);
-                        double motionY = 0.2D * Mth.lerp(1.5, vy * 0.3, vy * 0.3);
+                        double motionY = 0.2D * Mth.lerp(1.5, vy * 0.1, vy * 0.1);
                         double motionZ = 0.2D * Mth.lerp(1, vz * distance + 3, vz * distance);
-                        double spreads = 5 + this.getRandom().nextDouble() * 2.5;
+                        double spreads = 10 + this.getRandom().nextDouble() * 2.5;
                         double velocity = 0.5 + this.getRandom().nextDouble() * 0.15;
 
                         // spread flame
-                        motionX += this.getRandom().nextGaussian() * 0.007499999832361937D * spread;
-                        motionZ += this.getRandom().nextGaussian() * 0.007499999832361937D * spread;
+                        motionX += this.getRandom().nextGaussian() * 0.007499999832361937D * spreads;
+                        motionZ += this.getRandom().nextGaussian() * 0.007499999832361937D * spreads;
                         motionX *= velocity;
                         ;
                         motionZ *= velocity;
-                        this.level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, px, this.getY() + 0.3f, pz, motionX, motionY, motionZ);
+                        this.level.addParticle(ParticleTypes.FLAME, px, this.getY() + 1.3f, pz, motionX, motionY, motionZ);
 
                     }
                 }

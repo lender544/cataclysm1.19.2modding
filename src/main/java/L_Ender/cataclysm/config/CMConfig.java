@@ -41,7 +41,7 @@ public class CMConfig {
     public static double MonstrosityLongRangelimit = 18D;
     public static double EnderguardianLongRangelimit = 12D;
     public static double EndergolemLongRangelimit = 6D;
-    public static double IgnisLongRangelimit = 20D;
+    public static double IgnisLongRangelimit = 15D;
 
 
     public static void bake(ModConfig config) {

@@ -1600,7 +1600,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
         animator.rotate(left_hand, (float)Math.toRadians(-47.5F), (float)Math.toRadians(-32.5F), (float)Math.toRadians(-22.5F));
         animator.endKeyframe();
 
-        animator.setStaticKeyframe(10);
+        animator.setStaticKeyframe(20);
 
         animator.resetKeyframe(10);
 
