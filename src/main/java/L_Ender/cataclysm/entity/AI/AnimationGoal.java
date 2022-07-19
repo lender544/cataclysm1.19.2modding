@@ -15,7 +15,7 @@ public abstract class AnimationGoal<T extends Boss_monster & IAnimatedEntity> ex
 
     protected AnimationGoal(T entity, boolean interruptsAI) {
         this.entity = entity;
-        if (interruptsAI) this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+        if (interruptsAI) this.setFlags(EnumSet.of(Flag.LOOK));
     }
 
     @Override
@@ -23,6 +23,7 @@ public abstract class AnimationGoal<T extends Boss_monster & IAnimatedEntity> ex
         return this.test(this.entity.getAnimation());
     }
 
+    @Override
     public boolean requiresUpdateEveryTick() {
         return true;
     }

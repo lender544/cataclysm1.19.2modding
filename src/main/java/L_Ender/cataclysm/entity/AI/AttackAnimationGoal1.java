@@ -13,7 +13,6 @@ public class AttackAnimationGoal1<T extends Boss_monster & IAnimatedEntity> exte
 
     public AttackAnimationGoal1(T entity, Animation animation, int look1) {
         super(entity, animation);
-        this.setFlags(EnumSet.of(Flag.JUMP, Flag.LOOK, Flag.MOVE));
         this.look1 = look1;
 
     }
@@ -26,4 +25,5 @@ public class AttackAnimationGoal1<T extends Boss_monster & IAnimatedEntity> exte
         }
         entity.setDeltaMovement(0, entity.getDeltaMovement().y, 0);
     }
+
 }
