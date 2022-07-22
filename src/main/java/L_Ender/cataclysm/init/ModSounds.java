@@ -110,4 +110,6 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> IGNIS_DEATH = SOUNDS.register("ignis_death",
             () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"ignis_death")));
 
+    public static final RegistryObject<SoundEvent> IGNIS_EARTHQUAKE = SOUNDS.register("ignis_earthquake",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"ignis_earthquake")));
 }

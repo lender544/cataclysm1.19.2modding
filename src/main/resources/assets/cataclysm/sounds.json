@@ -208,6 +208,14 @@
       }
     ]
   },
+  "ignis_earthquake": {
+    "subtitle": "ignis_earthquake.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/ignis_earthquake"
+      }
+    ]
+  },
   "ignis_death": {
     "subtitle": "ignis_death.sub",
     "sounds": [
