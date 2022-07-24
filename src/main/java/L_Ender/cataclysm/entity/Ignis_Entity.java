@@ -98,6 +98,7 @@ public class Ignis_Entity extends Boss_monster {
     public static final Animation BREAK_THE_SHIELD = Animation.create(87);
     public static final Animation SWING_UPPERCUT = Animation.create(65);
     public static final Animation SWING_UPPERSLASH = Animation.create(72);
+    public static final Animation SPIN_ATTACK = Animation.create(175);
     public static final int BODY_CHECK_COOLDOWN = 200;
     private static final EntityDataAccessor<Boolean> IS_BLOCKING = SynchedEntityData.defineId(Ignis_Entity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IS_SHIELD_BREAK = SynchedEntityData.defineId(Ignis_Entity.class, EntityDataSerializers.BOOLEAN);
@@ -138,6 +139,7 @@ public class Ignis_Entity extends Boss_monster {
                 SWING_ATTACK_SOUL,
                 SWING_UPPERCUT,
                 SWING_UPPERSLASH,
+                SPIN_ATTACK,
                 HORIZONTAL_SWING_ATTACK,
                 HORIZONTAL_SWING_ATTACK_SOUL,
                 POKE_ATTACK,
@@ -193,6 +195,7 @@ public class Ignis_Entity extends Boss_monster {
         this.goalSelector.addGoal(1, new Poked(this, POKED_ATTACK));
         this.goalSelector.addGoal(1, new Air_Smash(this,SMASH_IN_AIR));
         this.goalSelector.addGoal(1, new SimpleAnimationGoal<>(this, SMASH));
+        this.goalSelector.addGoal(1, new SimpleAnimationGoal<>(this, SPIN_ATTACK));
         this.goalSelector.addGoal(1, new Swing_Attack_Goal(this, SWING_ATTACK, 34,44));
         this.goalSelector.addGoal(1, new Swing_Attack_Goal(this, SWING_ATTACK_SOUL, 28,38));
         this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, COUNTER, 105));
@@ -563,24 +566,24 @@ public class Ignis_Entity extends Boss_monster {
                 this.setAnimation(PHASE_3);
             } else if (target != null && target.isAlive()) {
                 if ((blockingProgress == 10 || swordProgress == 10) && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceToSqr(target) >= 64 && this.distanceToSqr(target) <= 1024.0D && target.isOnGround() && this.getRandom().nextFloat() * 100.0F < 0.9f) {
-                    this.setAnimation(COUNTER);
+                    this.setAnimation(SPIN_ATTACK);
                 } else if ((blockingProgress == 10 || swordProgress == 10) && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 7F && this.getRandom().nextFloat() * 100.0F < 6f) {
                     Animation animation = getRandomPoke(random);
-                    this.setAnimation(COUNTER);
+                    this.setAnimation(SPIN_ATTACK);
                 } else if ((blockingProgress == 10 || swordProgress == 10) && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 5F && this.getRandom().nextFloat() * 100.0F < 12f) {
                     if (this.random.nextInt(3) == 0) {
                         Animation animation2 = this.getBossPhase() > 0 ? HORIZONTAL_SWING_ATTACK_SOUL : HORIZONTAL_SWING_ATTACK;
-                        this.setAnimation(COUNTER);
+                        this.setAnimation(SPIN_ATTACK);
                     } else {
                         Animation animation3 = this.getBossPhase() > 0 ? SWING_ATTACK_SOUL : SWING_ATTACK;
-                        this.setAnimation(COUNTER);
+                        this.setAnimation(SPIN_ATTACK);
                     }
                 } else if ((blockingProgress == 10 || swordProgress == 10) && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 3F && this.getRandom().nextFloat() * 100.0F < 20f && this.getIsShield()) {
-                    this.setAnimation(COUNTER);
+                    this.setAnimation(SPIN_ATTACK);
                 } else if ((blockingProgress == 10 || swordProgress == 10) && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 3F && this.getRandom().nextFloat() * 100.0F < 10f && body_check_cooldown <= 0) {
                     body_check_cooldown = BODY_CHECK_COOLDOWN;
                     Animation animation3 = this.getBossPhase() > 0 ? BODY_CHECK_ATTACK_SOUL1 : BODY_CHECK_ATTACK1;
-                    this.setAnimation(COUNTER);
+                    this.setAnimation(SPIN_ATTACK);
                 }
             }
         }
