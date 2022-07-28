@@ -17,7 +17,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class TileEntityObsidianExplosionTrapBricks extends BlockEntity {
 
-    public int ticksExisted;
+    public int tickCount;
 
 
     public TileEntityObsidianExplosionTrapBricks(BlockPos pos, BlockState state) {
@@ -34,12 +34,12 @@ public class TileEntityObsidianExplosionTrapBricks extends BlockEntity {
             LIT = getBlockState().getValue(ObsidianExplosionTrapBricks.LIT);
         }
         if(LIT){
-            ticksExisted++;
+            tickCount++;
             float x = this.getBlockPos().getX();
             float y = this.getBlockPos().getY();
             float z = this.getBlockPos().getZ();
             float f = 5F;
-            if (ticksExisted < 80) {
+            if (tickCount < 80) {
                 for (LivingEntity inRange : level.getEntitiesOfClass(LivingEntity.class, new AABB((double) x - f, (double) y - f, (double) z - f, (double) x + f, (double) y + f, (double) z + f))) {
                     if (inRange instanceof Player && ((Player) inRange).getAbilities().invulnerable) continue;
                     if (inRange.getType().is(ModTag.TRAP_BLOCK_NOT_DETECTED)) continue;
@@ -61,12 +61,12 @@ public class TileEntityObsidianExplosionTrapBricks extends BlockEntity {
                     }
                 }
             }
-            if(ticksExisted == 80){
+            if(tickCount == 80){
                 level.explode(null, x, y+1, z, 3.0F, Explosion.BlockInteraction.NONE);
             }
 
         }else{
-            ticksExisted=0;
+            tickCount=0;
         }
     }
 }
