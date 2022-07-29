@@ -120,10 +120,6 @@ public class ModEntities {
             .updateInterval(10)
             .build(cataclysm.MODID + ":ignis_abyss_fireball"));
 
-    public static final RegistryObject<EntityType<Flame_Stream_Entity>> FLAME_STREAM_ENTITY = ENTITY_TYPE.register("flame_stream", () -> EntityType.Builder.<Flame_Stream_Entity>of(Flame_Stream_Entity::new, MobCategory.MISC)
-            .sized(0.1F, 0.1F)
-            .build(cataclysm.MODID + ":flame_stream"));
-
     @SubscribeEvent
     public static void initializeAttributes(EntityAttributeCreationEvent event) {
         SpawnPlacements.register(ENDERMAPTERA.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Endermaptera_Entity::canSpawn);

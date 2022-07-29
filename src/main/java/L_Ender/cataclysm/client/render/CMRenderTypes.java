@@ -41,10 +41,10 @@ public class CMRenderTypes extends RenderType {
     }
 
     public static RenderType getGlowingEffect(ResourceLocation locationIn) {
-        RenderStateShard.TextureStateShard shard = new RenderStateShard.TextureStateShard(locationIn, false, false);
+        RenderStateShard.TextureStateShard renderstate$texturestate = new RenderStateShard.TextureStateShard(locationIn, false, false);
         return create("glow_effect", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, RenderType
                 .CompositeState.builder()
-                .setTextureState(shard)
+                .setTextureState(renderstate$texturestate)
                 .setShaderState(RENDERTYPE_BEACON_BEAM_SHADER)
                 .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
                 .setCullState(NO_CULL).setOverlayState(OVERLAY)

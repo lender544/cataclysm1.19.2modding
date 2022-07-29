@@ -1,6 +1,7 @@
 package L_Ender.cataclysm.entity.AI;
 
 import L_Ender.cataclysm.entity.Boss_monster;
+import L_Ender.cataclysm.entity.Ignis_Entity;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import net.minecraft.world.entity.LivingEntity;
@@ -9,14 +10,16 @@ public class ChargeAttackAnimationGoal<T extends Boss_monster & IAnimatedEntity>
     private final int look1;
     private final int look2;
     private final int charge;
-    private final int charge2;
+    private final float motionx;
+    private final float motionz;
 
-    public ChargeAttackAnimationGoal(T entity, Animation animation, int look1, int look2, int charge, int charge2) {
+    public ChargeAttackAnimationGoal(T entity, Animation animation, int look1, int look2, int charge, float motionx, float motionz) {
         super(entity, animation);
         this.look1 = look1;
         this.look2 = look2;
         this.charge = charge;
-        this.charge2 = charge2;
+        this.motionx = motionx;
+        this.motionz = motionz;
     }
     public void tick() {
         LivingEntity target = entity.getTarget();
@@ -30,8 +33,9 @@ public class ChargeAttackAnimationGoal<T extends Boss_monster & IAnimatedEntity>
             float f2 = (float) Math.sin(Math.toRadians(entity.getYRot() + 90));
             entity.push(f1 * 1.5, 0, f2 * 1.5);
         }
-        if(entity.getAnimationTick() > charge2 || entity.getAnimationTick() < charge){
-            entity.setDeltaMovement(0, entity.getDeltaMovement().y, 0);
+        if (entity.getAnimationTick() == charge && target != null){
+            entity.setDeltaMovement((target.getX() - entity.getX()) * motionx, 0, (target.getZ() - entity.getZ()) * motionz);
+
         }
     }
 
