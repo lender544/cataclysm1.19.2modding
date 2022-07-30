@@ -114,9 +114,10 @@ public class Ignited_Revenant_Entity extends Boss_monster {
 
     public void tick() {
         super.tick();
-        repelEntities(1.7F, 3.7f, 1.7F, 1.7F);
         AnimationHandler.INSTANCE.updateAnimations(this);
         LivingEntity target = this.getTarget();
+
+
     }
 
 
