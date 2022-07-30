@@ -20,18 +20,18 @@ public class ModelIgnis_Fireball extends AdvancedEntityModel<Entity> {
 		this.texWidth = 64;
 		this.texHeight = 64;
 		root = new AdvancedModelBox(this);
-		root.setRotationPoint(0.0F, 0.0F, 0.0F);
+		root.setPos(0.0F, 0.0F, 0.0F);
 
 
 		core = new AdvancedModelBox(this);
-		core.setRotationPoint(0.0F, 0.0F, 0.0F);
+		core.setPos(0.0F, 0.0F, 0.0F);
 		root.addChild(core);
 		core.setTextureOffset(20, 37).addBox(-4.0F, -4.0F, -1.0F, 8.0F, 8.0F, 2.0F, 0.0F, false);
 		core.setTextureOffset(0, 31).addBox(-1.0F, -4.0F, -4.0F, 2.0F, 8.0F, 8.0F, 0.0F, false);
 		core.setTextureOffset(0, 21).addBox(-4.0F, -1.0F, -4.0F, 8.0F, 2.0F, 8.0F, 0.0F, false);
 
 		out_line = new AdvancedModelBox(this);
-		out_line.setRotationPoint(0.0F, 0.0F, 0.0F);
+		out_line.setPos(0.0F, 0.0F, 0.0F);
 		root.addChild(out_line);
 		out_line.setTextureOffset(0, 0).addBox(-5.0F, -5.0F, -5.0F, 10.0F, 10.0F, 10.0F, 0.0F, false);
 	}

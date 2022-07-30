@@ -184,7 +184,7 @@ public class Boss_monster extends Monster implements IAnimatedEntity {
     protected void repelEntities(float x, float y, float z, float radius) {
         List<LivingEntity> nearbyEntities = getEntityLivingBaseNearby(x, y, z, radius);
         for (Entity entity : nearbyEntities) {
-            if (entity.canBeCollidedWith() && !entity.noPhysics) {
+            if (entity.isPickable() && !entity.noPhysics) {
                 double angle = (getAngleBetweenEntities(this, entity) + 90) * Math.PI / 180;
                 entity.setDeltaMovement(-0.1 * Math.cos(angle), entity.getDeltaMovement().y, -0.1 * Math.sin(angle));
             }

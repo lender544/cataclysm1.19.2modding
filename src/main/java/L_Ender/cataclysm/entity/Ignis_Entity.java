@@ -424,10 +424,6 @@ public class Ignis_Entity extends Boss_monster {
     }
 
     public void tick() {
-        if (!this.onGround && this.getDeltaMovement().y < 0.0D && this.getAnimation() == NO_ANIMATION && !this.getIsBlocking() && !this.getIsSword()) {
-            this.setDeltaMovement(this.getDeltaMovement().multiply(1.0D, 0.6D, 1.0D));
-        }
-
         this.bossInfo.setProgress(this.getHealth() / this.getMaxHealth());
         prevblockingProgress = blockingProgress;
         prevswordProgress = swordProgress;
@@ -564,7 +560,7 @@ public class Ignis_Entity extends Boss_monster {
         if (air_smash_cooldown > 0) air_smash_cooldown--;
         if (counter_strike_cooldown > 0) counter_strike_cooldown--;
         if (poke_cooldown > 0) poke_cooldown--;
-        repelEntities(1.7F, 4, 1.7F, 1.7F);
+        repelEntities(1.4F, 4, 1.4F, 1.4F);
 
         setYRot(yBodyRot);
         if (this.isAlive()) {

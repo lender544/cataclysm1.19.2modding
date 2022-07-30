@@ -96,7 +96,7 @@ public class ModelEnder_Golem extends AdvancedEntityModel<Ender_Golem_Entity> {
 		right_leg.setTextureOffset(44, 114).addBox(-8.0F, 0.0F, -6.0F, 12.0F, 20.0F, 12.0F, 0.0F, false);
 
 		left_leg = new AdvancedModelBox(this);
-		left_leg.setRotationPoint(11.0F, -20.0F, 0.0F);
+		left_leg.setPos(11.0F, -20.0F, 0.0F);
 		root.addChild(left_leg);
 		left_leg.setTextureOffset(44, 114).addBox(-4.0F, 0.0F, -6.0F, 12.0F, 20.0F, 12.0F, 0.0F, true);
 		animator = ModelAnimator.create();

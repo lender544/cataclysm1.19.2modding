@@ -37,109 +37,109 @@ public class ModelEnder_Guardian extends AdvancedEntityModel<Ender_Guardian_Enti
         texHeight = 256;
 
         root = new AdvancedModelBox(this);
-        root.setRotationPoint(0.0F, 24.0F, 0.0F);
+        root.setPos(0.0F, 24.0F, 0.0F);
 
 
         lowerbody = new AdvancedModelBox(this);
-        lowerbody.setRotationPoint(0.0F, -22.0F, 0.0F);
+        lowerbody.setPos(0.0F, -22.0F, 0.0F);
         root.addChild(lowerbody);
         lowerbody.setTextureOffset(121, 0).addBox(-11.0F, -8.0F, -7.0F, 22.0F, 8.0F, 14.0F, 0.0F, false);
 
         upperbody = new AdvancedModelBox(this);
-        upperbody.setRotationPoint(0.0F, -7.0F, 0.0F);
+        upperbody.setPos(0.0F, -7.0F, 0.0F);
         lowerbody.addChild(upperbody);
         upperbody.setTextureOffset(0, 0).addBox(-20.0F, -32.0F, -10.0F, 40.0F, 32.0F, 20.0F, 0.0F, false);
 
         right_arm = new AdvancedModelBox(this);
-        right_arm.setRotationPoint(-20.0F, -25.0F, 0.0F);
+        right_arm.setPos(-20.0F, -25.0F, 0.0F);
         upperbody.addChild(right_arm);
         right_arm.setTextureOffset(94, 150).addBox(-14.0F, -6.0F, -6.0F, 14.0F, 20.0F, 12.0F, 0.0F, false);
 
         rightarmor = new AdvancedModelBox(this);
-        rightarmor.setRotationPoint(-7.0F, 0.0F, -10.0F);
+        rightarmor.setPos(-7.0F, 0.0F, -10.0F);
         right_arm.addChild(rightarmor);
         rightarmor.setTextureOffset(103, 35).addBox(-10.0F, -7.0F, 1.0F, 12.0F, 18.0F, 18.0F, 0.0F, false);
 
         rightarmorspike = new AdvancedModelBox(this);
-        rightarmorspike.setRotationPoint(-7.0F, -3.0F, 10.0F);
+        rightarmorspike.setPos(-7.0F, -3.0F, 10.0F);
         rightarmor.addChild(rightarmorspike);
         setRotationAngle(rightarmorspike, 0.0F, 0.0F, -0.6109F);
         rightarmorspike.setTextureOffset(0, 162).addBox(-3.0F, -12.0F, -3.0F, 6.0F, 12.0F, 6.0F, 0.0F, false);
 
         right_arm2 = new AdvancedModelBox(this);
-        right_arm2.setRotationPoint(-8.5F, 14.0F, 0.0F);
+        right_arm2.setPos(-8.5F, 14.0F, 0.0F);
         right_arm.addChild(right_arm2);
         right_arm2.setTextureOffset(146, 23).addBox(-5.5F, 0.0F, -6.0F, 10.0F, 14.0F, 12.0F, 0.0F, false);
 
         right_fist = new AdvancedModelBox(this);
-        right_fist.setRotationPoint(-5.5F, 14.0F, 0.0F);
+        right_fist.setPos(-5.5F, 14.0F, 0.0F);
         right_arm2.addChild(right_fist);
         right_fist.setTextureOffset(142, 72).addBox(0.0F, -1.0F, -6.0F, 12.0F, 12.0F, 12.0F, 0.25F, false);
 
         left_arm = new AdvancedModelBox(this);
-        left_arm.setRotationPoint(20.0F, -25.0F, 0.0F);
+        left_arm.setPos(20.0F, -25.0F, 0.0F);
         upperbody.addChild(left_arm);
         left_arm.setTextureOffset(94, 150).addBox(0.0F, -6.0F, -6.0F, 14.0F, 20.0F, 12.0F, 0.0F, true);
 
         leftarmor = new AdvancedModelBox(this);
-        leftarmor.setRotationPoint(7.0F, 0.0F, -10.0F);
+        leftarmor.setPos(7.0F, 0.0F, -10.0F);
         left_arm.addChild(leftarmor);
         leftarmor.setTextureOffset(103, 35).addBox(-2.0F, -7.0F, 1.0F, 12.0F, 18.0F, 18.0F, 0.0F, true);
 
         leftarmorspike = new AdvancedModelBox(this);
-        leftarmorspike.setRotationPoint(7.0F, -3.0F, 10.0F);
+        leftarmorspike.setPos(7.0F, -3.0F, 10.0F);
         leftarmor.addChild(leftarmorspike);
         setRotationAngle(leftarmorspike, 0.0F, 0.0F, 0.6109F);
         leftarmorspike.setTextureOffset(0, 162).addBox(-3.0F, -12.0F, -3.0F, 6.0F, 12.0F, 6.0F, 0.0F, true);
 
         left_arm2 = new AdvancedModelBox(this);
-        left_arm2.setRotationPoint(8.5F, 14.0F, 0.0F);
+        left_arm2.setPos(8.5F, 14.0F, 0.0F);
         left_arm.addChild(left_arm2);
         left_arm2.setTextureOffset(146, 23).addBox(-4.5F, 0.0F, -6.0F, 10.0F, 14.0F, 12.0F, 0.0F, true);
 
         left_fist = new AdvancedModelBox(this);
-        left_fist.setRotationPoint(5.5F, 14.0F, 0.0F);
+        left_fist.setPos(5.5F, 14.0F, 0.0F);
         left_arm2.addChild(left_fist);
         left_fist.setTextureOffset(142, 72).addBox(-12.0F, -1.0F, -6.0F, 12.0F, 12.0F, 12.0F, 0.25F, true);
 
         helmet = new AdvancedModelBox(this);
-        helmet.setRotationPoint(0.0F, -28.0F, -7.0F);
+        helmet.setPos(0.0F, -28.0F, -7.0F);
         upperbody.addChild(helmet);
         helmet.setTextureOffset(0, 139).addBox(-8.0F, 2.0F, -16.0F, 16.0F, 6.0F, 16.0F, 0.0F, false);
         helmet.setTextureOffset(58, 155).addBox(-10.0F, -1.0F, -12.0F, 6.0F, 10.0F, 7.0F, 0.0F, false);
         helmet.setTextureOffset(161, 114).addBox(4.0F, -1.0F, -12.0F, 6.0F, 10.0F, 7.0F, 0.0F, false);
 
         head = new AdvancedModelBox(this);
-        head.setRotationPoint(0.0F, -4.0F, -8.0F);
+        head.setPos(0.0F, -4.0F, -8.0F);
         helmet.addChild(head);
         head.setTextureOffset(49, 99).addBox(-3.0F, 0.0F, -3.0F, 6.0F, 6.0F, 6.0F, 0.0F, false);
 
         upperhelmet = new AdvancedModelBox(this);
-        upperhelmet.setRotationPoint(0.0F, 0.0F, 0.0F);
+        upperhelmet.setPos(0.0F, 0.0F, 0.0F);
         helmet.addChild(upperhelmet);
         upperhelmet.setTextureOffset(106, 121).addBox(-8.0F, -7.75F, -16.0F, 16.0F, 12.0F, 16.0F, -0.25F, false);
         upperhelmet.setTextureOffset(147, 150).addBox(-3.0F, -9.5F, -16.7F, 6.0F, 13.0F, 10.0F, 0.0F, false);
 
         armor = new AdvancedModelBox(this);
-        armor.setRotationPoint(0.0F, 0.0F, 0.0F);
+        armor.setPos(0.0F, 0.0F, 0.0F);
         upperbody.addChild(armor);
         armor.setTextureOffset(0, 53).addBox(-17.0F, -34.0F, -12.0F, 34.0F, 21.0F, 24.0F, 0.0F, false);
         armor.setTextureOffset(91, 73).addBox(-25.0F, -35.0F, -13.0F, 12.0F, 21.0F, 26.0F, 0.0F, false);
         armor.setTextureOffset(91, 73).addBox(13.0F, -35.0F, -13.0F, 12.0F, 21.0F, 26.0F, 0.0F, true);
 
         voidstone = new AdvancedModelBox(this);
-        voidstone.setRotationPoint(0.0F, -16.0F, 10.0F);
+        voidstone.setPos(0.0F, -16.0F, 10.0F);
         upperbody.addChild(voidstone);
         setRotationAngle(voidstone, -0.7854F, 0.0F, 0.0F);
         voidstone.setTextureOffset(0, 99).addBox(-8.0F, -8.0F, -8.0F, 16.0F, 16.0F, 16.0F, 1.0F, false);
 
         right_leg = new AdvancedModelBox(this);
-        right_leg.setRotationPoint(-11.0F, -22.0F, 0.0F);
+        right_leg.setPos(-11.0F, -22.0F, 0.0F);
         root.addChild(right_leg);
         right_leg.setTextureOffset(49, 116).addBox(-8.0F, 0.0F, -8.0F, 12.0F, 22.0F, 16.0F, 0.0F, false);
 
         left_leg = new AdvancedModelBox(this);
-        left_leg.setRotationPoint(11.0F, -22.0F, 0.0F);
+        left_leg.setPos(11.0F, -22.0F, 0.0F);
         root.addChild(left_leg);
         left_leg.setTextureOffset(49, 116).addBox(-4.0F, 0.0F, -8.0F, 12.0F, 22.0F, 16.0F, 0.0F, true);
         animator = ModelAnimator.create();

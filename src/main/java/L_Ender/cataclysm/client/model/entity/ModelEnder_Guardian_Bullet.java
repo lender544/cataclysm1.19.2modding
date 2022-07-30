@@ -24,7 +24,7 @@ public class ModelEnder_Guardian_Bullet extends AdvancedEntityModel<Entity> {
 				.addBox(-1.0F, -4.0F, -4.0F, 2, 8, 8, 0.0F);
 		this.renderer.setTextureOffset(20, 0)
 				.addBox(-4.0F, -1.0F, -4.0F, 8, 2, 8, 0.0F);
-		this.renderer.setRotationPoint(0.0F, 0.0F, 0.0F);
+		this.renderer.setPos(0.0F, 0.0F, 0.0F);
 	}
 
 	@Override

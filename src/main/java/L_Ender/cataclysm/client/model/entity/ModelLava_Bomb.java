@@ -17,7 +17,7 @@ public class ModelLava_Bomb extends AdvancedEntityModel<Entity> {
         texHeight = 64;
 
         root = new AdvancedModelBox(this);
-        root.setRotationPoint(0.0F, 4F, 0.0F);
+        root.setPos(0.0F, 4F, 0.0F);
 
 
 

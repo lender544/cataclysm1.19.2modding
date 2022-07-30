@@ -75,6 +75,11 @@ public class ModEntities {
             .fireImmune()
             .build(cataclysm.MODID + ":endermaptera"));
 
+    public static final RegistryObject<EntityType<Ignited_Revenant_Entity>> IGNITED_REVENANT = ENTITY_TYPE.register("ignited_revenant", () -> EntityType.Builder.of(Ignited_Revenant_Entity::new, MobCategory.MONSTER)
+            .sized(1.2F, 0.8f)
+            .fireImmune()
+            .build(cataclysm.MODID + ":ignited_revenant"));
+
     public static final RegistryObject<EntityType<Void_Scatter_Arrow_Entity>> VOID_SCATTER_ARROW = ENTITY_TYPE.register("void_scatter_arrow", () -> EntityType.Builder.<Void_Scatter_Arrow_Entity>of(Void_Scatter_Arrow_Entity::new, MobCategory.MISC)
             .sized(0.5f, 0.5f)
             .setCustomClientFactory(Void_Scatter_Arrow_Entity::new)
@@ -129,6 +134,7 @@ public class ModEntities {
         event.put(IGNIS.get(), Ignis_Entity.ignis().build());
         event.put(ENDER_GUARDIAN.get(), Ender_Guardian_Entity.ender_guardian().build());
         event.put(ENDERMAPTERA.get(), Endermaptera_Entity.endermaptera().build());
+        event.put(IGNITED_REVENANT.get(), Ignited_Revenant_Entity.ignited_revenant().build());
     }
 }
 
