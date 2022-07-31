@@ -53,8 +53,13 @@ public class Ignis_Shield_Layer extends RenderLayer<Ignis_Entity, ModelIgnis> {
         this.model.setupAnim(ignis, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         VertexConsumer lvt_13_1_ = bufferIn.getBuffer(RenderType.entityCutoutNoCull(lvt_12_3_));
         this.model.renderToBuffer(matrixStackIn, lvt_13_1_, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        if (ignis.getShieldDurability() > 0) {
+            VertexConsumer lvt_13_2_ =
+                    ignis.getShieldDurability() >= 3 ? bufferIn.getBuffer(RenderType.entityCutoutNoCull(IGNIS_SHIELD_CRACK3))
+                            : ignis.getShieldDurability() == 2 ? bufferIn.getBuffer(RenderType.entityCutoutNoCull(IGNIS_SHIELD_CRACK2))
+                            : bufferIn.getBuffer(RenderType.entityCutoutNoCull(IGNIS_SHIELD_CRACK1));
+            this.model.renderToBuffer(matrixStackIn, lvt_13_2_, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        }
 
-        VertexConsumer lvt_13_2_ = ignis.getShieldDurability() >= 3 ? bufferIn.getBuffer(RenderType.entityCutoutNoCull(IGNIS_SHIELD_CRACK3)) : ignis.getShieldDurability() == 2 ? bufferIn.getBuffer(RenderType.entityCutoutNoCull(IGNIS_SHIELD_CRACK2)) : bufferIn.getBuffer(RenderType.entityCutoutNoCull(IGNIS_SHIELD_CRACK1));
-        this.model.renderToBuffer(matrixStackIn, lvt_13_2_, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
     }
 }

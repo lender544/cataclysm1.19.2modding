@@ -4,7 +4,6 @@ package L_Ender.cataclysm.client.render.entity;
 import L_Ender.cataclysm.client.model.entity.ModelIgnis;
 import L_Ender.cataclysm.client.render.RenderUtils;
 import L_Ender.cataclysm.client.render.layer.Ignis_Armor_Crack_Layer;
-import L_Ender.cataclysm.client.render.layer.Ignis_Shield_Crack_Layer;
 import L_Ender.cataclysm.client.render.layer.Ignis_Shield_Layer;
 import L_Ender.cataclysm.entity.Ignis_Entity;
 import com.mojang.blaze3d.vertex.PoseStack;

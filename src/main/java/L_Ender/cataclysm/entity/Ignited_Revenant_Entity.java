@@ -120,56 +120,9 @@ public class Ignited_Revenant_Entity extends Boss_monster {
 
     }
 
-
-    private void spawnFangs(double x, double z, double minY, double maxY, float rotation, int delay) {
-        BlockPos blockpos = new BlockPos(x, maxY, z);
-        boolean flag = false;
-        double d0 = 0.0D;
-
-        do {
-            BlockPos blockpos1 = blockpos.below();
-            BlockState blockstate = this.level.getBlockState(blockpos1);
-            if (blockstate.isFaceSturdy(this.level, blockpos1, Direction.UP)) {
-                if (!this.level.isEmptyBlock(blockpos)) {
-                    BlockState blockstate1 = this.level.getBlockState(blockpos);
-                    VoxelShape voxelshape = blockstate1.getCollisionShape(this.level, blockpos);
-                    if (!voxelshape.isEmpty()) {
-                        d0 = voxelshape.max(Direction.Axis.Y);
-                    }
-                }
-
-                flag = true;
-                break;
-            }
-
-            blockpos = blockpos.below();
-        } while (blockpos.getY() >= Mth.floor(minY) - 1);
-
-        if (flag) {
-            this.level.addFreshEntity(new Void_Rune_Entity(this.level, x, (double) blockpos.getY() + d0, z, rotation, delay, this));
-        }
-    }
-
-
-    public boolean isAlliedTo(Entity entityIn) {
-        if (entityIn == this) {
-            return true;
-        } else if (super.isAlliedTo(entityIn)) {
-            return true;
-        } else if (entityIn instanceof Ignited_Revenant_Entity || entityIn instanceof Ender_Guardian_Entity || entityIn instanceof Shulker || entityIn instanceof Endermaptera_Entity) {
-            return this.getTeam() == null && entityIn.getTeam() == null;
-        } else {
-            return false;
-        }
-    }
-
     @Override
     protected void onDeathAIUpdate() {
         super.onDeathAIUpdate();
-        setDeltaMovement(0, this.getDeltaMovement().y, 0);
-        if (this.deathTime == 40) {
-            this.playSound(ModSounds.MONSTROSITYLAND.get(), 1, 1);
-        }
 
     }
 
@@ -182,23 +135,6 @@ public class Ignited_Revenant_Entity extends Boss_monster {
     @Override
     public boolean canBePushedByEntity(Entity entity) {
         return false;
-    }
-
-
-    protected void playStepSound(BlockPos pos, BlockState blockIn) {
-        this.playSound(SoundEvents.IRON_GOLEM_STEP, 1.0F, 1.0F);
-    }
-
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return ModSounds.GOLEMHURT.get();
-    }
-
-    protected SoundEvent getDeathSound() {
-        return ModSounds.GOLEMDEATH.get();
-    }
-
-    protected PathNavigation createNavigation(Level worldIn) {
-        return new CMPathNavigateGround(this, worldIn);
     }
 
 }
