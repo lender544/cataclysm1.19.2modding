@@ -2,6 +2,7 @@ package L_Ender.cataclysm.client.render;
 
 import L_Ender.cataclysm.client.model.item.ModelBulwark_of_the_flame;
 import L_Ender.cataclysm.client.model.item.ModelGauntlet_of_Guard;
+import L_Ender.cataclysm.client.model.item.ModelIncinerator;
 import L_Ender.cataclysm.init.ModItems;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
@@ -21,8 +22,10 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
 
     private static final ModelBulwark_of_the_flame BULWARK_OF_THE_FLAME_MODEL = new ModelBulwark_of_the_flame();
     private static final ModelGauntlet_of_Guard GAUNTLET_OF_GUARD_MODEL = new ModelGauntlet_of_Guard();
+    private static final ModelIncinerator THE_INCINERATOR_MODEL = new ModelIncinerator();
     private static final ResourceLocation BULWARK_OF_THE_FLAME_TEXTURE = new ResourceLocation("cataclysm:textures/items/bulwark_of_the_flame.png");
     private static final ResourceLocation GAUNTLET_OF_GUARD_TEXTURE = new ResourceLocation("cataclysm:textures/items/gauntlet_of_guard.png");
+    private static final ResourceLocation THE_INCINERATOR_TEXTURE = new ResourceLocation("cataclysm:textures/items/the_incinerator.png");
 
     public CMItemstackRenderer() {
         super(null, null);
@@ -45,6 +48,13 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
             matrixStackIn.popPose();
         }
 
+        if (itemStackIn.getItem() == ModItems.THE_INCINERATOR.get()) {
+            matrixStackIn.pushPose();
+            matrixStackIn.translate(0.5F, 0.5F, 0.5F);
+            matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(-180));
+            THE_INCINERATOR_MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(RenderType.entityCutoutNoCull(THE_INCINERATOR_TEXTURE)), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
+            matrixStackIn.popPose();
+        }
 
     }
 }

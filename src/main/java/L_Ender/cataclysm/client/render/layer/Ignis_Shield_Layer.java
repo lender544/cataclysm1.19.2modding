@@ -61,5 +61,7 @@ public class Ignis_Shield_Layer extends RenderLayer<Ignis_Entity, ModelIgnis> {
             this.model.renderToBuffer(matrixStackIn, lvt_13_2_, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
         }
 
+
+
     }
 }

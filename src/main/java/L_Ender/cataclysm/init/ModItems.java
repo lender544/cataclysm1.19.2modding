@@ -112,6 +112,9 @@ public class ModItems {
     public static final RegistryObject<Item> GAUNTLET_OF_GUARD = ITEMS.register("gauntlet_of_guard",
             () -> new Gauntlet_of_Guard(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant().tab(cataclysm.CATACLYSM_GROUP)));
 
+    public static final RegistryObject<Item> THE_INCINERATOR = ITEMS.register("the_incinerator",
+            () -> new The_Incinerator(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant().tab(cataclysm.CATACLYSM_GROUP)));
+
     public static final RegistryObject<Item> FINAL_FRACTAL = ITEMS.register("final_fractal",
             () -> new final_fractal(ModItemTier.TOOL_WITHERITE, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).fireResistant().rarity(Rarity.EPIC)));
 
