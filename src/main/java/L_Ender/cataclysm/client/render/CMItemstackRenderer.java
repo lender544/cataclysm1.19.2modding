@@ -51,7 +51,7 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
         if (itemStackIn.getItem() == ModItems.THE_INCINERATOR.get()) {
             matrixStackIn.pushPose();
             matrixStackIn.translate(0.5F, 0.5F, 0.5F);
-            matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(-180));
+            //matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(-180));
             THE_INCINERATOR_MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(RenderType.entityCutoutNoCull(THE_INCINERATOR_TEXTURE)), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
             matrixStackIn.popPose();
         }

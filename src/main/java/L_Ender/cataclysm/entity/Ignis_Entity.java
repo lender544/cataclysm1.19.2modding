@@ -94,6 +94,7 @@ public class Ignis_Entity extends Boss_monster {
     public static final Animation SWING_UPPERCUT = Animation.create(65);
     public static final Animation SWING_UPPERSLASH = Animation.create(54);
     public static final Animation SPIN_ATTACK = Animation.create(56);
+    public static final Animation STOMP_ATTACK1 = Animation.create(88);
     public static final int AIR_SMASH_COOLDOWN = 160;
     public static final int BODY_CHECK_COOLDOWN = 200;
     public static final int POKE_COOLDOWN = 200;
@@ -167,6 +168,7 @@ public class Ignis_Entity extends Boss_monster {
                 TRIPLE_ATTACK,
                 BREAK_THE_SHIELD,
                 FOUR_COMBO,
+                STOMP_ATTACK1,
                 IGNIS_DEATH};
     }
 
@@ -203,6 +205,7 @@ public class Ignis_Entity extends Boss_monster {
         this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, COUNTER, 105,true));
         this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, STRIKE, 34,true));
         this.goalSelector.addGoal(1, new Triple_Attack(this, TRIPLE_ATTACK));
+        this.goalSelector.addGoal(1, new SimpleAnimationGoal<>(this, STOMP_ATTACK1));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
 
@@ -578,17 +581,17 @@ public class Ignis_Entity extends Boss_monster {
                 if (this.getAnimation() == NO_ANIMATION && this.distanceToSqr(target) >= 225 && this.distanceToSqr(target) <= 1024.0D && target.isOnGround() && !this.getIsShieldBreak() && air_smash_cooldown <= 0) {
                     air_smash_cooldown = AIR_SMASH_COOLDOWN;
                     this.setAnimation(SMASH_IN_AIR);
-                } else if (this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 9F && this.getRandom().nextFloat() * 100.0F < 0.9f) {
-                    this.setAnimation(animation);
+                } else if (this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 9F && this.distanceTo(target) > 5 && this.getRandom().nextFloat() * 100.0F < 0.9f) {
+                    this.setAnimation(STOMP_ATTACK1);
                 } else if (this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 9F && this.getRandom().nextFloat() * 100.0F < 15F && poke_cooldown <= 0 && target.hasEffect(ModEffect.EFFECTSTUN.get())) {
                     poke_cooldown = POKE_COOLDOWN;
-                    this.setAnimation(animation);
+                    this.setAnimation(STOMP_ATTACK1);
                 } else if (this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 6.5F && this.getRandom().nextFloat() * 100.0F < 6f) {
                     Animation animation2 = this.getBossPhase() > 0 ? HORIZONTAL_SWING_ATTACK_SOUL : HORIZONTAL_SWING_ATTACK;
-                    this.setAnimation(animation2);
+                    this.setAnimation(STOMP_ATTACK1);
                 } else if (this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 4.75F && this.getRandom().nextFloat() * 100.0F < 12f) {
                     Animation animation3 = this.getBossPhase() > 0 ? SWING_ATTACK_SOUL : SWING_ATTACK;
-                    this.setAnimation(animation3);
+                    this.setAnimation(STOMP_ATTACK1);
                 //} else if (this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 5F && this.getRandom().nextFloat() * 100.0F < 6f && this.getIsShieldBreak()) {
                 //    if (this.getBossPhase() < 2) {
                 //        this.setAnimation(TRIPLE_ATTACK);
@@ -596,7 +599,7 @@ public class Ignis_Entity extends Boss_monster {
                         //this.setAnimation(FOUR_COMBO);
                 //    }
                 } else if (this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 3F && this.getRandom().nextFloat() * 100.0F < 20f && !this.getIsShieldBreak()) {
-                    this.setAnimation(SHIELD_SMASH_ATTACK);
+                    this.setAnimation(STOMP_ATTACK1);
                 } else if (this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 5F && this.getRandom().nextFloat() * 100.0F < 0.7f && counter_strike_cooldown <= 0) {
                     counter_strike_cooldown = CONTER_STRIKE_COOLDOWN;
                     this.setAnimation(COUNTER);
