@@ -32,7 +32,6 @@ public class SimpleAnimationGoal<T extends Boss_monster & IAnimatedEntity> exten
         return animation == this.animation;
     }
 
-    @Override
     public boolean requiresUpdateEveryTick() {
         return true;
     }

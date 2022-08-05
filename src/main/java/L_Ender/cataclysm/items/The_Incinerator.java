@@ -51,7 +51,6 @@ public class The_Incinerator extends Item {
         return 72000;
     }
 
-
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
         if (hand == InteractionHand.MAIN_HAND) {
@@ -61,35 +60,6 @@ public class The_Incinerator extends Item {
             return InteractionResultHolder.fail(player.getItemInHand(hand));
         }
     }
-
-    @Override
-    public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
-        double radius = 11.0D;
-        Level world = player.level;
-        List<LivingEntity> list = world.getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(radius));
-        for (LivingEntity entity : list) {
-            if (entity instanceof Player && ((Player) entity).getAbilities().invulnerable) continue;
-            Vec3 diff = entity.position().subtract(player.position().add(0,0,0));
-            diff = diff.normalize().scale(0.1);
-            entity.setDeltaMovement(entity.getDeltaMovement().subtract(diff));
-
-        }
-
-        if (world.isClientSide) {
-            for (int i = 0; i < 3; ++i) {
-                int j = world.random.nextInt(2) * 2 - 1;
-                int k = world.random.nextInt(2) * 2 - 1;
-                double d0 = player.getX() + 0.25D * (double) j;
-                double d1 = (float) player.getY() + world.random.nextFloat();
-                double d2 = player.getZ() + 0.25D * (double) k;
-                double d3 = world.random.nextFloat() * (float) j;
-                double d4 = ((double) world.random.nextFloat() - 0.5D) * 0.125D;
-                double d5 = world.random.nextFloat() * (float) k;
-                world.addParticle(ParticleTypes.PORTAL, d0, d1, d2, d3, d4, d5);
-            }
-        }
-    }
-
 
     @Override
     public boolean canDisableShield(ItemStack stack, ItemStack shield, LivingEntity entity, LivingEntity attacker) {
@@ -122,10 +92,5 @@ public class The_Incinerator extends Item {
     @Override
     public void initializeClient(java.util.function.Consumer<IClientItemExtensions> consumer) {
         consumer.accept((IClientItemExtensions) cataclysm.PROXY.getISTERProperties());
-    }
-
-    @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add(Component.translatable("item.cataclysm.gauntlet_of_guard.desc").withStyle(ChatFormatting.DARK_GREEN));
     }
 }
