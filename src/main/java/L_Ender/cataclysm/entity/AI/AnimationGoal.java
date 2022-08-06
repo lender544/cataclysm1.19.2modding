@@ -6,6 +6,7 @@ import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 import java.util.EnumSet;
+
 public abstract class AnimationGoal<T extends Boss_monster & IAnimatedEntity> extends Goal {
     protected final T entity;
 
