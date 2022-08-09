@@ -96,9 +96,9 @@ public class Ignis_Entity extends Boss_monster {
     public static final Animation SWING_UPPERSLASH = Animation.create(54);
     public static final Animation SPIN_ATTACK = Animation.create(56);
     public static final Animation EARTH_SHUDDERS_ATTACK = Animation.create(138);
-    public static final Animation HORIZONTAL_SMALL_SWING_ATTACK = Animation.create(48);
-    public static final Animation HORIZONTAL_SMALL_SWING_ALT_ATTACK = Animation.create(48);
-    public static final Animation HORIZONTAL_SMALL_SWING_ALT_ATTACK2 = Animation.create(48);
+    public static final Animation HORIZONTAL_SMALL_SWING_ATTACK = Animation.create(42);
+    public static final Animation HORIZONTAL_SMALL_SWING_ALT_ATTACK = Animation.create(42);
+    public static final Animation HORIZONTAL_SMALL_SWING_ALT_ATTACK2 = Animation.create(42);
     public static final int AIR_SMASH_COOLDOWN = 160;
     public static final int BODY_CHECK_COOLDOWN = 200;
     public static final int POKE_COOLDOWN = 200;
@@ -210,7 +210,7 @@ public class Ignis_Entity extends Boss_monster {
         this.goalSelector.addGoal(1, new Swing_Attack_Goal(this, SWING_ATTACK_SOUL, 28,34));
         this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, COUNTER, 105,true));
         this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, STRIKE, 34,true));
-        this.goalSelector.addGoal(1, new Hornzontal_SwingGoal2(this, HORIZONTAL_SMALL_SWING_ATTACK, 27,32));
+        this.goalSelector.addGoal(1, new Hornzontal_SwingGoal2(this, HORIZONTAL_SMALL_SWING_ATTACK, 13,20));
         this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, HORIZONTAL_SMALL_SWING_ALT_ATTACK2, 18,true));
         this.goalSelector.addGoal(1, new Triple_Attack(this, TRIPLE_ATTACK));
         this.goalSelector.addGoal(1, new Earth_Shudders(this, EARTH_SHUDDERS_ATTACK));
@@ -615,7 +615,7 @@ public class Ignis_Entity extends Boss_monster {
                 } else if (this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 5F && this.getRandom().nextFloat() * 100.0F < 0.7f && counter_strike_cooldown <= 0) {
                     counter_strike_cooldown = CONTER_STRIKE_COOLDOWN;
                     this.setAnimation(COUNTER);
-                } else if (this.getAnimation() == NO_ANIMATION && this.distanceTo(target) > 4.5F && this.distanceTo(target) < 11F && this.getRandom().nextFloat() * 100.0F < 90f && (this.getY() >= target.getY() - 2.5D && this.getY() <= target.getY() + 2.5D)) {
+                } else if (this.getAnimation() == NO_ANIMATION && this.distanceTo(target) > 4.5F && this.distanceTo(target) < 11F && this.getRandom().nextFloat() * 100.0F < 0.9F && (this.getY() >= target.getY() - 2.5D && this.getY() <= target.getY() + 2.5D)) {
                     earth_shudders_cooldown = EARTH_SHUDDERS_COOLDOWN;
                     this.setAnimation(EARTH_SHUDDERS_ATTACK);
                 } else if (this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 3F && this.getRandom().nextFloat() * 100.0F < 10f && body_check_cooldown <= 0) {
@@ -1584,7 +1584,7 @@ public class Ignis_Entity extends Boss_monster {
         public void tick() {
             LivingEntity target = Ignis_Entity.this.getTarget();
             if (Ignis_Entity.this.getAnimationTick() < look1 && target != null) {
-                Ignis_Entity.this.getLookControl().setLookAt(target, 30.0F, 30.0F);
+                Ignis_Entity.this.lookAt(target, 30.0F, 30.0F);
             } else {
                 Ignis_Entity.this.setYRot(Ignis_Entity.this.yRotO);
             }
@@ -1695,7 +1695,7 @@ public class Ignis_Entity extends Boss_monster {
         public void tick() {
             LivingEntity target = Ignis_Entity.this.getTarget();
             if (target != null) {
-                Ignis_Entity.this.lookAt(target, 30.0F, 30.0F);
+                Ignis_Entity.this.getLookControl().setLookAt(target, 30.0F, 30.0F);
             }
             if (Ignis_Entity.this.getAnimationTick() == 19) {
                 if (target != null) {
