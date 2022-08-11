@@ -24,14 +24,15 @@ public abstract class AnimationGoal<T extends Boss_monster & IAnimatedEntity> ex
         return this.test(this.entity.getAnimation());
     }
 
+    @Override
     public boolean requiresUpdateEveryTick() {
         return true;
     }
 
-    @Override
-    public boolean canContinueToUse() {
-        return this.test(this.entity.getAnimation()) && this.entity.getAnimationTick() < this.entity.getAnimation().getDuration();
-    }
+    //@Override
+    //public boolean canContinueToUse() {
+    //    return this.test(this.entity.getAnimation()) && this.entity.getAnimationTick() < this.entity.getAnimation().getDuration();
+    //}
 
     protected abstract boolean test(Animation animation);
 }
