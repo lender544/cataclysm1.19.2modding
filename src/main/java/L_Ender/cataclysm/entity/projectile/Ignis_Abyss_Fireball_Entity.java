@@ -1,6 +1,7 @@
 package L_Ender.cataclysm.entity.projectile;
 
 import L_Ender.cataclysm.init.ModEffect;
+import L_Ender.cataclysm.init.ModEntities;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -32,6 +33,9 @@ public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
         super(type, level);
     }
 
+    public Ignis_Abyss_Fireball_Entity(Level level, LivingEntity  entity, double x, double y, double z) {
+        super(ModEntities.IGNIS_ABYSS_FIREBALL.get(), entity, x, y, z, level);
+    }
 
     public boolean isOnFire() {
         return false;
@@ -50,11 +54,8 @@ public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
                 LivingEntity livingentity = (LivingEntity)shooter;
                 flag = entity.hurt(DamageSource.indirectMagic(this, livingentity), 8.0F);
                 if (flag) {
-                    if (entity.isAlive()) {
-                        this.doEnchantDamageEffects(livingentity, entity);
-                    } else {
-                        livingentity.heal(5.0F);
-                    }
+                    this.doEnchantDamageEffects(livingentity, entity);
+                    livingentity.heal(5.0F);
                 }
             } else {
                 flag = entity.hurt(DamageSource.MAGIC, 5.0F);

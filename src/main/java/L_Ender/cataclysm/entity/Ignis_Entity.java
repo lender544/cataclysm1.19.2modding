@@ -6,13 +6,13 @@ import L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
 import L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import L_Ender.cataclysm.entity.etc.CMPathNavigateGround;
 import L_Ender.cataclysm.entity.etc.SmartBodyHelper2;
+import L_Ender.cataclysm.entity.projectile.Ignis_Fireball_Entity;
 import L_Ender.cataclysm.init.ModEffect;
 import L_Ender.cataclysm.init.ModParticle;
 import L_Ender.cataclysm.init.ModSounds;
 import L_Ender.cataclysm.init.ModTag;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
-import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -42,9 +42,11 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.SmallFireball;
 import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
@@ -208,6 +210,7 @@ public class Ignis_Entity extends Boss_monster {
         this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, STRIKE, 34, true));
         this.goalSelector.addGoal(1, new Hornzontal_Small_SwingGoal(this, 17, 13, 19));
         this.goalSelector.addGoal(1, new Body_Check_Attack(this));
+        this.goalSelector.addGoal(1, new Magic_Attack(this, MAGIC_ATTACK));
         this.goalSelector.addGoal(1, new Triple_Attack(this, TRIPLE_ATTACK));
         this.goalSelector.addGoal(1, new Earth_Shudders(this, EARTH_SHUDDERS_ATTACK));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -1281,6 +1284,8 @@ public class Ignis_Entity extends Boss_monster {
         }
     }
 
+
+
     private void earthquakesound(float distance) {
         double theta = (yBodyRot) * (Math.PI / 180);
         theta += Math.PI / 2;
@@ -1893,4 +1898,36 @@ public class Ignis_Entity extends Boss_monster {
         }
     }
 
+    class Magic_Attack extends SimpleAnimationGoal<Ignis_Entity> {
+
+        public Magic_Attack(Ignis_Entity entity, Animation animation) {
+            super(entity, animation);
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP, Flag.LOOK));
+        }
+
+        public void tick() {
+            LivingEntity target = Ignis_Entity.this.getTarget();
+            if (Ignis_Entity.this.getAnimationTick() < 20 && target != null
+                    || Ignis_Entity.this.getAnimationTick() < 40 && Ignis_Entity.this.getAnimationTick() > 42 && target != null
+                    || Ignis_Entity.this.getAnimationTick() < 60 && Ignis_Entity.this.getAnimationTick() > 84 && target != null) {
+                Ignis_Entity.this.getLookControl().setLookAt(target, 30.0F, 30.0F);
+            } else {
+                Ignis_Entity.this.setYRot(Ignis_Entity.this.yRotO);
+
+            }
+            if(target != null) {
+                if (Ignis_Entity.this.getAnimationTick() == 40) {
+                    double d1 = target.getX() - Ignis_Entity.this.getX();
+                    double d2 = target.getY(0.5D) - Ignis_Entity.this.getY(0.5D);
+                    double d3 = target.getZ() - Ignis_Entity.this.getZ();
+                    double d4 = Math.sqrt(Math.sqrt(3)) * 0.5D;
+                    for (int i = 0; i < 1; ++i) {
+                        Ignis_Fireball_Entity smallfireball = new Ignis_Fireball_Entity(Ignis_Entity.this.level, Ignis_Entity.this, Ignis_Entity.this.getRandom().triangle(d1, 2.297D * d4), d2, Ignis_Entity.this.getRandom().triangle(d3, 2.297D * d4));
+                        smallfireball.setPos(smallfireball.getX(), Ignis_Entity.this.getY(0.5D) + 0.5D, smallfireball.getZ());
+                        Ignis_Entity.this.level.addFreshEntity(smallfireball);
+                    }
+                }
+            }
+        }
+    }
 }

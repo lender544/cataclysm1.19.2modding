@@ -60,7 +60,10 @@ public class ModEntities {
             .build(cataclysm.MODID + ":ignis"));
 
     public static final RegistryObject<EntityType<Ender_Guardian_Bullet_Entity>> ENDER_GUARDIAN_BULLET = ENTITY_TYPE.register("ender_guardian_bullet", () -> EntityType.Builder.<Ender_Guardian_Bullet_Entity>of(Ender_Guardian_Bullet_Entity::new, MobCategory.MISC)
-            .sized(0.3125f, 0.3125f).setUpdateInterval(1).setTrackingRange(64).setShouldReceiveVelocityUpdates(true)
+            .sized(0.3125f, 0.3125f)
+            .setUpdateInterval(1)
+            .setTrackingRange(64)
+            .setShouldReceiveVelocityUpdates(true)
             .build(cataclysm.MODID + ":ender_guardian_bullet"));
 
     public static final RegistryObject<EntityType<Void_Rune_Entity>> VOID_RUNE = ENTITY_TYPE.register("void_rune", () -> EntityType.Builder.<Void_Rune_Entity>of(Void_Rune_Entity::new, MobCategory.MISC)
@@ -106,23 +109,18 @@ public class ModEntities {
             .updateInterval(20)
             .build(cataclysm.MODID + ":cm_falling_block"));
 
-    public static final RegistryObject<EntityType<Ignis_Flame_Entity>> IGNIS_FLAME = ENTITY_TYPE.register("ignis_flame", () -> EntityType.Builder.<Ignis_Flame_Entity>of(Ignis_Flame_Entity::new, MobCategory.MISC)
-            .sized(0.6F, 1.95F)
-            .clientTrackingRange(6)
-            .updateInterval(2)
-            .fireImmune()
-            .build(cataclysm.MODID + ":ignis_flame"));
-
-    public static final RegistryObject<EntityType<Ignis_Fireball_Entity>> IGNIS_FIREBALL = ENTITY_TYPE.register("ignis_fireball", () -> EntityType.Builder.of(Ignis_Fireball_Entity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<Ignis_Fireball_Entity>> IGNIS_FIREBALL = ENTITY_TYPE.register("ignis_fireball", () -> EntityType.Builder.<Ignis_Fireball_Entity>of(Ignis_Fireball_Entity::new, MobCategory.MISC)
             .sized(0.5F, 0.5F)
-            .clientTrackingRange(4)
-            .updateInterval(10)
+            .setUpdateInterval(1)
+            .setTrackingRange(64)
+            .setShouldReceiveVelocityUpdates(true)
             .build(cataclysm.MODID + ":ignis_fireball"));
 
-    public static final RegistryObject<EntityType<Ignis_Abyss_Fireball_Entity>> IGNIS_ABYSS_BFIREBALL = ENTITY_TYPE.register("ignis_abyss_fireball", () -> EntityType.Builder.of(Ignis_Abyss_Fireball_Entity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<Ignis_Abyss_Fireball_Entity>> IGNIS_ABYSS_FIREBALL = ENTITY_TYPE.register("ignis_abyss_fireball", () -> EntityType.Builder.<Ignis_Abyss_Fireball_Entity>of(Ignis_Abyss_Fireball_Entity::new, MobCategory.MISC)
             .sized(0.5F, 0.5F)
-            .clientTrackingRange(4)
-            .updateInterval(10)
+            .setUpdateInterval(1)
+            .setTrackingRange(64)
+            .setShouldReceiveVelocityUpdates(true)
             .build(cataclysm.MODID + ":ignis_abyss_fireball"));
 
     @SubscribeEvent

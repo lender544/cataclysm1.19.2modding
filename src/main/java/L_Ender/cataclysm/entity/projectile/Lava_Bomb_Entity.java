@@ -20,14 +20,13 @@ import net.minecraftforge.network.NetworkHooks;
 public class Lava_Bomb_Entity extends ThrowableProjectile {
 
 
-    private boolean hasHit;
     public double prevDeltaMovementX, prevDeltaMovementY, prevDeltaMovementZ;
 
-    public Lava_Bomb_Entity(EntityType type, Level world) {
+    public Lava_Bomb_Entity(EntityType<Lava_Bomb_Entity> type, Level world) {
         super(type, world);
     }
 
-    public Lava_Bomb_Entity(EntityType type, Level world, LivingEntity thrower) {
+    public Lava_Bomb_Entity(EntityType<Lava_Bomb_Entity> type, Level world, LivingEntity thrower) {
         super(type, thrower, world);
     }
 
@@ -39,10 +38,11 @@ public class Lava_Bomb_Entity extends ThrowableProjectile {
 
     @Override
     protected void onHit(HitResult ray) {
-        this.setDeltaMovement(0.0D, 0.0D, 0.0D);
-        this.hasHit = true;
         if (!this.level.isClientSide) {
+            this.playSound(SoundEvents.GENERIC_BURN, 1.5f, 0.75f);
+            this.level.explode(this, this.getX(), this.getY(), this.getZ(), CMConfig.Lavabombradius, Explosion.BlockInteraction.NONE);
             this.doTerrainEffects();
+            discard();
         }
     }
 
@@ -83,37 +83,30 @@ public class Lava_Bomb_Entity extends ThrowableProjectile {
 
         setYRot(-((float) Mth.atan2(getDeltaMovement().x, getDeltaMovement().z)) * (180F / (float)Math.PI)) ;
 
-        if (this.hasHit) {
-            this.getDeltaMovement().multiply(0.1D, 0.1D, 0.1D);
 
+        makeTrail();
 
-            if (!level.isClientSide) {
-                this.playSound(SoundEvents.GENERIC_BURN, 1.5f, 0.75f);
-                this.level.explode(this, this.getX(), this.getY(), this.getZ(), CMConfig.Lavabombradius, Explosion.BlockInteraction.NONE);
-                discard();
-            }
-        } else {
-            makeTrail();
-        }
     }
 
     public void makeTrail() {
-        for (int i = 0; i < 5; i++) {
-            double dx = getX() + 1.5F * (random.nextFloat() - 0.5F);
-            double dy = getY() + 1.5F * (random.nextFloat() - 0.5F);
-            double dz = getZ() + 1.5F * (random.nextFloat() - 0.5F);
+        if (this.level.isClientSide){
+            for (int i = 0; i < 5; i++) {
+                double dx = getX() + 1.5F * (random.nextFloat() - 0.5F);
+                double dy = getY() + 1.5F * (random.nextFloat() - 0.5F);
+                double dz = getZ() + 1.5F * (random.nextFloat() - 0.5F);
 
-            level.addParticle(ParticleTypes.FLAME, dx, dy, dz, -getDeltaMovement().x(), -getDeltaMovement().y(), -getDeltaMovement().z());
+                level.addParticle(ParticleTypes.FLAME, dx, dy, dz, -getDeltaMovement().x(), -getDeltaMovement().y(), -getDeltaMovement().z());
+            }
         }
     }
 
-    public float getBrightness() {
+    public float getLightLevelDependentMagicValue() {
         return 1.0F;
     }
 
     @Override
     protected float getGravity() {
-        return this.hasHit ? 0F : 0.025F;
+        return 0.025F;
     }
 
     @Override
