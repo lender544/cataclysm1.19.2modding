@@ -34,6 +34,7 @@ public class ModEntities {
             .sized(2.5F, 3.8F)
             .fireImmune()
             .clientTrackingRange(16)
+            .setShouldReceiveVelocityUpdates(true)
             .build(cataclysm.MODID + ":ender_guardian"));
 
     public static final RegistryObject<EntityType<Netherite_Monstrosity_Entity>> NETHERITE_MONSTROSITY = ENTITY_TYPE.register("netherite_monstrosity", () -> EntityType.Builder.of(Netherite_Monstrosity_Entity::new, MobCategory.MONSTER)
@@ -45,6 +46,7 @@ public class ModEntities {
     public static final RegistryObject<EntityType<Lava_Bomb_Entity>> LAVA_BOMB = ENTITY_TYPE.register("lava_bomb", () -> EntityType.Builder.<Lava_Bomb_Entity>of(Lava_Bomb_Entity::new, MobCategory.MISC)
             .sized(0.5f, 0.5f)
             .fireImmune()
+            .setShouldReceiveVelocityUpdates(true)
             .setUpdateInterval(20)
             .build(cataclysm.MODID + ":lava_bomb"));
 
@@ -57,6 +59,7 @@ public class ModEntities {
             .sized(2.5F, 3.5F)
             .fireImmune()
             .clientTrackingRange(16)
+            .setShouldReceiveVelocityUpdates(true)
             .build(cataclysm.MODID + ":ignis"));
 
     public static final RegistryObject<EntityType<Ender_Guardian_Bullet_Entity>> ENDER_GUARDIAN_BULLET = ENTITY_TYPE.register("ender_guardian_bullet", () -> EntityType.Builder.<Ender_Guardian_Bullet_Entity>of(Ender_Guardian_Bullet_Entity::new, MobCategory.MISC)

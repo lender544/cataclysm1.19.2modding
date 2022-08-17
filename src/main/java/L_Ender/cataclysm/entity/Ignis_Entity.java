@@ -6,6 +6,7 @@ import L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
 import L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import L_Ender.cataclysm.entity.etc.CMPathNavigateGround;
 import L_Ender.cataclysm.entity.etc.SmartBodyHelper2;
+import L_Ender.cataclysm.entity.projectile.Ignis_Abyss_Fireball_Entity;
 import L_Ender.cataclysm.entity.projectile.Ignis_Fireball_Entity;
 import L_Ender.cataclysm.init.ModEffect;
 import L_Ender.cataclysm.init.ModParticle;
@@ -258,21 +259,19 @@ public class Ignis_Entity extends Boss_monster {
         if ((this.getAnimation() == PHASE_3 || this.getAnimation() == PHASE_2 || this.getAnimation() == STRIKE) && !source.isBypassInvul()) {
             return false;
         }
+        if (source.getDirectEntity() instanceof Ignis_Abyss_Fireball_Entity) {
+            this.playSound(ModSounds.IGNIS_SHIELD_BREAK.get(), 1.0f, 0.8F);
+            if (!level.isClientSide) {
+                if (this.getShieldDurability() < 3) {
+                    this.setShieldDurability(this.getShieldDurability() + 1);
+                }
+            }
+        }
         if (damage > 0.0F && this.canBlockDamageSource(source)) {
             this.hurtCurrentlyUsedShield(damage);
             if (!source.isProjectile()) {
                 if (entity instanceof LivingEntity) {
                     this.blockUsingShield((LivingEntity) entity);
-                }
-            }
-            if (source.getDirectEntity() instanceof ThrownTrident) {
-                if (source.getEntity() instanceof Player) {
-                    this.playSound(ModSounds.IGNIS_SHIELD_BREAK.get(), 1.0f, 0.8F);
-                    if (!level.isClientSide) {
-                        if (this.getShieldDurability() < 3) {
-                            this.setShieldDurability(this.getShieldDurability() + 1);
-                        }
-                    }
                 }
             }
             this.playSound(SoundEvents.BLAZE_HURT, 0.5f, 0.4F + this.getRandom().nextFloat() * 0.1F);
@@ -290,6 +289,13 @@ public class Ignis_Entity extends Boss_monster {
     private boolean canBlockDamageSource(DamageSource damageSourceIn) {
         Entity entity = damageSourceIn.getDirectEntity();
         boolean flag = false;
+        if (entity instanceof AbstractArrow) {
+            AbstractArrow abstractarrowentity = (AbstractArrow) entity;
+            if (abstractarrowentity.getPierceLevel() > 0) {
+                flag = true;
+            }
+        }
+
         if (entity instanceof AbstractArrow) {
             AbstractArrow abstractarrowentity = (AbstractArrow) entity;
             if (abstractarrowentity.getPierceLevel() > 0) {
@@ -1367,7 +1373,7 @@ public class Ignis_Entity extends Boss_monster {
             List<LivingEntity> entitiesHit = this.getEntityLivingBaseNearby(distance, distance, distance, distance);
             for (LivingEntity entityHit : entitiesHit) {
                 if (!isAlliedTo(entityHit) && !(entityHit instanceof Ignis_Entity) && entityHit != this) {
-                    boolean flag = entityHit.hurt(DamageSource.indirectMagic(this, this), (float) (this.getAttributeValue(Attributes.ATTACK_DAMAGE) * damage + hpdamage));
+                    boolean flag = entityHit.hurt(DamageSource.indirectMagic(this, this), (float) (this.getAttributeValue(Attributes.ATTACK_DAMAGE) * damage + entityHit.getMaxHealth() * hpdamage));
                     if (flag) {
                         entityHit.setSecondsOnFire(firetime);
                         if (brandticks > 0) {
@@ -1616,10 +1622,10 @@ public class Ignis_Entity extends Boss_monster {
                 if (Ignis_Entity.this.getAnimationTick() == 12) {
                     if(target != null) {
                         if (Ignis_Entity.this.distanceTo(target) > 3.5F) {
-                            Ignis_Entity.this.push(f1 * 1.3, 0, f2 * 1.3);
+                            Ignis_Entity.this.push(f1 * 1.5, 0, f2 * 1.5);
                         }
                     }else{
-                        Ignis_Entity.this.push(f1 * 1.3, 0, f2 * 1.3);
+                        Ignis_Entity.this.push(f1 * 1.5, 0, f2 * 1.5);
                     }
                 }
                 if (Combo) {
@@ -1922,7 +1928,7 @@ public class Ignis_Entity extends Boss_monster {
                     double d3 = target.getZ() - Ignis_Entity.this.getZ();
                     double d4 = Math.sqrt(Math.sqrt(3)) * 0.5D;
                     for (int i = 0; i < 1; ++i) {
-                        Ignis_Fireball_Entity smallfireball = new Ignis_Fireball_Entity(Ignis_Entity.this.level, Ignis_Entity.this, Ignis_Entity.this.getRandom().triangle(d1, 2.297D * d4), d2, Ignis_Entity.this.getRandom().triangle(d3, 2.297D * d4));
+                        Ignis_Abyss_Fireball_Entity smallfireball = new Ignis_Abyss_Fireball_Entity(Ignis_Entity.this.level, Ignis_Entity.this, Ignis_Entity.this.getRandom().triangle(d1, 2.297D * d4), d2, Ignis_Entity.this.getRandom().triangle(d3, 2.297D * d4));
                         smallfireball.setPos(smallfireball.getX(), Ignis_Entity.this.getY(0.5D) + 0.5D, smallfireball.getZ());
                         Ignis_Entity.this.level.addFreshEntity(smallfireball);
                     }

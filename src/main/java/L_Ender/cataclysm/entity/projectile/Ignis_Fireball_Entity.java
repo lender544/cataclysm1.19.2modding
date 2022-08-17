@@ -51,16 +51,16 @@ public class Ignis_Fireball_Entity extends AbstractHurtingProjectile {
             if (shooter instanceof LivingEntity) {
                 LivingEntity livingentity = (LivingEntity)shooter;
                 if(this.isSoul()) {
-                    flag = entity.hurt(DamageSource.indirectMagic(this, livingentity), 8.0F);
+                    flag = entity.hurt(DamageSource.indirectMobAttack(this, (LivingEntity) entity).setProjectile(), 8.0F + ((LivingEntity) entity).getMaxHealth() * 0.06f);
                 }else{
-                    flag = entity.hurt(DamageSource.indirectMagic(this, livingentity), 6.0F);
+                    flag = entity.hurt(DamageSource.indirectMobAttack(this, (LivingEntity) entity).setProjectile(), 6.0F + ((LivingEntity) entity).getMaxHealth() * 0.03f);
                 }
                 if (flag) {
                     this.doEnchantDamageEffects(livingentity, entity);
                     livingentity.heal(5.0F);
                 }
             } else {
-                flag = entity.hurt(DamageSource.MAGIC, 5.0F);
+                flag = entity.hurt(DamageSource.MAGIC, 6.0F);
             }
 
             if (flag && entity instanceof LivingEntity) {
@@ -74,7 +74,7 @@ public class Ignis_Fireball_Entity extends AbstractHurtingProjectile {
                 }
 
                 i = Mth.clamp(i, 0, 4);
-                MobEffectInstance effectinstance = new MobEffectInstance(ModEffect.EFFECTBLAZING_BRAND.get(), 150, i, false, false, true);
+                MobEffectInstance effectinstance = new MobEffectInstance(ModEffect.EFFECTBLAZING_BRAND.get(), 200, i, false, false, true);
                 ((LivingEntity)entity).addEffect(effectinstance);
 
             }
