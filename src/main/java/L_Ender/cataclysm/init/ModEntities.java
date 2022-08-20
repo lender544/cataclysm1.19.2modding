@@ -115,14 +115,14 @@ public class ModEntities {
     public static final RegistryObject<EntityType<Ignis_Fireball_Entity>> IGNIS_FIREBALL = ENTITY_TYPE.register("ignis_fireball", () -> EntityType.Builder.<Ignis_Fireball_Entity>of(Ignis_Fireball_Entity::new, MobCategory.MISC)
             .sized(0.5F, 0.5F)
             .setUpdateInterval(1)
-            .setTrackingRange(64)
+            .setTrackingRange(20)
             .setShouldReceiveVelocityUpdates(true)
             .build(cataclysm.MODID + ":ignis_fireball"));
 
     public static final RegistryObject<EntityType<Ignis_Abyss_Fireball_Entity>> IGNIS_ABYSS_FIREBALL = ENTITY_TYPE.register("ignis_abyss_fireball", () -> EntityType.Builder.<Ignis_Abyss_Fireball_Entity>of(Ignis_Abyss_Fireball_Entity::new, MobCategory.MISC)
             .sized(0.5F, 0.5F)
             .setUpdateInterval(1)
-            .setTrackingRange(64)
+            .setTrackingRange(20)
             .setShouldReceiveVelocityUpdates(true)
             .build(cataclysm.MODID + ":ignis_abyss_fireball"));
 

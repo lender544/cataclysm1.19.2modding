@@ -1,25 +1,33 @@
 package L_Ender.cataclysm.entity.projectile;
 
+import L_Ender.cataclysm.entity.Ignis_Entity;
 import L_Ender.cataclysm.init.ModEffect;
 import L_Ender.cataclysm.init.ModEntities;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
-import net.minecraft.world.entity.projectile.Fireball;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -28,38 +36,84 @@ import net.minecraftforge.network.NetworkHooks;
 
 public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
     private static final EntityDataAccessor<Integer> BOUNCES = SynchedEntityData.defineId(Ignis_Abyss_Fireball_Entity.class, EntityDataSerializers.INT);
+    private boolean fired;
+    private int timer;
 
     public Ignis_Abyss_Fireball_Entity(EntityType<? extends Ignis_Abyss_Fireball_Entity> type, Level level) {
         super(type, level);
     }
 
-    public Ignis_Abyss_Fireball_Entity(Level level, LivingEntity  entity, double x, double y, double z) {
+    public Ignis_Abyss_Fireball_Entity(Level level, LivingEntity entity, double x, double y, double z) {
         super(ModEntities.IGNIS_ABYSS_FIREBALL.get(), entity, x, y, z, level);
+    }
+
+    public Ignis_Abyss_Fireball_Entity(Level worldIn, LivingEntity entity) {
+        this(ModEntities.IGNIS_ABYSS_FIREBALL.get(), worldIn);
+        this.setOwner(entity);
+        this.setPos(entity.getX() - (double) (entity.getBbWidth() + 1.0F) * 0.15D * (double) Mth.sin(entity.yBodyRot * ((float) Math.PI / 180F)), entity.getY() + (double) 1F, entity.getZ() + (double) (entity.getBbWidth() + 1.0F) * 0.15D * (double) Mth.cos(entity.yBodyRot * ((float) Math.PI / 180F)));
     }
 
     public boolean isOnFire() {
         return false;
     }
 
-    protected void onHitEntity(EntityHitResult result) {
-        super.onHitEntity(result);
+    public void tick() {
+        super.tick();
         if (!this.level.isClientSide) {
-            Explosion.BlockInteraction explosion$blockinteraction = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner()) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
-            this.level.explode(this, this.getX(), this.getY(), this.getZ(), 1.0F, true, explosion$blockinteraction);
+            timer--;
+            if (timer <= 0) {
+                if (!fired){
+                    fired = true;
+                }
+            }
+        }
+        if (this.tickCount > 600) {
             this.discard();
-            Entity entity = result.getEntity();
+        }
+        if (timer == 0) {
+            Entity entity = this.getOwner();
+            if (entity instanceof Mob && ((Mob) entity).getTarget() != null) {
+                LivingEntity target = ((Mob) entity).getTarget();
+                if(target == null){
+                    this.discard();
+                }
+                double d0 = target.getX() - this.getX();
+                double d1 = target.getY() + target.getBbHeight() * 0.5F - this.getY();
+                double d2 = target.getZ() - this.getZ();
+                Vec3 vector3d = new Vec3(d0, d1, d2);
+                float speed = 2f;
+                shoot(d0, d1, d2, speed, 0);
+                this.setYRot( -((float) Mth.atan2(d0, d2)) * (180F / (float) Math.PI));
+
+            }
+        }
+
+
+    }
+
+    public void setUp(int delay) {
+        fired = false;
+        timer = delay;
+    }
+
+    protected void onHitEntity(EntityHitResult p_37626_) {
+        super.onHitEntity(p_37626_);
+        if (!this.level.isClientSide && !(p_37626_.getEntity() instanceof AbstractHurtingProjectile || p_37626_.getEntity() instanceof Ignis_Entity) && fired) {
+            Entity entity = p_37626_.getEntity();
             Entity shooter = this.getOwner();
             boolean flag;
             if (shooter instanceof LivingEntity) {
-                LivingEntity livingentity = (LivingEntity)shooter;
-                flag = entity.hurt(DamageSource.indirectMobAttack(this, (LivingEntity) entity).setProjectile(), 8.0F + ((LivingEntity) entity).getMaxHealth() * 0.2f);
+                LivingEntity owner = (LivingEntity)shooter;
+                flag = entity.hurt(DamageSource.indirectMobAttack(this, owner).setProjectile(), 10.0F);
                 if (flag) {
-                    this.doEnchantDamageEffects(livingentity, entity);
-                    livingentity.heal(5.0F);
+                    this.doEnchantDamageEffects(owner, entity);
                 }
             } else {
-                flag = entity.hurt(DamageSource.MAGIC, 10.0F);
+                flag = entity.hurt(DamageSource.MAGIC, 5.0F);
             }
+            Explosion.BlockInteraction explosion$blockinteraction = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner()) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
+            this.level.explode(this, this.getX(), this.getY(), this.getZ(), 2.0F, true, explosion$blockinteraction);
+            this.discard();
 
             if (flag && entity instanceof LivingEntity) {
                 MobEffectInstance effectinstance1 = ((LivingEntity)entity).getEffect(ModEffect.EFFECTBLAZING_BRAND.get());
@@ -77,6 +131,7 @@ public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
 
             }
 
+
         }
     }
 
@@ -84,8 +139,7 @@ public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
         super.onHitBlock(result);
         BlockHitResult traceResult = result;
         BlockState blockstate = this.level.getBlockState(traceResult.getBlockPos());
-        if (!blockstate.getCollisionShape(this.level, traceResult.getBlockPos()).isEmpty())
-        {
+        if (!blockstate.getCollisionShape(this.level, traceResult.getBlockPos()).isEmpty() && fired) {
             Direction face = traceResult.getDirection();
             blockstate.onProjectileHit(this.level, blockstate, traceResult, this);
 
@@ -116,7 +170,7 @@ public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
             if (this.tickCount > 500 || this.getTotalBounces() > 5) {
                 if (!this.level.isClientSide) {
                     Explosion.BlockInteraction explosion$blockinteraction = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner()) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
-                    this.level.explode(this, this.getX(), this.getY(), this.getZ(), 1.0F, true, explosion$blockinteraction);
+                    this.level.explode(this, this.getX(), this.getY(), this.getZ(), 2.0F, true, explosion$blockinteraction);
                     this.discard();
                 }
             } else {
@@ -126,6 +180,7 @@ public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
 
     }
 
+
     protected void defineSynchedData() {
         this.entityData.define(BOUNCES, 0);
     }
@@ -133,11 +188,15 @@ public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("totalBounces", this.getTotalBounces());
+        compound.putInt("timer", timer);
+        compound.putBoolean("fired", fired);
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setTotalBounces(compound.getInt("totalBounces"));
+        timer = compound.getInt("timer");
+        fired = compound.getBoolean("fired");
     }
 
     public int getTotalBounces()

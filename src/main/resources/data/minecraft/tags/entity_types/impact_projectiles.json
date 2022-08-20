@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "cataclysm:void_shard",
-    "cataclysm:lava_bomb"
+    "cataclysm:lava_bomb",
+    "cataclysm:ignis_abyss_fireball",
+    "cataclysm:ignis_fireball"
   ]
 }
