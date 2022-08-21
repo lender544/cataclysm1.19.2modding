@@ -45,7 +45,7 @@ public abstract class TileEntityBossSpawner<T extends Mob> extends BlockEntity {
 			double ry = (pos.getY() - 0.2F) + (level.random.nextFloat() * 1.25F);
 			double rz = (pos.getZ() - 0.2F) + (level.random.nextFloat() * 1.25F);
 			level.addParticle(ParticleTypes.SMOKE, rx, ry, rz, 0.0D, 0.0D, 0.0D);
-			level.addParticle(ParticleTypes.FLAME, rx, ry, rz, 0.0D, 0.0D, 0.0D);
+			level.addParticle(ParticleTypes.PORTAL, rx, ry, rz, 0.0D, 0.0D, 0.0D);
 		} else {
 			if (level.getDifficulty() != Difficulty.PEACEFUL) {
 				if (spawnMyBoss((ServerLevel)level)) {

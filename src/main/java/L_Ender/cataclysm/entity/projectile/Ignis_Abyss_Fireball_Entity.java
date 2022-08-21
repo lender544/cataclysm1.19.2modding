@@ -36,7 +36,7 @@ import net.minecraftforge.network.NetworkHooks;
 
 public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
     private static final EntityDataAccessor<Integer> BOUNCES = SynchedEntityData.defineId(Ignis_Abyss_Fireball_Entity.class, EntityDataSerializers.INT);
-    private boolean fired;
+    private static final EntityDataAccessor<Boolean> FIRED = SynchedEntityData.defineId(Ignis_Abyss_Fireball_Entity.class, EntityDataSerializers.BOOLEAN);
     private int timer;
 
     public Ignis_Abyss_Fireball_Entity(EntityType<? extends Ignis_Abyss_Fireball_Entity> type, Level level) {
@@ -62,8 +62,8 @@ public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
         if (!this.level.isClientSide) {
             timer--;
             if (timer <= 0) {
-                if (!fired){
-                    fired = true;
+                if (!getFired()){
+                    setFired(true);
                 }
             }
         }
@@ -92,21 +92,26 @@ public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
     }
 
     public void setUp(int delay) {
-        fired = false;
+        setFired(false);
         timer = delay;
     }
 
     protected void onHitEntity(EntityHitResult p_37626_) {
         super.onHitEntity(p_37626_);
-        if (!this.level.isClientSide && !(p_37626_.getEntity() instanceof AbstractHurtingProjectile || p_37626_.getEntity() instanceof Ignis_Entity) && fired) {
+        Entity shooter = this.getOwner();
+        if (!this.level.isClientSide && !(p_37626_.getEntity() instanceof AbstractHurtingProjectile || p_37626_.getEntity() instanceof Ignis_Entity && shooter instanceof Ignis_Entity) && getFired()) {
             Entity entity = p_37626_.getEntity();
-            Entity shooter = this.getOwner();
             boolean flag;
             if (shooter instanceof LivingEntity) {
                 LivingEntity owner = (LivingEntity)shooter;
-                flag = entity.hurt(DamageSource.indirectMobAttack(this, owner).setProjectile(), 10.0F);
+                if (entity instanceof LivingEntity) {
+                    flag = entity.hurt(DamageSource.indirectMobAttack(this, owner).setProjectile(), 10.0F + ((LivingEntity) entity).getMaxHealth() * 0.2f);
+                }else{
+                    flag = entity.hurt(DamageSource.indirectMobAttack(this, owner).setProjectile(), 10.0F);
+                }
                 if (flag) {
                     this.doEnchantDamageEffects(owner, entity);
+                    owner.heal(5.0F);
                 }
             } else {
                 flag = entity.hurt(DamageSource.MAGIC, 5.0F);
@@ -139,7 +144,7 @@ public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
         super.onHitBlock(result);
         BlockHitResult traceResult = result;
         BlockState blockstate = this.level.getBlockState(traceResult.getBlockPos());
-        if (!blockstate.getCollisionShape(this.level, traceResult.getBlockPos()).isEmpty() && fired) {
+        if (!blockstate.getCollisionShape(this.level, traceResult.getBlockPos()).isEmpty() && getFired()) {
             Direction face = traceResult.getDirection();
             blockstate.onProjectileHit(this.level, blockstate, traceResult, this);
 
@@ -183,20 +188,21 @@ public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
 
     protected void defineSynchedData() {
         this.entityData.define(BOUNCES, 0);
+        this.entityData.define(FIRED, false);
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("totalBounces", this.getTotalBounces());
         compound.putInt("timer", timer);
-        compound.putBoolean("fired", fired);
+        compound.putBoolean("fired", getFired());
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setTotalBounces(compound.getInt("totalBounces"));
         timer = compound.getInt("timer");
-        fired = compound.getBoolean("fired");
+        this.setFired(compound.getBoolean("fired"));
     }
 
     public int getTotalBounces()
@@ -207,6 +213,14 @@ public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
     public void setTotalBounces(int bounces)
     {
         this.entityData.set(BOUNCES, Integer.valueOf(bounces));
+    }
+
+    public void setFired(boolean fired) {
+        this.entityData.set(FIRED, fired);
+    }
+
+    public boolean getFired() {
+        return this.entityData.get(FIRED);
     }
 
     @Override
