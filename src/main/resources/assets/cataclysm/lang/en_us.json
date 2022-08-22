@@ -82,6 +82,9 @@
   "entity.cataclysm.void_shard": "Void Shard",
   "entity.cataclysm.ignis": "Ignis",
   "entity.cataclysm.cm_falling_block": "CM Falling Block",
+  "entity.cataclysm.ignis_abyss_fireball": "Ignis's Abyss Fireball",
+  "entity.cataclysm.ignis_fireball": "Ignis's Fireball",
+  "entity.cataclysm.ignited_revenant": "Ignited Revenant",
 
   "effect.cataclysm.monstrous": "Monstrous",
   "effect.cataclysm.blazing_brand": "Blazing Brand",

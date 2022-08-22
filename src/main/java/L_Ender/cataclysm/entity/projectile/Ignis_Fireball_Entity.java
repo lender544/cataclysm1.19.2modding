@@ -72,7 +72,6 @@ public class Ignis_Fireball_Entity extends AbstractHurtingProjectile {
                 double d0 = target.getX() - this.getX();
                 double d1 = target.getY() + target.getBbHeight() * 0.5F - this.getY();
                 double d2 = target.getZ() - this.getZ();
-                Vec3 vector3d = new Vec3(d0, d1, d2);
                 float speed = this.isSoul() ? 2.5F : 2.0F;
                 shoot(d0, d1, d2, speed, 0);
                 this.setYRot( -((float) Mth.atan2(d0, d2)) * (180F / (float) Math.PI));
@@ -89,9 +88,9 @@ public class Ignis_Fireball_Entity extends AbstractHurtingProjectile {
 
     protected void onHitEntity(EntityHitResult result) {
         super.onHitEntity(result);
-        if (!this.level.isClientSide && getFired() && !(result.getEntity() instanceof AbstractHurtingProjectile || result.getEntity() instanceof Ignis_Entity)) {
+        Entity shooter = this.getOwner();
+        if (!this.level.isClientSide && getFired() && !(result.getEntity() instanceof AbstractHurtingProjectile || result.getEntity() instanceof Ignis_Entity && shooter instanceof Ignis_Entity)) {
             Entity entity = result.getEntity();
-            Entity shooter = this.getOwner();
             boolean flag;
             if (shooter instanceof LivingEntity) {
                 LivingEntity owner = (LivingEntity)shooter;
@@ -109,8 +108,7 @@ public class Ignis_Fireball_Entity extends AbstractHurtingProjectile {
             } else {
                 flag = entity.hurt(DamageSource.MAGIC, 6.0F);
             }
-            Explosion.BlockInteraction explosion$blockinteraction = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner()) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
-            this.level.explode(this, this.getX(), this.getY(), this.getZ(), 1.0F, true, explosion$blockinteraction);
+            this.level.explode(this, this.getX(), this.getY(), this.getZ(), 1.0F, true, Explosion.BlockInteraction.NONE);
             this.discard();
 
             if (flag && entity instanceof LivingEntity) {
@@ -134,9 +132,8 @@ public class Ignis_Fireball_Entity extends AbstractHurtingProjectile {
 
     protected void onHitBlock(BlockHitResult result) {
         super.onHitBlock(result);
-        if (!this.level.isClientSide) {
-            Explosion.BlockInteraction explosion$blockinteraction = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner()) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
-            this.level.explode(this, this.getX(), this.getY(), this.getZ(), 1.0F, true, explosion$blockinteraction);
+        if (!this.level.isClientSide && getFired()) {
+            this.level.explode(this, this.getX(), this.getY(), this.getZ(), 1.0F, true, Explosion.BlockInteraction.NONE);
             this.discard();
         }
     }

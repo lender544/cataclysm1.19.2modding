@@ -3,34 +3,25 @@ package L_Ender.cataclysm.entity.projectile;
 import L_Ender.cataclysm.entity.Ignis_Entity;
 import L_Ender.cataclysm.init.ModEffect;
 import L_Ender.cataclysm.init.ModEntities;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 
@@ -84,11 +75,8 @@ public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
                 float speed = 2f;
                 shoot(d0, d1, d2, speed, 0);
                 this.setYRot( -((float) Mth.atan2(d0, d2)) * (180F / (float) Math.PI));
-
             }
         }
-
-
     }
 
     public void setUp(int delay) {
@@ -116,8 +104,7 @@ public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
             } else {
                 flag = entity.hurt(DamageSource.MAGIC, 5.0F);
             }
-            Explosion.BlockInteraction explosion$blockinteraction = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner()) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
-            this.level.explode(this, this.getX(), this.getY(), this.getZ(), 2.0F, true, explosion$blockinteraction);
+            this.level.explode(this, this.getX(), this.getY(), this.getZ(), 2.0F, true, Explosion.BlockInteraction.NONE);
             this.discard();
 
             if (flag && entity instanceof LivingEntity) {
@@ -174,8 +161,7 @@ public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
 
             if (this.tickCount > 500 || this.getTotalBounces() > 5) {
                 if (!this.level.isClientSide) {
-                    Explosion.BlockInteraction explosion$blockinteraction = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner()) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
-                    this.level.explode(this, this.getX(), this.getY(), this.getZ(), 2.0F, true, explosion$blockinteraction);
+                    this.level.explode(this, this.getX(), this.getY(), this.getZ(), 2.0F, true, Explosion.BlockInteraction.NONE);
                     this.discard();
                 }
             } else {
@@ -221,6 +207,30 @@ public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
 
     public boolean getFired() {
         return this.entityData.get(FIRED);
+    }
+
+    @Override
+    public boolean hurt(DamageSource p_36839_, float p_36840_) {
+        if (this.isInvulnerableTo(p_36839_)) {
+            return false;
+        } else {
+            this.markHurt();
+            Entity entity = p_36839_.getEntity();
+            if (entity != null && this.getFired()) {
+                if (!this.level.isClientSide) {
+                    Vec3 vec3 = entity.getLookAngle();
+                    this.setDeltaMovement(vec3);
+                    this.xPower = vec3.x * 0.1D;
+                    this.yPower = vec3.y * 0.1D;
+                    this.zPower = vec3.z * 0.1D;
+                    this.setOwner(entity);
+                }
+
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     @Override

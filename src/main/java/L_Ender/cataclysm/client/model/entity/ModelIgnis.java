@@ -1513,7 +1513,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
         animator.resetKeyframe(15);
 
         animator.setAnimation(Ignis_Entity.BREAK_THE_SHIELD);
-        if(entity.getIsShield()) {
+        if(entity.getIsBlocking()) {
             animator.startKeyframe(15);
             animator.rotate(root, 0, (float) Math.toRadians(-42.5F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(-30F), (float) Math.toRadians(-37.5F), (float) Math.toRadians(-5F));
