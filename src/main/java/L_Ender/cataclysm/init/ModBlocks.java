@@ -133,13 +133,6 @@ public class ModBlocks {
     public static final RegistryObject<Block> CHORUS_FENCE = BLOCKS.register("chorus_fence",
             () -> new FenceBlock(BlockBehaviour.Properties.copy(CHORUS_PLANKS.get())));
 
-    public static final RegistryObject<Block> BASALT_PILLAR = BLOCKS.register("basalt_pillar",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_BLACK)
-                    .requiresCorrectToolForDrops()
-                    .strength(1.25F, 4.2F)
-                    .sound(SoundType.BASALT)));
-
-
     private static ToIntFunction<BlockState> getLightValueLit(int lightValue) {
         return (state) -> {
             return state.getValue(BlockStateProperties.LIT) ? lightValue : 0;

@@ -57,7 +57,7 @@ public class Ignis_Fireball_Entity extends AbstractHurtingProjectile {
                 }
             }
         }
-        if (this.tickCount > 600) {
+        if (this.tickCount > 300) {
             this.discard();
         }
 
@@ -89,7 +89,7 @@ public class Ignis_Fireball_Entity extends AbstractHurtingProjectile {
     protected void onHitEntity(EntityHitResult result) {
         super.onHitEntity(result);
         Entity shooter = this.getOwner();
-        if (!this.level.isClientSide && getFired() && !(result.getEntity() instanceof AbstractHurtingProjectile || result.getEntity() instanceof Ignis_Entity && shooter instanceof Ignis_Entity)) {
+        if (!this.level.isClientSide && getFired() && !(result.getEntity() instanceof Ignis_Fireball_Entity || result.getEntity() instanceof Ignis_Abyss_Fireball_Entity || result.getEntity() instanceof Ignis_Entity && shooter instanceof Ignis_Entity)) {
             Entity entity = result.getEntity();
             boolean flag;
             if (shooter instanceof LivingEntity) {

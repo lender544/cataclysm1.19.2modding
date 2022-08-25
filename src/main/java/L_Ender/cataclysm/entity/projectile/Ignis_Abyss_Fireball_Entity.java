@@ -58,7 +58,7 @@ public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
                 }
             }
         }
-        if (this.tickCount > 600) {
+        if (this.tickCount > 300) {
             this.discard();
         }
         if (timer == 0) {
@@ -87,7 +87,7 @@ public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
     protected void onHitEntity(EntityHitResult p_37626_) {
         super.onHitEntity(p_37626_);
         Entity shooter = this.getOwner();
-        if (!this.level.isClientSide && !(p_37626_.getEntity() instanceof AbstractHurtingProjectile || p_37626_.getEntity() instanceof Ignis_Entity && shooter instanceof Ignis_Entity) && getFired()) {
+        if (!this.level.isClientSide && !(p_37626_.getEntity() instanceof Ignis_Fireball_Entity || p_37626_.getEntity() instanceof Ignis_Abyss_Fireball_Entity || p_37626_.getEntity() instanceof Ignis_Entity && shooter instanceof Ignis_Entity) && getFired()) {
             Entity entity = p_37626_.getEntity();
             boolean flag;
             if (shooter instanceof LivingEntity) {
