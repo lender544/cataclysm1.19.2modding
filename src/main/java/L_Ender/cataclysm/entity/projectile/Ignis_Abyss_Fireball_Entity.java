@@ -41,7 +41,6 @@ public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
     public Ignis_Abyss_Fireball_Entity(Level worldIn, LivingEntity entity) {
         this(ModEntities.IGNIS_ABYSS_FIREBALL.get(), worldIn);
         this.setOwner(entity);
-        this.setPos(entity.getX() - (double) (entity.getBbWidth() + 1.0F) * 0.15D * (double) Mth.sin(entity.yBodyRot * ((float) Math.PI / 180F)), entity.getY() + (double) 1F, entity.getZ() + (double) (entity.getBbWidth() + 1.0F) * 0.15D * (double) Mth.cos(entity.yBodyRot * ((float) Math.PI / 180F)));
     }
 
     public boolean isOnFire() {

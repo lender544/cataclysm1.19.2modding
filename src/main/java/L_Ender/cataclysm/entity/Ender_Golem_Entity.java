@@ -1,6 +1,7 @@
 package L_Ender.cataclysm.entity;
 
 import L_Ender.cataclysm.config.CMConfig;
+import L_Ender.cataclysm.entity.AI.AttackMoveGoal;
 import L_Ender.cataclysm.entity.AI.CmAttackGoal;
 import L_Ender.cataclysm.entity.etc.*;
 import L_Ender.cataclysm.entity.projectile.Void_Rune_Entity;
@@ -82,7 +83,7 @@ public class Ender_Golem_Entity extends Boss_monster {
     }
 
     protected void registerGoals() {
-        this.goalSelector.addGoal(2, new CmAttackGoal(this,1.0));
+        this.goalSelector.addGoal(2, new CmAttackGoal(this, 1.0D));
         this.goalSelector.addGoal(1, new AttackGoal());
         this.goalSelector.addGoal(0, new AwakenGoal());
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));

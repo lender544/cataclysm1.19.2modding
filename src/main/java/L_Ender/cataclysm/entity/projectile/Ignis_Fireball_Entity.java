@@ -39,7 +39,6 @@ public class Ignis_Fireball_Entity extends AbstractHurtingProjectile {
     public Ignis_Fireball_Entity(Level worldIn, LivingEntity entity) {
         this(ModEntities.IGNIS_FIREBALL.get(), worldIn);
         this.setOwner(entity);
-        this.setPos(entity.getX() - (double) (entity.getBbWidth() + 1.0F) * 0.15D * (double) Mth.sin(entity.yBodyRot * ((float) Math.PI / 180F)), entity.getY() + (double) 1F, entity.getZ() + (double) (entity.getBbWidth() + 1.0F) * 0.15D * (double) Mth.cos(entity.yBodyRot * ((float) Math.PI / 180F)));
     }
 
 
@@ -72,7 +71,7 @@ public class Ignis_Fireball_Entity extends AbstractHurtingProjectile {
                 double d0 = target.getX() - this.getX();
                 double d1 = target.getY() + target.getBbHeight() * 0.5F - this.getY();
                 double d2 = target.getZ() - this.getZ();
-                float speed = this.isSoul() ? 2.5F : 2.0F;
+                float speed = this.isSoul() ? 2.0F : 1.5F;
                 shoot(d0, d1, d2, speed, 0);
                 this.setYRot( -((float) Mth.atan2(d0, d2)) * (180F / (float) Math.PI));
 
