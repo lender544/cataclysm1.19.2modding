@@ -56,7 +56,7 @@ public class Ignis_Fireball_Entity extends AbstractHurtingProjectile {
                 }
             }
         }
-        if (this.tickCount > 300) {
+        if (this.tickCount > 200) {
             this.discard();
         }
 
