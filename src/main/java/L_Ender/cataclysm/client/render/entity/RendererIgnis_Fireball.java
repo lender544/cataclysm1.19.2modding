@@ -49,7 +49,7 @@ public class RendererIgnis_Fireball extends EntityRenderer<Ignis_Fireball_Entity
 		float f = rotLerp(entityIn.yRotO, entityIn.getYRot(), partialTicks);
 		float f1 = Mth.lerp(partialTicks, entityIn.xRotO, entityIn.getXRot());
 		float f2 = (float) entityIn.tickCount + partialTicks;
-		matrixStackIn.translate(0.0D, (double) 0.15F, 0.0D);
+		matrixStackIn.translate(0.0D, (double) 0.3F, 0.0D);
 		matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(Mth.sin(f2 * 0.1F) * 180.0F));
 		matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(Mth.cos(f2 * 0.1F) * 180.0F));
 		matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(Mth.sin(f2 * 0.15F) * 360.0F));

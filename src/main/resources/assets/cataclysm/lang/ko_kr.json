@@ -83,6 +83,9 @@
   "entity.cataclysm.void_shard": "공허의 파편",
   "entity.cataclysm.ignis": "이그니스",
   "entity.cataclysm.cm_falling_block": "대격변 떨어지는 블록",
+  "entity.cataclysm.ignis_abyss_fireball": "이그니스의 심연 화염구",
+  "entity.cataclysm.ignis_fireball": "이그니스의 화염구",
+  "entity.cataclysm.ignited_revenant": "이그나이티드 레버넌트",
 
   "effect.cataclysm.monstrous": "괴력",
   "effect.cataclysm.blazing_brand": "불타는 낙인",

@@ -56,7 +56,7 @@ public class Ignis_Fireball_Entity extends AbstractHurtingProjectile {
                 }
             }
         }
-        if (this.tickCount > 200) {
+        if (this.tickCount > 300) {
             this.discard();
         }
 
@@ -71,7 +71,7 @@ public class Ignis_Fireball_Entity extends AbstractHurtingProjectile {
                 double d0 = target.getX() - this.getX();
                 double d1 = target.getY() + target.getBbHeight() * 0.5F - this.getY();
                 double d2 = target.getZ() - this.getZ();
-                float speed = this.isSoul() ? 2.0F : 1.5F;
+                float speed = this.isSoul() ? 2.25F : 1.75F;
                 shoot(d0, d1, d2, speed, 0);
                 this.setYRot( -((float) Mth.atan2(d0, d2)) * (180F / (float) Math.PI));
 
