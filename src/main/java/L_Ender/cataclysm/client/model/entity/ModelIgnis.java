@@ -1884,10 +1884,22 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
         animator.setAnimation(SPIN_ATTACK);
         //1
         //3
-        animator.startKeyframe(15);
-        animator.rotate(root, (float) Math.toRadians(-5F), (float) Math.toRadians(65F), 0);
+        animator.startKeyframe(0);
+        animator.rotate(root, 0, (float) Math.toRadians(-82.5F), 0);
+        animator.rotate(upperbody, (float) Math.toRadians(-7.5F), (float) Math.toRadians(-40F), 0);
+        animator.rotate(right_arm_joint, (float) Math.toRadians(-65F), (float) Math.toRadians(2.5F), (float) Math.toRadians(22.5F));
+        animator.rotate(right_hand, (float) Math.toRadians(-72.5F), (float) Math.toRadians(-22.5F), (float) Math.toRadians(42.5F));
+        animator.rotate(right_fist, (float) Math.toRadians(-25F), 0, 0);
+        animator.rotate(sword, (float) Math.toRadians(180F), 0, 0);
+        animator.rotate(head, (float) Math.toRadians(-2.5F), (float) Math.toRadians(75F), (float) Math.toRadians(-15F));
+        animator.rotate(left_arm_joint, (float) Math.toRadians(2.5F), (float) Math.toRadians(5F), (float) Math.toRadians(-65F));
+        animator.rotate(left_hand, (float) Math.toRadians(7.5F), 0, (float) Math.toRadians(15F));
+        animator.endKeyframe();
+
+        animator.startKeyframe(10);
+        animator.rotate(root, (float) Math.toRadians(-5F), (float) Math.toRadians(45F), 0);
         animator.rotate(upperbody, (float) Math.toRadians(12.5F), (float) Math.toRadians(-12.5F), (float) Math.toRadians(5F));
-        animator.rotate(head, (float) Math.toRadians(-10F), (float) Math.toRadians(85F), (float) Math.toRadians(-37.5F));
+        animator.rotate(head, (float) Math.toRadians(-12.5F), (float) Math.toRadians(30F), (float) Math.toRadians(-12.5F));
         animator.rotate(right_arm_joint, (float) Math.toRadians(-75F), (float) Math.toRadians(2.5F), (float) Math.toRadians(30F));
         animator.rotate(right_hand, (float) Math.toRadians(2.5F), (float) Math.toRadians(-30F), 0);
         animator.rotate(right_fist, (float) Math.toRadians(-25F), 0, 0);
@@ -1895,7 +1907,8 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
         animator.rotate(left_hand, (float) Math.toRadians(15F), 0, (float) Math.toRadians(15F));
         animator.endKeyframe();
 
-        animator.setStaticKeyframe(10);
+        animator.setStaticKeyframe(1);
+
         //8
         animator.startKeyframe(6);
         animator.rotate(root, 0, (float) Math.toRadians(350F), 0);
@@ -1921,7 +1934,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
 
         animator.setStaticKeyframe(10);
 
-        animator.resetKeyframe(15);
+        animator.resetKeyframe(10);
 
         animator.setAnimation(MAGIC_ATTACK);
         if(!entity.getIsShieldBreak()) {
