@@ -71,7 +71,7 @@ public class Ignis_Fireball_Entity extends AbstractHurtingProjectile {
                 double d0 = target.getX() - this.getX();
                 double d1 = target.getY() + target.getBbHeight() * 0.5F - this.getY();
                 double d2 = target.getZ() - this.getZ();
-                float speed = this.isSoul() ? 2.25F : 1.75F;
+                float speed = this.isSoul() ? 2.5F : 2.0F;
                 shoot(d0, d1, d2, speed, 0);
                 this.setYRot( -((float) Mth.atan2(d0, d2)) * (180F / (float) Math.PI));
 

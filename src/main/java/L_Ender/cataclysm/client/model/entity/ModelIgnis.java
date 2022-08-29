@@ -427,7 +427,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
         this.resetToDefaultPose();
         animator.update(entity);
         animator.setAnimation(SWING_ATTACK);
-        if(!entity.getIsShieldBreak()) {
+        if (!entity.getIsShieldBreak()) {
             animator.startKeyframe(20);
             animator.rotate(root, 0, (float) Math.toRadians(7.5F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(-12.5F), (float) Math.toRadians(25F), (float) Math.toRadians(7.5F));
@@ -456,7 +456,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.endKeyframe();
             animator.setStaticKeyframe(15);
             animator.resetKeyframe(15);
-        }else{
+        } else {
             animator.startKeyframe(20);
             animator.rotate(upperbody, (float) Math.toRadians(-7.5F), (float) Math.toRadians(22.5F), (float) Math.toRadians(17.5F));
             animator.rotate(right_arm_joint, (float) Math.toRadians(-142.5F), (float) Math.toRadians(2.5F), (float) Math.toRadians(5F));
@@ -486,7 +486,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
         }
 
         animator.setAnimation(SWING_ATTACK_SOUL);
-        if(!entity.getIsShieldBreak()) {
+        if (!entity.getIsShieldBreak()) {
             animator.startKeyframe(18);
             animator.rotate(root, 0, (float) Math.toRadians(7.5F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(-12.5F), (float) Math.toRadians(25F), (float) Math.toRadians(7.5F));
@@ -515,7 +515,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.endKeyframe();
             animator.setStaticKeyframe(15);
             animator.resetKeyframe(12);
-        }else{
+        } else {
             animator.startKeyframe(18);
             animator.rotate(upperbody, (float) Math.toRadians(-7.5F), (float) Math.toRadians(22.5F), (float) Math.toRadians(17.5F));
             animator.rotate(right_arm_joint, (float) Math.toRadians(-142.5F), (float) Math.toRadians(2.5F), (float) Math.toRadians(5F));
@@ -545,7 +545,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
         }
 
         animator.setAnimation(Ignis_Entity.HORIZONTAL_SWING_ATTACK);
-        if(!entity.getIsShieldBreak()) {
+        if (!entity.getIsShieldBreak()) {
             animator.startKeyframe(15);
             animator.rotate(root, 0, (float) Math.toRadians(-55F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(-10F), (float) Math.toRadians(-62.5F), (float) Math.toRadians(-15F));
@@ -570,7 +570,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.endKeyframe();
             animator.setStaticKeyframe(15);
             animator.resetKeyframe(20);
-        }else{
+        } else {
             animator.startKeyframe(15);
             animator.rotate(root, 0, (float) Math.toRadians(-62.5F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(-5F), (float) Math.toRadians(-65F), (float) Math.toRadians(-5F));
@@ -597,7 +597,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
         }
 
         animator.setAnimation(Ignis_Entity.HORIZONTAL_SWING_ATTACK_SOUL);
-        if(!entity.getIsShieldBreak()) {
+        if (!entity.getIsShieldBreak()) {
             animator.startKeyframe(15);
             animator.rotate(root, 0, (float) Math.toRadians(-55F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(-10F), (float) Math.toRadians(-62.5F), (float) Math.toRadians(-15F));
@@ -622,7 +622,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.endKeyframe();
             animator.setStaticKeyframe(15);
             animator.resetKeyframe(15);
-        }else{
+        } else {
             animator.startKeyframe(15);
             animator.rotate(root, 0, (float) Math.toRadians(-62.5F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(-5F), (float) Math.toRadians(-65F), (float) Math.toRadians(-5F));
@@ -649,7 +649,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
         }
 
         animator.setAnimation(Ignis_Entity.HORIZONTAL_SMALL_SWING_ATTACK);
-        if(!entity.getIsShieldBreak()) {
+        if (!entity.getIsShieldBreak()) {
             animator.startKeyframe(10);
             animator.rotate(root, 0, (float) Math.toRadians(-72.5F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(-10F), (float) Math.toRadians(-35F), (float) Math.toRadians(-2.5F));
@@ -674,7 +674,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.endKeyframe();
             animator.setStaticKeyframe(12);
             animator.resetKeyframe(12);
-        }else{
+        } else {
             animator.startKeyframe(10);
             animator.rotate(root, 0, (float) Math.toRadians(-80F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(-5F), (float) Math.toRadians(-37.5F), (float) Math.toRadians(7.5F));
@@ -702,7 +702,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
         }
 
         animator.setAnimation(Ignis_Entity.HORIZONTAL_SMALL_SWING_ALT_ATTACK2);
-        if(!entity.getIsShieldBreak()) {
+        if (!entity.getIsShieldBreak()) {
             animator.startKeyframe(0);
             animator.rotate(root, 0, (float) Math.toRadians(-27.5F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(-5F), (float) Math.toRadians(-7.5F), (float) Math.toRadians(-5F));
@@ -740,7 +740,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.endKeyframe();
             animator.setStaticKeyframe(12);
             animator.resetKeyframe(12);
-        }else{
+        } else {
             animator.startKeyframe(0);
             animator.rotate(root, 0, (float) Math.toRadians(-35F), 0);
             animator.rotate(upperbody, 0, (float) Math.toRadians(-10F), (float) Math.toRadians(5F));
@@ -782,66 +782,66 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
 
 
         animator.setAnimation(Ignis_Entity.POKE_ATTACK);
-        poke(entity,20,15,15);
+        poke(entity, 20, 15, 15);
 
         animator.setAnimation(Ignis_Entity.POKE_ATTACK2);
-        poke(entity,17,12,12);
+        poke(entity, 17, 12, 12);
 
         animator.setAnimation(Ignis_Entity.POKE_ATTACK3);
-        poke(entity,15,10,10);
+        poke(entity, 15, 10, 10);
 
         animator.setAnimation(Ignis_Entity.POKED_ATTACK);
-        if(!entity.getIsShieldBreak()) {
+        if (!entity.getIsShieldBreak()) {
             animator.startKeyframe(0);
-            animator.rotate(root, 0, (float)Math.toRadians(-32.5F), 0);
-            animator.rotate(upperbody, (float)Math.toRadians(7.5F), (float)Math.toRadians(-42.5F), (float)Math.toRadians(-15F));
-            animator.rotate(right_arm_joint, (float)Math.toRadians(-65F), (float)Math.toRadians(7.5F), (float)Math.toRadians(55F));
-            animator.rotate(right_hand, (float)Math.toRadians(15F), (float)Math.toRadians(57.5F), (float)Math.toRadians(20F));
-            animator.rotate(right_fist, (float)Math.toRadians(72.5F), 0, 0);
-            animator.rotate(head, (float)Math.toRadians(-10F), (float)Math.toRadians(67.5F), (float)Math.toRadians(-22.5F));
-            animator.rotate(left_arm_joint, (float)Math.toRadians(105F), (float)Math.toRadians(-15F), (float)Math.toRadians(-17.5F));
-            animator.rotate(left_hand, (float)Math.toRadians(-62.5F), (float)Math.toRadians(-17.5F), (float)Math.toRadians(-15F));
+            animator.rotate(root, 0, (float) Math.toRadians(-32.5F), 0);
+            animator.rotate(upperbody, (float) Math.toRadians(7.5F), (float) Math.toRadians(-42.5F), (float) Math.toRadians(-15F));
+            animator.rotate(right_arm_joint, (float) Math.toRadians(-65F), (float) Math.toRadians(7.5F), (float) Math.toRadians(55F));
+            animator.rotate(right_hand, (float) Math.toRadians(15F), (float) Math.toRadians(57.5F), (float) Math.toRadians(20F));
+            animator.rotate(right_fist, (float) Math.toRadians(72.5F), 0, 0);
+            animator.rotate(head, (float) Math.toRadians(-10F), (float) Math.toRadians(67.5F), (float) Math.toRadians(-22.5F));
+            animator.rotate(left_arm_joint, (float) Math.toRadians(105F), (float) Math.toRadians(-15F), (float) Math.toRadians(-17.5F));
+            animator.rotate(left_hand, (float) Math.toRadians(-62.5F), (float) Math.toRadians(-17.5F), (float) Math.toRadians(-15F));
             animator.endKeyframe();
 
             animator.setStaticKeyframe(10);
 
             animator.startKeyframe(20);
-            animator.rotate(root, 0, (float)Math.toRadians(-45F), 0);
-            animator.rotate(upperbody, (float)Math.toRadians(-7.5F), (float)Math.toRadians(-42.5F), (float)Math.toRadians(-2.5F));
-            animator.rotate(right_arm_joint, (float)Math.toRadians(-57.5F), (float)Math.toRadians(30F), (float)Math.toRadians(70F));
-            animator.rotate(right_hand, (float)Math.toRadians(15F), (float)Math.toRadians(57.5F), (float)Math.toRadians(20F));
-            animator.rotate(right_fist, (float)Math.toRadians(70F), 0, 0);
-            animator.rotate(head, (float)Math.toRadians(-10F), (float)Math.toRadians(75F), (float)Math.toRadians(-12.5F));
-            animator.rotate(left_arm_joint, (float)Math.toRadians(75f), (float)Math.toRadians(-15F), (float)Math.toRadians(-22.5F));
-            animator.rotate(left_arm, 0, 0, (float)Math.toRadians(-2.5F));
-            animator.rotate(left_hand, (float)Math.toRadians(-70F), (float)Math.toRadians(-17.5F), (float)Math.toRadians(-15F));
+            animator.rotate(root, 0, (float) Math.toRadians(-45F), 0);
+            animator.rotate(upperbody, (float) Math.toRadians(-7.5F), (float) Math.toRadians(-42.5F), (float) Math.toRadians(-2.5F));
+            animator.rotate(right_arm_joint, (float) Math.toRadians(-57.5F), (float) Math.toRadians(30F), (float) Math.toRadians(70F));
+            animator.rotate(right_hand, (float) Math.toRadians(15F), (float) Math.toRadians(57.5F), (float) Math.toRadians(20F));
+            animator.rotate(right_fist, (float) Math.toRadians(70F), 0, 0);
+            animator.rotate(head, (float) Math.toRadians(-10F), (float) Math.toRadians(75F), (float) Math.toRadians(-12.5F));
+            animator.rotate(left_arm_joint, (float) Math.toRadians(75f), (float) Math.toRadians(-15F), (float) Math.toRadians(-22.5F));
+            animator.rotate(left_arm, 0, 0, (float) Math.toRadians(-2.5F));
+            animator.rotate(left_hand, (float) Math.toRadians(-70F), (float) Math.toRadians(-17.5F), (float) Math.toRadians(-15F));
             animator.endKeyframe();
             animator.setStaticKeyframe(20);
             animator.resetKeyframe(15);
-        }else{
+        } else {
             animator.startKeyframe(0);
-            animator.rotate(root, 0, (float)Math.toRadians(-40F), 0);
-            animator.rotate(upperbody, (float)Math.toRadians(12.5F), (float)Math.toRadians(-45F), (float)Math.toRadians(-5F));
-            animator.rotate(right_arm_joint, (float)Math.toRadians(-62.5F), (float)Math.toRadians(10F), (float)Math.toRadians(45F));
-            animator.rotate(right_hand, (float)Math.toRadians(30F), (float)Math.toRadians(57.5F), (float)Math.toRadians(20F));
-            animator.rotate(right_fist, (float)Math.toRadians(70F), 0, 0);
-            animator.rotate(head, (float)Math.toRadians(-15F), (float)Math.toRadians(72.5F), (float)Math.toRadians(-32.5F));
-            animator.rotate(left_arm_joint, (float)Math.toRadians(47.5F), (float)Math.toRadians(32.5F), (float)Math.toRadians(-32.5F));
-            animator.rotate(left_hand, (float)Math.toRadians(-15F), (float)Math.toRadians(-2.5F), (float)Math.toRadians(15F));
+            animator.rotate(root, 0, (float) Math.toRadians(-40F), 0);
+            animator.rotate(upperbody, (float) Math.toRadians(12.5F), (float) Math.toRadians(-45F), (float) Math.toRadians(-5F));
+            animator.rotate(right_arm_joint, (float) Math.toRadians(-62.5F), (float) Math.toRadians(10F), (float) Math.toRadians(45F));
+            animator.rotate(right_hand, (float) Math.toRadians(30F), (float) Math.toRadians(57.5F), (float) Math.toRadians(20F));
+            animator.rotate(right_fist, (float) Math.toRadians(70F), 0, 0);
+            animator.rotate(head, (float) Math.toRadians(-15F), (float) Math.toRadians(72.5F), (float) Math.toRadians(-32.5F));
+            animator.rotate(left_arm_joint, (float) Math.toRadians(47.5F), (float) Math.toRadians(32.5F), (float) Math.toRadians(-32.5F));
+            animator.rotate(left_hand, (float) Math.toRadians(-15F), (float) Math.toRadians(-2.5F), (float) Math.toRadians(15F));
             animator.endKeyframe();
 
             animator.setStaticKeyframe(10);
 
             animator.startKeyframe(20);
-            animator.rotate(root, 0, (float)Math.toRadians(-52.5F), 0);
-            animator.rotate(upperbody, (float)Math.toRadians(-2.5F), (float)Math.toRadians(-45F), (float)Math.toRadians(7.5F));
-            animator.rotate(right_arm_joint, (float)Math.toRadians(-55F), (float)Math.toRadians(32.5F), (float)Math.toRadians(60F));
-            animator.rotate(right_hand, (float)Math.toRadians(30F), (float)Math.toRadians(57.5F), (float)Math.toRadians(20F));
-            animator.rotate(right_fist, (float)Math.toRadians(67.5F), 0, 0);
-            animator.rotate(head, (float)Math.toRadians(-15F), (float)Math.toRadians(80F), (float)Math.toRadians(-22.5F));
-            animator.rotate(left_arm_joint, (float)Math.toRadians(17.5f), (float)Math.toRadians(32.5F), (float)Math.toRadians(-37.5F));
-            animator.rotate(left_arm, 0, 0, (float)Math.toRadians(-2.5F));
-            animator.rotate(left_hand, (float)Math.toRadians(-22.5F), (float)Math.toRadians(-2.5F), (float)Math.toRadians(15F));
+            animator.rotate(root, 0, (float) Math.toRadians(-52.5F), 0);
+            animator.rotate(upperbody, (float) Math.toRadians(-2.5F), (float) Math.toRadians(-45F), (float) Math.toRadians(7.5F));
+            animator.rotate(right_arm_joint, (float) Math.toRadians(-55F), (float) Math.toRadians(32.5F), (float) Math.toRadians(60F));
+            animator.rotate(right_hand, (float) Math.toRadians(30F), (float) Math.toRadians(57.5F), (float) Math.toRadians(20F));
+            animator.rotate(right_fist, (float) Math.toRadians(67.5F), 0, 0);
+            animator.rotate(head, (float) Math.toRadians(-15F), (float) Math.toRadians(80F), (float) Math.toRadians(-22.5F));
+            animator.rotate(left_arm_joint, (float) Math.toRadians(17.5f), (float) Math.toRadians(32.5F), (float) Math.toRadians(-37.5F));
+            animator.rotate(left_arm, 0, 0, (float) Math.toRadians(-2.5F));
+            animator.rotate(left_hand, (float) Math.toRadians(-22.5F), (float) Math.toRadians(-2.5F), (float) Math.toRadians(15F));
             animator.endKeyframe();
             animator.setStaticKeyframe(20);
             animator.resetKeyframe(15);
@@ -854,13 +854,13 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.rotate(root, 0, (float) Math.toRadians(-25F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(-7.5F), (float) Math.toRadians(-12.5F), (float) Math.toRadians(5));
             animator.rotate(right_arm_joint, (float) Math.toRadians(-80F), (float) Math.toRadians(-50F), (float) Math.toRadians(30F));
-            animator.move(right_arm_joint,0,3,0);
+            animator.move(right_arm_joint, 0, 3, 0);
             animator.rotate(right_hand, (float) Math.toRadians(-5F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-17.5F));
             animator.rotate(right_fist, (float) Math.toRadians(-25F), 0, (float) Math.toRadians(-20F));
             animator.rotate(sword, 0, (float) Math.toRadians(182.5F), 0);
             animator.rotate(head, 0, (float) Math.toRadians(30F), (float) Math.toRadians(-12.5F));
             animator.rotate(left_arm_joint, (float) Math.toRadians(-77.5F), (float) Math.toRadians(85F), (float) Math.toRadians(-47.5F));
-            animator.move(left_arm_joint,0,3,0);
+            animator.move(left_arm_joint, 0, 3, 0);
             animator.rotate(left_hand, (float) Math.toRadians(40F), (float) Math.toRadians(-5F), (float) Math.toRadians(27.5F));
             animator.endKeyframe();
             animator.setStaticKeyframe(10);
@@ -869,13 +869,13 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.rotate(root, 0, (float) Math.toRadians(-25F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(-17.5F), (float) Math.toRadians(-12.5F), (float) Math.toRadians(5F));
             animator.rotate(right_arm_joint, (float) Math.toRadians(-90F), (float) Math.toRadians(-40F), (float) Math.toRadians(30F));
-            animator.move(right_arm_joint,3,0,0);
+            animator.move(right_arm_joint, 3, 0, 0);
             animator.rotate(right_hand, (float) Math.toRadians(-17.5F), (float) Math.toRadians(22.5F), (float) Math.toRadians(-37.5F));
             animator.rotate(right_fist, 0, 0, (float) Math.toRadians(-25F));
             animator.rotate(sword, 0, (float) Math.toRadians(182.5F), 0);
             animator.rotate(head, 0, (float) Math.toRadians(30F), (float) Math.toRadians(-12.5F));
             animator.rotate(left_arm_joint, (float) Math.toRadians(-87.5F), (float) Math.toRadians(72.5F), (float) Math.toRadians(-47.5F));
-            animator.move(left_arm_joint,-2,0,0);
+            animator.move(left_arm_joint, -2, 0, 0);
             animator.rotate(left_hand, (float) Math.toRadians(32.5F), (float) Math.toRadians(-25F), (float) Math.toRadians(47.5F));
             animator.rotate(left_fist, (float) Math.toRadians(22.5F), 0, 0);
             animator.endKeyframe();
@@ -885,13 +885,13 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.rotate(root, (float) Math.toRadians(-2.5F), (float) Math.toRadians(-25F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(5F), (float) Math.toRadians(-12.5F), (float) Math.toRadians(5F));
             animator.rotate(right_arm_joint, (float) Math.toRadians(-90F), (float) Math.toRadians(-40F), (float) Math.toRadians(30F));
-            animator.move(right_arm_joint,1,6,0);
+            animator.move(right_arm_joint, 1, 6, 0);
             animator.rotate(right_hand, 0, 0, (float) Math.toRadians(-20F));
             animator.rotate(right_fist, (float) Math.toRadians(-22.5F), 0, (float) Math.toRadians(-22.5F));
             animator.rotate(sword, 0, (float) Math.toRadians(182.5F), 0);
             animator.rotate(head, 0, (float) Math.toRadians(30F), (float) Math.toRadians(-12.5F));
             animator.rotate(left_arm_joint, (float) Math.toRadians(-87.5F), (float) Math.toRadians(72.5F), (float) Math.toRadians(-47.5F));
-            animator.move(left_arm_joint,-1,6,-1);
+            animator.move(left_arm_joint, -1, 6, -1);
             animator.rotate(left_hand, (float) Math.toRadians(47.5F), 0, (float) Math.toRadians(42.5F));
             animator.endKeyframe();
             animator.setStaticKeyframe(15);
@@ -921,18 +921,18 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.setStaticKeyframe(10);
 
             animator.resetKeyframe(10);
-        }else if(entity.getIsShield()){
+        } else if (entity.getIsShield()) {
             animator.startKeyframe(15);
             animator.rotate(root, 0, (float) Math.toRadians(-17.5F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(-12.5F), (float) Math.toRadians(-10F), (float) Math.toRadians(-5F));
             animator.rotate(right_arm_joint, (float) Math.toRadians(-82.5F), (float) Math.toRadians(-52.5F), (float) Math.toRadians(40F));
-            animator.move(right_arm_joint,0,3,0);
+            animator.move(right_arm_joint, 0, 3, 0);
             animator.rotate(right_hand, (float) Math.toRadians(-20F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-17.5F));
             animator.rotate(right_fist, (float) Math.toRadians(-22.5F), 0, (float) Math.toRadians(-20F));
             animator.rotate(sword, 0, (float) Math.toRadians(182.5F), 0);
-            animator.rotate(head, (float) Math.toRadians(5F),  (float) Math.toRadians(25F),  (float) Math.toRadians(-2.5F));
+            animator.rotate(head, (float) Math.toRadians(5F), (float) Math.toRadians(25F), (float) Math.toRadians(-2.5F));
             animator.rotate(left_arm_joint, (float) Math.toRadians(-20F), (float) Math.toRadians(37.5F), (float) Math.toRadians(-32.5F));
-            animator.move(left_arm_joint,0,3,0);
+            animator.move(left_arm_joint, 0, 3, 0);
             animator.rotate(left_hand, (float) Math.toRadians(-7.5F), (float) Math.toRadians(-20F), (float) Math.toRadians(-2.5F));
             animator.endKeyframe();
             animator.setStaticKeyframe(10);
@@ -941,13 +941,13 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.rotate(root, 0, (float) Math.toRadians(-17.5F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(-22.5F), (float) Math.toRadians(-10F), (float) Math.toRadians(-5F));
             animator.rotate(right_arm_joint, (float) Math.toRadians(-92.5F), (float) Math.toRadians(-42.5F), (float) Math.toRadians(40F));
-            animator.move(right_arm_joint,3,0,0);
+            animator.move(right_arm_joint, 3, 0, 0);
             animator.rotate(right_hand, (float) Math.toRadians(-32.5F), (float) Math.toRadians(22.5F), (float) Math.toRadians(-37.5F));
             animator.rotate(right_fist, (float) Math.toRadians(2.5F), 0, (float) Math.toRadians(-25F));
             animator.rotate(sword, 0, (float) Math.toRadians(182.5F), 0);
             animator.rotate(head, (float) Math.toRadians(5F), (float) Math.toRadians(25F), (float) Math.toRadians(-2.5F));
             animator.rotate(left_arm_joint, (float) Math.toRadians(-30F), (float) Math.toRadians(25F), (float) Math.toRadians(-32.5F));
-            animator.move(left_arm_joint,-2,0,0);
+            animator.move(left_arm_joint, -2, 0, 0);
             animator.rotate(left_hand, (float) Math.toRadians(-15F), (float) Math.toRadians(-40F), (float) Math.toRadians(17.5F));
             animator.rotate(left_fist, (float) Math.toRadians(22.5F), 0, 0);
             animator.endKeyframe();
@@ -957,13 +957,13 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.rotate(root, (float) Math.toRadians(-2.5F), (float) Math.toRadians(-17.5F), 0);
             animator.rotate(upperbody, 0, (float) Math.toRadians(-10F), (float) Math.toRadians(-5F));
             animator.rotate(right_arm_joint, (float) Math.toRadians(-92.5F), (float) Math.toRadians(-42.5F), (float) Math.toRadians(40F));
-            animator.move(right_arm_joint,1,6,0);
+            animator.move(right_arm_joint, 1, 6, 0);
             animator.rotate(right_hand, (float) Math.toRadians(-15F), 0, (float) Math.toRadians(-20F));
             animator.rotate(right_fist, (float) Math.toRadians(-20F), 0, (float) Math.toRadians(-22.5F));
             animator.rotate(sword, 0, (float) Math.toRadians(182.5F), 0);
             animator.rotate(head, (float) Math.toRadians(5F), (float) Math.toRadians(25F), (float) Math.toRadians(-2.5F));
             animator.rotate(left_arm_joint, (float) Math.toRadians(-30F), (float) Math.toRadians(25F), (float) Math.toRadians(-32.5F));
-            animator.move(left_arm_joint,-1,6,-1);
+            animator.move(left_arm_joint, -1, 6, -1);
             animator.rotate(left_hand, 0, (float) Math.toRadians(-15F), (float) Math.toRadians(12.5F));
             animator.endKeyframe();
             animator.setStaticKeyframe(15);
@@ -995,17 +995,17 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
 
             animator.resetKeyframe(10);
 
-        }else{
+        } else {
             animator.startKeyframe(15);
             animator.rotate(upperbody, (float) Math.toRadians(-12.5F), 0, 0);
             animator.rotate(right_arm_joint, (float) Math.toRadians(-60F), (float) Math.toRadians(-52.5F), (float) Math.toRadians(40F));
-            animator.move(right_arm_joint,0,3,0);
+            animator.move(right_arm_joint, 0, 3, 0);
             animator.rotate(right_hand, (float) Math.toRadians(-50F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-17.5F));
             animator.rotate(right_fist, 0, 0, (float) Math.toRadians(-20F));
             animator.rotate(sword, 0, (float) Math.toRadians(182.5F), 0);
             animator.rotate(head, (float) Math.toRadians(15F), 0, 0);
             animator.rotate(left_arm_joint, (float) Math.toRadians(-60F), (float) Math.toRadians(52.5F), (float) Math.toRadians(-40F));
-            animator.move(left_arm_joint,0,3,0);
+            animator.move(left_arm_joint, 0, 3, 0);
             animator.rotate(left_hand, (float) Math.toRadians(-50F), (float) Math.toRadians(-5F), (float) Math.toRadians(12.5F));
             animator.endKeyframe();
             animator.setStaticKeyframe(10);
@@ -1013,13 +1013,13 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.startKeyframe(15);
             animator.rotate(upperbody, (float) Math.toRadians(-22.5F), 0, 0);
             animator.rotate(right_arm_joint, (float) Math.toRadians(-70F), (float) Math.toRadians(-42.5F), (float) Math.toRadians(40F));
-            animator.move(right_arm_joint,3,0,0);
+            animator.move(right_arm_joint, 3, 0, 0);
             animator.rotate(right_hand, (float) Math.toRadians(-62.5F), (float) Math.toRadians(22.5F), (float) Math.toRadians(-37.5F));
             animator.rotate(right_fist, (float) Math.toRadians(25F), 0, (float) Math.toRadians(-25F));
             animator.rotate(sword, 0, (float) Math.toRadians(182.5F), 0);
             animator.rotate(head, (float) Math.toRadians(15F), 0, 0);
             animator.rotate(left_arm_joint, (float) Math.toRadians(-70F), (float) Math.toRadians(40F), (float) Math.toRadians(-40F));
-            animator.move(left_arm_joint,-2,0,0);
+            animator.move(left_arm_joint, -2, 0, 0);
             animator.rotate(left_hand, (float) Math.toRadians(-57.5F), (float) Math.toRadians(-25F), (float) Math.toRadians(32.5F));
             animator.rotate(left_fist, (float) Math.toRadians(22.5F), 0, 0);
             animator.endKeyframe();
@@ -1028,13 +1028,13 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.startKeyframe(4);
             animator.rotate(root, (float) Math.toRadians(-2.5F), 0, 0);
             animator.rotate(right_arm_joint, (float) Math.toRadians(-70F), (float) Math.toRadians(-42.5F), (float) Math.toRadians(40F));
-            animator.move(right_arm_joint,1,6,0);
+            animator.move(right_arm_joint, 1, 6, 0);
             animator.rotate(right_hand, (float) Math.toRadians(-45F), 0, (float) Math.toRadians(-20F));
             animator.rotate(right_fist, (float) Math.toRadians(2.5F), 0, (float) Math.toRadians(-22.5F));
             animator.rotate(sword, 0, (float) Math.toRadians(182.5F), 0);
             animator.rotate(head, (float) Math.toRadians(15F), 0, 0);
             animator.rotate(left_arm_joint, (float) Math.toRadians(-70F), (float) Math.toRadians(40F), (float) Math.toRadians(-40F));
-            animator.move(left_arm_joint,-1,6,-1);
+            animator.move(left_arm_joint, -1, 6, -1);
             animator.rotate(left_hand, (float) Math.toRadians(-42.5F), 0, (float) Math.toRadians(27.5F));
             animator.endKeyframe();
             animator.setStaticKeyframe(15);
@@ -1070,33 +1070,33 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
 
         animator.setAnimation(Ignis_Entity.SHIELD_SMASH_ATTACK);
         animator.startKeyframe(20);
-        animator.rotate(root, (float)Math.toRadians(-5F), (float)Math.toRadians(30F), 0);
-        animator.rotate(upperbody, (float)Math.toRadians(-25F), 0, (float)Math.toRadians(-10F));
-        animator.rotate(right_arm_joint, (float)Math.toRadians(5F), (float)Math.toRadians(5F), (float)Math.toRadians(45F));
-        animator.rotate(right_hand, (float)Math.toRadians(32.5F), (float)Math.toRadians(10F), (float)Math.toRadians(15F));
-        animator.rotate(right_fist, (float)Math.toRadians(30F), 0, 0);
-        animator.rotate(head, 0, 0, (float)Math.toRadians(2.5F));
-        animator.rotate(left_arm_joint, (float)Math.toRadians(-30F), (float)Math.toRadians(-27.5F), (float)Math.toRadians(-20F));
-        animator.rotate(left_arm, 0, (float)Math.toRadians(2.5F), (float)Math.toRadians(7.5F));
-        animator.rotate(left_hand, (float)Math.toRadians(25F), (float)Math.toRadians(-7.5F), (float)Math.toRadians(7.5F));
+        animator.rotate(root, (float) Math.toRadians(-5F), (float) Math.toRadians(30F), 0);
+        animator.rotate(upperbody, (float) Math.toRadians(-25F), 0, (float) Math.toRadians(-10F));
+        animator.rotate(right_arm_joint, (float) Math.toRadians(5F), (float) Math.toRadians(5F), (float) Math.toRadians(45F));
+        animator.rotate(right_hand, (float) Math.toRadians(32.5F), (float) Math.toRadians(10F), (float) Math.toRadians(15F));
+        animator.rotate(right_fist, (float) Math.toRadians(30F), 0, 0);
+        animator.rotate(head, 0, 0, (float) Math.toRadians(2.5F));
+        animator.rotate(left_arm_joint, (float) Math.toRadians(-30F), (float) Math.toRadians(-27.5F), (float) Math.toRadians(-20F));
+        animator.rotate(left_arm, 0, (float) Math.toRadians(2.5F), (float) Math.toRadians(7.5F));
+        animator.rotate(left_hand, (float) Math.toRadians(25F), (float) Math.toRadians(-7.5F), (float) Math.toRadians(7.5F));
         animator.endKeyframe();
         animator.setStaticKeyframe(10);
 
         animator.startKeyframe(5);
-        animator.rotate(root, (float)Math.toRadians(17.5F), (float)Math.toRadians(30F), 0);
-        animator.rotate(upperbody, (float)Math.toRadians(-5F), (float)Math.toRadians(15F), 0);
-        animator.rotate(right_arm_joint, (float)Math.toRadians(35F), (float)Math.toRadians(5F), (float)Math.toRadians(45F));
-        animator.rotate(right_hand, (float)Math.toRadians(-40F), (float)Math.toRadians(10F), (float)Math.toRadians(15F));
-        animator.rotate(right_fist, (float)Math.toRadians(17.5F), 0, 0);
-        animator.rotate(head, 0, (float)Math.toRadians(-10F), 0);
-        animator.rotate(left_arm_joint, (float)Math.toRadians(35F), (float)Math.toRadians(-27.5F), (float)Math.toRadians(-20F));
-        animator.rotate(left_hand, (float)Math.toRadians(-47.5F), (float)Math.toRadians(-17.5F), (float)Math.toRadians(5F));
+        animator.rotate(root, (float) Math.toRadians(17.5F), (float) Math.toRadians(30F), 0);
+        animator.rotate(upperbody, (float) Math.toRadians(-5F), (float) Math.toRadians(15F), 0);
+        animator.rotate(right_arm_joint, (float) Math.toRadians(35F), (float) Math.toRadians(5F), (float) Math.toRadians(45F));
+        animator.rotate(right_hand, (float) Math.toRadians(-40F), (float) Math.toRadians(10F), (float) Math.toRadians(15F));
+        animator.rotate(right_fist, (float) Math.toRadians(17.5F), 0, 0);
+        animator.rotate(head, 0, (float) Math.toRadians(-10F), 0);
+        animator.rotate(left_arm_joint, (float) Math.toRadians(35F), (float) Math.toRadians(-27.5F), (float) Math.toRadians(-20F));
+        animator.rotate(left_hand, (float) Math.toRadians(-47.5F), (float) Math.toRadians(-17.5F), (float) Math.toRadians(5F));
         animator.endKeyframe();
         animator.setStaticKeyframe(20);
         animator.resetKeyframe(15);
 
         animator.setAnimation(Ignis_Entity.PHASE_2);
-        if(entity.getIsBlocking()) {
+        if (entity.getIsBlocking()) {
             animator.startKeyframe(15);
             animator.rotate(root, 0, (float) Math.toRadians(-17.5F), 0);
             animator.rotate(upperbody, 0, (float) Math.toRadians(-10F), (float) Math.toRadians(-5F));
@@ -1122,7 +1122,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.endKeyframe();
             animator.setStaticKeyframe(20);
             animator.resetKeyframe(15);
-        }else if (entity.getIsSword()) {
+        } else if (entity.getIsSword()) {
             animator.startKeyframe(15);
             animator.rotate(root, 0, (float) Math.toRadians(-25F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(5F), (float) Math.toRadians(-12.5F), (float) Math.toRadians(5F));
@@ -1148,7 +1148,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.endKeyframe();
             animator.setStaticKeyframe(20);
             animator.resetKeyframe(15);
-        }else{
+        } else {
             animator.startKeyframe(15);
             animator.rotate(right_arm_joint, (float) Math.toRadians(-60F), (float) Math.toRadians(7.5F), (float) Math.toRadians(2.5F));
             animator.rotate(right_arm, 0, 0, (float) Math.toRadians(-30F));
@@ -1170,11 +1170,11 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.resetKeyframe(15);
         }
         animator.setAnimation(Ignis_Entity.BODY_CHECK_ATTACK1);
-        bodycheck(entity,12,20,15);
+        bodycheck(entity, 12, 20, 15);
 
         animator.setAnimation(Ignis_Entity.BODY_CHECK_ATTACK2);
         animator.startKeyframe(0);
-        if(!entity.getIsShieldBreak()) {
+        if (!entity.getIsShieldBreak()) {
             animator.rotate(root, 0, (float) Math.toRadians(7.5F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(-10F), (float) Math.toRadians(30F), 0);
             animator.rotate(right_arm_joint, (float) Math.toRadians(12.5F), (float) Math.toRadians(-5F), (float) Math.toRadians(47.5F));
@@ -1183,7 +1183,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.rotate(head, (float) Math.toRadians(10F), (float) Math.toRadians(-25F), (float) Math.toRadians(7.5F));
             animator.rotate(left_arm_joint, (float) Math.toRadians(22.5F), (float) Math.toRadians(-10F), (float) Math.toRadians(-20F));
             animator.rotate(left_hand, (float) Math.toRadians(47.5F), (float) Math.toRadians(-7.5F), (float) Math.toRadians(7.5F));
-        }else{
+        } else {
             animator.rotate(upperbody, (float) Math.toRadians(-5F), (float) Math.toRadians(27.5F), (float) Math.toRadians(10));
             animator.rotate(right_arm_joint, (float) Math.toRadians(15F), (float) Math.toRadians(-2.5F), (float) Math.toRadians(37.5F));
             animator.rotate(right_hand, (float) Math.toRadians(35F), 0, 0);
@@ -1193,24 +1193,24 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.rotate(left_hand, (float) Math.toRadians(95F), (float) Math.toRadians(7.5F), (float) Math.toRadians(37.5F));
         }
         animator.endKeyframe();
-        bodycheck(entity,12,20,15);
+        bodycheck(entity, 12, 20, 15);
 
         animator.setAnimation(Ignis_Entity.BODY_CHECK_ATTACK3);
         animator.startKeyframe(0);
-        animator.rotate(root, (float)Math.toRadians(17.5F), (float)Math.toRadians(30F), 0);
-        animator.rotate(upperbody, (float)Math.toRadians(-5F), (float)Math.toRadians(15F), 0);
-        animator.rotate(right_arm_joint, (float)Math.toRadians(35F), (float)Math.toRadians(5F), (float)Math.toRadians(45F));
-        animator.rotate(right_hand, (float)Math.toRadians(-40F), (float)Math.toRadians(10F), (float)Math.toRadians(15F));
-        animator.rotate(right_fist, (float)Math.toRadians(17.5F), 0, 0);
-        animator.rotate(head, 0, (float)Math.toRadians(-10F), 0);
-        animator.rotate(left_arm_joint, (float)Math.toRadians(35F), (float)Math.toRadians(-27.5F), (float)Math.toRadians(-20F));
-        animator.rotate(left_hand, (float)Math.toRadians(-47.5F), (float)Math.toRadians(-17.5F), (float)Math.toRadians(5F));
+        animator.rotate(root, (float) Math.toRadians(17.5F), (float) Math.toRadians(30F), 0);
+        animator.rotate(upperbody, (float) Math.toRadians(-5F), (float) Math.toRadians(15F), 0);
+        animator.rotate(right_arm_joint, (float) Math.toRadians(35F), (float) Math.toRadians(5F), (float) Math.toRadians(45F));
+        animator.rotate(right_hand, (float) Math.toRadians(-40F), (float) Math.toRadians(10F), (float) Math.toRadians(15F));
+        animator.rotate(right_fist, (float) Math.toRadians(17.5F), 0, 0);
+        animator.rotate(head, 0, (float) Math.toRadians(-10F), 0);
+        animator.rotate(left_arm_joint, (float) Math.toRadians(35F), (float) Math.toRadians(-27.5F), (float) Math.toRadians(-20F));
+        animator.rotate(left_hand, (float) Math.toRadians(-47.5F), (float) Math.toRadians(-17.5F), (float) Math.toRadians(5F));
         animator.endKeyframe();
-        bodycheck(entity,12,20,15);
+        bodycheck(entity, 12, 20, 15);
 
         animator.setAnimation(Ignis_Entity.BODY_CHECK_ATTACK4);
         animator.startKeyframe(0);
-        if(!entity.getIsShieldBreak()) {
+        if (!entity.getIsShieldBreak()) {
             animator.rotate(root, 0, (float) Math.toRadians(-32.5F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(7.5F), (float) Math.toRadians(-42.5F), (float) Math.toRadians(-15F));
             animator.rotate(right_arm_joint, (float) Math.toRadians(-62.5F), (float) Math.toRadians(7.5F), (float) Math.toRadians(55F));
@@ -1220,7 +1220,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.rotate(left_arm_joint, (float) Math.toRadians(105F), (float) Math.toRadians(-15F), (float) Math.toRadians(-17.5F));
             animator.rotate(left_hand, (float) Math.toRadians(-62.5F), (float) Math.toRadians(-17.5F), (float) Math.toRadians(-15F));
             animator.endKeyframe();
-        }else{
+        } else {
             animator.rotate(root, 0, (float) Math.toRadians(-40F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(12.5F), (float) Math.toRadians(-45F), (float) Math.toRadians(-5F));
             animator.rotate(right_arm_joint, (float) Math.toRadians(-60F), (float) Math.toRadians(10F), (float) Math.toRadians(45F));
@@ -1231,14 +1231,14 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.rotate(left_hand, (float) Math.toRadians(-15F), (float) Math.toRadians(-2.5F), (float) Math.toRadians(15F));
             animator.endKeyframe();
         }
-        bodycheck(entity,12,20,15);
+        bodycheck(entity, 12, 20, 15);
 
         animator.setAnimation(Ignis_Entity.BODY_CHECK_ATTACK_SOUL1);
-        bodycheck(entity,8,12,10);
+        bodycheck(entity, 8, 12, 10);
 
         animator.setAnimation(Ignis_Entity.BODY_CHECK_ATTACK_SOUL2);
         animator.startKeyframe(0);
-        if(!entity.getIsShieldBreak()) {
+        if (!entity.getIsShieldBreak()) {
             animator.rotate(root, 0, (float) Math.toRadians(7.5F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(-10F), (float) Math.toRadians(30F), 0);
             animator.rotate(right_arm_joint, (float) Math.toRadians(12.5F), (float) Math.toRadians(-5F), (float) Math.toRadians(47.5F));
@@ -1247,7 +1247,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.rotate(head, (float) Math.toRadians(10F), (float) Math.toRadians(-25F), (float) Math.toRadians(7.5F));
             animator.rotate(left_arm_joint, (float) Math.toRadians(22.5F), (float) Math.toRadians(-10F), (float) Math.toRadians(-20F));
             animator.rotate(left_hand, (float) Math.toRadians(47.5F), (float) Math.toRadians(-7.5F), (float) Math.toRadians(7.5F));
-        }else{
+        } else {
             animator.rotate(upperbody, (float) Math.toRadians(-5F), (float) Math.toRadians(27.5F), (float) Math.toRadians(10));
             animator.rotate(right_arm_joint, (float) Math.toRadians(15F), (float) Math.toRadians(-2.5F), (float) Math.toRadians(37.5F));
             animator.rotate(right_hand, (float) Math.toRadians(35F), 0, 0);
@@ -1257,24 +1257,24 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.rotate(left_hand, (float) Math.toRadians(95F), (float) Math.toRadians(7.5F), (float) Math.toRadians(37.5F));
         }
         animator.endKeyframe();
-        bodycheck(entity,8,12,10);
+        bodycheck(entity, 8, 12, 10);
 
         animator.setAnimation(Ignis_Entity.BODY_CHECK_ATTACK_SOUL3);
         animator.startKeyframe(0);
-        animator.rotate(root, (float)Math.toRadians(17.5F), (float)Math.toRadians(30F), 0);
-        animator.rotate(upperbody, (float)Math.toRadians(-5F), (float)Math.toRadians(15F), 0);
-        animator.rotate(right_arm_joint, (float)Math.toRadians(35F), (float)Math.toRadians(5F), (float)Math.toRadians(45F));
-        animator.rotate(right_hand, (float)Math.toRadians(-40F), (float)Math.toRadians(10F), (float)Math.toRadians(15F));
-        animator.rotate(right_fist, (float)Math.toRadians(17.5F), 0, 0);
-        animator.rotate(head, 0, (float)Math.toRadians(-10F), 0);
-        animator.rotate(left_arm_joint, (float)Math.toRadians(35F), (float)Math.toRadians(-27.5F), (float)Math.toRadians(-20F));
-        animator.rotate(left_hand, (float)Math.toRadians(-47.5F), (float)Math.toRadians(-17.5F), (float)Math.toRadians(5F));
+        animator.rotate(root, (float) Math.toRadians(17.5F), (float) Math.toRadians(30F), 0);
+        animator.rotate(upperbody, (float) Math.toRadians(-5F), (float) Math.toRadians(15F), 0);
+        animator.rotate(right_arm_joint, (float) Math.toRadians(35F), (float) Math.toRadians(5F), (float) Math.toRadians(45F));
+        animator.rotate(right_hand, (float) Math.toRadians(-40F), (float) Math.toRadians(10F), (float) Math.toRadians(15F));
+        animator.rotate(right_fist, (float) Math.toRadians(17.5F), 0, 0);
+        animator.rotate(head, 0, (float) Math.toRadians(-10F), 0);
+        animator.rotate(left_arm_joint, (float) Math.toRadians(35F), (float) Math.toRadians(-27.5F), (float) Math.toRadians(-20F));
+        animator.rotate(left_hand, (float) Math.toRadians(-47.5F), (float) Math.toRadians(-17.5F), (float) Math.toRadians(5F));
         animator.endKeyframe();
-        bodycheck(entity,8,12,10);
+        bodycheck(entity, 8, 12, 10);
 
         animator.setAnimation(Ignis_Entity.BODY_CHECK_ATTACK_SOUL4);
         animator.startKeyframe(0);
-        if(!entity.getIsShieldBreak()) {
+        if (!entity.getIsShieldBreak()) {
             animator.rotate(root, 0, (float) Math.toRadians(-32.5F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(7.5F), (float) Math.toRadians(-42.5F), (float) Math.toRadians(-15F));
             animator.rotate(right_arm_joint, (float) Math.toRadians(-62.5F), (float) Math.toRadians(7.5F), (float) Math.toRadians(55F));
@@ -1284,7 +1284,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.rotate(left_arm_joint, (float) Math.toRadians(105F), (float) Math.toRadians(-15F), (float) Math.toRadians(-17.5F));
             animator.rotate(left_hand, (float) Math.toRadians(-62.5F), (float) Math.toRadians(-17.5F), (float) Math.toRadians(-15F));
             animator.endKeyframe();
-        }else{
+        } else {
             animator.rotate(root, 0, (float) Math.toRadians(-40F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(12.5F), (float) Math.toRadians(-45F), (float) Math.toRadians(-5F));
             animator.rotate(right_arm_joint, (float) Math.toRadians(-60F), (float) Math.toRadians(10F), (float) Math.toRadians(45F));
@@ -1295,29 +1295,28 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.rotate(left_hand, (float) Math.toRadians(-15F), (float) Math.toRadians(-2.5F), (float) Math.toRadians(15F));
             animator.endKeyframe();
         }
-        bodycheck(entity,8,12,10);
-
+        bodycheck(entity, 8, 12, 10);
 
 
         animator.setAnimation(Ignis_Entity.SMASH_IN_AIR);
         animator.startKeyframe(15);
-        animator.rotate(root, (float)Math.toRadians(15F), (float)Math.toRadians(-17.5F), 0);
-        animator.rotate(upperbody, (float)Math.toRadians(2.5F), (float)Math.toRadians(35F), 0);
-        animator.rotate(right_arm_joint, (float)Math.toRadians(15F), (float)Math.toRadians(10F), (float)Math.toRadians(30F));
-        animator.rotate(right_hand, (float)Math.toRadians(-37.5F), 0, 0);
-        animator.rotate(left_arm_joint, (float)Math.toRadians(72.5F), (float)Math.toRadians(-20F), (float)Math.toRadians(-32.5F));
-        animator.rotate(left_hand, (float)Math.toRadians(20F), 0, 0);
+        animator.rotate(root, (float) Math.toRadians(15F), (float) Math.toRadians(-17.5F), 0);
+        animator.rotate(upperbody, (float) Math.toRadians(2.5F), (float) Math.toRadians(35F), 0);
+        animator.rotate(right_arm_joint, (float) Math.toRadians(15F), (float) Math.toRadians(10F), (float) Math.toRadians(30F));
+        animator.rotate(right_hand, (float) Math.toRadians(-37.5F), 0, 0);
+        animator.rotate(left_arm_joint, (float) Math.toRadians(72.5F), (float) Math.toRadians(-20F), (float) Math.toRadians(-32.5F));
+        animator.rotate(left_hand, (float) Math.toRadians(20F), 0, 0);
         animator.endKeyframe();
         animator.setStaticKeyframe(5);
 
         animator.startKeyframe(10);
-        animator.rotate(root, (float)Math.toRadians(2.5F), 0, 0);
-        animator.rotate(upperbody, (float)Math.toRadians(-30F), (float)Math.toRadians(27.5F), (float)Math.toRadians(-5F));
-        animator.rotate(head, 0, (float)Math.toRadians(25F), (float)Math.toRadians(-2.5F));
-        animator.rotate(right_arm_joint, (float)Math.toRadians(-107.5F), (float)Math.toRadians(40F), (float)Math.toRadians(32.5F));
-        animator.rotate(right_hand, (float)Math.toRadians(-52.5F), 0, 0);
-        animator.rotate(left_arm_joint, (float)Math.toRadians(-50F), (float)Math.toRadians(-12.5F), (float)Math.toRadians(-42.5F));
-        animator.rotate(left_hand, (float)Math.toRadians(25F), (float)Math.toRadians(22.5F), (float)Math.toRadians(-25F));
+        animator.rotate(root, (float) Math.toRadians(2.5F), 0, 0);
+        animator.rotate(upperbody, (float) Math.toRadians(-30F), (float) Math.toRadians(27.5F), (float) Math.toRadians(-5F));
+        animator.rotate(head, 0, (float) Math.toRadians(25F), (float) Math.toRadians(-2.5F));
+        animator.rotate(right_arm_joint, (float) Math.toRadians(-107.5F), (float) Math.toRadians(40F), (float) Math.toRadians(32.5F));
+        animator.rotate(right_hand, (float) Math.toRadians(-52.5F), 0, 0);
+        animator.rotate(left_arm_joint, (float) Math.toRadians(-50F), (float) Math.toRadians(-12.5F), (float) Math.toRadians(-42.5F));
+        animator.rotate(left_hand, (float) Math.toRadians(25F), (float) Math.toRadians(22.5F), (float) Math.toRadians(-25F));
         animator.endKeyframe();
         animator.setStaticKeyframe(60);
         animator.resetKeyframe(15);
@@ -1333,31 +1332,31 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
 
         animator.setAnimation(Ignis_Entity.SMASH);
         animator.startKeyframe(0);
-        animator.rotate(root, (float)Math.toRadians(2.5F), 0, 0);
-        animator.rotate(upperbody, (float)Math.toRadians(-30F), (float)Math.toRadians(27.5F), (float)Math.toRadians(-5F));
-        animator.rotate(head, 0, (float)Math.toRadians(25F), (float)Math.toRadians(-2.5F));
-        animator.rotate(right_arm_joint, (float)Math.toRadians(-107.5F), (float)Math.toRadians(40F), (float)Math.toRadians(32.5F));
-        animator.rotate(right_hand, (float)Math.toRadians(-52.5F), 0, 0);
-        animator.rotate(left_arm_joint, (float)Math.toRadians(-50F), (float)Math.toRadians(-12.5F), (float)Math.toRadians(-42.5F));
-        animator.rotate(left_hand, (float)Math.toRadians(25F), (float)Math.toRadians(22.5F), (float)Math.toRadians(-25F));
+        animator.rotate(root, (float) Math.toRadians(2.5F), 0, 0);
+        animator.rotate(upperbody, (float) Math.toRadians(-30F), (float) Math.toRadians(27.5F), (float) Math.toRadians(-5F));
+        animator.rotate(head, 0, (float) Math.toRadians(25F), (float) Math.toRadians(-2.5F));
+        animator.rotate(right_arm_joint, (float) Math.toRadians(-107.5F), (float) Math.toRadians(40F), (float) Math.toRadians(32.5F));
+        animator.rotate(right_hand, (float) Math.toRadians(-52.5F), 0, 0);
+        animator.rotate(left_arm_joint, (float) Math.toRadians(-50F), (float) Math.toRadians(-12.5F), (float) Math.toRadians(-42.5F));
+        animator.rotate(left_hand, (float) Math.toRadians(25F), (float) Math.toRadians(22.5F), (float) Math.toRadians(-25F));
         animator.endKeyframe();
 
         animator.startKeyframe(8);
-        animator.rotate(root, (float)Math.toRadians(-2.5F), (float)Math.toRadians(-17.5F), 0);
-        animator.rotate(upperbody, (float)Math.toRadians(-7.5F), (float)Math.toRadians(35F), (float)Math.toRadians(10F));
-        animator.rotate(lowerbody, 0, (float)Math.toRadians(35F), 0);
-        animator.rotate(head, (float)Math.toRadians(10F), (float)Math.toRadians(-17.5F), (float)Math.toRadians(-2.5F));
-        animator.rotate(right_arm_joint, (float)Math.toRadians(-45F), (float)Math.toRadians(60F), (float)Math.toRadians(20F));
-        animator.rotate(right_hand, (float)Math.toRadians(15F), (float)Math.toRadians(-87.5F), (float)Math.toRadians(-2.5F));
-        animator.rotate(right_fist, (float)Math.toRadians(-27.5F), (float)Math.toRadians(70F), (float)Math.toRadians(-95F));
-        animator.rotate(left_arm_joint, (float)Math.toRadians(-15F), (float)Math.toRadians(-15F), (float)Math.toRadians(37.5F));
-        animator.rotate(left_hand, (float)Math.toRadians(37.5F), 0, (float)Math.toRadians(-15F));
+        animator.rotate(root, (float) Math.toRadians(-2.5F), (float) Math.toRadians(-17.5F), 0);
+        animator.rotate(upperbody, (float) Math.toRadians(-7.5F), (float) Math.toRadians(35F), (float) Math.toRadians(10F));
+        animator.rotate(lowerbody, 0, (float) Math.toRadians(35F), 0);
+        animator.rotate(head, (float) Math.toRadians(10F), (float) Math.toRadians(-17.5F), (float) Math.toRadians(-2.5F));
+        animator.rotate(right_arm_joint, (float) Math.toRadians(-45F), (float) Math.toRadians(60F), (float) Math.toRadians(20F));
+        animator.rotate(right_hand, (float) Math.toRadians(15F), (float) Math.toRadians(-87.5F), (float) Math.toRadians(-2.5F));
+        animator.rotate(right_fist, (float) Math.toRadians(-27.5F), (float) Math.toRadians(70F), (float) Math.toRadians(-95F));
+        animator.rotate(left_arm_joint, (float) Math.toRadians(-15F), (float) Math.toRadians(-15F), (float) Math.toRadians(37.5F));
+        animator.rotate(left_hand, (float) Math.toRadians(37.5F), 0, (float) Math.toRadians(-15F));
         animator.endKeyframe();
         animator.setStaticKeyframe(20);
         animator.resetKeyframe(15);
 
         animator.setAnimation(Ignis_Entity.BURNS_THE_EARTH);
-        if(!entity.getIsShieldBreak()) {
+        if (!entity.getIsShieldBreak()) {
             animator.startKeyframe(20);
             animator.rotate(root, (float) Math.toRadians(10F), (float) Math.toRadians(-95F), 0);
             animator.rotate(upperbody, 0, (float) Math.toRadians(-37.5F), (float) Math.toRadians(-12.5F));
@@ -1385,7 +1384,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.setStaticKeyframe(12);
 
             animator.resetKeyframe(15);
-        }else{
+        } else {
             animator.startKeyframe(20);
             animator.rotate(root, (float) Math.toRadians(10F), (float) Math.toRadians(-102.5F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(5F), (float) Math.toRadians(-40F), (float) Math.toRadians(-2.5F));
@@ -1414,7 +1413,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
         }
 
         animator.setAnimation(Ignis_Entity.BREAK_THE_SHIELD);
-        if(entity.getIsBlocking()) {
+        if (entity.getIsBlocking()) {
             animator.startKeyframe(15);
             animator.rotate(root, 0, (float) Math.toRadians(-42.5F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(-30F), (float) Math.toRadians(-37.5F), (float) Math.toRadians(-5F));
@@ -1453,7 +1452,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.setStaticKeyframe(15);
 
             animator.resetKeyframe(12);
-        } else{
+        } else {
             animator.startKeyframe(15);
             animator.rotate(root, 0, (float) Math.toRadians(-25F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(-30F), (float) Math.toRadians(-27.5F), 0);
@@ -1497,98 +1496,98 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
         }
         animator.setAnimation(Ignis_Entity.FOUR_COMBO);
         animator.startKeyframe(12);
-        animator.rotate(root, 0, (float)Math.toRadians(-25F), 0);
-        animator.rotate(upperbody, (float)Math.toRadians(70F), (float)Math.toRadians(55F), (float)Math.toRadians(90F));
-        animator.rotate(lowerbody, 0, (float)Math.toRadians(67.5F), (float)Math.toRadians(7.5F));
-        animator.rotate(head, (float)Math.toRadians(-7.5F), (float)Math.toRadians(-30F), (float)Math.toRadians(-2.5F));
-        animator.rotate(right_arm_joint, (float)Math.toRadians(-90F), (float)Math.toRadians(-40F), (float)Math.toRadians(-2.5F));
-        animator.rotate(right_hand, (float)Math.toRadians(15F), (float)Math.toRadians(-2.5F), (float)Math.toRadians(-17.5F));
-        animator.rotate(right_fist, (float)Math.toRadians(-25F), (float)Math.toRadians(27.5F), 0);
-        animator.rotate(left_arm_joint, (float)Math.toRadians(-87.5F), (float)Math.toRadians(87.5F), (float)Math.toRadians(-7.5F));
-        animator.rotate(left_hand, (float)Math.toRadians(110F), (float)Math.toRadians(-2.5F), (float)Math.toRadians(25F));
+        animator.rotate(root, 0, (float) Math.toRadians(-25F), 0);
+        animator.rotate(upperbody, (float) Math.toRadians(70F), (float) Math.toRadians(55F), (float) Math.toRadians(90F));
+        animator.rotate(lowerbody, 0, (float) Math.toRadians(67.5F), (float) Math.toRadians(7.5F));
+        animator.rotate(head, (float) Math.toRadians(-7.5F), (float) Math.toRadians(-30F), (float) Math.toRadians(-2.5F));
+        animator.rotate(right_arm_joint, (float) Math.toRadians(-90F), (float) Math.toRadians(-40F), (float) Math.toRadians(-2.5F));
+        animator.rotate(right_hand, (float) Math.toRadians(15F), (float) Math.toRadians(-2.5F), (float) Math.toRadians(-17.5F));
+        animator.rotate(right_fist, (float) Math.toRadians(-25F), (float) Math.toRadians(27.5F), 0);
+        animator.rotate(left_arm_joint, (float) Math.toRadians(-87.5F), (float) Math.toRadians(87.5F), (float) Math.toRadians(-7.5F));
+        animator.rotate(left_hand, (float) Math.toRadians(110F), (float) Math.toRadians(-2.5F), (float) Math.toRadians(25F));
         animator.endKeyframe();
 
         animator.setStaticKeyframe(10);
 
         animator.startKeyframe(5);
-        animator.rotate(root, 0, (float)Math.toRadians(-25F), 0);
-        animator.rotate(upperbody, (float)Math.toRadians(20F), (float)Math.toRadians(-50F), (float)Math.toRadians(-15F));
-        animator.rotate(lowerbody, (float)Math.toRadians(5F), (float)Math.toRadians(-45F), 0);
-        animator.rotate(head, (float)Math.toRadians(-2.5F), (float)Math.toRadians(62.5F), (float)Math.toRadians(-12.5F));
-        animator.rotate(right_arm_joint, (float)Math.toRadians(-107.5F), (float)Math.toRadians(-55F), (float)Math.toRadians(67.5F));
-        animator.rotate(right_hand, (float)Math.toRadians(-25F), (float)Math.toRadians(92.5F), (float)Math.toRadians(-65F));
-        animator.rotate(right_fist, (float)Math.toRadians(30F), 0, 0);
-        animator.rotate(left_arm_joint, (float)Math.toRadians(-37.5F), (float)Math.toRadians(82.5F), (float)Math.toRadians(30F));
-        animator.rotate(left_hand, (float)Math.toRadians(77.5F), (float)Math.toRadians(20F), (float)Math.toRadians(25F));
+        animator.rotate(root, 0, (float) Math.toRadians(-25F), 0);
+        animator.rotate(upperbody, (float) Math.toRadians(20F), (float) Math.toRadians(-50F), (float) Math.toRadians(-15F));
+        animator.rotate(lowerbody, (float) Math.toRadians(5F), (float) Math.toRadians(-45F), 0);
+        animator.rotate(head, (float) Math.toRadians(-2.5F), (float) Math.toRadians(62.5F), (float) Math.toRadians(-12.5F));
+        animator.rotate(right_arm_joint, (float) Math.toRadians(-107.5F), (float) Math.toRadians(-55F), (float) Math.toRadians(67.5F));
+        animator.rotate(right_hand, (float) Math.toRadians(-25F), (float) Math.toRadians(92.5F), (float) Math.toRadians(-65F));
+        animator.rotate(right_fist, (float) Math.toRadians(30F), 0, 0);
+        animator.rotate(left_arm_joint, (float) Math.toRadians(-37.5F), (float) Math.toRadians(82.5F), (float) Math.toRadians(30F));
+        animator.rotate(left_hand, (float) Math.toRadians(77.5F), (float) Math.toRadians(20F), (float) Math.toRadians(25F));
         animator.endKeyframe();
 
         animator.setStaticKeyframe(1);
 //3
         animator.startKeyframe(12);
-        animator.rotate(root, 0, (float)Math.toRadians(-25F), 0);
-        animator.rotate(upperbody, (float)Math.toRadians(-100F), (float)Math.toRadians(-122.5F), (float)Math.toRadians(90F));
-        animator.rotate(lowerbody, 0, (float)Math.toRadians(-67.5F), (float)Math.toRadians(-7.5F));
-        animator.rotate(head, (float)Math.toRadians(5F), (float)Math.toRadians(82.5F), (float)Math.toRadians(-12.5F));
-        animator.rotate(right_arm_joint, (float)Math.toRadians(-85F), (float)Math.toRadians(-37.5F), (float)Math.toRadians(10F));
-        animator.rotate(right_hand, (float)Math.toRadians(5F), (float)Math.toRadians(12.5F), (float)Math.toRadians(-20F));
-        animator.rotate(right_fist, (float)Math.toRadians(12.5F), (float)Math.toRadians(17.5F), (float)Math.toRadians(-62.5F));
-        animator.rotate(left_arm_joint, (float)Math.toRadians(-75F), (float)Math.toRadians(97.5F), (float)Math.toRadians(-2.5F));
-        animator.rotate(left_hand, (float)Math.toRadians(110F), (float)Math.toRadians(-2.5F), (float)Math.toRadians(25F));
+        animator.rotate(root, 0, (float) Math.toRadians(-25F), 0);
+        animator.rotate(upperbody, (float) Math.toRadians(-100F), (float) Math.toRadians(-122.5F), (float) Math.toRadians(90F));
+        animator.rotate(lowerbody, 0, (float) Math.toRadians(-67.5F), (float) Math.toRadians(-7.5F));
+        animator.rotate(head, (float) Math.toRadians(5F), (float) Math.toRadians(82.5F), (float) Math.toRadians(-12.5F));
+        animator.rotate(right_arm_joint, (float) Math.toRadians(-85F), (float) Math.toRadians(-37.5F), (float) Math.toRadians(10F));
+        animator.rotate(right_hand, (float) Math.toRadians(5F), (float) Math.toRadians(12.5F), (float) Math.toRadians(-20F));
+        animator.rotate(right_fist, (float) Math.toRadians(12.5F), (float) Math.toRadians(17.5F), (float) Math.toRadians(-62.5F));
+        animator.rotate(left_arm_joint, (float) Math.toRadians(-75F), (float) Math.toRadians(97.5F), (float) Math.toRadians(-2.5F));
+        animator.rotate(left_hand, (float) Math.toRadians(110F), (float) Math.toRadians(-2.5F), (float) Math.toRadians(25F));
         animator.endKeyframe();
 
         animator.setStaticKeyframe(5);
 //4
         animator.startKeyframe(4);
-        animator.rotate(root, 0, (float)Math.toRadians(2.5F), 0);
-        animator.rotate(upperbody, (float)Math.toRadians(10F), (float)Math.toRadians(5F), (float)Math.toRadians(20F));
-        animator.rotate(head, (float)Math.toRadians(-10F), (float)Math.toRadians(-7.5F), (float)Math.toRadians(-12.5F));
-        animator.rotate(right_arm_joint, (float)Math.toRadians(15F), (float)Math.toRadians(45F), (float)Math.toRadians(55F));
-        animator.rotate(right_hand, (float)Math.toRadians(42.5F), 0, (float)Math.toRadians(10F));
-        animator.rotate(right_fist, (float)Math.toRadians(52.5F), (float)Math.toRadians(22.5F), (float)Math.toRadians(2.5F));
-        animator.rotate(left_arm_joint, (float)Math.toRadians(-45F), (float)Math.toRadians(30F), (float)Math.toRadians(-7.5F));
-        animator.rotate(left_hand, (float)Math.toRadians(15F), (float)Math.toRadians(-2.5F), (float)Math.toRadians(25F));
+        animator.rotate(root, 0, (float) Math.toRadians(2.5F), 0);
+        animator.rotate(upperbody, (float) Math.toRadians(10F), (float) Math.toRadians(5F), (float) Math.toRadians(20F));
+        animator.rotate(head, (float) Math.toRadians(-10F), (float) Math.toRadians(-7.5F), (float) Math.toRadians(-12.5F));
+        animator.rotate(right_arm_joint, (float) Math.toRadians(15F), (float) Math.toRadians(45F), (float) Math.toRadians(55F));
+        animator.rotate(right_hand, (float) Math.toRadians(42.5F), 0, (float) Math.toRadians(10F));
+        animator.rotate(right_fist, (float) Math.toRadians(52.5F), (float) Math.toRadians(22.5F), (float) Math.toRadians(2.5F));
+        animator.rotate(left_arm_joint, (float) Math.toRadians(-45F), (float) Math.toRadians(30F), (float) Math.toRadians(-7.5F));
+        animator.rotate(left_hand, (float) Math.toRadians(15F), (float) Math.toRadians(-2.5F), (float) Math.toRadians(25F));
         animator.endKeyframe();
 
         animator.setStaticKeyframe(10);
         //5
         animator.startKeyframe(12);
-        animator.rotate(root, 0, (float)Math.toRadians(-25F), 0);
-        animator.rotate(upperbody, (float)Math.toRadians(75F), (float)Math.toRadians(55F), (float)Math.toRadians(90F));
-        animator.rotate(head, (float)Math.toRadians(-7.5F), (float)Math.toRadians(-30F), (float)Math.toRadians(-2.5F));
-        animator.rotate(right_arm_joint, (float)Math.toRadians(-52.5F), (float)Math.toRadians(-40F), (float)Math.toRadians(-2.5F));
-        animator.rotate(right_hand, (float)Math.toRadians(62.5F), (float)Math.toRadians(52.5F), (float)Math.toRadians(-17.5F));
-        animator.rotate(right_fist, (float)Math.toRadians(-17.5F), (float)Math.toRadians(27.5F), (float)Math.toRadians(-32.5F));
-        animator.rotate(left_arm_joint, (float)Math.toRadians(-87.5F), (float)Math.toRadians(87.5F), (float)Math.toRadians(-7.5F));
-        animator.rotate(left_hand, (float)Math.toRadians(95F), (float)Math.toRadians(100F), (float)Math.toRadians(65F));
+        animator.rotate(root, 0, (float) Math.toRadians(-25F), 0);
+        animator.rotate(upperbody, (float) Math.toRadians(75F), (float) Math.toRadians(55F), (float) Math.toRadians(90F));
+        animator.rotate(head, (float) Math.toRadians(-7.5F), (float) Math.toRadians(-30F), (float) Math.toRadians(-2.5F));
+        animator.rotate(right_arm_joint, (float) Math.toRadians(-52.5F), (float) Math.toRadians(-40F), (float) Math.toRadians(-2.5F));
+        animator.rotate(right_hand, (float) Math.toRadians(62.5F), (float) Math.toRadians(52.5F), (float) Math.toRadians(-17.5F));
+        animator.rotate(right_fist, (float) Math.toRadians(-17.5F), (float) Math.toRadians(27.5F), (float) Math.toRadians(-32.5F));
+        animator.rotate(left_arm_joint, (float) Math.toRadians(-87.5F), (float) Math.toRadians(87.5F), (float) Math.toRadians(-7.5F));
+        animator.rotate(left_hand, (float) Math.toRadians(95F), (float) Math.toRadians(100F), (float) Math.toRadians(65F));
         animator.endKeyframe();
 
         animator.setStaticKeyframe(1);
         //6
         animator.startKeyframe(5);
-        animator.rotate(root, 0, (float)Math.toRadians(-77.5F), 0);
-        animator.rotate(upperbody, (float)Math.toRadians(-17.5F), (float)Math.toRadians(-37.5F), 0);
-        animator.rotate(head, (float)Math.toRadians(-12.5F), (float)Math.toRadians(62.5F), (float)Math.toRadians(-12.5F));
-        animator.rotate(right_arm_joint, (float)Math.toRadians(-107.5F), (float)Math.toRadians(-45F), (float)Math.toRadians(7.5F));
-        animator.rotate(right_hand, (float)Math.toRadians(-20F), (float)Math.toRadians(52.5F), (float)Math.toRadians(-70F));
-        animator.rotate(right_fist, (float)Math.toRadians(-15F), 0, (float)Math.toRadians(-32.5F));
-        animator.move(left_arm_joint,-3,0,4);
-        animator.rotate(left_arm_joint, (float)Math.toRadians(-90F), (float)Math.toRadians(52.5F), (float)Math.toRadians(-67.5F));
-        animator.rotate(left_hand, (float)Math.toRadians(20F), (float)Math.toRadians(7.5F), 0);
+        animator.rotate(root, 0, (float) Math.toRadians(-77.5F), 0);
+        animator.rotate(upperbody, (float) Math.toRadians(-17.5F), (float) Math.toRadians(-37.5F), 0);
+        animator.rotate(head, (float) Math.toRadians(-12.5F), (float) Math.toRadians(62.5F), (float) Math.toRadians(-12.5F));
+        animator.rotate(right_arm_joint, (float) Math.toRadians(-107.5F), (float) Math.toRadians(-45F), (float) Math.toRadians(7.5F));
+        animator.rotate(right_hand, (float) Math.toRadians(-20F), (float) Math.toRadians(52.5F), (float) Math.toRadians(-70F));
+        animator.rotate(right_fist, (float) Math.toRadians(-15F), 0, (float) Math.toRadians(-32.5F));
+        animator.move(left_arm_joint, -3, 0, 4);
+        animator.rotate(left_arm_joint, (float) Math.toRadians(-90F), (float) Math.toRadians(52.5F), (float) Math.toRadians(-67.5F));
+        animator.rotate(left_hand, (float) Math.toRadians(20F), (float) Math.toRadians(7.5F), 0);
         animator.endKeyframe();
 
         animator.setStaticKeyframe(10);
 
         animator.startKeyframe(15);
-        animator.rotate(root, 0, (float)Math.toRadians(-25F), 0);
-        animator.rotate(upperbody, (float)Math.toRadians(-30F), (float)Math.toRadians(-12.5F), (float)Math.toRadians(5F));
-        animator.rotate(head, (float)Math.toRadians(-15F), (float)Math.toRadians(30F), (float)Math.toRadians(-12.5F));
-        animator.rotate(right_arm_joint, (float)Math.toRadians(-147.5F), (float)Math.toRadians(-25F), (float)Math.toRadians(35F));
-        animator.rotate(right_hand, (float)Math.toRadians(40F), (float)Math.toRadians(-5F), (float)Math.toRadians(-5F));
-        animator.rotate(right_fist, (float)Math.toRadians(-25F), 0, (float)Math.toRadians(22.5F));
-        animator.rotate(sword,(float)Math.toRadians(5F), (float) Math.toRadians(182.5F), (float)Math.toRadians(-57.5F));
-        animator.rotate(left_arm_joint, (float)Math.toRadians(-145F), (float)Math.toRadians(60F), (float)Math.toRadians(-52.5F));
-        animator.rotate(left_hand, (float)Math.toRadians(65F), (float)Math.toRadians(2.5F),  (float)Math.toRadians(-2.5F));
-        animator.rotate(left_fist, 0, (float)Math.toRadians(10F), (float)Math.toRadians(2F));
+        animator.rotate(root, 0, (float) Math.toRadians(-25F), 0);
+        animator.rotate(upperbody, (float) Math.toRadians(-30F), (float) Math.toRadians(-12.5F), (float) Math.toRadians(5F));
+        animator.rotate(head, (float) Math.toRadians(-15F), (float) Math.toRadians(30F), (float) Math.toRadians(-12.5F));
+        animator.rotate(right_arm_joint, (float) Math.toRadians(-147.5F), (float) Math.toRadians(-25F), (float) Math.toRadians(35F));
+        animator.rotate(right_hand, (float) Math.toRadians(40F), (float) Math.toRadians(-5F), (float) Math.toRadians(-5F));
+        animator.rotate(right_fist, (float) Math.toRadians(-25F), 0, (float) Math.toRadians(22.5F));
+        animator.rotate(sword, (float) Math.toRadians(5F), (float) Math.toRadians(182.5F), (float) Math.toRadians(-57.5F));
+        animator.rotate(left_arm_joint, (float) Math.toRadians(-145F), (float) Math.toRadians(60F), (float) Math.toRadians(-52.5F));
+        animator.rotate(left_hand, (float) Math.toRadians(65F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-2.5F));
+        animator.rotate(left_fist, 0, (float) Math.toRadians(10F), (float) Math.toRadians(2F));
         animator.endKeyframe();
 
         animator.setStaticKeyframe(10);
@@ -1597,13 +1596,13 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
         animator.rotate(root, (float) Math.toRadians(-2.5F), (float) Math.toRadians(-25F), 0);
         animator.rotate(upperbody, (float) Math.toRadians(5F), (float) Math.toRadians(-12.5F), (float) Math.toRadians(5F));
         animator.rotate(right_arm_joint, (float) Math.toRadians(-90F), (float) Math.toRadians(-40F), (float) Math.toRadians(30F));
-        animator.move(right_arm_joint,1,6,0);
+        animator.move(right_arm_joint, 1, 6, 0);
         animator.rotate(right_hand, 0, 0, (float) Math.toRadians(-20F));
         animator.rotate(right_fist, (float) Math.toRadians(-22.5F), 0, (float) Math.toRadians(-22.5F));
         animator.rotate(sword, 0, (float) Math.toRadians(182.5F), 0);
         animator.rotate(head, 0, (float) Math.toRadians(30F), (float) Math.toRadians(-12.5F));
         animator.rotate(left_arm_joint, (float) Math.toRadians(-87.5F), (float) Math.toRadians(72.5F), (float) Math.toRadians(-47.5F));
-        animator.move(left_arm_joint,-1,6,-1);
+        animator.move(left_arm_joint, -1, 6, -1);
         animator.rotate(left_hand, (float) Math.toRadians(47.5F), 0, (float) Math.toRadians(42.5F));
         animator.endKeyframe();
         animator.setStaticKeyframe(10);
@@ -1612,27 +1611,27 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
 
         animator.setAnimation(Ignis_Entity.COUNTER);
         animator.startKeyframe(8);
-        animator.rotate(root, (float)Math.toRadians(-5F), (float)Math.toRadians(30F), 0);
-        animator.rotate(upperbody, (float)Math.toRadians(-25F), 0, (float)Math.toRadians(-10F));
-        animator.rotate(head, (float)Math.toRadians(-10F), 0, (float)Math.toRadians(2.5F));
-        animator.rotate(right_arm_joint, (float)Math.toRadians(-22.5F), (float)Math.toRadians(5F), (float)Math.toRadians(45F));
-        animator.rotate(right_hand, (float)Math.toRadians(32.5F), (float)Math.toRadians(7.5F), (float)Math.toRadians(15F));
-        animator.rotate(right_fist, (float)Math.toRadians(30F), 0, 0);
-        animator.rotate(left_arm_joint, 0, (float)Math.toRadians(-27.5F), (float)Math.toRadians(-20F));
-        animator.rotate(left_hand, (float)Math.toRadians(5F), (float)Math.toRadians(-7.5F), (float)Math.toRadians(7.5F));
+        animator.rotate(root, (float) Math.toRadians(-5F), (float) Math.toRadians(30F), 0);
+        animator.rotate(upperbody, (float) Math.toRadians(-25F), 0, (float) Math.toRadians(-10F));
+        animator.rotate(head, (float) Math.toRadians(-10F), 0, (float) Math.toRadians(2.5F));
+        animator.rotate(right_arm_joint, (float) Math.toRadians(-22.5F), (float) Math.toRadians(5F), (float) Math.toRadians(45F));
+        animator.rotate(right_hand, (float) Math.toRadians(32.5F), (float) Math.toRadians(7.5F), (float) Math.toRadians(15F));
+        animator.rotate(right_fist, (float) Math.toRadians(30F), 0, 0);
+        animator.rotate(left_arm_joint, 0, (float) Math.toRadians(-27.5F), (float) Math.toRadians(-20F));
+        animator.rotate(left_hand, (float) Math.toRadians(5F), (float) Math.toRadians(-7.5F), (float) Math.toRadians(7.5F));
         animator.endKeyframe();
 
         animator.setStaticKeyframe(5);
 
         animator.startKeyframe(3);
-        animator.rotate(root, (float)Math.toRadians(17.5F), (float)Math.toRadians(30F), 0);
-        animator.rotate(upperbody, (float)Math.toRadians(-5F), (float)Math.toRadians(15F), 0);
-        animator.rotate(head, 0, (float)Math.toRadians(-10F), 0);
-        animator.rotate(right_arm_joint, (float)Math.toRadians(35F), (float)Math.toRadians(5F), (float)Math.toRadians(45F));
-        animator.rotate(right_hand, (float)Math.toRadians(-40F), (float)Math.toRadians(7.5F), (float)Math.toRadians(15F));
-        animator.rotate(right_fist, (float)Math.toRadians(30F), 0, 0);
-        animator.rotate(left_arm_joint, (float)Math.toRadians(35F), (float)Math.toRadians(-27.5F), (float)Math.toRadians(-20F));
-        animator.rotate(left_hand, (float)Math.toRadians(-47.5F), (float)Math.toRadians(-17.5F), (float)Math.toRadians(5F));
+        animator.rotate(root, (float) Math.toRadians(17.5F), (float) Math.toRadians(30F), 0);
+        animator.rotate(upperbody, (float) Math.toRadians(-5F), (float) Math.toRadians(15F), 0);
+        animator.rotate(head, 0, (float) Math.toRadians(-10F), 0);
+        animator.rotate(right_arm_joint, (float) Math.toRadians(35F), (float) Math.toRadians(5F), (float) Math.toRadians(45F));
+        animator.rotate(right_hand, (float) Math.toRadians(-40F), (float) Math.toRadians(7.5F), (float) Math.toRadians(15F));
+        animator.rotate(right_fist, (float) Math.toRadians(30F), 0, 0);
+        animator.rotate(left_arm_joint, (float) Math.toRadians(35F), (float) Math.toRadians(-27.5F), (float) Math.toRadians(-20F));
+        animator.rotate(left_hand, (float) Math.toRadians(-47.5F), (float) Math.toRadians(-17.5F), (float) Math.toRadians(5F));
         animator.endKeyframe();
 
         animator.setStaticKeyframe(80);
@@ -1641,40 +1640,40 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
 
         animator.setAnimation(STRIKE);
         animator.startKeyframe(0);
-        animator.rotate(root, (float)Math.toRadians(17.5F), (float)Math.toRadians(30F), 0);
-        animator.rotate(upperbody, (float)Math.toRadians(-5F), (float)Math.toRadians(15F), 0);
-        animator.rotate(head, 0, (float)Math.toRadians(-10F), 0);
-        animator.rotate(right_arm_joint, (float)Math.toRadians(35F), (float)Math.toRadians(5F), (float)Math.toRadians(45F));
-        animator.rotate(right_hand, (float)Math.toRadians(-40F), (float)Math.toRadians(7.5F), (float)Math.toRadians(15F));
-        animator.rotate(right_fist, (float)Math.toRadians(30F), 0, 0);
-        animator.rotate(left_arm_joint, (float)Math.toRadians(35F), (float)Math.toRadians(-27.5F), (float)Math.toRadians(-20F));
-        animator.rotate(left_hand, (float)Math.toRadians(-47.5F), (float)Math.toRadians(-17.5F), (float)Math.toRadians(5F));
+        animator.rotate(root, (float) Math.toRadians(17.5F), (float) Math.toRadians(30F), 0);
+        animator.rotate(upperbody, (float) Math.toRadians(-5F), (float) Math.toRadians(15F), 0);
+        animator.rotate(head, 0, (float) Math.toRadians(-10F), 0);
+        animator.rotate(right_arm_joint, (float) Math.toRadians(35F), (float) Math.toRadians(5F), (float) Math.toRadians(45F));
+        animator.rotate(right_hand, (float) Math.toRadians(-40F), (float) Math.toRadians(7.5F), (float) Math.toRadians(15F));
+        animator.rotate(right_fist, (float) Math.toRadians(30F), 0, 0);
+        animator.rotate(left_arm_joint, (float) Math.toRadians(35F), (float) Math.toRadians(-27.5F), (float) Math.toRadians(-20F));
+        animator.rotate(left_hand, (float) Math.toRadians(-47.5F), (float) Math.toRadians(-17.5F), (float) Math.toRadians(5F));
         animator.endKeyframe();
 
         animator.setStaticKeyframe(5);
 
         animator.startKeyframe(15);
-        animator.rotate(root, 0, (float)Math.toRadians(-155F), 0);
-        animator.rotate(upperbody, (float)Math.toRadians(-30F), (float)Math.toRadians(-25F), (float)Math.toRadians(-15F));
-        animator.rotate(head, (float)Math.toRadians(2.5F), (float)Math.toRadians(27.5F), 0);
-        animator.rotate(right_arm_joint, (float)Math.toRadians(-90F), (float)Math.toRadians(-37.5F), (float)Math.toRadians(80F));
-        animator.rotate(right_hand, (float)Math.toRadians(-45F), (float)Math.toRadians(2.5F), (float)Math.toRadians(37.5F));
-        animator.rotate(right_fist, (float)Math.toRadians(32.5F), 0, 0);
-        animator.rotate(left_arm_joint, (float)Math.toRadians(100F), (float)Math.toRadians(-57.5F), (float)Math.toRadians(-27.5F));
-        animator.rotate(left_hand, (float)Math.toRadians(-47.5F), (float)Math.toRadians(-32.5F), (float)Math.toRadians(-22.5F));
+        animator.rotate(root, 0, (float) Math.toRadians(-155F), 0);
+        animator.rotate(upperbody, (float) Math.toRadians(-30F), (float) Math.toRadians(-25F), (float) Math.toRadians(-15F));
+        animator.rotate(head, (float) Math.toRadians(2.5F), (float) Math.toRadians(27.5F), 0);
+        animator.rotate(right_arm_joint, (float) Math.toRadians(-90F), (float) Math.toRadians(-37.5F), (float) Math.toRadians(80F));
+        animator.rotate(right_hand, (float) Math.toRadians(-45F), (float) Math.toRadians(2.5F), (float) Math.toRadians(37.5F));
+        animator.rotate(right_fist, (float) Math.toRadians(32.5F), 0, 0);
+        animator.rotate(left_arm_joint, (float) Math.toRadians(100F), (float) Math.toRadians(-57.5F), (float) Math.toRadians(-27.5F));
+        animator.rotate(left_hand, (float) Math.toRadians(-47.5F), (float) Math.toRadians(-32.5F), (float) Math.toRadians(-22.5F));
         animator.endKeyframe();
 
         animator.setStaticKeyframe(8);
 
         animator.startKeyframe(4);
-        animator.rotate(root, (float)Math.toRadians(15F), (float)Math.toRadians(12.5F), (float)Math.toRadians(7.5F));
-        animator.rotate(upperbody, (float)Math.toRadians(-2.5F), (float)Math.toRadians(-2.5F), 0);
-        animator.rotate(head, (float)Math.toRadians(10F), (float)Math.toRadians(-2.5F), (float)Math.toRadians(2.5F));
-        animator.rotate(right_arm_joint, (float)Math.toRadians(-5F), (float)Math.toRadians(-10F), (float)Math.toRadians(52.5F));
-        animator.rotate(right_hand, (float)Math.toRadians(20F), (float)Math.toRadians(2.5F), (float)Math.toRadians(37.5F));
-        animator.rotate(right_fist, (float)Math.toRadians(22.5F), 0, 0);
-        animator.rotate(left_arm_joint, (float)Math.toRadians(102.5F), (float)Math.toRadians(-67.5F), (float)Math.toRadians(-27.5F));
-        animator.rotate(left_hand, (float)Math.toRadians(-47.5F), (float)Math.toRadians(-32.5F), (float)Math.toRadians(-22.5F));
+        animator.rotate(root, (float) Math.toRadians(15F), (float) Math.toRadians(12.5F), (float) Math.toRadians(7.5F));
+        animator.rotate(upperbody, (float) Math.toRadians(-2.5F), (float) Math.toRadians(-2.5F), 0);
+        animator.rotate(head, (float) Math.toRadians(10F), (float) Math.toRadians(-2.5F), (float) Math.toRadians(2.5F));
+        animator.rotate(right_arm_joint, (float) Math.toRadians(-5F), (float) Math.toRadians(-10F), (float) Math.toRadians(52.5F));
+        animator.rotate(right_hand, (float) Math.toRadians(20F), (float) Math.toRadians(2.5F), (float) Math.toRadians(37.5F));
+        animator.rotate(right_fist, (float) Math.toRadians(22.5F), 0, 0);
+        animator.rotate(left_arm_joint, (float) Math.toRadians(102.5F), (float) Math.toRadians(-67.5F), (float) Math.toRadians(-27.5F));
+        animator.rotate(left_hand, (float) Math.toRadians(-47.5F), (float) Math.toRadians(-32.5F), (float) Math.toRadians(-22.5F));
         animator.endKeyframe();
 
         animator.setStaticKeyframe(20);
@@ -1682,7 +1681,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
         animator.resetKeyframe(10);
 
         animator.setAnimation(SWING_UPPERCUT);
-        if(!entity.getIsShieldBreak()) {
+        if (!entity.getIsShieldBreak()) {
             animator.startKeyframe(0);
             animator.rotate(root, 0, (float) Math.toRadians(-65F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(2.5F), (float) Math.toRadians(-27.5F), (float) Math.toRadians(-30F));
@@ -1699,46 +1698,46 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.setStaticKeyframe(5);
 
             animator.startKeyframe(13);
-            animator.rotate(root, (float)Math.toRadians(-2.5F), (float)Math.toRadians(-77.5F), 0);
-            animator.rotate(upperbody, (float)Math.toRadians(7.5F), (float)Math.toRadians(-15F), (float)Math.toRadians(-2.5F));
-            animator.rotate(head, (float)Math.toRadians(-22.5F), (float)Math.toRadians(60F), (float)Math.toRadians(-27.5F));
-            animator.rotate(right_arm_joint, (float)Math.toRadians(-22.5F), (float)Math.toRadians(37.5F), 0);
-            animator.rotate(right_hand, (float)Math.toRadians(15F), (float)Math.toRadians(40F), 0);
-            animator.rotate(right_fist, (float)Math.toRadians(-22.5F), 0, 0);
-            animator.rotate(left_arm_joint, (float)Math.toRadians(70F), (float)Math.toRadians(-15F), (float)Math.toRadians(-2.5F));
-            animator.rotate(left_hand, (float)Math.toRadians(-47.5F), (float)Math.toRadians(-15F), (float)Math.toRadians(-15F));
+            animator.rotate(root, (float) Math.toRadians(-2.5F), (float) Math.toRadians(-77.5F), 0);
+            animator.rotate(upperbody, (float) Math.toRadians(7.5F), (float) Math.toRadians(-15F), (float) Math.toRadians(-2.5F));
+            animator.rotate(head, (float) Math.toRadians(-22.5F), (float) Math.toRadians(60F), (float) Math.toRadians(-27.5F));
+            animator.rotate(right_arm_joint, (float) Math.toRadians(-22.5F), (float) Math.toRadians(37.5F), 0);
+            animator.rotate(right_hand, (float) Math.toRadians(15F), (float) Math.toRadians(40F), 0);
+            animator.rotate(right_fist, (float) Math.toRadians(-22.5F), 0, 0);
+            animator.rotate(left_arm_joint, (float) Math.toRadians(70F), (float) Math.toRadians(-15F), (float) Math.toRadians(-2.5F));
+            animator.rotate(left_hand, (float) Math.toRadians(-47.5F), (float) Math.toRadians(-15F), (float) Math.toRadians(-15F));
             animator.endKeyframe();
             //animator.setStaticKeyframe(5);
 
             animator.startKeyframe(10);
-            animator.rotate(root, (float)Math.toRadians(-5F), (float)Math.toRadians(-82.5F), 0);
-            animator.rotate(upperbody, (float)Math.toRadians(12.5F), (float)Math.toRadians(-20F), 0);
-            animator.rotate(head, (float)Math.toRadians(-22.5F), (float)Math.toRadians(60F), (float)Math.toRadians(-27.5F));
-            animator.rotate(right_arm_joint, (float)Math.toRadians(-17.5F), (float)Math.toRadians(47.5F), 0);
-            animator.rotate(right_hand, (float)Math.toRadians(15F), (float)Math.toRadians(40F), 0);
-            animator.rotate(right_fist, (float)Math.toRadians(-22.5F), 0, 0);
-            animator.rotate(left_arm_joint, (float)Math.toRadians(75F), (float)Math.toRadians(-20F), (float)Math.toRadians(-32.5F));
-            animator.rotate(left_hand, (float)Math.toRadians(-47.5F), (float)Math.toRadians(-15F), (float)Math.toRadians(-15F));
+            animator.rotate(root, (float) Math.toRadians(-5F), (float) Math.toRadians(-82.5F), 0);
+            animator.rotate(upperbody, (float) Math.toRadians(12.5F), (float) Math.toRadians(-20F), 0);
+            animator.rotate(head, (float) Math.toRadians(-22.5F), (float) Math.toRadians(60F), (float) Math.toRadians(-27.5F));
+            animator.rotate(right_arm_joint, (float) Math.toRadians(-17.5F), (float) Math.toRadians(47.5F), 0);
+            animator.rotate(right_hand, (float) Math.toRadians(15F), (float) Math.toRadians(40F), 0);
+            animator.rotate(right_fist, (float) Math.toRadians(-22.5F), 0, 0);
+            animator.rotate(left_arm_joint, (float) Math.toRadians(75F), (float) Math.toRadians(-20F), (float) Math.toRadians(-32.5F));
+            animator.rotate(left_hand, (float) Math.toRadians(-47.5F), (float) Math.toRadians(-15F), (float) Math.toRadians(-15F));
             animator.endKeyframe();
 
             animator.setStaticKeyframe(3);
 
             animator.startKeyframe(4);
-            animator.rotate(root, (float)Math.toRadians(-5F), (float)Math.toRadians(52.5F), 0);
-            animator.rotate(upperbody, (float)Math.toRadians(2.5F), (float)Math.toRadians(-5F), (float)Math.toRadians(-10F));
-            animator.rotate(head, (float)Math.toRadians(-12.5F), (float)Math.toRadians(-15F), (float)Math.toRadians(22.5F));
-            animator.rotate(right_arm_joint, (float)Math.toRadians(-12.5F), (float)Math.toRadians(52.5F), 0);
-            animator.rotate(right_hand, (float)Math.toRadians(-2.5F), (float)Math.toRadians(40F), 0);
-            animator.rotate(right_fist, (float)Math.toRadians(-22.5F), 0, 0);
-            animator.rotate(left_arm_joint, (float)Math.toRadians(-20F), (float)Math.toRadians(-65F), (float)Math.toRadians(-32.5F));
-            animator.rotate(left_hand, (float)Math.toRadians(-47.5F), (float)Math.toRadians(-15F), (float)Math.toRadians(-15F));
+            animator.rotate(root, (float) Math.toRadians(-5F), (float) Math.toRadians(52.5F), 0);
+            animator.rotate(upperbody, (float) Math.toRadians(2.5F), (float) Math.toRadians(-5F), (float) Math.toRadians(-10F));
+            animator.rotate(head, (float) Math.toRadians(-12.5F), (float) Math.toRadians(-15F), (float) Math.toRadians(22.5F));
+            animator.rotate(right_arm_joint, (float) Math.toRadians(-12.5F), (float) Math.toRadians(52.5F), 0);
+            animator.rotate(right_hand, (float) Math.toRadians(-2.5F), (float) Math.toRadians(40F), 0);
+            animator.rotate(right_fist, (float) Math.toRadians(-22.5F), 0, 0);
+            animator.rotate(left_arm_joint, (float) Math.toRadians(-20F), (float) Math.toRadians(-65F), (float) Math.toRadians(-32.5F));
+            animator.rotate(left_hand, (float) Math.toRadians(-47.5F), (float) Math.toRadians(-15F), (float) Math.toRadians(-15F));
             animator.endKeyframe();
             animator.setStaticKeyframe(15);
 
 
             animator.resetKeyframe(15);
 
-        }else{
+        } else {
             animator.startKeyframe(0);
             animator.rotate(root, 0, (float) Math.toRadians(-72.5F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(7.5F), (float) Math.toRadians(-30F), (float) Math.toRadians(-20F));
@@ -1755,37 +1754,37 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
             animator.setStaticKeyframe(5);
 
             animator.startKeyframe(13);
-            animator.rotate(root, (float)Math.toRadians(-2.5F), (float)Math.toRadians(-85F), 0);
-            animator.rotate(upperbody, (float)Math.toRadians(12.5F), (float)Math.toRadians(-17.5F), (float)Math.toRadians(7.5F));
-            animator.rotate(head, (float)Math.toRadians(-27.5F), (float)Math.toRadians(65F), (float)Math.toRadians(-37.5F));
-            animator.rotate(right_arm_joint, (float)Math.toRadians(-20F), (float)Math.toRadians(40F), (float)Math.toRadians(-10F));
-            animator.rotate(right_hand, (float)Math.toRadians(30F), (float)Math.toRadians(40F), 0);
-            animator.rotate(right_fist, (float)Math.toRadians(-25F), 0, 0);
-            animator.rotate(left_arm_joint, (float)Math.toRadians(-12.5F), (float)Math.toRadians(32.5F), (float)Math.toRadians(17.5F));
-            animator.rotate(left_hand, 0, 0, (float)Math.toRadians(15F));
+            animator.rotate(root, (float) Math.toRadians(-2.5F), (float) Math.toRadians(-85F), 0);
+            animator.rotate(upperbody, (float) Math.toRadians(12.5F), (float) Math.toRadians(-17.5F), (float) Math.toRadians(7.5F));
+            animator.rotate(head, (float) Math.toRadians(-27.5F), (float) Math.toRadians(65F), (float) Math.toRadians(-37.5F));
+            animator.rotate(right_arm_joint, (float) Math.toRadians(-20F), (float) Math.toRadians(40F), (float) Math.toRadians(-10F));
+            animator.rotate(right_hand, (float) Math.toRadians(30F), (float) Math.toRadians(40F), 0);
+            animator.rotate(right_fist, (float) Math.toRadians(-25F), 0, 0);
+            animator.rotate(left_arm_joint, (float) Math.toRadians(-12.5F), (float) Math.toRadians(32.5F), (float) Math.toRadians(17.5F));
+            animator.rotate(left_hand, 0, 0, (float) Math.toRadians(15F));
             animator.endKeyframe();
 
             animator.startKeyframe(10);
-            animator.rotate(root, (float)Math.toRadians(-5F), (float)Math.toRadians(-90F), 0);
-            animator.rotate(upperbody, (float)Math.toRadians(17.5F), (float)Math.toRadians(-22.5F), (float)Math.toRadians(10F));
-            animator.rotate(head, (float)Math.toRadians(-27.5F), (float)Math.toRadians(65F), (float)Math.toRadians(-37.5F));
-            animator.rotate(right_arm_joint, (float)Math.toRadians(-15F), (float)Math.toRadians(50F), (float)Math.toRadians(-10F));
-            animator.rotate(right_hand, (float)Math.toRadians(30F), (float)Math.toRadians(40F), 0);
-            animator.rotate(right_fist, (float)Math.toRadians(-25F), 0, 0);
-            animator.rotate(left_arm_joint, (float)Math.toRadians(17.5F), (float)Math.toRadians(27.5F), (float)Math.toRadians(-47.5F));
-            animator.rotate(left_hand, 0, 0, (float)Math.toRadians(15F));
+            animator.rotate(root, (float) Math.toRadians(-5F), (float) Math.toRadians(-90F), 0);
+            animator.rotate(upperbody, (float) Math.toRadians(17.5F), (float) Math.toRadians(-22.5F), (float) Math.toRadians(10F));
+            animator.rotate(head, (float) Math.toRadians(-27.5F), (float) Math.toRadians(65F), (float) Math.toRadians(-37.5F));
+            animator.rotate(right_arm_joint, (float) Math.toRadians(-15F), (float) Math.toRadians(50F), (float) Math.toRadians(-10F));
+            animator.rotate(right_hand, (float) Math.toRadians(30F), (float) Math.toRadians(40F), 0);
+            animator.rotate(right_fist, (float) Math.toRadians(-25F), 0, 0);
+            animator.rotate(left_arm_joint, (float) Math.toRadians(17.5F), (float) Math.toRadians(27.5F), (float) Math.toRadians(-47.5F));
+            animator.rotate(left_hand, 0, 0, (float) Math.toRadians(15F));
             animator.endKeyframe();
             animator.setStaticKeyframe(3);
 
             animator.startKeyframe(4);
-            animator.rotate(root, (float)Math.toRadians(-5F), (float)Math.toRadians(45F), 0);
-            animator.rotate(upperbody, (float)Math.toRadians(7.5F), (float)Math.toRadians(-7.5F), 0);
-            animator.rotate(head, (float)Math.toRadians(-17.5F), (float)Math.toRadians(-10F), (float)Math.toRadians(12.5F));
-            animator.rotate(right_arm_joint, (float)Math.toRadians(-10F), (float)Math.toRadians(55F), (float)Math.toRadians(-10F));
-            animator.rotate(right_hand, (float)Math.toRadians(7.5F), (float)Math.toRadians(40F), 0);
-            animator.rotate(right_fist, (float)Math.toRadians(-25F), 0, 0);
-            animator.rotate(left_arm_joint, (float)Math.toRadians(-77.5F), (float)Math.toRadians(-17.5F), (float)Math.toRadians(-47.5F));
-            animator.rotate(left_hand, 0, 0, (float)Math.toRadians(15F));
+            animator.rotate(root, (float) Math.toRadians(-5F), (float) Math.toRadians(45F), 0);
+            animator.rotate(upperbody, (float) Math.toRadians(7.5F), (float) Math.toRadians(-7.5F), 0);
+            animator.rotate(head, (float) Math.toRadians(-17.5F), (float) Math.toRadians(-10F), (float) Math.toRadians(12.5F));
+            animator.rotate(right_arm_joint, (float) Math.toRadians(-10F), (float) Math.toRadians(55F), (float) Math.toRadians(-10F));
+            animator.rotate(right_hand, (float) Math.toRadians(7.5F), (float) Math.toRadians(40F), 0);
+            animator.rotate(right_fist, (float) Math.toRadians(-25F), 0, 0);
+            animator.rotate(left_arm_joint, (float) Math.toRadians(-77.5F), (float) Math.toRadians(-17.5F), (float) Math.toRadians(-47.5F));
+            animator.rotate(left_hand, 0, 0, (float) Math.toRadians(15F));
             animator.endKeyframe();
             animator.setStaticKeyframe(15);
 
@@ -1793,7 +1792,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
         }
 
         animator.setAnimation(SWING_UPPERSLASH);
-        if(!entity.getIsShieldBreak()) {
+        if (!entity.getIsShieldBreak()) {
             animator.startKeyframe(0);
             animator.rotate(root, 0, (float) Math.toRadians(-65F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(2.5F), (float) Math.toRadians(-27.5F), (float) Math.toRadians(-30F));
@@ -1837,7 +1836,7 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
 
             animator.resetKeyframe(15);
 
-        }else{
+        } else {
             animator.startKeyframe(0);
             animator.rotate(root, 0, (float) Math.toRadians(-72.5F), 0);
             animator.rotate(upperbody, (float) Math.toRadians(7.5F), (float) Math.toRadians(-30F), (float) Math.toRadians(-20F));
@@ -1882,59 +1881,108 @@ public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {
         }
 
         animator.setAnimation(SPIN_ATTACK);
-        //1
-        //3
-        animator.startKeyframe(0);
-        animator.rotate(root, 0, (float) Math.toRadians(-82.5F), 0);
-        animator.rotate(upperbody, (float) Math.toRadians(-7.5F), (float) Math.toRadians(-40F), 0);
-        animator.rotate(right_arm_joint, (float) Math.toRadians(-65F), (float) Math.toRadians(2.5F), (float) Math.toRadians(22.5F));
-        animator.rotate(right_hand, (float) Math.toRadians(-72.5F), (float) Math.toRadians(-22.5F), (float) Math.toRadians(42.5F));
-        animator.rotate(right_fist, (float) Math.toRadians(-25F), 0, 0);
-        animator.rotate(sword, (float) Math.toRadians(180F), 0, 0);
-        animator.rotate(head, (float) Math.toRadians(-2.5F), (float) Math.toRadians(75F), (float) Math.toRadians(-15F));
-        animator.rotate(left_arm_joint, (float) Math.toRadians(2.5F), (float) Math.toRadians(5F), (float) Math.toRadians(-65F));
-        animator.rotate(left_hand, (float) Math.toRadians(7.5F), 0, (float) Math.toRadians(15F));
-        animator.endKeyframe();
+        if(!entity.getIsShieldBreak()) {
+            animator.startKeyframe(0);
+            animator.rotate(root, 0, (float) Math.toRadians(-75F), 0);
+            animator.rotate(upperbody, (float) Math.toRadians(-12.5F), (float) Math.toRadians(-37.5F), (float) Math.toRadians(-10F));
+            animator.rotate(right_arm_joint, (float) Math.toRadians(-67.5F), 0, (float) Math.toRadians(32.5F));
+            animator.rotate(right_hand, (float) Math.toRadians(-82.5F), (float) Math.toRadians(-22.5F), (float) Math.toRadians(42.5F));
+            animator.rotate(right_fist, (float) Math.toRadians(-22.5F), 0, 0);
+            animator.rotate(sword, (float) Math.toRadians(180F), 0, 0);
+            animator.rotate(head, (float) Math.toRadians(2.5F), (float) Math.toRadians(70F), (float) Math.toRadians(-5F));
+            animator.rotate(left_arm_joint, (float) Math.toRadians(60F), (float) Math.toRadians(-52.5F), (float) Math.toRadians(-50F));
+            animator.rotate(left_hand, (float) Math.toRadians(-40F), (float) Math.toRadians(-15F), (float) Math.toRadians(-15F));
+            animator.endKeyframe();
 
-        animator.startKeyframe(10);
-        animator.rotate(root, (float) Math.toRadians(-5F), (float) Math.toRadians(45F), 0);
-        animator.rotate(upperbody, (float) Math.toRadians(12.5F), (float) Math.toRadians(-12.5F), (float) Math.toRadians(5F));
-        animator.rotate(head, (float) Math.toRadians(-12.5F), (float) Math.toRadians(30F), (float) Math.toRadians(-12.5F));
-        animator.rotate(right_arm_joint, (float) Math.toRadians(-75F), (float) Math.toRadians(2.5F), (float) Math.toRadians(30F));
-        animator.rotate(right_hand, (float) Math.toRadians(2.5F), (float) Math.toRadians(-30F), 0);
-        animator.rotate(right_fist, (float) Math.toRadians(-25F), 0, 0);
-        animator.rotate(left_arm_joint, (float) Math.toRadians(-47.5F), (float) Math.toRadians(57.5F), (float) Math.toRadians(-32.5F));
-        animator.rotate(left_hand, (float) Math.toRadians(15F), 0, (float) Math.toRadians(15F));
-        animator.endKeyframe();
+            animator.startKeyframe(10);
+            animator.rotate(root, (float) Math.toRadians(-5F), (float) Math.toRadians(52.5F), 0);
+            animator.rotate(upperbody, (float) Math.toRadians(7.5F), (float) Math.toRadians(-10F), (float) Math.toRadians(-5F));
+            animator.rotate(head, (float) Math.toRadians(-7.5F), (float) Math.toRadians(25F), (float) Math.toRadians(-2.5F));
+            animator.rotate(right_arm_joint, (float) Math.toRadians(-72.5F), 0, (float) Math.toRadians(40F));
+            animator.rotate(right_hand, (float) Math.toRadians(-7.5F), (float) Math.toRadians(-30F), 0);
+            animator.rotate(right_fist, (float) Math.toRadians(-22.5F), 0, 0);
+            animator.rotate(left_arm_joint, (float) Math.toRadians(10F), (float) Math.toRadians(10F), (float) Math.toRadians(-17.5F));
+            animator.rotate(left_hand, (float) Math.toRadians(-32.5F), (float) Math.toRadians(15F), (float) Math.toRadians(-15F));
+            animator.endKeyframe();
 
-        animator.setStaticKeyframe(1);
+            animator.setStaticKeyframe(1);
+            animator.startKeyframe(6);
+            animator.rotate(root, 0, (float) Math.toRadians(357.5F), 0);
+            animator.rotate(upperbody, (float) Math.toRadians(-7.5F), (float) Math.toRadians(-10F), (float) Math.toRadians(-5F));
+            animator.rotate(head, (float) Math.toRadians(-5F), (float) Math.toRadians(25F), (float) Math.toRadians(-2.5F));
+            animator.rotate(right_arm_joint, (float) Math.toRadians(2F), (float) Math.toRadians(25F), (float) Math.toRadians(50F));
+            animator.rotate(right_hand, (float) Math.toRadians(7.5F), (float) Math.toRadians(2.5F), (float) Math.toRadians(30F));
+            animator.rotate(right_fist, (float) Math.toRadians(62.5F), 0, 0);
+            animator.rotate(left_arm_joint, (float) Math.toRadians(12.5F), (float) Math.toRadians(-45F), (float) Math.toRadians(7.5F));
+            animator.rotate(left_hand, (float) Math.toRadians(-32.5F), (float) Math.toRadians(-15F), (float) Math.toRadians(-15F));
+            animator.endKeyframe();
 
-        //8
-        animator.startKeyframe(6);
-        animator.rotate(root, 0, (float) Math.toRadians(350F), 0);
-        animator.rotate(upperbody, (float) Math.toRadians(-2.5F), (float) Math.toRadians(-12.5F), (float) Math.toRadians(5F));
-        animator.rotate(head, (float) Math.toRadians(-10F), (float) Math.toRadians(30F), (float) Math.toRadians(-12.5F));
-        animator.rotate(right_arm_joint, (float) Math.toRadians(22.5F), (float) Math.toRadians(27.5F), (float) Math.toRadians(40F));
-        animator.rotate(right_hand, (float) Math.toRadians(17.5F), (float) Math.toRadians(2.5F), (float) Math.toRadians(30F));
-        animator.rotate(right_fist, (float) Math.toRadians(60F), 0, 0);
-        animator.rotate(left_arm_joint, (float) Math.toRadians(-45F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-7.5F));
-        animator.rotate(left_hand, (float) Math.toRadians(15F), 0, (float) Math.toRadians(15F));
-        animator.endKeyframe();
+            animator.startKeyframe(0);
+            animator.rotate(root, 0, (float) Math.toRadians(-2.5F), 0);
+            animator.rotate(upperbody, (float) Math.toRadians(-7.5F), (float) Math.toRadians(-10F), (float) Math.toRadians(-5F));
+            animator.rotate(head, (float) Math.toRadians(-5F), (float) Math.toRadians(25F), (float) Math.toRadians(-2.5F));
+            animator.rotate(right_arm_joint, (float) Math.toRadians(2F), (float) Math.toRadians(25F), (float) Math.toRadians(50F));
+            animator.rotate(right_hand, (float) Math.toRadians(7.5F), (float) Math.toRadians(2.5F), (float) Math.toRadians(30F));
+            animator.rotate(right_fist, (float) Math.toRadians(62.5F), 0, 0);
+            animator.rotate(left_arm_joint, (float) Math.toRadians(12.5F), (float) Math.toRadians(-45F), (float) Math.toRadians(7.5F));
+            animator.rotate(left_hand, (float) Math.toRadians(-32.5F), (float) Math.toRadians(-15F), (float) Math.toRadians(-15F));
+            animator.endKeyframe();
 
-        animator.startKeyframe(0);
-        animator.rotate(root, 0, (float) Math.toRadians(-10F), 0);
-        animator.rotate(upperbody, (float) Math.toRadians(-2.5F), (float) Math.toRadians(-12.5F), (float) Math.toRadians(5F));
-        animator.rotate(head, (float) Math.toRadians(-10F), (float) Math.toRadians(30F), (float) Math.toRadians(-12.5F));
-        animator.rotate(right_arm_joint, (float) Math.toRadians(22.5F), (float) Math.toRadians(27.5F), (float) Math.toRadians(40F));
-        animator.rotate(right_hand, (float) Math.toRadians(17.5F), (float) Math.toRadians(2.5F), (float) Math.toRadians(30F));
-        animator.rotate(right_fist, (float) Math.toRadians(60F), 0, 0);
-        animator.rotate(left_arm_joint, (float) Math.toRadians(-45F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-7.5F));
-        animator.rotate(left_hand, (float) Math.toRadians(15F), 0, (float) Math.toRadians(15F));
-        animator.endKeyframe();
+            animator.setStaticKeyframe(10);
 
-        animator.setStaticKeyframe(10);
+            animator.resetKeyframe(10);
 
-        animator.resetKeyframe(10);
+        }else{
+            animator.startKeyframe(0);
+            animator.rotate(root, 0, (float) Math.toRadians(-82.5F), 0);
+            animator.rotate(upperbody, (float) Math.toRadians(-7.5F), (float) Math.toRadians(-40F), 0);
+            animator.rotate(right_arm_joint, (float) Math.toRadians(-65F), (float) Math.toRadians(2.5F), (float) Math.toRadians(22.5F));
+            animator.rotate(right_hand, (float) Math.toRadians(-72.5F), (float) Math.toRadians(-22.5F), (float) Math.toRadians(42.5F));
+            animator.rotate(right_fist, (float) Math.toRadians(-25F), 0, 0);
+            animator.rotate(sword, (float) Math.toRadians(180F), 0, 0);
+            animator.rotate(head, (float) Math.toRadians(-2.5F), (float) Math.toRadians(75F), (float) Math.toRadians(-15F));
+            animator.rotate(left_arm_joint, (float) Math.toRadians(2.5F), (float) Math.toRadians(5F), (float) Math.toRadians(-65F));
+            animator.rotate(left_hand, (float) Math.toRadians(7.5F), 0, (float) Math.toRadians(15F));
+            animator.endKeyframe();
+
+            animator.startKeyframe(10);
+            animator.rotate(root, (float) Math.toRadians(-5F), (float) Math.toRadians(45F), 0);
+            animator.rotate(upperbody, (float) Math.toRadians(12.5F), (float) Math.toRadians(-12.5F), (float) Math.toRadians(5F));
+            animator.rotate(head, (float) Math.toRadians(-12.5F), (float) Math.toRadians(30F), (float) Math.toRadians(-12.5F));
+            animator.rotate(right_arm_joint, (float) Math.toRadians(-75F), (float) Math.toRadians(2.5F), (float) Math.toRadians(30F));
+            animator.rotate(right_hand, (float) Math.toRadians(2.5F), (float) Math.toRadians(-30F), 0);
+            animator.rotate(right_fist, (float) Math.toRadians(-25F), 0, 0);
+            animator.rotate(left_arm_joint, (float) Math.toRadians(-47.5F), (float) Math.toRadians(57.5F), (float) Math.toRadians(-32.5F));
+            animator.rotate(left_hand, (float) Math.toRadians(15F), 0, (float) Math.toRadians(15F));
+            animator.endKeyframe();
+
+            animator.setStaticKeyframe(1);
+            animator.startKeyframe(6);
+            animator.rotate(root, 0, (float) Math.toRadians(350F), 0);
+            animator.rotate(upperbody, (float) Math.toRadians(-2.5F), (float) Math.toRadians(-12.5F), (float) Math.toRadians(5F));
+            animator.rotate(head, (float) Math.toRadians(-10F), (float) Math.toRadians(30F), (float) Math.toRadians(-12.5F));
+            animator.rotate(right_arm_joint, (float) Math.toRadians(22.5F), (float) Math.toRadians(27.5F), (float) Math.toRadians(40F));
+            animator.rotate(right_hand, (float) Math.toRadians(17.5F), (float) Math.toRadians(2.5F), (float) Math.toRadians(30F));
+            animator.rotate(right_fist, (float) Math.toRadians(60F), 0, 0);
+            animator.rotate(left_arm_joint, (float) Math.toRadians(-45F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-7.5F));
+            animator.rotate(left_hand, (float) Math.toRadians(15F), 0, (float) Math.toRadians(15F));
+            animator.endKeyframe();
+
+            animator.startKeyframe(0);
+            animator.rotate(root, 0, (float) Math.toRadians(-10F), 0);
+            animator.rotate(upperbody, (float) Math.toRadians(-2.5F), (float) Math.toRadians(-12.5F), (float) Math.toRadians(5F));
+            animator.rotate(head, (float) Math.toRadians(-10F), (float) Math.toRadians(30F), (float) Math.toRadians(-12.5F));
+            animator.rotate(right_arm_joint, (float) Math.toRadians(22.5F), (float) Math.toRadians(27.5F), (float) Math.toRadians(40F));
+            animator.rotate(right_hand, (float) Math.toRadians(17.5F), (float) Math.toRadians(2.5F), (float) Math.toRadians(30F));
+            animator.rotate(right_fist, (float) Math.toRadians(60F), 0, 0);
+            animator.rotate(left_arm_joint, (float) Math.toRadians(-45F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-7.5F));
+            animator.rotate(left_hand, (float) Math.toRadians(15F), 0, (float) Math.toRadians(15F));
+            animator.endKeyframe();
+
+            animator.setStaticKeyframe(10);
+
+            animator.resetKeyframe(10);
+        }
 
         animator.setAnimation(MAGIC_ATTACK);
         if(!entity.getIsShieldBreak()) {

@@ -698,16 +698,25 @@ public class Ignis_Entity extends Boss_monster {
         if (this.getAnimation() == HORIZONTAL_SMALL_SWING_ATTACK) {
             if (this.getAnimationTick() == 17) {
                 this.playSound(ModSounds.STRONGSWING.get(), 1.0f, 1.25F + this.getRandom().nextFloat() * 0.1F);
-                AreaAttack(5.25f, 6, 120, 0.5f, 0.03f, 0, 2, 240, 3,true, 0);
+                AreaAttack(5.25f, 6, 120, 0.4f, 0.03f, 0, 2, 240, 3,true, 0);
             }
-
         }
+
         if (this.getAnimation() == HORIZONTAL_SMALL_SWING_ALT_ATTACK2) {
             if (this.getAnimationTick() == 13) {
                 this.playSound(ModSounds.STRONGSWING.get(), 1.0f, 1.25F + this.getRandom().nextFloat() * 0.1F);
-                AreaAttack(5.25f, 6, 120, 0.5f, 0.03f, 0, 2, 240, 3,false, 0);
+                AreaAttack(5.25f, 6, 120, 0.4f, 0.03f, 40, 2, 240, 3,false, 0);
             }
         }
+
+        if (this.getAnimation() == SPIN_ATTACK) {
+            if (this.getAnimationTick() == 14) {
+                this.playSound(ModSounds.STRONGSWING.get(), 1.0f, 0.8F + this.getRandom().nextFloat() * 0.1F);
+                AreaAttack(6.5f, 6, 310, 1.0f, 0.06f, 120, 3, 240, 5,false, 0.3F);
+            }
+
+        }
+
         if (this.getAnimation() == BREAK_THE_SHIELD) {
             if (this.getAnimationTick() == 25) {
                 this.setShowShield(false);

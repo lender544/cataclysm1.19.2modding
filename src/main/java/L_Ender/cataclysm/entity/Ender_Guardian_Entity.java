@@ -2,6 +2,7 @@ package L_Ender.cataclysm.entity;
 
 import L_Ender.cataclysm.cataclysm;
 import L_Ender.cataclysm.config.CMConfig;
+import L_Ender.cataclysm.entity.AI.AttackMoveGoal;
 import L_Ender.cataclysm.entity.AI.CmAttackGoal;
 import L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import L_Ender.cataclysm.entity.etc.CMPathNavigateGround;
@@ -125,7 +126,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
     }
 
     protected void registerGoals() {
-        this.goalSelector.addGoal(2, new CmAttackGoal(this,1.0));
+        this.goalSelector.addGoal(2, new AttackMoveGoal(this,true,1.0));
         this.goalSelector.addGoal(1, new PunchAttackGoal());
         this.goalSelector.addGoal(1, new BurstAttackGoal());
         this.goalSelector.addGoal(1, new StompAttackGoal());
