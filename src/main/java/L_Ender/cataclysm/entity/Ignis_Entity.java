@@ -102,6 +102,8 @@ public class Ignis_Entity extends Boss_monster {
     public static final Animation REINFORCED_SMASH = Animation.create(115);
     public static final Animation REINFORCED_SMASH_IN_AIR_SOUL = Animation.create(162);
     public static final Animation REINFORCED_SMASH_SOUL = Animation.create(115);
+    public static final Animation SHIELD_BREAK_COUNTER = Animation.create(125);
+    public static final Animation SHIELD_BREAK_STRIKE = Animation.create(115);
     public static final int AIR_SMASH_COOLDOWN = 240;
     public static final int BODY_CHECK_COOLDOWN = 200;
     public static final int POKE_COOLDOWN = 200;
@@ -191,6 +193,8 @@ public class Ignis_Entity extends Boss_monster {
                 REINFORCED_SMASH,
                 REINFORCED_SMASH_IN_AIR_SOUL,
                 REINFORCED_SMASH_SOUL,
+                SHIELD_BREAK_COUNTER,
+                SHIELD_BREAK_STRIKE,
                 IGNIS_DEATH};
     }
 
@@ -209,11 +213,12 @@ public class Ignis_Entity extends Boss_monster {
         this.goalSelector.addGoal(1, new Shield_Smash(this, SHIELD_SMASH_ATTACK));
         this.goalSelector.addGoal(1, new Poked(this, POKED_ATTACK));
         this.goalSelector.addGoal(1, new Air_Smash(this, SMASH_IN_AIR));
-        this.goalSelector.addGoal(1, new SimpleAnimationGoal<>(this, SMASH));
+        this.goalSelector.addGoal(1, new Smash(this, SMASH));
         this.goalSelector.addGoal(1, new Reinforced_Smash(this));
         this.goalSelector.addGoal(1, new Swing_Attack_Goal(this, SWING_ATTACK, 34, 40));
         this.goalSelector.addGoal(1, new Swing_Attack_Goal(this, SWING_ATTACK_SOUL, 28, 34));
         this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, COUNTER, 105, true));
+        this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, SHIELD_BREAK_COUNTER, 110, true));
         this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, STRIKE, 34, true));
         this.goalSelector.addGoal(1, new Hornzontal_Small_SwingGoal(this, 17, 13, 12,19));
         this.goalSelector.addGoal(1, new Body_Check_Attack(this));
@@ -636,9 +641,9 @@ public class Ignis_Entity extends Boss_monster {
                         || (!isNoAi() && (this.getAnimation() == NO_ANIMATION && this.getRandom().nextFloat() * 100.0F < 10f && this.getY() + 5 <= target.getY()) && magic_cooldown <= 0))){
                     magic_cooldown = MAGIC_COOLDOWN;
                     this.setAnimation(MAGIC_ATTACK);
-                } else if ((blockingProgress == 10 || swordProgress == 10) && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 9F && this.distanceTo(target) > 5 && this.getRandom().nextFloat() * 100.0F < 0.9f) {
+                } else if ((blockingProgress == 10 || swordProgress == 10) && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 12F && this.distanceTo(target) > 5 && this.getRandom().nextFloat() * 100.0F < 1.0f) {
                     this.setAnimation(animation);
-                } else if ((blockingProgress == 10 || swordProgress == 10) && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 9F && this.getRandom().nextFloat() * 100.0F < 15F && poke_cooldown <= 0 && target.hasEffect(ModEffect.EFFECTSTUN.get())) {
+                } else if ((blockingProgress == 10 || swordProgress == 10) && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 12F && this.getRandom().nextFloat() * 100.0F < 15F && poke_cooldown <= 0 && target.hasEffect(ModEffect.EFFECTSTUN.get())) {
                     poke_cooldown = POKE_COOLDOWN;
                     this.setAnimation(animation);
                 } else if ((blockingProgress == 10 || swordProgress == 10) && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 6.5F && this.getRandom().nextFloat() * 100.0F < 4f) {
@@ -1878,7 +1883,7 @@ public class Ignis_Entity extends Boss_monster {
 
         public Hornzontal_SwingGoal(Ignis_Entity entity, Animation animation, int look1, int look2, int charge, int bodycheck) {
             super(entity, animation);
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP, Flag.LOOK));
+           // this.setFlags(EnumSet.of(Flag.JUMP, Flag.LOOK));
             this.look1 = look1;
             this.look2 = look2;
             this.charge = charge;
@@ -1920,7 +1925,7 @@ public class Ignis_Entity extends Boss_monster {
 
         public Hornzontal_Small_SwingGoal(Ignis_Entity entity, int look1, int look2,int look3, int follow_through_tick) {
             super(entity);
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP, Flag.LOOK));
+           // this.setFlags(EnumSet.of(Flag.JUMP, Flag.LOOK));
             this.look1 = look1;
             this.look2 = look2;
             this.look3 = look3;
@@ -1999,7 +2004,7 @@ public class Ignis_Entity extends Boss_monster {
 
         public Body_Check_Attack(Ignis_Entity entity) {
             super(entity);
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP, Flag.LOOK));
+           // this.setFlags(EnumSet.of(Flag.JUMP, Flag.LOOK));
 
         }
 
@@ -2057,7 +2062,7 @@ public class Ignis_Entity extends Boss_monster {
 
         public PokeGoal(Ignis_Entity entity, Animation animation, int look1, int look2, int charge, int bodycheck, int motion1, int motion2) {
             super(entity, animation);
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP, Flag.LOOK));
+           // this.setFlags(EnumSet.of(Flag.JUMP, Flag.LOOK));
             this.look1 = look1;
             this.look2 = look2;
             this.charge = charge;
@@ -2102,7 +2107,7 @@ public class Ignis_Entity extends Boss_monster {
 
         public Poked(Ignis_Entity entity, Animation animation) {
             super(entity, animation);
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP, Flag.LOOK));
+            //this.setFlags(EnumSet.of(Flag.JUMP, Flag.LOOK));
         }
 
         public void tick() {
@@ -2118,7 +2123,7 @@ public class Ignis_Entity extends Boss_monster {
 
         public Shield_Smash(Ignis_Entity entity, Animation animation) {
             super(entity, animation);
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP, Flag.LOOK));
+            //this.setFlags(EnumSet.of(Flag.JUMP, Flag.LOOK));
         }
 
         public void tick() {
@@ -2143,7 +2148,7 @@ public class Ignis_Entity extends Boss_monster {
 
         public Air_Smash(Ignis_Entity entity, Animation animation) {
             super(entity, animation);
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP, Flag.LOOK));
+            this.setFlags(EnumSet.of(Flag.JUMP, Flag.LOOK));
         }
 
         public void tick() {
@@ -2166,11 +2171,23 @@ public class Ignis_Entity extends Boss_monster {
         }
     }
 
+    class Smash extends SimpleAnimationGoal<Ignis_Entity> {
+
+        public Smash(Ignis_Entity entity, Animation animation) {
+            super(entity, animation);
+            //this.setFlags(EnumSet.of(Flag.JUMP, Flag.LOOK));
+        }
+
+        public void tick() {
+            Ignis_Entity.this.setDeltaMovement(0, Ignis_Entity.this.getDeltaMovement().y, 0);
+        }
+    }
+
     class Reinforced_Air_Smash extends AnimationGoal<Ignis_Entity> {
 
         public Reinforced_Air_Smash(Ignis_Entity entity) {
             super(entity);
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP, Flag.LOOK));
+            //this.setFlags(EnumSet.of(Flag.JUMP, Flag.LOOK));
         }
 
         @Override
@@ -2226,7 +2243,7 @@ public class Ignis_Entity extends Boss_monster {
 
         public Reinforced_Smash(Ignis_Entity entity) {
             super(entity);
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP, Flag.LOOK));
+            //this.setFlags(EnumSet.of(Flag.JUMP, Flag.LOOK));
         }
 
         @Override
@@ -2270,7 +2287,7 @@ public class Ignis_Entity extends Boss_monster {
 
         public Swing_Attack_Goal(Ignis_Entity entity, Animation animation, int look1, int follow_through_tick) {
             super(entity, animation);
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP, Flag.LOOK));
+            //this.setFlags(EnumSet.of(Flag.JUMP, Flag.LOOK));
             this.look1 = look1;
             this.follow_through_tick = follow_through_tick;
 
@@ -2296,7 +2313,7 @@ public class Ignis_Entity extends Boss_monster {
 
         public Earth_Shudders(Ignis_Entity entity, Animation animation) {
             super(entity, animation);
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP, Flag.LOOK));
+            //this.setFlags(EnumSet.of(Flag.JUMP, Flag.LOOK));
         }
 
         public void tick() {
@@ -2316,7 +2333,7 @@ public class Ignis_Entity extends Boss_monster {
 
         public Magic_Attack(Ignis_Entity entity, Animation animation) {
             super(entity, animation);
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP, Flag.LOOK));
+            //this.setFlags(EnumSet.of(Flag.JUMP, Flag.LOOK));
         }
 
         public void tick() {

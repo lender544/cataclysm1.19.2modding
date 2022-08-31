@@ -1,6 +1,7 @@
 package L_Ender.cataclysm.entity.projectile;
 
 import L_Ender.cataclysm.entity.Ignis_Entity;
+import L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
 import L_Ender.cataclysm.init.ModEffect;
 import L_Ender.cataclysm.init.ModEntities;
 import net.minecraft.core.Direction;
@@ -60,20 +61,22 @@ public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
         if (this.tickCount > 300) {
             this.discard();
         }
-        if (timer == 0) {
-            Entity entity = this.getOwner();
-            if (entity instanceof Mob && ((Mob) entity).getTarget() != null) {
-                LivingEntity target = ((Mob) entity).getTarget();
-                if(target == null){
-                    this.discard();
+        if (timer == 0 || timer == -40) {
+            if(this.getTotalBounces() == 0) {
+                Entity entity = this.getOwner();
+                if (entity instanceof Mob && ((Mob) entity).getTarget() != null) {
+                    LivingEntity target = ((Mob) entity).getTarget();
+                    if (target == null) {
+                        this.discard();
+                    }
+                    double d0 = target.getX() - this.getX();
+                    double d1 = target.getY() + target.getBbHeight() * 0.5F - this.getY();
+                    double d2 = target.getZ() - this.getZ();
+                    Vec3 vector3d = new Vec3(d0, d1, d2);
+                    float speed = 2f;
+                    shoot(d0, d1, d2, speed, 0);
+                    this.setYRot(-((float) Mth.atan2(d0, d2)) * (180F / (float) Math.PI));
                 }
-                double d0 = target.getX() - this.getX();
-                double d1 = target.getY() + target.getBbHeight() * 0.5F - this.getY();
-                double d2 = target.getZ() - this.getZ();
-                Vec3 vector3d = new Vec3(d0, d1, d2);
-                float speed = 2f;
-                shoot(d0, d1, d2, speed, 0);
-                this.setYRot( -((float) Mth.atan2(d0, d2)) * (180F / (float) Math.PI));
             }
         }
     }
@@ -86,7 +89,7 @@ public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
     protected void onHitEntity(EntityHitResult p_37626_) {
         super.onHitEntity(p_37626_);
         Entity shooter = this.getOwner();
-        if (!this.level.isClientSide && !(p_37626_.getEntity() instanceof Ignis_Fireball_Entity || p_37626_.getEntity() instanceof Ignis_Abyss_Fireball_Entity || p_37626_.getEntity() instanceof Ignis_Entity && shooter instanceof Ignis_Entity) && getFired()) {
+        if (!this.level.isClientSide && !(p_37626_.getEntity() instanceof Ignis_Fireball_Entity ||  p_37626_.getEntity() instanceof Ignis_Abyss_Fireball_Entity || p_37626_.getEntity() instanceof Cm_Falling_Block_Entity || p_37626_.getEntity() instanceof Ignis_Entity && shooter instanceof Ignis_Entity) && getFired()) {
             Entity entity = p_37626_.getEntity();
             boolean flag;
             if (shooter instanceof LivingEntity) {

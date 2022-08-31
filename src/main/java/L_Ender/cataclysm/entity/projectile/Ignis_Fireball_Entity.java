@@ -1,6 +1,7 @@
 package L_Ender.cataclysm.entity.projectile;
 
 import L_Ender.cataclysm.entity.Ignis_Entity;
+import L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
 import L_Ender.cataclysm.init.ModEffect;
 import L_Ender.cataclysm.init.ModEntities;
 import net.minecraft.nbt.CompoundTag;
@@ -60,7 +61,7 @@ public class Ignis_Fireball_Entity extends AbstractHurtingProjectile {
             this.discard();
         }
 
-        if (timer == 0) {
+        if (timer == 0 || timer == -40) {
             Entity entity = this.getOwner();
             if (entity instanceof Mob && ((Mob) entity).getTarget() != null) {
                 LivingEntity target = ((Mob) entity).getTarget();
@@ -88,7 +89,7 @@ public class Ignis_Fireball_Entity extends AbstractHurtingProjectile {
     protected void onHitEntity(EntityHitResult result) {
         super.onHitEntity(result);
         Entity shooter = this.getOwner();
-        if (!this.level.isClientSide && getFired() && !(result.getEntity() instanceof Ignis_Fireball_Entity || result.getEntity() instanceof Ignis_Abyss_Fireball_Entity || result.getEntity() instanceof Ignis_Entity && shooter instanceof Ignis_Entity)) {
+        if (!this.level.isClientSide && getFired() && !(result.getEntity() instanceof Ignis_Fireball_Entity || result.getEntity() instanceof Ignis_Abyss_Fireball_Entity || result.getEntity() instanceof Cm_Falling_Block_Entity || result.getEntity() instanceof Ignis_Entity && shooter instanceof Ignis_Entity)) {
             Entity entity = result.getEntity();
             boolean flag;
             if (shooter instanceof LivingEntity) {
