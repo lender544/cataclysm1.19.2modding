@@ -104,6 +104,7 @@ public class Ignis_Entity extends Boss_monster {
     public static final Animation REINFORCED_SMASH_SOUL = Animation.create(115);
     public static final Animation SHIELD_BREAK_COUNTER = Animation.create(103);
     public static final Animation SHIELD_BREAK_STRIKE = Animation.create(64);
+    public static final Animation VERTICAL_COMBO = Animation.create(51);
     public static final int AIR_SMASH_COOLDOWN = 240;
     public static final int BODY_CHECK_COOLDOWN = 200;
     public static final int POKE_COOLDOWN = 200;
@@ -195,6 +196,7 @@ public class Ignis_Entity extends Boss_monster {
                 REINFORCED_SMASH_SOUL,
                 SHIELD_BREAK_COUNTER,
                 SHIELD_BREAK_STRIKE,
+                VERTICAL_COMBO,
                 IGNIS_DEATH};
     }
 
@@ -214,6 +216,7 @@ public class Ignis_Entity extends Boss_monster {
         this.goalSelector.addGoal(1, new Poked(this, POKED_ATTACK));
         this.goalSelector.addGoal(1, new Air_Smash(this, SMASH_IN_AIR));
         this.goalSelector.addGoal(1, new Smash(this, SMASH));
+        this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, VERTICAL_COMBO, 10, true));
         this.goalSelector.addGoal(1, new Reinforced_Smash(this));
         this.goalSelector.addGoal(1, new Swing_Attack_Goal(this, SWING_ATTACK, 34, 40));
         this.goalSelector.addGoal(1, new Swing_Attack_Goal(this, SWING_ATTACK_SOUL, 28, 34));
@@ -650,7 +653,8 @@ public class Ignis_Entity extends Boss_monster {
                         || (!isNoAi() && (this.getAnimation() == NO_ANIMATION && this.getRandom().nextFloat() * 100.0F < 10f && this.getY() + 5 <= target.getY()) && magic_cooldown <= 0))){
                     magic_cooldown = MAGIC_COOLDOWN;
                     this.setAnimation(MAGIC_ATTACK);
-                } else if ((blockingProgress == 10 || swordProgress == 10) && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 12F && this.distanceTo(target) > 5 && this.getRandom().nextFloat() * 100.0F < 0.8f) {
+                } else if ((blockingProgress == 10 || swordProgress == 10) && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 12F && this.distanceTo(target) > 5 && poke_cooldown <= 0 && this.getRandom().nextFloat() * 100.0F < 0.8f) {
+                    poke_cooldown = POKE_COOLDOWN;
                     this.setAnimation(animation);
                 } else if ((blockingProgress == 10 || swordProgress == 10) && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 12F && this.getRandom().nextFloat() * 100.0F < 15F && poke_cooldown <= 0 && target.hasEffect(ModEffect.EFFECTSTUN.get())) {
                     poke_cooldown = POKE_COOLDOWN;
@@ -1270,6 +1274,16 @@ public class Ignis_Entity extends Boss_monster {
             }
         }
 
+        if (this.getAnimation() == VERTICAL_COMBO) {
+            if (this.getAnimationTick() == 13) {
+                this.playSound(ModSounds.STRONGSWING.get(), 1.0f, 1F + this.getRandom().nextFloat() * 0.1F);
+            }
+            if (this.getAnimationTick() == 31) {
+                this.playSound(ModSounds.STRONGSWING.get(), 1.0f, 0.8F + this.getRandom().nextFloat() * 0.1F);
+            }
+
+        }
+
 
         if (this.getAnimation() == FOUR_COMBO) {
             if (this.getAnimationTick() == 115) {
@@ -1508,6 +1522,12 @@ public class Ignis_Entity extends Boss_monster {
                     Flameswing();
                 }
             }
+            if (this.getAnimation() == VERTICAL_COMBO) {
+                if (this.getAnimationTick() > 7) {
+                    Flameswing();
+                }
+            }
+
             prevBladePos = bladePos;
         }
     }
@@ -2375,15 +2395,10 @@ public class Ignis_Entity extends Boss_monster {
                 Ignis_Entity.this.setYRot(Ignis_Entity.this.yRotO);
             }
 
-            if(target != null) {
-                if (Ignis_Entity.this.getAnimationTick() == follow_through_tick && Ignis_Entity.this.distanceTo(target) <= 12F && Ignis_Entity.this.random.nextDouble() < 0.75D) {
-                    if (Ignis_Entity.this.distanceTo(target) >= 6.75F) {
-                        AnimationHandler.INSTANCE.sendAnimationMessage(Ignis_Entity.this, SWING_UPPERCUT);
-                    }
-                    if (Ignis_Entity.this.distanceTo(target) < 6.75F) {
-                        AnimationHandler.INSTANCE.sendAnimationMessage(Ignis_Entity.this, SWING_UPPERSLASH);
-                    }
-                }
+            if (Ignis_Entity.this.getAnimationTick() == follow_through_tick  && shouldFollowUp(7.0f) && Ignis_Entity.this.random.nextDouble() < 0.75D) {
+                Animation animation = getRandomFollow(random);
+                AnimationHandler.INSTANCE.sendAnimationMessage(Ignis_Entity.this, animation);
+
             }
             Ignis_Entity.this.setDeltaMovement(0, Ignis_Entity.this.getDeltaMovement().y, 0);
         }
