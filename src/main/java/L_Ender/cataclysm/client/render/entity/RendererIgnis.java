@@ -47,6 +47,7 @@ public class RendererIgnis extends MobRenderer<Ignis_Entity, ModelIgnis> {
                 || entity.getAnimation() == Ignis_Entity.SPIN_ATTACK
                 || entity.getAnimation() == Ignis_Entity.FOUR_COMBO
                 || entity.getAnimation() == Ignis_Entity.STRIKE
+                || entity.getAnimation() == Ignis_Entity.SHIELD_BREAK_STRIKE
                 || entity.getAnimation() == Ignis_Entity.HORIZONTAL_SMALL_SWING_ATTACK
                 || entity.getAnimation() == Ignis_Entity.HORIZONTAL_SMALL_SWING_ALT_ATTACK2
                 || entity.getAnimation() == Ignis_Entity.SWING_UPPERSLASH) {
