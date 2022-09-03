@@ -6,9 +6,12 @@ import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.config.ConfigHolder;
 import L_Ender.cataclysm.event.ServerEventHandler;
 import L_Ender.cataclysm.init.*;
+import L_Ender.cataclysm.message.MessageHurtMultipart;
+import L_Ender.cataclysm.message.MessageInteractMultipart;
 import L_Ender.cataclysm.util.Cataclysm_Group;
 import L_Ender.cataclysm.util.Modcompat;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -22,8 +25,10 @@ import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
+import net.minecraftforge.server.ServerLifecycleHooks;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -38,6 +43,7 @@ public class cataclysm {
     private static final String PROTOCOL_VERSION = Integer.toString(1);
     public static CreativeModeTab CATACLYSM_GROUP = new Cataclysm_Group();
     public static CommonProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+    private static int packetsRegistered;
 
 
     static {
@@ -86,6 +92,19 @@ public class cataclysm {
         }
     }
 
+    public static <MSG> void sendMSGToServer(MSG message) {
+        NETWORK_WRAPPER.sendToServer(message);
+    }
+
+    public static <MSG> void sendMSGToAll(MSG message) {
+        for (ServerPlayer player : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers()) {
+            sendNonLocal(message, player);
+        }
+    }
+
+    public static <MSG> void sendNonLocal(MSG msg, ServerPlayer player) {
+        NETWORK_WRAPPER.sendTo(msg, player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
+    }
 
     private void setupClient(FMLClientSetupEvent event) {
         PROXY.clientInit();
@@ -94,6 +113,8 @@ public class cataclysm {
 
     private void setup(final FMLCommonSetupEvent event) {
         event.enqueueWork(Modcompat::registerDispenserBehaviors);
+        NETWORK_WRAPPER.registerMessage(packetsRegistered++, MessageHurtMultipart.class, MessageHurtMultipart::write, MessageHurtMultipart::read, MessageHurtMultipart.Handler::handle);
+        NETWORK_WRAPPER.registerMessage(packetsRegistered++, MessageInteractMultipart.class, MessageInteractMultipart::write, MessageInteractMultipart::read, MessageInteractMultipart.Handler::handle);
     }
 
 }

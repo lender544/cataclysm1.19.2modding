@@ -12,6 +12,9 @@ public class CommonProxy {
 
     public void init() {
     }
+    public Player getClientSidePlayer() {
+        return null;
+    }
 
     public void clientInit() {
     }

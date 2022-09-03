@@ -9,6 +9,7 @@ import L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import L_Ender.cataclysm.entity.etc.CMPathNavigateGround;
 import L_Ender.cataclysm.entity.etc.GroundPathNavigatorWide;
 import L_Ender.cataclysm.entity.etc.SmartBodyHelper2;
+import L_Ender.cataclysm.entity.partentity.Netherite_Monstrosity_Part;
 import L_Ender.cataclysm.entity.projectile.Lava_Bomb_Entity;
 import L_Ender.cataclysm.init.ModEntities;
 import L_Ender.cataclysm.init.ModSounds;
@@ -33,6 +34,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -86,6 +89,8 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
     public static final Animation MONSTROSITY_EARTHQUAKE3 = Animation.create(70);
     public static final Animation MONSTROSITY_BERSERK = Animation.create(80);
     public static final Animation MONSTROSITY_DEATH = Animation.create(185);
+    public final Netherite_Monstrosity_Part headPart;
+    public final Netherite_Monstrosity_Part[] monstrosityParts;
     private static final EntityDataAccessor<Boolean> IS_BERSERK = SynchedEntityData.defineId(Netherite_Monstrosity_Entity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IS_AWAKEN = SynchedEntityData.defineId(Netherite_Monstrosity_Entity.class, EntityDataSerializers.BOOLEAN);
     private int lavabombmagazine = CMConfig.Lavabombmagazine;
@@ -99,6 +104,8 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
         this.xpReward = 300;
         this.maxUpStep = 1.75F;
         this.dropAfterDeathAnim = true;
+        this.headPart = new Netherite_Monstrosity_Part(this, 1.6F, 2.5F);
+        this.monstrosityParts = new Netherite_Monstrosity_Part[]{this.headPart};
         this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.LAVA, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
@@ -133,7 +140,7 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
                 .add(Attributes.FOLLOW_RANGE, 50.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
                 .add(Attributes.ATTACK_DAMAGE, 22)
-                .add(Attributes.MAX_HEALTH, 360)
+                .add(Attributes.MAX_HEALTH, 600)
                 .add(Attributes.ARMOR, 10)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0);
     }
@@ -202,14 +209,16 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
         return air;
     }
 
+    public boolean attackEntityFromPart(Netherite_Monstrosity_Part netherite_monstrosity_part, DamageSource source, float amount) {
+        return this.hurt(source, amount);
+    }
+
     @Override
     public boolean hurt(DamageSource source, float damage) {
         if (this.getAnimation() == MONSTROSITY_BERSERK && !source.isBypassInvul()) {
             return false;
         }
-        if (!source.isBypassInvul()) {
-            damage = Math.min(CMConfig.MonstrosityDamageCap, damage);
-        }
+
         double range = calculateRange(source);
 
         if (range > CMConfig.MonstrosityLongRangelimit * CMConfig.MonstrosityLongRangelimit) {
@@ -347,6 +356,28 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
         if (!level.isClientSide) {
             if (!this.getIsAwaken() && target != null) {
                 this.setIsAwaken(true);
+            }
+        }
+
+        if (!this.isNoAi()) {
+            float f17 = this.getYRot() * ((float) Math.PI / 180F);
+            float pitch = this.getXRot() * ((float) Math.PI / 180F);
+            float f3 = Mth.sin(f17) * (1 - Math.abs(this.getXRot() / 90F));
+            float f18 = Mth.cos(f17) * (1 - Math.abs(this.getXRot() / 90F));
+
+            Vec3[] avector3d = new Vec3[this.monstrosityParts.length];
+            for (int j = 0; j < this.monstrosityParts.length; ++j) {
+                avector3d[j] = new Vec3(this.monstrosityParts[j].getX(), this.monstrosityParts[j].getY(), this.monstrosityParts[j].getZ());
+            }
+            this.setPartPosition(this.headPart, f3 * -2F, pitch + 3F, -f18 * -2F);
+
+            for (int l = 0; l < this.monstrosityParts.length; ++l) {
+                this.monstrosityParts[l].xo = avector3d[l].x;
+                this.monstrosityParts[l].yo = avector3d[l].y;
+                this.monstrosityParts[l].zo = avector3d[l].z;
+                this.monstrosityParts[l].xOld = avector3d[l].x;
+                this.monstrosityParts[l].yOld = avector3d[l].y;
+                this.monstrosityParts[l].zOld = avector3d[l].z;
             }
         }
     }
@@ -539,6 +570,24 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
         return itementity;
     }
 
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        return super.mobInteract(player, hand);
+    }
+
+    private void setPartPosition(Netherite_Monstrosity_Part part, double offsetX, double offsetY, double offsetZ) {
+        part.setPos(this.getX() + offsetX * part.scale, this.getY() + offsetY * part.scale, this.getZ() + offsetZ * part.scale);
+    }
+
+    @Override
+    public boolean isMultipartEntity() {
+        return true;
+    }
+
+    @Override
+    public net.minecraftforge.entity.PartEntity<?>[] getParts() {
+        return this.monstrosityParts;
+    }
+
     public void travel(Vec3 travelVector) {
         this.setSpeed((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * (isInLava() ? 0.2F : 1F));
         if (this.isEffectiveAi() && this.isInLava()) {
@@ -583,6 +632,7 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
     {
         return MONSTROSITY_DEATH;
     }
+
 
     class EarthQuakeGoal extends Goal {
 
