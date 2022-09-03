@@ -1015,6 +1015,7 @@ public class Ignis_Entity extends Boss_monster {
 
         if (this.getAnimation() == STRIKE) {
             if (this.getAnimationTick() == 31) {
+                this.playSound(ModSounds.STRONGSWING.get(), 1.0f, 0.8F + this.getRandom().nextFloat() * 0.1F);
                 AreaAttack(5.25f, 6, 120, 1.25f, 0.1f, 120, 5, 240, 7,false, 0);
             }
 
@@ -1075,7 +1076,8 @@ public class Ignis_Entity extends Boss_monster {
             }
 
             if (this.getAnimationTick() == 44) {
-                AreaAttack(5.25f, 6, 120, 1.25f, 0.1f, 120, 5, 240, 7,false, 0);
+                this.playSound(ModSounds.STRONGSWING.get(), 1.0f, 0.8F + this.getRandom().nextFloat() * 0.1F);
+                AreaAttack(6.0f, 6, 310, 1.25f, 0.1f, 120, 5, 240, 7,false, 0.3F);
             }
 
             if (this.getAnimationTick() == 49) {
@@ -1278,7 +1280,7 @@ public class Ignis_Entity extends Boss_monster {
             if (this.getAnimationTick() == 13) {
                 this.playSound(ModSounds.STRONGSWING.get(), 1.0f, 1F + this.getRandom().nextFloat() * 0.1F);
             }
-            if (this.getAnimationTick() == 31) {
+            if (this.getAnimationTick() == 30) {
                 this.playSound(ModSounds.STRONGSWING.get(), 1.0f, 0.8F + this.getRandom().nextFloat() * 0.1F);
             }
 
@@ -1523,7 +1525,7 @@ public class Ignis_Entity extends Boss_monster {
                 }
             }
             if (this.getAnimation() == VERTICAL_COMBO) {
-                if (this.getAnimationTick() > 7) {
+                if (this.getAnimationTick() > 7 && this.getAnimationTick() < 32) {
                     Flameswing();
                 }
             }
