@@ -4,7 +4,6 @@ import L_Ender.cataclysm.cataclysm;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.fml.LogicalSide;
@@ -48,7 +47,7 @@ public class MessageInteractMultipart {
             if (player != null) {
                 if (player.level != null) {
                     Entity parent = player.level.getEntity(message.parent);
-                    if(player.distanceTo(parent) < 20 && parent instanceof LivingEntity){
+                    if(player.distanceTo(parent) < 20 && parent instanceof Mob){
                         player.interactOn(parent, message.offhand ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND);
                     }
                 }

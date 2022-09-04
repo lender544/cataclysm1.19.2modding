@@ -5,6 +5,7 @@ import L_Ender.cataclysm.entity.Netherite_Monstrosity_Entity;
 import L_Ender.cataclysm.message.MessageHurtMultipart;
 import L_Ender.cataclysm.message.MessageInteractMultipart;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -42,7 +43,7 @@ public class Netherite_Monstrosity_Part extends PartEntity<Netherite_Monstrosity
     }
 
     public boolean canBeCollidedWith() {
-        return true;
+        return false;
     }
 
     public boolean isPickable() {
@@ -53,11 +54,16 @@ public class Netherite_Monstrosity_Part extends PartEntity<Netherite_Monstrosity
         super.tick();
     }
 
+    protected void collideWithNearbyEntities() {
+
+    }
+
     @Override
     public InteractionResult interact(Player player, InteractionHand hand) {
         if(level.isClientSide && this.getParent() != null){
             cataclysm.sendMSGToServer(new MessageInteractMultipart(this.getParent().getId(), hand == InteractionHand.OFF_HAND));
         }
+
         return this.getParent() == null ? InteractionResult.PASS : this.getParent().mobInteract(player, hand);
     }
 
@@ -66,6 +72,7 @@ public class Netherite_Monstrosity_Part extends PartEntity<Netherite_Monstrosity
         if(level.isClientSide && this.getParent() != null && !this.getParent().isInvulnerableTo(source)){
             cataclysm.sendMSGToServer(new MessageHurtMultipart(this.getId(), this.getParent().getId(), amount, source.msgId));
         }
+
         return !this.isInvulnerableTo(source) && this.getParent().attackEntityFromPart(this, source, amount * 1.6F);
     }
 
@@ -81,6 +88,10 @@ public class Netherite_Monstrosity_Part extends PartEntity<Netherite_Monstrosity
 
     public boolean is(Entity entityIn) {
         return this == entityIn || this.getParent() == entityIn;
+    }
+
+    public Packet<?> getAddEntityPacket() {
+        throw new UnsupportedOperationException();
     }
 
     @Override
