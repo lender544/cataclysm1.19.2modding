@@ -12,7 +12,7 @@ public class CMConfig {
     public static boolean BossMusic = true;
 
     public static int EnderguardianDamageCap = 22;
-    public static int MonstrosityDamageCap = 22;
+    public static int MonstrosityDamageCap = 25;
     public static int IgnisDamageCap = 20;
 
     public static int Lavabombmagazine = 3;

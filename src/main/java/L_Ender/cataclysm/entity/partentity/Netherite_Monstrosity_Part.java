@@ -1,23 +1,16 @@
 package L_Ender.cataclysm.entity.partentity;
 
-import L_Ender.cataclysm.cataclysm;
 import L_Ender.cataclysm.entity.Netherite_Monstrosity_Entity;
-import L_Ender.cataclysm.message.MessageHurtMultipart;
-import L_Ender.cataclysm.message.MessageInteractMultipart;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.entity.PartEntity;
+import net.minecraft.world.level.gameevent.GameEvent;
 
-public class Netherite_Monstrosity_Part extends PartEntity<Netherite_Monstrosity_Entity> {
+public class Netherite_Monstrosity_Part extends Cm_Part_Entity<Netherite_Monstrosity_Entity> {
 
     private final EntityDimensions size;
     public float scale = 1;
@@ -43,37 +36,26 @@ public class Netherite_Monstrosity_Part extends PartEntity<Netherite_Monstrosity
     }
 
     public boolean canBeCollidedWith() {
-        return false;
+        return true;
     }
 
     public boolean isPickable() {
         return true;
     }
 
-    public void tick(){
-        super.tick();
-    }
-
-    protected void collideWithNearbyEntities() {
-
-    }
 
     @Override
-    public InteractionResult interact(Player player, InteractionHand hand) {
-        if(level.isClientSide && this.getParent() != null){
-            cataclysm.sendMSGToServer(new MessageInteractMultipart(this.getParent().getId(), hand == InteractionHand.OFF_HAND));
-        }
-
-        return this.getParent() == null ? InteractionResult.PASS : this.getParent().mobInteract(player, hand);
+    protected void setSize(EntityDimensions size) {
+        super.setSize(size);
     }
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        if(level.isClientSide && this.getParent() != null && !this.getParent().isInvulnerableTo(source)){
-            cataclysm.sendMSGToServer(new MessageHurtMultipart(this.getId(), this.getParent().getId(), amount, source.msgId));
+        boolean flag = this.getParent() != null && this.getParent().attackEntityFromPart(this, source, amount * 1.5F);
+        if (flag) {
+            this.gameEvent(GameEvent.ENTITY_DAMAGE);
         }
-
-        return !this.isInvulnerableTo(source) && this.getParent().attackEntityFromPart(this, source, amount * 1.6F);
+        return flag;
     }
 
     @Override
@@ -86,9 +68,28 @@ public class Netherite_Monstrosity_Part extends PartEntity<Netherite_Monstrosity
 
     }
 
-    public boolean is(Entity entityIn) {
-        return this == entityIn || this.getParent() == entityIn;
+    @Override
+    public boolean is(Entity entity) {
+        return this == entity || this.getParent() == entity;
     }
+
+    @Override
+    protected void setRot(float yaw, float pitch) {
+        this.setYRot(yaw % 360.0F);
+        this.setXRot(pitch % 360.0F);
+    }
+
+    @Override
+    protected boolean canRide(Entity entityIn) {
+        return false;
+    }
+
+    @Override
+    public boolean canChangeDimensions() {
+        return false;
+    }
+
+
 
     public Packet<?> getAddEntityPacket() {
         throw new UnsupportedOperationException();

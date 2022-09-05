@@ -1,11 +1,19 @@
 package L_Ender.cataclysm.entity.projectile;
 
 import L_Ender.cataclysm.config.CMConfig;
+import L_Ender.cataclysm.entity.Ignis_Entity;
+import L_Ender.cataclysm.entity.Netherite_Monstrosity_Entity;
+import L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
+import L_Ender.cataclysm.entity.partentity.Netherite_Monstrosity_Part;
+import L_Ender.cataclysm.init.ModEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
@@ -14,6 +22,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.network.NetworkHooks;
 
@@ -38,13 +48,36 @@ public class Lava_Bomb_Entity extends ThrowableProjectile {
 
     @Override
     protected void onHit(HitResult ray) {
-        if (!this.level.isClientSide) {
+        HitResult.Type raytraceresult$type = ray.getType();
+        if (raytraceresult$type == HitResult.Type.ENTITY) {
+            this.onHitEntity((EntityHitResult) ray);
+        } else if (raytraceresult$type == HitResult.Type.BLOCK) {
+            this.onHitBlock((BlockHitResult) ray);
+        }
+    }
+
+    protected void onHitEntity(EntityHitResult result) {
+        super.onHitEntity(result);
+        Entity shooter = this.getOwner();
+        if (!this.level.isClientSide && !(result.getEntity() instanceof Lava_Bomb_Entity || result.getEntity() instanceof Netherite_Monstrosity_Part || result.getEntity() instanceof Netherite_Monstrosity_Entity)) {
+            this.playSound(SoundEvents.GENERIC_BURN, 1.5f, 0.75f);
+            this.level.explode(this, this.getX(), this.getY(), this.getZ(), CMConfig.Lavabombradius, Explosion.BlockInteraction.NONE);
+            this.doTerrainEffects();
+            discard();
+
+        }
+    }
+
+    protected void onHitBlock(BlockHitResult result) {
+        super.onHitBlock(result);
+        if (!this.level.isClientSide()) {
             this.playSound(SoundEvents.GENERIC_BURN, 1.5f, 0.75f);
             this.level.explode(this, this.getX(), this.getY(), this.getZ(), CMConfig.Lavabombradius, Explosion.BlockInteraction.NONE);
             this.doTerrainEffects();
             discard();
         }
     }
+
 
     private void doTerrainEffects() {
 

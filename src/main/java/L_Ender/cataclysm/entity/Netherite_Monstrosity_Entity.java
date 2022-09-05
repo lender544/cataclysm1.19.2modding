@@ -9,6 +9,7 @@ import L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import L_Ender.cataclysm.entity.etc.CMPathNavigateGround;
 import L_Ender.cataclysm.entity.etc.GroundPathNavigatorWide;
 import L_Ender.cataclysm.entity.etc.SmartBodyHelper2;
+import L_Ender.cataclysm.entity.partentity.Cm_Part_Entity;
 import L_Ender.cataclysm.entity.partentity.Netherite_Monstrosity_Part;
 import L_Ender.cataclysm.entity.projectile.Lava_Bomb_Entity;
 import L_Ender.cataclysm.init.ModEntities;
@@ -21,6 +22,7 @@ import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -218,7 +220,9 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
         if (this.getAnimation() == MONSTROSITY_BERSERK && !source.isBypassInvul()) {
             return false;
         }
-
+        if (!source.isBypassInvul()) {
+            damage = Math.min(CMConfig.MonstrosityDamageCap, damage);
+        }
         double range = calculateRange(source);
 
         if (range > CMConfig.MonstrosityLongRangelimit * CMConfig.MonstrosityLongRangelimit) {
@@ -570,10 +574,6 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
         return itementity;
     }
 
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        return super.mobInteract(player, hand);
-    }
-
     private void setPartPosition(Netherite_Monstrosity_Part part, double offsetX, double offsetY, double offsetZ) {
         part.setPos(this.getX() + offsetX * part.scale, this.getY() + offsetY * part.scale, this.getZ() + offsetZ * part.scale);
     }
@@ -586,6 +586,12 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
     @Override
     public net.minecraftforge.entity.PartEntity<?>[] getParts() {
         return this.monstrosityParts;
+    }
+
+    @Override
+    public void recreateFromPacket(ClientboundAddEntityPacket packet) {
+        super.recreateFromPacket(packet);
+        Cm_Part_Entity.assignPartIDs(this);
     }
 
     public void travel(Vec3 travelVector) {
@@ -712,9 +718,9 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
                     Netherite_Monstrosity_Entity.this.lavabombmagazine--;
                     for (int i = 0; i < lavabombcount; ++i) {
                         Lava_Bomb_Entity lava = new Lava_Bomb_Entity(ModEntities.LAVA_BOMB.get(), Netherite_Monstrosity_Entity.this.level, Netherite_Monstrosity_Entity.this);
-                        double d0 = target.getX() - Netherite_Monstrosity_Entity.this.getX();
+                        double d0 = target.getX() - Netherite_Monstrosity_Entity.this.headPart.getX();
                         double d1 = target.getBoundingBox().minY + target.getBbHeight() / 3.0F - lava.getY();
-                        double d2 = target.getZ() - Netherite_Monstrosity_Entity.this.getZ();
+                        double d2 = target.getZ() - Netherite_Monstrosity_Entity.this.headPart.getZ();
                         double d3 = Mth.sqrt((float) (d0 * d0 + d2 * d2));
                         lava.shoot(d0, d1 + d3 * 0.20000000298023224D, d2, 1.0F, 24 - Netherite_Monstrosity_Entity.this.level.getDifficulty().getId() * 4);
                         Netherite_Monstrosity_Entity.this.level.addFreshEntity(lava);
