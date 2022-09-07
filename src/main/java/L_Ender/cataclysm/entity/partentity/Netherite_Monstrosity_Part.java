@@ -40,7 +40,7 @@ public class Netherite_Monstrosity_Part extends Cm_Part_Entity<Netherite_Monstro
     }
 
     public boolean isPickable() {
-        return true;
+        return this.getParent().isAlive();
     }
 
 

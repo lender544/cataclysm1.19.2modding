@@ -43,7 +43,7 @@ public class CMPathFinder extends PathFinder {
             Node point = this.getNode(index);
             double d0 = point.x + Mth.floor(entity.getBbWidth() + 1.0F) * 0.5D;
             double d1 = point.y;
-            double d2 = point.z + Mth.floor(entity.getBbHeight() + 1.0F) * 0.5D;
+            double d2 = point.z + Mth.floor(entity.getBbWidth() + 1.0F) * 0.5D;
             return new Vec3(d0, d1, d2);
         }
 

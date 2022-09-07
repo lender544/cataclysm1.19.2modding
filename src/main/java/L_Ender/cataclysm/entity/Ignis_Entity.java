@@ -105,6 +105,7 @@ public class Ignis_Entity extends Boss_monster {
     public static final Animation SHIELD_BREAK_COUNTER = Animation.create(103);
     public static final Animation SHIELD_BREAK_STRIKE = Animation.create(64);
     public static final Animation VERTICAL_COMBO = Animation.create(51);
+    public static final Animation ULTIMATE_ATTACK = Animation.create(94);
     public static final int AIR_SMASH_COOLDOWN = 240;
     public static final int BODY_CHECK_COOLDOWN = 200;
     public static final int POKE_COOLDOWN = 200;
@@ -197,6 +198,7 @@ public class Ignis_Entity extends Boss_monster {
                 SHIELD_BREAK_COUNTER,
                 SHIELD_BREAK_STRIKE,
                 VERTICAL_COMBO,
+                ULTIMATE_ATTACK,
                 IGNIS_DEATH};
     }
 

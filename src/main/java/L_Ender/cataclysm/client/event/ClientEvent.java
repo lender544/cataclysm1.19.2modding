@@ -27,7 +27,7 @@ public class ClientEvent {
         Player player = Minecraft.getInstance().player;
         float delta = Minecraft.getInstance().getFrameTime();
         float ticksExistedDelta = player.tickCount + delta;
-        if (CMConfig.ScreenShake) {
+        if (CMConfig.ScreenShake && !Minecraft.getInstance().isPaused()) {
             if (player != null) {
                 float shakeAmplitude = 0;
                 for (ScreenShake_Entity ScreenShake : player.level.getEntitiesOfClass(ScreenShake_Entity.class, player.getBoundingBox().inflate(20, 20, 20))) {
@@ -41,7 +41,7 @@ public class ClientEvent {
                 event.setRoll((float) (event.getRoll() + shakeAmplitude * Math.cos(ticksExistedDelta * 4) * 25));
             }
 
-            if (Minecraft.getInstance().player.getEffect(ModEffect.EFFECTSTUN.get()) != null && !Minecraft.getInstance().isPaused()) {
+            if (Minecraft.getInstance().player.getEffect(ModEffect.EFFECTSTUN.get()) != null) {
                 MobEffectInstance effectinstance1 = Minecraft.getInstance().player.getEffect(ModEffect.EFFECTSTUN.get());
                 float shakeAmplitude = (float) ((1 + effectinstance1.getAmplifier()) * 0.01);
                 event.setPitch((float) (event.getPitch() + shakeAmplitude * Math.cos(ticksExistedDelta * 3 + 2) * 25));
