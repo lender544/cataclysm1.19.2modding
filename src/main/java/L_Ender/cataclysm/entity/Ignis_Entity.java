@@ -394,6 +394,14 @@ public class Ignis_Entity extends Boss_monster {
     }
 
     public void setIsShieldBreak(boolean isShieldBreak) {
+        if (isShieldBreak) {
+            if (this.getIsBlocking()) {
+                this.setIsBlocking(false);
+                this.setIsSword(true);
+            }
+            this.setShieldDurability(3);
+            this.setShowShield(false);
+        }
         this.entityData.set(IS_SHIELD_BREAK, isShieldBreak);
     }
 
@@ -552,15 +560,6 @@ public class Ignis_Entity extends Boss_monster {
                 this.setIsBlocking(false);
             }
 
-            if (this.getIsShieldBreak()) {
-                if (this.getIsBlocking()) {
-                    this.setIsBlocking(false);
-                    this.setIsSword(true);
-                }
-                this.setShieldDurability(3);
-                this.setShowShield(false);
-            }
-
             if (this.getBossPhase() > 0) {
                 bossInfo.setColor(BossEvent.BossBarColor.BLUE);
             }
@@ -623,6 +622,8 @@ public class Ignis_Entity extends Boss_monster {
             }
 
         }
+
+
         if (body_check_cooldown > 0) body_check_cooldown--;
         if (air_smash_cooldown > 0) air_smash_cooldown--;
         if (counter_strike_cooldown > 0) counter_strike_cooldown--;

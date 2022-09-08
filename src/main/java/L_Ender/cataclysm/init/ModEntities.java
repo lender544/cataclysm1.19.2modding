@@ -84,7 +84,7 @@ public class ModEntities {
             .build(cataclysm.MODID + ":endermaptera"));
 
     public static final RegistryObject<EntityType<Ignited_Revenant_Entity>> IGNITED_REVENANT = ENTITY_TYPE.register("ignited_revenant", () -> EntityType.Builder.of(Ignited_Revenant_Entity::new, MobCategory.MONSTER)
-            .sized(1.2F, 0.8f)
+            .sized(1.6F, 2.8f)
             .fireImmune()
             .build(cataclysm.MODID + ":ignited_revenant"));
 

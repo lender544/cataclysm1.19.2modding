@@ -5,6 +5,7 @@ import L_Ender.cataclysm.entity.AI.CmAttackGoal;
 import L_Ender.cataclysm.entity.etc.CMPathNavigateGround;
 import L_Ender.cataclysm.entity.etc.SmartBodyHelper2;
 import L_Ender.cataclysm.entity.projectile.Void_Rune_Entity;
+import L_Ender.cataclysm.init.ModParticle;
 import L_Ender.cataclysm.init.ModSounds;
 import L_Ender.cataclysm.init.ModTag;
 import com.github.alexthe666.citadel.animation.Animation;
@@ -21,10 +22,12 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
@@ -53,8 +56,11 @@ import java.util.EnumSet;
 public class Ignited_Revenant_Entity extends Boss_monster {
 
 
-    public float deactivateProgress;
-    public float prevdeactivateProgress;
+    private static final EntityDataAccessor<Boolean> ANGER = SynchedEntityData.defineId(Ignited_Revenant_Entity.class, EntityDataSerializers.BOOLEAN);
+
+    public float angerProgress;
+    public float prevangerProgress;
+
 
     public Ignited_Revenant_Entity(EntityType entity, Level world) {
         super(entity, world);
@@ -62,7 +68,6 @@ public class Ignited_Revenant_Entity extends Boss_monster {
         this.maxUpStep = 1.5F;
         this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
-        setConfigattribute(this, CMConfig.EnderGolemHealthMultiplier, CMConfig.EnderGolemDamageMultiplier);
     }
 
     @Override
@@ -71,6 +76,11 @@ public class Ignited_Revenant_Entity extends Boss_monster {
     }
 
     protected void registerGoals() {
+        this.goalSelector.addGoal(2, new CmAttackGoal(this, 1.0D));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
     public static AttributeSupplier.Builder ignited_revenant() {
@@ -100,7 +110,7 @@ public class Ignited_Revenant_Entity extends Boss_monster {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-
+        this.entityData.define(ANGER, false);
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
@@ -111,12 +121,43 @@ public class Ignited_Revenant_Entity extends Boss_monster {
         super.readAdditionalSaveData(compound);
     }
 
+    public void setIsAnger(boolean isAnger) {
+        this.entityData.set(ANGER, isAnger);
+    }
+
+    public boolean getIsAnger() {
+        return this.entityData.get(ANGER);
+    }
+
+    public void setTarget(@Nullable LivingEntity target) {
+        AttributeInstance attributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
+        if (target == null) {
+            this.entityData.set(ANGER, false);
+        } else {
+            this.entityData.set(ANGER, true);
+        }
+
+        super.setTarget(target); //Forge: Moved down to allow event handlers to write data manager values.
+    }
+
 
     public void tick() {
         super.tick();
         AnimationHandler.INSTANCE.updateAnimations(this);
         LivingEntity target = this.getTarget();
+        prevangerProgress = angerProgress;
+        if (this.getIsAnger() && angerProgress < 5F) {
+            angerProgress++;
+        }
+        if (!this.getIsAnger() && angerProgress > 0F) {
+            angerProgress--;
+        }
 
+        if (this.level.isClientSide) {
+            if (this.random.nextInt(24) == 0 && !this.isSilent()) {
+                this.level.playLocalSound(this.getX() + 0.5D, this.getY() + 0.5D, this.getZ() + 0.5D, SoundEvents.BLAZE_BURN, this.getSoundSource(), 1.0F + this.random.nextFloat(), this.random.nextFloat() * 0.7F + 0.3F, false);
+            }
+        }
 
     }
 
