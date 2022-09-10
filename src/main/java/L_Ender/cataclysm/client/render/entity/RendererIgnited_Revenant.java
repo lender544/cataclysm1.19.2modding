@@ -4,8 +4,10 @@ import L_Ender.cataclysm.client.model.entity.ModelIgnited_Revenant;
 import L_Ender.cataclysm.client.model.entity.ModelNameless_Sorcerer;
 import L_Ender.cataclysm.client.render.CMRenderTypes;
 import L_Ender.cataclysm.client.render.layer.LayerGenericGlowing;
+import L_Ender.cataclysm.entity.Ignis_Entity;
 import L_Ender.cataclysm.entity.Ignited_Revenant_Entity;
 import L_Ender.cataclysm.entity.Nameless_Sorcerer_Entity;
+import L_Ender.cataclysm.entity.projectile.Void_Rune_Entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -15,6 +17,8 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -23,6 +27,7 @@ public class RendererIgnited_Revenant extends MobRenderer<Ignited_Revenant_Entit
 
     private static final ResourceLocation IGNITED_REVENANT_TEXTURES = new ResourceLocation("cataclysm:textures/entity/ignited_revenant.png");
     private static final ResourceLocation IGNITED_REVENANT_LAYER_TEXTURES = new ResourceLocation("cataclysm:textures/entity/ignited_revenant_layer.png");
+    private final RandomSource rnd = RandomSource.create();
 
     public RendererIgnited_Revenant(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new ModelIgnited_Revenant(), 0.5F);
@@ -37,6 +42,15 @@ public class RendererIgnited_Revenant extends MobRenderer<Ignited_Revenant_Entit
     @Override
     protected void scale(Ignited_Revenant_Entity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
         matrixStackIn.scale(1.1F, 1.1F, 1.1F);
+    }
+
+    public Vec3 getRenderOffset(Ignited_Revenant_Entity entityIn, float partialTicks) {
+        if (entityIn.getAnimation() == Ignited_Revenant_Entity.ASH_BREATH_ATTACK && entityIn.getAnimationTick() >= 28 && entityIn.getAnimationTick() <= 43) {
+            double d0 = 0.02D;
+            return new Vec3(this.rnd.nextGaussian() * d0, 0.0D, this.rnd.nextGaussian() * d0);
+        } else {
+            return super.getRenderOffset(entityIn, partialTicks);
+        }
     }
 
     static class Ignited_Revenant_GlowLayer extends RenderLayer<Ignited_Revenant_Entity, ModelIgnited_Revenant> {

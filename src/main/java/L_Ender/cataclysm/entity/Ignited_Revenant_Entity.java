@@ -1,6 +1,8 @@
 package L_Ender.cataclysm.entity;
 
 import L_Ender.cataclysm.config.CMConfig;
+import L_Ender.cataclysm.entity.AI.AttackAnimationGoal1;
+import L_Ender.cataclysm.entity.AI.AttackMoveGoal;
 import L_Ender.cataclysm.entity.AI.CmAttackGoal;
 import L_Ender.cataclysm.entity.etc.CMPathNavigateGround;
 import L_Ender.cataclysm.entity.etc.SmartBodyHelper2;
@@ -27,7 +29,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
@@ -39,9 +40,12 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.AbstractGolem;
 import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Ravager;
 import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.SmallFireball;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
@@ -55,6 +59,10 @@ import java.util.EnumSet;
 
 public class Ignited_Revenant_Entity extends Boss_monster {
 
+    public static final Animation ASH_BREATH_ATTACK = Animation.create(53);
+
+
+    private int timeWithoutTarget;
 
     private static final EntityDataAccessor<Boolean> ANGER = SynchedEntityData.defineId(Ignited_Revenant_Entity.class, EntityDataSerializers.BOOLEAN);
 
@@ -72,11 +80,15 @@ public class Ignited_Revenant_Entity extends Boss_monster {
 
     @Override
     public Animation[] getAnimations() {
-        return new Animation[]{NO_ANIMATION};
+        return new Animation[]{
+                NO_ANIMATION,
+                ASH_BREATH_ATTACK};
     }
 
     protected void registerGoals() {
-        this.goalSelector.addGoal(2, new CmAttackGoal(this, 1.0D));
+        this.goalSelector.addGoal(1, new ChargeGoal());
+        this.goalSelector.addGoal(2, new Ignited_Revenant_Goal());
+        this.goalSelector.addGoal(0, new AttackAnimationGoal1<>(this, ASH_BREATH_ATTACK, 27, true));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
@@ -129,17 +141,6 @@ public class Ignited_Revenant_Entity extends Boss_monster {
         return this.entityData.get(ANGER);
     }
 
-    public void setTarget(@Nullable LivingEntity target) {
-        AttributeInstance attributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
-        if (target == null) {
-            this.entityData.set(ANGER, false);
-        } else {
-            this.entityData.set(ANGER, true);
-        }
-
-        super.setTarget(target); //Forge: Moved down to allow event handlers to write data manager values.
-    }
-
 
     public void tick() {
         super.tick();
@@ -157,6 +158,7 @@ public class Ignited_Revenant_Entity extends Boss_monster {
             if (this.random.nextInt(24) == 0 && !this.isSilent()) {
                 this.level.playLocalSound(this.getX() + 0.5D, this.getY() + 0.5D, this.getZ() + 0.5D, SoundEvents.BLAZE_BURN, this.getSoundSource(), 1.0F + this.random.nextFloat(), this.random.nextFloat() * 0.7F + 0.3F, false);
             }
+
         }
 
     }
@@ -169,6 +171,15 @@ public class Ignited_Revenant_Entity extends Boss_monster {
 
 
     @Override
+    protected BodyRotationControl createBodyControl() {
+        return new SmartBodyHelper2(this);
+    }
+
+    protected PathNavigation createNavigation(Level worldIn) {
+        return new CMPathNavigateGround(this, worldIn);
+    }
+
+    @Override
     protected void repelEntities(float x, float y, float z, float radius) {
         super.repelEntities(x, y, z, radius);
     }
@@ -176,6 +187,62 @@ public class Ignited_Revenant_Entity extends Boss_monster {
     @Override
     public boolean canBePushedByEntity(Entity entity) {
         return false;
+    }
+
+    class Ignited_Revenant_Goal extends AttackMoveGoal {
+
+
+        public Ignited_Revenant_Goal() {
+            super(Ignited_Revenant_Entity.this, true, 1.1);
+        }
+
+        @Override
+        public void start() {
+            super.start();
+            Ignited_Revenant_Entity.this.setIsAnger(true);
+
+        }
+        @Override
+        public void stop() {
+            super.stop();
+            Ignited_Revenant_Entity.this.setIsAnger(false);
+        }
+    }
+
+    class ChargeGoal extends Goal {
+        public ChargeGoal() {
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        }
+
+        private LivingEntity attackTarget;
+
+        @Override
+        public boolean canUse() {
+            this.attackTarget = getTarget();
+            return this.attackTarget != null
+                     && this.attackTarget.isAlive() && Ignited_Revenant_Entity.this.distanceTo(attackTarget) <= 4F;
+        }
+
+        @Override
+        public void start() {
+            Ignited_Revenant_Entity.this.setIsAnger(false);
+        }
+
+        @Override
+        public void tick() {
+            if (angerProgress == 0 && Ignited_Revenant_Entity.this.getAnimation() == NO_ANIMATION ){
+                Ignited_Revenant_Entity.this.setAnimation(ASH_BREATH_ATTACK);
+            }
+        }
+
+        @Override
+        public void stop() {
+            this.attackTarget = null;
+        }
+
+        public boolean requiresUpdateEveryTick() {
+            return false;
+        }
     }
 
 }

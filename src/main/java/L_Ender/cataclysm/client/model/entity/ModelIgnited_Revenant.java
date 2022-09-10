@@ -19,6 +19,7 @@ public class ModelIgnited_Revenant extends AdvancedEntityModel<Ignited_Revenant_
 	private final AdvancedModelBox root;
 	private final AdvancedModelBox body;
 	private final AdvancedModelBox guardingring;
+	private final AdvancedModelBox guardingring2;
 	private final AdvancedModelBox shieldjoint;
 	private final AdvancedModelBox shield;
 	private final AdvancedModelBox right_parts;
@@ -56,28 +57,34 @@ public class ModelIgnited_Revenant extends AdvancedEntityModel<Ignited_Revenant_
 		texWidth = 128;
 		texHeight = 128;
 
+
 		root = new AdvancedModelBox(this);
-		root.setPos(0.0F, 24.0F, 0.0F);
+		root.setRotationPoint(0.0F, 24.0F, 0.0F);
 
 
 		body = new AdvancedModelBox(this);
-		body.setPos(0.0F, -6.0F, 0.0F);
+		body.setRotationPoint(0.0F, -6.0F, 0.0F);
 		root.addChild(body);
 
 
 		guardingring = new AdvancedModelBox(this);
-		guardingring.setPos(0.0F, -15.0F, 0.0F);
+		guardingring.setRotationPoint(0.0F, -15.0F, 0.0F);
 		body.addChild(guardingring);
 
 
+		guardingring2 = new AdvancedModelBox(this);
+		guardingring2.setRotationPoint(0.0F, 0.0F, 0.0F);
+		guardingring.addChild(guardingring2);
+
+
 		shieldjoint = new AdvancedModelBox(this);
-		shieldjoint.setPos(0.0F, 0.0F, 0.0F);
-		guardingring.addChild(shieldjoint);
+		shieldjoint.setRotationPoint(0.0F, 0.0F, 0.0F);
+		guardingring2.addChild(shieldjoint);
 		setRotationAngle(shieldjoint, 0.0F, -0.7854F, 0.0F);
 
 
 		shield = new AdvancedModelBox(this);
-		shield.setPos(0.0F, -4.8F, -12.3F);
+		shield.setRotationPoint(0.0F, -4.8F, -12.3F);
 		shieldjoint.addChild(shield);
 		setRotationAngle(shield, -0.2182F, 0.0F, 0.0F);
 		shield.setTextureOffset(33, 0).addBox(-3.5F, -3.0F, -1.0F, 7.0F, 21.0F, 1.0F, 0.0F, false);
@@ -86,7 +93,7 @@ public class ModelIgnited_Revenant extends AdvancedEntityModel<Ignited_Revenant_
 		shield.setTextureOffset(34, 66).addBox(-3.0F, 2.0F, -1.5F, 6.0F, 12.0F, 0.0F, 0.0F, false);
 
 		right_parts = new AdvancedModelBox(this);
-		right_parts.setPos(-3.5F, 4.0F, 0.5F);
+		right_parts.setRotationPoint(-3.5F, 4.0F, 0.5F);
 		shield.addChild(right_parts);
 		setRotationAngle(right_parts, 0.0436F, 0.0436F, -0.0873F);
 		right_parts.setTextureOffset(60, 23).addBox(-4.0F, -7.0F, -1.0F, 5.0F, 21.0F, 1.0F, 0.0F, false);
@@ -95,7 +102,7 @@ public class ModelIgnited_Revenant extends AdvancedEntityModel<Ignited_Revenant_
 		right_parts.setTextureOffset(72, 0).addBox(-4.25F, 11.5F, -1.5F, 7.0F, 4.0F, 2.0F, 0.0F, false);
 
 		left_parts = new AdvancedModelBox(this);
-		left_parts.setPos(3.5F, 4.0F, 0.5F);
+		left_parts.setRotationPoint(3.5F, 4.0F, 0.5F);
 		shield.addChild(left_parts);
 		setRotationAngle(left_parts, 0.0436F, -0.0436F, 0.0873F);
 		left_parts.setTextureOffset(47, 43).addBox(-1.0F, -7.0F, -1.0F, 5.0F, 21.0F, 1.0F, 0.0F, false);
@@ -104,27 +111,27 @@ public class ModelIgnited_Revenant extends AdvancedEntityModel<Ignited_Revenant_
 		left_parts.setTextureOffset(69, 69).addBox(-2.75F, 11.5F, -1.5F, 7.0F, 4.0F, 2.0F, 0.0F, false);
 
 		spike_right = new AdvancedModelBox(this);
-		spike_right.setPos(4.0F, 6.5F, -1.0F);
+		spike_right.setRotationPoint(4.0F, 6.5F, -1.0F);
 		shield.addChild(spike_right);
 		setRotationAngle(spike_right, 0.0F, -0.3491F, 0.0F);
 		spike_right.setTextureOffset(63, 0).addBox(0.0F, -12.5F, -8.0F, 0.0F, 6.0F, 8.0F, 0.0F, false);
 		spike_right.setTextureOffset(61, 46).addBox(0.0F, 8.5F, -8.0F, 0.0F, 6.0F, 8.0F, 0.0F, false);
 
 		spike_left = new AdvancedModelBox(this);
-		spike_left.setPos(-4.0F, 6.5F, -1.0F);
+		spike_left.setRotationPoint(-4.0F, 6.5F, -1.0F);
 		shield.addChild(spike_left);
 		setRotationAngle(spike_left, 0.0F, 0.3491F, 0.0F);
 		spike_left.setTextureOffset(0, 61).addBox(0.0F, -12.5F, -8.0F, 0.0F, 6.0F, 8.0F, 0.0F, false);
 		spike_left.setTextureOffset(52, 58).addBox(0.0F, 8.5F, -8.0F, 0.0F, 6.0F, 8.0F, 0.0F, false);
 
 		shieldjoint2 = new AdvancedModelBox(this);
-		shieldjoint2.setPos(0.0F, 0.0F, 0.0F);
-		guardingring.addChild(shieldjoint2);
+		shieldjoint2.setRotationPoint(0.0F, 0.0F, 0.0F);
+		guardingring2.addChild(shieldjoint2);
 		setRotationAngle(shieldjoint2, 0.0F, -2.3562F, 0.0F);
 
 
 		shield2 = new AdvancedModelBox(this);
-		shield2.setPos(0.0F, -4.8F, -12.3F);
+		shield2.setRotationPoint(0.0F, -4.8F, -12.3F);
 		shieldjoint2.addChild(shield2);
 		setRotationAngle(shield2, -0.2182F, 0.0F, 0.0F);
 		shield2.setTextureOffset(33, 0).addBox(-3.5F, -3.0F, -1.0F, 7.0F, 21.0F, 1.0F, 0.0F, false);
@@ -133,7 +140,7 @@ public class ModelIgnited_Revenant extends AdvancedEntityModel<Ignited_Revenant_
 		shield2.setTextureOffset(34, 66).addBox(-3.0F, 2.0F, -1.5F, 6.0F, 12.0F, 0.0F, 0.0F, false);
 
 		right_parts2 = new AdvancedModelBox(this);
-		right_parts2.setPos(-3.5F, 4.0F, 0.5F);
+		right_parts2.setRotationPoint(-3.5F, 4.0F, 0.5F);
 		shield2.addChild(right_parts2);
 		setRotationAngle(right_parts2, 0.0436F, 0.0436F, -0.0873F);
 		right_parts2.setTextureOffset(60, 23).addBox(-4.0F, -7.0F, -1.0F, 5.0F, 21.0F, 1.0F, 0.0F, false);
@@ -142,7 +149,7 @@ public class ModelIgnited_Revenant extends AdvancedEntityModel<Ignited_Revenant_
 		right_parts2.setTextureOffset(72, 0).addBox(-4.25F, 11.5F, -1.5F, 7.0F, 4.0F, 2.0F, 0.0F, false);
 
 		left_parts2 = new AdvancedModelBox(this);
-		left_parts2.setPos(3.5F, 4.0F, 0.5F);
+		left_parts2.setRotationPoint(3.5F, 4.0F, 0.5F);
 		shield2.addChild(left_parts2);
 		setRotationAngle(left_parts2, 0.0436F, -0.0436F, 0.0873F);
 		left_parts2.setTextureOffset(47, 43).addBox(-1.0F, -7.0F, -1.0F, 5.0F, 21.0F, 1.0F, 0.0F, false);
@@ -151,27 +158,27 @@ public class ModelIgnited_Revenant extends AdvancedEntityModel<Ignited_Revenant_
 		left_parts2.setTextureOffset(69, 69).addBox(-2.75F, 11.5F, -1.5F, 7.0F, 4.0F, 2.0F, 0.0F, false);
 
 		spike_right2 = new AdvancedModelBox(this);
-		spike_right2.setPos(4.0F, 6.5F, -1.0F);
+		spike_right2.setRotationPoint(4.0F, 6.5F, -1.0F);
 		shield2.addChild(spike_right2);
 		setRotationAngle(spike_right2, 0.0F, -0.3491F, 0.0F);
 		spike_right2.setTextureOffset(63, 0).addBox(0.0F, -12.5F, -8.0F, 0.0F, 6.0F, 8.0F, 0.0F, false);
 		spike_right2.setTextureOffset(61, 46).addBox(0.0F, 8.5F, -8.0F, 0.0F, 6.0F, 8.0F, 0.0F, false);
 
 		spike_left2 = new AdvancedModelBox(this);
-		spike_left2.setPos(-4.0F, 6.5F, -1.0F);
+		spike_left2.setRotationPoint(-4.0F, 6.5F, -1.0F);
 		shield2.addChild(spike_left2);
 		setRotationAngle(spike_left2, 0.0F, 0.3491F, 0.0F);
 		spike_left2.setTextureOffset(0, 61).addBox(0.0F, -12.5F, -8.0F, 0.0F, 6.0F, 8.0F, 0.0F, false);
 		spike_left2.setTextureOffset(52, 58).addBox(0.0F, 8.5F, -8.0F, 0.0F, 6.0F, 8.0F, 0.0F, false);
 
 		shieldjoint3 = new AdvancedModelBox(this);
-		shieldjoint3.setPos(0.0F, 0.0F, 0.0F);
-		guardingring.addChild(shieldjoint3);
+		shieldjoint3.setRotationPoint(0.0F, 0.0F, 0.0F);
+		guardingring2.addChild(shieldjoint3);
 		setRotationAngle(shieldjoint3, 0.0F, 2.3562F, 0.0F);
 
 
 		shield3 = new AdvancedModelBox(this);
-		shield3.setPos(0.0F, -4.8F, -12.3F);
+		shield3.setRotationPoint(0.0F, -4.8F, -12.3F);
 		shieldjoint3.addChild(shield3);
 		setRotationAngle(shield3, -0.2182F, 0.0F, 0.0F);
 		shield3.setTextureOffset(33, 0).addBox(-3.5F, -3.0F, -1.0F, 7.0F, 21.0F, 1.0F, 0.0F, false);
@@ -180,7 +187,7 @@ public class ModelIgnited_Revenant extends AdvancedEntityModel<Ignited_Revenant_
 		shield3.setTextureOffset(34, 66).addBox(-3.0F, 2.0F, -1.5F, 6.0F, 12.0F, 0.0F, 0.0F, false);
 
 		right_parts3 = new AdvancedModelBox(this);
-		right_parts3.setPos(-3.5F, 4.0F, 0.5F);
+		right_parts3.setRotationPoint(-3.5F, 4.0F, 0.5F);
 		shield3.addChild(right_parts3);
 		setRotationAngle(right_parts3, 0.0436F, 0.0436F, -0.0873F);
 		right_parts3.setTextureOffset(60, 23).addBox(-4.0F, -7.0F, -1.0F, 5.0F, 21.0F, 1.0F, 0.0F, false);
@@ -189,7 +196,7 @@ public class ModelIgnited_Revenant extends AdvancedEntityModel<Ignited_Revenant_
 		right_parts3.setTextureOffset(72, 0).addBox(-4.25F, 11.5F, -1.5F, 7.0F, 4.0F, 2.0F, 0.0F, false);
 
 		left_parts3 = new AdvancedModelBox(this);
-		left_parts3.setPos(3.5F, 4.0F, 0.5F);
+		left_parts3.setRotationPoint(3.5F, 4.0F, 0.5F);
 		shield3.addChild(left_parts3);
 		setRotationAngle(left_parts3, 0.0436F, -0.0436F, 0.0873F);
 		left_parts3.setTextureOffset(47, 43).addBox(-1.0F, -7.0F, -1.0F, 5.0F, 21.0F, 1.0F, 0.0F, false);
@@ -198,27 +205,27 @@ public class ModelIgnited_Revenant extends AdvancedEntityModel<Ignited_Revenant_
 		left_parts3.setTextureOffset(69, 69).addBox(-2.75F, 11.5F, -1.5F, 7.0F, 4.0F, 2.0F, 0.0F, false);
 
 		spike_right3 = new AdvancedModelBox(this);
-		spike_right3.setPos(4.0F, 6.5F, -1.0F);
+		spike_right3.setRotationPoint(4.0F, 6.5F, -1.0F);
 		shield3.addChild(spike_right3);
 		setRotationAngle(spike_right3, 0.0F, -0.3491F, 0.0F);
 		spike_right3.setTextureOffset(63, 0).addBox(0.0F, -12.5F, -8.0F, 0.0F, 6.0F, 8.0F, 0.0F, false);
 		spike_right3.setTextureOffset(61, 46).addBox(0.0F, 8.5F, -8.0F, 0.0F, 6.0F, 8.0F, 0.0F, false);
 
 		spike_left3 = new AdvancedModelBox(this);
-		spike_left3.setPos(-4.0F, 6.5F, -1.0F);
+		spike_left3.setRotationPoint(-4.0F, 6.5F, -1.0F);
 		shield3.addChild(spike_left3);
 		setRotationAngle(spike_left3, 0.0F, 0.3491F, 0.0F);
 		spike_left3.setTextureOffset(0, 61).addBox(0.0F, -12.5F, -8.0F, 0.0F, 6.0F, 8.0F, 0.0F, false);
 		spike_left3.setTextureOffset(52, 58).addBox(0.0F, 8.5F, -8.0F, 0.0F, 6.0F, 8.0F, 0.0F, false);
 
 		shieldjoint4 = new AdvancedModelBox(this);
-		shieldjoint4.setPos(0.0F, 0.0F, 0.0F);
-		guardingring.addChild(shieldjoint4);
+		shieldjoint4.setRotationPoint(0.0F, 0.0F, 0.0F);
+		guardingring2.addChild(shieldjoint4);
 		setRotationAngle(shieldjoint4, 0.0F, 0.7854F, 0.0F);
 
 
 		shield4 = new AdvancedModelBox(this);
-		shield4.setPos(0.0F, -4.8F, -12.3F);
+		shield4.setRotationPoint(0.0F, -4.8F, -12.3F);
 		shieldjoint4.addChild(shield4);
 		setRotationAngle(shield4, -0.2182F, 0.0F, 0.0F);
 		shield4.setTextureOffset(33, 0).addBox(-3.5F, -3.0F, -1.0F, 7.0F, 21.0F, 1.0F, 0.0F, false);
@@ -227,7 +234,7 @@ public class ModelIgnited_Revenant extends AdvancedEntityModel<Ignited_Revenant_
 		shield4.setTextureOffset(34, 66).addBox(-3.0F, 2.0F, -1.5F, 6.0F, 12.0F, 0.0F, 0.0F, false);
 
 		right_parts4 = new AdvancedModelBox(this);
-		right_parts4.setPos(-3.5F, 4.0F, 0.5F);
+		right_parts4.setRotationPoint(-3.5F, 4.0F, 0.5F);
 		shield4.addChild(right_parts4);
 		setRotationAngle(right_parts4, 0.0436F, 0.0436F, -0.0873F);
 		right_parts4.setTextureOffset(60, 23).addBox(-4.0F, -7.0F, -1.0F, 5.0F, 21.0F, 1.0F, 0.0F, false);
@@ -236,7 +243,7 @@ public class ModelIgnited_Revenant extends AdvancedEntityModel<Ignited_Revenant_
 		right_parts4.setTextureOffset(72, 0).addBox(-4.25F, 11.5F, -1.5F, 7.0F, 4.0F, 2.0F, 0.0F, false);
 
 		left_parts4 = new AdvancedModelBox(this);
-		left_parts4.setPos(3.5F, 4.0F, 0.5F);
+		left_parts4.setRotationPoint(3.5F, 4.0F, 0.5F);
 		shield4.addChild(left_parts4);
 		setRotationAngle(left_parts4, 0.0436F, -0.0436F, 0.0873F);
 		left_parts4.setTextureOffset(47, 43).addBox(-1.0F, -7.0F, -1.0F, 5.0F, 21.0F, 1.0F, 0.0F, false);
@@ -245,53 +252,53 @@ public class ModelIgnited_Revenant extends AdvancedEntityModel<Ignited_Revenant_
 		left_parts4.setTextureOffset(69, 69).addBox(-2.75F, 11.5F, -1.5F, 7.0F, 4.0F, 2.0F, 0.0F, false);
 
 		spike_right4 = new AdvancedModelBox(this);
-		spike_right4.setPos(4.0F, 6.5F, -1.0F);
+		spike_right4.setRotationPoint(4.0F, 6.5F, -1.0F);
 		shield4.addChild(spike_right4);
 		setRotationAngle(spike_right4, 0.0F, -0.3491F, 0.0F);
 		spike_right4.setTextureOffset(63, 0).addBox(0.0F, -12.5F, -8.0F, 0.0F, 6.0F, 8.0F, 0.0F, false);
 		spike_right4.setTextureOffset(61, 46).addBox(0.0F, 8.5F, -8.0F, 0.0F, 6.0F, 8.0F, 0.0F, false);
 
 		spike_left4 = new AdvancedModelBox(this);
-		spike_left4.setPos(-4.0F, 6.5F, -1.0F);
+		spike_left4.setRotationPoint(-4.0F, 6.5F, -1.0F);
 		shield4.addChild(spike_left4);
 		setRotationAngle(spike_left4, 0.0F, 0.3491F, 0.0F);
 		spike_left4.setTextureOffset(0, 61).addBox(0.0F, -12.5F, -8.0F, 0.0F, 6.0F, 8.0F, 0.0F, false);
 		spike_left4.setTextureOffset(52, 58).addBox(0.0F, 8.5F, -8.0F, 0.0F, 6.0F, 8.0F, 0.0F, false);
 
 		center = new AdvancedModelBox(this);
-		center.setPos(0.0F, 0.0F, 0.0F);
+		center.setRotationPoint(0.0F, 0.0F, 0.0F);
 		body.addChild(center);
 		center.setTextureOffset(17, 43).addBox(-2.0F, -22.0F, -2.0F, 4.0F, 22.0F, 4.0F, 0.0F, false);
 		center.setTextureOffset(0, 34).addBox(-2.0F, -22.0F, -2.0F, 4.0F, 22.0F, 4.0F, 0.3F, false);
 
 		head = new AdvancedModelBox(this);
-		head.setPos(0.0F, -26.0F, 0.0F);
+		head.setRotationPoint(0.0F, -26.0F, 0.0F);
 		center.addChild(head);
 
 
 		jaw = new AdvancedModelBox(this);
-		jaw.setPos(0.0F, 2.0F, 4.0F);
+		jaw.setRotationPoint(0.0F, 2.0F, 4.0F);
 		head.addChild(jaw);
 		jaw.setTextureOffset(0, 0).addBox(-4.0F, -6.0F, -8.0F, 8.0F, 8.0F, 8.0F, -0.1F, false);
 
 		skull = new AdvancedModelBox(this);
-		skull.setPos(0.0F, 2.0F, 4.0F);
+		skull.setRotationPoint(0.0F, 2.0F, 4.0F);
 		head.addChild(skull);
 		skull.setTextureOffset(25, 26).addBox(-4.0F, -5.999F, -8.0436F, 8.0F, 8.0F, 8.0F, 0.0F, false);
 
 		helmet = new AdvancedModelBox(this);
-		helmet.setPos(0.0F, -1.999F, -4.0436F);
+		helmet.setRotationPoint(0.0F, -1.999F, -4.0436F);
 		skull.addChild(helmet);
 		helmet.setTextureOffset(0, 17).addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F, 0.3F, false);
 
 		right_horn = new AdvancedModelBox(this);
-		right_horn.setPos(-4.0F, -3.5F, -3.5F);
+		right_horn.setRotationPoint(-4.0F, -3.5F, -3.5F);
 		helmet.addChild(right_horn);
 		setRotationAngle(right_horn, 0.4363F, 0.0F, 0.0F);
 		right_horn.setTextureOffset(0, 0).addBox(-1.3F, -5.5F, -0.5F, 1.0F, 6.0F, 1.0F, 0.0F, false);
 
 		left_horn = new AdvancedModelBox(this);
-		left_horn.setPos(4.3F, -3.5F, -3.5F);
+		left_horn.setRotationPoint(4.3F, -3.5F, -3.5F);
 		helmet.addChild(left_horn);
 		setRotationAngle(left_horn, 0.4363F, 0.0F, 0.0F);
 		left_horn.setTextureOffset(0, 17).addBox(0.0F, -2.5F, -0.5F, 1.0F, 3.0F, 1.0F, 0.0F, false);
@@ -302,6 +309,25 @@ public class ModelIgnited_Revenant extends AdvancedEntityModel<Ignited_Revenant_
 
 	public void animate(IAnimatedEntity entity, float f, float f1, float f2, float f3, float f4) {
 		this.resetToDefaultPose();
+		animator.update(entity);
+		animator.setAnimation(Ignited_Revenant_Entity.ASH_BREATH_ATTACK);
+		animator.startKeyframe(15);
+		animator.rotate(guardingring, (float)Math.toRadians(-5F),0, 0);
+		animator.rotate(center, (float)Math.toRadians(-12.5F),0, 0);
+		animator.rotate(head, (float)Math.toRadians(-25F), 0, 0);
+		animator.endKeyframe();
+
+		animator.setStaticKeyframe(8);
+
+		animator.startKeyframe(5);
+		animator.rotate(guardingring, (float)Math.toRadians(20F),0, 0);
+		animator.rotate(center, (float)Math.toRadians(25F),0, 0);
+		animator.rotate(head, (float)Math.toRadians(-15F), 0, 0);
+		animator.move(skull, 0, -3, 0);
+		animator.rotate(skull, (float)Math.toRadians(-22.5F), 0, 0);
+		animator.endKeyframe();
+		animator.setStaticKeyframe(15);
+		animator.resetKeyframe(10);
 	}
 
 	@Override
@@ -320,7 +346,7 @@ public class ModelIgnited_Revenant extends AdvancedEntityModel<Ignited_Revenant_
 		this.bob(shield3, idleSpeed, idleDegree, false, ageInTicks, 1);
 		this.bob(shield4, idleSpeed, idleDegree, false, ageInTicks, 1);
 		float spin = entityIn.getIsAnger() ? 0.2F : 0.05F;
-		guardingring.rotateAngleY += ageInTicks * spin;
+		guardingring2.rotateAngleY += ageInTicks * spin;
 		this.shield.rotationPointY += Mth.cos(ageInTicks * 0.1F);
 		this.shield4.rotationPointY += Mth.cos(ageInTicks * 0.1F);
 		this.shield2.rotationPointY -= Mth.cos(ageInTicks * 0.1F);
@@ -334,7 +360,7 @@ public class ModelIgnited_Revenant extends AdvancedEntityModel<Ignited_Revenant_
 		progressRotationPrev(shield2,angerProgress,(float)Math.toRadians(-47.5F), 0, 0, 5f);
 		progressRotationPrev(shield3,angerProgress,(float)Math.toRadians(-47.5F), 0, 0, 5f);
 		progressRotationPrev(shield4,angerProgress,(float)Math.toRadians(-47.5F), 0, 0, 5f);
-		progressRotationPrev(skull,angerProgress,(float)Math.toRadians(-10F), 0, 0, 5f);
+		progressRotationPrev(skull,angerProgress,(float)Math.toRadians(-17.5F), 0, 0, 5f);
 		progressRotationPrev(jaw,angerProgress,(float)Math.toRadians(10F), 0, 0, 5f);
 
 
@@ -350,6 +376,7 @@ public class ModelIgnited_Revenant extends AdvancedEntityModel<Ignited_Revenant_
 				skull,
 				body,
 				guardingring,
+				guardingring2,
 				shield,
 				shieldjoint,
 				shield2,
