@@ -373,7 +373,7 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
             for (int j = 0; j < this.monstrosityParts.length; ++j) {
                 avector3d[j] = new Vec3(this.monstrosityParts[j].getX(), this.monstrosityParts[j].getY(), this.monstrosityParts[j].getZ());
             }
-            this.setPartPosition(this.headPart, f3 * -2F, pitch + 3F, -f18 * -2F);
+            this.setPartPosition(this.headPart, f3 * -1.65F, pitch + 3F, -f18 * -1.65F);
 
             for (int l = 0; l < this.monstrosityParts.length; ++l) {
                 this.monstrosityParts[l].xo = avector3d[l].x;
