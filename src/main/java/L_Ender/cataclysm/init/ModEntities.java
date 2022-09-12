@@ -6,7 +6,7 @@ import L_Ender.cataclysm.entity.*;
 import L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
 import L_Ender.cataclysm.entity.effect.Flame_Strike_Entity;
 import L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
-import L_Ender.cataclysm.entity.effect.SmokeEffect;
+import L_Ender.cataclysm.entity.effect.Smoke_Effect_Entity;
 import L_Ender.cataclysm.entity.projectile.*;
 
 import net.minecraft.world.entity.EntityType;
@@ -14,7 +14,6 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
@@ -128,11 +127,11 @@ public class ModEntities {
             .setShouldReceiveVelocityUpdates(true)
             .build(cataclysm.MODID + ":ignis_abyss_fireball"));
 
-    public static final RegistryObject<EntityType<SmokeEffect>> SMOKE = ENTITY_TYPE.register("smoke", () -> EntityType.Builder.<SmokeEffect>of(SmokeEffect::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<Smoke_Effect_Entity>> SMOKE_EFFECT = ENTITY_TYPE.register("smoke_effect", () -> EntityType.Builder.<Smoke_Effect_Entity>of(Smoke_Effect_Entity::new, MobCategory.MISC)
             .sized(6.0F, 0.5F)
             .fireImmune()
             .clientTrackingRange(10).updateInterval(Integer.MAX_VALUE)
-            .build(cataclysm.MODID + ":smoke"));
+            .build(cataclysm.MODID + ":smoke_effect"));
 
     public static final RegistryObject<EntityType<Flame_Strike_Entity>> FLAME_STRIKE = ENTITY_TYPE.register("flame_strike", () -> EntityType.Builder.<Flame_Strike_Entity>of(Flame_Strike_Entity::new, MobCategory.MISC)
             .sized(6.0F, 0.5F)

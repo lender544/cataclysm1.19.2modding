@@ -1,5 +1,6 @@
 package L_Ender.cataclysm.entity.effect;
 
+import L_Ender.cataclysm.init.ModEffect;
 import L_Ender.cataclysm.init.ModEntities;
 import com.mojang.logging.LogUtils;
 import net.minecraft.core.particles.ParticleOptions;
@@ -26,8 +27,8 @@ import java.util.UUID;
 
 public class Flame_Strike_Entity extends Entity {
     private static final EntityDataAccessor<Float> DATA_RADIUS = SynchedEntityData.defineId(Flame_Strike_Entity.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Integer> DATA_COLOR = SynchedEntityData.defineId(Flame_Strike_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> DATA_WAITING = SynchedEntityData.defineId(Flame_Strike_Entity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> SOUL = SynchedEntityData.defineId(Flame_Strike_Entity.class, EntityDataSerializers.BOOLEAN);
     private static final float MAX_RADIUS = 32.0F;
     private int duration = 600;
     private int waitTime = 20;
@@ -51,9 +52,9 @@ public class Flame_Strike_Entity extends Entity {
     }
 
     protected void defineSynchedData() {
-        this.getEntityData().define(DATA_COLOR, 0);
         this.getEntityData().define(DATA_RADIUS, 0.5F);
         this.getEntityData().define(DATA_WAITING, true);
+        this.getEntityData().define(SOUL, false);
     }
 
     public void setRadius(float p_19713_) {
@@ -84,6 +85,14 @@ public class Flame_Strike_Entity extends Entity {
         return this.getEntityData().get(DATA_WAITING);
     }
 
+    public void setSoul(boolean Soul) {
+        this.getEntityData().set(SOUL, Soul);
+    }
+
+    public boolean isSoul() {
+        return this.getEntityData().get(SOUL);
+    }
+
     public int getDuration() {
         return this.duration;
     }
@@ -100,17 +109,19 @@ public class Flame_Strike_Entity extends Entity {
             if (flag && this.random.nextBoolean()) {
                 return;
             }
-            ParticleOptions particleoptions = flag ? ParticleTypes.LAVA : ParticleTypes.FLAME ;
+            ParticleOptions particleoptions = this.isSoul() ? ParticleTypes.SOUL_FIRE_FLAME : ParticleTypes.FLAME ;
             float f1 = flag ? 0.2F : f;
             double spread = Math.PI * 2 ;
             int arcLen = Mth.ceil(this.getRadius() * spread);
 
-            for(int j = 0; j < arcLen * 3 ; ++j) {
-                float f2 = this.random.nextFloat() * ((float)Math.PI * 2F);
-                double d0 = this.getX() + (double)(Mth.cos(f2) * f1);
-                double d2 = this.getY();
-                double d4 = this.getZ() + (double)(Mth.sin(f2) * f1);
-                this.level.addAlwaysVisibleParticle(particleoptions, d0, d2, d4, 0.0D,  0.07D * this.getBbHeight() + 0.2D, 0.0D);
+            if(!flag) {
+                for (int j = 0; j < arcLen * 2; ++j) {
+                    float f2 = this.random.nextFloat() * ((float) Math.PI * 2F);
+                    double d0 = this.getX() + (double) (Mth.cos(f2) * f1) * 0.9;
+                    double d2 = this.getY();
+                    double d4 = this.getZ() + (double) (Mth.sin(f2) * f1) * 0.9;
+                    this.level.addParticle(particleoptions, d0, d2, d4, random.nextGaussian() * 0.07D, 0.07D * this.getRadius() + 0.2D, random.nextGaussian() * 0.07D);
+                }
             }
         } else {
             if (this.tickCount >= this.waitTime + this.duration) {
@@ -150,25 +161,44 @@ public class Flame_Strike_Entity extends Entity {
     private void damage(LivingEntity Hitentity) {
         LivingEntity caster = this.getOwner();
         if (Hitentity.isAlive() && !Hitentity.isInvulnerable() && Hitentity != caster) {
-            if (this.tickCount % 5 == 0) {
+            if (this.tickCount % 2 == 0) {
+                float damage = this.isSoul() ? 8.0F : 6.0F;
                 if (caster == null) {
-                    boolean flag = Hitentity.hurt(DamageSource.GENERIC, 4);
-                    if(flag){
-                        MobEffectInstance effectinstance = new MobEffectInstance(MobEffects.BLINDNESS, 100, 0, false, false, true);
-                        MobEffectInstance effectinstance1 = new MobEffectInstance(MobEffects.CONFUSION, 100, 0, false, false, true);
+
+                    boolean flag = Hitentity.hurt(DamageSource.MAGIC, damage + Hitentity.getMaxHealth() * 0.06f);
+                    if (flag) {
+                        MobEffectInstance effectinstance1 = Hitentity.getEffect(ModEffect.EFFECTBLAZING_BRAND.get());
+                        int i = 1;
+                        if (effectinstance1 != null) {
+                            i += effectinstance1.getAmplifier();
+                            Hitentity.removeEffectNoUpdate(ModEffect.EFFECTBLAZING_BRAND.get());
+                        } else {
+                            --i;
+                        }
+
+                        i = Mth.clamp(i, 0, 4);
+                        MobEffectInstance effectinstance = new MobEffectInstance(ModEffect.EFFECTBLAZING_BRAND.get(), 200, i, false, false, true);
                         Hitentity.addEffect(effectinstance);
-                        Hitentity.addEffect(effectinstance1);
                     }
                 } else {
                     if (caster.isAlliedTo(Hitentity)) {
                         return;
                     }
-                    boolean flag = Hitentity.hurt(DamageSource.indirectMobAttack(this, caster), 4);
-                    if(flag){
-                        MobEffectInstance effectinstance = new MobEffectInstance(MobEffects.BLINDNESS, 100, 0, false, false, true);
-                        MobEffectInstance effectinstance1 = new MobEffectInstance(MobEffects.CONFUSION, 100, 0, false, false, true);
+                    boolean flag = Hitentity.hurt(DamageSource.indirectMagic(this, caster), damage + Hitentity.getMaxHealth() * 0.06f);
+                    if (flag) {
+                        MobEffectInstance effectinstance1 = Hitentity.getEffect(ModEffect.EFFECTBLAZING_BRAND.get());
+                        int i = 1;
+                        if (effectinstance1 != null) {
+                            i += effectinstance1.getAmplifier();
+                            Hitentity.removeEffectNoUpdate(ModEffect.EFFECTBLAZING_BRAND.get());
+                        } else {
+                            --i;
+                        }
+
+                        i = Mth.clamp(i, 0, 4);
+                        MobEffectInstance effectinstance = new MobEffectInstance(ModEffect.EFFECTBLAZING_BRAND.get(), 200, i, false, false, true);
                         Hitentity.addEffect(effectinstance);
-                        Hitentity.addEffect(effectinstance1);
+
                     }
                 }
             }
@@ -235,6 +265,7 @@ public class Flame_Strike_Entity extends Entity {
         if (p_19727_.hasUUID("Owner")) {
             this.ownerUUID = p_19727_.getUUID("Owner");
         }
+        setSoul(p_19727_.getBoolean("is_soul"));
 
     }
 
@@ -249,6 +280,7 @@ public class Flame_Strike_Entity extends Entity {
         if (this.ownerUUID != null) {
             p_19737_.putUUID("Owner", this.ownerUUID);
         }
+        p_19737_.putBoolean("is_soul", isSoul());
 
 
     }
@@ -270,7 +302,7 @@ public class Flame_Strike_Entity extends Entity {
     }
 
     public EntityDimensions getDimensions(Pose p_19721_) {
-        return EntityDimensions.scalable(this.getRadius() * 1.8F, this.getRadius() * 4.0F);
+        return EntityDimensions.scalable(this.getRadius() * 1.8F, this.getRadius() * 3.0F);
     }
 }
 

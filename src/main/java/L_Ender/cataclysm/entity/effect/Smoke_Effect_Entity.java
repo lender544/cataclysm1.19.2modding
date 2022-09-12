@@ -1,19 +1,9 @@
 package L_Ender.cataclysm.entity.effect;
 
-import L_Ender.cataclysm.config.CMConfig;
-import L_Ender.cataclysm.init.ModEffect;
 import L_Ender.cataclysm.init.ModEntities;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.mojang.brigadier.StringReader;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.mojang.logging.LogUtils;
-import net.minecraft.commands.arguments.ParticleArgument;
-import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -27,16 +17,13 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.PushReaction;
-import org.slf4j.Logger;
 
 import javax.annotation.Nullable;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
-public class SmokeEffect extends Entity {
-    private static final EntityDataAccessor<Float> DATA_RADIUS = SynchedEntityData.defineId(SmokeEffect.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Boolean> DATA_WAITING = SynchedEntityData.defineId(SmokeEffect.class, EntityDataSerializers.BOOLEAN);
+public class Smoke_Effect_Entity extends Entity {
+    private static final EntityDataAccessor<Float> DATA_RADIUS = SynchedEntityData.defineId(Smoke_Effect_Entity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Boolean> DATA_WAITING = SynchedEntityData.defineId(Smoke_Effect_Entity.class, EntityDataSerializers.BOOLEAN);
     private static final float MAX_RADIUS = 32.0F;
     private int duration = 600;
     private int waitTime = 20;
@@ -48,14 +35,14 @@ public class SmokeEffect extends Entity {
     @Nullable
     private UUID ownerUUID;
 
-    public SmokeEffect(EntityType<? extends SmokeEffect> p_19704_, Level p_19705_) {
+    public Smoke_Effect_Entity(EntityType<? extends Smoke_Effect_Entity> p_19704_, Level p_19705_) {
         super(p_19704_, p_19705_);
         this.noPhysics = true;
         this.setRadius(3.0F);
     }
 
-    public SmokeEffect(Level p_19707_, double p_19708_, double p_19709_, double p_19710_) {
-        this(ModEntities.SMOKE.get(), p_19707_);
+    public Smoke_Effect_Entity(Level p_19707_, double p_19708_, double p_19709_, double p_19710_) {
+        this(ModEntities.SMOKE_EFFECT.get(), p_19707_);
         this.setPos(p_19708_, p_19709_, p_19710_);
     }
 
@@ -109,7 +96,7 @@ public class SmokeEffect extends Entity {
                 return;
             }
 
-            ParticleOptions particleoptions = flag ? ParticleTypes.LAVA : ParticleTypes.FLAME ;
+            ParticleOptions particleoptions = ParticleTypes.SMOKE;
             int i;
             float f1;
             if (flag) {
@@ -167,10 +154,10 @@ public class SmokeEffect extends Entity {
         if (Hitentity.isAlive() && !Hitentity.isInvulnerable() && Hitentity != caster) {
             if (this.tickCount % 5 == 0) {
                 if (caster == null) {
-                    boolean flag = Hitentity.hurt(DamageSource.GENERIC, 4);
+                    boolean flag = Hitentity.hurt(DamageSource.GENERIC, 5);
                     if(flag){
-                        MobEffectInstance effectinstance = new MobEffectInstance(MobEffects.BLINDNESS, 100, 0, false, false, true);
-                        MobEffectInstance effectinstance1 = new MobEffectInstance(MobEffects.CONFUSION, 100, 0, false, false, true);
+                        MobEffectInstance effectinstance = new MobEffectInstance(MobEffects.BLINDNESS, 160, 0, false, false, true);
+                        MobEffectInstance effectinstance1 = new MobEffectInstance(MobEffects.CONFUSION, 160, 0, false, false, true);
                         Hitentity.addEffect(effectinstance);
                         Hitentity.addEffect(effectinstance1);
                     }
@@ -178,10 +165,10 @@ public class SmokeEffect extends Entity {
                     if (caster.isAlliedTo(Hitentity)) {
                         return;
                     }
-                    boolean flag = Hitentity.hurt(DamageSource.indirectMobAttack(this, caster), 4);
+                    boolean flag = Hitentity.hurt(DamageSource.indirectMobAttack(this, caster), 5);
                     if(flag){
-                        MobEffectInstance effectinstance = new MobEffectInstance(MobEffects.BLINDNESS, 100, 0, false, false, true);
-                        MobEffectInstance effectinstance1 = new MobEffectInstance(MobEffects.CONFUSION, 100, 0, false, false, true);
+                        MobEffectInstance effectinstance = new MobEffectInstance(MobEffects.BLINDNESS, 160, 0, false, false, true);
+                        MobEffectInstance effectinstance1 = new MobEffectInstance(MobEffects.CONFUSION, 160, 0, false, false, true);
                         Hitentity.addEffect(effectinstance);
                         Hitentity.addEffect(effectinstance1);
                     }
