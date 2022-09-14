@@ -3,7 +3,9 @@ package L_Ender.cataclysm.client.render.entity;
 import L_Ender.cataclysm.client.model.entity.ModelIgnited_Revenant;
 import L_Ender.cataclysm.client.model.entity.ModelNameless_Sorcerer;
 import L_Ender.cataclysm.client.render.CMRenderTypes;
+import L_Ender.cataclysm.client.render.layer.Ignis_Shield_Layer;
 import L_Ender.cataclysm.client.render.layer.LayerGenericGlowing;
+import L_Ender.cataclysm.client.render.layer.Revenant_Layer;
 import L_Ender.cataclysm.entity.Ignis_Entity;
 import L_Ender.cataclysm.entity.Ignited_Revenant_Entity;
 import L_Ender.cataclysm.entity.Nameless_Sorcerer_Entity;
@@ -25,13 +27,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class RendererIgnited_Revenant extends MobRenderer<Ignited_Revenant_Entity, ModelIgnited_Revenant> {
 
-    private static final ResourceLocation IGNITED_REVENANT_TEXTURES = new ResourceLocation("cataclysm:textures/entity/ignited_revenant.png");
-    private static final ResourceLocation IGNITED_REVENANT_LAYER_TEXTURES = new ResourceLocation("cataclysm:textures/entity/ignited_revenant_layer.png");
+    private static final ResourceLocation IGNITED_REVENANT_TEXTURES = new ResourceLocation("cataclysm:textures/entity/revenant_body.png");
+    private static final ResourceLocation IGNITED_REVENANT_LAYER_TEXTURES = new ResourceLocation("cataclysm:textures/entity/revenant_layer.png");
     private final RandomSource rnd = RandomSource.create();
 
     public RendererIgnited_Revenant(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new ModelIgnited_Revenant(), 0.5F);
         this.addLayer(new Ignited_Revenant_GlowLayer(this));
+        this.addLayer(new Revenant_Layer(this));
 
     }
     @Override

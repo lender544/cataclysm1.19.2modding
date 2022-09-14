@@ -139,6 +139,12 @@ public class ModEntities {
             .clientTrackingRange(10).updateInterval(Integer.MAX_VALUE)
             .build(cataclysm.MODID + ":flame_strike"));
 
+    public static final RegistryObject<EntityType<Smoke_Breath_Entity>> SMOKE_BREATH = ENTITY_TYPE.register("smoke_breath", () -> EntityType.Builder.<Smoke_Breath_Entity>of(Smoke_Breath_Entity::new, MobCategory.MISC)
+            .sized(0.1f, 0.1f)
+            .fireImmune()
+            .setUpdateInterval(1)
+            .build(cataclysm.MODID + ":smoke_breath"));
+
     @SubscribeEvent
     public static void initializeAttributes(EntityAttributeCreationEvent event) {
         SpawnPlacements.register(ENDERMAPTERA.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Endermaptera_Entity::canSpawn);

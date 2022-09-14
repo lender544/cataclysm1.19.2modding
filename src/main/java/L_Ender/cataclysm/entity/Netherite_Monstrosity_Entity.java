@@ -2,8 +2,10 @@ package L_Ender.cataclysm.entity;
 
 import L_Ender.cataclysm.cataclysm;
 import L_Ender.cataclysm.config.CMConfig;
+import L_Ender.cataclysm.entity.AI.AnimationGoal;
 import L_Ender.cataclysm.entity.AI.AttackMoveGoal;
 import L_Ender.cataclysm.entity.AI.CmAttackGoal;
+import L_Ender.cataclysm.entity.AI.SimpleAnimationGoal;
 import L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
 import L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import L_Ender.cataclysm.entity.etc.CMPathNavigateGround;
@@ -122,11 +124,11 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
     }
 
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new Netherite_Monstrosity_Entity.BerserkGoal());
-        this.goalSelector.addGoal(0, new Netherite_Monstrosity_Entity.AwakenGoal());
-        this.goalSelector.addGoal(1, new Netherite_Monstrosity_Entity.HealGoal());
-        this.goalSelector.addGoal(1, new Netherite_Monstrosity_Entity.ShootGoal());
-        this.goalSelector.addGoal(1, new Netherite_Monstrosity_Entity.EarthQuakeGoal());
+        this.goalSelector.addGoal(0, new BerserkGoal(this,MONSTROSITY_BERSERK));
+        this.goalSelector.addGoal(0, new AwakenGoal());
+        this.goalSelector.addGoal(1, new HealGoal(this, MONSTROSITY_CHARGE));
+        this.goalSelector.addGoal(1, new ShootGoal(this, MONSTROSITY_ERUPTIONATTACK));
+        this.goalSelector.addGoal(1, new EarthQuakeGoal(this));
         this.goalSelector.addGoal(2, new AttackMoveGoal(this, true,1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
@@ -640,18 +642,18 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
     }
 
 
-    class EarthQuakeGoal extends Goal {
+    class EarthQuakeGoal extends AnimationGoal<Netherite_Monstrosity_Entity> {
 
-        public EarthQuakeGoal() {
-            this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.LOOK, Goal.Flag.MOVE));
+        public EarthQuakeGoal(Netherite_Monstrosity_Entity entity) {
+            super(entity);
+            //this.setFlags(EnumSet.of(Flag.JUMP, Flag.LOOK));
         }
 
-        public boolean canUse() {
-            return Netherite_Monstrosity_Entity.this.getAnimation() == MONSTROSITY_EARTHQUAKE || Netherite_Monstrosity_Entity.this.getAnimation() == MONSTROSITY_EARTHQUAKE2 || Netherite_Monstrosity_Entity.this.getAnimation() == MONSTROSITY_EARTHQUAKE3;
-        }
-
-        public boolean requiresUpdateEveryTick() {
-            return true;
+        @Override
+        protected boolean test(Animation animation) {
+            return animation == MONSTROSITY_EARTHQUAKE
+                    || animation == MONSTROSITY_EARTHQUAKE2
+                    || animation == MONSTROSITY_EARTHQUAKE3;
         }
 
         public void tick() {
@@ -690,19 +692,10 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
 
 
 
-    class ShootGoal extends Goal {
+    class ShootGoal extends SimpleAnimationGoal<Netherite_Monstrosity_Entity> {
 
-
-        public ShootGoal() {
-            this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.LOOK, Goal.Flag.MOVE));
-        }
-
-        public boolean canUse() {
-            return Netherite_Monstrosity_Entity.this.getAnimation() == MONSTROSITY_ERUPTIONATTACK;
-        }
-
-        public boolean requiresUpdateEveryTick() {
-            return true;
+        public ShootGoal(Netherite_Monstrosity_Entity entity, Animation animation) {
+            super(entity, animation);
         }
 
         public void tick() {
@@ -730,18 +723,10 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
         }
     }
 
-    class BerserkGoal extends Goal {
+    class BerserkGoal extends SimpleAnimationGoal<Netherite_Monstrosity_Entity> {
 
-        public BerserkGoal() {
-            this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.LOOK, Goal.Flag.MOVE));
-        }
-
-        public boolean canUse() {
-            return Netherite_Monstrosity_Entity.this.getAnimation() == MONSTROSITY_BERSERK;
-        }
-
-        public boolean requiresUpdateEveryTick() {
-            return true;
+        public BerserkGoal(Netherite_Monstrosity_Entity entity, Animation animation) {
+            super(entity, animation);
         }
 
         public void tick() {
@@ -754,18 +739,10 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
         }
     }
 
-    class HealGoal extends Goal {
+    class HealGoal extends SimpleAnimationGoal<Netherite_Monstrosity_Entity> {
 
-        public HealGoal() {
-            this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.LOOK, Goal.Flag.MOVE));
-        }
-
-        public boolean canUse() {
-            return Netherite_Monstrosity_Entity.this.getAnimation() == MONSTROSITY_CHARGE;
-        }
-
-        public boolean requiresUpdateEveryTick() {
-            return true;
+        public HealGoal(Netherite_Monstrosity_Entity entity, Animation animation) {
+            super(entity, animation);
         }
 
         public void tick() {
@@ -786,7 +763,7 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
     class AwakenGoal extends Goal {
 
         public AwakenGoal() {
-            this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.LOOK, Goal.Flag.MOVE));
+
         }
 
         public boolean canUse() {

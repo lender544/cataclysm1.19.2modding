@@ -107,7 +107,7 @@ public class Smoke_Effect_Entity extends Entity {
                 f1 = f;
             }
 
-            for(int j = 0; j < 80 + random.nextInt(12); ++j) {
+            for(int j = 0; j < 20 + random.nextInt(5); ++j) {
                 float f2 = this.random.nextFloat() * ((float)Math.PI * 2F);
                 float f3 = Mth.sqrt(this.random.nextFloat()) * f1;
                 double d0 = this.getX() + (double)(Mth.cos(f2) * f3);
@@ -167,9 +167,9 @@ public class Smoke_Effect_Entity extends Entity {
                     }
                     boolean flag = Hitentity.hurt(DamageSource.indirectMobAttack(this, caster), 5);
                     if(flag){
-                        MobEffectInstance effectinstance = new MobEffectInstance(MobEffects.BLINDNESS, 160, 0, false, false, true);
-                        MobEffectInstance effectinstance1 = new MobEffectInstance(MobEffects.CONFUSION, 160, 0, false, false, true);
-                        Hitentity.addEffect(effectinstance);
+                       MobEffectInstance effectinstance = new MobEffectInstance(MobEffects.BLINDNESS, 160, 0, false, false, true);
+                       MobEffectInstance effectinstance1 = new MobEffectInstance(MobEffects.CONFUSION, 160, 0, false, false, true);
+                       Hitentity.addEffect(effectinstance);
                         Hitentity.addEffect(effectinstance1);
                     }
                 }

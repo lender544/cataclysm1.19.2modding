@@ -1,30 +1,19 @@
 package L_Ender.cataclysm.entity;
 
-import L_Ender.cataclysm.config.CMConfig;
-import L_Ender.cataclysm.entity.AI.AttackAnimationGoal1;
 import L_Ender.cataclysm.entity.AI.AttackMoveGoal;
-import L_Ender.cataclysm.entity.AI.CmAttackGoal;
+import L_Ender.cataclysm.entity.AI.SimpleAnimationGoal;
 import L_Ender.cataclysm.entity.etc.CMPathNavigateGround;
 import L_Ender.cataclysm.entity.etc.SmartBodyHelper2;
-import L_Ender.cataclysm.entity.projectile.Void_Rune_Entity;
-import L_Ender.cataclysm.init.ModParticle;
-import L_Ender.cataclysm.init.ModSounds;
-import L_Ender.cataclysm.init.ModTag;
+import L_Ender.cataclysm.entity.projectile.Smoke_Breath_Entity;
+import L_Ender.cataclysm.init.ModEntities;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -38,22 +27,12 @@ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.animal.AbstractGolem;
-import net.minecraft.world.entity.animal.IronGolem;
-import net.minecraft.world.entity.monster.Blaze;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Ravager;
-import net.minecraft.world.entity.monster.Shulker;
+import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.SmallFireball;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.event.ForgeEventFactory;
+import net.minecraft.world.phys.Vec3;
 
-import javax.annotation.Nullable;
 import java.util.EnumSet;
 
 
@@ -61,11 +40,10 @@ public class Ignited_Revenant_Entity extends Boss_monster {
 
     public static final Animation ASH_BREATH_ATTACK = Animation.create(53);
 
-
     private int timeWithoutTarget;
-
     private static final EntityDataAccessor<Boolean> ANGER = SynchedEntityData.defineId(Ignited_Revenant_Entity.class, EntityDataSerializers.BOOLEAN);
 
+    public Smoke_Breath_Entity SmokeBreath;
     public float angerProgress;
     public float prevangerProgress;
 
@@ -88,7 +66,7 @@ public class Ignited_Revenant_Entity extends Boss_monster {
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new ChargeGoal());
         this.goalSelector.addGoal(2, new Ignited_Revenant_Goal());
-        this.goalSelector.addGoal(0, new AttackAnimationGoal1<>(this, ASH_BREATH_ATTACK, 27, true));
+        this.goalSelector.addGoal(0, new ShootGoal(this, ASH_BREATH_ATTACK));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
@@ -144,6 +122,7 @@ public class Ignited_Revenant_Entity extends Boss_monster {
 
     public void tick() {
         super.tick();
+       // setYRot(yBodyRot);
         AnimationHandler.INSTANCE.updateAnimations(this);
         LivingEntity target = this.getTarget();
         prevangerProgress = angerProgress;
@@ -159,7 +138,9 @@ public class Ignited_Revenant_Entity extends Boss_monster {
                 this.level.playLocalSound(this.getX() + 0.5D, this.getY() + 0.5D, this.getZ() + 0.5D, SoundEvents.BLAZE_BURN, this.getSoundSource(), 1.0F + this.random.nextFloat(), this.random.nextFloat() * 0.7F + 0.3F, false);
             }
 
+
         }
+
 
     }
 
@@ -242,6 +223,33 @@ public class Ignited_Revenant_Entity extends Boss_monster {
 
         public boolean requiresUpdateEveryTick() {
             return false;
+        }
+    }
+
+    class ShootGoal extends SimpleAnimationGoal<Ignited_Revenant_Entity> {
+
+        public ShootGoal(Ignited_Revenant_Entity entity, Animation animation) {
+            super(entity, animation);
+        }
+
+        public void tick() {
+            LivingEntity target = Ignited_Revenant_Entity.this.getTarget();
+
+            if (target != null) {
+                Ignited_Revenant_Entity.this.getLookControl().setLookAt(target, 30.0F, 30.0F);
+
+            }
+
+            Vec3 mouthPos = new Vec3(0.25, 2.3, 0);
+            mouthPos = mouthPos.yRot((float) Math.toRadians(-getYRot() - 90));
+            mouthPos = mouthPos.add(position());
+            mouthPos = mouthPos.add(new Vec3(0, 0, 0).xRot((float) Math.toRadians(-getXRot())).yRot((float) Math.toRadians(-yHeadRot)));
+            SmokeBreath = new Smoke_Breath_Entity(ModEntities.SMOKE_BREATH.get(), Ignited_Revenant_Entity.this.level, Ignited_Revenant_Entity.this);
+            if (Ignited_Revenant_Entity.this.getAnimationTick() == 27) {
+                SmokeBreath.absMoveTo(mouthPos.x, mouthPos.y, mouthPos.z, Ignited_Revenant_Entity.this.yHeadRot, Ignited_Revenant_Entity.this.getXRot());
+                Ignited_Revenant_Entity.this.level.addFreshEntity(SmokeBreath);
+            }
+
         }
     }
 

@@ -195,7 +195,7 @@ public class Void_Rune_Entity extends Entity {
 
     }
 
-    public float getBrightness() {
+    public float getLightLevelDependentMagicValue() {
         return 1.0F;
     }
 
