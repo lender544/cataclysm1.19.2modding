@@ -178,7 +178,7 @@ public class ModItems {
             () -> new ForgeSpawnEggItem(ModEntities.IGNIS, 16167425, 16579584, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
 
     public static final RegistryObject<SpawnEggItem> IGNITED_REVENANT_SPAWN_EGG = ITEMS.register("ignited_revenant_spawn_egg",
-            () -> new ForgeSpawnEggItem(ModEntities.IGNITED_REVENANT, 1315860, 16579584, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
+            () -> new ForgeSpawnEggItem(ModEntities.IGNITED_REVENANT, 4672845, 16579584, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
 }
 
 

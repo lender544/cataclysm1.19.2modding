@@ -309,5 +309,43 @@
         "name": "cataclysm:music_disc/enderguardian_theme"
       }
     ]
+  },
+  "revenant_breath": {
+    "subtitle": "revenant_breath.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/revenant_breath"
+      }
+    ]
+  },
+  "revenant_death": {
+    "subtitle": "revenant_death.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/revenant_death"
+      }
+    ]
+  },
+  "revenant_idle": {
+    "subtitle": "revenant_idle.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/revenant_idel"
+      }
+    ]
+  },
+  "revenant_hurt": {
+    "subtitle": "revenant_hurt.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/revenant_hurt1"
+      },
+      {
+        "name": "cataclysm:entity/revenant_hurt2"
+      },
+      {
+        "name": "cataclysm:entity/revenant_hurt3"
+      }
+    ]
   }
 }

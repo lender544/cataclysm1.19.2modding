@@ -6,17 +6,21 @@ import L_Ender.cataclysm.entity.etc.CMPathNavigateGround;
 import L_Ender.cataclysm.entity.etc.SmartBodyHelper2;
 import L_Ender.cataclysm.entity.projectile.Ashen_Breath_Entity;
 import L_Ender.cataclysm.init.ModEntities;
+import L_Ender.cataclysm.init.ModSounds;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
@@ -29,6 +33,7 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 
@@ -76,7 +81,7 @@ public class Ignited_Revenant_Entity extends Boss_monster {
                 .add(Attributes.FOLLOW_RANGE, 20.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.28F)
                 .add(Attributes.ATTACK_DAMAGE, 10)
-                .add(Attributes.MAX_HEALTH, 150)
+                .add(Attributes.MAX_HEALTH, 80)
                 .add(Attributes.ARMOR, 12)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0);
     }
@@ -85,6 +90,9 @@ public class Ignited_Revenant_Entity extends Boss_monster {
         return air;
     }
 
+    public MobType getMobType() {
+        return MobType.UNDEAD;
+    }
 
     public boolean causeFallDamage(float p_148711_, float p_148712_, DamageSource p_148713_) {
         return false;
@@ -131,33 +139,37 @@ public class Ignited_Revenant_Entity extends Boss_monster {
             angerProgress--;
         }
 
-        if (this.level.isClientSide) {
-            if (this.random.nextInt(24) == 0 && !this.isSilent()) {
-                this.level.playLocalSound(this.getX() + 0.5D, this.getY() + 0.5D, this.getZ() + 0.5D, SoundEvents.BLAZE_BURN, this.getSoundSource(), 1.0F + this.random.nextFloat(), this.random.nextFloat() * 0.7F + 0.3F, false);
+
+        if(this.getAnimation() == ASH_BREATH_ATTACK){
+            if (this.getAnimationTick() == 21) {
+                this.playSound(ModSounds.REVENANT_BREATH.get(), 1.0f, 1.0f);
+
             }
-
-
         }
 
 
     }
+
+    protected SoundEvent getAmbientSound() {
+        this.playSound(ModSounds.REVENANT_IDLE.get(), 1.0f, 0.75f);
+        return null;
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        this.playSound(ModSounds.REVENANT_HURT.get(), 1.0f, 0.75f);
+        return null;
+    }
+
+    protected SoundEvent getDeathSound() {
+        this.playSound(ModSounds.REVENANT_DEATH.get(), 1.0f, 0.75f);
+        return null;
+    }
+
 
     @Override
     protected void onDeathAIUpdate() {
         super.onDeathAIUpdate();
 
-    }
-
-    public boolean isAlliedTo(Entity entityIn) {
-        if (entityIn == this) {
-            return true;
-        } else if (super.isAlliedTo(entityIn)) {
-            return true;
-        } else if (entityIn instanceof Ender_Guardian_Entity || entityIn instanceof Ender_Golem_Entity || entityIn instanceof Shulker || entityIn instanceof Endermaptera_Entity) {
-            return this.getTeam() == null && entityIn.getTeam() == null;
-        } else {
-            return false;
-        }
     }
 
 

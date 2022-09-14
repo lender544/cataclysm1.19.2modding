@@ -112,4 +112,16 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> IGNIS_EARTHQUAKE = SOUNDS.register("ignis_earthquake",
             () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"ignis_earthquake")));
+
+    public static final RegistryObject<SoundEvent> REVENANT_BREATH = SOUNDS.register("revenant_breath",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"revenant_breath")));
+
+    public static final RegistryObject<SoundEvent> REVENANT_HURT = SOUNDS.register("revenant_hurt",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"revenant_hurt")));
+
+    public static final RegistryObject<SoundEvent> REVENANT_DEATH = SOUNDS.register("revenant_death",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"revenant_death")));
+
+    public static final RegistryObject<SoundEvent> REVENANT_IDLE = SOUNDS.register("revenant_idle",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"revenant_idle")));
 }
