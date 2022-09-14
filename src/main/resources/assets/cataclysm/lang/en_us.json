@@ -41,6 +41,7 @@
   "item.cataclysm.netherite_monstrosity_spawn_egg": "Netherite Monstrosity Spawn Egg",
   "item.cataclysm.nameless_sorcerer_spawn_egg": "Nameless Sorcerer Spawn Egg",
   "item.cataclysm.ignis_spawn_egg": "ignis Spawn Egg",
+  "item.cataclysm.ignited_revenant_spawn_egg": "Ignited Revenant Spawn Egg",
 
   "itemGroup.cataclysm": "Cataclysm",
   "block.cataclysm.witherite_block": "Witherite Block",
@@ -84,7 +85,10 @@
   "entity.cataclysm.cm_falling_block": "CM Falling Block",
   "entity.cataclysm.ignis_abyss_fireball": "Ignis's Abyss Fireball",
   "entity.cataclysm.ignis_fireball": "Ignis's Fireball",
+  "entity.cataclysm.flame_strike": "Flame Strike",
+  "entity.cataclysm.smoke_effect": "Ash",
   "entity.cataclysm.ignited_revenant": "Ignited Revenant",
+  "entity.cataclysm.ashen_breath": "Ashen Breath",
 
   "effect.cataclysm.monstrous": "Monstrous",
   "effect.cataclysm.blazing_brand": "Blazing Brand",

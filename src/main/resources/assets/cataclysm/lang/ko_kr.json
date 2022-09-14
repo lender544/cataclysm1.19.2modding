@@ -42,6 +42,7 @@
   "item.cataclysm.netherite_monstrosity_spawn_egg": "네더라이트 괴물 생성 알",
   "item.cataclysm.nameless_sorcerer_spawn_egg": "이름없는 마법사 생성 알",
   "item.cataclysm.ignis_spawn_egg": "이그니스 생성 알",
+  "item.cataclysm.ignited_revenant_spawn_egg": "이그나이티드 레버넌트 생성 알",
 
   "itemGroup.cataclysm": "대격변",
   "block.cataclysm.witherite_block": "위더라이트 블록",
@@ -86,6 +87,9 @@
   "entity.cataclysm.ignis_abyss_fireball": "이그니스의 심연 화염구",
   "entity.cataclysm.ignis_fireball": "이그니스의 화염구",
   "entity.cataclysm.ignited_revenant": "이그나이티드 레버넌트",
+  "entity.cataclysm.flame_strike": "불기둥",
+  "entity.cataclysm.smoke_effect": "재",
+  "entity.cataclysm.ashen_breath": "재의 숨결",
 
   "effect.cataclysm.monstrous": "괴력",
   "effect.cataclysm.blazing_brand": "불타는 낙인",

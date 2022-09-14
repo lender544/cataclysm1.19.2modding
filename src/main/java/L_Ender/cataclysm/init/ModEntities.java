@@ -7,6 +7,7 @@ import L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
 import L_Ender.cataclysm.entity.effect.Flame_Strike_Entity;
 import L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import L_Ender.cataclysm.entity.effect.Smoke_Effect_Entity;
+import L_Ender.cataclysm.entity.projectile.Ashen_Breath_Entity;
 import L_Ender.cataclysm.entity.projectile.*;
 
 import net.minecraft.world.entity.EntityType;
@@ -129,6 +130,7 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<Smoke_Effect_Entity>> SMOKE_EFFECT = ENTITY_TYPE.register("smoke_effect", () -> EntityType.Builder.<Smoke_Effect_Entity>of(Smoke_Effect_Entity::new, MobCategory.MISC)
             .sized(6.0F, 0.5F)
+            .noSummon()
             .fireImmune()
             .clientTrackingRange(10).updateInterval(Integer.MAX_VALUE)
             .build(cataclysm.MODID + ":smoke_effect"));
@@ -136,14 +138,15 @@ public class ModEntities {
     public static final RegistryObject<EntityType<Flame_Strike_Entity>> FLAME_STRIKE = ENTITY_TYPE.register("flame_strike", () -> EntityType.Builder.<Flame_Strike_Entity>of(Flame_Strike_Entity::new, MobCategory.MISC)
             .sized(6.0F, 0.5F)
             .fireImmune()
+            .noSummon()
             .clientTrackingRange(10).updateInterval(Integer.MAX_VALUE)
             .build(cataclysm.MODID + ":flame_strike"));
 
-    public static final RegistryObject<EntityType<Smoke_Breath_Entity>> SMOKE_BREATH = ENTITY_TYPE.register("smoke_breath", () -> EntityType.Builder.<Smoke_Breath_Entity>of(Smoke_Breath_Entity::new, MobCategory.MISC)
-            .sized(0.1f, 0.1f)
+    public static final RegistryObject<EntityType<Ashen_Breath_Entity>> ASHEN_BREATH = ENTITY_TYPE.register("ashen_breath", () -> EntityType.Builder.<Ashen_Breath_Entity>of(Ashen_Breath_Entity::new, MobCategory.MISC)
+            .sized(0.0f, 0.0f)
             .fireImmune()
             .setUpdateInterval(1)
-            .build(cataclysm.MODID + ":smoke_breath"));
+            .build(cataclysm.MODID + ":ashen_breath"));
 
     @SubscribeEvent
     public static void initializeAttributes(EntityAttributeCreationEvent event) {

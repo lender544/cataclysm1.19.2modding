@@ -4,11 +4,10 @@ import L_Ender.cataclysm.entity.AI.AttackMoveGoal;
 import L_Ender.cataclysm.entity.AI.SimpleAnimationGoal;
 import L_Ender.cataclysm.entity.etc.CMPathNavigateGround;
 import L_Ender.cataclysm.entity.etc.SmartBodyHelper2;
-import L_Ender.cataclysm.entity.projectile.Smoke_Breath_Entity;
+import L_Ender.cataclysm.entity.projectile.Ashen_Breath_Entity;
 import L_Ender.cataclysm.init.ModEntities;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -43,7 +42,6 @@ public class Ignited_Revenant_Entity extends Boss_monster {
     private int timeWithoutTarget;
     private static final EntityDataAccessor<Boolean> ANGER = SynchedEntityData.defineId(Ignited_Revenant_Entity.class, EntityDataSerializers.BOOLEAN);
 
-    public Smoke_Breath_Entity SmokeBreath;
     public float angerProgress;
     public float prevangerProgress;
 
@@ -150,6 +148,18 @@ public class Ignited_Revenant_Entity extends Boss_monster {
 
     }
 
+    public boolean isAlliedTo(Entity entityIn) {
+        if (entityIn == this) {
+            return true;
+        } else if (super.isAlliedTo(entityIn)) {
+            return true;
+        } else if (entityIn instanceof Ender_Guardian_Entity || entityIn instanceof Ender_Golem_Entity || entityIn instanceof Shulker || entityIn instanceof Endermaptera_Entity) {
+            return this.getTeam() == null && entityIn.getTeam() == null;
+        } else {
+            return false;
+        }
+    }
+
 
     @Override
     protected BodyRotationControl createBodyControl() {
@@ -239,19 +249,16 @@ public class Ignited_Revenant_Entity extends Boss_monster {
                 Ignited_Revenant_Entity.this.getLookControl().setLookAt(target, 30.0F, 30.0F);
 
             }
-
             Vec3 mouthPos = new Vec3(0, 2.3, 0);
             mouthPos = mouthPos.yRot((float) Math.toRadians(-getYRot() - 90));
             mouthPos = mouthPos.add(position());
             mouthPos = mouthPos.add(new Vec3(0, 0, 0).xRot((float) Math.toRadians(-getXRot())).yRot((float) Math.toRadians(-yHeadRot)));
-            SmokeBreath = new Smoke_Breath_Entity(ModEntities.SMOKE_BREATH.get(), Ignited_Revenant_Entity.this.level, Ignited_Revenant_Entity.this);
+            Ashen_Breath_Entity breath = new Ashen_Breath_Entity(ModEntities.ASHEN_BREATH.get(), Ignited_Revenant_Entity.this.level, Ignited_Revenant_Entity.this);
             if (Ignited_Revenant_Entity.this.getAnimationTick() == 27) {
-                SmokeBreath.absMoveTo(mouthPos.x, mouthPos.y, mouthPos.z, Ignited_Revenant_Entity.this.yHeadRot, Ignited_Revenant_Entity.this.getXRot());
-                Ignited_Revenant_Entity.this.level.addFreshEntity(SmokeBreath);
+                breath.absMoveTo(mouthPos.x, mouthPos.y, mouthPos.z, Ignited_Revenant_Entity.this.yHeadRot, Ignited_Revenant_Entity.this.getXRot());
+                Ignited_Revenant_Entity.this.level.addFreshEntity(breath);
             }
-            if(SmokeBreath !=null) {
-                SmokeBreath.absMoveTo(mouthPos.x, mouthPos.y, mouthPos.z, Ignited_Revenant_Entity.this.yHeadRot, Ignited_Revenant_Entity.this.getXRot());
-            }
+
         }
     }
 

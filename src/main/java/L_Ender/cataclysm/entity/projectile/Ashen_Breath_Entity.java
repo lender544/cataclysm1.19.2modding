@@ -1,51 +1,36 @@
 package L_Ender.cataclysm.entity.projectile;
 
 import L_Ender.cataclysm.entity.Ignited_Revenant_Entity;
-import L_Ender.cataclysm.entity.effect.Smoke_Effect_Entity;
-import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.PushReaction;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-public class Smoke_Breath_Entity extends Entity {
+public class Ashen_Breath_Entity extends Entity {
     private static final int RANGE = 7;
     private static final int ARC = 45;
     private LivingEntity caster;
     private UUID casterUuid;
 
-
-
-
-    public Smoke_Breath_Entity(EntityType<? extends Smoke_Breath_Entity> type, Level world) {
+    public Ashen_Breath_Entity(EntityType<? extends Ashen_Breath_Entity> type, Level world) {
         super(type, world);
 
     }
 
-    public Smoke_Breath_Entity(EntityType<? extends Smoke_Breath_Entity> type, Level world, LivingEntity caster) {
+    public Ashen_Breath_Entity(EntityType<? extends Ashen_Breath_Entity> type, Level world, LivingEntity caster) {
         super(type, world);
         this.setCaster(caster);
 
@@ -92,7 +77,7 @@ public class Smoke_Breath_Entity extends Entity {
                 level.addParticle(ParticleTypes.FLAME, getX() + vec * vecX, getY(), getZ() + vec * vecZ, xSpeed, ySpeed, zSpeed);
             }
         }
-        if (tickCount > 2) {
+        if (tickCount > 2 && caster != null) {
             hitEntities();
         }
         if (tickCount > 25) discard() ;
@@ -101,10 +86,6 @@ public class Smoke_Breath_Entity extends Entity {
     public void hitEntities() {
         List<LivingEntity> entitiesHit = getEntityLivingBaseNearby(RANGE, RANGE, RANGE, RANGE);;
         for (LivingEntity entityHit : entitiesHit) {
-            if (entityHit == caster) continue;
-
-            if (entityHit instanceof EnderDragon) continue;
-
             float entityHitYaw = (float) ((Math.atan2(entityHit.getZ() - getZ(), entityHit.getX() - getX()) * (180 / Math.PI) - 90) % 360);
             float entityAttackingYaw = getYRot() % 360;
             if (entityHitYaw < 0) {
@@ -134,31 +115,20 @@ public class Smoke_Breath_Entity extends Entity {
             boolean pitchCheck = (entityRelativePitch <= ARC / 2f && entityRelativePitch >= -ARC / 2f) || (entityRelativePitch >= 360 - ARC / 2f || entityRelativePitch <= -360 + ARC / 2f);
             boolean CloseCheck = caster instanceof Ignited_Revenant_Entity && entityHitDistance <= 2;
             if (inRange && yawCheck && pitchCheck || CloseCheck) {
-                if (!raytraceCheckEntity(entityHit)) continue;
-                if (entityHit.hurt(DamageSource.indirectMobAttack(this,caster), 6)) {
-                    //entityHit.setDeltaMovement(entityHit.getDeltaMovement().multiply(0.25, 1, 0.25));
-                    MobEffectInstance effectinstance = new MobEffectInstance(MobEffects.BLINDNESS, 160, 0, false, false, true);
-                    MobEffectInstance effectinstance1 = new MobEffectInstance(MobEffects.CONFUSION, 160, 0, false, false, true);
-                    //entityHit.addEffect(effectinstance);
-                    //entityHit.addEffect(effectinstance1);
+                if (this.tickCount % 3 == 0) {
+                    if (!isAlliedTo(entityHit) && entityHit != caster) {
+                        boolean flag = entityHit.hurt(DamageSource.indirectMagic(this, caster), 4);
+                        if (flag) {
+                            //entityHit.setDeltaMovement(entityHit.getDeltaMovement().multiply(0.25, 1, 0.25));
+                            MobEffectInstance effectinstance = new MobEffectInstance(MobEffects.BLINDNESS, 100, 0, false, false, true);
+                            MobEffectInstance effectinstance1 = new MobEffectInstance(MobEffects.CONFUSION, 100, 0, false, false, true);
+                          //  entityHit.addEffect(effectinstance);
+                          //  entityHit.addEffect(effectinstance1);
+                        }
+                    }
                 }
             }
         }
-    }
-
-
-    public boolean raytraceCheckEntity(Entity entity) {
-        Vec3 from = this.position();
-        int numChecks = 3;
-        for (int i = 0; i < numChecks; i++) {
-            float increment = entity.getBbHeight() / (numChecks + 1);
-            Vec3 to = entity.position().add(0, increment * (i + 1), 0);
-            BlockHitResult result = level.clip(new ClipContext(from, to, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
-            if (result.getType() != HitResult.Type.BLOCK) {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override
