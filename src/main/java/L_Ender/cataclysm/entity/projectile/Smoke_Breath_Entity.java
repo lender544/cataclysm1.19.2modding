@@ -64,7 +64,7 @@ public class Smoke_Breath_Entity extends Entity {
 
         if (caster !=null){
             this.setYRot(caster.yHeadRot);
-            this.setXRot(caster.getXRot());
+           // this.setXRot(caster.getXRot());
         }
         float yaw = (float) Math.toRadians(-getYRot());
         float pitch = (float) Math.toRadians(-getXRot());
@@ -73,18 +73,23 @@ public class Smoke_Breath_Entity extends Entity {
         float xComp = (float) (Math.sin(yaw) * Math.cos(pitch));
         float yComp = (float) (Math.sin(pitch));
         float zComp = (float) (Math.cos(yaw) * Math.cos(pitch));
+        double theta = (getYRot()) * (Math.PI / 180);
+        theta += Math.PI / 2;
+        double vecX = Math.cos(theta);
+        double vecZ = Math.sin(theta);
+        double vec = 0.9;
         if (level.isClientSide) {
             for (int i = 0; i < 80; i++) {
                 double xSpeed = speed * xComp + (spread * 1 * (random.nextFloat() * 2 - 1) * (Math.sqrt(1 - xComp * xComp)));
                 double ySpeed = speed * yComp + (spread * 1 * (random.nextFloat() * 2 - 1) * (Math.sqrt(1 - yComp * yComp)));
                 double zSpeed = speed * zComp + (spread * 1 * (random.nextFloat() * 2 - 1) * (Math.sqrt(1 - zComp * zComp)));
-                level.addParticle(ParticleTypes.SMOKE, getX(), getY(), getZ(), xSpeed, ySpeed, zSpeed);
+                level.addParticle(ParticleTypes.SMOKE, getX() + vec * vecX, getY(), getZ() + vec * vecZ, xSpeed, ySpeed, zSpeed);
             }
             for (int i = 0; i < 2; i++) {
                 double xSpeed = speed * xComp + (spread * 0.7 * (random.nextFloat() * 2 - 1) * (Math.sqrt(1 - xComp * xComp)));
                 double ySpeed = speed * yComp + (spread * 0.7 * (random.nextFloat() * 2 - 1) * (Math.sqrt(1 - yComp * yComp)));
                 double zSpeed = speed * zComp + (spread * 0.7 * (random.nextFloat() * 2 - 1) * (Math.sqrt(1 - zComp * zComp)));
-                level.addParticle(ParticleTypes.FLAME, getX(), getY(), getZ(), xSpeed, ySpeed, zSpeed);
+                level.addParticle(ParticleTypes.FLAME, getX() + vec * vecX, getY(), getZ() + vec * vecZ, xSpeed, ySpeed, zSpeed);
             }
         }
         if (tickCount > 2) {

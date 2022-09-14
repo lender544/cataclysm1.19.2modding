@@ -240,7 +240,7 @@ public class Ignited_Revenant_Entity extends Boss_monster {
 
             }
 
-            Vec3 mouthPos = new Vec3(0.25, 2.3, 0);
+            Vec3 mouthPos = new Vec3(0, 2.3, 0);
             mouthPos = mouthPos.yRot((float) Math.toRadians(-getYRot() - 90));
             mouthPos = mouthPos.add(position());
             mouthPos = mouthPos.add(new Vec3(0, 0, 0).xRot((float) Math.toRadians(-getXRot())).yRot((float) Math.toRadians(-yHeadRot)));
@@ -249,7 +249,9 @@ public class Ignited_Revenant_Entity extends Boss_monster {
                 SmokeBreath.absMoveTo(mouthPos.x, mouthPos.y, mouthPos.z, Ignited_Revenant_Entity.this.yHeadRot, Ignited_Revenant_Entity.this.getXRot());
                 Ignited_Revenant_Entity.this.level.addFreshEntity(SmokeBreath);
             }
-
+            if(SmokeBreath !=null) {
+                SmokeBreath.absMoveTo(mouthPos.x, mouthPos.y, mouthPos.z, Ignited_Revenant_Entity.this.yHeadRot, Ignited_Revenant_Entity.this.getXRot());
+            }
         }
     }
 
