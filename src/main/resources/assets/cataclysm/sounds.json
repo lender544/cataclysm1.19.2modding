@@ -118,7 +118,7 @@
     "subtitle": "monstrosityhurt.sub",
     "sounds": [
       {
-        "name": "cataclysm:entity/monstrosityhurt"
+        "name": "cataclysm:entity/monstrosityhurt1"
       },
       {
         "name": "cataclysm:entity/monstrosityhurt2"
@@ -330,7 +330,7 @@
     "subtitle": "revenant_idle.sub",
     "sounds": [
       {
-        "name": "cataclysm:entity/revenant_idel"
+        "name": "cataclysm:entity/revenant_idle"
       }
     ]
   },

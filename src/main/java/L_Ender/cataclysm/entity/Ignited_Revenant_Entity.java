@@ -258,7 +258,11 @@ public class Ignited_Revenant_Entity extends Boss_monster {
             LivingEntity target = Ignited_Revenant_Entity.this.getTarget();
 
             if (target != null) {
-                Ignited_Revenant_Entity.this.getLookControl().setLookAt(target, 30.0F, 30.0F);
+                if (Ignited_Revenant_Entity.this.getAnimationTick() < 27) {
+                    Ignited_Revenant_Entity.this.getLookControl().setLookAt(target, 30.0F, 30.0F);
+                }else{
+                    Ignited_Revenant_Entity.this.getLookControl().setLookAt(target, 3.0F, 30.0F);
+                }
 
             }
             Vec3 mouthPos = new Vec3(0, 2.3, 0);

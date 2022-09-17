@@ -74,7 +74,7 @@ public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
                     double d1 = target.getY() + target.getBbHeight() * 0.5F - this.getY();
                     double d2 = target.getZ() - this.getZ();
                     Vec3 vector3d = new Vec3(d0, d1, d2);
-                    float speed = 2f;
+                    float speed = 1.8f;
                     shoot(d0, d1, d2, speed, 0);
                     this.setYRot(-((float) Mth.atan2(d0, d2)) * (180F / (float) Math.PI));
                 }
