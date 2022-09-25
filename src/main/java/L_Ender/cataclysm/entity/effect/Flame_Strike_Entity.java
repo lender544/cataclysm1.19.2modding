@@ -1,5 +1,6 @@
 package L_Ender.cataclysm.entity.effect;
 
+import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.init.ModEffect;
 import L_Ender.cataclysm.init.ModEntities;
 import com.mojang.logging.LogUtils;
@@ -12,12 +13,14 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.Fireball;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.PushReaction;
 import org.slf4j.Logger;
@@ -28,13 +31,12 @@ import java.util.UUID;
 public class Flame_Strike_Entity extends Entity {
     private static final EntityDataAccessor<Float> DATA_RADIUS = SynchedEntityData.defineId(Flame_Strike_Entity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Boolean> DATA_WAITING = SynchedEntityData.defineId(Flame_Strike_Entity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> DATA_SEE = SynchedEntityData.defineId(Flame_Strike_Entity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> SOUL = SynchedEntityData.defineId(Flame_Strike_Entity.class, EntityDataSerializers.BOOLEAN);
     private static final float MAX_RADIUS = 32.0F;
     private int duration = 600;
-    private int waitTime = 20;
-    private int durationOnUse;
-    private float radiusOnUse;
-    private float radiusPerTick;
+    private int waitTime;
+    private int warmupDelayTicks;
     @Nullable
     private LivingEntity owner;
     @Nullable
@@ -46,14 +48,22 @@ public class Flame_Strike_Entity extends Entity {
         this.setRadius(3.0F);
     }
 
-    public Flame_Strike_Entity(Level p_19707_, double p_19708_, double p_19709_, double p_19710_) {
-        this(ModEntities.FLAME_STRIKE.get(), p_19707_);
-        this.setPos(p_19708_, p_19709_, p_19710_);
+    public Flame_Strike_Entity(Level level, double x, double y, double z, float p_i47276_8_, int duration, int wait,int delay, float radius, boolean soul, LivingEntity casterIn) {
+        this(ModEntities.FLAME_STRIKE.get(), level);
+        this.setOwner(casterIn);
+        this.setDuration(duration);
+        this.waitTime = wait;
+        this.warmupDelayTicks = delay;
+        this.setRadius(radius);
+        this.setSoul(soul);
+        this.setYRot(p_i47276_8_ * (180F / (float)Math.PI));
+        this.setPos(x, y, z);
     }
 
     protected void defineSynchedData() {
         this.getEntityData().define(DATA_RADIUS, 0.5F);
         this.getEntityData().define(DATA_WAITING, true);
+        this.getEntityData().define(DATA_SEE, false);
         this.getEntityData().define(SOUL, false);
     }
 
@@ -85,6 +95,15 @@ public class Flame_Strike_Entity extends Entity {
         return this.getEntityData().get(DATA_WAITING);
     }
 
+
+    protected void setSee(boolean p_19731_) {
+        this.getEntityData().set(DATA_SEE, p_19731_);
+    }
+
+    public boolean isSee() {
+        return this.getEntityData().get(DATA_SEE);
+    }
+
     public void setSoul(boolean Soul) {
         this.getEntityData().set(SOUL, Soul);
     }
@@ -93,6 +112,7 @@ public class Flame_Strike_Entity extends Entity {
         return this.getEntityData().get(SOUL);
     }
 
+
     public int getDuration() {
         return this.duration;
     }
@@ -100,6 +120,7 @@ public class Flame_Strike_Entity extends Entity {
     public void setDuration(int p_19735_) {
         this.duration = p_19735_;
     }
+
 
     public void tick() {
         super.tick();
@@ -115,21 +136,38 @@ public class Flame_Strike_Entity extends Entity {
             int arcLen = Mth.ceil(this.getRadius() * spread);
 
             if(!flag) {
-                for (int j = 0; j < arcLen * 2; ++j) {
-                    float f2 = this.random.nextFloat() * ((float) Math.PI * 2F);
-                    double d0 = this.getX() + (double) (Mth.cos(f2) * f1) * 0.9;
-                    double d2 = this.getY();
-                    double d4 = this.getZ() + (double) (Mth.sin(f2) * f1) * 0.9;
-                    this.level.addParticle(particleoptions, d0, d2, d4, random.nextGaussian() * 0.07D, 0.07D * this.getRadius() + 0.2D, random.nextGaussian() * 0.07D);
+                if (this.tickCount % 2 == 0) {
+                    for (int j = 0; j < arcLen; ++j) {
+                        float f2 = this.random.nextFloat() * ((float) Math.PI * 2F);
+                        double d0 = this.getX() + (double) (Mth.cos(f2) * f1) * 0.9;
+                        double d2 = this.getY();
+                        double d4 = this.getZ() + (double) (Mth.sin(f2) * f1) * 0.9;
+                        this.level.addParticle(particleoptions, d0, d2, d4, random.nextGaussian() * 0.07D, 0.125D * this.getRadius() + 0.4D, random.nextGaussian() * 0.07D);
+                    }
+                }
+                if (this.random.nextInt(24) == 0) {
+                    this.level.playLocalSound(this.getX() + 0.5D, this.getY() + 0.5D, this.getZ() + 0.5D, SoundEvents.BLAZE_BURN, this.getSoundSource(), 1.0F + this.random.nextFloat(), this.random.nextFloat() * 0.7F + 0.3F, false);
                 }
             }
         } else {
-            if (this.tickCount >= this.waitTime + this.duration) {
-                this.discard();
-                return;
+            if (this.tickCount >= this.waitTime + this.duration + this.warmupDelayTicks) {
+                if(this.getRadius() > 0 ){
+                    this.setRadius(getRadius() - 0.1F);
+                }else{
+                    if(!this.isSoul()) {
+                        this.level.explode(this.owner, this.getX(), this.getY(), this.getZ(), 1, Explosion.BlockInteraction.NONE);
+                    }
+                    this.discard();
+                }
             }
 
-            boolean flag1 = this.tickCount < this.waitTime;
+
+            if (this.tickCount >= this.warmupDelayTicks) {
+                this.setSee(true);
+            }
+
+
+            boolean flag1 = this.tickCount < this.waitTime + this.warmupDelayTicks;
             if (flag != flag1) {
                 this.setWaiting(flag1);
             }
@@ -138,15 +176,6 @@ public class Flame_Strike_Entity extends Entity {
                 return;
             }
 
-            if (this.radiusPerTick != 0.0F) {
-                f += this.radiusPerTick;
-                if (f < 0.5F) {
-                    this.discard();
-                    return;
-                }
-
-                this.setRadius(f);
-            }
         }
 
         if(!flag) {
@@ -205,29 +234,6 @@ public class Flame_Strike_Entity extends Entity {
         }
     }
 
-    public float getRadiusOnUse() {
-        return this.radiusOnUse;
-    }
-
-    public void setRadiusOnUse(float p_19733_) {
-        this.radiusOnUse = p_19733_;
-    }
-
-    public float getRadiusPerTick() {
-        return this.radiusPerTick;
-    }
-
-    public void setRadiusPerTick(float p_19739_) {
-        this.radiusPerTick = p_19739_;
-    }
-
-    public int getDurationOnUse() {
-        return this.durationOnUse;
-    }
-
-    public void setDurationOnUse(int p_146786_) {
-        this.durationOnUse = p_146786_;
-    }
 
     public int getWaitTime() {
         return this.waitTime;
@@ -258,9 +264,7 @@ public class Flame_Strike_Entity extends Entity {
         this.tickCount = p_19727_.getInt("Age");
         this.duration = p_19727_.getInt("Duration");
         this.waitTime = p_19727_.getInt("WaitTime");
-        this.durationOnUse = p_19727_.getInt("DurationOnUse");
-        this.radiusOnUse = p_19727_.getFloat("RadiusOnUse");
-        this.radiusPerTick = p_19727_.getFloat("RadiusPerTick");
+        this.warmupDelayTicks = p_19727_.getInt("Delay");
         this.setRadius(p_19727_.getFloat("Radius"));
         if (p_19727_.hasUUID("Owner")) {
             this.ownerUUID = p_19727_.getUUID("Owner");
@@ -273,9 +277,7 @@ public class Flame_Strike_Entity extends Entity {
         p_19737_.putInt("Age", this.tickCount);
         p_19737_.putInt("Duration", this.duration);
         p_19737_.putInt("WaitTime", this.waitTime);
-        p_19737_.putInt("DurationOnUse", this.durationOnUse);
-        p_19737_.putFloat("RadiusOnUse", this.radiusOnUse);
-        p_19737_.putFloat("RadiusPerTick", this.radiusPerTick);
+        p_19737_.putInt("Delay", this.warmupDelayTicks);
         p_19737_.putFloat("Radius", this.getRadius());
         if (this.ownerUUID != null) {
             p_19737_.putUUID("Owner", this.ownerUUID);

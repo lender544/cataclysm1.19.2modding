@@ -799,6 +799,18 @@ public class Ender_Guardian_Entity extends Boss_monster {
         }
     }
 
+    public void travel(Vec3 travelVector) {
+        if (this.getAnimation() != NO_ANIMATION) {
+            if (this.getNavigation().getPath() != null) {
+                this.getNavigation().stop();
+            }
+            travelVector = Vec3.ZERO;
+            super.travel(travelVector);
+            return;
+        }
+        super.travel(travelVector);
+    }
+
     @Override
     protected void repelEntities(float x, float y, float z, float radius) {
         super.repelEntities(x, y, z, radius);
@@ -852,7 +864,6 @@ public class Ender_Guardian_Entity extends Boss_monster {
 
         public PunchAttackGoal(Ender_Guardian_Entity entity) {
             super(entity);
-            //this.setFlags(EnumSet.of(Flag.JUMP, Flag.LOOK));
         }
 
         @Override
@@ -905,7 +916,6 @@ public class Ender_Guardian_Entity extends Boss_monster {
 
         public StompAttackGoal(Ender_Guardian_Entity entity) {
             super(entity);
-            //this.setFlags(EnumSet.of(Flag.JUMP, Flag.LOOK));
         }
 
         @Override

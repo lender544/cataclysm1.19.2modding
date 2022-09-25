@@ -6,6 +6,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix3f;
 import com.mojang.math.Matrix4f;
+import com.mojang.math.Vector3f;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -24,8 +25,8 @@ import java.util.Random;
 
 @OnlyIn(Dist.CLIENT)
 public class RendererFlame_Strike extends EntityRenderer<Flame_Strike_Entity> {
-    public static final ResourceLocation TEXTURE = new ResourceLocation("cataclysm:textures/entity/flame_strike_sigil.png");
-    private static final float LINGER_RADIUS = 1.2f;
+    public static final ResourceLocation FLAME_STRIKE = new ResourceLocation("cataclysm:textures/entity/flame_strike_sigil.png");
+    public static final ResourceLocation SOUL_FLAME_STRIKE = new ResourceLocation("cataclysm:textures/entity/soul_flame_strike_sigil.png");
 
     public RendererFlame_Strike(EntityRendererProvider.Context mgr) {
         super(mgr);
@@ -33,22 +34,31 @@ public class RendererFlame_Strike extends EntityRenderer<Flame_Strike_Entity> {
 
     @Override
     public ResourceLocation getTextureLocation(Flame_Strike_Entity entity) {
-        return RendererFlame_Strike.TEXTURE;
+        return entity.isSoul() ? SOUL_FLAME_STRIKE : FLAME_STRIKE;
     }
+
 
     @Override
     public void render(Flame_Strike_Entity flameStrike, float entityYaw, float delta, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
         matrixStackIn.pushPose();
-        VertexConsumer ivertexbuilder = bufferIn.getBuffer(CMRenderTypes.getBright(RendererFlame_Strike.TEXTURE));
+        float f2 = (float) flameStrike.tickCount + delta;
+        VertexConsumer ivertexbuilder = bufferIn.getBuffer(CMRenderTypes.getBright(this.getTextureLocation(flameStrike)));
         matrixStackIn.scale(flameStrike.getRadius(), flameStrike.getRadius(), flameStrike.getRadius());
         matrixStackIn.translate(0.0D, 0.001D, 0.0D);
+        if(flameStrike.isSoul()) {
+            matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(f2));
+        }else{
+            matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(90.0F - flameStrike.getYRot() + f2));
+        }
         PoseStack.Pose lvt_19_1_ = matrixStackIn.last();
         Matrix4f lvt_20_1_ = lvt_19_1_.pose();
         Matrix3f lvt_21_1_ = lvt_19_1_.normal();
-        this.drawVertex(lvt_20_1_, lvt_21_1_, ivertexbuilder, -1, 0, -1, 0, 0, 1, 0, 1, 240);
-        this.drawVertex(lvt_20_1_, lvt_21_1_, ivertexbuilder, -1, 0, 1, 0, 1, 1, 0, 1, 240);
-        this.drawVertex(lvt_20_1_, lvt_21_1_, ivertexbuilder, 1, 0, 1, 1, 1, 1, 0, 1, 240);
-        this.drawVertex(lvt_20_1_, lvt_21_1_, ivertexbuilder, 1, 0, -1, 1, 0, 1, 0, 1, 240);
+        if(flameStrike.isSee()) {
+            this.drawVertex(lvt_20_1_, lvt_21_1_, ivertexbuilder, -1, 0, -1, 0, 0, 1, 0, 1, 240);
+            this.drawVertex(lvt_20_1_, lvt_21_1_, ivertexbuilder, -1, 0, 1, 0, 1, 1, 0, 1, 240);
+            this.drawVertex(lvt_20_1_, lvt_21_1_, ivertexbuilder, 1, 0, 1, 1, 1, 1, 0, 1, 240);
+            this.drawVertex(lvt_20_1_, lvt_21_1_, ivertexbuilder, 1, 0, -1, 1, 0, 1, 0, 1, 240);
+        }
         matrixStackIn.popPose();
         super.render(flameStrike, entityYaw, delta, matrixStackIn, bufferIn, packedLightIn);
     }

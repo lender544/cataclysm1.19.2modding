@@ -138,7 +138,6 @@ public class ModEntities {
     public static final RegistryObject<EntityType<Flame_Strike_Entity>> FLAME_STRIKE = ENTITY_TYPE.register("flame_strike", () -> EntityType.Builder.<Flame_Strike_Entity>of(Flame_Strike_Entity::new, MobCategory.MISC)
             .sized(6.0F, 0.5F)
             .fireImmune()
-            .noSummon()
             .clientTrackingRange(10).updateInterval(Integer.MAX_VALUE)
             .build(cataclysm.MODID + ":flame_strike"));
 

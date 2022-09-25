@@ -603,9 +603,19 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
         } else {
+            if (this.getAnimation() != NO_ANIMATION) {
+                if (this.getNavigation().getPath() != null) {
+                    this.getNavigation().stop();
+                }
+                travelVector = Vec3.ZERO;
+                super.travel(travelVector);
+                return;
+            }
             super.travel(travelVector);
         }
     }
+
+
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return ModSounds.MONSTROSITYHURT.get();
