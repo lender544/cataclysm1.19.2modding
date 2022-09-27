@@ -29,7 +29,6 @@ public class RendererCm_Falling_Block extends EntityRenderer<Cm_Falling_Block_En
 
     public RendererCm_Falling_Block(EntityRendererProvider.Context p_174112_) {
         super(p_174112_);
-        this.shadowRadius = 0.5F;
         this.dispatcher = p_174112_.getBlockRenderDispatcher();
     }
 

@@ -506,7 +506,7 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
                             if (block.getMaterial() != Material.AIR && !block.is(ModTag.NETHERITE_MONSTROSITY_IMMUNE)) {
                                 if (tileEntity == null && random.nextInt(4) + 1 == 4) {
                                     this.level.removeBlock(blockpos, true);
-                                    Cm_Falling_Block_Entity fallingBlockEntity = new Cm_Falling_Block_Entity(level, i3 + 0.5D, k + 0.5D, l + 0.5D, block);
+                                    Cm_Falling_Block_Entity fallingBlockEntity = new Cm_Falling_Block_Entity(level, i3 + 0.5D, k + 0.5D, l + 0.5D, block,5);
                                     level.setBlock(blockpos, block.getFluidState().createLegacyBlock(), 3);
                                     fallingBlockEntity.setDeltaMovement(fallingBlockEntity.getDeltaMovement().add(this.position().subtract(fallingBlockEntity.position()).multiply((-1.2D + random.nextDouble()) / 3, (-1.1D + random.nextDouble()) / 3, (-1.2D + random.nextDouble()) / 3)));
                                     level.addFreshEntity(fallingBlockEntity);

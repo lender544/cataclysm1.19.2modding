@@ -70,7 +70,7 @@ public class Ignis_Entity extends Boss_monster {
     private final ServerBossEvent bossInfo = (ServerBossEvent) (new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(false);
     public static final Animation SWING_ATTACK = Animation.create(55);
     public static final Animation SWING_ATTACK_SOUL = Animation.create(46);
-    public static final Animation SWING_ATTACK_BERSERK = Animation.create(34);
+    public static final Animation SWING_ATTACK_BERSERK = Animation.create(37);
     public static final Animation HORIZONTAL_SWING_ATTACK = Animation.create(68);
     public static final Animation HORIZONTAL_SWING_ATTACK_SOUL = Animation.create(58);
     public static final Animation SHIELD_SMASH_ATTACK = Animation.create(70);
@@ -222,15 +222,15 @@ public class Ignis_Entity extends Boss_monster {
         this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, BREAK_THE_SHIELD, 35, false));
         this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, VERTICAL_COMBO, 10, true));
         this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, MAGIC_ATTACK, 49, true));
-        this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, ULTIMATE_ATTACK, 50, true) {
+        this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, ULTIMATE_ATTACK, 72, true) {
             @Override
             public void start() {
-            super.start();
-            float f1 = (float) Math.cos(Math.toRadians(Ignis_Entity.this.getYRot() + 90));
-            float f2 = (float) Math.sin(Math.toRadians(Ignis_Entity.this.getYRot() + 90));
-            float f0 = (float) Mth.atan2(f1, f2);
-            Ignis_Entity.this.spawnFlameStrike(Ignis_Entity.this.getX(), Ignis_Entity.this.getZ(), Ignis_Entity.this.getY(), Ignis_Entity.this.getY(), f0, 30, 68,0,5.0f,true);
-        }
+                super.start();
+                float f1 = (float) Math.cos(Math.toRadians(Ignis_Entity.this.getYRot() + 90));
+                float f2 = (float) Math.sin(Math.toRadians(Ignis_Entity.this.getYRot() + 90));
+                float f0 = (float) Mth.atan2(f1, f2);
+                Ignis_Entity.this.spawnFlameStrike(Ignis_Entity.this.getX(), Ignis_Entity.this.getZ(), Ignis_Entity.this.getY(), Ignis_Entity.this.getY(), f0, 30, 68,0,5.0f,true);
+            }
         });
         this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, COUNTER, 55, true));
         this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, SHIELD_BREAK_COUNTER, 60, true));
@@ -246,7 +246,7 @@ public class Ignis_Entity extends Boss_monster {
         this.goalSelector.addGoal(1, new Air_Smash(this, SMASH_IN_AIR));
         this.goalSelector.addGoal(1, new Swing_Attack_Goal(this, SWING_ATTACK, 24, 30));
         this.goalSelector.addGoal(1, new Swing_Attack_Goal(this, SWING_ATTACK_SOUL, 18, 24));
-        this.goalSelector.addGoal(1, new Swing_Attack_Goal(this, SWING_ATTACK_BERSERK, 14, 20));
+        this.goalSelector.addGoal(1, new Swing_Attack_Goal(this, SWING_ATTACK_BERSERK, 17, 23));
         this.goalSelector.addGoal(1, new Hornzontal_Small_SwingGoal(this, 19, 13, 12,21));
         this.goalSelector.addGoal(1, new Body_Check_Attack(this));
         this.goalSelector.addGoal(1, new Earth_Shudders(this, EARTH_SHUDDERS_ATTACK));
@@ -694,7 +694,7 @@ public class Ignis_Entity extends Boss_monster {
                     this.setAnimation(animation3);
                 } else if ((blockingProgress == 10 || swordProgress == 10) && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 3F && this.getRandom().nextFloat() * 100.0F < 20f && !this.getIsShieldBreak()) {
                     this.setAnimation(SHIELD_SMASH_ATTACK);
-                } else if ((blockingProgress == 10 || swordProgress == 10) && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 5F && this.getRandom().nextFloat() * 100.0F < 0.7f && counter_strike_cooldown <= 0) {
+                } else if ((blockingProgress == 10 || swordProgress == 10) && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 5F && this.getRandom().nextFloat() * 100.0F < 0.7f && counter_strike_cooldown <= 0 && !target.hasEffect(ModEffect.EFFECTSTUN.get())) {
                     counter_strike_cooldown = CONTER_STRIKE_COOLDOWN;
                     Animation counter = this.getIsShieldBreak() ? SHIELD_BREAK_COUNTER : COUNTER;
                     this.setAnimation(counter);
@@ -737,7 +737,7 @@ public class Ignis_Entity extends Boss_monster {
             }
         }
         if (this.getAnimation() == SWING_ATTACK_BERSERK) {
-            if (this.getAnimationTick() == 14) {
+            if (this.getAnimationTick() == 17) {
                 this.playSound(ModSounds.STRONGSWING.get(), 1.0f, 1F + this.getRandom().nextFloat() * 0.1F);
                 AreaAttack(6.5f, 6, 70, 1.0f, 0.05f, 80, 2, brand, 7,false, 0);
             }
@@ -1129,7 +1129,7 @@ public class Ignis_Entity extends Boss_monster {
 
         if (this.getAnimation() == SWING_UPPERCUT) {
             if (this.getAnimationTick() == 32) {
-                BodyCheckAttack(4.5f, 8, 210, 1.0f, 0.03f, 60, 70, 0.8);
+                BodyCheckAttack(4.5f, 8, 120, 1.0f, 0.03f, 60, 70, 0.8);
             }
         }
         if (this.getAnimation() == SWING_UPPERSLASH) {
@@ -1171,11 +1171,10 @@ public class Ignis_Entity extends Boss_monster {
                 ShieldSmashparticle(0.75f, 1.85f, -0.6f);
             }
 
-            for(int i = 73, j = 16; i <= 85; i = i + 2 ,j= j - 2) {
+            for(int i = 73, j = 16; i <= 85; i = i + 3 ,j= j - 2) {
                 if (this.getAnimationTick() == i) {
-                    ShieldSmashDamage(2f, j, 3f, 2.3f, false, 80, 1.0f, 0.08f, 0.05f);
-                    ShieldSmashDamage(2f, j-1, 3f, 2.3f, false, 80, 1.0f, 0.08f, 0.05f);
-
+                    ShieldSmashDamage(2f, j, 3f, 2.3f, true, 80, 1.0f, 0.08f, 0.05f);
+                    ShieldSmashDamage(2f, j-1, 3f, 2.3f, true, 80, 1.0f, 0.08f, 0.05f);
                 }
             }
 
@@ -1285,11 +1284,13 @@ public class Ignis_Entity extends Boss_monster {
                 }else{
                     for(int l = 0; l < 8; ++l) {
                         double d2 = 4.25D * (double) (l + 2);
-                        int j2 = (int) (2.5F * l);
+                        int j2 = (int) (1.5F * l);
                         this.spawnFlameStrike(this.getX() + f1 * d2, this.getZ() + f2 * d2, this.getY(), this.getY(), f0, 60, j2,j2,2.0f,false);
                     }
                 }
-                for(int l = 8; l < 40; ++l) {
+                for(int l = 4; l < 38; ++l) {
+                    UltimateAttack(l, 3, 1.5F, 150, 1.2F, 0.1F, 1);
+                    UltimateAttack(l, 3, -1.5F, 150, 1.2F, 0.1F, 1);
                     UltimateAttack(l, 3, 2.5F, 150, 1.2F, 0.1F, 1);
                     UltimateAttack(l, 3, -2.5F, 150, 1.2F, 0.1F, 1);
                     UltimateAttack(l, 3, 3.5F, 150, 1.2F, 0.1F, 1);
@@ -1471,7 +1472,7 @@ public class Ignis_Entity extends Boss_monster {
                 }
             }
             if (this.getAnimation() == SWING_ATTACK_BERSERK) {
-                if (this.getAnimationTick() > 10 && this.getAnimationTick() < 15) {
+                if (this.getAnimationTick() > 12 && this.getAnimationTick() < 17) {
                     Flameswing();
                 }
             }
@@ -1598,21 +1599,16 @@ public class Ignis_Entity extends Boss_monster {
             double px = this.getX() + vx * distance + vec * Math.cos((yBodyRot + 90) * Math.PI / 180);
             double pz = this.getZ() + vz * distance + vec * Math.sin((yBodyRot + 90) * Math.PI / 180);
             float factor = 1 - distance / (float) 12;
-            if (!this.level.isClientSide) {
-                if (ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
-                    int hitX = Mth.floor(px);
-                    int hitZ = Mth.floor(pz);
-                    BlockPos pos = new BlockPos(hitX, hitY, hitZ);
-                    BlockPos abovePos = new BlockPos(pos).above();
-                    BlockState block = level.getBlockState(pos);
-                    BlockState blockAbove = level.getBlockState(abovePos);
-                    if (random.nextInt(2) == 1 && block.getMaterial() != Material.AIR && !block.hasBlockEntity() && !blockAbove.getMaterial().blocksMotion() && !block.is(ModTag.NETHERITE_MONSTROSITY_IMMUNE)) {
-                        Cm_Falling_Block_Entity fallingBlockEntity = new Cm_Falling_Block_Entity(level, hitX + 0.5D, hitY + 0.5D, hitZ + 0.5D, block);
-                        level.setBlock(pos, block.getFluidState().createLegacyBlock(), 3);
-                        fallingBlockEntity.push(0, 0.2D + getRandom().nextGaussian() * 0.15D, 0);
-                        level.addFreshEntity(fallingBlockEntity);
-                    }
-                }
+            int hitX = Mth.floor(px);
+            int hitZ = Mth.floor(pz);
+            BlockPos pos = new BlockPos(hitX, hitY, hitZ);
+            BlockPos abovePos = new BlockPos(pos).above();
+            BlockState block = level.getBlockState(pos);
+            BlockState blockAbove = level.getBlockState(abovePos);
+            if (block.getMaterial() != Material.AIR && !block.hasBlockEntity() && !blockAbove.getMaterial().blocksMotion()) {
+                Cm_Falling_Block_Entity fallingBlockEntity = new Cm_Falling_Block_Entity(level, hitX + 0.5D, hitY + 0.5D, hitZ + 0.5D, block,10);
+                fallingBlockEntity.push(0, 0.2D + getRandom().nextGaussian() * 0.15D, 0);
+                level.addFreshEntity(fallingBlockEntity);
             }
             AABB selection = new AABB(px - 0.5, minY, pz - 0.5, px + 0.5, maxY, pz + 0.5);
             List<LivingEntity> hit = level.getEntitiesOfClass(LivingEntity.class, selection);
@@ -1655,21 +1651,16 @@ public class Ignis_Entity extends Boss_monster {
         double extraZ = distance * Mth.cos(angle);
         double px = this.getX() + extraX + f * math;
         double pz = this.getZ() + extraZ + f1 * math;
-        if (!this.level.isClientSide) {
-            if (ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
-                int hitX = Mth.floor(px);
-                int hitZ = Mth.floor(pz);
-                BlockPos pos = new BlockPos(hitX, hitY, hitZ);
-                BlockPos abovePos = new BlockPos(pos).above();
-                BlockState block = level.getBlockState(pos);
-                BlockState blockAbove = level.getBlockState(abovePos);
-                if (random.nextInt(2) == 1 && block.getMaterial() != Material.AIR && !block.hasBlockEntity() && !blockAbove.getMaterial().blocksMotion() && !block.is(ModTag.NETHERITE_MONSTROSITY_IMMUNE)) {
-                    Cm_Falling_Block_Entity fallingBlockEntity = new Cm_Falling_Block_Entity(level, hitX + 0.5D, hitY + 0.5D, hitZ + 0.5D, block);
-                    level.setBlock(pos, block.getFluidState().createLegacyBlock(), 3);
-                    fallingBlockEntity.push(0, 0.2D + getRandom().nextGaussian() * 0.15D, 0);
-                    level.addFreshEntity(fallingBlockEntity);
-                }
-            }
+        int hitX = Mth.floor(px);
+        int hitZ = Mth.floor(pz);
+        BlockPos pos = new BlockPos(hitX, hitY, hitZ);
+        BlockPos abovePos = new BlockPos(pos).above();
+        BlockState block = level.getBlockState(pos);
+        BlockState blockAbove = level.getBlockState(abovePos);
+        if (block.getMaterial() != Material.AIR && !block.hasBlockEntity() && !blockAbove.getMaterial().blocksMotion()) {
+            Cm_Falling_Block_Entity fallingBlockEntity = new Cm_Falling_Block_Entity(level, hitX + 0.5D, hitY + 0.5D, hitZ + 0.5D, block,10);
+            fallingBlockEntity.push(0, 0.2D + getRandom().nextGaussian() * 0.15D, 0);
+            level.addFreshEntity(fallingBlockEntity);
         }
         AABB selection = new AABB(px - 0.5, minY, pz - 0.5, px + 0.5, maxY, pz + 0.5);
         List<LivingEntity> hit = level.getEntitiesOfClass(LivingEntity.class, selection);

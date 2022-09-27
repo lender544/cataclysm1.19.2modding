@@ -155,7 +155,7 @@ public class Flame_Strike_Entity extends Entity {
                     this.setRadius(getRadius() - 0.1F);
                 }else{
                     if(!this.isSoul()) {
-                        this.level.explode(this.owner, this.getX(), this.getY(), this.getZ(), 1, Explosion.BlockInteraction.NONE);
+                        this.level.explode(this.owner, this.getX(), this.getY(), this.getZ(), 2, Explosion.BlockInteraction.NONE);
                     }
                     this.discard();
                 }
