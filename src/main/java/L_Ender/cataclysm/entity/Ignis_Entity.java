@@ -40,6 +40,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
@@ -1606,7 +1607,7 @@ public class Ignis_Entity extends Boss_monster {
             BlockState block = level.getBlockState(pos);
             BlockState blockAbove = level.getBlockState(abovePos);
             if (block.getMaterial() != Material.AIR && !block.hasBlockEntity() && !blockAbove.getMaterial().blocksMotion()) {
-                Cm_Falling_Block_Entity fallingBlockEntity = new Cm_Falling_Block_Entity(level, hitX + 0.5D, hitY + 0.5D, hitZ + 0.5D, block,10);
+                Cm_Falling_Block_Entity fallingBlockEntity = new Cm_Falling_Block_Entity(level, hitX + 0.5D, hitY + 1.0D, hitZ + 0.5D, block,10);
                 fallingBlockEntity.push(0, 0.2D + getRandom().nextGaussian() * 0.15D, 0);
                 level.addFreshEntity(fallingBlockEntity);
             }
@@ -1658,7 +1659,7 @@ public class Ignis_Entity extends Boss_monster {
         BlockState block = level.getBlockState(pos);
         BlockState blockAbove = level.getBlockState(abovePos);
         if (block.getMaterial() != Material.AIR && !block.hasBlockEntity() && !blockAbove.getMaterial().blocksMotion()) {
-            Cm_Falling_Block_Entity fallingBlockEntity = new Cm_Falling_Block_Entity(level, hitX + 0.5D, hitY + 0.5D, hitZ + 0.5D, block,10);
+            Cm_Falling_Block_Entity fallingBlockEntity = new Cm_Falling_Block_Entity(level, hitX + 0.5D, hitY + 1.0D, hitZ + 0.5D, block,10);
             fallingBlockEntity.push(0, 0.2D + getRandom().nextGaussian() * 0.15D, 0);
             level.addFreshEntity(fallingBlockEntity);
         }
@@ -1891,17 +1892,6 @@ public class Ignis_Entity extends Boss_monster {
         return super.finalizeSpawn(p_29678_, p_29679_, p_29680_, p_29681_, p_29682_);
     }
 
-    public void travel(Vec3 travelVector) {
-        if (this.getAnimation() != NO_ANIMATION) {
-            if (this.getNavigation().getPath() != null) {
-                this.getNavigation().stop();
-            }
-            travelVector = Vec3.ZERO;
-            super.travel(travelVector);
-            return;
-        }
-        super.travel(travelVector);
-    }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return ModSounds.IGNIS_HURT.get();
@@ -2059,7 +2049,7 @@ public class Ignis_Entity extends Boss_monster {
             this.look2 = look2;
             this.charge = charge;
             this.bodycheck = bodycheck;
-
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
         }
 
         public void tick() {
@@ -2100,7 +2090,7 @@ public class Ignis_Entity extends Boss_monster {
             this.look2 = look2;
             this.look3 = look3;
             this.follow_through_tick = follow_through_tick;
-
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
         }
 
         @Override
@@ -2174,6 +2164,7 @@ public class Ignis_Entity extends Boss_monster {
 
         public Body_Check_Attack(Ignis_Entity entity) {
             super(entity);
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
 
         }
 
@@ -2237,6 +2228,7 @@ public class Ignis_Entity extends Boss_monster {
             this.bodycheck = bodycheck;
             this.motion1 = motion1;
             this.motion2 = motion2;
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
         }
 
         public void tick() {
@@ -2275,6 +2267,7 @@ public class Ignis_Entity extends Boss_monster {
 
         public Poked(Ignis_Entity entity, Animation animation) {
             super(entity, animation);
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
         }
 
         public void tick() {
@@ -2290,6 +2283,7 @@ public class Ignis_Entity extends Boss_monster {
 
         public Shield_Smash(Ignis_Entity entity, Animation animation) {
             super(entity, animation);
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
         }
 
         public void tick() {
@@ -2314,6 +2308,7 @@ public class Ignis_Entity extends Boss_monster {
 
         public Air_Smash(Ignis_Entity entity, Animation animation) {
             super(entity, animation);
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
         }
 
         public void tick() {
@@ -2340,6 +2335,7 @@ public class Ignis_Entity extends Boss_monster {
 
         public Reinforced_Air_Smash(Ignis_Entity entity) {
             super(entity);
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
         }
 
         @Override
@@ -2389,6 +2385,7 @@ public class Ignis_Entity extends Boss_monster {
             super(entity, animation);
             this.look1 = look1;
             this.follow_through_tick = follow_through_tick;
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
 
         }
         public void tick() {
@@ -2415,6 +2412,7 @@ public class Ignis_Entity extends Boss_monster {
 
         public Earth_Shudders(Ignis_Entity entity, Animation animation) {
             super(entity, animation);
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
         }
 
         public void tick() {

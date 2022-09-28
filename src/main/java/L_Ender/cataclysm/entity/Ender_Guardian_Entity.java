@@ -799,18 +799,6 @@ public class Ender_Guardian_Entity extends Boss_monster {
         }
     }
 
-    public void travel(Vec3 travelVector) {
-        if (this.getAnimation() != NO_ANIMATION) {
-            if (this.getNavigation().getPath() != null) {
-                this.getNavigation().stop();
-            }
-            travelVector = Vec3.ZERO;
-            super.travel(travelVector);
-            return;
-        }
-        super.travel(travelVector);
-    }
-
     @Override
     protected void repelEntities(float x, float y, float z, float radius) {
         super.repelEntities(x, y, z, radius);
@@ -864,6 +852,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
 
         public PunchAttackGoal(Ender_Guardian_Entity entity) {
             super(entity);
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
         }
 
         @Override
@@ -916,6 +905,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
 
         public StompAttackGoal(Ender_Guardian_Entity entity) {
             super(entity);
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
         }
 
         @Override
@@ -953,6 +943,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
 
         public UppercutAndBulletGoal(Ender_Guardian_Entity entity, Animation animation) {
             super(entity, animation);
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
         }
 
         public void tick() {
@@ -967,7 +958,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
             if (Ender_Guardian_Entity.this.getAnimationTick() == 26) {
                 float f1 = (float) Math.cos(Math.toRadians(Ender_Guardian_Entity.this.getYRot() + 90));
                 float f2 = (float) Math.sin(Math.toRadians(Ender_Guardian_Entity.this.getYRot() + 90));
-                Ender_Guardian_Entity.this.push(f1 * 1.5, 0, f2 * 1.5);
+                Ender_Guardian_Entity.this.push(f1 * 2.0, 0, f2 * 2.0);
             }
             if(Ender_Guardian_Entity.this.getAnimationTick() > 32 || Ender_Guardian_Entity.this.getAnimationTick() < 26){
                 Ender_Guardian_Entity.this.setDeltaMovement(0, Ender_Guardian_Entity.this.getDeltaMovement().y, 0);
@@ -982,6 +973,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
 
         public RageUppercut(Ender_Guardian_Entity entity, Animation animation) {
             super(entity, animation);
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
         }
 
         public void tick() {
@@ -997,7 +989,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
             if (Ender_Guardian_Entity.this.getAnimationTick() == 26) {
                 float f1 = (float) Math.cos(Math.toRadians(Ender_Guardian_Entity.this.getYRot() + 90));
                 float f2 = (float) Math.sin(Math.toRadians(Ender_Guardian_Entity.this.getYRot() + 90));
-                Ender_Guardian_Entity.this.push(f1 * 1.5, 0, f2 * 1.5);
+                Ender_Guardian_Entity.this.push(f1 * 2.0, 0, f2 * 2.0);
             }
             if(Ender_Guardian_Entity.this.getAnimationTick() > 32 || Ender_Guardian_Entity.this.getAnimationTick() < 26){
                 Ender_Guardian_Entity.this.setDeltaMovement(0, Ender_Guardian_Entity.this.getDeltaMovement().y, 0);

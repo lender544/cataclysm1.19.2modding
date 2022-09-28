@@ -5,6 +5,9 @@ import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.Goal;
+
+import java.util.EnumSet;
 
 public class PredictiveChargeAttackAnimationGoal<T extends Boss_monster & IAnimatedEntity> extends SimpleAnimationGoal<T> {
 
@@ -31,6 +34,7 @@ public class PredictiveChargeAttackAnimationGoal<T extends Boss_monster & IAnima
         this.charge = charge;
         this.motionx = motionx;
         this.motionz = motionz;
+        this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
     }
 
     @Override

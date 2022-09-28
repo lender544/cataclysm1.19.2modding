@@ -5,6 +5,7 @@ import L_Ender.cataclysm.entity.Ignis_Entity;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.Goal;
 
 import java.util.EnumSet;
 
@@ -15,6 +16,7 @@ public class AttackAnimationGoal1<T extends Boss_monster & IAnimatedEntity> exte
         super(entity, animation);
         this.look1 = look1;
         this.see = see;
+        this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
     }
     public void tick() {
         LivingEntity target = entity.getTarget();

@@ -603,14 +603,7 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
         } else {
-            if (this.getAnimation() != NO_ANIMATION) {
-                if (this.getNavigation().getPath() != null) {
-                    this.getNavigation().stop();
-                }
-                travelVector = Vec3.ZERO;
-                super.travel(travelVector);
-                return;
-            }
+
             super.travel(travelVector);
         }
     }
@@ -656,7 +649,7 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
 
         public EarthQuakeGoal(Netherite_Monstrosity_Entity entity) {
             super(entity);
-            //this.setFlags(EnumSet.of(Flag.JUMP, Flag.LOOK));
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
         }
 
         @Override
@@ -706,6 +699,7 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
 
         public ShootGoal(Netherite_Monstrosity_Entity entity, Animation animation) {
             super(entity, animation);
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
         }
 
         public void tick() {
@@ -737,6 +731,7 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
 
         public BerserkGoal(Netherite_Monstrosity_Entity entity, Animation animation) {
             super(entity, animation);
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
         }
 
         public void tick() {
@@ -753,6 +748,7 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
 
         public HealGoal(Netherite_Monstrosity_Entity entity, Animation animation) {
             super(entity, animation);
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
         }
 
         public void tick() {
@@ -773,7 +769,7 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
     class AwakenGoal extends Goal {
 
         public AwakenGoal() {
-
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
         }
 
         public boolean canUse() {
