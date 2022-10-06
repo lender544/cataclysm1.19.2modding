@@ -93,6 +93,7 @@ public class ModItems {
     public static final RegistryObject<BlockItem> ENDER_GUARDIAN_SPAWNER = ITEMS.register("ender_guardian_spawner",
             () -> new BlockItem(ModBlocks.ENDER_GUARDIAN_SPAWNER.get(), new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
 
+
     public static final RegistryObject<Item> WITHERITE_INGOT = ITEMS.register("witherite_ingot",
             () -> new Item(new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).fireResistant().rarity(Rarity.EPIC)));
 

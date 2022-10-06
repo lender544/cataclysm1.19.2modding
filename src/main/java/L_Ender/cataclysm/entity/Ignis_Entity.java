@@ -219,7 +219,7 @@ public class Ignis_Entity extends Boss_monster {
         this.goalSelector.addGoal(1, new PokeGoal(this, POKE_ATTACK2, 33, 53, 28, 35, 28, 34));
         this.goalSelector.addGoal(1, new PokeGoal(this, POKE_ATTACK3, 29, 49, 24, 31, 24, 30));
         this.goalSelector.addGoal(1, new Combo1(this, COMBO1));
-        this.goalSelector.addGoal(1, new Combo2(this, COMBO2, 34, 50, 12.0F, 27, 0.3f, 0.3f));
+        this.goalSelector.addGoal(1, new Combo2(this, COMBO2, 34,  12.0F, 27, 0.3f, 0.3f));
         this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, PHASE_3, 34, true));
         this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, SWING_UPPERSLASH, 23, true));
         this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, BREAK_THE_SHIELD, 35, false));
@@ -1317,11 +1317,11 @@ public class Ignis_Entity extends Boss_monster {
 
             if (this.getAnimationTick() == 59) {
                 this.playSound(ModSounds.STRONGSWING.get(), 1.0f, 1.25F + this.getRandom().nextFloat() * 0.1F);
-                AreaAttack(5.25f, 6, 120, 0.4f, 0.03f, 0, 2, brand, 3, true, 0);
+                AreaAttack(5.25f, 6, 120, 0.4f, 0.03f, 0, 2, brand, 3, false, 0);
             }
             if (this.getAnimationTick() == 74) {
                 this.playSound(ModSounds.STRONGSWING.get(), 1.0f, 1.25F + this.getRandom().nextFloat() * 0.1F);
-                AreaAttack(5.25f, 6, 120, 0.4f, 0.03f, 50, 2, brand, 3, true, 0);
+                AreaAttack(5.25f, 6, 120, 0.4f, 0.03f, 50, 2, brand, 3, false, 0);
             }
 
             if (this.getAnimationTick() == 108) {
@@ -1901,6 +1901,16 @@ public class Ignis_Entity extends Boss_monster {
                 }
             }
         }
+    }
+
+    public void travel(Vec3 travelVector) {
+        if (this.getAnimation() != NO_ANIMATION) {
+            if (this.getNavigation().getPath() != null) {
+                this.getNavigation().stop();
+            }
+            travelVector = Vec3.ZERO;
+        }
+        super.travel(travelVector);
     }
 
     @Override
@@ -2499,7 +2509,7 @@ public class Ignis_Entity extends Boss_monster {
 
     class Combo2 extends SimpleAnimationGoal<Ignis_Entity> {
         private final int look1;
-        private final int look2;
+
 
         private final float sensing;
         private final int charge;
@@ -2511,10 +2521,9 @@ public class Ignis_Entity extends Boss_monster {
         private int newX;
         private int newZ;
 
-        public Combo2(Ignis_Entity entity, Animation animation, int look1, int look2, float sensing, int charge, float motionx, float motionz) {
+        public Combo2(Ignis_Entity entity, Animation animation, int look1, float sensing, int charge, float motionx, float motionz) {
             super(entity, animation);
             this.look1 = look1;
-            this.look2 = look2;
             this.sensing = sensing;
             this.charge = charge;
             this.motionx = motionx;

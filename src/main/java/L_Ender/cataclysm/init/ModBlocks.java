@@ -1,11 +1,13 @@
 package L_Ender.cataclysm.init;
 
 
+import L_Ender.cataclysm.blocks.*;
 import L_Ender.cataclysm.cataclysm;
-import L_Ender.cataclysm.blocks.BlockEnderGuardianSpawner;
-import L_Ender.cataclysm.blocks.EndStoneTeleportTrapBricks;
-import L_Ender.cataclysm.blocks.ObsidianExplosionTrapBricks;
-import L_Ender.cataclysm.blocks.PurpurVoidRuneTrapBlock;
+import L_Ender.cataclysm.items.BlockItemCMRender;
+import L_Ender.cataclysm.items.CMBlockItem;
+import L_Ender.cataclysm.util.Cataclysm_Group;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -16,6 +18,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
 public class ModBlocks {
@@ -119,6 +122,9 @@ public class ModBlocks {
                     .noOcclusion()
                     .sound(SoundType.METAL)));
 
+    public static final RegistryObject<Block> ALTAR_OF_FIRE = registerBlockAndItem("altar_of_fire",
+            BlockAltarOfFire::new, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).rarity(Rarity.EPIC).fireResistant(), true);
+
     public static final RegistryObject<Block> CHORUS_PLANKS = BLOCKS.register("chorus_planks",
             () -> new Block(BlockBehaviour.Properties.of(Material.NETHER_WOOD, MaterialColor.COLOR_PURPLE).
                     strength(2.0F, 3.0F)
@@ -137,6 +143,12 @@ public class ModBlocks {
         return (state) -> {
             return state.getValue(BlockStateProperties.LIT) ? lightValue : 0;
         };
+    }
+
+    public static RegistryObject<Block> registerBlockAndItem(String name, Supplier<Block> block, Item.Properties blockItemProps, boolean specialRender){
+        RegistryObject<Block> blockObj = BLOCKS.register(name, block);
+        ModItems.ITEMS.register(name, () -> specialRender ?  new BlockItemCMRender(blockObj, blockItemProps) :  new CMBlockItem(blockObj, blockItemProps));
+        return blockObj;
     }
 
 }

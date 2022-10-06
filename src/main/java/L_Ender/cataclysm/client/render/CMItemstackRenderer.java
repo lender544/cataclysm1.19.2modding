@@ -1,10 +1,14 @@
 package L_Ender.cataclysm.client.render;
 
+import L_Ender.cataclysm.client.model.block.Model_Altar_of_Fire;
 import L_Ender.cataclysm.client.model.item.ModelBulwark_of_the_flame;
 import L_Ender.cataclysm.client.model.item.ModelGauntlet_of_Guard;
 import L_Ender.cataclysm.client.model.item.ModelIncinerator;
+import L_Ender.cataclysm.init.ModBlocks;
 import L_Ender.cataclysm.init.ModItems;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.blaze3d.vertex.VertexMultiConsumer;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
@@ -23,9 +27,11 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
     private static final ModelBulwark_of_the_flame BULWARK_OF_THE_FLAME_MODEL = new ModelBulwark_of_the_flame();
     private static final ModelGauntlet_of_Guard GAUNTLET_OF_GUARD_MODEL = new ModelGauntlet_of_Guard();
     private static final ModelIncinerator THE_INCINERATOR_MODEL = new ModelIncinerator();
+    private static final Model_Altar_of_Fire ALTAR_OF_FIRE_MODEL = new Model_Altar_of_Fire();
     private static final ResourceLocation BULWARK_OF_THE_FLAME_TEXTURE = new ResourceLocation("cataclysm:textures/items/bulwark_of_the_flame.png");
     private static final ResourceLocation GAUNTLET_OF_GUARD_TEXTURE = new ResourceLocation("cataclysm:textures/items/gauntlet_of_guard.png");
     private static final ResourceLocation THE_INCINERATOR_TEXTURE = new ResourceLocation("cataclysm:textures/items/the_incinerator.png");
+    private static final ResourceLocation ALTAR_OF_FIRE_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altar_of_fire.png");
 
     public CMItemstackRenderer() {
         super(null, null);
@@ -53,6 +59,15 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
             matrixStackIn.translate(0.5F, 0.5F, 0.5F);
             //matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(-180));
             THE_INCINERATOR_MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(RenderType.entityCutoutNoCull(THE_INCINERATOR_TEXTURE)), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
+            matrixStackIn.popPose();
+        }
+
+        if(itemStackIn.getItem() == ModBlocks.ALTAR_OF_FIRE.get().asItem()){
+            matrixStackIn.pushPose();
+            matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(-180));
+            matrixStackIn.translate(0.75F, -1.5F, -0.25F);
+            ALTAR_OF_FIRE_MODEL.resetToDefaultPose();
+            ALTAR_OF_FIRE_MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(RenderType.entityCutoutNoCull(ALTAR_OF_FIRE_TEXTURE)), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
             matrixStackIn.popPose();
         }
 
