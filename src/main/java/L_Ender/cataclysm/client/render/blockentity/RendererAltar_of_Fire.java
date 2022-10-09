@@ -2,10 +2,13 @@ package L_Ender.cataclysm.client.render.blockentity;
 
 import L_Ender.cataclysm.client.model.block.Model_Altar_of_Fire;
 import L_Ender.cataclysm.client.render.CMRenderTypes;
+import L_Ender.cataclysm.entity.effect.Flame_Strike_Entity;
 import L_Ender.cataclysm.tileentities.TileEntityAltarOfFire;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexMultiConsumer;
+import com.mojang.math.Matrix3f;
+import com.mojang.math.Matrix4f;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
@@ -31,6 +34,7 @@ public class RendererAltar_of_Fire<T extends TileEntityAltarOfFire> implements B
     private static final ResourceLocation TEXTURE_2 = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altarfire2.png");
     private static final ResourceLocation TEXTURE_3 = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altarfire3.png");
     private static final ResourceLocation TEXTURE_4 = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altarfire4.png");
+    public static final ResourceLocation FLAME_STRIKE = new ResourceLocation("cataclysm:textures/entity/flame_strike_sigil.png");
     private static final Model_Altar_of_Fire MODEL = new Model_Altar_of_Fire();
 
     public RendererAltar_of_Fire(Context rendererDispatcherIn) {
@@ -46,6 +50,8 @@ public class RendererAltar_of_Fire<T extends TileEntityAltarOfFire> implements B
         MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(CMRenderTypes.getGlowingEffect(getIdleTexture(tileEntityIn.tickCount % 12))), 210, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
         matrixStackIn.popPose();
         renderItem(tileEntityIn, partialTicks,matrixStackIn,bufferIn,combinedLightIn);
+        renderSigil(tileEntityIn,partialTicks,matrixStackIn,bufferIn);
+
 
     }
     private ResourceLocation getIdleTexture(int age) {
@@ -73,6 +79,32 @@ public class RendererAltar_of_Fire<T extends TileEntityAltarOfFire> implements B
             Minecraft.getInstance().getItemRenderer().render(stack, ItemTransforms.TransformType.GROUND, false, matrixStackIn, bufferIn, combinedLightIn, OverlayTexture.NO_OVERLAY, ibakedmodel);
             matrixStackIn.popPose();
         }
+    }
+
+    public void renderSigil(T tileEntityIn, float delta, PoseStack matrixStackIn, MultiBufferSource bufferIn) {
+        matrixStackIn.pushPose();
+        if(tileEntityIn.summoningthis) {
+            float f2 = (float) tileEntityIn.tickCount + delta;
+            VertexConsumer ivertexbuilder = bufferIn.getBuffer(CMRenderTypes.getGlowingEffect(FLAME_STRIKE));
+            matrixStackIn.scale(2.5F, 2.5F, 2.5F);
+            matrixStackIn.translate(0.2D, 0.001D, 0.2D);
+            matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(90.0F + f2));
+
+            PoseStack.Pose lvt_19_1_ = matrixStackIn.last();
+            Matrix4f lvt_20_1_ = lvt_19_1_.pose();
+            Matrix3f lvt_21_1_ = lvt_19_1_.normal();
+
+            this.drawVertex(lvt_20_1_, lvt_21_1_, ivertexbuilder, -1, 0, -1, 0, 0, 1, 0, 1, 240);
+            this.drawVertex(lvt_20_1_, lvt_21_1_, ivertexbuilder, -1, 0, 1, 0, 1, 1, 0, 1, 240);
+            this.drawVertex(lvt_20_1_, lvt_21_1_, ivertexbuilder, 1, 0, 1, 1, 1, 1, 0, 1, 240);
+            this.drawVertex(lvt_20_1_, lvt_21_1_, ivertexbuilder, 1, 0, -1, 1, 0, 1, 0, 1, 240);
+        }
+
+        matrixStackIn.popPose();
+    }
+
+    public void drawVertex(Matrix4f p_229039_1_, Matrix3f p_229039_2_, VertexConsumer p_229039_3_, int p_229039_4_, int p_229039_5_, int p_229039_6_, float p_229039_7_, float p_229039_8_, int p_229039_9_, int p_229039_10_, int p_229039_11_, int p_229039_12_) {
+        p_229039_3_.vertex(p_229039_1_, (float) p_229039_4_, (float) p_229039_5_, (float) p_229039_6_).color(255, 255, 255, 255).uv(p_229039_7_, p_229039_8_).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(p_229039_12_).normal(p_229039_2_, (float) p_229039_9_, (float) p_229039_11_, (float) p_229039_10_).endVertex();
     }
 }
 

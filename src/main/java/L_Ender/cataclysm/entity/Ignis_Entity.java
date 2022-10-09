@@ -58,6 +58,7 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
@@ -1646,6 +1647,15 @@ public class Ignis_Entity extends Boss_monster {
                 Cm_Falling_Block_Entity fallingBlockEntity = new Cm_Falling_Block_Entity(level, hitX + 0.5D, hitY + 1.0D, hitZ + 0.5D, block, 10);
                 fallingBlockEntity.push(0, 0.2D + getRandom().nextGaussian() * 0.15D, 0);
                 level.addFreshEntity(fallingBlockEntity);
+                if (!this.level.isClientSide && block.is(ModTag.IGNIS_CAN_DESTROY)) {
+                    if (CMConfig.IgnisBlockBreaking) {
+                        this.level.destroyBlock(pos, false, this);
+                    } else {
+                        if (ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+                            this.level.destroyBlock(pos, false, this);
+                        }
+                    }
+                }
             }
             AABB selection = new AABB(px - 0.5, minY, pz - 0.5, px + 0.5, maxY, pz + 0.5);
             List<LivingEntity> hit = level.getEntitiesOfClass(LivingEntity.class, selection);
@@ -1698,6 +1708,15 @@ public class Ignis_Entity extends Boss_monster {
             Cm_Falling_Block_Entity fallingBlockEntity = new Cm_Falling_Block_Entity(level, hitX + 0.5D, hitY + 1.0D, hitZ + 0.5D, block, 10);
             fallingBlockEntity.push(0, 0.2D + getRandom().nextGaussian() * 0.15D, 0);
             level.addFreshEntity(fallingBlockEntity);
+            if (!this.level.isClientSide && block.is(ModTag.IGNIS_CAN_DESTROY)) {
+                if (CMConfig.IgnisBlockBreaking) {
+                    this.level.destroyBlock(pos, false, this);
+                } else {
+                    if (ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+                        this.level.destroyBlock(pos, false, this);
+                    }
+                }
+            }
         }
         AABB selection = new AABB(px - 0.5, minY, pz - 0.5, px + 0.5, maxY, pz + 0.5);
         List<LivingEntity> hit = level.getEntitiesOfClass(LivingEntity.class, selection);

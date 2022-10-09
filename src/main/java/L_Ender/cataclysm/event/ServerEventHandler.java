@@ -1,11 +1,16 @@
 package L_Ender.cataclysm.event;
 
 import L_Ender.cataclysm.cataclysm;
+import L_Ender.cataclysm.client.render.CMItemstackRenderer;
 import L_Ender.cataclysm.init.ModEffect;
 import L_Ender.cataclysm.init.ModItems;
 import L_Ender.cataclysm.items.final_fractal;
 import L_Ender.cataclysm.items.zweiender;
+import net.minecraft.client.CameraType;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.EntityDamageSource;
@@ -14,7 +19,11 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.RenderLevelLastEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
@@ -86,7 +95,7 @@ public class ServerEventHandler {
     //}
 
     @SubscribeEvent
-    public void onLivingSetTargetEvent(LivingSetAttackTargetEvent event) {
+    public void onLivingSetTargetEvent(LivingSetAttackTargetEvent  event) {
         if (event.getTarget() != null && event.getEntity() instanceof Mob) {
             if (event.getEntity().hasEffect(ModEffect.EFFECTSTUN.get())) {
                 ((Mob) event.getEntity()).setTarget(null);
@@ -194,6 +203,13 @@ public class ServerEventHandler {
         if (event.isCancelable() && event.getEntity().hasEffect(ModEffect.EFFECTSTUN.get())) {
             event.setCanceled(true);
         }
+    }
+
+    @SubscribeEvent
+    @OnlyIn(Dist.CLIENT)
+    public void onRenderWorldLastEvent(RenderLevelLastEvent event) {
+        CMItemstackRenderer.incrementTick();
+
     }
 
 }

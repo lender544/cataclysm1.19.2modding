@@ -24,6 +24,7 @@ public class CMConfig {
 
     public static boolean EnderguardianBlockBreaking = true;
     public static boolean EndergolemBlockBreaking = false;
+    public static boolean IgnisBlockBreaking = true;
 
     public static double MonstrosityHealthMultiplier = 1D;
     public static double MonstrosityDamageMultiplier = 1D;
@@ -65,6 +66,7 @@ public class CMConfig {
             MonstrosityDamageMultiplier = ConfigHolder.COMMON.MonstrosityDamageMultiplier.get();
             EnderguardianHealthMultiplier = ConfigHolder.COMMON.EnderguardianHealthMultiplier.get();
             EnderguardianDamageMultiplier = ConfigHolder.COMMON.EnderguardianDamageMultiplier.get();
+            IgnisBlockBreaking = ConfigHolder.COMMON.IgnisBlockBreaking.get();
 
             EnderGolemHealthMultiplier = ConfigHolder.COMMON.EndergolemHealthMultiplier.get();
             EnderGolemDamageMultiplier = ConfigHolder.COMMON.EndergolemDamageMultiplier.get();

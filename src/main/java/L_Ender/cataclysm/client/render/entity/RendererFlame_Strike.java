@@ -37,12 +37,11 @@ public class RendererFlame_Strike extends EntityRenderer<Flame_Strike_Entity> {
         return entity.isSoul() ? SOUL_FLAME_STRIKE : FLAME_STRIKE;
     }
 
-
     @Override
     public void render(Flame_Strike_Entity flameStrike, float entityYaw, float delta, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
         matrixStackIn.pushPose();
         float f2 = (float) flameStrike.tickCount + delta;
-        VertexConsumer ivertexbuilder = bufferIn.getBuffer(CMRenderTypes.getBright(this.getTextureLocation(flameStrike)));
+        VertexConsumer ivertexbuilder = bufferIn.getBuffer(CMRenderTypes.getGlowingEffect(this.getTextureLocation(flameStrike)));
         matrixStackIn.scale(flameStrike.getRadius(), flameStrike.getRadius(), flameStrike.getRadius());
         matrixStackIn.translate(0.0D, 0.001D, 0.0D);
         if(flameStrike.isSoul()) {

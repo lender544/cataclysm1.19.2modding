@@ -1,5 +1,12 @@
 package L_Ender.cataclysm.tileentities;
 
+import L_Ender.cataclysm.config.CMConfig;
+import L_Ender.cataclysm.entity.Ignis_Entity;
+import L_Ender.cataclysm.entity.effect.Flame_Strike_Entity;
+import L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
+import L_Ender.cataclysm.init.ModEntities;
+import L_Ender.cataclysm.init.ModItems;
+import L_Ender.cataclysm.init.ModTag;
 import L_Ender.cataclysm.init.ModTileentites;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -9,6 +16,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Clearable;
 import net.minecraft.world.ContainerHelper;
@@ -16,12 +24,16 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.CampfireBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 
@@ -30,7 +42,8 @@ public class TileEntityAltarOfFire extends BaseContainerBlockEntity {
     public int tickCount;
     private static final int NUM_SLOTS = 1;
     private NonNullList<ItemStack> stacks = NonNullList.withSize(NUM_SLOTS, ItemStack.EMPTY);
-
+    public boolean summoningthis = false;
+    private int summoningticks = 0;
 
     public TileEntityAltarOfFire(BlockPos pos, BlockState state) {
         super(ModTileentites.ALTAR_OF_FIRE.get(), pos, state);
@@ -38,10 +51,58 @@ public class TileEntityAltarOfFire extends BaseContainerBlockEntity {
 
     public static void commonTick(Level level, BlockPos pos, BlockState state, TileEntityAltarOfFire entity) {
         entity.tick();
+
     }
 
     public void tick() {
         tickCount++;
+        summoningthis = false;
+        if (!this.getItem(0).isEmpty()) {
+            if(this.getItem(0).getItem() == ModItems.BURNING_ASHES.get()){
+                summoningthis = true;
+                if(summoningticks == 1) {
+                    ScreenShake_Entity.ScreenShake(this.level, Vec3.atCenterOf(this.getBlockPos()), 20, 0.05f, 0, 150);
+                    this.level.addFreshEntity(new Flame_Strike_Entity(this.level, this.getBlockPos().getX() + 0.5F, this.getBlockPos().getY(), this.getBlockPos().getZ() + 0.5F, 0, 0, 100, 0, 2.5F, false, null));
+                }
+                if(summoningticks > 121) {
+                    this.setItem(0, ItemStack.EMPTY);
+                    BlockBreaking(3, 3, 3);
+                    Ignis_Entity ignis = ModEntities.IGNIS.get().create(level);
+                    ignis.setPos(this.getBlockPos().getX() + 0.5F, this.getBlockPos().getY() + 3, this.getBlockPos().getZ() + 0.5F);
+                    if(!level.isClientSide){
+                        level.addFreshEntity(ignis);
+                    }
+                }
+
+            }
+        }
+        if(!summoningthis){
+            summoningticks = 0;
+        }else{
+            summoningticks++;
+        }
+    }
+
+    private void BlockBreaking(int x, int y, int z) {
+        //this.level.destroyBlock(this.getBlockPos(), false);
+        int MthX = Mth.floor(this.getBlockPos().getX());
+        int MthY = Mth.floor(this.getBlockPos().getY());
+        int MthZ = Mth.floor(this.getBlockPos().getZ());
+        for (int k2 = -x; k2 <= x; ++k2) {
+            for (int l2 = -z; l2 <= z; ++l2) {
+                for (int j = -1; j <= y; ++j) {
+                    int i3 = MthX + k2;
+                    int k = MthY + j;
+                    int l = MthZ + l2;
+                    BlockPos blockpos = new BlockPos(i3, k, l);
+                    BlockState block = this.level.getBlockState(blockpos);
+                    if (block.getMaterial() != Material.AIR && !block.is(ModTag.ALTAR_DESTROY_IMMUNE)) {
+                        this.level.destroyBlock(blockpos, false);
+                    }
+
+                }
+            }
+        }
     }
 
     @Override
