@@ -21,6 +21,7 @@ import net.minecraft.client.renderer.entity.SheepRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -85,9 +86,10 @@ public class RendererAltar_of_Fire<T extends TileEntityAltarOfFire> implements B
         matrixStackIn.pushPose();
         if(tileEntityIn.summoningthis) {
             float f2 = (float) tileEntityIn.tickCount + delta;
+            float f3 = Mth.clamp(tileEntityIn.summoningticks, 0, 25);
             VertexConsumer ivertexbuilder = bufferIn.getBuffer(CMRenderTypes.getGlowingEffect(FLAME_STRIKE));
-            matrixStackIn.scale(2.5F, 2.5F, 2.5F);
-            matrixStackIn.translate(0.2D, 0.001D, 0.2D);
+            matrixStackIn.translate(0.5D, 0.001D, 0.5D);
+            matrixStackIn.scale(f3 * 0.1f, f3 * 0.1f, f3 * 0.1f);
             matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(90.0F + f2));
 
             PoseStack.Pose lvt_19_1_ = matrixStackIn.last();

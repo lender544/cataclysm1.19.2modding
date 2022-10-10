@@ -144,7 +144,7 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
                 .add(Attributes.FOLLOW_RANGE, 50.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
                 .add(Attributes.ATTACK_DAMAGE, 22)
-                .add(Attributes.MAX_HEALTH, 600)
+                .add(Attributes.MAX_HEALTH, 500)
                 .add(Attributes.ARMOR, 10)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0);
     }

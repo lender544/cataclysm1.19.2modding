@@ -30,6 +30,7 @@
   "item.cataclysm.monstrous_horn": "괴상한 뿔",
   "item.cataclysm.void_jaw": "공허의 턱",
   "item.cataclysm.void_core": "공허 코어",
+  "item.cataclysm.burning_ashes": "타오르는 잿더미",
   "item.cataclysm.music_disc_netherite_monstrosity": "음반",
   "item.cataclysm.music_disc_ender_guardian": "음반",
   "item.cataclysm.music_disc_netherite_monstrosity.desc": "Cinematic Danger Background Music | No Copyright",
@@ -71,6 +72,7 @@
   "block.cataclysm.obsidian_explosion_trap_bricks":"흑요석 함정 벽돌",
   "block.cataclysm.void_lantern_block":"공허 랜턴 블록",
   "block.cataclysm.ender_guardian_spawner":"엔더 수호자 스포너",
+  "block.cataclysm.altar_of_fire":"불의 제단",
 
   "entity.cataclysm.ender_golem": "엔더 골렘",
   "entity.cataclysm.ender_guardian": "엔더 수호자",

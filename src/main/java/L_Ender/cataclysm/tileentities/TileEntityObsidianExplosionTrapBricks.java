@@ -35,9 +35,9 @@ public class TileEntityObsidianExplosionTrapBricks extends BlockEntity {
         }
         if(LIT){
             tickCount++;
-            float x = this.getBlockPos().getX();
+            float x = this.getBlockPos().getX() + 0.5F;
             float y = this.getBlockPos().getY();
-            float z = this.getBlockPos().getZ();
+            float z = this.getBlockPos().getZ() + 0.5F;
             float f = 5F;
             if (tickCount < 80) {
                 for (LivingEntity inRange : level.getEntitiesOfClass(LivingEntity.class, new AABB((double) x - f, (double) y - f, (double) z - f, (double) x + f, (double) y + f, (double) z + f))) {
@@ -61,8 +61,10 @@ public class TileEntityObsidianExplosionTrapBricks extends BlockEntity {
                     }
                 }
             }
-            if(tickCount == 80){
-                level.explode(null, x, y+1, z, 3.0F, Explosion.BlockInteraction.NONE);
+            if(tickCount == 80) {
+                if (!level.isClientSide) {
+                    level.explode(null, x, y + 1, z, 3.0F, Explosion.BlockInteraction.NONE);
+                }
             }
 
         }else{

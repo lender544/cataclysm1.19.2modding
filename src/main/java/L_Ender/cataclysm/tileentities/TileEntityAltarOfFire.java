@@ -11,6 +11,7 @@ import L_Ender.cataclysm.init.ModTileentites;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
@@ -43,7 +44,8 @@ public class TileEntityAltarOfFire extends BaseContainerBlockEntity {
     private static final int NUM_SLOTS = 1;
     private NonNullList<ItemStack> stacks = NonNullList.withSize(NUM_SLOTS, ItemStack.EMPTY);
     public boolean summoningthis = false;
-    private int summoningticks = 0;
+    public int summoningticks = 0;
+    private final RandomSource rnd = RandomSource.create();
 
     public TileEntityAltarOfFire(BlockPos pos, BlockState state) {
         super(ModTileentites.ALTAR_OF_FIRE.get(), pos, state);
@@ -62,14 +64,17 @@ public class TileEntityAltarOfFire extends BaseContainerBlockEntity {
                 summoningthis = true;
                 if(summoningticks == 1) {
                     ScreenShake_Entity.ScreenShake(this.level, Vec3.atCenterOf(this.getBlockPos()), 20, 0.05f, 0, 150);
-                    this.level.addFreshEntity(new Flame_Strike_Entity(this.level, this.getBlockPos().getX() + 0.5F, this.getBlockPos().getY(), this.getBlockPos().getZ() + 0.5F, 0, 0, 100, 0, 2.5F, false, null));
+                 //   this.level.addFreshEntity(new Flame_Strike_Entity(this.level, this.getBlockPos().getX() + 0.5F, this.getBlockPos().getY(), this.getBlockPos().getZ() + 0.5F, 0, 0, 100, 0, 2.5F, false, null));
+                }
+                if(summoningticks > 118 && summoningticks < 121) {
+                    Sphereparticle(3,3);
                 }
                 if(summoningticks > 121) {
                     this.setItem(0, ItemStack.EMPTY);
                     BlockBreaking(3, 3, 3);
                     Ignis_Entity ignis = ModEntities.IGNIS.get().create(level);
                     ignis.setPos(this.getBlockPos().getX() + 0.5F, this.getBlockPos().getY() + 3, this.getBlockPos().getZ() + 0.5F);
-                    if(!level.isClientSide){
+                    if (!level.isClientSide) {
                         level.addFreshEntity(ignis);
                     }
                 }
@@ -100,6 +105,29 @@ public class TileEntityAltarOfFire extends BaseContainerBlockEntity {
                         this.level.destroyBlock(blockpos, false);
                     }
 
+                }
+            }
+        }
+    }
+
+    private void Sphereparticle(float height, float size) {
+        double d0 = this.getBlockPos().getX() + 0.5F;
+        double d1 = this.getBlockPos().getY() + height;
+        double d2 = this.getBlockPos().getZ() + 0.5F;
+        for (float i = -size; i <= size; ++i) {
+            for (float j = -size; j <= size; ++j) {
+                for (float k = -size; k <= size; ++k) {
+                    double d3 = (double) j + (this.rnd.nextDouble() - this.rnd.nextDouble()) * 0.5D;
+                    double d4 = (double) i + (this.rnd.nextDouble() - this.rnd.nextDouble()) * 0.5D;
+                    double d5 = (double) k + (this.rnd.nextDouble() - this.rnd.nextDouble()) * 0.5D;
+                    double d6 = (double) Mth.sqrt((float) (d3 * d3 + d4 * d4 + d5 * d5)) / 0.5 + this.rnd.nextGaussian() * 0.05D;
+
+                    this.level.addParticle(ParticleTypes.FLAME, d0, d1, d2, d3 / d6, d4 / d6, d5 / d6);
+
+                    if (i != -size && i != size && j != -size && j != size) {
+                        k += size * 2 - 1;
+
+                    }
                 }
             }
         }
