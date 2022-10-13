@@ -1,5 +1,6 @@
 package L_Ender.cataclysm.tileentities;
 
+import L_Ender.cataclysm.cataclysm;
 import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.entity.Ignis_Entity;
 import L_Ender.cataclysm.entity.effect.Flame_Strike_Entity;
@@ -8,6 +9,7 @@ import L_Ender.cataclysm.init.ModEntities;
 import L_Ender.cataclysm.init.ModItems;
 import L_Ender.cataclysm.init.ModTag;
 import L_Ender.cataclysm.init.ModTileentites;
+import L_Ender.cataclysm.message.MessageUpdateblockentity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -172,13 +174,17 @@ public class TileEntityAltarOfFire extends BaseContainerBlockEntity {
         if (!stack.isEmpty() && stack.getCount() > this.getMaxStackSize()) {
             stack.setCount(this.getMaxStackSize());
         }
-
+        this.saveAdditional(this.getUpdateTag());
+        if (!level.isClientSide) {
+            cataclysm.sendMSGToAll(new MessageUpdateblockentity(this.getBlockPos().asLong(), stacks.get(0)));
+        }
     }
 
     @Override
     public void load(CompoundTag compound) {
         super.load(compound);
         this.stacks = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
+        this.summoningthis = compound.getBoolean("Summoningthis");
         ContainerHelper.loadAllItems(compound, this.stacks);
     }
 
@@ -186,6 +192,7 @@ public class TileEntityAltarOfFire extends BaseContainerBlockEntity {
     public void saveAdditional(CompoundTag compound) {
         super.saveAdditional(compound);
         ContainerHelper.saveAllItems(compound, this.stacks);
+        compound.putBoolean("Summoningthis", this.summoningthis);
     }
 
     @Override

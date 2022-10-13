@@ -7,6 +7,7 @@ import L_Ender.cataclysm.config.ConfigHolder;
 import L_Ender.cataclysm.event.ServerEventHandler;
 import L_Ender.cataclysm.init.*;
 import L_Ender.cataclysm.message.MessageCMMultipart;
+import L_Ender.cataclysm.message.MessageUpdateblockentity;
 import L_Ender.cataclysm.util.Cataclysm_Group;
 import L_Ender.cataclysm.util.Modcompat;
 import net.minecraft.resources.ResourceLocation;
@@ -113,6 +114,7 @@ public class cataclysm {
     private void setup(final FMLCommonSetupEvent event) {
         event.enqueueWork(Modcompat::registerDispenserBehaviors);
         NETWORK_WRAPPER.registerMessage(packetsRegistered++, MessageCMMultipart.class, MessageCMMultipart::encode, MessageCMMultipart::new, MessageCMMultipart.Handler::onMessage);
+        NETWORK_WRAPPER.registerMessage(packetsRegistered++, MessageUpdateblockentity.class, MessageUpdateblockentity::write, MessageUpdateblockentity::read, MessageUpdateblockentity.Handler::handle);
     }
 
 }
