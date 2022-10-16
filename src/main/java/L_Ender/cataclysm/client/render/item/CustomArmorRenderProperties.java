@@ -1,6 +1,7 @@
 package L_Ender.cataclysm.client.render.item;
 
 import L_Ender.cataclysm.client.model.armor.CMModelLayers;
+import L_Ender.cataclysm.client.model.armor.ModelElytra_Armor;
 import L_Ender.cataclysm.client.model.armor.ModelIgnitium_Armor;
 import L_Ender.cataclysm.client.model.armor.ModelMonstrousHelm;
 import L_Ender.cataclysm.init.ModItems;
@@ -15,7 +16,7 @@ public class CustomArmorRenderProperties implements IClientItemExtensions {
 
     private static boolean init;
 
-
+    public static ModelElytra_Armor ELYTRA_ARMOR;
     public static ModelMonstrousHelm MONSTROUS_HELM_MODEL;
     public static ModelIgnitium_Armor IGNITIUM_ARMOR_MODEL;
     public static ModelIgnitium_Armor IGNITIUM_ARMOR_MODEL_LEGS;
@@ -24,6 +25,7 @@ public class CustomArmorRenderProperties implements IClientItemExtensions {
         init = true;
         MONSTROUS_HELM_MODEL = new ModelMonstrousHelm(Minecraft.getInstance().getEntityModels().bakeLayer(CMModelLayers.MONSTROUS_HELM));
         IGNITIUM_ARMOR_MODEL = new ModelIgnitium_Armor(Minecraft.getInstance().getEntityModels().bakeLayer(CMModelLayers.IGNITIUM_ARMOR_MODEL));
+        ELYTRA_ARMOR = new ModelElytra_Armor(Minecraft.getInstance().getEntityModels().bakeLayer(CMModelLayers.ELYTRA_ARMOR));
         IGNITIUM_ARMOR_MODEL_LEGS = new ModelIgnitium_Armor(Minecraft.getInstance().getEntityModels().bakeLayer(CMModelLayers.IGNITIUM_ARMOR_MODEL_LEGS));
     }
 
@@ -50,6 +52,9 @@ public class CustomArmorRenderProperties implements IClientItemExtensions {
 
         if(itemStack.getItem() == ModItems.IGNITIUM_BOOTS.get()){
             return IGNITIUM_ARMOR_MODEL;
+        }
+        if(itemStack.getItem() == ModItems.IGNITIUM_ELYTRA_CHESTPLATE.get()){
+            return ELYTRA_ARMOR.withAnimations(entityLiving);
         }
         return _default;
     }

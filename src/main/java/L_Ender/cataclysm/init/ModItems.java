@@ -130,6 +130,9 @@ public class ModItems {
     public static final RegistryObject<Item> VOID_SHARD = ITEMS.register("void_shard",
             () -> new Item(new Item.Properties().fireResistant()));
 
+    public static final RegistryObject<Item> BLAZING_BONE = ITEMS.register("blazing_bone",
+            () -> new Item(new Item.Properties().fireResistant()));
+
     public static final RegistryObject<Item> VOID_JAW = ITEMS.register("void_jaw",
             () -> new Item(new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).fireResistant()));
 
@@ -141,6 +144,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> IGNITIUM_CHESTPLATE = ITEMS.register("ignitium_chestplate",
             () -> new Ignitium_Armor(Armortier.IGNITIUM, EquipmentSlot.CHEST, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).fireResistant().rarity(Rarity.EPIC)));
+
+    public static final RegistryObject<Item> IGNITIUM_ELYTRA_CHESTPLATE = ITEMS.register("ignitium_elytra_chestplate",
+            () -> new Ignitium_Elytra_ChestPlate(new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).fireResistant().rarity(Rarity.EPIC), Armortier.IGNITIUM));
 
     public static final RegistryObject<Item> IGNITIUM_LEGGINGS = ITEMS.register("ignitium_leggings",
             () -> new Ignitium_Armor(Armortier.IGNITIUM, EquipmentSlot.LEGS, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).fireResistant().rarity(Rarity.EPIC)));

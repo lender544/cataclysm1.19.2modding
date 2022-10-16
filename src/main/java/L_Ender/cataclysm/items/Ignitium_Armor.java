@@ -37,8 +37,6 @@ public class Ignitium_Armor extends ArmorItem {
     }
 
 
-
-
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
         if (this.slot == EquipmentSlot.HEAD) {

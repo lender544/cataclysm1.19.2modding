@@ -307,27 +307,84 @@ public class ModelIgnited_Revenant extends AdvancedEntityModel<Ignited_Revenant_
 		this.updateDefaultPose();
 	}
 
-	public void animate(IAnimatedEntity entity, float f, float f1, float f2, float f3, float f4) {
+	public void animate(Ignited_Revenant_Entity entity, float f, float f1, float f2, float f3, float f4) {
 		this.resetToDefaultPose();
 		animator.update(entity);
 		animator.setAnimation(Ignited_Revenant_Entity.ASH_BREATH_ATTACK);
-		animator.startKeyframe(15);
-		animator.rotate(guardingring, (float)Math.toRadians(-5F),0, 0);
-		animator.rotate(center, (float)Math.toRadians(-12.5F),0, 0);
-		animator.rotate(head, (float)Math.toRadians(-25F), 0, 0);
-		animator.endKeyframe();
+		if(!entity.getIsAnger()) {
+			animator.startKeyframe(15);
+			animator.rotate(guardingring, (float) Math.toRadians(-5F), 0, 0);
+			animator.rotate(center, (float) Math.toRadians(-12.5F), 0, 0);
+			animator.rotate(head, (float) Math.toRadians(-25F), 0, 0);
+			animator.endKeyframe();
 
-		animator.setStaticKeyframe(8);
+			animator.setStaticKeyframe(8);
 
-		animator.startKeyframe(5);
-		animator.rotate(guardingring, (float)Math.toRadians(20F),0, 0);
-		animator.rotate(center, (float)Math.toRadians(25F),0, 0);
-		animator.rotate(head, (float)Math.toRadians(-15F), 0, 0);
-		animator.move(skull, 0, -3, 0);
-		animator.rotate(skull, (float)Math.toRadians(-22.5F), 0, 0);
-		animator.endKeyframe();
-		animator.setStaticKeyframe(15);
-		animator.resetKeyframe(10);
+			animator.startKeyframe(5);
+			animator.rotate(guardingring, (float) Math.toRadians(20F), 0, 0);
+			animator.rotate(center, (float) Math.toRadians(25F), 0, 0);
+			animator.rotate(head, (float) Math.toRadians(-15F), 0, 0);
+			animator.move(skull, 0, -3, 0);
+			animator.rotate(skull, (float) Math.toRadians(-22.5F), 0, 0);
+			animator.endKeyframe();
+			animator.setStaticKeyframe(15);
+			animator.resetKeyframe(10);
+		}else{
+			animator.startKeyframe(15);
+			animator.rotate(root, (float) Math.toRadians(-12.5F), 0, 0);
+			animator.rotate(center, (float) Math.toRadians(-12.5F), 0, 0);
+			animator.rotate(head, (float) Math.toRadians(-25F), 0, 0);
+			animator.rotate(shield, (float) Math.toRadians(47.5F), 0, 0);
+			animator.rotate(shield2, (float) Math.toRadians(47.5F), 0, 0);
+			animator.rotate(shield3, (float) Math.toRadians(47.5F), 0, 0);
+			animator.rotate(shield4, (float) Math.toRadians(47.5F), 0, 0);
+			animator.rotate(skull, (float) Math.toRadians(17.5F), 0, 0);
+			animator.rotate(jaw, (float) Math.toRadians(-10F), 0, 0);
+			animator.endKeyframe();
+
+			animator.setStaticKeyframe(8);
+
+			animator.startKeyframe(5);
+			animator.rotate(guardingring, (float) Math.toRadians(25F), 0, 0);
+			animator.rotate(center, (float) Math.toRadians(25F), 0, 0);
+			animator.rotate(head, (float) Math.toRadians(-15F), 0, 0);
+			animator.move(skull, 0, -3, 0);
+			animator.rotate(skull, (float) Math.toRadians(5F), 0, 0);
+			animator.rotate(shield, (float) Math.toRadians(47.5F), 0, 0);
+			animator.rotate(shield2, (float) Math.toRadians(47.5F), 0, 0);
+			animator.rotate(shield3, (float) Math.toRadians(47.5F), 0, 0);
+			animator.rotate(shield4, (float) Math.toRadians(47.5F), 0, 0);
+			animator.rotate(jaw, (float) Math.toRadians(-10F), 0, 0);
+			animator.endKeyframe();
+			animator.setStaticKeyframe(15);
+			animator.resetKeyframe(10);
+		}
+
+		animator.setAnimation(Ignited_Revenant_Entity.BONE_STORM_ATTACK);
+		if(!entity.getIsAnger()) {
+			animator.startKeyframe(4);
+			animator.rotate(shield, (float) Math.toRadians(-57.5F), 0, 0);
+			animator.rotate(shield2, (float) Math.toRadians(-57.5F), 0, 0);
+			animator.rotate(shield3, (float) Math.toRadians(-57.5F), 0, 0);
+			animator.rotate(shield4, (float) Math.toRadians(-57.5F), 0, 0);
+			animator.move(skull, 0, -3, 0);
+			animator.endKeyframe();
+			animator.setStaticKeyframe(30);
+			animator.resetKeyframe(10);
+		}else{
+			animator.startKeyframe(4);
+			animator.rotate(root, (float) Math.toRadians(-12.5F), 0, 0);
+			animator.rotate(guardingring, (float) Math.toRadians(5F), 0, 0);
+			animator.rotate(shield, (float) Math.toRadians(-10F), 0, 0);
+			animator.rotate(shield2, (float) Math.toRadians(-10F), 0, 0);
+			animator.rotate(shield3, (float) Math.toRadians(-10F), 0, 0);
+			animator.rotate(shield4, (float) Math.toRadians(-10F), 0, 0);
+			animator.rotate(jaw, (float) Math.toRadians(-10F), 0, 0);
+			animator.move(skull, 0, -3, 0);
+			animator.endKeyframe();
+			animator.setStaticKeyframe(30);
+			animator.resetKeyframe(10);
+		}
 	}
 
 	@Override
@@ -345,7 +402,7 @@ public class ModelIgnited_Revenant extends AdvancedEntityModel<Ignited_Revenant_
 		this.bob(shield2, idleSpeed, idleDegree, false, ageInTicks, 1);
 		this.bob(shield3, idleSpeed, idleDegree, false, ageInTicks, 1);
 		this.bob(shield4, idleSpeed, idleDegree, false, ageInTicks, 1);
-		float spin = entityIn.getIsAnger() ? 0.2F : 0.05F;
+		float spin = entityIn.getIsAnger() ? 0.3F : 0.05F;
 		guardingring2.rotateAngleY += ageInTicks * spin;
 		this.shield.rotationPointY += Mth.cos(ageInTicks * 0.1F);
 		this.shield4.rotationPointY += Mth.cos(ageInTicks * 0.1F);

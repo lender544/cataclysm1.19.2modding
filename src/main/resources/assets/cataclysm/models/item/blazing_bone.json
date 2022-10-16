@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "cataclysm:items/golden_cutlass"
+    "layer0": "cataclysm:items/blazing_bone"
   }
 }
