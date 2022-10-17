@@ -2,7 +2,6 @@ package L_Ender.cataclysm.client.model.armor;
 
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
-import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -19,7 +18,7 @@ public class CMModelLayers {
     public static void register(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(MONSTROUS_HELM, () -> ModelMonstrousHelm.createArmorLayer(new CubeDeformation(0.3F)));
         event.registerLayerDefinition(IGNITIUM_ARMOR_MODEL, () -> ModelIgnitium_Armor.createArmorLayer(new CubeDeformation(0.5F)));
-        event.registerLayerDefinition(ELYTRA_ARMOR, () -> ModelElytra_Armor.createArmorLayer(new CubeDeformation(0.5F)));
+        event.registerLayerDefinition(ELYTRA_ARMOR, () -> Modelignitium_Elytra_chestplate.createArmorLayer(new CubeDeformation(0.5F)));
         event.registerLayerDefinition(IGNITIUM_ARMOR_MODEL_LEGS, () -> ModelIgnitium_Armor.createArmorLayer(new CubeDeformation(0.2F)));
     }
 

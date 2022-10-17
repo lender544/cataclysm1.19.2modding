@@ -9,11 +9,11 @@ import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 
-public class ModelElytra_Armor extends HumanoidModel {
+public class Modelignitium_Elytra_chestplate extends HumanoidModel {
     private final ModelPart rightWing;
     private final ModelPart leftWing;
 
-    public ModelElytra_Armor(ModelPart part) {
+    public Modelignitium_Elytra_chestplate(ModelPart part) {
         super(part);
         this.leftWing = part.getChild("body").getChild("left_wing");
         this.rightWing = part.getChild("body").getChild("right_wing");
@@ -88,7 +88,7 @@ public class ModelElytra_Armor extends HumanoidModel {
         return LayerDefinition.create(meshdefinition, 128, 128);
     }
 
-    public ModelElytra_Armor withAnimations(LivingEntity entity){
+    public Modelignitium_Elytra_chestplate withAnimations(LivingEntity entity){
         float partialTick = Minecraft.getInstance().getFrameTime();
         float limbSwingAmount = entity.animationSpeedOld + (entity.animationSpeed - entity.animationSpeedOld) * partialTick;
         float limbSwing = entity.animationPosition + partialTick;
