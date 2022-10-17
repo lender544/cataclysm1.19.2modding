@@ -15,7 +15,6 @@ public class ModelElytra_Armor extends HumanoidModel {
 
     public ModelElytra_Armor(ModelPart part) {
         super(part);
-
         this.leftWing = part.getChild("body").getChild("left_wing");
         this.rightWing = part.getChild("body").getChild("right_wing");
     }
@@ -27,13 +26,13 @@ public class ModelElytra_Armor extends HumanoidModel {
         PartDefinition rightArm = partdefinition.getChild("right_arm");
         PartDefinition leftArm = partdefinition.getChild("left_arm");
         body.addOrReplaceChild("left_wing", CubeListBuilder.create()
-                .texOffs(0, 0)
+                        .texOffs(0, 65)
                         .mirror()
-                .addBox(-10.0F, 0.0F, 1.5F, 10.0F, 20.0F, 2.0F,  new CubeDeformation(0.0F)),
+                        .addBox(-10.0F, 0.0F, 1.5F, 11.0F, 23.0F, 2.0F,  new CubeDeformation(0.0F)),
                 PartPose.offsetAndRotation(5.0F, 0.0F, 1.5F, 0.2617994F, 0.0F, -0.2617994F));
         body.addOrReplaceChild("right_wing", CubeListBuilder.create()
-                .texOffs(0, 0)
-                .addBox(0.0F, 0.0F, 1.5F, 10.0F, 20.0F, 2.0F, new CubeDeformation(0.0F)),
+                        .texOffs(0, 65)
+                        .addBox(0.0F, 0.0F, 1.5F, 11.0F, 23.0F, 2.0F, new CubeDeformation(0.0F)),
                 PartPose.offsetAndRotation(-5.0F, 0.0F, 1.5F, 0.2617994F, 0.0F, 0.2617994F));
         body.addOrReplaceChild("outer_body", CubeListBuilder.create()
                 .texOffs(30, 47)
@@ -85,8 +84,8 @@ public class ModelElytra_Armor extends HumanoidModel {
                 .addBox(-2.5F, -3.5F, -0.5F, 2.0F, 4.0F, 0.0F,
                         new CubeDeformation(0.0F)).mirror(false), PartPose
                 .offsetAndRotation(-2.5F, 3.0F, 0.5F, 0.0F, 0.0F, -0.829F));
-        
-        return LayerDefinition.create(meshdefinition, 64, 64);
+
+        return LayerDefinition.create(meshdefinition, 128, 128);
     }
 
     public ModelElytra_Armor withAnimations(LivingEntity entity){
