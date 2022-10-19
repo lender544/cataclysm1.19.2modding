@@ -11,6 +11,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.LlamaSpit;
 import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
@@ -66,17 +67,14 @@ public class Blazing_Bone_Entity extends ThrowableItemProjectile {
         super.onHitEntity(result);
         Entity shooter = this.getOwner();
         Entity entity = result.getEntity();
-        float i = 1.5f;
-        if (shooter == null) {
-            entity.hurt(DamageSource.MAGIC, i);
-           // entity.invulnerableTime = 0;
-        }else {
-            if (!((entity == shooter) ||(shooter.isAlliedTo(entity)))) {
-                entity.hurt(DamageSource.indirectMagic(this, this.getOwner()), i);
-              //  entity.invulnerableTime = 0;
+        float i = 4f;
+        if (shooter instanceof LivingEntity) {
+            if (!((entity == shooter) || (shooter.isAlliedTo(entity)))) {
+                entity.hurt(DamageSource.indirectMobAttack(this, (LivingEntity) shooter).setProjectile(), i);
             }
+        }else{
+            entity.hurt(DamageSource.indirectMobAttack(this, null).setProjectile(), i);
         }
-
     }
 
     @Override

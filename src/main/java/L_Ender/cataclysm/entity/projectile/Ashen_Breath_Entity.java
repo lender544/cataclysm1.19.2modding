@@ -120,10 +120,10 @@ public class Ashen_Breath_Entity extends Entity {
                         boolean flag = entityHit.hurt(DamageSource.indirectMagic(this, caster), 4);
                         if (flag) {
                             //entityHit.setDeltaMovement(entityHit.getDeltaMovement().multiply(0.25, 1, 0.25));
-                            MobEffectInstance effectinstance = new MobEffectInstance(MobEffects.BLINDNESS, 100, 0, false, false, true);
-                            MobEffectInstance effectinstance1 = new MobEffectInstance(MobEffects.CONFUSION, 100, 0, false, false, true);
-                          //  entityHit.addEffect(effectinstance);
-                          //  entityHit.addEffect(effectinstance1);
+                            MobEffectInstance effectinstance = new MobEffectInstance(MobEffects.BLINDNESS, 60, 0, false, false, true);
+                            MobEffectInstance effectinstance1 = new MobEffectInstance(MobEffects.CONFUSION, 120, 0, false, false, true);
+                            entityHit.addEffect(effectinstance);
+                            entityHit.addEffect(effectinstance1);
                         }
                     }
                 }

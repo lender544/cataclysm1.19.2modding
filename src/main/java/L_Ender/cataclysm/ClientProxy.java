@@ -8,9 +8,11 @@ import L_Ender.cataclysm.client.render.entity.*;
 import L_Ender.cataclysm.client.render.item.CMItemRenderProperties;
 import L_Ender.cataclysm.client.render.item.CustomArmorRenderProperties;
 import L_Ender.cataclysm.client.sound.SoundEnderGuardianMusic;
+import L_Ender.cataclysm.client.sound.SoundIgnisMusic;
 import L_Ender.cataclysm.client.sound.SoundMonstrosityMusic;
 import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.entity.Ender_Guardian_Entity;
+import L_Ender.cataclysm.entity.Ignis_Entity;
 import L_Ender.cataclysm.entity.Netherite_Monstrosity_Entity;
 import L_Ender.cataclysm.init.ModEntities;
 import L_Ender.cataclysm.init.ModItems;
@@ -46,6 +48,7 @@ public class ClientProxy extends CommonProxy {
 
     public static final Map<Integer, SoundMonstrosityMusic> MONSTROSITY_SOUND_MAP = new HashMap<>();
     public static final Map<Integer, SoundEnderGuardianMusic> GUARDIAN_SOUND_MAP = new HashMap<>();
+    public static final Map<Integer, SoundIgnisMusic> IGNIS_SOUND_MAP = new HashMap<>();
 
     public void init() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientProxy::setupParticles);
@@ -118,6 +121,22 @@ public class ClientProxy extends CommonProxy {
                         MONSTROSITY_SOUND_MAP.put(entity.getId(), sound);
                     } else {
                         sound = MONSTROSITY_SOUND_MAP.get(entity.getId());
+                    }
+                    if (!Minecraft.getInstance().getSoundManager().isActive(sound) && sound.isNearest()) {
+                        Minecraft.getInstance().getSoundManager().play(sound);
+                    }
+                }
+            }
+            if (entity instanceof Ignis_Entity && entity.isAlive() && updateKind == 67) {
+                if (f2 <= 0) {
+                    IGNIS_SOUND_MAP.clear();
+                } else {
+                    SoundIgnisMusic sound;
+                    if (IGNIS_SOUND_MAP.get(entity.getId()) == null) {
+                        sound = new SoundIgnisMusic((Ignis_Entity) entity);
+                        IGNIS_SOUND_MAP.put(entity.getId(), sound);
+                    } else {
+                        sound = IGNIS_SOUND_MAP.get(entity.getId());
                     }
                     if (!Minecraft.getInstance().getSoundManager().isActive(sound) && sound.isNearest()) {
                         Minecraft.getInstance().getSoundManager().play(sound);

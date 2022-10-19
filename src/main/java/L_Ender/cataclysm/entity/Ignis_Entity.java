@@ -1,5 +1,6 @@
 package L_Ender.cataclysm.entity;
 
+import L_Ender.cataclysm.cataclysm;
 import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.entity.AI.*;
 import L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
@@ -58,6 +59,8 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
@@ -532,7 +535,9 @@ public class Ignis_Entity extends Boss_monster {
         if (!this.getPassengers().isEmpty() && this.getPassengers().get(0).isShiftKeyDown()) {
             this.getPassengers().get(0).setShiftKeyDown(false);
         }
-
+        if (!this.isSilent() && !level.isClientSide) {
+            this.level.broadcastEntityEvent(this, (byte) 67);
+        }
         LivingEntity target = this.getTarget();
         SwingParticles();
         if (this.level.isClientSide) {
@@ -2596,5 +2601,13 @@ public class Ignis_Entity extends Boss_monster {
             }
         }
 
+    }
+    @OnlyIn(Dist.CLIENT)
+    public void handleEntityEvent(byte id) {
+        if (id == 67) {
+            cataclysm.PROXY.onEntityStatus(this, id);
+        } else {
+            super.handleEntityEvent(id);
+        }
     }
 }

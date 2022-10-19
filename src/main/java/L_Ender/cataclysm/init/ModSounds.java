@@ -65,6 +65,9 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> ENDERGUARDIAN_MUSIC = SOUNDS.register("enderguardian_music",
             () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"enderguardian_music")));
 
+    public static final RegistryObject<SoundEvent> IGNIS_MUSIC = SOUNDS.register("ignis_music",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"ignis_music")));
+
     public static final RegistryObject<SoundEvent> ENDERMAPTERA_HURT = SOUNDS.register("endermaptera_hurt",
             () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"endermaptera_hurt")));
 

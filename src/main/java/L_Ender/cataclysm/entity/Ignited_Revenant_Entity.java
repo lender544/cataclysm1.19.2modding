@@ -6,8 +6,10 @@ import L_Ender.cataclysm.entity.etc.CMPathNavigateGround;
 import L_Ender.cataclysm.entity.etc.SmartBodyHelper2;
 import L_Ender.cataclysm.entity.projectile.Ashen_Breath_Entity;
 import L_Ender.cataclysm.entity.projectile.Blazing_Bone_Entity;
+import L_Ender.cataclysm.entity.projectile.Ignis_Abyss_Fireball_Entity;
 import L_Ender.cataclysm.init.ModEntities;
 import L_Ender.cataclysm.init.ModSounds;
+import L_Ender.cataclysm.init.ModTag;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import net.minecraft.nbt.CompoundTag;
@@ -33,6 +35,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
@@ -43,9 +46,11 @@ import java.util.EnumSet;
 public class Ignited_Revenant_Entity extends Boss_monster {
 
     public static final Animation ASH_BREATH_ATTACK = Animation.create(53);
-    public static final Animation BONE_STORM_ATTACK = Animation.create(44);
+    public static final Animation BONE_STORM_ATTACK = Animation.create(49);
     public static final int BREATH_COOLDOWN = 200;
     public static final int STORM_COOLDOWN = 200;
+    private float allowedHeightOffset = 0.5F;
+    private int nextHeightOffsetChangeTick;
     private static final EntityDataAccessor<Boolean> ANGER = SynchedEntityData.defineId(Ignited_Revenant_Entity.class, EntityDataSerializers.BOOLEAN);
 
     public float angerProgress;
@@ -71,7 +76,6 @@ public class Ignited_Revenant_Entity extends Boss_monster {
     }
 
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new PrepareGoal());
         this.goalSelector.addGoal(2, new Ignited_Revenant_Goal());
         this.goalSelector.addGoal(0, new BoneStormGoal(this, BONE_STORM_ATTACK));
         this.goalSelector.addGoal(0, new ShootGoal(this, ASH_BREATH_ATTACK));
@@ -85,7 +89,7 @@ public class Ignited_Revenant_Entity extends Boss_monster {
         return Monster.createMonsterAttributes()
                 .add(Attributes.FOLLOW_RANGE, 20.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.28F)
-                .add(Attributes.ATTACK_DAMAGE, 10)
+                .add(Attributes.ATTACK_DAMAGE, 6)
                 .add(Attributes.MAX_HEALTH, 80)
                 .add(Attributes.ARMOR, 12)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0);
@@ -105,7 +109,33 @@ public class Ignited_Revenant_Entity extends Boss_monster {
 
     @Override
     public boolean hurt(DamageSource source, float damage) {
+        Entity entity = source.getDirectEntity();
+        if (damage > 0.0F && this.canBlockDamageSource(source) && this.getIsAnger() && !entity.getType().is(ModTag.IGNORE_REVENANT_SHIELD)) {
+            this.hurtCurrentlyUsedShield(damage);
+            if (!source.isProjectile()) {
+                if (entity instanceof LivingEntity) {
+                    this.blockUsingShield((LivingEntity) entity);
+                }
+            }
+            this.playSound(SoundEvents.ANVIL_PLACE, 0.3F, 0.5F);
+            return false;
+        }
         return super.hurt(source, damage);
+    }
+
+    private boolean canBlockDamageSource(DamageSource damageSourceIn) {
+        Entity entity = damageSourceIn.getDirectEntity();
+        boolean flag = false;
+        if (entity instanceof AbstractArrow) {
+            AbstractArrow abstractarrowentity = (AbstractArrow) entity;
+            if (abstractarrowentity.getPierceLevel() > 0) {
+                flag = true;
+            }
+        }
+        if (!damageSourceIn.isBypassArmor()) {
+            flag = true;
+        }
+        return flag;
     }
 
     @Override
@@ -136,6 +166,9 @@ public class Ignited_Revenant_Entity extends Boss_monster {
        // setYRot(yBodyRot);
         AnimationHandler.INSTANCE.updateAnimations(this);
         LivingEntity target = this.getTarget();
+        if (!this.onGround && this.getDeltaMovement().y < 0.0D) {
+            this.setDeltaMovement(this.getDeltaMovement().multiply(1.0D, 0.6D, 1.0D));
+        }
         prevangerProgress = angerProgress;
         if (this.getIsAnger() && angerProgress < 5F) {
             angerProgress++;
@@ -145,15 +178,45 @@ public class Ignited_Revenant_Entity extends Boss_monster {
         }
         if (breath_cooldown > 0) breath_cooldown--;
         if (storm_cooldown > 0) storm_cooldown--;
-
-        if(this.getAnimation() == ASH_BREATH_ATTACK){
-            if (this.getAnimationTick() == 21) {
-                this.playSound(ModSounds.REVENANT_BREATH.get(), 1.0f, 1.0f);
-
+        if (this.isAlive()) {
+            if (target != null && target.isAlive()) {
+                if (breath_cooldown <= 0 && !isNoAi() && this.getAnimation() == NO_ANIMATION && (this.random.nextInt(35) == 0 && this.distanceTo(target) < 4.5F)) {
+                    breath_cooldown = BREATH_COOLDOWN;
+                    this.setAnimation(ASH_BREATH_ATTACK);
+                } else if (storm_cooldown <= 0 && this.distanceTo(target) < 6 && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.random.nextInt(15) == 0) {
+                    storm_cooldown = STORM_COOLDOWN;
+                    this.setAnimation(BONE_STORM_ATTACK);
+                }
+            }
+            if(this.getAnimation() == NO_ANIMATION && this.getIsAnger()){
+                if(this.tickCount % 6 == 0){
+                    for (LivingEntity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.5D))) {
+                        if (!isAlliedTo(entity) && !(entity instanceof Ignited_Revenant_Entity) && entity != this) {
+                            boolean flag = entity.hurt(DamageSource.mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
+                            if (flag) {
+                                double d0 = entity.getX() - this.getX();
+                                double d1 = entity.getZ() - this.getZ();
+                                double d2 = Math.max(d0 * d0 + d1 * d1, 0.001D);
+                                entity.push(d0 / d2 * 1.5D, 0.2D, d1 / d2 * 1.5D);
+                            }
+                        }
+                    }
+                }
             }
         }
 
+    }
 
+    public boolean isAlliedTo(Entity entityIn) {
+        if (entityIn == this) {
+            return true;
+        } else if (super.isAlliedTo(entityIn)) {
+            return true;
+        } else if (entityIn instanceof Ignited_Revenant_Entity) {
+            return this.getTeam() == null && entityIn.getTeam() == null;
+        } else {
+            return false;
+        }
     }
 
     protected SoundEvent getAmbientSound() {
@@ -210,49 +273,11 @@ public class Ignited_Revenant_Entity extends Boss_monster {
             Ignited_Revenant_Entity.this.setIsAnger(true);
 
         }
+
         @Override
         public void stop() {
             super.stop();
             Ignited_Revenant_Entity.this.setIsAnger(false);
-        }
-    }
-
-    class PrepareGoal extends Goal {
-        public PrepareGoal() {
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
-        }
-
-        private LivingEntity attackTarget;
-
-        @Override
-        public boolean canUse() {
-            this.attackTarget = getTarget();
-            return (storm_cooldown <= 0 || breath_cooldown <= 0) &&
-                    this.attackTarget != null &&
-                    this.attackTarget.isAlive() &&
-                    Ignited_Revenant_Entity.this.distanceTo(attackTarget) < 5;
-        }
-
-        @Override
-        public void start() {
-            Ignited_Revenant_Entity.this.setIsAnger(false);
-        }
-
-
-        @Override
-        public void tick() {
-            if (breath_cooldown <= 0 && angerProgress == 0 && Ignited_Revenant_Entity.this.getAnimation() == NO_ANIMATION){
-                Ignited_Revenant_Entity.this.setAnimation(ASH_BREATH_ATTACK);
-            }
-            if (storm_cooldown <= 0 && angerProgress == 0 && Ignited_Revenant_Entity.this.getAnimation() == NO_ANIMATION){
-                Ignited_Revenant_Entity.this.setAnimation(BONE_STORM_ATTACK);
-            }
-
-        }
-
-        @Override
-        public void stop() {
-            this.attackTarget = null;
         }
     }
 
@@ -261,6 +286,19 @@ public class Ignited_Revenant_Entity extends Boss_monster {
         public ShootGoal(Ignited_Revenant_Entity entity, Animation animation) {
             super(entity, animation);
             this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
+        }
+
+        @Override
+        public void start() {
+            super.start();
+            Ignited_Revenant_Entity.this.setIsAnger(true);
+
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            Ignited_Revenant_Entity.this.setIsAnger(false);
         }
 
         public void tick() {
@@ -273,6 +311,12 @@ public class Ignited_Revenant_Entity extends Boss_monster {
                     Ignited_Revenant_Entity.this.getLookControl().setLookAt(target, 3.0F, 30.0F);
                 }
             }
+
+            if (Ignited_Revenant_Entity.this.getAnimationTick() == 21) {
+                Ignited_Revenant_Entity.this.playSound(ModSounds.REVENANT_BREATH.get(), 1.0f, 1.0f);
+
+            }
+
             Vec3 mouthPos = new Vec3(0, 2.3, 0);
             mouthPos = mouthPos.yRot((float) Math.toRadians(-getYRot() - 90));
             mouthPos = mouthPos.add(position());
@@ -282,11 +326,6 @@ public class Ignited_Revenant_Entity extends Boss_monster {
                 breath.absMoveTo(mouthPos.x, mouthPos.y, mouthPos.z, Ignited_Revenant_Entity.this.yHeadRot, Ignited_Revenant_Entity.this.getXRot());
                 Ignited_Revenant_Entity.this.level.addFreshEntity(breath);
             }
-
-        }
-        @Override
-        public void stop() {
-            breath_cooldown = BREATH_COOLDOWN;
         }
     }
 
@@ -298,33 +337,70 @@ public class Ignited_Revenant_Entity extends Boss_monster {
         }
 
         public void tick() {
-            LivingEntity target = Ignited_Revenant_Entity.this.getTarget();
+            LivingEntity target = entity.getTarget();
 
             if (target != null) {
-                Ignited_Revenant_Entity.this.getLookControl().setLookAt(target, 30.0F, 30.0F);
+                entity.getLookControl().setLookAt(target, 30.0F, 30.0F);
+            }
+            if (entity.getAnimationTick() == 5) {
+                switch (random.nextInt(3)) {
+                    case 0 -> launchbone1();
+                    case 1 -> launchbone2();
+                    case 2 -> launchbone3();
+                    default -> {
+                    }
+                }
 
             }
-            if (Ignited_Revenant_Entity.this.getAnimationTick() > 4) {
-                if (Ignited_Revenant_Entity.this.tickCount % 4 == 0) {
-                    launchAxeAt();
+            if(entity.getAnimationTick() == 10){
+                    switch (random.nextInt(3)) {
+                        case 0 -> launchbone1();
+                        case 1 -> launchbone2();
+                        case 2 -> launchbone3();
+                        default -> {
+                        }
+                    }
+                }
+            if(entity.getAnimationTick() == 15){
+                switch (random.nextInt(3)) {
+                    case 0 -> launchbone1();
+                    case 1 -> launchbone2();
+                    case 2 -> launchbone3();
+                    default -> {
+                    }
                 }
             }
+            if(entity.getAnimationTick() == 20){
+                switch (random.nextInt(3)) {
+                    case 0 -> launchbone1();
+                    case 1 -> launchbone2();
+                    case 2 -> launchbone3();
+                    default -> {
+                    }
+                }
+            }
+            --entity.nextHeightOffsetChangeTick;
+            if (entity.nextHeightOffsetChangeTick <= 0) {
+                entity.nextHeightOffsetChangeTick = 100;
+                entity.allowedHeightOffset = (float)entity.random.triangle(0.5D, 6.891D);
+            }
 
-        }
+            if (target != null && target.getEyeY() > entity.getEyeY() + (double)entity.allowedHeightOffset && entity.canAttack(target)) {
+                Vec3 vec3 = entity.getDeltaMovement();
+                entity.setDeltaMovement(entity.getDeltaMovement().add(0.0D, ((double)0.3F - vec3.y) * (double)0.3F, 0.0D));
+                entity.hasImpulse = true;
+            }
 
-        @Override
-        public void stop() {
-            storm_cooldown = STORM_COOLDOWN;
         }
     }
 
-    private void launchAxeAt() {
-        this.playSound(SoundEvents.SKELETON_SHOOT, 1F, 0.5f);
+    private void launchbone1() {
+        this.playSound(SoundEvents.TRIDENT_THROW, 1F, 0.75f);
         for (int i = 0; i < 8; i++) {
             float throwAngle = i * Mth.PI / 4F;
 
             double sx = this.getX() + (Mth.cos(throwAngle) * 1);
-            double sy = this.getY() + (this.getBbHeight() * 0.82D);
+            double sy = this.getY() + (this.getBbHeight() * 0.62D);
             double sz = this.getZ() + (Mth.sin(throwAngle) * 1);
 
             double vx = Mth.cos(throwAngle);
@@ -340,6 +416,53 @@ public class Ignited_Revenant_Entity extends Boss_monster {
         }
 
     }
+
+    private void launchbone2() {
+        this.playSound(SoundEvents.TRIDENT_THROW, 1F, 0.75f);
+        for (int i = 0; i < 6; i++) {
+            float throwAngle = i * Mth.PI / 3F;
+
+            double sx = this.getX() + (Mth.cos(throwAngle) * 1);
+            double sy = this.getY() + (this.getBbHeight() * 0.62D);
+            double sz = this.getZ() + (Mth.sin(throwAngle) * 1);
+
+            double vx = Mth.cos(throwAngle);
+            double vy = 0;
+            double vz = Mth.sin(throwAngle);
+
+            Blazing_Bone_Entity projectile = new Blazing_Bone_Entity(this.level, this);
+
+            projectile.moveTo(sx, sy, sz, i * 60F, this.getXRot());
+            float speed = 0.6F;
+            projectile.shoot(vx, vy, vz, speed, 1.0F);
+            this.level.addFreshEntity(projectile);
+        }
+
+    }
+
+    private void launchbone3() {
+        this.playSound(SoundEvents.TRIDENT_THROW, 1F, 0.75f);
+        for (int i = 0; i < 10; i++) {
+            float throwAngle = i * Mth.PI / 5F;
+
+            double sx = this.getX() + (Mth.cos(throwAngle) * 1);
+            double sy = this.getY() + (this.getBbHeight() * 0.62D);
+            double sz = this.getZ() + (Mth.sin(throwAngle) * 1);
+
+            double vx = Mth.cos(throwAngle);
+            double vy = 0;
+            double vz = Mth.sin(throwAngle);
+
+            Blazing_Bone_Entity projectile = new Blazing_Bone_Entity(this.level, this);
+
+            projectile.moveTo(sx, sy, sz, i * 36F, this.getXRot());
+            float speed = 0.4F;
+            projectile.shoot(vx, vy, vz, speed, 1.0F);
+            this.level.addFreshEntity(projectile);
+        }
+
+    }
+
 
 }
 

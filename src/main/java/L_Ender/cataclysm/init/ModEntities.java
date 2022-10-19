@@ -106,7 +106,7 @@ public class ModEntities {
             .sized(0.5f, 0.5f)
             .updateInterval(20)
             .clientTrackingRange(4)
-            .build(cataclysm.MODID + ":void_shard"));
+            .build(cataclysm.MODID + ":blazing_bone"));
 
     public static final RegistryObject<EntityType<ScreenShake_Entity>> SCREEN_SHAKE = ENTITY_TYPE.register("screen_shake", () -> EntityType.Builder.<ScreenShake_Entity>of(ScreenShake_Entity::new, MobCategory.MISC)
             .noSummon()

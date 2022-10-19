@@ -310,6 +310,14 @@
       }
     ]
   },
+  "ignis_music": {
+    "subtitle": "ignis_music.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:music_disc/ignis_theme"
+      }
+    ]
+  },
   "revenant_breath": {
     "subtitle": "revenant_breath.sub",
     "sounds": [

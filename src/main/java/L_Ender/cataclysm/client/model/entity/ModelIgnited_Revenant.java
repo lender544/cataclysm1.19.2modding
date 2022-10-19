@@ -370,7 +370,7 @@ public class ModelIgnited_Revenant extends AdvancedEntityModel<Ignited_Revenant_
 			animator.move(skull, 0, -3, 0);
 			animator.endKeyframe();
 			animator.setStaticKeyframe(30);
-			animator.resetKeyframe(10);
+			animator.resetKeyframe(15);
 		}else{
 			animator.startKeyframe(4);
 			animator.rotate(root, (float) Math.toRadians(-12.5F), 0, 0);
@@ -383,7 +383,7 @@ public class ModelIgnited_Revenant extends AdvancedEntityModel<Ignited_Revenant_
 			animator.move(skull, 0, -3, 0);
 			animator.endKeyframe();
 			animator.setStaticKeyframe(30);
-			animator.resetKeyframe(10);
+			animator.resetKeyframe(15);
 		}
 	}
 
@@ -396,13 +396,16 @@ public class ModelIgnited_Revenant extends AdvancedEntityModel<Ignited_Revenant_
 		float walkDegree = 1F;
 		this.faceTarget(netHeadYaw, headPitch, 1, head);
 		this.bob(root, idleSpeed, idleDegree * 3, false, ageInTicks, 1);
-
-
 		this.bob(shield, idleSpeed, idleDegree, false, ageInTicks, 1);
 		this.bob(shield2, idleSpeed, idleDegree, false, ageInTicks, 1);
 		this.bob(shield3, idleSpeed, idleDegree, false, ageInTicks, 1);
 		this.bob(shield4, idleSpeed, idleDegree, false, ageInTicks, 1);
-		float spin = entityIn.getIsAnger() ? 0.3F : 0.05F;
+		float spin = 0.05F;
+		if(entityIn.getIsAnger()) {
+			if (entityIn.getAnimation() == entityIn.NO_ANIMATION) {
+				spin = 0.5F;
+			}
+		}
 		guardingring2.rotateAngleY += ageInTicks * spin;
 		this.shield.rotationPointY += Mth.cos(ageInTicks * 0.1F);
 		this.shield4.rotationPointY += Mth.cos(ageInTicks * 0.1F);
