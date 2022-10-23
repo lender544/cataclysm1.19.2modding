@@ -110,7 +110,7 @@ public class Ignited_Revenant_Entity extends Boss_monster {
     @Override
     public boolean hurt(DamageSource source, float damage) {
         Entity entity = source.getDirectEntity();
-        if (damage > 0.0F && this.canBlockDamageSource(source) && this.getIsAnger() && !entity.getType().is(ModTag.IGNORE_REVENANT_SHIELD)) {
+        if (damage > 0.0F && !source.isBypassArmor() && this.getIsAnger() && !entity.getType().is(ModTag.IGNORE_REVENANT_SHIELD)) {
             this.hurtCurrentlyUsedShield(damage);
             if (!source.isProjectile()) {
                 if (entity instanceof LivingEntity) {
@@ -121,21 +121,6 @@ public class Ignited_Revenant_Entity extends Boss_monster {
             return false;
         }
         return super.hurt(source, damage);
-    }
-
-    private boolean canBlockDamageSource(DamageSource damageSourceIn) {
-        Entity entity = damageSourceIn.getDirectEntity();
-        boolean flag = false;
-        if (entity instanceof AbstractArrow) {
-            AbstractArrow abstractarrowentity = (AbstractArrow) entity;
-            if (abstractarrowentity.getPierceLevel() > 0) {
-                flag = true;
-            }
-        }
-        if (!damageSourceIn.isBypassArmor()) {
-            flag = true;
-        }
-        return flag;
     }
 
     @Override

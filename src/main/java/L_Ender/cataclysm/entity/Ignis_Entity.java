@@ -345,12 +345,12 @@ public class Ignis_Entity extends Boss_monster {
     private boolean canBlockDamageSource(DamageSource damageSourceIn) {
         Entity entity = damageSourceIn.getDirectEntity();
         boolean flag = false;
-        if (entity instanceof AbstractArrow) {
-            AbstractArrow abstractarrowentity = (AbstractArrow) entity;
-            if (abstractarrowentity.getPierceLevel() > 0) {
-                flag = true;
-            }
-        }
+        //if (entity instanceof AbstractArrow) {
+         //   AbstractArrow abstractarrowentity = (AbstractArrow) entity;
+         //   if (abstractarrowentity.getPierceLevel() > 0) {
+         //       flag = true;
+         //   }
+        //}
 
         if (entity instanceof Ignis_Abyss_Fireball_Entity) {
             if (!(damageSourceIn.getEntity() instanceof Ignis_Entity)) {

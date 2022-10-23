@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 
 
  public enum Armortier implements ArmorMaterial {
-     IGNITIUM(new int[] {4, 7, 10, 4}, 3.5f, 45, 25, 0.15f, SoundEvents.ARMOR_EQUIP_NETHERITE , ModItems.IGNITIUM_INGOT);
+     IGNITIUM(new int[] {4, 7, 10, 4}, 3.5f, 45, 15, 0.15f, SoundEvents.ARMOR_EQUIP_NETHERITE , ModItems.IGNITIUM_INGOT);
 
      private static final int[] DURABILITY_ARRAY = new int[] {13, 15, 16, 11};
      private final int durability, enchantability;

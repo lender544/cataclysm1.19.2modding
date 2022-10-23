@@ -35,14 +35,14 @@ public class ModEntities {
     public static final RegistryObject<EntityType<Ender_Guardian_Entity>> ENDER_GUARDIAN = ENTITY_TYPE.register("ender_guardian", () -> EntityType.Builder.of(Ender_Guardian_Entity::new, MobCategory.MONSTER)
             .sized(2.5F, 3.8F)
             .fireImmune()
-            .clientTrackingRange(16)
+            .clientTrackingRange(10)
             .setShouldReceiveVelocityUpdates(true)
             .build(cataclysm.MODID + ":ender_guardian"));
 
     public static final RegistryObject<EntityType<Netherite_Monstrosity_Entity>> NETHERITE_MONSTROSITY = ENTITY_TYPE.register("netherite_monstrosity", () -> EntityType.Builder.of(Netherite_Monstrosity_Entity::new, MobCategory.MONSTER)
             .sized(3.0f, 5.75f)
             .fireImmune()
-            .clientTrackingRange(16)
+            .clientTrackingRange(4)
             .build(cataclysm.MODID + ":netherite_monstrosity"));
 
     public static final RegistryObject<EntityType<Lava_Bomb_Entity>> LAVA_BOMB = ENTITY_TYPE.register("lava_bomb", () -> EntityType.Builder.<Lava_Bomb_Entity>of(Lava_Bomb_Entity::new, MobCategory.MISC)
@@ -52,7 +52,6 @@ public class ModEntities {
             .setUpdateInterval(20)
             .build(cataclysm.MODID + ":lava_bomb"));
 
-
     public static final RegistryObject<EntityType<Nameless_Sorcerer_Entity>> NAMELESS_SORCERER = ENTITY_TYPE.register("nameless_sorcerer", () -> EntityType.Builder.of(Nameless_Sorcerer_Entity::new, MobCategory.MONSTER)
             .sized(0.6F, 1.95F)
             .build(cataclysm.MODID + ":nameless_sorcerer"));
@@ -60,7 +59,7 @@ public class ModEntities {
     public static final RegistryObject<EntityType<Ignis_Entity>> IGNIS = ENTITY_TYPE.register("ignis", () -> EntityType.Builder.of(Ignis_Entity::new, MobCategory.MONSTER)
             .sized(2.25F, 3.5F)
             .fireImmune()
-            .clientTrackingRange(16)
+            .clientTrackingRange(10)
             .setShouldReceiveVelocityUpdates(true)
             .build(cataclysm.MODID + ":ignis"));
 

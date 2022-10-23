@@ -1,18 +1,18 @@
 {
   "structures": [
     {
-      "structure": "cataclysm:soul_black_smith",
+      "structure": "cataclysm:burning_arena",
       "weight": 1
     }
   ],
   "placement": {
-    "salt": 1984567320,
-    "spacing": 90,
+    "salt": 9123456789,
+    "spacing": 112,
     "separation": 70,
     "type": "minecraft:random_spread"
   },
   "super_exclusion_zone": {
     "chunk_count": 30,
-    "other_set": "#cataclysm:soul_black_smith_avoid"
+    "other_set": "#cataclysm:burning_arena_avoid"
   }
 }

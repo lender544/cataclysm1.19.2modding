@@ -175,11 +175,11 @@ public class RuinedCitadelStructure extends Structure {
     }
 
     public Optional<GenerationStub> findGenerationPoint(Structure.GenerationContext p_228964_) {
-        int i = p_228964_.chunkPos().x >> 4;
-        int j = p_228964_.chunkPos().z >> 4;
+        int i = p_228964_.chunkPos().x >> 16;
+        int j = p_228964_.chunkPos().z >> 16;
 
         WorldgenRandom worldgenrandom = new WorldgenRandom(new LegacyRandomSource(0L));
-        worldgenrandom.setSeed((long) (i ^ j << 4) ^ p_228964_.seed());
+        worldgenrandom.setSeed((long) (i ^ j << 9) ^ p_228964_.seed());
         worldgenrandom.nextInt();
         return onTopOfChunkCenter(p_228964_, Heightmap.Types.OCEAN_FLOOR_WG, (p_228967_) -> {
             generatePieces(p_228967_, p_228964_);
