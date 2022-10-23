@@ -17,8 +17,6 @@ public class ModTag {
 
     public static final TagKey<EntityType<?>> IGNIS_CANT_POKE = registerEntityTag("ignis_cant_poke");
 
-    public static final TagKey<EntityType<?>> IGNORE_REVENANT_SHIELD = registerEntityTag("ignore_revenant_shield");
-
     public static final TagKey<Block> ENDER_GOLEM_CAN_DESTROY = registerBlockTag("ender_golem_can_destroy");
 
     public static final TagKey<Block> ENDER_GUARDIAN_CAN_DESTROY = registerBlockTag("ender_guardian_can_destroy");

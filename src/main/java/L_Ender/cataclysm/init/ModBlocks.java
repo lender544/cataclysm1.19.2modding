@@ -145,6 +145,12 @@ public class ModBlocks {
         };
     }
 
+    public static final RegistryObject<Block> MOLTING_NETHERRACK = BLOCKS.register("molting_netherrack" ,
+            () -> new MoltingNetherrack(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.NETHER).randomTicks().
+                    lightLevel((state) -> {
+                        return 3;
+                    })));
+
     public static RegistryObject<Block> registerBlockAndItem(String name, Supplier<Block> block, Item.Properties blockItemProps, boolean specialRender){
         RegistryObject<Block> blockObj = BLOCKS.register(name, block);
         ModItems.ITEMS.register(name, () -> specialRender ?  new BlockItemCMRender(blockObj, blockItemProps) :  new CMBlockItem(blockObj, blockItemProps));

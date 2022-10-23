@@ -2,6 +2,7 @@ package L_Ender.cataclysm.event;
 
 import L_Ender.cataclysm.cataclysm;
 import L_Ender.cataclysm.client.render.CMItemstackRenderer;
+import L_Ender.cataclysm.init.ModBlocks;
 import L_Ender.cataclysm.init.ModEffect;
 import L_Ender.cataclysm.init.ModItems;
 import L_Ender.cataclysm.items.final_fractal;
@@ -46,12 +47,12 @@ public class ServerEventHandler {
 
     @SubscribeEvent
     public void onLivingUpdateEvent(LivingEvent.LivingTickEvent event) {
-        int p_45022_ = 1;
+        int p_45022_ = 2;
         final BlockPos p_45021_ = event.getEntity().blockPosition();
         if (!event.getEntity().getItemBySlot(EquipmentSlot.FEET).isEmpty() && event.getEntity().getItemBySlot(EquipmentSlot.FEET).getItem() == ModItems.IGNITIUM_BOOTS.get()) {
-            if(event.getEntity().isShiftKeyDown()){
+            if(!event.getEntity().isShiftKeyDown()){
             if (event.getEntity().isOnGround()) {
-                BlockState blockstate = Blocks.FROSTED_ICE.defaultBlockState();
+                BlockState blockstate = ModBlocks.MOLTING_NETHERRACK.get().defaultBlockState();
                 float f = (float) Math.min(16, 2 + p_45022_);
                 BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
@@ -64,7 +65,7 @@ public class ServerEventHandler {
                             boolean isFull = blockstate2.getBlock() == Blocks.LAVA && blockstate2.getValue(LiquidBlock.LEVEL) == 0; //TODO: Forge, modded waters?
                             if (blockstate2.getMaterial() == Material.LAVA && isFull && blockstate.canSurvive(event.getEntity().level, blockpos) && event.getEntity().level.isUnobstructed(blockstate, blockpos, CollisionContext.empty()) && !net.minecraftforge.event.ForgeEventFactory.onBlockPlace(event.getEntity(), net.minecraftforge.common.util.BlockSnapshot.create(event.getEntity().level.dimension(), event.getEntity().level, blockpos), net.minecraft.core.Direction.UP)) {
                                 event.getEntity().level.setBlockAndUpdate(blockpos, blockstate);
-                                event.getEntity().level.scheduleTick(blockpos, Blocks.FROSTED_ICE, Mth.nextInt(event.getEntity().level.getRandom(), 60, 120));
+                                event.getEntity().level.scheduleTick(blockpos, ModBlocks.MOLTING_NETHERRACK.get(), Mth.nextInt(event.getEntity().getRandom(), 60, 120));
                             }
 
                         }
@@ -93,37 +94,6 @@ public class ServerEventHandler {
                 }
                 if (weapon != null && weapon.getItem() instanceof final_fractal) {
                     event.setAmount(event.getAmount() + target.getMaxHealth() * 0.03f);
-                }
-            }
-        }
-        //  if(event.getEntity().hasEffect(ModEffect.EFFECTSTUN.get())){
-         //   event.getEntity().removeEffect(ModEffect.EFFECTSTUN.get());
-        //}
-    }
-    @SubscribeEvent
-    public void onLivingDamageEvent(LivingDamageEvent event) {
-        if (!event.getEntity().getItemBySlot(EquipmentSlot.LEGS).isEmpty() && event.getSource() != null && event.getSource().getEntity() != null) {
-            if(event.getEntity().getItemBySlot(EquipmentSlot.LEGS).getItem() == ModItems.IGNITIUM_LEGGINGS.get()){
-                Entity attacker = event.getSource().getEntity();
-                if (attacker instanceof LivingEntity) {
-                    if (event.getEntity().getRandom().nextFloat() < 0.5F) {
-                        MobEffectInstance effectinstance1 = ((LivingEntity) attacker).getEffect(ModEffect.EFFECTBLAZING_BRAND.get());
-                        int i = 1;
-                        if (effectinstance1 != null) {
-                            i += effectinstance1.getAmplifier();
-                            ((LivingEntity) attacker).removeEffectNoUpdate(ModEffect.EFFECTBLAZING_BRAND.get());
-                        } else {
-                            --i;
-                        }
-
-                        i = Mth.clamp(i, 0, 2);
-                        MobEffectInstance effectinstance = new MobEffectInstance(ModEffect.EFFECTBLAZING_BRAND.get(), 100, i, false, false, true);
-                        ((LivingEntity) attacker).addEffect(effectinstance);
-
-                        if (!attacker.isOnFire()) {
-                            attacker.setSecondsOnFire(5);
-                        }
-                    }
                 }
             }
         }
@@ -245,6 +215,31 @@ public class ServerEventHandler {
         LivingEntity entity = event.getEntity();
         if (entity.getHealth() <= event.getAmount() && entity.hasEffect(ModEffect.EFFECTSTUN.get())) {
             entity.removeEffect(ModEffect.EFFECTSTUN.get());
+        }
+        if (!event.getEntity().getItemBySlot(EquipmentSlot.LEGS).isEmpty() && event.getSource() != null && event.getSource().getEntity() != null) {
+            if(event.getEntity().getItemBySlot(EquipmentSlot.LEGS).getItem() == ModItems.IGNITIUM_LEGGINGS.get()){
+                Entity attacker = event.getSource().getEntity();
+                if (attacker instanceof LivingEntity) {
+                    if (event.getEntity().getRandom().nextFloat() < 0.5F) {
+                        MobEffectInstance effectinstance1 = ((LivingEntity) attacker).getEffect(ModEffect.EFFECTBLAZING_BRAND.get());
+                        int i = 1;
+                        if (effectinstance1 != null) {
+                            i += effectinstance1.getAmplifier();
+                            ((LivingEntity) attacker).removeEffectNoUpdate(ModEffect.EFFECTBLAZING_BRAND.get());
+                        } else {
+                            --i;
+                        }
+
+                        i = Mth.clamp(i, 0, 2);
+                        MobEffectInstance effectinstance = new MobEffectInstance(ModEffect.EFFECTBLAZING_BRAND.get(), 100, i, false, false, true);
+                        ((LivingEntity) attacker).addEffect(effectinstance);
+
+                        if (!attacker.isOnFire()) {
+                            attacker.setSecondsOnFire(5);
+                        }
+                    }
+                }
+            }
         }
     }
 
