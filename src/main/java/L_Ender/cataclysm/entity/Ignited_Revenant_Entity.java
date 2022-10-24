@@ -33,9 +33,12 @@ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
@@ -52,6 +55,7 @@ public class Ignited_Revenant_Entity extends Boss_monster {
     private float allowedHeightOffset = 0.5F;
     private int nextHeightOffsetChangeTick;
     private static final EntityDataAccessor<Boolean> ANGER = SynchedEntityData.defineId(Ignited_Revenant_Entity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> SHIELD_DURABILITY = SynchedEntityData.defineId(Ignited_Revenant_Entity.class, EntityDataSerializers.INT);
 
     public float angerProgress;
     public float prevangerProgress;
@@ -107,9 +111,38 @@ public class Ignited_Revenant_Entity extends Boss_monster {
         return false;
     }
 
+
+    @Override
+    public ItemEntity spawnAtLocation(ItemStack stack) {
+        ItemEntity itementity = this.spawnAtLocation(stack,0.0f);
+        if (itementity != null) {
+            itementity.setGlowingTag(true);
+            itementity.setExtendedLifetime();
+        }
+        return itementity;
+    }
+
     @Override
     public boolean hurt(DamageSource source, float damage) {
         Entity entity = source.getDirectEntity();
+        if (!this.level.isClientSide) {
+            if(this.getIsAnger()) {
+                if (entity instanceof LivingEntity) {
+                    // Shield disabling on critical axe hit
+                    if (((LivingEntity) entity).getMainHandItem().getItem() instanceof AxeItem) {
+                        double itemDamage = ((AxeItem) ((LivingEntity) entity).getMainHandItem().getItem()).getAttackDamage()+ 1;
+                        if (damage >= itemDamage + (itemDamage / 2)) {
+                            if (this.getShieldDurability() < 4) {
+                                this.playSound(SoundEvents.WITHER_BREAK_BLOCK, 1.0F, 1.5F);
+
+                                this.setShieldDurability(this.getShieldDurability() + 1);
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
         if (damage > 0.0F && canBlockDamageSource(source)) {
             this.hurtCurrentlyUsedShield(damage);
             if (!source.isProjectile()) {
@@ -132,7 +165,7 @@ public class Ignited_Revenant_Entity extends Boss_monster {
                flag = true;
           }
         }
-        if (!damageSourceIn.isBypassArmor() && !flag && this.getIsAnger()) {
+        if (!damageSourceIn.isBypassArmor() && !flag && this.getIsAnger() && this.getShieldDurability() < 4) {
             Vec3 vector3d2 = damageSourceIn.getSourcePosition();
             if (vector3d2 != null) {
                 Vec3 vector3d = this.getViewVector(1.0F);
@@ -148,6 +181,7 @@ public class Ignited_Revenant_Entity extends Boss_monster {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(ANGER, false);
+        this.entityData.define(SHIELD_DURABILITY, 0);
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
@@ -166,6 +200,13 @@ public class Ignited_Revenant_Entity extends Boss_monster {
         return this.entityData.get(ANGER);
     }
 
+    public void setShieldDurability(int ShieldDurability) {
+        this.entityData.set(SHIELD_DURABILITY, ShieldDurability);
+    }
+
+    public int getShieldDurability() {
+        return this.entityData.get(SHIELD_DURABILITY);
+    }
 
     public void tick() {
         super.tick();
@@ -186,17 +227,19 @@ public class Ignited_Revenant_Entity extends Boss_monster {
         if (storm_cooldown > 0) storm_cooldown--;
         if (this.isAlive()) {
             if (target != null && target.isAlive()) {
-                if (breath_cooldown <= 0 && !isNoAi() && this.getAnimation() == NO_ANIMATION && (this.random.nextInt(35) == 0 && this.distanceTo(target) < 4.5F)) {
+                if (breath_cooldown <= 0 && !isNoAi() && this.getAnimation() == NO_ANIMATION && (this.random.nextInt(35) == 0 && this.distanceTo(target) < 4.5F) && this.getShieldDurability() < 4) {
                     breath_cooldown = BREATH_COOLDOWN;
                     this.setAnimation(ASH_BREATH_ATTACK);
                 } else if (storm_cooldown <= 0 && this.distanceTo(target) < 6 && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.random.nextInt(15) == 0) {
                     storm_cooldown = STORM_COOLDOWN;
                     this.setAnimation(BONE_STORM_ATTACK);
+                }else if (!isNoAi() && this.getAnimation() == NO_ANIMATION && (this.random.nextInt(12) == 0 && this.distanceTo(target) < 4.5F) && this.getShieldDurability() > 3) {
+                    this.setAnimation(ASH_BREATH_ATTACK);
                 }
             }
-            if(this.getAnimation() == NO_ANIMATION && this.getIsAnger()){
-                if(this.tickCount % 6 == 0){
-                    for (LivingEntity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.5D))) {
+            if(this.getAnimation() == NO_ANIMATION && this.getIsAnger() && this.getShieldDurability() < 4){
+                if(this.tickCount % (6 + this.getShieldDurability() * 2) == 0){
+                    for (LivingEntity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.25D))) {
                         if (!isAlliedTo(entity) && !(entity instanceof Ignited_Revenant_Entity) && entity != this) {
                             boolean flag = entity.hurt(DamageSource.mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
                             if (flag) {

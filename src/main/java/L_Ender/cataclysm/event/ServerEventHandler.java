@@ -52,7 +52,7 @@ public class ServerEventHandler {
         if (!event.getEntity().getItemBySlot(EquipmentSlot.FEET).isEmpty() && event.getEntity().getItemBySlot(EquipmentSlot.FEET).getItem() == ModItems.IGNITIUM_BOOTS.get()) {
             if(!event.getEntity().isShiftKeyDown()){
             if (event.getEntity().isOnGround()) {
-                BlockState blockstate = ModBlocks.MOLTING_NETHERRACK.get().defaultBlockState();
+                BlockState blockstate = ModBlocks.MELTING_NETHERRACK.get().defaultBlockState();
                 float f = (float) Math.min(16, 2 + p_45022_);
                 BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
@@ -65,7 +65,7 @@ public class ServerEventHandler {
                             boolean isFull = blockstate2.getBlock() == Blocks.LAVA && blockstate2.getValue(LiquidBlock.LEVEL) == 0; //TODO: Forge, modded waters?
                             if (blockstate2.getMaterial() == Material.LAVA && isFull && blockstate.canSurvive(event.getEntity().level, blockpos) && event.getEntity().level.isUnobstructed(blockstate, blockpos, CollisionContext.empty()) && !net.minecraftforge.event.ForgeEventFactory.onBlockPlace(event.getEntity(), net.minecraftforge.common.util.BlockSnapshot.create(event.getEntity().level.dimension(), event.getEntity().level, blockpos), net.minecraft.core.Direction.UP)) {
                                 event.getEntity().level.setBlockAndUpdate(blockpos, blockstate);
-                                event.getEntity().level.scheduleTick(blockpos, ModBlocks.MOLTING_NETHERRACK.get(), Mth.nextInt(event.getEntity().getRandom(), 60, 120));
+                                event.getEntity().level.scheduleTick(blockpos, ModBlocks.MELTING_NETHERRACK.get(), Mth.nextInt(event.getEntity().getRandom(), 60, 120));
                             }
 
                         }

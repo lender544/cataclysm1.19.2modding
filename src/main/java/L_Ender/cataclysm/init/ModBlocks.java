@@ -5,7 +5,6 @@ import L_Ender.cataclysm.blocks.*;
 import L_Ender.cataclysm.cataclysm;
 import L_Ender.cataclysm.items.BlockItemCMRender;
 import L_Ender.cataclysm.items.CMBlockItem;
-import L_Ender.cataclysm.util.Cataclysm_Group;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.*;
@@ -145,8 +144,8 @@ public class ModBlocks {
         };
     }
 
-    public static final RegistryObject<Block> MOLTING_NETHERRACK = BLOCKS.register("molting_netherrack" ,
-            () -> new MoltingNetherrack(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.NETHER).randomTicks().
+    public static final RegistryObject<Block> MELTING_NETHERRACK = BLOCKS.register("melting_netherrack" ,
+            () -> new MeltingNetherrack(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.NETHER).randomTicks().
                     lightLevel((state) -> {
                         return 3;
                     })));

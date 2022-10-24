@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "cataclysm:blocks/molting_netherrack_1"
+    "all": "cataclysm:blocks/melting_netherrack_0"
   }
 }

@@ -29,6 +29,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
@@ -74,6 +75,7 @@ public class TileEntityAltarOfFire extends BaseContainerBlockEntity {
                 if(summoningticks > 121) {
                     this.setItem(0, ItemStack.EMPTY);
                     BlockBreaking(3, 3, 3);
+                    BasaltBreaking(16,8,16);
                     Ignis_Entity ignis = ModEntities.IGNIS.get().create(level);
                     ignis.setPos(this.getBlockPos().getX() + 0.5F, this.getBlockPos().getY() + 3, this.getBlockPos().getZ() + 0.5F);
                     if (!level.isClientSide) {
@@ -97,13 +99,36 @@ public class TileEntityAltarOfFire extends BaseContainerBlockEntity {
         int MthZ = Mth.floor(this.getBlockPos().getZ());
         for (int k2 = -x; k2 <= x; ++k2) {
             for (int l2 = -z; l2 <= z; ++l2) {
-                for (int j = -1; j <= y; ++j) {
+                for (int j = 0; j <= y; ++j) {
                     int i3 = MthX + k2;
                     int k = MthY + j;
                     int l = MthZ + l2;
                     BlockPos blockpos = new BlockPos(i3, k, l);
                     BlockState block = this.level.getBlockState(blockpos);
                     if (block.getMaterial() != Material.AIR && !block.is(ModTag.ALTAR_DESTROY_IMMUNE)) {
+                        this.level.destroyBlock(blockpos, false);
+                    }
+
+                }
+            }
+        }
+    }
+
+    private void BasaltBreaking(int x, int y, int z) {
+        //this.level.destroyBlock(this.getBlockPos(), false);
+        int MthX = Mth.floor(this.getBlockPos().getX());
+        int MthY = Mth.floor(this.getBlockPos().getY());
+        int MthZ = Mth.floor(this.getBlockPos().getZ());
+        for (int k2 = -x; k2 <= x; ++k2) {
+            for (int l2 = -z; l2 <= z; ++l2) {
+                for (int j = -1; j <= y; ++j) {
+                    int i3 = MthX + k2;
+                    int k = MthY + j;
+                    int l = MthZ + l2;
+                    BlockPos blockpos = new BlockPos(i3, k, l);
+                    BlockState blockstate = this.level.getBlockState(blockpos);
+                    Block block = blockstate.getBlock();
+                    if (block != Blocks.AIR && block == Blocks.BASALT) {
                         this.level.destroyBlock(blockpos, false);
                     }
 

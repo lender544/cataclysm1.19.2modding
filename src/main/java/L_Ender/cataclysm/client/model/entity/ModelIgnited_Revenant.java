@@ -424,6 +424,12 @@ public class ModelIgnited_Revenant extends AdvancedEntityModel<Ignited_Revenant_
 		progressRotationPrev(jaw,angerProgress,(float)Math.toRadians(10F), 0, 0, 5f);
 
 
+
+		shield.showModel = entityIn.getShieldDurability() < 1;
+		shield2.showModel = entityIn.getShieldDurability() < 2;
+		shield3.showModel = entityIn.getShieldDurability() < 3;
+		shield4.showModel = entityIn.getShieldDurability() < 4;
+
 	}
 
 	@Override
