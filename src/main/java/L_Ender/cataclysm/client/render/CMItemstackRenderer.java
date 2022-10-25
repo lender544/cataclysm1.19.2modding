@@ -59,8 +59,8 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
         }
         if (itemStackIn.getItem() == ModItems.BULWARK_OF_THE_FLAME.get()) {
             matrixStackIn.pushPose();
-            matrixStackIn.translate(0.4F, -0.75F, 0.5F);
-            matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(-180));
+            matrixStackIn.translate(0.5F, 0.5F, 0.5F);
+            matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(-180));
             BULWARK_OF_THE_FLAME_MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(RenderType.entityCutoutNoCull(BULWARK_OF_THE_FLAME_TEXTURE)), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
             matrixStackIn.popPose();
         }

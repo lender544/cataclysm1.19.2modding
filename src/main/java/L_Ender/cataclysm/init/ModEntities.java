@@ -3,10 +3,7 @@ package L_Ender.cataclysm.init;
 
 import L_Ender.cataclysm.cataclysm;
 import L_Ender.cataclysm.entity.*;
-import L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
-import L_Ender.cataclysm.entity.effect.Flame_Strike_Entity;
-import L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
-import L_Ender.cataclysm.entity.effect.Smoke_Effect_Entity;
+import L_Ender.cataclysm.entity.effect.*;
 import L_Ender.cataclysm.entity.projectile.Ashen_Breath_Entity;
 import L_Ender.cataclysm.entity.projectile.*;
 
@@ -151,6 +148,18 @@ public class ModEntities {
             .fireImmune()
             .setUpdateInterval(1)
             .build(cataclysm.MODID + ":ashen_breath"));
+
+    public static final RegistryObject<EntityType<Charge_Watcher_Entity>> CHARGE_WATCHER = ENTITY_TYPE.register("charge_watcher", () -> EntityType.Builder.<Charge_Watcher_Entity>of(Charge_Watcher_Entity::new, MobCategory.MISC)
+            .sized(0.0F, 0.0F)
+            .noSummon()
+            .fireImmune()
+            .build(cataclysm.MODID + ":charge_watcher"));
+
+    public static final RegistryObject<EntityType<Wall_Watcher_Entity>> WALL_WATCHER = ENTITY_TYPE.register("wall_watcher", () -> EntityType.Builder.<Wall_Watcher_Entity>of(Wall_Watcher_Entity::new, MobCategory.MISC)
+            .sized(0.0F, 0.0F)
+            .noSummon()
+            .fireImmune()
+            .build(cataclysm.MODID + ":wall_watcher"));
 
     @SubscribeEvent
     public static void initializeAttributes(EntityAttributeCreationEvent event) {

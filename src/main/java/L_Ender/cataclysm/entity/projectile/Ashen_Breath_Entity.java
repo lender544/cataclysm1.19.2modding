@@ -121,9 +121,7 @@ public class Ashen_Breath_Entity extends Entity {
                         if (flag) {
                             //entityHit.setDeltaMovement(entityHit.getDeltaMovement().multiply(0.25, 1, 0.25));
                             MobEffectInstance effectinstance = new MobEffectInstance(MobEffects.BLINDNESS, 60, 0, false, false, true);
-                            MobEffectInstance effectinstance1 = new MobEffectInstance(MobEffects.CONFUSION, 120, 0, false, false, true);
                             entityHit.addEffect(effectinstance);
-                            entityHit.addEffect(effectinstance1);
                         }
                     }
                 }
