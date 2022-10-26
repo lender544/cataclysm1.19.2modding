@@ -74,10 +74,10 @@ public class Wall_Watcher_Entity extends Entity {
                         if (entity.livingEntity.horizontalCollision) {
                             entity.livingEntity.invulnerableTime = 0;
                             float realDamageApplied = damagePerEffectiveCharge * effectiveChargeTime + 1;
-                            boolean flag =entity.livingEntity.hurt(DamageSource.MAGIC, realDamageApplied);
+                            boolean flag =entity.livingEntity.hurt(DamageSource.indirectMobAttack(this,source), realDamageApplied);
                             if(flag){
-                                entity.livingEntity.playSound(SoundEvents.WITHER_BREAK_BLOCK,0.5F,1);
-                                entity.livingEntity.addEffect(new MobEffectInstance(ModEffect.EFFECTSTUN.get(), 40));
+                                entity.livingEntity.playSound(SoundEvents.GENERIC_EXPLODE,0.3F,1);
+                                entity.livingEntity.addEffect(new MobEffectInstance(ModEffect.EFFECTSTUN.get(), 50));
                             }
 
                             entitiesRemoveFromWatchList.add(entity);

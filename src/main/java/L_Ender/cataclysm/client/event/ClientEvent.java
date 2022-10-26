@@ -1,5 +1,6 @@
 package L_Ender.cataclysm.client.event;
 
+import L_Ender.cataclysm.client.render.CMItemstackRenderer;
 import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.entity.Ignis_Entity;
 import L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
@@ -15,6 +16,7 @@ import net.minecraft.world.level.material.FogType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import net.minecraftforge.client.event.RenderLevelLastEvent;
 import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -78,5 +80,12 @@ public class ClientEvent {
             }
         }
     }
+    @SubscribeEvent
+    @OnlyIn(Dist.CLIENT)
+    public void onRenderWorldLastEvent(RenderLevelLastEvent event) {
+        CMItemstackRenderer.incrementTick();
+
+    }
+
 
 }

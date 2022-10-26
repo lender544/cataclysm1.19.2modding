@@ -37,7 +37,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import javax.annotation.Nullable;
 
 public class BlockAltarOfFire extends BaseEntityBlock {
-    private static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 21.0D, 16.0D);
 
     public BlockAltarOfFire() {
         super(Properties.of(Material.HEAVY_METAL)
@@ -85,19 +84,6 @@ public class BlockAltarOfFire extends BaseEntityBlock {
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;
-    }
-
-
-    public VoxelShape getShape(BlockState p_151964_, BlockGetter p_151965_, BlockPos p_151966_, CollisionContext p_151967_) {
-        return SHAPE;
-    }
-
-    public VoxelShape getInteractionShape(BlockState p_51969_, BlockGetter p_51970_, BlockPos p_51971_) {
-        return SHAPE;
-    }
-
-    public VoxelShape getCollisionShape(BlockState p_56702_, BlockGetter p_56703_, BlockPos p_56704_, CollisionContext p_56705_) {
-        return SHAPE;
     }
 
     @Nullable

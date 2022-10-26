@@ -19,6 +19,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Fireball;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
@@ -155,7 +156,8 @@ public class Flame_Strike_Entity extends Entity {
                     this.setRadius(getRadius() - 0.1F);
                 }else{
                     if(!this.isSoul()) {
-                        this.level.explode(this.owner, this.getX(), this.getY(), this.getZ(), 2, Explosion.BlockInteraction.NONE);
+                        int explosionradius = this.owner instanceof Player ? 1 : 2;
+                        this.level.explode(this.owner, this.getX(), this.getY(), this.getZ(), explosionradius, Explosion.BlockInteraction.NONE);
                     }
                     this.discard();
                 }
@@ -193,7 +195,6 @@ public class Flame_Strike_Entity extends Entity {
             if (this.tickCount % 2 == 0) {
                 float damage = this.isSoul() ? 8.0F : 6.0F;
                 if (caster == null) {
-
                     boolean flag = Hitentity.hurt(DamageSource.MAGIC, damage + Hitentity.getMaxHealth() * 0.06f);
                     if (flag) {
                         MobEffectInstance effectinstance1 = Hitentity.getEffect(ModEffect.EFFECTBLAZING_BRAND.get());
@@ -213,7 +214,8 @@ public class Flame_Strike_Entity extends Entity {
                     if (caster.isAlliedTo(Hitentity)) {
                         return;
                     }
-                    boolean flag = Hitentity.hurt(DamageSource.indirectMagic(this, caster), damage + Hitentity.getMaxHealth() * 0.06f);
+                    float hpDmg = (float) (caster instanceof Player ? 0.02 : 0.06);
+                    boolean flag = Hitentity.hurt(DamageSource.indirectMagic(this, caster), damage + Hitentity.getMaxHealth() * hpDmg);
                     if (flag) {
                         MobEffectInstance effectinstance1 = Hitentity.getEffect(ModEffect.EFFECTBLAZING_BRAND.get());
                         int i = 1;

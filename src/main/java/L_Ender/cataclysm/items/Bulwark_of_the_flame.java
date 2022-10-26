@@ -3,6 +3,8 @@ package L_Ender.cataclysm.items;
 
 import L_Ender.cataclysm.cataclysm;
 import L_Ender.cataclysm.entity.effect.Charge_Watcher_Entity;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -12,6 +14,7 @@ import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -42,7 +45,7 @@ public class Bulwark_of_the_flame extends Item {
 
     @Override
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft) {
-        if(!entityLiving.isShiftKeyDown()) {
+        if(entityLiving.isShiftKeyDown()) {
             if(!entityLiving.isFallFlying()) {
                 int i = this.getUseDuration(stack) - timeLeft;
                 int t = Mth.clamp(i, 1, 4);
@@ -67,7 +70,7 @@ public class Bulwark_of_the_flame extends Item {
                             f1 * 0.5F, f3 * 0.5F,
                             entityLiving);
                     level.addFreshEntity(initializer);
-                   // ((Player) entityLiving).getCooldowns().addCooldown(this, 100);
+                    ((Player) entityLiving).getCooldowns().addCooldown(this, 80);
                 }
             }
         }
@@ -82,5 +85,11 @@ public class Bulwark_of_the_flame extends Item {
     @Override
     public void initializeClient(java.util.function.Consumer<IClientItemExtensions> consumer) {
         consumer.accept((IClientItemExtensions) cataclysm.PROXY.getISTERProperties());
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+        tooltip.add(Component.translatable("item.cataclysm.bulwark_of_the_flame.desc").withStyle(ChatFormatting.DARK_GREEN));
+        tooltip.add(Component.translatable("item.cataclysm.bulwark_of_the_flame2.desc").withStyle(ChatFormatting.DARK_GREEN));
     }
 }

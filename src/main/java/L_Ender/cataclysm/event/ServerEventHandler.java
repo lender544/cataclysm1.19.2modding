@@ -5,8 +5,10 @@ import L_Ender.cataclysm.client.render.CMItemstackRenderer;
 import L_Ender.cataclysm.init.ModBlocks;
 import L_Ender.cataclysm.init.ModEffect;
 import L_Ender.cataclysm.init.ModItems;
+import L_Ender.cataclysm.items.The_Incinerator;
 import L_Ender.cataclysm.items.final_fractal;
 import L_Ender.cataclysm.items.zweiender;
+import L_Ender.cataclysm.util.RendererUtils;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -72,6 +74,12 @@ public class ServerEventHandler {
                     }
                 }
             }
+            }
+        }
+        int i = RendererUtils.getUsingIncineratorTime(event.getEntity());
+        if (event.getEntity().getMainHandItem().getItem() != ModItems.THE_INCINERATOR.get()) {
+            if(i > 0){
+                RendererUtils.setUsingIncineratorTime(event.getEntity(), 0);
             }
         }
     }
@@ -249,14 +257,6 @@ public class ServerEventHandler {
             event.setCanceled(true);
         }
     }
-
-    @SubscribeEvent
-    @OnlyIn(Dist.CLIENT)
-    public void onRenderWorldLastEvent(RenderLevelLastEvent event) {
-        CMItemstackRenderer.incrementTick();
-
-    }
-
 }
 
 

@@ -7,6 +7,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 
@@ -70,8 +71,11 @@ public class Charge_Watcher_Entity extends Entity {
                             source);
                     for (LivingEntity target : checks) {
                         // Deal damage
-                        target.hurt(DamageSource.indirectMobAttack(this,source), damagePerEffectiveCharge * effectiveChargeTime);
+                        boolean flag = target.hurt(DamageSource.indirectMobAttack(this,source), damagePerEffectiveCharge * effectiveChargeTime);
                         watchEntity.watch(target);
+                        if(flag){
+                            target.playSound(SoundEvents.ANVIL_LAND, 1.5f, 0.8F);
+                        }
 
                     }
                     source.level.addFreshEntity(watchEntity);

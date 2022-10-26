@@ -14,7 +14,7 @@ public class Cataclysm_Group extends CreativeModeTab {
 
     @Override
     public ItemStack makeIcon() {
-        return ModItems.FINAL_FRACTAL.get().getDefaultInstance();
+        return ModItems.THE_INCINERATOR.get().getDefaultInstance();
     }
 
     @Override
