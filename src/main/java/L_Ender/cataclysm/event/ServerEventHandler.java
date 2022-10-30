@@ -77,11 +77,12 @@ public class ServerEventHandler {
             }
         }
         int i = RendererUtils.getUsingIncineratorTime(event.getEntity());
-        if (event.getEntity().getMainHandItem().getItem() != ModItems.THE_INCINERATOR.get()) {
-            if(i > 0){
+            if (event.getEntity().getUseItem().getItem() != ModItems.THE_INCINERATOR.get()) {
+            if(i >= 0){
                 RendererUtils.setUsingIncineratorTime(event.getEntity(), 0);
             }
         }
+
     }
 
     @SubscribeEvent

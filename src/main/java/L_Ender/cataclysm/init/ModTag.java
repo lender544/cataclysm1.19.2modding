@@ -23,7 +23,9 @@ public class ModTag {
 
     public static final TagKey<Block> ALTAR_DESTROY_IMMUNE = registerBlockTag("altar_destroy_immune");
 
-    public static final TagKey<Block> IGNIS_CAN_DESTROY = registerBlockTag("ignis_can_destroy");
+    public static final TagKey<Block> IGNIS_CAN_DESTROY_CRACKED_BLOCK = registerBlockTag("ignis_can_destroy_cracked_block");
+
+    public static final TagKey<Block> IGNIS_IMMUNE = registerBlockTag("ignis_immune");
 
     public static final TagKey<Block> ENDERMAPTERA_CAN_NOT_SPAWN = registerBlockTag("endermaptera_can_not_spawn");
 

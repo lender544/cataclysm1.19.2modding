@@ -34,7 +34,7 @@ import java.util.UUID;
 public class Gauntlet_of_Guard extends Item {
     private final Multimap<Attribute, AttributeModifier> guantletAttributes;
     protected static final UUID ARMOR_MODIFIER = UUID.fromString("C2A4DE55-641E-4DDF-A30C-D65D7C086F02");
-    protected static final UUID ARMOR_TOUHNESS_MODIFIER = UUID.fromString("4D4570E2-B598-4F96-B528-7A9548354E62");
+    protected static final UUID ARMOR_TOUGHNESS_MODIFIER = UUID.fromString("4D4570E2-B598-4F96-B528-7A9548354E62");
     protected static final UUID KNOCKBACK_RESISTANCE_MODIFIER = UUID.fromString("BCACC775-7526-4F70-92DE-D77F725F36AE");
 
     public Gauntlet_of_Guard(Properties group) {
@@ -43,7 +43,7 @@ public class Gauntlet_of_Guard extends Item {
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", 10.0D, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", -2.9F, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ARMOR, new AttributeModifier(ARMOR_MODIFIER, "Tool modifier", 3.0F, AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(ARMOR_TOUHNESS_MODIFIER, "Tool modifier", 2F, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(ARMOR_TOUGHNESS_MODIFIER, "Tool modifier", 2F, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(KNOCKBACK_RESISTANCE_MODIFIER, "Tool modifier", 0.1F, AttributeModifier.Operation.ADDITION));
         this.guantletAttributes = builder.build();
     }

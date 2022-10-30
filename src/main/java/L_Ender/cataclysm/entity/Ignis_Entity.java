@@ -30,6 +30,7 @@ import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.BossEvent;
@@ -55,11 +56,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -150,6 +154,7 @@ public class Ignis_Entity extends Boss_monster {
     private int CanSpin = 0;
 
     private int timeWithoutTarget;
+    private int destroyBlocksTick;
     public float blockingProgress;
     public float swordProgress;
     public float prevblockingProgress;
@@ -341,6 +346,10 @@ public class Ignis_Entity extends Boss_monster {
             return false;
         }
 
+        if (this.destroyBlocksTick <= 0) {
+            this.destroyBlocksTick = 20;
+        }
+
         return super.hurt(source, damage);
     }
 
@@ -497,6 +506,18 @@ public class Ignis_Entity extends Boss_monster {
         return air;
     }
 
+    private void floatStrider() {
+        if (this.isInLava()) {
+            CollisionContext lvt_1_1_ = CollisionContext.of(this);
+            if (lvt_1_1_.isAbove(LiquidBlock.STABLE_SHAPE, this.blockPosition().below(), true) && !this.level.getFluidState(this.blockPosition().above()).is(FluidTags.LAVA)) {
+                this.onGround = true;
+            } else {
+                this.setDeltaMovement(this.getDeltaMovement().scale(0.5D).add(0.0D, random.nextFloat() * 0.5, 0.0D));
+            }
+        }
+
+    }
+
     public boolean causeFallDamage(float p_148711_, float p_148712_, DamageSource p_148713_) {
         return false;
     }
@@ -538,10 +559,15 @@ public class Ignis_Entity extends Boss_monster {
         return REINFORCED_SMASH_IN_AIR;
     }
 
+    public boolean canStandOnFluid(FluidState p_204067_) {
+        return p_204067_.is(FluidTags.LAVA);
+    }
+
     public void tick() {
         this.bossInfo.setProgress(this.getHealth() / this.getMaxHealth());
         prevblockingProgress = blockingProgress;
         prevswordProgress = swordProgress;
+        floatStrider();
         if (this.getIsBlocking() && blockingProgress < 10F) {
             blockingProgress++;
         }
@@ -732,6 +758,8 @@ public class Ignis_Entity extends Boss_monster {
                 }
             }
         }
+        blockbreak();
+
         super.tick();
         AnimationHandler.INSTANCE.updateAnimations(this);
     }
@@ -1361,6 +1389,36 @@ public class Ignis_Entity extends Boss_monster {
             }
         }
     }
+    private void blockbreak(){
+        if (this.destroyBlocksTick > 0) {
+            --this.destroyBlocksTick;
+            if (this.destroyBlocksTick == 0 && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+                int j1 = Mth.floor(this.getY());
+                int i2 = Mth.floor(this.getX());
+                int j2 = Mth.floor(this.getZ());
+                boolean flag = false;
+
+                for(int j = -1; j <= 1; ++j) {
+                    for(int k2 = -1; k2 <= 1; ++k2) {
+                        for(int k = 0; k <= 3; ++k) {
+                            int l2 = i2 + j;
+                            int l = j1 + k;
+                            int i1 = j2 + k2;
+                            BlockPos blockpos = new BlockPos(l2, l, i1);
+                            BlockState blockstate = this.level.getBlockState(blockpos);
+                            if (blockstate.canEntityDestroy(this.level, blockpos, this) && !blockstate.is(ModTag.IGNIS_IMMUNE) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(this, blockpos, blockstate)) {
+                                flag = this.level.destroyBlock(blockpos, true, this) || flag;
+                            }
+                        }
+                    }
+                }
+
+                if (flag) {
+                    this.level.levelEvent((Player)null, 1022, this.blockPosition(), 0);
+                }
+            }
+        }
+    }
 
     @Nullable
     public Animation getDeathAnimation() {
@@ -1665,7 +1723,7 @@ public class Ignis_Entity extends Boss_monster {
                 Cm_Falling_Block_Entity fallingBlockEntity = new Cm_Falling_Block_Entity(level, hitX + 0.5D, hitY + 1.0D, hitZ + 0.5D, block, 10);
                 fallingBlockEntity.push(0, 0.2D + getRandom().nextGaussian() * 0.15D, 0);
                 level.addFreshEntity(fallingBlockEntity);
-                if (!this.level.isClientSide && block.is(ModTag.IGNIS_CAN_DESTROY)) {
+                if (!this.level.isClientSide && block.is(ModTag.IGNIS_CAN_DESTROY_CRACKED_BLOCK)) {
                     if (CMConfig.IgnisBlockBreaking) {
                         this.level.destroyBlock(pos, false, this);
                     } else {
@@ -1726,7 +1784,7 @@ public class Ignis_Entity extends Boss_monster {
             Cm_Falling_Block_Entity fallingBlockEntity = new Cm_Falling_Block_Entity(level, hitX + 0.5D, hitY + 1.0D, hitZ + 0.5D, block, 10);
             fallingBlockEntity.push(0, 0.2D + getRandom().nextGaussian() * 0.15D, 0);
             level.addFreshEntity(fallingBlockEntity);
-            if (!this.level.isClientSide && block.is(ModTag.IGNIS_CAN_DESTROY)) {
+            if (!this.level.isClientSide && block.is(ModTag.IGNIS_CAN_DESTROY_CRACKED_BLOCK)) {
                 if (CMConfig.IgnisBlockBreaking) {
                     this.level.destroyBlock(pos, false, this);
                 } else {
