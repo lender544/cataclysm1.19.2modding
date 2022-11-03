@@ -137,10 +137,16 @@
   "advancements.cataclysm.find_ruined_citadel.description": "폐허가 된 성채를 찾으세요",
   "advancements.cataclysm.find_soul_black_smith.title": "영혼의 대장간",
   "advancements.cataclysm.find_soul_black_smith.description": "영혼 대장간을 찾으세요",
+  "advancements.cataclysm.burning_arena.title": "불타는 투기장",
+  "advancements.cataclysm.burning_arena.description": "불타는 투기장을 찾으세요",
   "advancements.cataclysm.kill_ender_golem.title": "팔레트 스왑",
   "advancements.cataclysm.kill_ender_golem.description": "엔더 골렘을 처치하세요",
+  "advancements.cataclysm.kill_revenant.title": "되다만 것",
+  "advancements.cataclysm.kill_revenant.description": "레버넌트를 처치하세요",
   "advancements.cataclysm.kill_ender_guardian.title": "수호자의 비밀",
   "advancements.cataclysm.kill_ender_guardian.description": "엔더 가디언을 쓰러뜨리세요",
   "advancements.cataclysm.kill_monstrosity.title": "망가진 네더의 전쟁병기",
-  "advancements.cataclysm.kill_monstrosity.description": "네더라이트 괴물을 처치하세요"
+  "advancements.cataclysm.kill_monstrosity.description": "네더라이트 괴물을 처치하세요",
+  "advancements.cataclysm.kill_ignis.title": "꺼져버린 불꽃",
+  "advancements.cataclysm.kill_ignis.description": "이그니스를 소환한 뒤, 쓰러뜨리세요"
 }

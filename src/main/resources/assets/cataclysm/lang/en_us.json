@@ -136,10 +136,16 @@
   "advancements.cataclysm.find_ruined_citadel.description": "Find the Ruined Citadel",
   "advancements.cataclysm.find_soul_black_smith.title": "The blacksmith of the soul",
   "advancements.cataclysm.find_soul_black_smith.description": "Find the Soul Blacksmith",
+  "advancements.cataclysm.burning_arena.title": "A Burning Arena",
+  "advancements.cataclysm.burning_arena.description": "Find the Burning Arena",
   "advancements.cataclysm.kill_ender_golem.title": "Palette Swap",
   "advancements.cataclysm.kill_ender_golem.description": "Kill the Ender Golem",
   "advancements.cataclysm.kill_ender_guardian.title": "Was that Shulker?",
   "advancements.cataclysm.kill_ender_guardian.description": "Defeat the Ender Guardian",
-  "advancements.cataclysm.kill_monstrosity.title": "The broken Nether's war machine",
-  "advancements.cataclysm.kill_monstrosity.description": "Kill the Netherite Monstrosity"
+  "advancements.cataclysm.kill_revenant.title": "The Imperfect thing",
+  "advancements.cataclysm.kill_revenant.description": "Kill the Revenant",
+  "advancements.cataclysm.kill_monstrosity.title": "The broken Nether's warmachine",
+  "advancements.cataclysm.kill_monstrosity.description": "Kill the Netherite Monstrosity",
+  "advancements.cataclysm.kill_ignis.title": "The Extinguished Fire",
+  "advancements.cataclysm.kill_ignis.description": "Summon and Defeat the Ignis"
 }

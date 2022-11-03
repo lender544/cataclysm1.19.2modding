@@ -38,7 +38,6 @@ public class ModelEndermaptera extends AdvancedEntityModel<Endermaptera_Entity> 
 
 		root = new AdvancedModelBox(this);
 		root.setPos(0.0F, 24.0F, 0.0F);
-		
 
 		body = new AdvancedModelBox(this);
 		body.setPos(0.0F, -1.0F, 0.0F);
@@ -194,9 +193,9 @@ public class ModelEndermaptera extends AdvancedEntityModel<Endermaptera_Entity> 
 	}
 
 	@Override
-    public Iterable<BasicModelPart> parts() {
-        return ImmutableList.of(root);
-    }
+	public Iterable<BasicModelPart> parts() {
+		return ImmutableList.of(root);
+	}
 
 	@Override
 	public Iterable<AdvancedModelBox> getAllParts() {
