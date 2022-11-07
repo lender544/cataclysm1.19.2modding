@@ -36,6 +36,10 @@ public class CommonConfig {
     public final ForgeConfigSpec.DoubleValue IgnisHealthMultiplier;
     public final ForgeConfigSpec.DoubleValue IgnisDamageMultiplier;
 
+    public final ForgeConfigSpec.DoubleValue RevenantHealthMultiplier;
+    public final ForgeConfigSpec.DoubleValue RevenantDamageMultiplier;
+
+
     public final ForgeConfigSpec.IntValue IgnisDamageCap;
     public final ForgeConfigSpec.DoubleValue IgnisLongRangelimit;
     public final ForgeConfigSpec.BooleanValue IgnisBlockBreaking;
@@ -82,6 +86,11 @@ public class CommonConfig {
         IgnisLongRangelimit = buildDouble(builder, "Ignis's prevent attacks from far away Range", "all", 15.0D, 1D, 1000000D, "Ignis's Immune to Long distance attack range.");
         IgnisDamageCap = buildInt(builder, "IgnisDamageCap", "all", 20, 0, 1000000, "Ignis's DamageCap");
         IgnisBlockBreaking = buildBoolean(builder, "IgnisBlockBreaking", "all", true, "Ignis's cracked block breaking ignore the MobGriefing");
+        builder.pop();
+
+        builder.push("revenant");
+        RevenantHealthMultiplier = buildDouble(builder, "RevenantHealthMultiplier", "all", 1.0D, 0D, 1000000D, "Revenant's Health Multiplier");
+        RevenantDamageMultiplier = buildDouble(builder, "RevenantDamageMultiplier", "all", 1.0D, 0D, 1000000D, "Revenant's Damage Multiplier");
         builder.pop();
     }
 

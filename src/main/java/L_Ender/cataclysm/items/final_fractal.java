@@ -2,10 +2,13 @@ package L_Ender.cataclysm.items;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.Tiers;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.level.Level;
@@ -18,8 +21,7 @@ public class final_fractal extends SwordItem {
     public final_fractal(ModItemTier toolMaterial, Properties props) {
         super(toolMaterial, 3, -2.4f, props);
     }
-
-
+    
     @Override
     public boolean isValidRepairItem(ItemStack itemStack, ItemStack itemStackMaterial) {
         return false;

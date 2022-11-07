@@ -39,6 +39,9 @@ public class CMConfig {
     public static double EnderGolemHealthMultiplier = 1D;
     public static double EnderGolemDamageMultiplier = 1D;
 
+    public static double RevenantHealthMultiplier = 1D;
+    public static double RevenantDamageMultiplier = 1D;
+
     public static double MonstrosityLongRangelimit = 18D;
     public static double EnderguardianLongRangelimit = 12D;
     public static double EndergolemLongRangelimit = 6D;
@@ -66,6 +69,8 @@ public class CMConfig {
             MonstrosityDamageMultiplier = ConfigHolder.COMMON.MonstrosityDamageMultiplier.get();
             EnderguardianHealthMultiplier = ConfigHolder.COMMON.EnderguardianHealthMultiplier.get();
             EnderguardianDamageMultiplier = ConfigHolder.COMMON.EnderguardianDamageMultiplier.get();
+            RevenantHealthMultiplier = ConfigHolder.COMMON.RevenantHealthMultiplier.get();
+            RevenantDamageMultiplier = ConfigHolder.COMMON.RevenantDamageMultiplier.get();
             IgnisBlockBreaking = ConfigHolder.COMMON.IgnisBlockBreaking.get();
 
             EnderGolemHealthMultiplier = ConfigHolder.COMMON.EndergolemHealthMultiplier.get();

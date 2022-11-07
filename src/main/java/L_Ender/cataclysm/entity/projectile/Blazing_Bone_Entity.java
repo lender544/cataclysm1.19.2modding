@@ -67,7 +67,7 @@ public class Blazing_Bone_Entity extends ThrowableItemProjectile {
         super.onHitEntity(result);
         Entity shooter = this.getOwner();
         Entity entity = result.getEntity();
-        float i = 4f;
+        float i = 5f;
         if (shooter instanceof LivingEntity) {
             if (!((entity == shooter) || (shooter.isAlliedTo(entity)))) {
                 entity.hurt(DamageSource.indirectMobAttack(this, (LivingEntity) shooter).setProjectile(), i);

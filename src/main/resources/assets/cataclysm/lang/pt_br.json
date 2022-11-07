@@ -141,11 +141,5 @@
   "advancements.cataclysm.kill_ender_guardian.title": "Isso era um Shulker?",
   "advancements.cataclysm.kill_ender_guardian.description": "Destrua um Guardião do Fim",
   "advancements.cataclysm.kill_monstrosity.title": "A Máquina de Guerra Destruída do Nether",
-  "advancements.cataclysm.kill_monstrosity.description": "Destrua uma Monstruosidade de Netherito",
-  "advancements.cataclysm.burning_arena.title": "Arena de Combate Flamejante",
-  "advancements.cataclysm.burning_arena.description": "Encontre uma Arena Flamejante",
-  "advancements.cataclysm.kill_revenant.title": "Uma coisa imperfeita",
-  "advancements.cataclysm.kill_revenant.description": "Destrua um Fantasma Incendiado",
-  "advancements.cataclysm.kill_ignis.title": "O Fogo Apagado",
-  "advancements.cataclysm.kill_ignis.description": "Invoque e destrua um Ignis"
+  "advancements.cataclysm.kill_monstrosity.description": "Destrua uma Monstruosidade de Netherito"
 }

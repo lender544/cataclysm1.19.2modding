@@ -56,6 +56,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
@@ -1297,7 +1299,7 @@ public class Ignis_Entity extends Boss_monster {
                 this.playSound(ModSounds.STRONGSWING.get(), 1.0f, 0.5F + this.getRandom().nextFloat() * 0.1F);
                 ScreenShake_Entity.ScreenShake(level, this.position(), 30, 0.3f, 0, 20);
                 LivingEntity target = this.getTarget();
-                AreaAttack(6f, 6f, 45, 1.5f, 0.25f, 300, 5, brand, 7, false, 0);
+                AreaAttack(6f, 6f, 45, 2.0f, 0.25f, 300, 5, brand, 7, false, 0);
                 if (target != null) {
                     double d0 = Math.min(target.getY(), this.getY());
                     double d1 = Math.max(target.getY(), this.getY()) + 1.0D;
@@ -1314,24 +1316,24 @@ public class Ignis_Entity extends Boss_monster {
                     }
                 }
                 for (int l = 4; l < 38; ++l) {
-                    UltimateAttack(l, 3, 1.5F, 150, 1.2F, 0.1F, 1);
-                    UltimateAttack(l, 3, -1.5F, 150, 1.2F, 0.1F, 1);
-                    UltimateAttack(l, 3, 2.5F, 150, 1.2F, 0.1F, 1);
-                    UltimateAttack(l, 3, -2.5F, 150, 1.2F, 0.1F, 1);
-                    UltimateAttack(l, 3, 3.5F, 150, 1.2F, 0.1F, 1);
-                    UltimateAttack(l, 3, -3.5F, 150, 1.2F, 0.1F, 1);
-                    UltimateAttack(l, 3, 4.5F, 150, 1.2F, 0.1F, 1);
-                    UltimateAttack(l, 3, -4.5F, 150, 1.2F, 0.1F, 1);
-                    UltimateAttack(l, 3, 5.5F, 150, 1.2F, 0.1F, 1);
-                    UltimateAttack(l, 3, -5.5F, 150, 1.2F, 0.1F, 1);
-                    UltimateAttack(l, 3, 6.5F, 150, 1.2F, 0.1F, 1);
-                    UltimateAttack(l, 3, -6.5F, 150, 1.2F, 0.1F, 1);
-                    UltimateAttack(l, 3, 7.5F, 150, 1.2F, 0.1F, 1);
-                    UltimateAttack(l, 3, -7.5F, 150, 1.2F, 0.1F, 1);
-                    UltimateAttack(l, 3, 8.5F, 150, 1.2F, 0.1F, 1);
-                    UltimateAttack(l, 3, -8.5F, 150, 1.2F, 0.1F, 1);
-                    UltimateAttack(l, 3, 9.5F, 150, 1.2F, 0.1F, 1);
-                    UltimateAttack(l, 3, -9.5F, 150, 1.2F, 0.1F, 1);
+                    UltimateAttack(l, 3, 1.5F, 150, 1.5F, 0.15F, 1);
+                    UltimateAttack(l, 3, -1.5F, 150, 1.5F, 0.15F, 1);
+                    UltimateAttack(l, 3, 2.5F, 150, 1.5F, 0.15F, 1);
+                    UltimateAttack(l, 3, -2.5F, 150, 1.5F, 0.15F, 1);
+                    UltimateAttack(l, 3, 3.5F, 150, 1.5F, 0.15F, 1);
+                    UltimateAttack(l, 3, -3.5F, 150, 1.5F, 0.15F, 1);
+                    UltimateAttack(l, 3, 4.5F, 150, 1.5F, 0.15F, 1);
+                    UltimateAttack(l, 3, -4.5F, 150, 1.5F, 0.15F, 1);
+                    UltimateAttack(l, 3, 5.5F, 150, 1.5F, 0.15F, 1);
+                    UltimateAttack(l, 3, -5.5F, 150, 1.5F, 0.15F, 1);
+                    UltimateAttack(l, 3, 6.5F, 150, 1.5F, 0.15F, 1);
+                    UltimateAttack(l, 3, -6.5F, 150, 1.5F, 0.15F, 1);
+                    UltimateAttack(l, 3, 7.5F, 150, 1.5F, 0.15F, 1);
+                    UltimateAttack(l, 3, -7.5F, 150, 1.5F, 0.15F, 1);
+                    UltimateAttack(l, 3, 8.5F, 150, 1.5F, 0.15F, 1);
+                    UltimateAttack(l, 3, -8.5F, 150, 1.5F, 0.15F, 1);
+                    UltimateAttack(l, 3, 9.5F, 150, 1.5F, 0.15F, 1);
+                    UltimateAttack(l, 3, -9.5F, 150, 1.5F, 0.15F, 1);
                 }
                 earthquakesound(10f);
             }
@@ -1393,25 +1395,15 @@ public class Ignis_Entity extends Boss_monster {
         if (this.destroyBlocksTick > 0) {
             --this.destroyBlocksTick;
             if (this.destroyBlocksTick == 0 && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
-                int j1 = Mth.floor(this.getY());
-                int i2 = Mth.floor(this.getX());
-                int j2 = Mth.floor(this.getZ());
                 boolean flag = false;
-
-                for(int j = -1; j <= 1; ++j) {
-                    for(int k2 = -1; k2 <= 1; ++k2) {
-                        for(int k = 0; k <= 3; ++k) {
-                            int l2 = i2 + j;
-                            int l = j1 + k;
-                            int i1 = j2 + k2;
-                            BlockPos blockpos = new BlockPos(l2, l, i1);
-                            BlockState blockstate = this.level.getBlockState(blockpos);
-                            if (blockstate.canEntityDestroy(this.level, blockpos, this) && !blockstate.is(ModTag.IGNIS_IMMUNE) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(this, blockpos, blockstate)) {
-                                flag = this.level.destroyBlock(blockpos, true, this) || flag;
-                            }
-                        }
+                AABB aabb = this.getBoundingBox().inflate(0.2D);
+                for(BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(this.getY()), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
+                    BlockState blockstate = this.level.getBlockState(blockpos);
+                    if (blockstate.canEntityDestroy(this.level, blockpos, this) && !blockstate.is(ModTag.IGNIS_IMMUNE) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(this, blockpos, blockstate)) {
+                        flag = this.level.destroyBlock(blockpos, true, this) || flag;
                     }
                 }
+
 
                 if (flag) {
                     this.level.levelEvent((Player)null, 1022, this.blockPosition(), 0);
