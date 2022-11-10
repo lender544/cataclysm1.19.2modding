@@ -39,7 +39,7 @@ apply plugin: 'org.spongepowered.mixin'
 
 version = '0.42-1.19.2'
 group = 'com.yourname.modid' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'L_Enders Cataclysm'
+archivesBaseName = 'L_Enders_Cataclysm'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
