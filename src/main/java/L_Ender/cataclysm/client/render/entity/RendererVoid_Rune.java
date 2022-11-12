@@ -34,7 +34,7 @@ public class RendererVoid_Rune extends EntityRenderer<Void_Rune_Entity> {
         matrixStackIn.scale(1.0F, 1.0F, 1.0F);
         matrixStackIn.pushPose();
         matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(90.0F - entityIn.getYRot()));
-        VertexConsumer VertexConsumer = bufferIn.getBuffer(CMRenderTypes.getBright(this.getTextureLocation(entityIn)));
+        VertexConsumer VertexConsumer = bufferIn.getBuffer(CMRenderTypes.getfullBright(this.getTextureLocation(entityIn)));
         model.setupAnim(entityIn, 0, 0, entityIn.tickCount + partialTicks, 0, 0);
         model.renderToBuffer(matrixStackIn, VertexConsumer, 210, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
         matrixStackIn.popPose();

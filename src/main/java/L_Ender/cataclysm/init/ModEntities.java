@@ -10,6 +10,7 @@ import L_Ender.cataclysm.entity.projectile.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -83,6 +84,13 @@ public class ModEntities {
             .sized(1.6F, 2.8f)
             .fireImmune()
             .build(cataclysm.MODID + ":ignited_revenant"));
+
+    public static final RegistryObject<EntityType<The_Harbinger_Entity>> THE_HARBINGER = ENTITY_TYPE.register("the_harbinger", () -> EntityType.Builder.of(The_Harbinger_Entity::new, MobCategory.MONSTER)
+            .sized(0.9F, 3.5F)
+            .fireImmune()
+            .immuneTo(Blocks.WITHER_ROSE)
+            .clientTrackingRange(10)
+            .build(cataclysm.MODID + ":the_harbinger"));
 
     public static final RegistryObject<EntityType<Void_Scatter_Arrow_Entity>> VOID_SCATTER_ARROW = ENTITY_TYPE.register("void_scatter_arrow", () -> EntityType.Builder.<Void_Scatter_Arrow_Entity>of(Void_Scatter_Arrow_Entity::new, MobCategory.MISC)
             .sized(0.5f, 0.5f)
@@ -161,6 +169,11 @@ public class ModEntities {
             .fireImmune()
             .build(cataclysm.MODID + ":wall_watcher"));
 
+    public static final RegistryObject<EntityType<Laser_Beam_Entity>> LASER_BEAM = ENTITY_TYPE.register("laser_beam", () -> EntityType.Builder.<Laser_Beam_Entity>of(Laser_Beam_Entity::new, MobCategory.MISC)
+            .sized(0.1F, 0.1F)
+            .fireImmune()
+            .build(cataclysm.MODID + ":laser_beam"));
+
     @SubscribeEvent
     public static void initializeAttributes(EntityAttributeCreationEvent event) {
         SpawnPlacements.register(ENDERMAPTERA.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Endermaptera_Entity::canSpawn);
@@ -171,6 +184,7 @@ public class ModEntities {
         event.put(ENDER_GUARDIAN.get(), Ender_Guardian_Entity.ender_guardian().build());
         event.put(ENDERMAPTERA.get(), Endermaptera_Entity.endermaptera().build());
         event.put(IGNITED_REVENANT.get(), Ignited_Revenant_Entity.ignited_revenant().build());
+        event.put(THE_HARBINGER.get(), The_Harbinger_Entity.harbinger().build());
     }
 }
 

@@ -73,6 +73,7 @@ public class ClientProxy extends CommonProxy {
         EntityRenderers.register(ModEntities.VOID_RUNE.get(), RendererVoid_Rune::new);
         EntityRenderers.register(ModEntities.ENDERMAPTERA.get(), RendererEndermaptera::new);
         EntityRenderers.register(ModEntities.IGNITED_REVENANT.get(), RendererIgnited_Revenant::new);
+        EntityRenderers.register(ModEntities.THE_HARBINGER.get(), RendererThe_Harbinger::new);
         EntityRenderers.register(ModEntities.VOID_SCATTER_ARROW.get(), RendererVoid_Scatter_Arrow::new);
         EntityRenderers.register(ModEntities.SCREEN_SHAKE.get(), RendererNull::new);
         EntityRenderers.register(ModEntities.SMOKE_EFFECT.get(), RendererNull::new);
@@ -83,6 +84,7 @@ public class ClientProxy extends CommonProxy {
         EntityRenderers.register(ModEntities.CM_FALLING_BLOCK.get(), RendererCm_Falling_Block::new);
         EntityRenderers.register(ModEntities.IGNIS_FIREBALL.get(), RendererIgnis_Fireball::new);
         EntityRenderers.register(ModEntities.IGNIS_ABYSS_FIREBALL.get(), RendererIgnis_Abyss_Fireball::new);
+        EntityRenderers.register(ModEntities.LASER_BEAM.get(), RendererLaser_beam::new);
         EntityRenderers.register(ModEntities.VOID_SHARD.get(), (render) -> {
             return new ThrownItemRenderer<>(render, 0.75F, true);
         });

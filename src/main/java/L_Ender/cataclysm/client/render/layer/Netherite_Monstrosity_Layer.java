@@ -24,11 +24,12 @@ public class Netherite_Monstrosity_Layer extends RenderLayer<Netherite_Monstrosi
 
     @Override
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, Netherite_Monstrosity_Entity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (entity.getIsAwaken() && entity.deathTime <= 75) {
+        if (entity.deathTime <= 75) {
             //need rework
+            float f = 1.0F - entity.deactivateProgress / 40;
             RenderType eyes = RenderType.eyes(NETHERITE_MONSTRISITY_LAYER_TEXTURES);
             VertexConsumer VertexConsumer = bufferIn.getBuffer(eyes);
-            this.getParentModel().renderToBuffer(matrixStackIn, VertexConsumer, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+            this.getParentModel().renderToBuffer(matrixStackIn, VertexConsumer, packedLightIn, OverlayTexture.NO_OVERLAY, f, f, f, f);
         }
     }
 }

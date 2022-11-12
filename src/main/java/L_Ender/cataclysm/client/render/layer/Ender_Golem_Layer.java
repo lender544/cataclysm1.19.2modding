@@ -24,11 +24,12 @@ public class Ender_Golem_Layer extends RenderLayer<Ender_Golem_Entity, ModelEnde
 
     @Override
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, Ender_Golem_Entity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (entity.getIsAwaken() && entity.deathTime <= 45) {
+        if ( entity.deathTime <= 45) {
             //need rework
+            float f = 1.0F - entity.deactivateProgress / 30;
             RenderType eyes = RenderType.eyes(ENDER_GOLEM_LAYER_TEXTURES);
             VertexConsumer VertexConsumer = bufferIn.getBuffer(eyes);
-            this.getParentModel().renderToBuffer(matrixStackIn, VertexConsumer, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+            this.getParentModel().renderToBuffer(matrixStackIn, VertexConsumer, packedLightIn, OverlayTexture.NO_OVERLAY, f, f, f, f);
         }
     }
 }
