@@ -7,7 +7,9 @@ import L_Ender.cataclysm.entity.etc.CMPathNavigateGround;
 import L_Ender.cataclysm.entity.etc.SmartBodyHelper2;
 import L_Ender.cataclysm.entity.projectile.Ashen_Breath_Entity;
 import L_Ender.cataclysm.entity.projectile.Blazing_Bone_Entity;
+import L_Ender.cataclysm.entity.projectile.Laser_Beam_Entity;
 import L_Ender.cataclysm.init.ModEntities;
+import L_Ender.cataclysm.init.ModParticle;
 import L_Ender.cataclysm.init.ModSounds;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
@@ -30,10 +32,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -60,6 +59,7 @@ import java.util.function.Predicate;
 
 
 public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMob {
+    public static final Animation DEATHLASER_ANIMATION = Animation.create(74);
     private static final EntityDataAccessor<Integer> DATA_TARGET_A = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_TARGET_B = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_TARGET_C = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
@@ -84,10 +84,11 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     @Override
     public Animation[] getAnimations() {
         return new Animation[]{
-                NO_ANIMATION,};
+                NO_ANIMATION,DEATHLASER_ANIMATION};
     }
 
     protected void registerGoals() {
+        this.goalSelector.addGoal(1, new DeathLaserGoal(this,DEATHLASER_ANIMATION));
         this.goalSelector.addGoal(2, new RangedAttackGoal(this, 1.0D, 40, 20.0F));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomFlyingGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -194,18 +195,23 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         }
 
 
-        for(int l = 0; l < 3; ++l) {
-            double d8 = this.getHeadX(l);
-            double d10 = this.getHeadY(l);
-            double d2 = this.getHeadZ(l);
-            this.level.addParticle(ParticleTypes.SMOKE, d8 + this.random.nextGaussian() * (double)0.3F, d10 + this.random.nextGaussian() * (double)0.3F, d2 + this.random.nextGaussian() * (double)0.3F, 0.0D, 0.0D, 0.0D);
-
-        }
+        double d0 = (random.nextFloat() - 0.5F) * this.getBbWidth() + this.getDeltaMovement().x;
+        double d1 = (random.nextFloat() - 0.5F) * this.getBbHeight() + this.getDeltaMovement().y;
+        double d2 = (random.nextFloat() - 0.5F) * this.getBbWidth() + this.getDeltaMovement().z;
+        double dist = 0.2F + random.nextFloat() * 0.2F;
+        double d3 = d0 * dist;
+        double d4 = d1 * dist;
+        double d5 = d2 * dist;
+        this.level.addParticle(ModParticle.LIGHTNING.get(), this.getX() + d0, this.getY() + 2, this.getZ() + d2, d3, d4, d5);
 
     }
 
     protected void customServerAiStep() {
         super.customServerAiStep();
+        if(this.getAnimation() ==NO_ANIMATION){
+            this.setAnimation(DEATHLASER_ANIMATION);
+        }
+
         for (int i = 1; i < 3; ++i) {
             if (this.tickCount >= this.nextHeadUpdate[i - 1]) {
                 this.nextHeadUpdate[i - 1] = this.tickCount + 10 + this.random.nextInt(10);
@@ -376,6 +382,30 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
 
     public boolean canBeAffected(MobEffectInstance p_31495_) {
         return p_31495_.getEffect() != MobEffects.WITHER && super.canBeAffected(p_31495_);
+    }
+
+    static class DeathLaserGoal extends SimpleAnimationGoal<The_Harbinger_Entity> {
+
+        public DeathLaserGoal(The_Harbinger_Entity entity, Animation animation) {
+            super(entity, animation);
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        }
+
+        public void tick() {
+            float radius1 = 0.75f;
+            LivingEntity target = entity.getTarget();
+            if (entity.getAnimationTick() == 8 && !entity.level.isClientSide) {
+                Laser_Beam_Entity solarBeam = new Laser_Beam_Entity(ModEntities.LASER_BEAM.get(), entity.level, entity, entity.getX() + radius1 * Math.sin(-entity.getYRot() * Math.PI / 180), entity.getY() + 2.9, entity.getZ() + radius1 * Math.cos(-entity.getYRot() * Math.PI / 180), (float) ((entity.yHeadRot + 90) * Math.PI / 180), (float) (-entity.getXRot() * Math.PI / 180), 20);
+                entity.level.addFreshEntity(solarBeam);
+            }
+
+            if (entity.getAnimationTick() >= 25) {
+                if (target != null) {
+                    entity.getLookControl().setLookAt(target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ(), 2, 90);
+                    entity.lookAt(target, 30, 30);
+                }
+            }
+        }
     }
 
 

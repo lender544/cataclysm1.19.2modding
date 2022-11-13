@@ -1,5 +1,6 @@
 package L_Ender.cataclysm.client.model.entity;
 
+import L_Ender.cataclysm.entity.Ender_Golem_Entity;
 import L_Ender.cataclysm.entity.The_Harbinger_Entity;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.citadel.client.model.AdvancedEntityModel;
@@ -236,9 +237,41 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         this.updateDefaultPose();
     }
 
-    public void animate(IAnimatedEntity entity, float f, float f1, float f2, float f3, float f4) {
+    public void animate(The_Harbinger_Entity entity, float f, float f1, float f2, float f3, float f4) {
         this.resetToDefaultPose();
         animator.update(entity);
+        animator.setAnimation(The_Harbinger_Entity.DEATHLASER_ANIMATION);
+        animator.startKeyframe(20);
+        animator.rotate(root,(float)Math.toRadians(-25F),0, 0);
+        animator.rotate(main_head,(float)Math.toRadians(-15F),0, 0);
+        animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
+        animator.rotate(jaw,(float)Math.toRadians(-17.5F),0, 0);
+        animator.rotate(jetpack,(float)Math.toRadians(-7.5F),0, 0);
+        animator.endKeyframe();
+
+        animator.setStaticKeyframe(5);
+
+        animator.startKeyframe(3);
+        animator.rotate(root,(float)Math.toRadians(17.5F),0, 0);
+        animator.rotate(main_head,(float)Math.toRadians(-15F),0, 0);
+        animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
+        animator.rotate(jaw,(float)Math.toRadians(30F),0, 0);
+        animator.rotate(jetpack,(float)Math.toRadians(12.5F),0, 0);
+        animator.endKeyframe();
+
+        animator.setStaticKeyframe(20);
+
+        animator.startKeyframe(10);
+        animator.rotate(main_head,(float)Math.toRadians(-15F),0, 0);
+        animator.move(main_head,0,-1, 0);
+        animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
+        animator.rotate(jaw,(float)Math.toRadians(30F),0, 0);
+        animator.rotate(jetpack,(float)Math.toRadians(-52.5F),0, 0);
+        animator.endKeyframe();
+
+        animator.setStaticKeyframe(6);
+
+        animator.resetKeyframe(10);
     }
 
     @Override
@@ -267,6 +300,7 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         return ImmutableList.of(
                 root,
                 main_head,
+                head,
                 headgear,
                 eyebrows,
                 jaw,

@@ -13,4 +13,5 @@ public class ModParticle {
 
     public static final RegistryObject<SimpleParticleType> SOUL_LAVA = PARTICLE.register("soul_lava", ()-> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> LIGHTNING = PARTICLE.register("lightning", () -> new SimpleParticleType(false));
 }

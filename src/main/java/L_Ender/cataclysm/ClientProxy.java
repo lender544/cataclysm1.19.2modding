@@ -2,6 +2,7 @@ package L_Ender.cataclysm;
 
 import L_Ender.cataclysm.client.event.ClientLayerEvent;
 import L_Ender.cataclysm.client.event.ClientEvent;
+import L_Ender.cataclysm.client.particle.LightningParticle;
 import L_Ender.cataclysm.client.particle.SoulLavaParticle;
 import L_Ender.cataclysm.client.render.CMItemstackRenderer;
 import L_Ender.cataclysm.client.render.blockentity.RendererAltar_of_Fire;
@@ -59,6 +60,7 @@ public class ClientProxy extends CommonProxy {
     public static void setupParticles(RegisterParticleProvidersEvent registry) {
         cataclysm.LOGGER.debug("Registered particle factories");
         registry.register(ModParticle.SOUL_LAVA.get(), SoulLavaParticle.Factory::new);
+        registry.register(ModParticle.LIGHTNING.get(), new LightningParticle.Factory());
     }
 
     public void clientInit() {

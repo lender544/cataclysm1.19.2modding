@@ -4,6 +4,7 @@ package L_Ender.cataclysm.entity.projectile;
 import L_Ender.cataclysm.client.tool.ControlledAnimation;
 import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.entity.Ignis_Entity;
+import L_Ender.cataclysm.entity.The_Harbinger_Entity;
 import L_Ender.cataclysm.init.ModSounds;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -33,8 +34,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class Laser_Beam_Entity extends Entity {
-    public static final double RADIUS_BARAKO = 30;
-    public static final double RADIUS_PLAYER = 20;
+    public static final double RADIUS = 30;
     public LivingEntity caster;
     public double endPosX, endPosY, endPosZ;
     public double collidePosX, collidePosY, collidePosZ;
@@ -101,6 +101,13 @@ public class Laser_Beam_Entity extends Entity {
         if (tickCount == 1 && level.isClientSide) {
             caster = (LivingEntity) level.getEntity(getCasterID());
         }
+
+        if (!level.isClientSide) {
+            if (caster instanceof The_Harbinger_Entity) {
+                this.updateWithHarbinger();
+            }
+        }
+
         if (caster != null) {
             renderYaw = (float) ((caster.yHeadRot + 90.0d) * Math.PI / 180.0d);
             renderPitch = (float) (-caster.getXRot() * Math.PI / 180.0d);
@@ -180,8 +187,6 @@ public class Laser_Beam_Entity extends Entity {
         entityData.set(DURATION, duration);
     }
 
-
-
     public int getCasterID() {
         return entityData.get(CASTER);
     }
@@ -202,21 +207,20 @@ public class Laser_Beam_Entity extends Entity {
     }
 
     private void calculateEndPos() {
-        double radius = caster instanceof Ignis_Entity ? RADIUS_BARAKO : RADIUS_PLAYER;
         if (level.isClientSide()) {
-            endPosX = getX() + radius * Math.cos(renderYaw) * Math.cos(renderPitch);
-            endPosZ = getZ() + radius * Math.sin(renderYaw) * Math.cos(renderPitch);
-            endPosY = getY() + radius * Math.sin(renderPitch);
+            endPosX = getX() + RADIUS * Math.cos(renderYaw) * Math.cos(renderPitch);
+            endPosZ = getZ() + RADIUS * Math.sin(renderYaw) * Math.cos(renderPitch);
+            endPosY = getY() + RADIUS * Math.sin(renderPitch);
         }
         else {
-            endPosX = getX() + radius * Math.cos(getYaw()) * Math.cos(getPitch());
-            endPosZ = getZ() + radius * Math.sin(getYaw()) * Math.cos(getPitch());
-            endPosY = getY() + radius * Math.sin(getPitch());
+            endPosX = getX() + RADIUS * Math.cos(getYaw()) * Math.cos(getPitch());
+            endPosZ = getZ() + RADIUS * Math.sin(getYaw()) * Math.cos(getPitch());
+            endPosY = getY() + RADIUS * Math.sin(getPitch());
         }
     }
 
-    public SolarbeamHitResult raytraceEntities(Level world, Vec3 from, Vec3 to, boolean stopOnLiquid, boolean ignoreBlockWithoutBoundingBox, boolean returnLastUncollidableBlock) {
-        SolarbeamHitResult result = new SolarbeamHitResult();
+    public LaserbeamHitResult raytraceEntities(Level world, Vec3 from, Vec3 to, boolean stopOnLiquid, boolean ignoreBlockWithoutBoundingBox, boolean returnLastUncollidableBlock) {
+        LaserbeamHitResult result = new LaserbeamHitResult();
         result.setBlockHit(world.clip(new ClipContext(from, to, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)));
         if (result.blockHit != null) {
             Vec3 hitVec = result.blockHit.getLocation();
@@ -265,9 +269,15 @@ public class Laser_Beam_Entity extends Entity {
     public boolean shouldRenderAtSqrDistance(double distance) {
         return distance < 1024;
     }
+    private void updateWithHarbinger() {
+        this.setYaw((float) ((caster.yHeadRot + 90) * Math.PI / 180.0d));
+        this.setPitch((float) (-caster.getXRot() * Math.PI / 180.0d));
+        Vec3 vecOffset1 = new Vec3(0, 0, 0.35).yRot((float) Math.toRadians(-caster.getYRot()));
+        Vec3 vecOffset2 = new Vec3(0.35, 0, 0).yRot(-getYaw()).xRot(getPitch());
+        this.setPos(caster.getX() + vecOffset1.x() + vecOffset2.x(), caster.getY() + 2.9 + vecOffset1.y() + vecOffset2.y(), caster.getZ() + vecOffset1.z() + vecOffset2.z());
+    }
 
-
-    public static class SolarbeamHitResult {
+    public static class LaserbeamHitResult {
         private BlockHitResult blockHit;
 
         private final List<LivingEntity> entities = new ArrayList<>();
