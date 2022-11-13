@@ -157,7 +157,7 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         body.setTextureOffset(26, 80).addBox(-1.0F, 0.5F, 0.75F, 2.0F, 4.0F, 4.0F, 0.0F, false);
 
         nether_star = new AdvancedModelBox(this);
-        nether_star.setRotationPoint(-0.25F, 3.0F, -2.75F);
+        nether_star.setRotationPoint(0.0F, 3.0F, -2.75F);
         body.addChild(nether_star);
 
         tail = new AdvancedModelBox(this);

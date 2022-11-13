@@ -2,11 +2,15 @@ package L_Ender.cataclysm.client.render.entity;
 
 
 import L_Ender.cataclysm.client.model.entity.ModelThe_Harbinger;
+import L_Ender.cataclysm.client.render.RenderUtils;
 import L_Ender.cataclysm.client.render.layer.Item_Layer;
+import L_Ender.cataclysm.client.render.layer.The_Harbinger_Item_Layer;
 import L_Ender.cataclysm.client.render.layer.The_Harbinger_Layer;
+import L_Ender.cataclysm.entity.Ignis_Entity;
 import L_Ender.cataclysm.entity.Ignited_Revenant_Entity;
 import L_Ender.cataclysm.entity.The_Harbinger_Entity;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -27,7 +31,7 @@ public class RendererThe_Harbinger extends MobRenderer<The_Harbinger_Entity, Mod
     public RendererThe_Harbinger(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new ModelThe_Harbinger(), 1.0F);
         this.addLayer(new The_Harbinger_Layer(this));
-        this.addLayer(new Item_Layer<>(this, getModel().nether_star, Items.NETHER_STAR.getDefaultInstance(), ItemTransforms.TransformType.GROUND));
+        this.addLayer(new The_Harbinger_Item_Layer(this, getModel().nether_star, Items.NETHER_STAR.getDefaultInstance(), ItemTransforms.TransformType.GROUND));
     }
 
     @Override

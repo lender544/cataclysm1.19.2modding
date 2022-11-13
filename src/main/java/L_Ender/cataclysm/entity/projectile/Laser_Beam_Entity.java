@@ -5,6 +5,7 @@ import L_Ender.cataclysm.client.tool.ControlledAnimation;
 import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.entity.Ignis_Entity;
 import L_Ender.cataclysm.entity.The_Harbinger_Entity;
+import L_Ender.cataclysm.init.ModParticle;
 import L_Ender.cataclysm.init.ModSounds;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -128,7 +129,7 @@ public class Laser_Beam_Entity extends Entity {
             this.calculateEndPos();
             List<LivingEntity> hit = raytraceEntities(level, new Vec3(getX(), getY(), getZ()), new Vec3(endPosX, endPosY, endPosZ), false, true, true).entities;
             if (blockSide != null) {
-                spawnExplosionParticles(2);
+                spawnExplosionParticles(3);
             }
             if (!level.isClientSide) {
                 for (LivingEntity target : hit) {
@@ -143,16 +144,14 @@ public class Laser_Beam_Entity extends Entity {
 
     private void spawnExplosionParticles(int amount) {
         for (int i = 0; i < amount; i++) {
-            final float velocity = 0.1F;
+            final float velocity = 1.0F;
             float yaw = (float) (random.nextFloat() * 2 * Math.PI);
             float motionY = random.nextFloat() * 0.08F;
             float motionX = velocity * Mth.cos(yaw);
             float motionZ = velocity * Mth.sin(yaw);
-            level.addParticle(ParticleTypes.FLAME, collidePosX, collidePosY + 0.1, collidePosZ, motionX, motionY, motionZ);
+            level.addParticle(ModParticle.LIGHTNING.get(), collidePosX, collidePosY + 0.1, collidePosZ, motionX, motionY, motionZ);
         }
-        for (int i = 0; i < amount / 2; i++) {
-            level.addParticle(ParticleTypes.LAVA, collidePosX, collidePosY + 0.1, collidePosZ, 0, 0, 0);
-        }
+
     }
 
     @Override

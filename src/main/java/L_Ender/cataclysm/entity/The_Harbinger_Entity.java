@@ -15,6 +15,8 @@ import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -193,23 +195,24 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
                 this.yRotHeads[j] = this.m_31442_(this.yRotHeads[j], this.yBodyRot, 10.0F);
             }
         }
-
-
-        double d0 = (random.nextFloat() - 0.5F) * this.getBbWidth() + this.getDeltaMovement().x;
-        double d1 = (random.nextFloat() - 0.5F) * this.getBbHeight() + this.getDeltaMovement().y;
-        double d2 = (random.nextFloat() - 0.5F) * this.getBbWidth() + this.getDeltaMovement().z;
-        double dist = 0.2F + random.nextFloat() * 0.2F;
-        double d3 = d0 * dist;
-        double d4 = d1 * dist;
-        double d5 = d2 * dist;
-        this.level.addParticle(ModParticle.LIGHTNING.get(), this.getX() + d0, this.getY() + 2, this.getZ() + d2, d3, d4, d5);
+        if (this.level.isClientSide) {
+            double d0 = (random.nextFloat() - 0.5F) + this.getDeltaMovement().x;
+            double d1 = (random.nextFloat() - 0.5F) + this.getDeltaMovement().y;
+            double d2 = (random.nextFloat() - 0.5F) + this.getDeltaMovement().z;
+            double dist = 1F + random.nextFloat() * 0.2F;
+            double d3 = d0 * dist;
+            double d4 = d1 * dist;
+            double d5 = d2 * dist;
+            this.level.addParticle(ModParticle.LIGHTNING.get(), this.getX() + d0, this.getY() + 2, this.getZ() + d2, d3, d4, d5);
+        }
 
     }
+
 
     protected void customServerAiStep() {
         super.customServerAiStep();
         if(this.getAnimation() ==NO_ANIMATION){
-            this.setAnimation(DEATHLASER_ANIMATION);
+          //  this.setAnimation(DEATHLASER_ANIMATION);
         }
 
         for (int i = 1; i < 3; ++i) {
@@ -259,7 +262,6 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
             this.heal(1.0F);
         }
     }
-
 
 
     protected SoundEvent getAmbientSound() {
