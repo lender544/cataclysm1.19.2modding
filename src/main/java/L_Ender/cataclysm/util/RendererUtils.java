@@ -27,9 +27,9 @@ public class RendererUtils {
     private static void sync(LivingEntity entity, CompoundTag tag) {
         CitadelEntityData.setCitadelTag(entity, tag);
         if (!entity.level.isClientSide) {
-            Citadel.sendMSGToAll(new PropertiesMessage("CitadelTagUpdate", tag, entity.getId()));
+            Citadel.sendMSGToAll(new PropertiesMessage("Cataclysm_Citadel_Tag_Update", tag, entity.getId()));
         } else {
-            Citadel.sendMSGToServer(new PropertiesMessage("CitadelTagUpdate", tag, entity.getId()));
+            Citadel.sendMSGToServer(new PropertiesMessage("Cataclysm_Citadel_Tag_Update", tag, entity.getId()));
         }
     }
 

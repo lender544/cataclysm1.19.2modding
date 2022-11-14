@@ -25,7 +25,7 @@ public class RendererLaser_beam extends EntityRenderer<Laser_Beam_Entity> {
     private static final ResourceLocation TEXTURE = new ResourceLocation("cataclysm:textures/entity/harbinger/laser_beam.png");
     private static final float TEXTURE_WIDTH = 256;
     private static final float TEXTURE_HEIGHT = 32;
-    private static final float START_RADIUS = 0.9f;
+    private static final float START_RADIUS = 0.75f;
     private static final float BEAM_RADIUS = 0.75F;
     private boolean clearerView = false;
 

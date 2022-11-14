@@ -1,20 +1,13 @@
 package L_Ender.cataclysm.event;
 
 import L_Ender.cataclysm.cataclysm;
-import L_Ender.cataclysm.client.render.CMItemstackRenderer;
 import L_Ender.cataclysm.init.ModBlocks;
 import L_Ender.cataclysm.init.ModEffect;
 import L_Ender.cataclysm.init.ModItems;
-import L_Ender.cataclysm.items.The_Incinerator;
 import L_Ender.cataclysm.items.final_fractal;
 import L_Ender.cataclysm.items.zweiender;
 import L_Ender.cataclysm.util.RendererUtils;
-import net.minecraft.client.CameraType;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.EntityDamageSource;
@@ -29,12 +22,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
-import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderLevelLastEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
@@ -77,12 +66,11 @@ public class ServerEventHandler {
             }
         }
         int i = RendererUtils.getUsingIncineratorTime(event.getEntity());
-            if (event.getEntity().getUseItem().getItem() != ModItems.THE_INCINERATOR.get()) {
+        if (event.getEntity().getUseItem().getItem() != ModItems.THE_INCINERATOR.get()) {
             if(i >= 0){
                 RendererUtils.setUsingIncineratorTime(event.getEntity(), 0);
             }
         }
-
     }
 
     @SubscribeEvent

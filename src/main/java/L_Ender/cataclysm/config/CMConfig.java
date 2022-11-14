@@ -56,7 +56,7 @@ public class CMConfig {
             BossMusic = ConfigHolder.COMMON.BossMusic.get();
             EnderguardianDamageCap = ConfigHolder.COMMON.EnderguardianDamageCap.get();
             MonstrosityDamageCap = ConfigHolder.COMMON.MonstrosityDamageCap.get();
-            IgnisDamageCap = ConfigHolder.COMMON.MonstrosityDamageCap.get();
+            IgnisDamageCap = ConfigHolder.COMMON.IgnisDamageCap.get();
             Lavabombmagazine = ConfigHolder.COMMON.Lavabombmagazine.get();
             Lavabombamount = ConfigHolder.COMMON.Lavabombamount.get();
             EnderguardianBlockBreakingX = ConfigHolder.COMMON.EnderguardianBlockBreakingX.get();

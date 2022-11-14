@@ -283,9 +283,6 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         this.walk(tail, idleSpeed * 0.75F, idleDegree * 0.35F, true, 1, -0.05F, ageInTicks, 1);
         this.main_head.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F);
         this.main_head.rotateAngleX = headPitch * ((float)Math.PI / 180F);
-    }
-
-    public void prepareMobModel(The_Harbinger_Entity entityIn, float p_104096_, float p_104097_, float p_104098_) {
         setupHeadRotation(entityIn, this.righthead, 0);
         setupHeadRotation(entityIn, this.lefthead, 1);
     }

@@ -88,6 +88,7 @@ public class ModEntities {
     public static final RegistryObject<EntityType<The_Harbinger_Entity>> THE_HARBINGER = ENTITY_TYPE.register("the_harbinger", () -> EntityType.Builder.of(The_Harbinger_Entity::new, MobCategory.MONSTER)
             .sized(0.9F, 3.5F)
             .fireImmune()
+            .noSummon()
             .immuneTo(Blocks.WITHER_ROSE)
             .clientTrackingRange(10)
             .build(cataclysm.MODID + ":the_harbinger"));
@@ -172,6 +173,7 @@ public class ModEntities {
     public static final RegistryObject<EntityType<Laser_Beam_Entity>> LASER_BEAM = ENTITY_TYPE.register("laser_beam", () -> EntityType.Builder.<Laser_Beam_Entity>of(Laser_Beam_Entity::new, MobCategory.MISC)
             .sized(0.1F, 0.1F)
             .fireImmune()
+            .noSummon()
             .build(cataclysm.MODID + ":laser_beam"));
 
     @SubscribeEvent
