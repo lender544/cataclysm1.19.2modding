@@ -1,46 +1,32 @@
 package L_Ender.cataclysm.items;
 
 import L_Ender.cataclysm.cataclysm;
-import L_Ender.cataclysm.entity.effect.Charge_Watcher_Entity;
 import L_Ender.cataclysm.entity.effect.Flame_Strike_Entity;
 import L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
-import L_Ender.cataclysm.entity.projectile.Void_Rune_Entity;
 import L_Ender.cataclysm.init.ModSounds;
-import L_Ender.cataclysm.util.RendererUtils;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ForgeMod;
@@ -93,7 +79,7 @@ public class The_Incinerator extends Item {
                     player.playSound(ModSounds.SWORD_STOMP.get(), 1.0F, 1.0f);
                 }
 
-                RendererUtils.setUsingIncineratorTime(player, 0);
+              //  RendererUtils.setUsingIncineratorTime(player, 0);
             }
         }
     }
@@ -104,7 +90,7 @@ public class The_Incinerator extends Item {
         if (i == 60) {
             player.playSound(ModSounds.FLAME_BURST.get(), 1.0F, 1.0f);
         }
-        RendererUtils.setUsingIncineratorTime(player, i);
+        //RendererUtils.setUsingIncineratorTime(player, i);
     }
 
     @Override

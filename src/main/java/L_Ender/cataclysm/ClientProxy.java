@@ -1,6 +1,5 @@
 package L_Ender.cataclysm;
 
-import L_Ender.cataclysm.client.event.ClientLayerEvent;
 import L_Ender.cataclysm.client.event.ClientEvent;
 import L_Ender.cataclysm.client.particle.LightningParticle;
 import L_Ender.cataclysm.client.particle.SoulLavaParticle;
@@ -53,7 +52,7 @@ public class ClientProxy extends CommonProxy {
     public static final Map<Integer, SoundIgnisMusic> IGNIS_SOUND_MAP = new HashMap<>();
 
     public void init() {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientLayerEvent::onAddLayers);
+       // FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientLayerEvent::onAddLayers);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientProxy::setupParticles);
     }
 

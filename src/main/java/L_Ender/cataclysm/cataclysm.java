@@ -47,7 +47,7 @@ public class cataclysm {
 
 
     static {
-        NetworkRegistry.ChannelBuilder channel = NetworkRegistry.ChannelBuilder.named(new ResourceLocation("cataclysm", "main_channel"));
+        NetworkRegistry.ChannelBuilder channel = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(MODID, "main_channel"));
         String version = PROTOCOL_VERSION;
         version.getClass();
         channel = channel.clientAcceptedVersions(version::equals);

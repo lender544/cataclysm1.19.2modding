@@ -6,7 +6,6 @@ import L_Ender.cataclysm.init.ModEffect;
 import L_Ender.cataclysm.init.ModItems;
 import L_Ender.cataclysm.items.final_fractal;
 import L_Ender.cataclysm.items.zweiender;
-import L_Ender.cataclysm.util.RendererUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -65,12 +64,14 @@ public class ServerEventHandler {
             }
             }
         }
-        int i = RendererUtils.getUsingIncineratorTime(event.getEntity());
-        if (event.getEntity().getUseItem().getItem() != ModItems.THE_INCINERATOR.get()) {
-            if(i >= 0){
-                RendererUtils.setUsingIncineratorTime(event.getEntity(), 0);
-            }
-        }
+       // if (event.getEntity() instanceof Player player) {
+       //     int i = RendererUtils.getUsingIncineratorTime(event.getEntity());
+        //    if (player.getUseItem().getItem() != ModItems.THE_INCINERATOR.get()) {
+       //         if (i >= 0) {
+         //           RendererUtils.setUsingIncineratorTime(player, 0);
+        //        }
+        //    }
+       // }
     }
 
     @SubscribeEvent

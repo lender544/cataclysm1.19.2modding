@@ -79,7 +79,7 @@
   "block.cataclysm.chorus_fence": "Valla de chorus",
   "block.cataclysm.purpur_wall": "Muro de purpur",
   "block.cataclysm.purpur_void_rune_trap_block":"Bloque trampa de purpur ",
-  "block.cataclysm.end_stone_teleport_trap_bricks":¨Bloque trampa de piedra del end ",
+  "block.cataclysm.end_stone_teleport_trap_bricks":"Bloque trampa de piedra del end ",
   "block.cataclysm.obsidian_explosion_trap_bricks":"Bloque trampa de obsidiana",
   "block.cataclysm.void_lantern_block":"Linterna del vacío",
   "block.cataclysm.ender_guardian_spawner":"Engendrador de guardián ender",
@@ -132,7 +132,7 @@
 
   "advancements.cataclysm.root.title": "Cataclysm",
   "advancements.cataclysm.root.description": "¡Cataclysm!",
-  "advancements.cataclysm.find_ruined_citadel.title": ¨¡Una ciudadela en ruinas!",
+  "advancements.cataclysm.find_ruined_citadel.title": "¡Una ciudadela en ruinas!",
   "advancements.cataclysm.find_ruined_citadel.description": "Encuentra la ciudadela en ruinas",
   "advancements.cataclysm.find_soul_black_smith.title": "La herrería de almas",
   "advancements.cataclysm.find_soul_black_smith.description": "Encuentra la herrería de almas",
