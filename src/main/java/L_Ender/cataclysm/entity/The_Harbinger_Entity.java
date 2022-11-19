@@ -42,6 +42,7 @@ import java.util.function.Predicate;
 
 public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMob {
     public static final Animation DEATHLASER_ANIMATION = Animation.create(74);
+    public static final Animation CHARGE_ANIMATION = Animation.create(74);
     private static final EntityDataAccessor<Integer> DATA_TARGET_A = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_TARGET_B = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_TARGET_C = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
@@ -66,7 +67,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     @Override
     public Animation[] getAnimations() {
         return new Animation[]{
-                NO_ANIMATION,DEATHLASER_ANIMATION};
+                NO_ANIMATION,DEATHLASER_ANIMATION,CHARGE_ANIMATION};
     }
 
     protected void registerGoals() {
@@ -192,7 +193,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     protected void customServerAiStep() {
         super.customServerAiStep();
         if(this.getAnimation() ==NO_ANIMATION){
-          //  this.setAnimation(DEATHLASER_ANIMATION);
+            this.setAnimation(DEATHLASER_ANIMATION);
         }
 
         for (int i = 1; i < 3; ++i) {
@@ -370,14 +371,14 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
 
         public DeathLaserGoal(The_Harbinger_Entity entity, Animation animation) {
             super(entity, animation);
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK, Flag.JUMP));
         }
 
         public void tick() {
             float radius1 = 0.75f;
             LivingEntity target = entity.getTarget();
             if (entity.getAnimationTick() == 8 && !entity.level.isClientSide) {
-                Death_Laser_Beam_Entity solarBeam = new Death_Laser_Beam_Entity(ModEntities.LASER_BEAM.get(), entity.level, entity, entity.getX() + radius1 * Math.sin(-entity.getYRot() * Math.PI / 180), entity.getY() + 2.9, entity.getZ() + radius1 * Math.cos(-entity.getYRot() * Math.PI / 180), (float) ((entity.yHeadRot + 90) * Math.PI / 180), (float) (-entity.getXRot() * Math.PI / 180), 20);
+                Death_Laser_Beam_Entity solarBeam = new Death_Laser_Beam_Entity(ModEntities.DEATH_LASER_BEAM.get(), entity.level, entity, entity.getX() + radius1 * Math.sin(-entity.getYRot() * Math.PI / 180), entity.getY() + 2.9, entity.getZ() + radius1 * Math.cos(-entity.getYRot() * Math.PI / 180), (float) ((entity.yHeadRot + 90) * Math.PI / 180), (float) (-entity.getXRot() * Math.PI / 180), 20);
                 entity.level.addFreshEntity(solarBeam);
             }
 

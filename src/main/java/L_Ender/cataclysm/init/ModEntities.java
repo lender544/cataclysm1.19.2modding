@@ -169,10 +169,17 @@ public class ModEntities {
             .fireImmune()
             .build(cataclysm.MODID + ":wall_watcher"));
 
-    public static final RegistryObject<EntityType<Death_Laser_Beam_Entity>> LASER_BEAM = ENTITY_TYPE.register("death_laser_beam", () -> EntityType.Builder.<Death_Laser_Beam_Entity>of(Death_Laser_Beam_Entity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<Death_Laser_Beam_Entity>> DEATH_LASER_BEAM = ENTITY_TYPE.register("death_laser_beam", () -> EntityType.Builder.<Death_Laser_Beam_Entity>of(Death_Laser_Beam_Entity::new, MobCategory.MISC)
             .sized(0.1F, 0.1F)
             .fireImmune()
             .build(cataclysm.MODID + ":death_laser_beam"));
+
+    public static final RegistryObject<EntityType<Laser_Beam_Entity>> LASER_BEAM = ENTITY_TYPE.register("laser_beam", () -> EntityType.Builder.<Laser_Beam_Entity>of(Laser_Beam_Entity::new, MobCategory.MISC)
+            .sized(0.3125F, 0.3125F)
+            .fireImmune()
+            .clientTrackingRange(4)
+            .updateInterval(10)
+            .build(cataclysm.MODID + ":laser_beam"));
 
     @SubscribeEvent
     public static void initializeAttributes(EntityAttributeCreationEvent event) {

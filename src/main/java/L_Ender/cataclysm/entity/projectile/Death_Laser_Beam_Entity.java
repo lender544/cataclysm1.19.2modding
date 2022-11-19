@@ -45,14 +45,10 @@ public class Death_Laser_Beam_Entity extends Entity {
     public Direction blockSide = null;
 
     private static final EntityDataAccessor<Float> YAW = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.FLOAT);
-
     private static final EntityDataAccessor<Float> PITCH = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.FLOAT);
-
     private static final EntityDataAccessor<Integer> DURATION = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.INT);
-
-
     private static final EntityDataAccessor<Integer> CASTER = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.INT);
-
+    private static final EntityDataAccessor<Integer> HEAD = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.INT);
     public float prevYaw;
     public float prevPitch;
 
@@ -157,6 +153,7 @@ public class Death_Laser_Beam_Entity extends Entity {
         this.entityData.define(PITCH, 0F);
         this.entityData.define(DURATION, 0);
         this.entityData.define(CASTER, -1);
+        this.entityData.define(HEAD, 0);
     }
 
     public float getYaw() {
@@ -182,6 +179,15 @@ public class Death_Laser_Beam_Entity extends Entity {
     public void setDuration(int duration) {
         entityData.set(DURATION, duration);
     }
+
+    public int getHead() {
+        return entityData.get(HEAD);
+    }
+
+    public void setHead(int head) {
+        entityData.set(HEAD, head);
+    }
+
 
     public int getCasterID() {
         return entityData.get(CASTER);
@@ -265,6 +271,7 @@ public class Death_Laser_Beam_Entity extends Entity {
     public boolean shouldRenderAtSqrDistance(double distance) {
         return distance < 1024;
     }
+
     private void updateWithHarbinger() {
         this.setYaw((float) ((caster.yHeadRot + 90) * Math.PI / 180.0d));
         this.setPitch((float) (-caster.getXRot() * Math.PI / 180.0d));
