@@ -1,23 +1,12 @@
 package L_Ender.cataclysm.entity;
 
-import L_Ender.cataclysm.config.CMConfig;
-import L_Ender.cataclysm.entity.AI.AttackMoveGoal;
 import L_Ender.cataclysm.entity.AI.SimpleAnimationGoal;
-import L_Ender.cataclysm.entity.etc.CMPathNavigateGround;
-import L_Ender.cataclysm.entity.etc.SmartBodyHelper2;
-import L_Ender.cataclysm.entity.projectile.Ashen_Breath_Entity;
-import L_Ender.cataclysm.entity.projectile.Blazing_Bone_Entity;
-import L_Ender.cataclysm.entity.projectile.Laser_Beam_Entity;
+import L_Ender.cataclysm.entity.projectile.Death_Laser_Beam_Entity;
 import L_Ender.cataclysm.init.ModEntities;
 import L_Ender.cataclysm.init.ModParticle;
-import L_Ender.cataclysm.init.ModSounds;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.google.common.collect.ImmutableList;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.BlockParticleOption;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -32,29 +21,20 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.WitherSkull;
-import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 
-import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.function.Predicate;
@@ -397,7 +377,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
             float radius1 = 0.75f;
             LivingEntity target = entity.getTarget();
             if (entity.getAnimationTick() == 8 && !entity.level.isClientSide) {
-                Laser_Beam_Entity solarBeam = new Laser_Beam_Entity(ModEntities.LASER_BEAM.get(), entity.level, entity, entity.getX() + radius1 * Math.sin(-entity.getYRot() * Math.PI / 180), entity.getY() + 2.9, entity.getZ() + radius1 * Math.cos(-entity.getYRot() * Math.PI / 180), (float) ((entity.yHeadRot + 90) * Math.PI / 180), (float) (-entity.getXRot() * Math.PI / 180), 20);
+                Death_Laser_Beam_Entity solarBeam = new Death_Laser_Beam_Entity(ModEntities.LASER_BEAM.get(), entity.level, entity, entity.getX() + radius1 * Math.sin(-entity.getYRot() * Math.PI / 180), entity.getY() + 2.9, entity.getZ() + radius1 * Math.cos(-entity.getYRot() * Math.PI / 180), (float) ((entity.yHeadRot + 90) * Math.PI / 180), (float) (-entity.getXRot() * Math.PI / 180), 20);
                 entity.level.addFreshEntity(solarBeam);
             }
 

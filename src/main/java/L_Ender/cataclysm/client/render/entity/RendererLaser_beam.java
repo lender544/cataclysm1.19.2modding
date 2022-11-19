@@ -1,7 +1,7 @@
 package L_Ender.cataclysm.client.render.entity;
 
 import L_Ender.cataclysm.client.render.CMRenderTypes;
-import L_Ender.cataclysm.entity.projectile.Laser_Beam_Entity;
+import L_Ender.cataclysm.entity.projectile.Death_Laser_Beam_Entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix3f;
@@ -21,7 +21,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class RendererLaser_beam extends EntityRenderer<Laser_Beam_Entity> {
+public class RendererLaser_beam extends EntityRenderer<Death_Laser_Beam_Entity> {
     private static final ResourceLocation TEXTURE = new ResourceLocation("cataclysm:textures/entity/harbinger/laser_beam.png");
     private static final float TEXTURE_WIDTH = 256;
     private static final float TEXTURE_HEIGHT = 32;
@@ -34,12 +34,12 @@ public class RendererLaser_beam extends EntityRenderer<Laser_Beam_Entity> {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Laser_Beam_Entity entity) {
+    public ResourceLocation getTextureLocation(Death_Laser_Beam_Entity entity) {
         return TEXTURE;
     }
 
     @Override
-    public void render(Laser_Beam_Entity solarBeam, float entityYaw, float delta, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
+    public void render(Death_Laser_Beam_Entity solarBeam, float entityYaw, float delta, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
         clearerView = solarBeam.caster instanceof Player && Minecraft.getInstance().player == solarBeam.caster && Minecraft.getInstance().options.getCameraType() == CameraType.FIRST_PERSON;
 
         double collidePosX = solarBeam.prevCollidePosX + (solarBeam.collidePosX - solarBeam.prevCollidePosX) * delta;

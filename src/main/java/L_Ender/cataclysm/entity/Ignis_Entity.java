@@ -69,6 +69,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
@@ -913,7 +914,7 @@ public class Ignis_Entity extends Boss_monster {
                 for (LivingEntity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.25D))) {
                     if (!isAlliedTo(entity) && !(entity instanceof Ignis_Entity) && entity != this) {
                         boolean flag = entity.hurt(DamageSource.mobAttack(this), (float) (this.getAttributeValue(Attributes.ATTACK_DAMAGE) * 1.5F + entity.getMaxHealth() * 0.15F));
-                        if (entity instanceof Player && entity.isBlocking()) {
+                        if (entity instanceof Player && entity.getUseItem().canPerformAction(ToolActions.SHIELD_BLOCK)) {
                             disableShield(entity, 200);
                         }
                     }
@@ -975,7 +976,7 @@ public class Ignis_Entity extends Boss_monster {
                 for (LivingEntity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.25D))) {
                     if (!isAlliedTo(entity) && !(entity instanceof Ignis_Entity) && entity != this) {
                         boolean flag = entity.hurt(DamageSource.mobAttack(this), (float) (this.getAttributeValue(Attributes.ATTACK_DAMAGE) * 1.5F + entity.getMaxHealth() * 0.15F));
-                        if (entity instanceof Player && entity.isBlocking()) {
+                        if (entity instanceof Player && entity.getUseItem().canPerformAction(ToolActions.SHIELD_BLOCK)) {
                             disableShield(entity, 200);
                         }
                     }
@@ -1730,7 +1731,7 @@ public class Ignis_Entity extends Boss_monster {
             for (LivingEntity entity : hit) {
                 if (!isAlliedTo(entity) && !(entity instanceof Ignis_Entity) && entity != this) {
                     if (entity instanceof Player) {
-                        if (entity.isBlocking() && shieldbreakticks > 0) {
+                        if (entity.getUseItem().canPerformAction(ToolActions.SHIELD_BLOCK) && shieldbreakticks > 0) {
                             disableShield(entity, shieldbreakticks);
                         }
                     }
@@ -1791,7 +1792,7 @@ public class Ignis_Entity extends Boss_monster {
         for (LivingEntity entity : hit) {
             if (!isAlliedTo(entity) && !(entity instanceof Ignis_Entity) && entity != this) {
                 if (entity instanceof Player) {
-                    if (entity.isBlocking() && shieldbreakticks > 0) {
+                    if (entity.getUseItem().canPerformAction(ToolActions.SHIELD_BLOCK) && shieldbreakticks > 0) {
                         disableShield(entity, shieldbreakticks);
                     }
                 }

@@ -3,12 +3,9 @@ package L_Ender.cataclysm.entity.projectile;
 
 import L_Ender.cataclysm.client.tool.ControlledAnimation;
 import L_Ender.cataclysm.config.CMConfig;
-import L_Ender.cataclysm.entity.Ignis_Entity;
 import L_Ender.cataclysm.entity.The_Harbinger_Entity;
 import L_Ender.cataclysm.init.ModParticle;
-import L_Ender.cataclysm.init.ModSounds;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -34,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class Laser_Beam_Entity extends Entity {
+public class Death_Laser_Beam_Entity extends Entity {
     public static final double RADIUS = 30;
     public LivingEntity caster;
     public double endPosX, endPosY, endPosZ;
@@ -47,14 +44,14 @@ public class Laser_Beam_Entity extends Entity {
 
     public Direction blockSide = null;
 
-    private static final EntityDataAccessor<Float> YAW = SynchedEntityData.defineId(Laser_Beam_Entity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> YAW = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.FLOAT);
 
-    private static final EntityDataAccessor<Float> PITCH = SynchedEntityData.defineId(Laser_Beam_Entity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> PITCH = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.FLOAT);
 
-    private static final EntityDataAccessor<Integer> DURATION = SynchedEntityData.defineId(Laser_Beam_Entity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> DURATION = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.INT);
 
 
-    private static final EntityDataAccessor<Integer> CASTER = SynchedEntityData.defineId(Laser_Beam_Entity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> CASTER = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.INT);
 
     public float prevYaw;
     public float prevPitch;
@@ -62,7 +59,7 @@ public class Laser_Beam_Entity extends Entity {
     @OnlyIn(Dist.CLIENT)
     private Vec3[] attractorPos;
 
-    public Laser_Beam_Entity(EntityType<? extends Laser_Beam_Entity> type, Level world) {
+    public Death_Laser_Beam_Entity(EntityType<? extends Death_Laser_Beam_Entity> type, Level world) {
         super(type, world);
         noCulling = true;
         if (world.isClientSide) {
@@ -70,7 +67,7 @@ public class Laser_Beam_Entity extends Entity {
         }
     }
 
-    public Laser_Beam_Entity(EntityType<? extends Laser_Beam_Entity> type, Level world, LivingEntity caster, double x, double y, double z, float yaw, float pitch, int duration) {
+    public Death_Laser_Beam_Entity(EntityType<? extends Death_Laser_Beam_Entity> type, Level world, LivingEntity caster, double x, double y, double z, float yaw, float pitch, int duration) {
         this(type, world);
         this.caster = caster;
         this.setYaw(yaw);
