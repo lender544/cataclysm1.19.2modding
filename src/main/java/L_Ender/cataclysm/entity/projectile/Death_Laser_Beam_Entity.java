@@ -275,9 +275,7 @@ public class Death_Laser_Beam_Entity extends Entity {
     private void updateWithHarbinger() {
         this.setYaw((float) ((caster.yHeadRot + 90) * Math.PI / 180.0d));
         this.setPitch((float) (-caster.getXRot() * Math.PI / 180.0d));
-        Vec3 vecOffset1 = new Vec3(0, 0, 0.35).yRot((float) Math.toRadians(-caster.getYRot()));
-        Vec3 vecOffset2 = new Vec3(0.35, 0, 0).yRot(-getYaw()).xRot(getPitch());
-        this.setPos(caster.getX() + vecOffset1.x() + vecOffset2.x(), caster.getY() + 2.9 + vecOffset1.y() + vecOffset2.y(), caster.getZ() + vecOffset1.z() + vecOffset2.z());
+        this.setPos(caster.getX() ,caster.getY() + 2.7 , caster.getZ());
     }
 
     public static class LaserbeamHitResult {

@@ -272,6 +272,34 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         animator.setStaticKeyframe(6);
 
         animator.resetKeyframe(10);
+
+
+        animator.setAnimation(The_Harbinger_Entity.CHARGE_ANIMATION);
+        animator.startKeyframe(8);
+        animator.rotate(root,(float)Math.toRadians(20F),0, 0);
+        animator.rotate(main_head,(float)Math.toRadians(-17.5F),0, 0);
+        animator.rotate(head,(float)Math.toRadians(-10F),0, 0);
+        animator.rotate(lefthead,(float)Math.toRadians(-32.5F),0, 0);
+        animator.rotate(righthead,(float)Math.toRadians(-32.5F),0, 0);
+        animator.rotate(jaw,(float)Math.toRadians(-10F),0, 0);
+        animator.rotate(jetpack,(float)Math.toRadians(5F),0, 0);
+        animator.endKeyframe();
+
+        animator.setStaticKeyframe(8);
+
+        animator.startKeyframe(3);
+        animator.rotate(root,(float)Math.toRadians(35F),0, 0);
+        animator.rotate(main_head,(float)Math.toRadians(-22.5F),0, 0);
+        animator.rotate(head,(float)Math.toRadians(-10F),0, 0);
+        animator.rotate(jaw,(float)Math.toRadians(-10F),0, 0);
+        animator.rotate(lefthead,(float)Math.toRadians(-37.5F),0, 0);
+        animator.rotate(righthead,(float)Math.toRadians(-37.5F),0, 0);
+        animator.rotate(jetpack,(float)Math.toRadians(10F),0, 0);
+        animator.endKeyframe();
+
+        animator.setStaticKeyframe(10);
+
+        animator.resetKeyframe(10);
     }
 
     @Override

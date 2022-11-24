@@ -26,6 +26,7 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
@@ -42,7 +43,7 @@ import java.util.function.Predicate;
 
 public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMob {
     public static final Animation DEATHLASER_ANIMATION = Animation.create(74);
-    public static final Animation CHARGE_ANIMATION = Animation.create(74);
+    public static final Animation CHARGE_ANIMATION = Animation.create(39);
     private static final EntityDataAccessor<Integer> DATA_TARGET_A = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_TARGET_B = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_TARGET_C = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
@@ -72,6 +73,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
 
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new DeathLaserGoal(this,DEATHLASER_ANIMATION));
+        this.goalSelector.addGoal(1, new ChargeGoal(this,CHARGE_ANIMATION));
         this.goalSelector.addGoal(2, new RangedAttackGoal(this, 1.0D, 40, 20.0F));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomFlyingGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -123,7 +125,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
 
     public void aiStep() {
         Vec3 vec3 = this.getDeltaMovement().multiply(1.0D, 0.6D, 1.0D);
-        if (!this.level.isClientSide && this.getAlternativeTarget(0) > 0) {
+        if (!this.level.isClientSide && this.getAlternativeTarget(0) > 0 ) {
             Entity entity = this.level.getEntity(this.getAlternativeTarget(0));
             if (entity != null) {
                 double d0 = vec3.y;
@@ -192,8 +194,8 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
 
     protected void customServerAiStep() {
         super.customServerAiStep();
-        if(this.getAnimation() ==NO_ANIMATION){
-            this.setAnimation(DEATHLASER_ANIMATION);
+        if(this.getAnimation() == NO_ANIMATION){
+            this.setAnimation(CHARGE_ANIMATION);
         }
 
         for (int i = 1; i < 3; ++i) {
@@ -378,8 +380,8 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
             float radius1 = 0.75f;
             LivingEntity target = entity.getTarget();
             if (entity.getAnimationTick() == 8 && !entity.level.isClientSide) {
-                Death_Laser_Beam_Entity solarBeam = new Death_Laser_Beam_Entity(ModEntities.DEATH_LASER_BEAM.get(), entity.level, entity, entity.getX() + radius1 * Math.sin(-entity.getYRot() * Math.PI / 180), entity.getY() + 2.9, entity.getZ() + radius1 * Math.cos(-entity.getYRot() * Math.PI / 180), (float) ((entity.yHeadRot + 90) * Math.PI / 180), (float) (-entity.getXRot() * Math.PI / 180), 20);
-                entity.level.addFreshEntity(solarBeam);
+                Death_Laser_Beam_Entity DeathBeam = new Death_Laser_Beam_Entity(ModEntities.DEATH_LASER_BEAM.get(), entity.level, entity, entity.getX() + radius1 * Math.sin(-entity.getYRot() * Math.PI / 180), entity.getY() + 2.9, entity.getZ() + radius1 * Math.cos(-entity.getYRot() * Math.PI / 180), (float) ((entity.yHeadRot + 90) * Math.PI / 180), (float) (-entity.getXRot() * Math.PI / 180), 20);
+                entity.level.addFreshEntity(DeathBeam);
             }
 
             if (entity.getAnimationTick() >= 25) {
@@ -391,7 +393,30 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         }
     }
 
+    static class ChargeGoal extends SimpleAnimationGoal<The_Harbinger_Entity> {
 
+        public ChargeGoal(The_Harbinger_Entity entity, Animation animation) {
+            super(entity, animation);
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK, Flag.JUMP));
+        }
+
+        public void tick() {
+            LivingEntity target = entity.getTarget();
+            if (target != null) {
+                if (entity.getAnimationTick() < 19) {
+                    entity.lookAt(target, 30, 30);
+                    entity.getLookControl().setLookAt(target, 30, 30);
+                }
+                if (entity.getAnimationTick() == 18) {
+                  //  Vec3 vec3 = (new Vec3(target.getX() - entity.getX(), target.getY() - entity.getY(), target.getZ() - entity.getZ()));
+                   // entity.setDeltaMovement(vec3.x * 0.8,vec3.y * 1.0, vec3.z * 0.8);
+                    //entity.setDeltaMovement(entity.getDeltaMovement().add(vec3.x * 0.8D, 0.9D, vec3.z * 0.8D));
+                    Vec3 rot = target.position().subtract(0.0, 2.0, 0.0).add(entity.position().multiply(-1.0, -1.0, -1.0)).normalize();
+                    entity.setDeltaMovement(rot.multiply(4.0, 3.0, 4.0));
+                }
+            }
+        }
+    }
 }
 
 
