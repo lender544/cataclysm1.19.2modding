@@ -2,6 +2,7 @@ package L_Ender.cataclysm.entity;
 
 import L_Ender.cataclysm.entity.AI.SimpleAnimationGoal;
 import L_Ender.cataclysm.entity.projectile.Death_Laser_Beam_Entity;
+import L_Ender.cataclysm.entity.projectile.Wither_Missile_Entity;
 import L_Ender.cataclysm.init.ModEntities;
 import L_Ender.cataclysm.init.ModParticle;
 import com.github.alexthe666.citadel.animation.Animation;
@@ -195,7 +196,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     protected void customServerAiStep() {
         super.customServerAiStep();
         if(this.getAnimation() == NO_ANIMATION){
-            this.setAnimation(CHARGE_ANIMATION);
+            this.setAnimation(DEATHLASER_ANIMATION);
         }
 
         for (int i = 1; i < 3; ++i) {
@@ -321,12 +322,8 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         double d3 = p_31450_ - d0;
         double d4 = p_31451_ - d1;
         double d5 = p_31452_ - d2;
-        WitherSkull witherskull = new WitherSkull(this.level, this, d3, d4, d5);
+        Wither_Missile_Entity witherskull = new Wither_Missile_Entity(this.level, this, d3, d4, d5);
         witherskull.setOwner(this);
-        if (p_31453_) {
-            witherskull.setDangerous(true);
-        }
-
         witherskull.setPosRaw(d0, d1, d2);
         this.level.addFreshEntity(witherskull);
     }
@@ -377,10 +374,11 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         }
 
         public void tick() {
-            float radius1 = 0.75f;
+            float radius1 = 0.25f;
             LivingEntity target = entity.getTarget();
             if (entity.getAnimationTick() == 8 && !entity.level.isClientSide) {
-                Death_Laser_Beam_Entity DeathBeam = new Death_Laser_Beam_Entity(ModEntities.DEATH_LASER_BEAM.get(), entity.level, entity, entity.getX() + radius1 * Math.sin(-entity.getYRot() * Math.PI / 180), entity.getY() + 2.9, entity.getZ() + radius1 * Math.cos(-entity.getYRot() * Math.PI / 180), (float) ((entity.yHeadRot + 90) * Math.PI / 180), (float) (-entity.getXRot() * Math.PI / 180), 20);
+                //Death_Laser_Beam_Entity DeathBeam = new Death_Laser_Beam_Entity(ModEntities.DEATH_LASER_BEAM.get(), entity.level, entity, entity.getX() + radius1 * Math.sin(-entity.getYRot() * Math.PI / 180), entity.getY() + 2.9, entity.getZ() + radius1 * Math.cos(-entity.getYRot() * Math.PI / 180), (float) ((entity.yHeadRot + 90) * Math.PI / 180), (float) (-entity.getXRot() * Math.PI / 180), 20);
+                Death_Laser_Beam_Entity DeathBeam = new Death_Laser_Beam_Entity(ModEntities.DEATH_LASER_BEAM.get(), entity.level, entity, entity.getX(), entity.getY() + 2.9, entity.getZ(), (float) ((entity.yHeadRot + 90) * Math.PI / 180), (float) (-entity.getXRot() * Math.PI / 180), 20);
                 entity.level.addFreshEntity(DeathBeam);
             }
 

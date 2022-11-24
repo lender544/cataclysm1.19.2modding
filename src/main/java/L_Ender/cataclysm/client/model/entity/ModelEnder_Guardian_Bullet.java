@@ -8,7 +8,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class ModelEnder_Guardian_Bullet extends AdvancedEntityModel<Entity> {
 
 	public AdvancedModelBox renderer;

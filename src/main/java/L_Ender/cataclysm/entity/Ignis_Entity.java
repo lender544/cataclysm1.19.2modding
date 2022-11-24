@@ -1393,9 +1393,10 @@ public class Ignis_Entity extends Boss_monster {
         }
     }
     private void blockbreak(){
+        if (!this.level.isClientSide){
         if (this.destroyBlocksTick > 0) {
             --this.destroyBlocksTick;
-            if (this.destroyBlocksTick == 0 && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+            if (this.destroyBlocksTick == 0 && ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
                 boolean flag = false;
                 AABB aabb = this.getBoundingBox().inflate(0.2D);
                 for(BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(this.getY()), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
@@ -1411,6 +1412,7 @@ public class Ignis_Entity extends Boss_monster {
                 }
             }
         }
+    }
     }
 
     @Nullable

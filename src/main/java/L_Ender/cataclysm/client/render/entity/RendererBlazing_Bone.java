@@ -12,7 +12,10 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class RendererBlazing_Bone extends EntityRenderer<Blazing_Bone_Entity> {
 
     public RendererBlazing_Bone(EntityRendererProvider.Context manager) {

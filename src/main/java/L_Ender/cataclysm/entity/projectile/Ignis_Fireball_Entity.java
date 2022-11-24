@@ -192,10 +192,6 @@ public class Ignis_Fireball_Entity extends AbstractHurtingProjectile {
         return this.entityData.get(FIRED);
     }
 
-    @Override
-    public Packet<?> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
-    }
 }
 
 

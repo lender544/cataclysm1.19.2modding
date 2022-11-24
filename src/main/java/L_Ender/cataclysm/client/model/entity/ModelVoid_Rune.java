@@ -9,7 +9,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class ModelVoid_Rune extends AdvancedEntityModel<Void_Rune_Entity> {
     private final AdvancedModelBox root;
 

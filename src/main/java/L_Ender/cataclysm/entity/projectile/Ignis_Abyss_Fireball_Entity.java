@@ -244,11 +244,6 @@ public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
             }
         }
     }
-
-    @Override
-    public Packet<?> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
-    }
 }
 
 

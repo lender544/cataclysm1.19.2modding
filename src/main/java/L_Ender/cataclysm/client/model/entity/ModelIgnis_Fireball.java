@@ -8,7 +8,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class ModelIgnis_Fireball extends AdvancedEntityModel<Entity> {
 
 	private final AdvancedModelBox root;
