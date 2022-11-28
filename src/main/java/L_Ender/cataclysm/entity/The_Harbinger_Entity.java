@@ -2,6 +2,7 @@ package L_Ender.cataclysm.entity;
 
 import L_Ender.cataclysm.entity.AI.SimpleAnimationGoal;
 import L_Ender.cataclysm.entity.projectile.Death_Laser_Beam_Entity;
+import L_Ender.cataclysm.entity.projectile.Laser_Beam_Entity;
 import L_Ender.cataclysm.entity.projectile.Wither_Missile_Entity;
 import L_Ender.cataclysm.init.ModEntities;
 import L_Ender.cataclysm.init.ModParticle;
@@ -19,7 +20,10 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
@@ -27,12 +31,10 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.WitherSkull;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -49,14 +51,19 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     private static final EntityDataAccessor<Integer> DATA_TARGET_B = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_TARGET_C = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
     private static final List<EntityDataAccessor<Integer>> DATA_TARGETS = ImmutableList.of(DATA_TARGET_A, DATA_TARGET_B, DATA_TARGET_C);
+    private static final EntityDataAccessor<Boolean> LASER_MOD = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.BOOLEAN);
     private final float[] xRotHeads = new float[2];
     private final float[] yRotHeads = new float[2];
     private final float[] xRotOHeads = new float[2];
     private final float[] yRotOHeads = new float[2];
     private final int[] nextHeadUpdate = new int[2];
     private final int[] idleHeadUpdates = new int[2];
+    public float Laser_Mod_Progress;
+    public float prev_Laser_Mod_Progress;
+
+
     private static final Predicate<LivingEntity> LIVING_ENTITY_SELECTOR = (p_31504_) -> {
-        return p_31504_.getMobType() != MobType.UNDEAD && p_31504_.attackable();
+        return p_31504_.attackable();
     };
     private static final TargetingConditions TARGETING_CONDITIONS = TargetingConditions.forCombat().range(20.0D).selector(LIVING_ENTITY_SELECTOR);
 
@@ -84,7 +91,11 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     }
 
     public static AttributeSupplier.Builder harbinger() {
-        return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 300.0D).add(Attributes.MOVEMENT_SPEED, (double)0.6F).add(Attributes.FLYING_SPEED, (double)0.6F).add(Attributes.FOLLOW_RANGE, 40.0D).add(Attributes.ARMOR, 4.0D);
+        return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 300.0D)
+                .add(Attributes.MOVEMENT_SPEED, (double)0.6F)
+                .add(Attributes.FLYING_SPEED, (double)0.6F)
+                .add(Attributes.FOLLOW_RANGE, 40.0D)
+                .add(Attributes.ARMOR, 4.0D);
     }
 
 
@@ -111,6 +122,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(LASER_MOD, false);;
         this.entityData.define(DATA_TARGET_A, 0);
         this.entityData.define(DATA_TARGET_B, 0);
         this.entityData.define(DATA_TARGET_C, 0);
@@ -126,6 +138,29 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
 
     public void aiStep() {
         Vec3 vec3 = this.getDeltaMovement().multiply(1.0D, 0.6D, 1.0D);
+
+        prev_Laser_Mod_Progress = Laser_Mod_Progress;
+        if (this.getIsLaserMod() && Laser_Mod_Progress < 20f) {
+            Laser_Mod_Progress++;
+        }
+        if (!this.getIsLaserMod() && Laser_Mod_Progress > 0F) {
+            Laser_Mod_Progress--;
+        }
+
+        LivingEntity target = this.getTarget();
+        if (!level.isClientSide) {
+            if (target != null) {
+                if(!this.getIsLaserMod()) {
+                    this.setIsLaserMod(true);
+                }
+            }
+
+            if (this.getIsLaserMod() && target == null) {
+                this.setIsLaserMod(false);
+            }
+        }
+
+        /******
         if (!this.level.isClientSide && this.getAlternativeTarget(0) > 0 ) {
             Entity entity = this.level.getEntity(this.getAlternativeTarget(0));
             if (entity != null) {
@@ -148,6 +183,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         if (vec3.horizontalDistanceSqr() > 0.05D) {
             this.setYRot((float)Mth.atan2(vec3.z, vec3.x) * (180F / (float)Math.PI) - 90.0F);
         }
+      *****/
 
         super.aiStep();
         AnimationHandler.INSTANCE.updateAnimations(this);
@@ -195,9 +231,6 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
 
     protected void customServerAiStep() {
         super.customServerAiStep();
-        if(this.getAnimation() == NO_ANIMATION){
-            this.setAnimation(DEATHLASER_ANIMATION);
-        }
 
         for (int i = 1; i < 3; ++i) {
             if (this.tickCount >= this.nextHeadUpdate[i - 1]) {
@@ -222,7 +255,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
                     LivingEntity livingentity = (LivingEntity) this.level.getEntity(l1);
                     if (livingentity != null && this.canAttack(livingentity) && !(this.distanceToSqr(livingentity) > 900.0D) && this.hasLineOfSight(livingentity)) {
                         this.performRangedAttack(i + 1, livingentity);
-                        this.nextHeadUpdate[i - 1] = this.tickCount + 40 + this.random.nextInt(20);
+                        this.nextHeadUpdate[i - 1] = this.tickCount + 3;
                         this.idleHeadUpdates[i - 1] = 0;
                     } else {
                         this.setAlternativeTarget(i, 0);
@@ -276,12 +309,12 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         } else {
             float f = (this.yBodyRot + (float)(180 * (p_31515_ - 1))) * ((float)Math.PI / 180F);
             float f1 = Mth.cos(f);
-            return this.getX() + (double)f1 * 1.3D;
+            return this.getX() + (double)f1 * 1.65D;
         }
     }
 
     private double getHeadY(int p_31517_) {
-        return p_31517_ <= 0 ? this.getY() + 3.0D : this.getY() + 2.2D;
+        return p_31517_ <= 0 ? this.getY() + 3.0D : this.getY() + 2.6D;
     }
 
     private double getHeadZ(int p_31519_) {
@@ -290,7 +323,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         } else {
             float f = (this.yBodyRot + (float)(180 * (p_31519_ - 1))) * ((float)Math.PI / 180F);
             float f1 = Mth.sin(f);
-            return this.getZ() + (double)f1 * 1.3D;
+            return this.getZ() + (double)f1 * 1.65D;
         }
     }
 
@@ -313,7 +346,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
 
     private void performRangedAttack(int p_31449_, double p_31450_, double p_31451_, double p_31452_, boolean p_31453_) {
         if (!this.isSilent()) {
-            this.level.levelEvent((Player)null, 1024, this.blockPosition(), 0);
+           // this.level.levelEvent((Player)null, 1024, this.blockPosition(), 0);
         }
 
         double d0 = this.getHeadX(p_31449_);
@@ -322,9 +355,12 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         double d3 = p_31450_ - d0;
         double d4 = p_31451_ - d1;
         double d5 = p_31452_ - d2;
-        Wither_Missile_Entity witherskull = new Wither_Missile_Entity(this.level, this, d3, d4, d5);
-        witherskull.setOwner(this);
+        Wither_Missile_Entity witherskull = new Wither_Missile_Entity(this.level, this,d3, d4, d5);
         witherskull.setPosRaw(d0, d1, d2);
+        Laser_Beam_Entity laserBeam = new Laser_Beam_Entity(this.level, this);
+        laserBeam.shoot(d3, d4, d5, 1F, 1F);
+        laserBeam.setPosRaw(d0, d1, d2);
+        this.level.addFreshEntity(laserBeam);
         this.level.addFreshEntity(witherskull);
     }
 
@@ -352,6 +388,16 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     public void setAlternativeTarget(int p_31455_, int p_31456_) {
         this.entityData.set(DATA_TARGETS.get(p_31455_), p_31456_);
     }
+
+
+    public void setIsLaserMod(boolean isLaserMod) {
+        this.entityData.set(LASER_MOD, isLaserMod);
+    }
+
+    public boolean getIsLaserMod() {
+        return this.entityData.get(LASER_MOD);
+    }
+
 
     @Override
     public boolean canBePushedByEntity(Entity entity) {

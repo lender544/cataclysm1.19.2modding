@@ -8,6 +8,7 @@ import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
 import com.github.alexthe666.citadel.client.model.ModelAnimator;
 import com.github.alexthe666.citadel.client.model.basic.BasicModelPart;
 import com.google.common.collect.ImmutableList;
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;
 
 public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity> {
@@ -27,8 +28,8 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
     private final AdvancedModelBox left_side_guard;
     private final AdvancedModelBox left_upper_guard;
     private final AdvancedModelBox left_lower_guard;
-    private final AdvancedModelBox right_laser;
-    private final AdvancedModelBox right_laser2;
+    private final AdvancedModelBox leftlaser;
+    private final AdvancedModelBox leftlaser2;
     private final AdvancedModelBox body;
     public final AdvancedModelBox nether_star;
     private final AdvancedModelBox tail;
@@ -135,16 +136,16 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         left_side_guard.addChild(left_lower_guard);
         left_lower_guard.setTextureOffset(0, 60).addBox(-3.0F, -0.25F, -1.0F, 6.0F, 3.0F, 8.0F, 0.1F, true);
 
-        right_laser = new AdvancedModelBox(this);
-        right_laser.setRotationPoint(1.0F, -1.0F, 1.5F);
-        lefthead.addChild(right_laser);
-        right_laser.setTextureOffset(77, 50).addBox(-2.0F, -2.0F, -2.5F, 4.0F, 4.0F, 3.0F, 0.0F, false);
+        leftlaser = new AdvancedModelBox(this);
+        leftlaser.setRotationPoint(1.0F, -1.0F, 1.5F);
+        lefthead.addChild(leftlaser);
+        leftlaser.setTextureOffset(77, 50).addBox(-2.0F, -2.0F, -2.5F, 4.0F, 4.0F, 3.0F, 0.0F, false);
 
-        right_laser2 = new AdvancedModelBox(this);
-        right_laser2.setRotationPoint(0.0F, 0.0F, -2.5F);
-        right_laser.addChild(right_laser2);
-        right_laser2.setTextureOffset(25, 43).addBox(-1.0F, -1.0F, -2.0F, 2.0F, 2.0F, 4.0F, 0.0F, false);
-        right_laser2.setTextureOffset(50, 56).addBox(-1.0F, -1.0F, -2.0F, 2.0F, 2.0F, 2.0F, 0.3F, false);
+        leftlaser2 = new AdvancedModelBox(this);
+        leftlaser2.setRotationPoint(0.0F, 0.0F, -2.5F);
+        leftlaser.addChild(leftlaser2);
+        leftlaser2.setTextureOffset(25, 43).addBox(-1.0F, -1.0F, -2.0F, 2.0F, 2.0F, 4.0F, 0.0F, false);
+        leftlaser2.setTextureOffset(50, 56).addBox(-1.0F, -1.0F, -2.0F, 2.0F, 2.0F, 2.0F, 0.3F, false);
 
         body = new AdvancedModelBox(this);
         body.setRotationPoint(0.0F, 4.0F, 2.0F);
@@ -313,11 +314,27 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         this.main_head.rotateAngleX = headPitch * ((float)Math.PI / 180F);
         setupHeadRotation(entityIn, this.righthead, 0);
         setupHeadRotation(entityIn, this.lefthead, 1);
+
+        float partialTick = ageInTicks - entityIn.tickCount;
+        float Laser_Mod_Progress = entityIn.prev_Laser_Mod_Progress + (entityIn.Laser_Mod_Progress - entityIn.prev_Laser_Mod_Progress) * partialTick;
+        progressPositionPrev(left_upper_guard,Laser_Mod_Progress,0, 0, 5, 20f);
+        progressPositionPrev(left_lower_guard,Laser_Mod_Progress,0, 0, 5, 20f);
+        progressRotationPrev(left_upper_guard,Laser_Mod_Progress,(float)Math.toRadians(45F),0,0,20f);
+        progressRotationPrev(left_lower_guard,Laser_Mod_Progress,(float)Math.toRadians(-45F),0,0,20f);
+        progressPositionPrev(leftlaser,Laser_Mod_Progress,0, 0, -6, 20f);
+        progressPositionPrev(leftlaser2,Laser_Mod_Progress,0, 0, -2, 20f);
+        progressPositionPrev(right_upper_guard,Laser_Mod_Progress,0, 0, 5, 20f);
+        progressPositionPrev(right_lower_guard,Laser_Mod_Progress,0, 0, 5, 20f);
+        progressRotationPrev(right_upper_guard,Laser_Mod_Progress,(float)Math.toRadians(45F),0,0,20f);
+        progressRotationPrev(right_lower_guard,Laser_Mod_Progress,(float)Math.toRadians(-45F),0,0,20f);
+        progressPositionPrev(rightlaser,Laser_Mod_Progress,0, 0, -6, 20f);
+        progressPositionPrev(rightlaser2,Laser_Mod_Progress,0, 0, -2, 20f);
     }
 
     private static void setupHeadRotation(The_Harbinger_Entity entityIn, AdvancedModelBox p_171073_, int p_171074_) {
         p_171073_.rotateAngleY = (entityIn.getHeadYRot(p_171074_) - entityIn.yBodyRot) * ((float)Math.PI / 180F);
         p_171073_.rotateAngleX = entityIn.getHeadXRot(p_171074_) * ((float)Math.PI / 180F);
+
     }
 
     @Override
@@ -339,8 +356,8 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
                 left_side_guard,
                 left_upper_guard,
                 left_lower_guard,
-                right_laser,
-                right_laser2,
+                leftlaser,
+                leftlaser2,
                 body,
                 tail,
                 nether_star,
