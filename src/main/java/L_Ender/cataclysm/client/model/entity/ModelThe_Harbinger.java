@@ -301,6 +301,30 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         animator.setStaticKeyframe(10);
 
         animator.resetKeyframe(10);
+
+
+        animator.setAnimation(The_Harbinger_Entity.DEATH_ANIMATION);
+        animator.startKeyframe(3);
+        animator.rotate(main_head,(float)Math.toRadians(-40F),0, 0);
+        animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
+        animator.rotate(jaw,(float)Math.toRadians(37.5F),0, 0);
+        animator.rotate(righthead,0,(float)Math.toRadians(30F), 0);
+        animator.rotate(lefthead,(float)Math.toRadians(2.5F),(float)Math.toRadians(-35F), 0);
+        animator.endKeyframe();
+
+        animator.setStaticKeyframe(8);
+
+        animator.startKeyframe(3);
+        animator.rotate(main_head,(float)Math.toRadians(-47.5F),0, 0);
+        animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
+        animator.rotate(jaw,(float)Math.toRadians(37.5F),0, 0);
+        animator.rotate(righthead,(float)Math.toRadians(55F),(float)Math.toRadians(72.5F), 0);
+        animator.rotate(lefthead,(float)Math.toRadians(55F),(float)Math.toRadians(-85F), 0);
+        animator.endKeyframe();
+
+        animator.setStaticKeyframe(130);
+
+
     }
 
     @Override
@@ -310,30 +334,35 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         float idleDegree = 0.1F;
         this.walk(body, idleSpeed * 0.75F, idleDegree * 0.5F, true, 0, -0.05F, ageInTicks, 1);
         this.walk(tail, idleSpeed * 0.75F, idleDegree * 0.35F, true, 1, -0.05F, ageInTicks, 1);
-        this.main_head.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F);
-        this.main_head.rotateAngleX = headPitch * ((float)Math.PI / 180F);
-        setupHeadRotation(entityIn, this.righthead, 0);
-        setupHeadRotation(entityIn, this.lefthead, 1);
+
+        if(entityIn.getAnimation() != The_Harbinger_Entity.DEATH_ANIMATION) {
+            setupHeadRotation(entityIn, this.righthead, 0);
+            setupHeadRotation(entityIn, this.lefthead, 1);
+        }
+        if(entityIn.getAnimation() == The_Harbinger_Entity.NO_ANIMATION) {
+            this.main_head.rotateAngleY = netHeadYaw * ((float) Math.PI / 180F);
+            this.main_head.rotateAngleX = headPitch * ((float) Math.PI / 180F);
+        }
 
         float partialTick = ageInTicks - entityIn.tickCount;
-        float Laser_Mod_Progress = entityIn.prev_Laser_Mod_Progress + (entityIn.Laser_Mod_Progress - entityIn.prev_Laser_Mod_Progress) * partialTick;
-        progressPositionPrev(left_upper_guard,Laser_Mod_Progress,0, 0, 5, 20f);
-        progressPositionPrev(left_lower_guard,Laser_Mod_Progress,0, 0, 5, 20f);
-        progressRotationPrev(left_upper_guard,Laser_Mod_Progress,(float)Math.toRadians(45F),0,0,20f);
-        progressRotationPrev(left_lower_guard,Laser_Mod_Progress,(float)Math.toRadians(-45F),0,0,20f);
-        progressPositionPrev(leftlaser,Laser_Mod_Progress,0, 0, -6, 20f);
-        progressPositionPrev(leftlaser2,Laser_Mod_Progress,0, 0, -2, 20f);
-        progressPositionPrev(right_upper_guard,Laser_Mod_Progress,0, 0, 5, 20f);
-        progressPositionPrev(right_lower_guard,Laser_Mod_Progress,0, 0, 5, 20f);
-        progressRotationPrev(right_upper_guard,Laser_Mod_Progress,(float)Math.toRadians(45F),0,0,20f);
-        progressRotationPrev(right_lower_guard,Laser_Mod_Progress,(float)Math.toRadians(-45F),0,0,20f);
-        progressPositionPrev(rightlaser,Laser_Mod_Progress,0, 0, -6, 20f);
-        progressPositionPrev(rightlaser2,Laser_Mod_Progress,0, 0, -2, 20f);
+        float Laser_Mode_Progress = entityIn.prev_Laser_Mode_Progress + (entityIn.Laser_Mode_Progress - entityIn.prev_Laser_Mode_Progress) * partialTick;
+        progressPositionPrev(left_upper_guard,Laser_Mode_Progress,0, 0, 5, 20f);
+        progressPositionPrev(left_lower_guard,Laser_Mode_Progress,0, 0, 5, 20f);
+        progressRotationPrev(left_upper_guard,Laser_Mode_Progress,(float)Math.toRadians(45F),0,0,20f);
+        progressRotationPrev(left_lower_guard,Laser_Mode_Progress,(float)Math.toRadians(-45F),0,0,20f);
+        progressPositionPrev(leftlaser,Laser_Mode_Progress,0, 0, -6, 20f);
+        progressPositionPrev(leftlaser2,Laser_Mode_Progress,0, 0, -2, 20f);
+        progressPositionPrev(right_upper_guard,Laser_Mode_Progress,0, 0, 5, 20f);
+        progressPositionPrev(right_lower_guard,Laser_Mode_Progress,0, 0, 5, 20f);
+        progressRotationPrev(right_upper_guard,Laser_Mode_Progress,(float)Math.toRadians(45F),0,0,20f);
+        progressRotationPrev(right_lower_guard,Laser_Mode_Progress,(float)Math.toRadians(-45F),0,0,20f);
+        progressPositionPrev(rightlaser,Laser_Mode_Progress,0, 0, -6, 20f);
+        progressPositionPrev(rightlaser2,Laser_Mode_Progress,0, 0, -2, 20f);
     }
 
     private static void setupHeadRotation(The_Harbinger_Entity entityIn, AdvancedModelBox p_171073_, int p_171074_) {
-        p_171073_.rotateAngleY = (entityIn.getHeadYRot(p_171074_) - entityIn.yBodyRot) * ((float)Math.PI / 180F);
-        p_171073_.rotateAngleX = entityIn.getHeadXRot(p_171074_) * ((float)Math.PI / 180F);
+        p_171073_.rotateAngleY += (entityIn.getHeadYRot(p_171074_) - entityIn.yBodyRot) * ((float)Math.PI / 180F);
+        p_171073_.rotateAngleX += entityIn.getHeadXRot(p_171074_) * ((float)Math.PI / 180F);
 
     }
 

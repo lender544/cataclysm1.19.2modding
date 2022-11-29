@@ -33,7 +33,7 @@ public class RendererLaser_Beam extends EntityRenderer<Laser_Beam_Entity> {
 
         matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(45.0F));
         matrixStackIn.scale(0.05625F, 0.05625F, 0.05625F);
-        matrixStackIn.translate(-4.0D, 0.0D, 0.0D);
+        matrixStackIn.translate(0.0D, 0.0D, 0.0D);
         VertexConsumer vertexconsumer = bufferIn.getBuffer(RENDER_TYPE_RED);
         PoseStack.Pose posestack$pose = matrixStackIn.last();
         Matrix4f matrix4f = posestack$pose.pose();

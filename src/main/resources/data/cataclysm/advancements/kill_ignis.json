@@ -13,7 +13,7 @@
   },
   "parent": "cataclysm:kill_revenant",
   "criteria": {
-    "endergolem": {
+    "ignis": {
       "trigger": "minecraft:player_killed_entity",
       "conditions": {
         "entity": {
