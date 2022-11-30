@@ -188,6 +188,13 @@ public class ModEntities {
             .setShouldReceiveVelocityUpdates(true)
             .build(cataclysm.MODID + ":wither_missile"));
 
+    public static final RegistryObject<EntityType<Wither_Howitzer_Entity>> WITHER_HOWITZER = ENTITY_TYPE.register("wither_howitzer", () -> EntityType.Builder.<Wither_Howitzer_Entity>of(Wither_Howitzer_Entity::new, MobCategory.MISC)
+            .sized(0.5f, 0.5f)
+            .fireImmune()
+            .setShouldReceiveVelocityUpdates(true)
+            .setUpdateInterval(20)
+            .build(cataclysm.MODID + ":wither_howitzer"));
+
     @SubscribeEvent
     public static void initializeAttributes(EntityAttributeCreationEvent event) {
         SpawnPlacements.register(ENDERMAPTERA.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Endermaptera_Entity::canSpawn);

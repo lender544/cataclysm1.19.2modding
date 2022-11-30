@@ -3,13 +3,14 @@ package L_Ender.cataclysm.client.model.entity;// Made with Blockbench 4.5.2
 // Paste this class into your mod and generate all required imports
 
 
+import L_Ender.cataclysm.entity.projectile.Wither_Howitzer_Entity;
 import com.github.alexthe666.citadel.client.model.AdvancedEntityModel;
 import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
 import com.github.alexthe666.citadel.client.model.basic.BasicModelPart;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.world.entity.Entity;
 
-public class ModelWither_Howitzer extends AdvancedEntityModel<Entity> {
+public class ModelWither_Howitzer extends AdvancedEntityModel<Wither_Howitzer_Entity> {
 	private final AdvancedModelBox root;
 	private final AdvancedModelBox warhead;
 
@@ -49,10 +50,7 @@ public class ModelWither_Howitzer extends AdvancedEntityModel<Entity> {
 	}
 
 	@Override
-	public void setupAnim(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
-	{
-		this.root.rotateAngleY = netHeadYaw * ((float) Math.PI / 180F);
-		this.root.rotateAngleX = headPitch * ((float) Math.PI / 180F);
+	public void setupAnim(Wither_Howitzer_Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 	}
 
 }

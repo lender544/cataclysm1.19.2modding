@@ -91,9 +91,9 @@ public class Wither_Missile_Entity  extends Projectile {
                 }
                 f = 0.8F;
             }else{
-                this.level.addParticle(ParticleTypes.FLAME, d0, d1 + 0.35D, d2, 0.0D, 0.0D, 0.0D);
+                this.level.addParticle(ParticleTypes.FLAME, this.getX() - vec3.x, this.getY() - vec3.y + 0.35D, this.getZ() - vec3.z, 0.0D, 0.0D, 0.0D);
             }
-            this.level.addParticle(ParticleTypes.SMOKE, d0, d1 + 0.35D, d2, 0.0D, 0.0D, 0.0D);
+            this.level.addParticle(ParticleTypes.SMOKE, this.getX() - vec3.x, this.getY() - vec3.y + 0.35D, this.getZ() - vec3.z, 0.0D, 0.0D, 0.0D);
             this.setDeltaMovement(vec3.add(this.xPower, this.yPower, this.zPower).scale((double)f));
             this.setPos(d0, d1, d2);
         } else {
@@ -123,16 +123,14 @@ public class Wither_Missile_Entity  extends Projectile {
             }
 
             if (flag && entity instanceof LivingEntity) {
-                int i = 0;
+                int i = 10;
                 if (this.level.getDifficulty() == Difficulty.NORMAL) {
-                    i = 10;
+                    i = 20;
                 } else if (this.level.getDifficulty() == Difficulty.HARD) {
-                    i = 40;
+                    i = 30;
                 }
 
-                if (i > 0) {
-                    ((LivingEntity)entity).addEffect(new MobEffectInstance(MobEffects.WITHER, 20 * i, 1), this.getEffectSource());
-                }
+                ((LivingEntity)entity).addEffect(new MobEffectInstance(MobEffects.WITHER, 20 * i, 1), this.getEffectSource());
             }
 
         }
@@ -157,7 +155,7 @@ public class Wither_Missile_Entity  extends Projectile {
     }
 
     protected float getInertia() {
-        return 1.05F;
+        return 1.0F;
     }
 
     public void addAdditionalSaveData(CompoundTag p_36848_) {

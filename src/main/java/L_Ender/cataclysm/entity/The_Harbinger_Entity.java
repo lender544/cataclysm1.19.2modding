@@ -55,7 +55,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     private static final EntityDataAccessor<Integer> DATA_TARGET_C = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
     private static final List<EntityDataAccessor<Integer>> DATA_TARGETS = ImmutableList.of(DATA_TARGET_A, DATA_TARGET_B, DATA_TARGET_C);
     private static final EntityDataAccessor<Boolean> LASER_MODE = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.BOOLEAN);
-    public static final int MODE_CHANGE_COOLDOWN = 250;
+    public static final int MODE_CHANGE_COOLDOWN = 300;
     private final float[] xRotHeads = new float[2];
     private final float[] yRotHeads = new float[2];
     private final float[] xRotOHeads = new float[2];
@@ -151,16 +151,6 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         }
         if (!this.getIsLaserMode() && Laser_Mode_Progress > 0F) {
             Laser_Mode_Progress--;
-        }
-
-        LivingEntity target = this.getTarget();
-        if (!level.isClientSide) {
-            mode_change_cooldown++;
-            if(mode_change_cooldown >= MODE_CHANGE_COOLDOWN ){
-                this.setIsLaserMode(!this.getIsLaserMode());
-                mode_change_cooldown = this.random.nextInt(50);
-            }
-
         }
 
         if(this.getAnimation() == NO_ANIMATION){
@@ -299,6 +289,13 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
                     }
                 }
             }
+        }
+
+        if(mode_change_cooldown < MODE_CHANGE_COOLDOWN ) {
+            mode_change_cooldown++;
+        }else{
+            this.setIsLaserMode(!this.getIsLaserMode());
+            mode_change_cooldown = this.random.nextInt(50);
         }
 
         if (this.getTarget() != null) {
