@@ -1,7 +1,6 @@
 package L_Ender.cataclysm.entity.effect;
 
 import L_Ender.cataclysm.init.ModEntities;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -21,9 +20,9 @@ import net.minecraft.world.level.material.PushReaction;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class Smoke_Effect_Entity extends Entity {
-    private static final EntityDataAccessor<Float> DATA_RADIUS = SynchedEntityData.defineId(Smoke_Effect_Entity.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Boolean> DATA_WAITING = SynchedEntityData.defineId(Smoke_Effect_Entity.class, EntityDataSerializers.BOOLEAN);
+public class Wither_Smoke_Effect_Entity extends Entity {
+    private static final EntityDataAccessor<Float> DATA_RADIUS = SynchedEntityData.defineId(Wither_Smoke_Effect_Entity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Boolean> DATA_WAITING = SynchedEntityData.defineId(Wither_Smoke_Effect_Entity.class, EntityDataSerializers.BOOLEAN);
     private static final float MAX_RADIUS = 32.0F;
     private int duration = 600;
     private int waitTime = 20;
@@ -35,14 +34,14 @@ public class Smoke_Effect_Entity extends Entity {
     @Nullable
     private UUID ownerUUID;
 
-    public Smoke_Effect_Entity(EntityType<? extends Smoke_Effect_Entity> p_19704_, Level p_19705_) {
+    public Wither_Smoke_Effect_Entity(EntityType<? extends Wither_Smoke_Effect_Entity> p_19704_, Level p_19705_) {
         super(p_19704_, p_19705_);
         this.noPhysics = true;
         this.setRadius(3.0F);
     }
 
-    public Smoke_Effect_Entity(Level p_19707_, double p_19708_, double p_19709_, double p_19710_) {
-        this(ModEntities.SMOKE_EFFECT.get(), p_19707_);
+    public Wither_Smoke_Effect_Entity(Level p_19707_, double p_19708_, double p_19709_, double p_19710_) {
+        this(ModEntities.WITHER_SMOKE_EFFECT.get(), p_19707_);
         this.setPos(p_19708_, p_19709_, p_19710_);
     }
 
@@ -96,7 +95,6 @@ public class Smoke_Effect_Entity extends Entity {
                 return;
             }
 
-            ParticleOptions particleoptions = ParticleTypes.SMOKE;
             int i;
             float f1;
             if (flag) {
@@ -107,14 +105,14 @@ public class Smoke_Effect_Entity extends Entity {
                 f1 = f;
             }
 
-            for(int j = 0; j < 20 + random.nextInt(5); ++j) {
+            for(int j = 0; j < 10 + random.nextInt(2); ++j) {
                 float f2 = this.random.nextFloat() * ((float)Math.PI * 2F);
                 float f3 = Mth.sqrt(this.random.nextFloat()) * f1;
                 double d0 = this.getX() + (double)(Mth.cos(f2) * f3);
                 double d2 = this.getY();
                 double d4 = this.getZ() + (double)(Mth.sin(f2) * f3);
 
-                this.level.addAlwaysVisibleParticle(particleoptions, d0, d2, d4, 0.0D, this.random.nextGaussian() * 0.07D, 0.0D);
+                this.level.addAlwaysVisibleParticle(ParticleTypes.SMOKE, d0, d2, d4, 0.0D, this.random.nextGaussian() * 0.07D, 0.0D);
             }
         } else {
             if (this.tickCount >= this.waitTime + this.duration) {
@@ -154,23 +152,19 @@ public class Smoke_Effect_Entity extends Entity {
         if (Hitentity.isAlive() && !Hitentity.isInvulnerable() && Hitentity != caster) {
             if (this.tickCount % 5 == 0) {
                 if (caster == null) {
-                    boolean flag = Hitentity.hurt(DamageSource.GENERIC, 5);
+                    boolean flag = Hitentity.hurt(DamageSource.WITHER, 3);
                     if(flag){
-                        MobEffectInstance effectinstance = new MobEffectInstance(MobEffects.BLINDNESS, 160, 0, false, false, true);
-                        MobEffectInstance effectinstance1 = new MobEffectInstance(MobEffects.CONFUSION, 160, 0, false, false, true);
+                        MobEffectInstance effectinstance = new MobEffectInstance(MobEffects.WITHER, 160, 0, false, false, true);
                         Hitentity.addEffect(effectinstance);
-                        Hitentity.addEffect(effectinstance1);
                     }
                 } else {
                     if (caster.isAlliedTo(Hitentity)) {
                         return;
                     }
-                    boolean flag = Hitentity.hurt(DamageSource.indirectMobAttack(this, caster), 5);
+                    boolean flag = Hitentity.hurt(DamageSource.indirectMagic(this, caster), 3);
                     if(flag){
-                       MobEffectInstance effectinstance = new MobEffectInstance(MobEffects.BLINDNESS, 160, 0, false, false, true);
-                       MobEffectInstance effectinstance1 = new MobEffectInstance(MobEffects.CONFUSION, 160, 0, false, false, true);
+                       MobEffectInstance effectinstance = new MobEffectInstance(MobEffects.WITHER, 160, 0, false, false, true);
                        Hitentity.addEffect(effectinstance);
-                        Hitentity.addEffect(effectinstance1);
                     }
                 }
             }

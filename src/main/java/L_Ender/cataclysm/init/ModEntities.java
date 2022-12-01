@@ -138,12 +138,11 @@ public class ModEntities {
             .setShouldReceiveVelocityUpdates(true)
             .build(cataclysm.MODID + ":ignis_abyss_fireball"));
 
-    public static final RegistryObject<EntityType<Smoke_Effect_Entity>> SMOKE_EFFECT = ENTITY_TYPE.register("smoke_effect", () -> EntityType.Builder.<Smoke_Effect_Entity>of(Smoke_Effect_Entity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<Wither_Smoke_Effect_Entity>> WITHER_SMOKE_EFFECT = ENTITY_TYPE.register("wither_smoke_effect", () -> EntityType.Builder.<Wither_Smoke_Effect_Entity>of(Wither_Smoke_Effect_Entity::new, MobCategory.MISC)
             .sized(6.0F, 0.5F)
-            .noSummon()
             .fireImmune()
             .clientTrackingRange(10).updateInterval(Integer.MAX_VALUE)
-            .build(cataclysm.MODID + ":smoke_effect"));
+            .build(cataclysm.MODID + ":wither_smoke_effect"));
 
     public static final RegistryObject<EntityType<Flame_Strike_Entity>> FLAME_STRIKE = ENTITY_TYPE.register("flame_strike", () -> EntityType.Builder.<Flame_Strike_Entity>of(Flame_Strike_Entity::new, MobCategory.MISC)
             .sized(6.0F, 0.5F)

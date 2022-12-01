@@ -302,9 +302,8 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
 
         animator.resetKeyframe(10);
 
-
         animator.setAnimation(The_Harbinger_Entity.DEATH_ANIMATION);
-        animator.startKeyframe(3);
+        animator.startKeyframe(5);
         animator.rotate(main_head,(float)Math.toRadians(-40F),0, 0);
         animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
         animator.rotate(jaw,(float)Math.toRadians(37.5F),0, 0);
@@ -312,9 +311,9 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         animator.rotate(lefthead,(float)Math.toRadians(2.5F),(float)Math.toRadians(-35F), 0);
         animator.endKeyframe();
 
-        animator.setStaticKeyframe(8);
+        animator.setStaticKeyframe(5);
 
-        animator.startKeyframe(3);
+        animator.startKeyframe(5);
         animator.rotate(main_head,(float)Math.toRadians(-47.5F),0, 0);
         animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
         animator.rotate(jaw,(float)Math.toRadians(37.5F),0, 0);
@@ -322,9 +321,59 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         animator.rotate(lefthead,(float)Math.toRadians(55F),(float)Math.toRadians(-85F), 0);
         animator.endKeyframe();
 
-        animator.setStaticKeyframe(130);
+        animator.setStaticKeyframe(5);
 
+        animator.setAnimation(The_Harbinger_Entity.LAUNCH_ANIAMATION);
+        animator.startKeyframe(5);
+        animator.rotate(root,(float)Math.toRadians(-5F),0, 0);
+        animator.rotate(main_head,(float)Math.toRadians(-17.5F),0, 0);
+        animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
+        animator.rotate(jaw,(float)Math.toRadians(-5F),0, 0);
+        animator.rotate(righthead,(float)Math.toRadians(-70F),0, 0);
+        animator.rotate(lefthead,(float)Math.toRadians(-70F),0, 0);
+        animator.endKeyframe();
 
+        animator.setStaticKeyframe(5);
+
+        animator.startKeyframe(3);
+        animator.rotate(root,(float)Math.toRadians(-5F),0, (float)Math.toRadians(-5F));
+        animator.rotate(main_head,(float)Math.toRadians(-5F),0, 0);
+        animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
+        animator.rotate(jaw,(float)Math.toRadians(20F),0, 0);
+        animator.rotate(righthead,(float)Math.toRadians(-70F),0, 0);
+        animator.move(righthead,0,2, 0);
+        animator.rotate(lefthead,(float)Math.toRadians(-70F),0, 0);
+        animator.endKeyframe();
+
+        animator.setStaticKeyframe(3);
+
+        animator.startKeyframe(3);
+        animator.rotate(root,(float)Math.toRadians(-5F),0, (float)Math.toRadians(5F));
+        animator.rotate(main_head,(float)Math.toRadians(-10F),0, 0);
+        animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
+        animator.rotate(jaw,(float)Math.toRadians(25F),0, 0);
+        animator.rotate(righthead,(float)Math.toRadians(-70F),0, 0);
+        animator.move(righthead,0,2, 0);
+        animator.rotate(lefthead,(float)Math.toRadians(-70F),0, 0);
+        animator.move(lefthead,0,3, 0);
+        animator.endKeyframe();
+
+        animator.setStaticKeyframe(5);
+
+        animator.startKeyframe(10);
+        animator.rotate(root,(float)Math.toRadians(-2.5F),0, 0);
+        animator.rotate(main_head,(float)Math.toRadians(-10F),0, 0);
+        animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
+        animator.rotate(jaw,(float)Math.toRadians(25F),0, 0);
+        animator.rotate(righthead,(float)Math.toRadians(-60F),0, 0);
+        animator.move(righthead,0,1, 0);
+        animator.rotate(lefthead,(float)Math.toRadians(-60F),0, 0);
+        animator.move(lefthead,0,2, 0);
+        animator.endKeyframe();
+
+        animator.setStaticKeyframe(5);
+
+        animator.resetKeyframe(10);
     }
 
     @Override
@@ -335,13 +384,11 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         this.walk(body, idleSpeed * 0.75F, idleDegree * 0.5F, true, 0, -0.05F, ageInTicks, 1);
         this.walk(tail, idleSpeed * 0.75F, idleDegree * 0.35F, true, 1, -0.05F, ageInTicks, 1);
 
-        if(entityIn.getAnimation() != The_Harbinger_Entity.DEATH_ANIMATION) {
+        if(entityIn.getAnimation() == The_Harbinger_Entity.NO_ANIMATION) {
+            this.main_head.rotateAngleY += netHeadYaw * ((float) Math.PI / 180F);
+            this.main_head.rotateAngleX += headPitch * ((float) Math.PI / 180F);
             setupHeadRotation(entityIn, this.righthead, 0);
             setupHeadRotation(entityIn, this.lefthead, 1);
-        }
-        if(entityIn.getAnimation() == The_Harbinger_Entity.NO_ANIMATION) {
-            this.main_head.rotateAngleY = netHeadYaw * ((float) Math.PI / 180F);
-            this.main_head.rotateAngleX = headPitch * ((float) Math.PI / 180F);
         }
 
         float partialTick = ageInTicks - entityIn.tickCount;
