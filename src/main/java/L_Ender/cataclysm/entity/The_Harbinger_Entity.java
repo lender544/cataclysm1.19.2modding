@@ -4,9 +4,11 @@ import L_Ender.cataclysm.entity.AI.SimpleAnimationGoal;
 import L_Ender.cataclysm.entity.projectile.*;
 import L_Ender.cataclysm.init.ModEntities;
 import L_Ender.cataclysm.init.ModParticle;
+import L_Ender.cataclysm.init.ModTag;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.google.common.collect.ImmutableList;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -34,9 +36,13 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -48,11 +54,12 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     public static final Animation DEATHLASER_ANIMATION = Animation.create(74);
     public static final Animation CHARGE_ANIMATION = Animation.create(39);
     public static final Animation DEATH_ANIMATION = Animation.create(144);
-    public static final Animation LAUNCH_ANIAMATION = Animation.create(49);
-    private static final EntityDataAccessor<Integer> DATA_TARGET_A = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> DATA_TARGET_B = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> DATA_TARGET_C = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
-    private static final List<EntityDataAccessor<Integer>> DATA_TARGETS = ImmutableList.of(DATA_TARGET_A, DATA_TARGET_B, DATA_TARGET_C);
+    public static final Animation LAUNCH_ANIAMATION = Animation.create(59);
+    public static final int SKILL_COOLDOWN = 300;
+    private static final EntityDataAccessor<Integer> FIRST_HEAD_TARGET = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> SECOND_HEAD_TARGET = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> THIRD_HEAD_TARGET = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
+    private static final List<EntityDataAccessor<Integer>> HEAD_TARGETS = ImmutableList.of(FIRST_HEAD_TARGET, SECOND_HEAD_TARGET, THIRD_HEAD_TARGET);
     private static final EntityDataAccessor<Boolean> LASER_MODE = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.BOOLEAN);
     public static final int MODE_CHANGE_COOLDOWN = 300;
     private final float[] xRotHeads = new float[2];
@@ -65,7 +72,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     public float prev_Laser_Mode_Progress;
 
     private int mode_change_cooldown = 0;
-
+    private int skill_cooldown = 200;
 
     private static final Predicate<LivingEntity> LIVING_ENTITY_SELECTOR = (p_31504_) -> {
         return p_31504_.attackable();
@@ -99,6 +106,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     public static AttributeSupplier.Builder harbinger() {
         return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 300.0D)
                 .add(Attributes.MOVEMENT_SPEED, (double)0.6F)
+                .add(Attributes.ATTACK_DAMAGE, (double)10F)
                 .add(Attributes.FLYING_SPEED, (double)0.6F)
                 .add(Attributes.FOLLOW_RANGE, 40.0D)
                 .add(Attributes.ARMOR, 4.0D);
@@ -129,9 +137,9 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(LASER_MODE, false);;
-        this.entityData.define(DATA_TARGET_A, 0);
-        this.entityData.define(DATA_TARGET_B, 0);
-        this.entityData.define(DATA_TARGET_C, 0);
+        this.entityData.define(FIRST_HEAD_TARGET, 0);
+        this.entityData.define(SECOND_HEAD_TARGET, 0);
+        this.entityData.define(THIRD_HEAD_TARGET, 0);
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
@@ -140,6 +148,20 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+    }
+
+
+    public boolean hurt(DamageSource source, float p_31462_) {
+        Entity entity1 = source.getEntity();
+        if (entity1 instanceof The_Harbinger_Entity) {
+            return false;
+        } else {
+            for(int i = 0; i < this.idleHeadUpdates.length; ++i) {
+                this.idleHeadUpdates[i] += 3;
+            }
+
+            return super.hurt(source, p_31462_);
+        }
     }
 
     public void aiStep() {
@@ -153,14 +175,13 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
             Laser_Mode_Progress--;
         }
 
-        if(this.getAnimation() == NO_ANIMATION){
-            this.setAnimation(LAUNCH_ANIAMATION);
-        }
-        if (!this.level.isClientSide && this.getAlternativeTarget(0) > 0 ) {
-            Entity entity = this.level.getEntity(this.getAlternativeTarget(0));
+        if (skill_cooldown > 0) skill_cooldown--;
+
+        Entity entity = this.level.getEntity(this.getAlternativeTarget(0));
+        if (!this.level.isClientSide && this.getAlternativeTarget(0) > 0 && this.isAlive()) {
             if (entity != null) {
                 double d0 = vec3.y;
-                if (this.getY() < entity.getY() + 5.0D) {
+                if (this.getY() < entity.getY() + 3.5D) {
                     d0 = Math.max(0.0D, d0);
                     d0 += 0.3D - d0 * (double)0.6F;
                 }
@@ -174,6 +195,22 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
             }
         }
 
+
+        LivingEntity target = this.getTarget();
+        if (this.isAlive()) {
+            if (target != null && target.isAlive()) {
+                if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.getRandom().nextFloat() * 100.0F < 1f) {
+                    skill_cooldown = SKILL_COOLDOWN;
+                    this.setAnimation(CHARGE_ANIMATION);
+                } else if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.getRandom().nextFloat() * 100.0F < 3f && Laser_Mode_Progress == 0) {
+                    skill_cooldown = SKILL_COOLDOWN;
+                    this.setAnimation(CHARGE_ANIMATION);
+                }
+            }
+        }
+
+
+
         this.setDeltaMovement(vec3);
         if (vec3.horizontalDistanceSqr() > 0.05D) {
             this.setYRot((float)Mth.atan2(vec3.z, vec3.x) * (180F / (float)Math.PI) - 90.0F);
@@ -186,6 +223,24 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
             this.yRotOHeads[i] = this.yRotHeads[i];
             this.xRotOHeads[i] = this.xRotHeads[i];
         }
+
+
+        if(this.getAnimation() == CHARGE_ANIMATION) {
+            if (this.getAnimationTick() >= 18) {
+                blockbreak();
+                if(this.tickCount % 4 == 0){
+                    for (LivingEntity Lentity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.5D))) {
+                        if (!isAlliedTo(Lentity) && !(Lentity instanceof The_Harbinger_Entity) && Lentity != this) {
+                            boolean flag = Lentity.hurt(DamageSource.mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
+                            if (flag) {
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
 
         for(int j = 0; j < 2; ++j) {
             int k = this.getAlternativeTarget(j + 1);
@@ -249,6 +304,25 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
 
     }
 
+
+    private void blockbreak(){
+        if (!this.level.isClientSide){
+            if (ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+                boolean flag = false;
+                AABB aabb = this.getBoundingBox().inflate(0.5D);
+                for(BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(aabb.minY), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
+                    BlockState blockstate = this.level.getBlockState(blockpos);
+                    if (blockstate.canEntityDestroy(this.level, blockpos, this) && !blockstate.is(ModTag.IGNIS_IMMUNE) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(this, blockpos, blockstate)) {
+                        flag = this.level.destroyBlock(blockpos, true, this) || flag;
+                    }
+                }
+                if (flag) {
+                    this.level.levelEvent((Player)null, 1022, this.blockPosition(), 0);
+
+                }
+            }
+        }
+    }
 
     protected void customServerAiStep() {
         super.customServerAiStep();
@@ -316,26 +390,26 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
 
     }
 
-    private double getHeadX(int p_31515_) {
-        if (p_31515_ <= 0) {
+    private double getHeadX(int head) {
+        if (head <= 0) {
             return this.getX();
         } else {
-            float f = (this.yBodyRot + (float)(180 * (p_31515_ - 1))) * ((float)Math.PI / 180F);
+            float f = (this.yBodyRot + (float)(180 * (head - 1))) * ((float)Math.PI / 180F);
             float f1 = Mth.cos(f);
             double f2 = this.getIsLaserMode() ? 1.65D : 1.5D;
             return this.getX() + (double)f1 * f2;
         }
     }
 
-    private double getHeadY(int p_31517_) {
-        return p_31517_ <= 0 ? this.getY() + 3.0D : this.getY() + 2.6D;
+    private double getHeadY(int head) {
+        return head <= 0 ? this.getY() + 3.0D : this.getY() + 2.6D;
     }
 
-    private double getHeadZ(int p_31519_) {
-        if (p_31519_ <= 0) {
+    private double getHeadZ(int head) {
+        if (head <= 0) {
             return this.getZ();
         } else {
-            float f = (this.yBodyRot + (float)(180 * (p_31519_ - 1))) * ((float)Math.PI / 180F);
+            float f = (this.yBodyRot + (float)(180 * (head - 1))) * ((float)Math.PI / 180F);
             float f1 = Mth.sin(f);
             double f2 = this.getIsLaserMode() ? 1.65D : 1.5D;
             return this.getZ() + (double)f1 * f2;
@@ -355,18 +429,18 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         return p_31443_ + f;
     }
 
-    private void performRangedAttack(int p_31458_, LivingEntity p_31459_) {
-        this.performRangedAttack(p_31458_, p_31459_.getX(), p_31459_.getY() + (double)p_31459_.getEyeHeight() * 0.5D, p_31459_.getZ());
+    private void performRangedAttack(int head, LivingEntity p_31459_) {
+        this.performRangedAttack(head, p_31459_.getX(), p_31459_.getY() + (double)p_31459_.getEyeHeight() * 0.5D, p_31459_.getZ());
     }
 
-    private void performRangedAttack(int p_31449_, double p_31450_, double p_31451_, double p_31452_) {
+    private void performRangedAttack(int head, double p_31450_, double p_31451_, double p_31452_) {
         if (!this.isSilent()) {
             this.level.levelEvent((Player)null, 1024, this.blockPosition(), 0);
         }
 
-        double d0 = this.getHeadX(p_31449_);
-        double d1 = this.getHeadY(p_31449_);
-        double d2 = this.getHeadZ(p_31449_);
+        double d0 = this.getHeadX(head);
+        double d1 = this.getHeadY(head);
+        double d2 = this.getHeadZ(head);
         double d3 = p_31450_ - d0;
         double d4 = p_31451_ - d1;
         double d5 = p_31452_ - d2;
@@ -392,20 +466,20 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         super.repelEntities(x, y, z, radius);
     }
 
-    public float getHeadYRot(int p_31447_) {
-        return this.yRotHeads[p_31447_];
+    public float getHeadYRot(int head) {
+        return this.yRotHeads[head];
     }
 
-    public float getHeadXRot(int p_31481_) {
-        return this.xRotHeads[p_31481_];
+    public float getHeadXRot(int head) {
+        return this.xRotHeads[head];
     }
 
-    public int getAlternativeTarget(int p_31513_) {
-        return this.entityData.get(DATA_TARGETS.get(p_31513_));
+    public int getAlternativeTarget(int head) {
+        return this.entityData.get(HEAD_TARGETS.get(head));
     }
 
-    public void setAlternativeTarget(int p_31455_, int p_31456_) {
-        this.entityData.set(DATA_TARGETS.get(p_31455_), p_31456_);
+    public void setAlternativeTarget(int targetOffset, int newId) {
+        this.entityData.set(HEAD_TARGETS.get(targetOffset), newId);
     }
 
 
@@ -445,6 +519,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         }
 
         public void tick() {
+            LivingEntity target = entity.getTarget();
             if (entity.getAnimationTick() == 8 && !entity.level.isClientSide) {
                 //Death_Laser_Beam_Entity DeathBeam = new Death_Laser_Beam_Entity(ModEntities.DEATH_LASER_BEAM.get(), entity.level, entity, entity.getX() + radius1 * Math.sin(-entity.getYRot() * Math.PI / 180), entity.getY() + 2.9, entity.getZ() + radius1 * Math.cos(-entity.getYRot() * Math.PI / 180), (float) ((entity.yHeadRot + 90) * Math.PI / 180), (float) (-entity.getXRot() * Math.PI / 180), 20);
                 Death_Laser_Beam_Entity DeathBeam = new Death_Laser_Beam_Entity(ModEntities.DEATH_LASER_BEAM.get(), entity.level, entity, entity.getX(), entity.getY() + 2.9, entity.getZ(), (float) ((entity.yHeadRot + 90) * Math.PI / 180), (float) (-entity.getXRot() * Math.PI / 180), 20);
@@ -452,12 +527,9 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
             }
 
             if (entity.getAnimationTick() >= 25) {
-                if (!entity.level.isClientSide && entity.getAlternativeTarget(0) > 0 ) {
-                    Entity target = entity.level.getEntity(entity.getAlternativeTarget(0));
-                    if (target != null) {
-                        entity.getLookControl().setLookAt(target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ(), 2, 90);
-                        entity.lookAt(target, 30, 30);
-                    }
+                if (target != null) {
+                    entity.getLookControl().setLookAt(target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ(), 30, 90);
+                    entity.lookAt(target, 30, 30);
                 }
             }
         }
@@ -471,21 +543,20 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         }
 
         public void tick() {
-            if (!entity.level.isClientSide && entity.getAlternativeTarget(0) > 0 ) {
-                Entity target = entity.level.getEntity(entity.getAlternativeTarget(0));
-                if (target != null) {
-                    if (entity.getAnimationTick() < 19) {
-                        entity.lookAt(target, 30, 30);
-                        entity.getLookControl().setLookAt(target, 30, 30);
-                    }
-                    if (entity.getAnimationTick() == 18) {
-                        //  Vec3 vec3 = (new Vec3(target.getX() - entity.getX(), target.getY() - entity.getY(), target.getZ() - entity.getZ()));
-                        // entity.setDeltaMovement(vec3.x * 0.8,vec3.y * 1.0, vec3.z * 0.8);
-                        //entity.setDeltaMovement(entity.getDeltaMovement().add(vec3.x * 0.8D, 0.9D, vec3.z * 0.8D));
-                        Vec3 rot = target.position().subtract(0.0, 2.0, 0.0).add(entity.position().multiply(-1.0, -1.0, -1.0)).normalize();
-                        entity.setDeltaMovement(rot.multiply(4.0, 3.0, 4.0));
-                    }
+            LivingEntity target = entity.getTarget();
+            if (target != null) {
+                if (entity.getAnimationTick() < 18) {
+                    entity.lookAt(target, 30, 30);
+                    entity.getLookControl().setLookAt(target, 30, 30);
                 }
+                if (entity.getAnimationTick() == 18) {
+                    //  Vec3 vec3 = (new Vec3(target.getX() - entity.getX(), target.getY() - entity.getY(), target.getZ() - entity.getZ()));
+                    // entity.setDeltaMovement(vec3.x * 0.8,vec3.y * 1.0, vec3.z * 0.8);
+                    //entity.setDeltaMovement(entity.getDeltaMovement().add(vec3.x * 0.8D, 0.9D, vec3.z * 0.8D));
+                    Vec3 rot = target.position().subtract(0.0, 2.0, 0.0).add(entity.position().multiply(-1.0, -1.0, -1.0)).normalize();
+                    entity.setDeltaMovement(rot.multiply(4.0, 5.0, 4.0));
+                }
+
             }
         }
     }
@@ -498,33 +569,48 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         }
 
         public void tick() {
-            if (!entity.level.isClientSide && entity.getAlternativeTarget(0) > 0 ) {
-                Entity target = entity.level.getEntity(entity.getAlternativeTarget(0));
-                if (target != null) {
-                    if (entity.getAnimationTick() == 13) {
-                        this.launch(2, (LivingEntity) target);
-                    }
+            for (int i = 1; i < 3; ++i) {
+                int l1 = entity.getAlternativeTarget(i);
+                if (l1 > 0) {
+                    LivingEntity livingentity = (LivingEntity) entity.level.getEntity(l1);
+                    if (livingentity != null && entity.canAttack(livingentity) && !(entity.distanceToSqr(livingentity) > 1600.0D) && entity.hasLineOfSight(livingentity)) {
+                        if (entity.getAnimationTick() == 13) {
+                            this.launch(2, (LivingEntity) livingentity);
+                            break;
+                        }
 
-                    if (entity.getAnimationTick() == 19) {
-                        this.launch(1, (LivingEntity) target);
+                        if (entity.getAnimationTick() == 19) {
+                            this.launch(1, (LivingEntity) livingentity);
+                            break;
+                        }
+                    } else {
+                        entity.setAlternativeTarget(i, 0);
+                    }
+                } else {
+                    List<LivingEntity> list = entity.level.getNearbyEntities(LivingEntity.class, TARGETING_CONDITIONS, entity, entity.getBoundingBox().inflate(20.0D, 8.0D, 20.0D));
+                    if (!list.isEmpty()) {
+                        LivingEntity livingentity1 = list.get(entity.random.nextInt(list.size()));
+                        entity.setAlternativeTarget(i, livingentity1.getId());
                     }
                 }
+
             }
+
         }
 
 
-        private void launch(int p_31458_, LivingEntity p_31459_) {
-            this.launch(p_31458_, p_31459_.getX(), p_31459_.getY() + (double)p_31459_.getEyeHeight() * 0.5D, p_31459_.getZ());
+        private void launch(int head, LivingEntity p_31459_) {
+            this.launch(head, p_31459_.getX(), p_31459_.getY() + (double)p_31459_.getEyeHeight() * 0.5D, p_31459_.getZ());
         }
 
 
-        private void launch(int p_31449_, double p_31450_, double p_31451_, double p_31452_) {
+        private void launch(int head, double p_31450_, double p_31451_, double p_31452_) {
             if (!entity.isSilent()) {
                 entity.level.levelEvent((Player)null, 1024, entity.blockPosition(), 0);
             }
-            double d0 = entity.getHeadX(p_31449_);
-            double d1 = entity.getHeadY(p_31449_);
-            double d2 = entity.getHeadZ(p_31449_);
+            double d0 = entity.getHeadX(head);
+            double d1 = entity.getHeadY(head);
+            double d2 = entity.getHeadZ(head);
             double d3 = p_31450_ - d0;
             double d4 = p_31451_ - d1;
             double d5 = p_31452_ - d2;

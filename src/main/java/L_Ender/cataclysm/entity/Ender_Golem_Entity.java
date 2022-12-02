@@ -220,7 +220,7 @@ public class Ender_Golem_Entity extends Boss_monster {
             }
             if ((this.getAnimation() == ANIMATION_ATTACK1 || this.getAnimation() == ANIMATION_ATTACK2) && this.getAnimationTick() == 13) {
                 this.playSound(ModSounds.GOLEMATTACK.get(), 1, 1);
-                if (target != null) {
+                if (target != null && target.isAlive()) {
                     if (this.distanceTo(target) < 4.75F) {
                         target.hurt(DamageSource.mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) + this.random.nextInt(4));
                         target.knockback(1.25F, this.getX() - target.getX(), this.getZ() - target.getZ());

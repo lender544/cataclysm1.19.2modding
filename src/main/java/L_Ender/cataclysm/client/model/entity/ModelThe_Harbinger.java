@@ -249,9 +249,7 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         animator.rotate(jaw,(float)Math.toRadians(-17.5F),0, 0);
         animator.rotate(jetpack,(float)Math.toRadians(-7.5F),0, 0);
         animator.endKeyframe();
-
         animator.setStaticKeyframe(5);
-
         animator.startKeyframe(3);
         animator.rotate(root,(float)Math.toRadians(17.5F),0, 0);
         animator.rotate(main_head,(float)Math.toRadians(-15F),0, 0);
@@ -273,7 +271,6 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         animator.setStaticKeyframe(6);
 
         animator.resetKeyframe(10);
-
 
         animator.setAnimation(The_Harbinger_Entity.CHARGE_ANIMATION);
         animator.startKeyframe(8);
@@ -321,7 +318,8 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         animator.rotate(lefthead,(float)Math.toRadians(55F),(float)Math.toRadians(-85F), 0);
         animator.endKeyframe();
 
-        animator.setStaticKeyframe(5);
+        animator.setStaticKeyframe(129);
+
 
         animator.setAnimation(The_Harbinger_Entity.LAUNCH_ANIAMATION);
         animator.startKeyframe(5);
@@ -384,12 +382,16 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         this.walk(body, idleSpeed * 0.75F, idleDegree * 0.5F, true, 0, -0.05F, ageInTicks, 1);
         this.walk(tail, idleSpeed * 0.75F, idleDegree * 0.35F, true, 1, -0.05F, ageInTicks, 1);
 
-        if(entityIn.getAnimation() == The_Harbinger_Entity.NO_ANIMATION) {
-            this.main_head.rotateAngleY += netHeadYaw * ((float) Math.PI / 180F);
-            this.main_head.rotateAngleX += headPitch * ((float) Math.PI / 180F);
-            setupHeadRotation(entityIn, this.righthead, 0);
-            setupHeadRotation(entityIn, this.lefthead, 1);
+        this.main_head.rotateAngleY += netHeadYaw * ((float) Math.PI / 180F);
+        this.main_head.rotateAngleX += headPitch * ((float) Math.PI / 180F);
+
+        if(entityIn.getAnimation() != The_Harbinger_Entity.DEATH_ANIMATION) {
+            if(entityIn.getAnimation() != The_Harbinger_Entity.LAUNCH_ANIAMATION) {
+                setupHeadRotation(entityIn, this.righthead, 0);
+                setupHeadRotation(entityIn, this.lefthead, 1);
+            }
         }
+
 
         float partialTick = ageInTicks - entityIn.tickCount;
         float Laser_Mode_Progress = entityIn.prev_Laser_Mode_Progress + (entityIn.Laser_Mode_Progress - entityIn.prev_Laser_Mode_Progress) * partialTick;
