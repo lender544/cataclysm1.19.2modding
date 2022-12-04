@@ -355,5 +355,13 @@
         "name": "cataclysm:entity/revenant_hurt3"
       }
     ]
+  },
+  "harbinger_laser": {
+    "subtitle": "harbinger_laser.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/harbinger_laser"
+      }
+    ]
   }
 }

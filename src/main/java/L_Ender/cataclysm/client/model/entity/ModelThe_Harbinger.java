@@ -385,11 +385,11 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         this.main_head.rotateAngleY += netHeadYaw * ((float) Math.PI / 180F);
         this.main_head.rotateAngleX += headPitch * ((float) Math.PI / 180F);
 
-        if(entityIn.getAnimation() != The_Harbinger_Entity.DEATH_ANIMATION) {
-            if(entityIn.getAnimation() != The_Harbinger_Entity.LAUNCH_ANIAMATION) {
+        if(entityIn.getAnimation() != The_Harbinger_Entity.DEATH_ANIMATION && entityIn.getAnimation() != The_Harbinger_Entity.LAUNCH_ANIAMATION) {
+
                 setupHeadRotation(entityIn, this.righthead, 0);
                 setupHeadRotation(entityIn, this.lefthead, 1);
-            }
+
         }
 
 
