@@ -153,5 +153,8 @@
   "advancements.cataclysm.kill_monstrosity.title": "망가진 네더의 전쟁병기",
   "advancements.cataclysm.kill_monstrosity.description": "네더라이트 괴물을 처치하세요",
   "advancements.cataclysm.kill_ignis.title": "꺼져버린 불꽃",
-  "advancements.cataclysm.kill_ignis.description": "이그니스를 소환한 뒤, 쓰러뜨리세요"
+  "advancements.cataclysm.kill_ignis.description": "이그니스를 소환한 뒤, 쓰러뜨리세요",
+
+
+  "death.attack.cataclysm.laser": "%s는 %s의 레이저에 의해 말살되었습니다."
 }

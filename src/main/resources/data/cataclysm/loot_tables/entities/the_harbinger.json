@@ -1,0 +1,15 @@
+{
+  "pools": [
+    {
+      "name": "the_harbinger",
+      "rolls": 3,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "cataclysm:ignitium_ingot",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

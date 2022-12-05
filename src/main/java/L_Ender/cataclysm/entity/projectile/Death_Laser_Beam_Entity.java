@@ -5,6 +5,7 @@ import L_Ender.cataclysm.client.tool.ControlledAnimation;
 import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.entity.The_Harbinger_Entity;
 import L_Ender.cataclysm.init.ModParticle;
+import L_Ender.cataclysm.util.CMDamageTypes;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -126,7 +127,7 @@ public class Death_Laser_Beam_Entity extends Entity {
             }
             if (!level.isClientSide) {
                 for (LivingEntity target : hit) {
-                    target.hurt(DamageSource.indirectMagic(this, caster), CMConfig.Voidrunedamage);
+                    target.hurt(CMDamageTypes.causeLaserDamage(this, caster), 4);
                 }
             }
         }

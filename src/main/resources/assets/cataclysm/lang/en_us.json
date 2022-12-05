@@ -152,5 +152,8 @@
   "advancements.cataclysm.kill_monstrosity.title": "The broken Nether's warmachine",
   "advancements.cataclysm.kill_monstrosity.description": "Kill the Netherite Monstrosity",
   "advancements.cataclysm.kill_ignis.title": "The Extinguished Fire",
-  "advancements.cataclysm.kill_ignis.description": "Summon and Defeat the Ignis"
+  "advancements.cataclysm.kill_ignis.description": "Summon and Defeat the Ignis",
+
+
+  "death.attack.cataclysm.laser": "%s was exterminated by %s 's laser"
 }
