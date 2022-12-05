@@ -363,5 +363,13 @@
         "name": "cataclysm:entity/harbinger_laser"
       }
     ]
+  },
+  "harbinger_mode_change": {
+    "subtitle": "harbinger_mode_change.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/harbinger_mode_change"
+      }
+    ]
   }
 }

@@ -118,6 +118,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
                 .add(Attributes.ATTACK_DAMAGE, (double)10F)
                 .add(Attributes.FLYING_SPEED, (double)0.6F)
                 .add(Attributes.FOLLOW_RANGE, 40.0D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
                 .add(Attributes.ARMOR, 12.0D);
     }
 
@@ -208,13 +209,16 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
 
         LivingEntity target = this.getTarget();
         if (this.isAlive()) {
-            if (target != null && target.isAlive()) {
-                if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.getRandom().nextFloat() * 100.0F < 1f) {
+            if (target != null && target.isAlive() && skill_cooldown <= 0) {
+                if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.getRandom().nextFloat() * 100.0F < 4f && this.distanceToSqr(target) < 64) {
+                    skill_cooldown = SKILL_COOLDOWN;
+                    this.setAnimation(CHARGE_ANIMATION);
+                } else  if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.getRandom().nextFloat() * 100.0F < 2f || !isNoAi() && this.getAnimation() == NO_ANIMATION && this.getRandom().nextFloat() * 100.0F < 4f && this.distanceToSqr(target) > 49) {
                     skill_cooldown = SKILL_COOLDOWN;
                     this.setAnimation(DEATHLASER_ANIMATION);
                 } else if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.getRandom().nextFloat() * 100.0F < 3f && Laser_Mode_Progress == 0) {
                     skill_cooldown = SKILL_COOLDOWN;
-                    this.setAnimation(DEATHLASER_ANIMATION);
+                    this.setAnimation(LAUNCH_ANIAMATION);
                 }
             }
         }
@@ -335,7 +339,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         if(this.tickCount % 4 == 0) {
             for (LivingEntity Lentity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.5D))) {
                 if (!isAlliedTo(Lentity) && !(Lentity instanceof The_Harbinger_Entity) && Lentity != this) {
-                    boolean flag = Lentity.hurt(DamageSource.mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
+                    boolean flag = Lentity.hurt(DamageSource.mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE)+ this.random.nextInt(5));
                     if (flag) {
                         if (Lentity.isOnGround()) {
                             double d0 = Lentity.getX() - this.getX();
@@ -382,6 +386,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
             mode_change_cooldown++;
         }else{
             this.setIsLaserMode(!this.getIsLaserMode());
+            this.playSound(ModSounds.HARBINGER_MODE_CHANGE.get(), 3.0f, 1.0f);
             mode_change_cooldown = this.random.nextInt(50);
         }
 

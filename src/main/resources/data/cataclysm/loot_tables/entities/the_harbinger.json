@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "cataclysm:ignitium_ingot",
+          "name": "minecraft:nether_star",
           "weight": 1
         }
       ]
