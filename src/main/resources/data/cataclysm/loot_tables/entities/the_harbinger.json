@@ -2,7 +2,7 @@
   "pools": [
     {
       "name": "the_harbinger",
-      "rolls": 3,
+      "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",

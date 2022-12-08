@@ -123,11 +123,11 @@ public class Wither_Missile_Entity  extends Projectile {
             }
 
             if (flag && entity instanceof LivingEntity) {
-                int i = 10;
+                int i = 5;
                 if (this.level.getDifficulty() == Difficulty.NORMAL) {
-                    i = 20;
+                    i = 10;
                 } else if (this.level.getDifficulty() == Difficulty.HARD) {
-                    i = 30;
+                    i = 15;
                 }
 
                 ((LivingEntity)entity).addEffect(new MobEffectInstance(MobEffects.WITHER, 20 * i, 1), this.getEffectSource());

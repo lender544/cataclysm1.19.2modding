@@ -127,7 +127,7 @@ public class Death_Laser_Beam_Entity extends Entity {
             }
             if (!level.isClientSide) {
                 for (LivingEntity target : hit) {
-                    target.hurt(CMDamageTypes.causeLaserDamage(this, caster), 4);
+                    target.hurt(CMDamageTypes.causeLaserDamage(this, caster).bypassArmor(), 4);
                 }
             }
         }

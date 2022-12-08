@@ -179,7 +179,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         Vec3 vec3 = this.getDeltaMovement().multiply(1.0D, 0.6D, 1.0D);
 
         prev_Laser_Mode_Progress = Laser_Mode_Progress;
-        if (this.getIsLaserMode() && Laser_Mode_Progress < 20f) {
+        if (this.getIsLaserMode() && Laser_Mode_Progress < 30f) {
             Laser_Mode_Progress++;
         }
         if (!this.getIsLaserMode() && Laser_Mode_Progress > 0F) {
@@ -209,11 +209,11 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
 
         LivingEntity target = this.getTarget();
         if (this.isAlive()) {
-            if (target != null && target.isAlive() && skill_cooldown <= 0) {
+            if (target != null && target.isAlive() && skill_cooldown <= 0 && (Laser_Mode_Progress == 30 || Laser_Mode_Progress == 0)) {
                 if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.getRandom().nextFloat() * 100.0F < 4f && this.distanceToSqr(target) < 64) {
                     skill_cooldown = SKILL_COOLDOWN;
                     this.setAnimation(CHARGE_ANIMATION);
-                } else  if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.getRandom().nextFloat() * 100.0F < 2f || !isNoAi() && this.getAnimation() == NO_ANIMATION && this.getRandom().nextFloat() * 100.0F < 4f && this.distanceToSqr(target) > 49) {
+                } else  if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.getRandom().nextFloat() * 100.0F < 2f && (Laser_Mode_Progress == 30 || Laser_Mode_Progress == 0) || !isNoAi() && this.getAnimation() == NO_ANIMATION && this.getRandom().nextFloat() * 100.0F < 4f && this.distanceToSqr(target) > 49) {
                     skill_cooldown = SKILL_COOLDOWN;
                     this.setAnimation(DEATHLASER_ANIMATION);
                 } else if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.getRandom().nextFloat() * 100.0F < 3f && Laser_Mode_Progress == 0) {
@@ -364,7 +364,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
                 int l1 = this.getAlternativeTarget(i);
                 if (l1 > 0) {
                     LivingEntity livingentity = (LivingEntity) this.level.getEntity(l1);
-                    if (livingentity != null && this.canAttack(livingentity) && !(this.distanceToSqr(livingentity) > 1600.0D) && this.hasLineOfSight(livingentity) && (Laser_Mode_Progress == 20 || Laser_Mode_Progress == 0) && this.getAnimation() == NO_ANIMATION) {
+                    if (livingentity != null && this.canAttack(livingentity) && !(this.distanceToSqr(livingentity) > 1600.0D) && this.hasLineOfSight(livingentity) && (Laser_Mode_Progress == 30 || Laser_Mode_Progress == 0) && this.getAnimation() == NO_ANIMATION) {
                         this.performRangedAttack(i + 1, livingentity);
                         int f = this.getIsLaserMode() ? 15 + this.random.nextInt(5) : 30 + this.random.nextInt(20);
                         this.nextHeadUpdate[i - 1] = this.tickCount + f;
@@ -384,7 +384,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
 
         if(mode_change_cooldown < MODE_CHANGE_COOLDOWN ) {
             mode_change_cooldown++;
-        }else{
+        }else if(this.getAnimation() == NO_ANIMATION){
             this.setIsLaserMode(!this.getIsLaserMode());
             this.playSound(ModSounds.HARBINGER_MODE_CHANGE.get(), 3.0f, 1.0f);
             mode_change_cooldown = this.random.nextInt(50);
@@ -571,6 +571,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
 
         public void tick() {
             LivingEntity target = entity.getTarget();
+            entity.setDeltaMovement(0, entity.getDeltaMovement().y, 0);
             if (entity.getAnimationTick() == 8 && !entity.level.isClientSide) {
                 //Death_Laser_Beam_Entity DeathBeam = new Death_Laser_Beam_Entity(ModEntities.DEATH_LASER_BEAM.get(), entity.level, entity, entity.getX() + radius1 * Math.sin(-entity.getYRot() * Math.PI / 180), entity.getY() + 2.9, entity.getZ() + radius1 * Math.cos(-entity.getYRot() * Math.PI / 180), (float) ((entity.yHeadRot + 90) * Math.PI / 180), (float) (-entity.getXRot() * Math.PI / 180), 20);
                 Death_Laser_Beam_Entity DeathBeam = new Death_Laser_Beam_Entity(ModEntities.DEATH_LASER_BEAM.get(), entity.level, entity, entity.getX(), entity.getY() + 2.9, entity.getZ(), (float) ((entity.yHeadRot + 90) * Math.PI / 180), (float) (-entity.getXRot() * Math.PI / 180), 60);

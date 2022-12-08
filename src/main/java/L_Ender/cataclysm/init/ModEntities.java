@@ -86,7 +86,7 @@ public class ModEntities {
             .build(cataclysm.MODID + ":ignited_revenant"));
 
     public static final RegistryObject<EntityType<The_Harbinger_Entity>> THE_HARBINGER = ENTITY_TYPE.register("the_harbinger", () -> EntityType.Builder.of(The_Harbinger_Entity::new, MobCategory.MONSTER)
-            .sized(0.9F, 3.5F)
+            .sized(1.6F, 3.75F)
             .fireImmune()
             .immuneTo(Blocks.WITHER_ROSE)
             .clientTrackingRange(10)
