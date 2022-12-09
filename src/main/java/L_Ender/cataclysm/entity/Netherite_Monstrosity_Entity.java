@@ -517,26 +517,27 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
             --this.blockBreakCounter;
             return;
         }
-
-        if (!this.level.isClientSide && this.blockBreakCounter == 0) {
-            if (ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
-                for (int a = (int) Math.round(this.getBoundingBox().minX); a <= (int) Math.round(this.getBoundingBox().maxX); a++) {
-                    for (int b = (int) Math.round(this.getBoundingBox().minY); (b <= (int) Math.round(this.getBoundingBox().maxY) + 1) && (b <= 127); b++) {
-                        for (int c = (int) Math.round(this.getBoundingBox().minZ); c <= (int) Math.round(this.getBoundingBox().maxZ); c++) {
-                            BlockPos blockpos = new BlockPos(a, b, c);
-                            BlockState block = level.getBlockState(blockpos);
-                            BlockEntity tileEntity = level.getBlockEntity(blockpos);
-                            if (block.getMaterial() != Material.AIR && block.is(ModTag.NETHERITE_MONSTROSITY_BREAK)) {
-                                boolean flag = level.destroyBlock(new BlockPos(a, b, c), shouldDropItem(tileEntity));
-                                if (flag) {
-                                    blockBreakCounter = 10;
+        if(!this.isNoAi()) {
+            if (!this.level.isClientSide && this.blockBreakCounter == 0) {
+                if (ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+                    for (int a = (int) Math.round(this.getBoundingBox().minX); a <= (int) Math.round(this.getBoundingBox().maxX); a++) {
+                        for (int b = (int) Math.round(this.getBoundingBox().minY); (b <= (int) Math.round(this.getBoundingBox().maxY) + 1) && (b <= 127); b++) {
+                            for (int c = (int) Math.round(this.getBoundingBox().minZ); c <= (int) Math.round(this.getBoundingBox().maxZ); c++) {
+                                BlockPos blockpos = new BlockPos(a, b, c);
+                                BlockState block = level.getBlockState(blockpos);
+                                BlockEntity tileEntity = level.getBlockEntity(blockpos);
+                                if (block.getMaterial() != Material.AIR && block.is(ModTag.NETHERITE_MONSTROSITY_BREAK)) {
+                                    boolean flag = level.destroyBlock(new BlockPos(a, b, c), shouldDropItem(tileEntity));
+                                    if (flag) {
+                                        blockBreakCounter = 10;
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
 
+            }
         }
     }
 

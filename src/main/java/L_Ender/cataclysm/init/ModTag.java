@@ -17,6 +17,8 @@ public class ModTag {
 
     public static final TagKey<EntityType<?>> IGNIS_CANT_POKE = registerEntityTag("ignis_cant_poke");
 
+    public static final TagKey<EntityType<?>> HARBINGER_NONE_TARGETS = registerEntityTag("harbinger_none_targets");
+
     public static final TagKey<Block> ENDER_GOLEM_CAN_DESTROY = registerBlockTag("ender_golem_can_destroy");
 
     public static final TagKey<Block> ENDER_GUARDIAN_CAN_DESTROY = registerBlockTag("ender_guardian_can_destroy");
@@ -26,6 +28,8 @@ public class ModTag {
     public static final TagKey<Block> IGNIS_CAN_DESTROY_CRACKED_BLOCK = registerBlockTag("ignis_can_destroy_cracked_block");
 
     public static final TagKey<Block> IGNIS_IMMUNE = registerBlockTag("ignis_immune");
+
+    public static final TagKey<Block> HARBINGER_IMMUNE = registerBlockTag("harbinger_immune");
 
     public static final TagKey<Block> ENDERMAPTERA_CAN_NOT_SPAWN = registerBlockTag("endermaptera_can_not_spawn");
 

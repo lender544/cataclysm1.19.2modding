@@ -1393,26 +1393,26 @@ public class Ignis_Entity extends Boss_monster {
         }
     }
     private void blockbreak(){
-        if (!this.level.isClientSide){
-        if (this.destroyBlocksTick > 0) {
-            --this.destroyBlocksTick;
-            if (this.destroyBlocksTick == 0 && ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
-                boolean flag = false;
-                AABB aabb = this.getBoundingBox().inflate(0.2D);
-                for(BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(this.getY()), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
-                    BlockState blockstate = this.level.getBlockState(blockpos);
-                    if (blockstate.canEntityDestroy(this.level, blockpos, this) && !blockstate.is(ModTag.IGNIS_IMMUNE) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(this, blockpos, blockstate)) {
-                        flag = this.level.destroyBlock(blockpos, true, this) || flag;
+        if(!this.isNoAi()){
+            if (!this.level.isClientSide) {
+                if (this.destroyBlocksTick > 0) {
+                    --this.destroyBlocksTick;
+                    if (this.destroyBlocksTick == 0 && ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+                        boolean flag = false;
+                        AABB aabb = this.getBoundingBox().inflate(0.2D);
+                        for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(this.getY()), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
+                            BlockState blockstate = this.level.getBlockState(blockpos);
+                            if (blockstate.canEntityDestroy(this.level, blockpos, this) && !blockstate.is(ModTag.IGNIS_IMMUNE) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(this, blockpos, blockstate)) {
+                                flag = this.level.destroyBlock(blockpos, true, this) || flag;
+                            }
+                        }
+                        if (flag) {
+                            this.level.levelEvent((Player) null, 1022, this.blockPosition(), 0);
+                        }
                     }
-                }
-
-
-                if (flag) {
-                    this.level.levelEvent((Player)null, 1022, this.blockPosition(), 0);
                 }
             }
         }
-    }
     }
 
     @Nullable

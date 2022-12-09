@@ -214,8 +214,7 @@ public class Death_Laser_Beam_Entity extends Entity {
             endPosX = getX() + RADIUS * Math.cos(renderYaw) * Math.cos(renderPitch);
             endPosZ = getZ() + RADIUS * Math.sin(renderYaw) * Math.cos(renderPitch);
             endPosY = getY() + RADIUS * Math.sin(renderPitch);
-        }
-        else {
+        } else {
             endPosX = getX() + RADIUS * Math.cos(getYaw()) * Math.cos(getPitch());
             endPosZ = getZ() + RADIUS * Math.sin(getYaw()) * Math.cos(getPitch());
             endPosY = getY() + RADIUS * Math.sin(getPitch());
