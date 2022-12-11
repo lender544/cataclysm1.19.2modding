@@ -429,7 +429,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
                     if (Breaking) {
                         BlockBreaking(CMConfig.EnderguardianBlockBreakingX, CMConfig.EnderguardianBlockBreakingY, CMConfig.EnderguardianBlockBreakingZ);
                     } else {
-                        if (ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+                        if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
                             BlockBreaking(CMConfig.EnderguardianBlockBreakingX, CMConfig.EnderguardianBlockBreakingY, CMConfig.EnderguardianBlockBreakingZ);
                         }
                     }

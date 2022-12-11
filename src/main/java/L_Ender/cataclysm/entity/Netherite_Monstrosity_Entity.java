@@ -484,7 +484,7 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
         int MthY = Mth.floor(this.getY());
         int MthZ = Mth.floor(this.getZ());
         if (!this.level.isClientSide) {
-            if (ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+            if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
                 for (int k2 = -x; k2 <= x; ++k2) {
                     for (int l2 = -z; l2 <= z; ++l2) {
                         for (int j = 0; j <= y; ++j) {
@@ -519,7 +519,7 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
         }
         if(!this.isNoAi()) {
             if (!this.level.isClientSide && this.blockBreakCounter == 0) {
-                if (ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+                if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
                     for (int a = (int) Math.round(this.getBoundingBox().minX); a <= (int) Math.round(this.getBoundingBox().maxX); a++) {
                         for (int b = (int) Math.round(this.getBoundingBox().minY); (b <= (int) Math.round(this.getBoundingBox().maxY) + 1) && (b <= 127); b++) {
                             for (int c = (int) Math.round(this.getBoundingBox().minZ); c <= (int) Math.round(this.getBoundingBox().maxZ); c++) {

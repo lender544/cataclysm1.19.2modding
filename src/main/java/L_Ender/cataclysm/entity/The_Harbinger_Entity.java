@@ -304,7 +304,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     private void blockbreak(){
         if(getIsCharge()){
         if (!this.level.isClientSide){
-            if (ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+            if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
                 boolean flag = false;
                 AABB aabb = this.getBoundingBox().inflate(1.5D,0.2D,1.5D);
                 for(BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(aabb.minY), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {

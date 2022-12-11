@@ -212,7 +212,7 @@ public class Ender_Golem_Entity extends Boss_monster {
                     if (Breaking) {
                         BlockBreaking(4,4,4);
                     } else {
-                        if (ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+                        if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
                             BlockBreaking(4,4,4);
                         }
                     }
@@ -234,7 +234,7 @@ public class Ender_Golem_Entity extends Boss_monster {
                     if (Breaking) {
                         BlockBreaking(4,4,4);
                     } else {
-                        if (ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+                        if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
                             BlockBreaking(4,4,4);
                         }
                     }
