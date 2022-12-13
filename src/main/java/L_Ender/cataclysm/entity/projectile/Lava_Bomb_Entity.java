@@ -1,18 +1,13 @@
 package L_Ender.cataclysm.entity.projectile;
 
 import L_Ender.cataclysm.config.CMConfig;
-import L_Ender.cataclysm.entity.Ignis_Entity;
 import L_Ender.cataclysm.entity.Netherite_Monstrosity_Entity;
-import L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
 import L_Ender.cataclysm.entity.partentity.Netherite_Monstrosity_Part;
-import L_Ender.cataclysm.init.ModEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;

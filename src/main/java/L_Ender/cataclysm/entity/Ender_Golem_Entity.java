@@ -1,9 +1,9 @@
 package L_Ender.cataclysm.entity;
 
 import L_Ender.cataclysm.config.CMConfig;
-import L_Ender.cataclysm.entity.AI.AttackMoveGoal;
 import L_Ender.cataclysm.entity.AI.CmAttackGoal;
-import L_Ender.cataclysm.entity.etc.*;
+import L_Ender.cataclysm.entity.etc.CMPathNavigateGround;
+import L_Ender.cataclysm.entity.etc.SmartBodyHelper2;
 import L_Ender.cataclysm.entity.projectile.Void_Rune_Entity;
 import L_Ender.cataclysm.init.ModSounds;
 import L_Ender.cataclysm.init.ModTag;
@@ -21,9 +21,10 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
@@ -39,14 +40,10 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -209,11 +206,13 @@ public class Ender_Golem_Entity extends Boss_monster {
                 if (this.getAnimationTick() == 19) {
                     EarthQuake(5,6);
                     EarthQuakeParticle();
-                    if (Breaking) {
-                        BlockBreaking(4,4,4);
-                    } else {
-                        if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
-                            BlockBreaking(4,4,4);
+                    if (!this.level.isClientSide) {
+                        if (Breaking) {
+                            BlockBreaking(4, 4, 4);
+                        } else {
+                            if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+                                BlockBreaking(4, 4, 4);
+                            }
                         }
                     }
                 }
@@ -231,11 +230,13 @@ public class Ender_Golem_Entity extends Boss_monster {
                 if (this.getAnimationTick() == 22) {
                     EarthQuake(4.25f,4);
                     EarthQuakeParticle();
-                    if (Breaking) {
-                        BlockBreaking(4,4,4);
-                    } else {
-                        if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
-                            BlockBreaking(4,4,4);
+                    if (!this.level.isClientSide) {
+                        if (Breaking) {
+                            BlockBreaking(4, 4, 4);
+                        } else {
+                            if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+                                BlockBreaking(4, 4, 4);
+                            }
                         }
                     }
                 }
@@ -267,19 +268,17 @@ public class Ender_Golem_Entity extends Boss_monster {
         int MthY = Mth.floor(this.getY());
         int MthZ = Mth.floor(this.getZ());
         boolean flag = false;
-        if (!this.level.isClientSide) {
-            for (int k2 = -x; k2 <= x; ++k2) {
-                for (int l2 = -z; l2 <= z; ++l2) {
-                    for (int j = 0; j <= y; ++j) {
-                        int i3 = MthX + k2;
-                        int k = MthY + j;
-                        int l = MthZ + l2;
-                        BlockPos blockpos = new BlockPos(i3, k, l);
-                        BlockState block = this.level.getBlockState(blockpos);
-                        if (block.getMaterial() != Material.AIR && block.is(ModTag.ENDER_GOLEM_CAN_DESTROY)) {
-                            if (block.canEntityDestroy(this.level, blockpos, this) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(this, blockpos, block)) {
-                                flag = this.level.destroyBlock(blockpos, true, this) || flag;
-                            }
+        for (int k2 = -x; k2 <= x; ++k2) {
+            for (int l2 = -z; l2 <= z; ++l2) {
+                for (int j = 0; j <= y; ++j) {
+                    int i3 = MthX + k2;
+                    int k = MthY + j;
+                    int l = MthZ + l2;
+                    BlockPos blockpos = new BlockPos(i3, k, l);
+                    BlockState block = this.level.getBlockState(blockpos);
+                    if (block.getMaterial() != Material.AIR && block.is(ModTag.ENDER_GOLEM_CAN_DESTROY)) {
+                        if (block.canEntityDestroy(this.level, blockpos, this) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(this, blockpos, block)) {
+                            flag = this.level.destroyBlock(blockpos, true, this) || flag;
                         }
                     }
                 }

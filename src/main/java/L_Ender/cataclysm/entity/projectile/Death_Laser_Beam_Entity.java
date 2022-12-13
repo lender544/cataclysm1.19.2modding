@@ -2,7 +2,6 @@ package L_Ender.cataclysm.entity.projectile;
 
 
 import L_Ender.cataclysm.client.tool.ControlledAnimation;
-import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.entity.The_Harbinger_Entity;
 import L_Ender.cataclysm.init.ModParticle;
 import L_Ender.cataclysm.util.CMDamageTypes;
@@ -13,7 +12,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
