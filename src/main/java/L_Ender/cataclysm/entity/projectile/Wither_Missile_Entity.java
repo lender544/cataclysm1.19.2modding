@@ -149,9 +149,6 @@ public class Wither_Missile_Entity  extends Projectile {
         return super.canHitEntity(p_36842_) && !p_36842_.noPhysics;
     }
 
-    protected ParticleOptions getTrailParticle() {
-        return ParticleTypes.SMOKE;
-    }
 
     protected float getInertia() {
         return 1.0F;

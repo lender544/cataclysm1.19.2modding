@@ -463,17 +463,17 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         return p_31443_ + f;
     }
 
-    private void performRangedAttack(int head, LivingEntity p_31459_) {
-        this.performRangedAttack(head, p_31459_.getX(), p_31459_.getY() + (double)p_31459_.getEyeHeight() * 0.5D, p_31459_.getZ());
+    private void performRangedAttack(int head, LivingEntity target) {
+        this.performRangedAttack(head, target.getX(), target.getY() + (double)target.getEyeHeight() * 0.5D, target.getZ());
     }
 
-    private void performRangedAttack(int head, double p_31450_, double p_31451_, double p_31452_) {
+    private void performRangedAttack(int head, double targetX, double targetY, double targetZ) {
         double d0 = this.getHeadX(head);
         double d1 = this.getHeadY(head);
         double d2 = this.getHeadZ(head);
-        double d3 = p_31450_ - d0;
-        double d4 = p_31451_ - d1;
-        double d5 = p_31452_ - d2;
+        double d3 = targetX - d0;
+        double d4 = targetY - d1;
+        double d5 = targetZ - d2;
         if(this.getIsLaserMode()) {
             if (!this.isSilent()) {
                 this.playSound(ModSounds.HARBINGER_LASER.get(),1,1.0F);

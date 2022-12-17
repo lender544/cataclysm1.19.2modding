@@ -187,6 +187,13 @@ public class ModEntities {
             .setShouldReceiveVelocityUpdates(true)
             .build(cataclysm.MODID + ":wither_missile"));
 
+    public static final RegistryObject<EntityType<Wither_Homing_Missile_Entity>> WITHER_HOMING_MISSILE = ENTITY_TYPE.register("wither_homing_missile", () -> EntityType.Builder.<Wither_Homing_Missile_Entity>of(Wither_Homing_Missile_Entity::new, MobCategory.MISC)
+            .sized(0.5F, 0.5F)
+            .setTrackingRange(20)
+            .updateInterval(1)
+            .setShouldReceiveVelocityUpdates(true)
+            .build(cataclysm.MODID + ":wither_homing_missile"));
+
     public static final RegistryObject<EntityType<Wither_Howitzer_Entity>> WITHER_HOWITZER = ENTITY_TYPE.register("wither_howitzer", () -> EntityType.Builder.<Wither_Howitzer_Entity>of(Wither_Howitzer_Entity::new, MobCategory.MISC)
             .sized(0.5f, 0.5f)
             .fireImmune()
