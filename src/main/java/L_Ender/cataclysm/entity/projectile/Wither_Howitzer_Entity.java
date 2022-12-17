@@ -72,7 +72,7 @@ public class Wither_Howitzer_Entity extends ThrowableProjectile {
         if (!this.level.isClientSide) {
             this.level.explode(this, this.getX(), this.getY(), this.getZ(), 2.0F, false, Explosion.BlockInteraction.NONE);
             Wither_Smoke_Effect_Entity areaeffectcloud = new Wither_Smoke_Effect_Entity(this.level, this.getX(), this.getY(), this.getZ());
-            areaeffectcloud.setRadius(2.5F);
+            areaeffectcloud.setRadius(3.5F);
             LivingEntity entity1 = (LivingEntity) this.getOwner();
             areaeffectcloud.setOwner(entity1);
             areaeffectcloud.setRadiusOnUse(-0.5F);

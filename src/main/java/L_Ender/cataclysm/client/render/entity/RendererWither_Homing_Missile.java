@@ -1,5 +1,6 @@
 package L_Ender.cataclysm.client.render.entity;
 
+import L_Ender.cataclysm.client.model.entity.ModelWither_Homing_Missile;
 import L_Ender.cataclysm.client.model.entity.ModelWither_Missile;
 import L_Ender.cataclysm.entity.projectile.Wither_Homing_Missile_Entity;
 import L_Ender.cataclysm.entity.projectile.Wither_Missile_Entity;
@@ -18,14 +19,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class RendererWither_Homing_Missile extends EntityRenderer<Wither_Homing_Missile_Entity>
 {
-    private static final ResourceLocation WITHER_MISSILE = new ResourceLocation("cataclysm:textures/entity/harbinger/wither_missile.png");
+    private static final ResourceLocation WITHER_MISSILE = new ResourceLocation("cataclysm:textures/entity/harbinger/wither_homing_missile.png");
 
-    public ModelWither_Missile model;
+    public ModelWither_Homing_Missile model;
 
     public RendererWither_Homing_Missile(EntityRendererProvider.Context manager)
     {
         super(manager);
-        this.model = new ModelWither_Missile();
+        this.model = new ModelWither_Homing_Missile();
     }
 
     @Override
@@ -37,7 +38,8 @@ public class RendererWither_Homing_Missile extends EntityRenderer<Wither_Homing_
     @Override
     public void render(Wither_Homing_Missile_Entity entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
         matrixStackIn.pushPose();
-        matrixStackIn.scale(-1.0F, -1.0F, 1.0F);
+        matrixStackIn.scale(-1.5F, -1.5F, 1.5F);
+        matrixStackIn.translate(0F, 0.04F, 0F);
         float f = Mth.rotlerp(entityIn.yRotO, entityIn.getYRot(), partialTicks);
         float f1 = Mth.lerp(partialTicks, entityIn.xRotO, entityIn.getXRot());
         VertexConsumer vertexconsumer = bufferIn.getBuffer(this.model.renderType(this.getTextureLocation(entityIn)));

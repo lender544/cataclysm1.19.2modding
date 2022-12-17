@@ -3,6 +3,7 @@ package L_Ender.cataclysm.entity.projectile;
 import L_Ender.cataclysm.entity.Ignis_Entity;
 import L_Ender.cataclysm.entity.The_Harbinger_Entity;
 import L_Ender.cataclysm.init.ModEntities;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -12,6 +13,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
@@ -37,7 +39,15 @@ import net.minecraftforge.network.NetworkHooks;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class Wither_Homing_Missile_Entity extends AbstractHurtingProjectile {
+public class Wither_Homing_Missile_Entity extends Projectile {
+    public double xPower;
+    public double yPower;
+    public double zPower;
+    @Nullable
+    private Entity finalTarget;
+    @Nullable
+    private UUID targetId;
+
 
     public Wither_Homing_Missile_Entity(EntityType<? extends Wither_Homing_Missile_Entity> p_36833_, Level p_36834_) {
         super(p_36833_, p_36834_);
@@ -48,27 +58,110 @@ public class Wither_Homing_Missile_Entity extends AbstractHurtingProjectile {
         this.setOwner(entity);
     }
 
+    protected void defineSynchedData() {
+    }
+
+    public boolean shouldRenderAtSqrDistance(double p_36837_) {
+        double d0 = this.getBoundingBox().getSize() * 4.0D;
+        if (Double.isNaN(d0)) {
+            d0 = 4.0D;
+        }
+
+        d0 *= 64.0D;
+        return p_36837_ < d0 * d0;
+    }
+
+    public Wither_Homing_Missile_Entity(Level worldIn, LivingEntity entity, LivingEntity finalTarget) {
+        this(ModEntities.WITHER_HOMING_MISSILE.get(), worldIn);
+        this.setOwner(entity);
+        this.finalTarget = finalTarget;
+    }
+
+
+    public void addAdditionalSaveData(CompoundTag p_37357_) {
+        super.addAdditionalSaveData(p_37357_);
+        if (this.finalTarget != null) {
+            p_37357_.putUUID("Target", this.finalTarget.getUUID());
+        }
+        p_37357_.put("power", this.newDoubleList(new double[]{this.xPower, this.yPower, this.zPower}));
+    }
+
+    public void readAdditionalSaveData(CompoundTag p_37353_) {
+        super.readAdditionalSaveData(p_37353_);
+        if (p_37353_.hasUUID("Target")) {
+            this.targetId = p_37353_.getUUID("Target");
+        }
+        if (p_37353_.contains("power", 9)) {
+            ListTag listtag = p_37353_.getList("power", 6);
+            if (listtag.size() == 3) {
+                this.xPower = listtag.getDouble(0);
+                this.yPower = listtag.getDouble(1);
+                this.zPower = listtag.getDouble(2);
+            }
+        }
+
+    }
+
 
     public void tick() {
-        super.tick();
         Entity entity = this.getOwner();
-        if (entity instanceof Mob && ((Mob) entity).getTarget() != null) {
-            LivingEntity target = ((Mob) entity).getTarget();
-            double d = this.distanceToSqr(target);
-            double dx = target.getX() - this.getX();
-            double dy = target.getY() + target.getBbHeight() * 0.8F - this.getY();
-            double dz = target.getZ() - this.getZ() ;
-            double d13 = 5;
-            dx /= d;
-            dy /= d;
-            dz /= d;
-            this.xPower += dx * d13;
-            this.yPower += dy * d13;
-            this.zPower += dz * d13;
-            this.xPower = (double)Mth.clamp((float)this.xPower, -0.25F, 0.25F);
-            this.yPower = (double)Mth.clamp((float)this.yPower, -0.25F, 0.25F);
-            this.zPower = (double)Mth.clamp((float)this.zPower, -0.25F, 0.25F);
+        if (this.level.isClientSide || (entity == null || !entity.isRemoved()) && this.level.hasChunkAt(this.blockPosition())) {
+            super.tick();
+
+            HitResult hitresult = ProjectileUtil.getHitResult(this, this::canHitEntity);
+            if (hitresult.getType() != HitResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, hitresult)) {
+                this.onHit(hitresult);
+            }
+
+            this.checkInsideBlocks();
+            Vec3 vec3 = this.getDeltaMovement();
+            double d0 = this.getX() + vec3.x;
+            double d1 = this.getY() + vec3.y;
+            double d2 = this.getZ() + vec3.z;
+            ProjectileUtil.rotateTowardsMovement(this, 0.2F);
+            float f = this.getInertia();
+            if (this.isInWater()) {
+                for(int i = 0; i < 4; ++i) {
+                    float f1 = 0.25F;
+                    this.level.addParticle(ParticleTypes.BUBBLE, d0 - vec3.x * 0.25D, d1 - vec3.y * 0.25D, d2 - vec3.z * 0.25D, vec3.x, vec3.y, vec3.z);
+                }
+                f = 0.8F;
+            }
+            this.level.addParticle(ParticleTypes.SMOKE, this.getX() - vec3.x, this.getY() - vec3.y + 0.15D, this.getZ() - vec3.z, 0.0D, 0.0D, 0.0D);
+            this.level.addParticle(ParticleTypes.FLAME, this.getX() - vec3.x, this.getY() - vec3.y + 0.15D, this.getZ() - vec3.z, 0.0D, 0.0D, 0.0D);
+            this.setDeltaMovement(vec3.add(this.xPower, this.yPower, this.zPower).scale((double)f));
+            this.setPos(d0, d1, d2);
+        } else {
+            this.discard();
         }
+        if (!this.level.isClientSide) {
+            if (this.finalTarget == null && this.targetId != null) {
+                this.finalTarget = ((ServerLevel) this.level).getEntity(this.targetId);
+                if (this.finalTarget == null) {
+                    this.targetId = null;
+                }
+            }
+
+            if (this.finalTarget == null || !this.finalTarget.isAlive() || (this.finalTarget instanceof Player && this.finalTarget.isSpectator())) {
+              //  this.yPower = -0.175;
+            } else {
+                double d = this.distanceToSqr(finalTarget);
+                double dx = finalTarget.getX() - this.getX();
+                double dy = finalTarget.getY() + finalTarget.getBbHeight() * 0.8F - this.getY();
+                double dz = finalTarget.getZ() - this.getZ();
+                double d13 = 3;
+                dx /= d;
+                dy /= d;
+                dz /= d;
+                this.xPower += dx * d13;
+                this.yPower += dy * d13;
+                this.zPower += dz * d13;
+                this.xPower = (double) Mth.clamp((float) this.xPower, -0.175, 0.175);
+                this.yPower = (double) Mth.clamp((float) this.yPower, -0.175, 0.175);
+                this.zPower = (double) Mth.clamp((float) this.zPower, -0.175, 0.175);
+            }
+        }
+
     }
 
 
@@ -80,7 +173,7 @@ public class Wither_Homing_Missile_Entity extends AbstractHurtingProjectile {
             boolean flag;
             if (entity1 instanceof LivingEntity) {
                 LivingEntity livingentity = (LivingEntity)entity1;
-                flag = entity.hurt(DamageSource.indirectMobAttack(this, livingentity).setProjectile(), 8.0F);
+                flag = entity.hurt(DamageSource.indirectMobAttack(this, livingentity).setProjectile(), 3.0F);
                 if (flag) {
                     if (entity.isAlive()) {
                         this.doEnchantDamageEffects(livingentity, entity);
@@ -89,7 +182,7 @@ public class Wither_Homing_Missile_Entity extends AbstractHurtingProjectile {
                     }
                 }
             } else {
-                flag = entity.hurt(DamageSource.MAGIC, 5.0F);
+                flag = entity.hurt(DamageSource.MAGIC, 3.0F);
             }
 
             if (flag && entity instanceof LivingEntity) {
@@ -100,7 +193,7 @@ public class Wither_Homing_Missile_Entity extends AbstractHurtingProjectile {
                     i = 15;
                 }
 
-                ((LivingEntity)entity).addEffect(new MobEffectInstance(MobEffects.WITHER, 20 * i, 1), this.getEffectSource());
+                ((LivingEntity)entity).addEffect(new MobEffectInstance(MobEffects.WITHER, 5 * i, 0), this.getEffectSource());
             }
             Explosion.BlockInteraction explosion$blockinteraction = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner()) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
             this.level.explode(this, this.getX(), this.getY(), this.getZ(), 1.0F, false, explosion$blockinteraction);
@@ -136,9 +229,12 @@ public class Wither_Homing_Missile_Entity extends AbstractHurtingProjectile {
         return 0.6F;
     }
 
-    @Override
-    public Packet<?> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
+    public boolean isPickable() {
+        return false;
+    }
+
+    public float getPickRadius() {
+        return 1.0F;
     }
 
     public boolean hurt(DamageSource p_37616_, float p_37617_) {
@@ -149,7 +245,28 @@ public class Wither_Homing_Missile_Entity extends AbstractHurtingProjectile {
         return 1.0F;
     }
 
+    public Packet<?> getAddEntityPacket() {
+        Entity entity = this.getOwner();
+        int i = entity == null ? 0 : entity.getId();
+        return new ClientboundAddEntityPacket(this.getId(), this.getUUID(), this.getX(), this.getY(), this.getZ(), this.getXRot(), this.getYRot(), this.getType(), i, new Vec3(this.xPower, this.yPower, this.zPower), 0.0D);
+    }
 
+    public void recreateFromPacket(ClientboundAddEntityPacket p_150128_) {
+        super.recreateFromPacket(p_150128_);
+        double d0 = p_150128_.getXa();
+        double d1 = p_150128_.getYa();
+        double d2 = p_150128_.getZa();
+        double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+        if (d3 != 0.0D) {
+            this.xPower = d0 / d3 * 0.1D;
+            this.yPower = d1 / d3 * 0.1D;
+            this.zPower = d2 / d3 * 0.1D;
+        }
+
+    }
+    protected boolean shouldBurn() {
+        return false;
+    }
 }
 
 

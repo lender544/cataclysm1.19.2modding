@@ -188,7 +188,7 @@ public class ModEntities {
             .build(cataclysm.MODID + ":wither_missile"));
 
     public static final RegistryObject<EntityType<Wither_Homing_Missile_Entity>> WITHER_HOMING_MISSILE = ENTITY_TYPE.register("wither_homing_missile", () -> EntityType.Builder.<Wither_Homing_Missile_Entity>of(Wither_Homing_Missile_Entity::new, MobCategory.MISC)
-            .sized(0.5F, 0.5F)
+            .sized(0.25F, 0.25F)
             .setTrackingRange(20)
             .updateInterval(1)
             .setShouldReceiveVelocityUpdates(true)

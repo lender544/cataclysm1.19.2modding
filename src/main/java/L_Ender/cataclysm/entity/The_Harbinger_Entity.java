@@ -2,10 +2,7 @@ package L_Ender.cataclysm.entity;
 
 import L_Ender.cataclysm.entity.AI.SimpleAnimationGoal;
 import L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
-import L_Ender.cataclysm.entity.projectile.Death_Laser_Beam_Entity;
-import L_Ender.cataclysm.entity.projectile.Laser_Beam_Entity;
-import L_Ender.cataclysm.entity.projectile.Wither_Howitzer_Entity;
-import L_Ender.cataclysm.entity.projectile.Wither_Missile_Entity;
+import L_Ender.cataclysm.entity.projectile.*;
 import L_Ender.cataclysm.init.ModEntities;
 import L_Ender.cataclysm.init.ModParticle;
 import L_Ender.cataclysm.init.ModSounds;
@@ -464,10 +461,10 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     }
 
     private void performRangedAttack(int head, LivingEntity target) {
-        this.performRangedAttack(head, target.getX(), target.getY() + (double)target.getEyeHeight() * 0.5D, target.getZ());
+        this.performRangedAttack(head, target.getX(), target.getY() + (double)target.getEyeHeight() * 0.5D, target.getZ(),target);
     }
 
-    private void performRangedAttack(int head, double targetX, double targetY, double targetZ) {
+    private void performRangedAttack(int head, double targetX, double targetY, double targetZ, LivingEntity target) {
         double d0 = this.getHeadX(head);
         double d1 = this.getHeadY(head);
         double d2 = this.getHeadZ(head);
@@ -478,17 +475,25 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
             if (!this.isSilent()) {
                 this.playSound(ModSounds.HARBINGER_LASER.get(),1,1.0F);
             }
-            Laser_Beam_Entity laserBeam = new Laser_Beam_Entity(this.level, this);
-            laserBeam.shoot(d3, d4, d5, 1F, 1F);
+        //    Laser_Beam_Entity laserBeam = new Laser_Beam_Entity(this.level, this);
+        //  laserBeam.shoot(d3, d4, d5, 1F, 1F);
+        //    laserBeam.setPosRaw(d0, d1, d2);
+          //  this.level.addFreshEntity(laserBeam);
+            Wither_Homing_Missile_Entity laserBeam = new Wither_Homing_Missile_Entity(this.level, this,target);
             laserBeam.setPosRaw(d0, d1, d2);
             this.level.addFreshEntity(laserBeam);
+
         }else{
             if (!this.isSilent()) {
                 this.level.levelEvent((Player)null, 1024, this.blockPosition(), 0);
             }
-            Wither_Missile_Entity witherskull = new Wither_Missile_Entity(this, d3, d4, d5, this.level);
-            witherskull.setPosRaw(d0, d1, d2);
-            this.level.addFreshEntity(witherskull);
+         //   Wither_Missile_Entity witherskull = new Wither_Missile_Entity(this, d3, d4, d5, this.level);
+           // witherskull.setPosRaw(d0, d1, d2);
+          //  this.level.addFreshEntity(witherskull);
+
+            Wither_Homing_Missile_Entity laserBeam = new Wither_Homing_Missile_Entity(this.level, this,target);
+            laserBeam.setPosRaw(d0, d1, d2);
+            this.level.addFreshEntity(laserBeam);
         }
     }
 
@@ -571,7 +576,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
 
             if (entity.getAnimationTick() >= 25) {
                 if (target != null) {
-                    entity.getLookControl().setLookAt(target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ(), 4, 90);
+                    entity.getLookControl().setLookAt(target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ(), 2, 90);
                     entity.lookAt(target, 30, 30);
                 }
             }
