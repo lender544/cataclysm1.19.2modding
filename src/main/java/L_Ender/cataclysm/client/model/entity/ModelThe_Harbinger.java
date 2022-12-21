@@ -13,6 +13,7 @@ import net.minecraft.util.Mth;
 
 public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity> {
     private final AdvancedModelBox root;
+    private final AdvancedModelBox mid;
     private final AdvancedModelBox main_head;
     private final AdvancedModelBox head;
     private final AdvancedModelBox headgear;
@@ -50,12 +51,17 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         texHeight = 128;
 
         root = new AdvancedModelBox(this);
-        root.setRotationPoint(0.0F, 0.0F, 0.0F);
+        root.setRotationPoint(0.0F, 24.0F, 0.0F);
+
+
+        mid = new AdvancedModelBox(this);
+        mid.setRotationPoint(0.0F, -15.0F, 0.0F);
+        root.addChild(mid);
 
 
         main_head = new AdvancedModelBox(this);
-        main_head.setRotationPoint(0.0F, 1.75F, 2.0F);
-        root.addChild(main_head);
+        main_head.setRotationPoint(0.0F, -7.25F, 2.0F);
+        mid.addChild(main_head);
         setRotationAngle(main_head, 0.2182F, 0.0F, 0.0F);
 
 
@@ -83,9 +89,9 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         jaw.setTextureOffset(58, 18).addBox(-4.0F, 1.0F, -6.0F, 8.0F, 0.0F, 8.0F, 0.0F, false);
         jaw.setTextureOffset(33, 26).addBox(-4.0F, -6.0F, -6.0F, 8.0F, 8.0F, 8.0F, -0.01F, false);
 
-        righthead = new AdvancedModelBox(this, "righthead");
-        righthead.setRotationPoint(-10.0F, 4.0F, 1.0F);
-        root.addChild(righthead);
+        righthead = new AdvancedModelBox(this);
+        righthead.setRotationPoint(-10.0F, -5.0F, 1.0F);
+        mid.addChild(righthead);
         setRotationAngle(righthead, 0.3491F, 0.1309F, 0.0F);
         righthead.setTextureOffset(51, 73).addBox(-4.0F, -4.0F, -4.0F, 6.0F, 6.0F, 6.0F, 0.0F, false);
 
@@ -115,9 +121,9 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         right_guard.addChild(right_lower_guard);
         right_lower_guard.setTextureOffset(0, 60).addBox(-3.0F, -0.25F, -1.0F, 6.0F, 3.0F, 8.0F, 0.1F, false);
 
-        lefthead = new AdvancedModelBox(this, "lefthead");
-        lefthead.setRotationPoint(10.0F, 4.0F, 1.0F);
-        root.addChild(lefthead);
+        lefthead = new AdvancedModelBox(this);
+        lefthead.setRotationPoint(10.0F, -5.0F, 1.0F);
+        mid.addChild(lefthead);
         setRotationAngle(lefthead, 0.3491F, -0.1309F, 0.0F);
         lefthead.setTextureOffset(51, 73).addBox(-2.0F, -4.0F, -4.0F, 6.0F, 6.0F, 6.0F, 0.0F, true);
 
@@ -148,8 +154,8 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         leftlaser2.setTextureOffset(50, 56).addBox(-1.0F, -1.0F, -2.0F, 2.0F, 2.0F, 2.0F, 0.3F, false);
 
         body = new AdvancedModelBox(this);
-        body.setRotationPoint(0.0F, 4.0F, 2.0F);
-        root.addChild(body);
+        body.setRotationPoint(0.0F, -5.0F, 2.0F);
+        mid.addChild(body);
         setRotationAngle(body, 0.3491F, 0.0F, 0.0F);
         body.setTextureOffset(32, 0).addBox(-9.0F, -0.4434F, -1.1553F, 18.0F, 2.0F, 2.0F, 0.0F, false);
         body.setTextureOffset(0, 0).addBox(-6.0F, 1.0566F, -7.1553F, 12.0F, 12.0F, 7.0F, 0.0F, false);
@@ -160,6 +166,7 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         nether_star = new AdvancedModelBox(this);
         nether_star.setRotationPoint(0.0F, 3.0F, -2.75F);
         body.addChild(nether_star);
+
 
         tail = new AdvancedModelBox(this);
         tail.setRotationPoint(0.0F, 13.5566F, -0.1553F);
@@ -243,7 +250,7 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         animator.update(entity);
         animator.setAnimation(The_Harbinger_Entity.DEATHLASER_ANIMATION);
         animator.startKeyframe(20);
-        animator.rotate(root,(float)Math.toRadians(-25F),0, 0);
+        animator.rotate(mid,(float)Math.toRadians(-37.5F),0, 0);
         animator.rotate(main_head,(float)Math.toRadians(-15F),0, 0);
         animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
         animator.rotate(jaw,(float)Math.toRadians(-17.5F),0, 0);
@@ -251,7 +258,7 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         animator.endKeyframe();
         animator.setStaticKeyframe(5);
         animator.startKeyframe(3);
-        animator.rotate(root,(float)Math.toRadians(17.5F),0, 0);
+        //animator.rotate(root,(float)Math.toRadians(12.5F),0, 0);
         animator.rotate(main_head,(float)Math.toRadians(-15F),0, 0);
         animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
         animator.rotate(jaw,(float)Math.toRadians(30F),0, 0);
@@ -261,6 +268,7 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         animator.setStaticKeyframe(60);
 
         animator.startKeyframe(10);
+        animator.rotate(mid,(float)Math.toRadians(-12.5F),0, 0);
         animator.rotate(main_head,(float)Math.toRadians(-15F),0, 0);
         animator.move(main_head,0,-1, 0);
         animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
@@ -274,7 +282,7 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
 
         animator.setAnimation(The_Harbinger_Entity.CHARGE_ANIMATION);
         animator.startKeyframe(8);
-        animator.rotate(root,(float)Math.toRadians(20F),0, 0);
+        animator.rotate(mid,(float)Math.toRadians(15F),0, 0);
         animator.rotate(main_head,(float)Math.toRadians(-17.5F),0, 0);
         animator.rotate(head,(float)Math.toRadians(-10F),0, 0);
         animator.rotate(lefthead,(float)Math.toRadians(-32.5F),0, 0);
@@ -286,7 +294,7 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         animator.setStaticKeyframe(8);
 
         animator.startKeyframe(3);
-        animator.rotate(root,(float)Math.toRadians(35F),0, 0);
+        animator.rotate(mid,(float)Math.toRadians(30F),0, 0);
         animator.rotate(main_head,(float)Math.toRadians(-22.5F),0, 0);
         animator.rotate(head,(float)Math.toRadians(-10F),0, 0);
         animator.rotate(jaw,(float)Math.toRadians(-10F),0, 0);
@@ -323,7 +331,7 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
 
         animator.setAnimation(The_Harbinger_Entity.LAUNCH_ANIAMATION);
         animator.startKeyframe(5);
-        animator.rotate(root,(float)Math.toRadians(-5F),0, 0);
+        animator.rotate(mid,(float)Math.toRadians(-17.5F),0, 0);
         animator.rotate(main_head,(float)Math.toRadians(-17.5F),0, 0);
         animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
         animator.rotate(jaw,(float)Math.toRadians(-5F),0, 0);
@@ -334,7 +342,7 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         animator.setStaticKeyframe(5);
 
         animator.startKeyframe(3);
-        animator.rotate(root,(float)Math.toRadians(-5F),0, (float)Math.toRadians(-5F));
+        animator.rotate(mid,(float)Math.toRadians(-17.5F),0, (float)Math.toRadians(-5F));
         animator.rotate(main_head,(float)Math.toRadians(-5F),0, 0);
         animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
         animator.rotate(jaw,(float)Math.toRadians(20F),0, 0);
@@ -346,7 +354,7 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         animator.setStaticKeyframe(3);
 
         animator.startKeyframe(3);
-        animator.rotate(root,(float)Math.toRadians(-5F),0, (float)Math.toRadians(5F));
+        animator.rotate(mid,(float)Math.toRadians(-17.5F),0, (float)Math.toRadians(5F));
         animator.rotate(main_head,(float)Math.toRadians(-10F),0, 0);
         animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
         animator.rotate(jaw,(float)Math.toRadians(25F),0, 0);
@@ -359,7 +367,7 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         animator.setStaticKeyframe(5);
 
         animator.startKeyframe(10);
-        animator.rotate(root,(float)Math.toRadians(-2.5F),0, 0);
+        animator.rotate(mid,(float)Math.toRadians(-15F),0, 0);
         animator.rotate(main_head,(float)Math.toRadians(-10F),0, 0);
         animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
         animator.rotate(jaw,(float)Math.toRadians(25F),0, 0);
@@ -419,6 +427,7 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         return ImmutableList.of(
                 root,
                 main_head,
+                mid,
                 head,
                 headgear,
                 eyebrows,

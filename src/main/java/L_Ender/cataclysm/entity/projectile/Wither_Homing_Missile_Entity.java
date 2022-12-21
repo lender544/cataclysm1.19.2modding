@@ -128,7 +128,7 @@ public class Wither_Homing_Missile_Entity extends Projectile {
                 f = 0.8F;
             }
             this.level.addParticle(ParticleTypes.SMOKE, this.getX() - vec3.x, this.getY() - vec3.y + 0.15D, this.getZ() - vec3.z, 0.0D, 0.0D, 0.0D);
-            this.level.addParticle(ParticleTypes.FLAME, this.getX() - vec3.x, this.getY() - vec3.y + 0.15D, this.getZ() - vec3.z, 0.0D, 0.0D, 0.0D);
+          //  this.level.addParticle(ParticleTypes.FLAME, this.getX() - vec3.x, this.getY() - vec3.y + 0.15D, this.getZ() - vec3.z, 0.0D, 0.0D, 0.0D);
             this.setDeltaMovement(vec3.add(this.xPower, this.yPower, this.zPower).scale((double)f));
             this.setPos(d0, d1, d2);
         } else {
@@ -143,7 +143,7 @@ public class Wither_Homing_Missile_Entity extends Projectile {
             }
 
             if (this.finalTarget == null || !this.finalTarget.isAlive() || (this.finalTarget instanceof Player && this.finalTarget.isSpectator())) {
-              //  this.yPower = -0.175;
+                this.yPower = -0.175;
             } else {
                 double d = this.distanceToSqr(finalTarget);
                 double dx = finalTarget.getX() - this.getX();
@@ -195,8 +195,7 @@ public class Wither_Homing_Missile_Entity extends Projectile {
 
                 ((LivingEntity)entity).addEffect(new MobEffectInstance(MobEffects.WITHER, 5 * i, 0), this.getEffectSource());
             }
-            Explosion.BlockInteraction explosion$blockinteraction = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner()) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
-            this.level.explode(this, this.getX(), this.getY(), this.getZ(), 1.0F, false, explosion$blockinteraction);
+            this.level.explode(this, this.getX(), this.getY(), this.getZ(), 1.0F, false, Explosion.BlockInteraction.NONE);
             this.discard();
 
         }
@@ -205,8 +204,7 @@ public class Wither_Homing_Missile_Entity extends Projectile {
     protected void onHitBlock(BlockHitResult result) {
         super.onHitBlock(result);
         if (!this.level.isClientSide) {
-            Explosion.BlockInteraction explosion$blockinteraction = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner()) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
-            this.level.explode(this, this.getX(), this.getY(), this.getZ(), 1.0F, false, explosion$blockinteraction);
+            this.level.explode(this, this.getX(), this.getY(), this.getZ(), 1.0F, false, Explosion.BlockInteraction.NONE);
             this.discard();
         }
     }

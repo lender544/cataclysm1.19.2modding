@@ -56,7 +56,8 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     public static final Animation CHARGE_ANIMATION = Animation.create(39);
     public static final Animation DEATH_ANIMATION = Animation.create(144);
     public static final Animation LAUNCH_ANIAMATION = Animation.create(59);
-    public static final int SKILL_COOLDOWN = 300;
+    public static final Animation MISSILE_FIRE_ANIAMATION = Animation.create(120);
+    public static final int SKILL_COOLDOWN = 350;
     private static final EntityDataAccessor<Integer> FIRST_HEAD_TARGET = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> SECOND_HEAD_TARGET = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> THIRD_HEAD_TARGET = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
@@ -90,7 +91,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     @Override
     public Animation[] getAnimations() {
         return new Animation[]{
-                NO_ANIMATION,DEATHLASER_ANIMATION,CHARGE_ANIMATION,DEATH_ANIMATION,LAUNCH_ANIAMATION};
+                NO_ANIMATION,DEATHLASER_ANIMATION,CHARGE_ANIMATION,DEATH_ANIMATION,LAUNCH_ANIAMATION,MISSILE_FIRE_ANIAMATION};
     }
 
     protected void registerGoals() {
