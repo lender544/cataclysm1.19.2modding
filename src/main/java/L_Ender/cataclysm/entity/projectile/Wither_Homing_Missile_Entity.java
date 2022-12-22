@@ -58,6 +58,31 @@ public class Wither_Homing_Missile_Entity extends Projectile {
         this.setOwner(entity);
     }
 
+    public Wither_Homing_Missile_Entity(EntityType<? extends Wither_Homing_Missile_Entity> p_36817_, double p_36818_, double p_36819_, double p_36820_, double p_36821_, double p_36822_, double p_36823_, Level p_36824_) {
+        this(p_36817_, p_36824_);
+        this.moveTo(p_36818_, p_36819_, p_36820_, this.getYRot(), this.getXRot());
+        this.reapplyPosition();
+        double d0 = Math.sqrt(p_36821_ * p_36821_ + p_36822_ * p_36822_ + p_36823_ * p_36823_);
+        if (d0 != 0.0D) {
+            this.xPower = p_36821_ / d0 * 0.1D;
+            this.yPower = p_36822_ / d0 * 0.1D;
+            this.zPower = p_36823_ / d0 * 0.1D;
+        }
+
+    }
+
+    public Wither_Homing_Missile_Entity(LivingEntity p_36827_, double p_36828_, double p_36829_, double p_36830_, Level p_36831_, LivingEntity finalTarget) {
+        this(ModEntities.WITHER_HOMING_MISSILE.get(), p_36827_.getX(), p_36827_.getY(), p_36827_.getZ(), p_36828_, p_36829_, p_36830_, p_36831_);
+        this.setOwner(p_36827_);
+        this.finalTarget = finalTarget;
+        this.setRot(p_36827_.getYRot(), p_36827_.getXRot());
+    }
+    public Wither_Homing_Missile_Entity(Level worldIn, LivingEntity entity, LivingEntity finalTarget) {
+        this(ModEntities.WITHER_HOMING_MISSILE.get(), worldIn);
+        this.setOwner(entity);
+        this.finalTarget = finalTarget;
+    }
+
     protected void defineSynchedData() {
     }
 
@@ -71,11 +96,6 @@ public class Wither_Homing_Missile_Entity extends Projectile {
         return p_36837_ < d0 * d0;
     }
 
-    public Wither_Homing_Missile_Entity(Level worldIn, LivingEntity entity, LivingEntity finalTarget) {
-        this(ModEntities.WITHER_HOMING_MISSILE.get(), worldIn);
-        this.setOwner(entity);
-        this.finalTarget = finalTarget;
-    }
 
 
     public void addAdditionalSaveData(CompoundTag p_37357_) {
@@ -147,7 +167,7 @@ public class Wither_Homing_Missile_Entity extends Projectile {
             } else {
                 double d = this.distanceToSqr(finalTarget);
                 double dx = finalTarget.getX() - this.getX();
-                double dy = finalTarget.getY() + finalTarget.getBbHeight() * 0.8F - this.getY();
+                double dy = finalTarget.getY() + finalTarget.getBbHeight() * 1.2F - this.getY();
                 double dz = finalTarget.getZ() - this.getZ();
                 double d13 = 3;
                 dx /= d;

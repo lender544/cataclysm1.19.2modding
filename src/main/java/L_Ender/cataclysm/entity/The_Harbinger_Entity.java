@@ -56,7 +56,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     public static final Animation CHARGE_ANIMATION = Animation.create(39);
     public static final Animation DEATH_ANIMATION = Animation.create(144);
     public static final Animation LAUNCH_ANIAMATION = Animation.create(59);
-    public static final Animation MISSILE_FIRE_ANIAMATION = Animation.create(120);
+    public static final Animation MISSILE_FIRE_ANIAMATION = Animation.create(118);
     public static final int SKILL_COOLDOWN = 350;
     private static final EntityDataAccessor<Integer> FIRST_HEAD_TARGET = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> SECOND_HEAD_TARGET = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
@@ -98,6 +98,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         this.goalSelector.addGoal(1, new DeathLaserGoal(this,DEATHLASER_ANIMATION));
         this.goalSelector.addGoal(1, new ChargeGoal(this,CHARGE_ANIMATION));
         this.goalSelector.addGoal(1, new LaunchGoal(this,LAUNCH_ANIAMATION));
+        this.goalSelector.addGoal(1, new MissileLaunchGoal(this,MISSILE_FIRE_ANIAMATION));
         this.goalSelector.addGoal(2, new RangedAttackGoal(this, 1.0D, 40, 20.0F));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomFlyingGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -186,13 +187,14 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         if (!this.level.isClientSide && this.getAlternativeTarget(0) > 0 && this.isAlive() && !this.getIsCharge()) {
             if (entity != null) {
                 double d0 = vec3.y;
-                if (this.getY() < entity.getY() + 2.25D) {
+                double l0 = this.getAnimation() == MISSILE_FIRE_ANIAMATION ? 1.0D : 2.25d;
+                if (this.getY() < entity.getY() + l0) {
                     d0 = Math.max(0.0D, d0);
                     d0 += 0.3D - d0 * (double) 0.6F;
                 }
                 vec3 = new Vec3(vec3.x, d0, vec3.z);
                 Vec3 vec31 = new Vec3(entity.getX() - this.getX(), 0.0D, entity.getZ() - this.getZ());
-                if (vec31.horizontalDistanceSqr() > 9.0D && !(this.getAnimation() == DEATHLASER_ANIMATION && this.getAnimationTick() > 8)) {
+                if (vec31.horizontalDistanceSqr() > 9.0D && !(this.getAnimation() == DEATHLASER_ANIMATION && this.getAnimationTick() > 8 || this.getAnimation() == MISSILE_FIRE_ANIAMATION) ) {
                     Vec3 vec32 = vec31.normalize();
                     vec3 = vec3.add(vec32.x * 0.3D - vec3.x * 0.6D, 0.0D, vec32.z * 0.3D - vec3.z * 0.6D);
                 }
@@ -211,6 +213,9 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
                 } else if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.getRandom().nextFloat() * 100.0F < 3f && Laser_Mode_Progress == 0) {
                     skill_cooldown = SKILL_COOLDOWN;
                     this.setAnimation(LAUNCH_ANIAMATION);
+                } else if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.getRandom().nextFloat() * 100.0F < 1.5f) {
+                    skill_cooldown = SKILL_COOLDOWN;
+                    this.setAnimation(MISSILE_FIRE_ANIAMATION);
                 }
             }
         }
@@ -231,8 +236,6 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         if(this.getAnimation() != CHARGE_ANIMATION  && getIsCharge()) {
             setIsCharge(false);
         }
-
-
 
         for(int j = 0; j < 2; ++j) {
             int k = this.getAlternativeTarget(j + 1);
@@ -266,7 +269,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
             double d4 = d1 * dist;
             double d5 = d2 * dist;
             this.level.addParticle(ModParticle.LIGHTNING.get(), this.getX() + d0, this.getY() + 2, this.getZ() + d2, d3, d4, d5);
-            if(entity != null) {
+            if(entity != null && this.getAnimation() != MISSILE_FIRE_ANIAMATION ) {
                 float f = Mth.cos((yBodyRot) * ((float) Math.PI / 180F));
                 float f1 = Mth.sin((yBodyRot) * ((float) Math.PI / 180F));
                 double theta = (yBodyRot) * (Math.PI / 180);
@@ -476,25 +479,17 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
             if (!this.isSilent()) {
                 this.playSound(ModSounds.HARBINGER_LASER.get(),1,1.0F);
             }
-        //    Laser_Beam_Entity laserBeam = new Laser_Beam_Entity(this.level, this);
-        //  laserBeam.shoot(d3, d4, d5, 1F, 1F);
-        //    laserBeam.setPosRaw(d0, d1, d2);
-          //  this.level.addFreshEntity(laserBeam);
-            Wither_Homing_Missile_Entity laserBeam = new Wither_Homing_Missile_Entity(this.level, this,target);
+          Laser_Beam_Entity laserBeam = new Laser_Beam_Entity(this.level, this);
+            laserBeam.shoot(d3, d4, d5, 1F, 1F);
             laserBeam.setPosRaw(d0, d1, d2);
             this.level.addFreshEntity(laserBeam);
-
         }else{
             if (!this.isSilent()) {
                 this.level.levelEvent((Player)null, 1024, this.blockPosition(), 0);
             }
-         //   Wither_Missile_Entity witherskull = new Wither_Missile_Entity(this, d3, d4, d5, this.level);
-           // witherskull.setPosRaw(d0, d1, d2);
-          //  this.level.addFreshEntity(witherskull);
-
-            Wither_Homing_Missile_Entity laserBeam = new Wither_Homing_Missile_Entity(this.level, this,target);
-            laserBeam.setPosRaw(d0, d1, d2);
-            this.level.addFreshEntity(laserBeam);
+            Wither_Missile_Entity witherskull = new Wither_Missile_Entity(this, d3, d4, d5, this.level);
+            witherskull.setPosRaw(d0, d1, d2);
+            this.level.addFreshEntity(witherskull);
         }
     }
 
@@ -680,6 +675,100 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
                 lava.setPosRaw(d0, d1, d2);
                 lava.shoot(d3, d4 + d6 * 8, d5, 1.0F, 15);
                 entity.level.addFreshEntity(lava);
+            }
+        }
+    }
+
+
+    static class MissileLaunchGoal extends SimpleAnimationGoal<The_Harbinger_Entity> {
+
+        public MissileLaunchGoal(The_Harbinger_Entity entity, Animation animation) {
+            super(entity, animation);
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK, Flag.JUMP));
+        }
+
+        public void tick() {
+            LivingEntity target = entity.getTarget();
+            for (int i = 1; i < 3; ++i) {
+                int l1 = entity.getAlternativeTarget(i);
+                if (l1 > 0) {
+                    LivingEntity livingentity = (LivingEntity) entity.level.getEntity(l1);
+                    if (livingentity != null && entity.canAttack(livingentity) && !(entity.distanceToSqr(livingentity) > 1600.0D) && entity.hasLineOfSight(livingentity)) {
+                        if (entity.getAnimationTick() == 80 || entity.getAnimationTick() == 84  || entity.getAnimationTick() == 88) {
+                            this.mlaunch(2, (LivingEntity) livingentity);
+                            break;
+                        }
+
+                        if (entity.getAnimationTick() == 98 || entity.getAnimationTick() == 102 || entity.getAnimationTick() == 106) {
+                            this.mlaunch(1, (LivingEntity) livingentity);
+                            break;
+                        }
+                    } else {
+                        entity.setAlternativeTarget(i, 0);
+                    }
+                } else {
+                    List<LivingEntity> list = entity.level.getNearbyEntities(LivingEntity.class, TARGETING_CONDITIONS, entity, entity.getBoundingBox().inflate(20.0D, 8.0D, 20.0D));
+                    if (!list.isEmpty()) {
+                        LivingEntity livingentity1 = list.get(entity.random.nextInt(list.size()));
+                        entity.setAlternativeTarget(i, livingentity1.getId());
+                    }
+                }
+
+            }
+            if (target != null) {
+                entity.lookAt(target, 30, 30);
+                entity.getLookControl().setLookAt(target, 30, 30);
+
+            }
+            if (entity.getAnimationTick() == 27) {
+                entity.playSound(ModSounds.HARBINGER_PREPARE.get(), 1, 1.0F);
+            }
+        }
+
+
+
+
+        private void mlaunch(int head, LivingEntity target) {
+            if (!entity.isSilent()) {
+                entity.level.levelEvent((Player)null, 1024, entity.blockPosition(), 0);
+            }
+            double d0 = this.getLauncherX(head);
+            double d1 = this.getLauncherY(head);
+            double d2 = this.getLauncherZ(head);
+
+            Wither_Homing_Missile_Entity laserBeam = new Wither_Homing_Missile_Entity(entity.level,entity,target);
+            laserBeam.setPosRaw(d0, d1, d2);
+            entity.level.addFreshEntity(laserBeam);
+        }
+
+
+        private double getLauncherX(int head) {
+            if (head <= 0) {
+                return entity.getX();
+            } else {
+                double theta = (entity.yBodyRot) * (Math.PI / 180);
+                theta += Math.PI / 2;
+                double vecX = Math.cos(theta);
+                float f = (entity.yBodyRot + (float)(180 * (head - 1))) * ((float)Math.PI / 180F);
+                float f1 = Mth.cos(f);
+                return entity.getX() + (double)f1 * 1.25D + vecX * 1.35D;
+            }
+        }
+
+        private double getLauncherY(int head) {
+            return head <= 0 ? entity.getY() + 3.0D : entity.getY() + 3.8D;
+        }
+
+        private double getLauncherZ(int head) {
+            if (head <= 0) {
+                return entity.getZ();
+            } else {
+                double theta = (entity.yBodyRot) * (Math.PI / 180);
+                theta += Math.PI / 2;
+                double vecZ = Math.sin(theta);
+                float f = (entity.yBodyRot + (float)(180 * (head - 1))) * ((float)Math.PI / 180F);
+                float f1 = Mth.sin(f);
+                return entity.getZ() + (double)f1 * 1.25D + vecZ * 1.35D;
             }
         }
     }

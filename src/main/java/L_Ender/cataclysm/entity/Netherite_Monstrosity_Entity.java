@@ -345,6 +345,7 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
             if (this.getAnimationTick() == 29) {
                 berserkBlockBreaking(8,8,8);
                 EarthQuake();
+                ScreenShake_Entity.ScreenShake(level, this.position(), 20, 0.3f, 0, 20);
                 Makeparticle(4.0f,3.5f);
                 Makeparticle(4.0f,-3.5f);
             }

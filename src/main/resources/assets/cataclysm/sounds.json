@@ -371,5 +371,13 @@
         "name": "cataclysm:entity/harbinger_mode_change"
       }
     ]
+  },
+  "harbinger_prepare": {
+    "subtitle": "harbinger_prepare.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/harbinger_prepare"
+      }
+    ]
   }
 }

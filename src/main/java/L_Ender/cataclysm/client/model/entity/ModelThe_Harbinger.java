@@ -182,13 +182,13 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         tailbone.setTextureOffset(39, 80).addBox(0.0F, 0.0F, 0.0F, 0.0F, 5.0F, 4.0F, 0.0F, false);
 
         jetpack = new AdvancedModelBox(this);
-        jetpack.setRotationPoint(0.0F, 0.0F, 2.5F);
+        jetpack.setRotationPoint(0.0F, 3.0F, 4.5F);
         body.addChild(jetpack);
         setRotationAngle(jetpack, 0.2618F, 0.0F, 0.0F);
 
 
         rightside = new AdvancedModelBox(this);
-        rightside.setRotationPoint(0.0F, 4.0F, 1.0F);
+        rightside.setRotationPoint(0.0F, 0.5846F, -0.1554F);
         jetpack.addChild(rightside);
         setRotationAngle(rightside, -0.0436F, -0.9163F, 0.1745F);
         rightside.setTextureOffset(0, 20).addBox(-3.8071F, -11.8715F, 8.293F, 8.0F, 13.0F, 8.0F, 0.0F, false);
@@ -215,7 +215,7 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         rightedge3.setTextureOffset(58, 56).addBox(1.0F, -5.0F, 1.0F, 6.0F, 10.0F, 6.0F, 0.0F, false);
 
         leftside = new AdvancedModelBox(this);
-        leftside.setRotationPoint(0.0F, 4.0F, 1.0F);
+        leftside.setRotationPoint(0.0F, 0.5846F, -0.1554F);
         jetpack.addChild(leftside);
         setRotationAngle(leftside, -0.0436F, 0.9163F, -0.1745F);
         leftside.setTextureOffset(0, 20).addBox(-4.1929F, -11.8715F, 8.293F, 8.0F, 13.0F, 8.0F, 0.0F, true);
@@ -380,6 +380,80 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         animator.setStaticKeyframe(5);
 
         animator.resetKeyframe(10);
+
+        animator.setAnimation(The_Harbinger_Entity.MISSILE_FIRE_ANIAMATION);
+        animator.startKeyframe(5);
+        animator.rotate(mid,(float)Math.toRadians(-25F),0, 0);
+        animator.rotate(main_head,(float)Math.toRadians(-15F),0, 0);
+        animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
+        animator.rotate(jaw,(float)Math.toRadians(32.5F),0, 0);
+        animator.endKeyframe();
+
+        animator.setStaticKeyframe(10);
+
+        animator.startKeyframe(8);
+        animator.rotate(mid,(float)Math.toRadians(35F),0, 0);
+        animator.rotate(main_head,(float)Math.toRadians(-25F),0, 0);
+        animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
+        animator.rotate(jaw,(float)Math.toRadians(32.5F),0, 0);
+        animator.rotate(jetpack,(float)Math.toRadians(50F),0, 0);
+        animator.endKeyframe();
+
+        animator.setStaticKeyframe(10);
+
+        animator.startKeyframe(12);
+        animator.rotate(mid,(float)Math.toRadians(35F),0, 0);
+        animator.rotate(main_head,(float)Math.toRadians(-25F),0, 0);
+        animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
+        animator.rotate(jaw,(float)Math.toRadians(32.5F),0, 0);
+        animator.rotate(jetpack,(float)Math.toRadians(-17.5F),0, 0);
+        animator.rotate(rightside,(float)Math.toRadians(40F),(float)Math.toRadians(92.5F), (float)Math.toRadians(-145F));
+        animator.rotate(leftside,(float)Math.toRadians(40F),(float)Math.toRadians(-92.5F), (float)Math.toRadians(145F));
+        animator.endKeyframe();
+
+        animator.setStaticKeyframe(10);
+
+        animator.startKeyframe(12);
+        animator.rotate(mid,(float)Math.toRadians(35F),0, 0);
+        animator.rotate(main_head,(float)Math.toRadians(-25F),0, 0);
+        animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
+        animator.rotate(jaw,(float)Math.toRadians(32.5F),0, 0);
+        animator.rotate(jetpack,(float)Math.toRadians(70F),0, 0);
+        animator.rotate(rightside,(float)Math.toRadians(67.5F),(float)Math.toRadians(72.5F), (float)Math.toRadians(-145F));
+        animator.rotate(leftside,(float)Math.toRadians(67.5F),(float)Math.toRadians(-72.5F), (float)Math.toRadians(145F));
+        animator.endKeyframe();
+
+        animator.setStaticKeyframe(10);
+
+        animator.startKeyframe(3);
+        animator.rotate(mid,(float)Math.toRadians(35F),(float)Math.toRadians(-7.5F), 0);
+        animator.rotate(main_head,(float)Math.toRadians(-25F),0, 0);
+        animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
+        animator.rotate(jaw,(float)Math.toRadians(32.5F),0, 0);
+        animator.rotate(jetpack,(float)Math.toRadians(70F),0, 0);
+        animator.rotate(rightside,(float)Math.toRadians(67.5F),(float)Math.toRadians(72.5F), (float)Math.toRadians(-145F));
+        animator.rotate(leftside,(float)Math.toRadians(67.5F),(float)Math.toRadians(-72.5F), (float)Math.toRadians(145F));
+        animator.move(rightside,0,0, 5);
+        animator.move(leftside,0,0, -3);
+        animator.endKeyframe();
+
+        animator.setStaticKeyframe(15);
+
+        animator.startKeyframe(3);
+        animator.rotate(mid,(float)Math.toRadians(35F),(float)Math.toRadians(7.5F), 0);
+        animator.rotate(main_head,(float)Math.toRadians(-25F),0, 0);
+        animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
+        animator.rotate(jaw,(float)Math.toRadians(32.5F),0, 0);
+        animator.rotate(jetpack,(float)Math.toRadians(70F),0, 0);
+        animator.rotate(rightside,(float)Math.toRadians(67.5F),(float)Math.toRadians(72.5F), (float)Math.toRadians(-145F));
+        animator.rotate(leftside,(float)Math.toRadians(67.5F),(float)Math.toRadians(-72.5F), (float)Math.toRadians(145F));
+        animator.move(rightside,0,0, -3);
+        animator.move(leftside,0,0, 5);
+        animator.endKeyframe();
+
+        animator.setStaticKeyframe(10);
+
+        animator.resetKeyframe(10);
     }
 
     @Override
@@ -393,7 +467,7 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         this.main_head.rotateAngleY += netHeadYaw * ((float) Math.PI / 180F);
         this.main_head.rotateAngleX += headPitch * ((float) Math.PI / 180F);
 
-        if(entityIn.getAnimation() != The_Harbinger_Entity.DEATH_ANIMATION && entityIn.getAnimation() != The_Harbinger_Entity.LAUNCH_ANIAMATION) {
+        if(entityIn.getAnimation() != The_Harbinger_Entity.MISSILE_FIRE_ANIAMATION && entityIn.getAnimation() != The_Harbinger_Entity.DEATH_ANIMATION && entityIn.getAnimation() != The_Harbinger_Entity.LAUNCH_ANIAMATION) {
             setupHeadRotation(entityIn, this.righthead, 0);
             setupHeadRotation(entityIn, this.lefthead, 1);
 

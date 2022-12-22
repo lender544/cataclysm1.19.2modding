@@ -890,7 +890,7 @@ public class Ignis_Entity extends Boss_monster {
             float math = this.getIsShieldBreak() ? 0.3F : 0.0f;
             if (this.getAnimationTick() == 5) {
                 this.playSound(SoundEvents.TOTEM_USE, 1.5f, 0.8F + this.getRandom().nextFloat() * 0.1F);
-                // ScreenShake_Entity.ScreenShake(level, this.position(), 20, 0.3f, 0, 20);
+                 ScreenShake_Entity.ScreenShake(level, this.position(), 20, 0.3f, 0, 20);
                 AreaAttack(4.85f, 2.5f, 45, 1.5f, 0.15f, 200, 0, 0, 5, false, 0);
                 ShieldSmashparticle(radius, vec, math);
             }
