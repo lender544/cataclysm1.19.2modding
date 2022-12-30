@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
 
@@ -32,7 +33,7 @@ import java.util.List;
 import java.util.Random;
 
 public class ObsidianExplosionTrapBricks extends BaseEntityBlock {
-    public static final BooleanProperty LIT = RedstoneTorchBlock.LIT;
+    public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
     public ObsidianExplosionTrapBricks(BlockBehaviour.Properties properties) {
         super(properties);

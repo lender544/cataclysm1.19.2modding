@@ -124,6 +124,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> ALTAR_OF_FIRE = registerBlockAndItem("altar_of_fire",
             BlockAltarOfFire::new, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).rarity(Rarity.EPIC).fireResistant(), true);
 
+    public static final RegistryObject<Block> EMP = registerBlockAndItem("emp",
+            BlockEMP::new, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).rarity(Rarity.EPIC), true);
+
     public static final RegistryObject<Block> CHORUS_PLANKS = BLOCKS.register("chorus_planks",
             () -> new Block(BlockBehaviour.Properties.of(Material.NETHER_WOOD, MaterialColor.COLOR_PURPLE).
                     strength(2.0F, 3.0F)

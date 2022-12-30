@@ -136,6 +136,18 @@
   "endermaptera_step.sub": "엔더마프테라가 기어다님",
   "endermaptera_death.sub": "엔더마프테라가 죽음",
   "voidrunerising.sub": "공허의 룬이 솟아남",
+  "revenant_idle.sub": "레버넌트가 신음함",
+  "revenant_hurt.sub": "레버넌트가 상처를 입음",
+  "revenant_breath.sub": "레버넌트가 잿빛 숨결을 내뱉음",
+  "revenant_death.sub": "레버넌트가 죽음",
+  "ignis_ambient.sub": "이그니스가 불타오름",
+  "ignis_hurt.sub": "이그니스가 상처를 입음",
+  "strongswingattack.sub": "이그니스가 참격을 날림",
+  "sword_stomp.sub": "이그니스가 내리침",
+  "ignis_poke.sub": "이그니스가 적을 소각자에 꽂음",
+  "flame_burst.sub": "불꽃이 폭발함",
+  "ignis_death.sub": "이그니스가 죽음",
+  "ignis_music.sub": "이그니스 테마곡",
 
   "advancements.cataclysm.root.title": "대격변",
   "advancements.cataclysm.root.description": "대격변!",
@@ -157,5 +169,6 @@
   "advancements.cataclysm.kill_ignis.description": "이그니스를 소환한 뒤, 쓰러뜨리세요",
 
 
-  "death.attack.cataclysm.laser": "%s는 %s의 레이저에 의해 말살되었습니다."
+  "death.attack.cataclysm.laser": "%s는 %s의 레이저에 의해 말살되었습니다.",
+  "death.attack.cataclysm.emp": "%s는 전기구이 통닭이 되버렸습니다."
 }

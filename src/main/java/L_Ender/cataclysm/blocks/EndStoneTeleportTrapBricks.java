@@ -12,10 +12,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RedstoneTorchBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
 public class EndStoneTeleportTrapBricks extends TrapBlock {
-    public static final BooleanProperty LIT = RedstoneTorchBlock.LIT;
+    public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
     public EndStoneTeleportTrapBricks(BlockBehaviour.Properties properties) {
         super(properties);

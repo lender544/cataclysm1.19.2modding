@@ -1,10 +1,12 @@
 package L_Ender.cataclysm;
 
 import L_Ender.cataclysm.client.event.ClientEvent;
+import L_Ender.cataclysm.client.particle.EM_PulseParticle;
 import L_Ender.cataclysm.client.particle.LightningParticle;
 import L_Ender.cataclysm.client.particle.SoulLavaParticle;
 import L_Ender.cataclysm.client.render.CMItemstackRenderer;
 import L_Ender.cataclysm.client.render.blockentity.RendererAltar_of_Fire;
+import L_Ender.cataclysm.client.render.blockentity.RendererEMP;
 import L_Ender.cataclysm.client.render.entity.*;
 import L_Ender.cataclysm.client.render.item.CMItemRenderProperties;
 import L_Ender.cataclysm.client.render.item.CustomArmorRenderProperties;
@@ -60,6 +62,7 @@ public class ClientProxy extends CommonProxy {
         cataclysm.LOGGER.debug("Registered particle factories");
         registry.register(ModParticle.SOUL_LAVA.get(), SoulLavaParticle.Factory::new);
         registry.register(ModParticle.LIGHTNING.get(), new LightningParticle.Factory());
+        registry.register(ModParticle.EM_PULSE.get(), new EM_PulseParticle.Factory());
     }
 
     public void clientInit() {
@@ -104,6 +107,7 @@ public class ClientProxy extends CommonProxy {
         }
 
         BlockEntityRenderers.register(ModTileentites.ALTAR_OF_FIRE.get(), RendererAltar_of_Fire::new);
+        BlockEntityRenderers.register(ModTileentites.EMP.get(), RendererEMP::new);
     }
 
 

@@ -1,6 +1,7 @@
 package L_Ender.cataclysm.client.render;
 
 import L_Ender.cataclysm.client.model.block.Model_Altar_of_Fire;
+import L_Ender.cataclysm.client.model.block.Model_EMP;
 import L_Ender.cataclysm.client.model.item.ModelBulwark_of_the_flame;
 import L_Ender.cataclysm.client.model.item.ModelGauntlet_of_Guard;
 import L_Ender.cataclysm.client.model.item.ModelIncinerator;
@@ -30,6 +31,7 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
     public static int ticksExisted = 0;
 
     private static final ModelBulwark_of_the_flame BULWARK_OF_THE_FLAME_MODEL = new ModelBulwark_of_the_flame();
+    private static final Model_EMP EMP_MODEL = new Model_EMP();
     private static final ModelGauntlet_of_Guard GAUNTLET_OF_GUARD_MODEL = new ModelGauntlet_of_Guard();
     private static final ModelIncinerator THE_INCINERATOR_MODEL = new ModelIncinerator();
     private static final Model_Altar_of_Fire ALTAR_OF_FIRE_MODEL = new Model_Altar_of_Fire();
@@ -37,6 +39,7 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
     private static final ResourceLocation GAUNTLET_OF_GUARD_TEXTURE = new ResourceLocation("cataclysm:textures/items/gauntlet_of_guard.png");
     private static final ResourceLocation THE_INCINERATOR_TEXTURE = new ResourceLocation("cataclysm:textures/items/the_incinerator.png");
     private static final ResourceLocation ALTAR_OF_FIRE_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altar_of_fire.png");
+    private static final ResourceLocation EMP_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/emp.png");
     private static final ResourceLocation TEXTURE_1 = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altarfire1.png");
     private static final ResourceLocation TEXTURE_2 = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altarfire2.png");
     private static final ResourceLocation TEXTURE_3 = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altarfire3.png");
@@ -91,6 +94,15 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
             ALTAR_OF_FIRE_MODEL.resetToDefaultPose();
             ALTAR_OF_FIRE_MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(RenderType.entityCutoutNoCull(ALTAR_OF_FIRE_TEXTURE)), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
             ALTAR_OF_FIRE_MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(CMRenderTypes.getGlowingEffect(getIdleTexture(tick % 12))), 210, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+            matrixStackIn.popPose();
+        }
+
+        if(itemStackIn.getItem() == ModBlocks.EMP.get().asItem()){
+            matrixStackIn.pushPose();
+            matrixStackIn.translate(0.5F, 1.5F, 0.5F);
+            matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(-180));
+            EMP_MODEL.resetToDefaultPose();
+            EMP_MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(RenderType.entityCutoutNoCull(EMP_TEXTURE)), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
             matrixStackIn.popPose();
         }
 

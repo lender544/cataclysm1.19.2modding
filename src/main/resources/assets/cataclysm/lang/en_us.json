@@ -135,6 +135,18 @@
   "endermaptera_step.sub": "Endermaptera steps",
   "endermaptera_death.sub": "Endermaptera dies",
   "voidrunerising.sub": "Void Rune rises.",
+  "revenant_idle.sub": "Revenant groans",
+  "revenant_hurt.sub": "Revenant hurts",
+  "revenant_breath.sub": "Revenant spews gray breath",
+  "revenant_death.sub": "Revenant dies",
+  "ignis_ambient.sub": "Ignis is burning",
+  "ignis_hurt.sub": "Ignis hurt",
+  "strongswingattack.sub": "Ignis has been cut off",
+  "sword_stomp.sub": "Ignis strikes",
+  "ignis_poke.sub": "Ignis plugged in",
+  "flame_burst.sub": "The explosion of a flame",
+  "ignis_death.sub": "Ignis dies",
+  "ignis_music.sub": "Ignis background music",
 
   "advancements.cataclysm.root.title": "Cataclysm",
   "advancements.cataclysm.root.description": "Cataclysm!",
@@ -156,5 +168,6 @@
   "advancements.cataclysm.kill_ignis.description": "Summon and Defeat the Ignis",
 
 
-  "death.attack.cataclysm.laser": "%s was exterminated by %s 's laser"
+  "death.attack.cataclysm.laser": "%s was exterminated by %s 's laser",
+  "death.attack.cataclysm.emp": "%s dev has become Electric Grilled Chicken"
 }

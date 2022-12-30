@@ -13,12 +13,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RedstoneTorchBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
 public class PurpurVoidRuneTrapBlock extends TrapBlock {
     //The code and texture were brought from savage and ravage. Thx abnormal
-    public static final BooleanProperty LIT = RedstoneTorchBlock.LIT;
-
+    public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public PurpurVoidRuneTrapBlock(BlockBehaviour.Properties properties) {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(LIT, Boolean.valueOf(false)));
