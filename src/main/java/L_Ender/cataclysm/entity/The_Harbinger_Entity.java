@@ -1,5 +1,6 @@
 package L_Ender.cataclysm.entity;
 
+import L_Ender.cataclysm.entity.AI.AttackAniamtionGoal3;
 import L_Ender.cataclysm.entity.AI.SimpleAnimationGoal;
 import L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
 import L_Ender.cataclysm.entity.projectile.*;
@@ -18,6 +19,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -57,6 +59,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     public static final Animation DEATH_ANIMATION = Animation.create(144);
     public static final Animation LAUNCH_ANIAMATION = Animation.create(59);
     public static final Animation MISSILE_FIRE_ANIAMATION = Animation.create(118);
+    public static final Animation STUN_ANIAMATION = Animation.create(85);
     public static final int SKILL_COOLDOWN = 350;
     private static final EntityDataAccessor<Integer> FIRST_HEAD_TARGET = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> SECOND_HEAD_TARGET = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
@@ -91,7 +94,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     @Override
     public Animation[] getAnimations() {
         return new Animation[]{
-                NO_ANIMATION,DEATHLASER_ANIMATION,CHARGE_ANIMATION,DEATH_ANIMATION,LAUNCH_ANIAMATION,MISSILE_FIRE_ANIAMATION};
+                NO_ANIMATION,DEATHLASER_ANIMATION,CHARGE_ANIMATION,DEATH_ANIMATION,LAUNCH_ANIAMATION,MISSILE_FIRE_ANIAMATION,STUN_ANIAMATION};
     }
 
     protected void registerGoals() {
@@ -99,6 +102,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         this.goalSelector.addGoal(1, new ChargeGoal(this,CHARGE_ANIMATION));
         this.goalSelector.addGoal(1, new LaunchGoal(this,LAUNCH_ANIAMATION));
         this.goalSelector.addGoal(1, new MissileLaunchGoal(this,MISSILE_FIRE_ANIAMATION));
+        this.goalSelector.addGoal(1, new AttackAniamtionGoal3<>(this, STUN_ANIAMATION));
         this.goalSelector.addGoal(2, new RangedAttackGoal(this, 1.0D, 40, 20.0F));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomFlyingGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -166,6 +170,12 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
                 this.idleHeadUpdates[i] += 3;
             }
 
+            if(this.getAnimation() != STUN_ANIAMATION && this.getAnimation() != DEATHLASER_ANIMATION) {
+                if ("cataclysm.emp".equals(source.getMsgId())) {
+                    AnimationHandler.INSTANCE.sendAnimationMessage(this, STUN_ANIAMATION);
+                }
+            }
+
             return super.hurt(source, p_31462_);
         }
     }
@@ -184,7 +194,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         if (skill_cooldown > 0) skill_cooldown--;
 
         Entity entity = this.level.getEntity(this.getAlternativeTarget(0));
-        if (!this.level.isClientSide && this.getAlternativeTarget(0) > 0 && this.isAlive() && !this.getIsCharge()) {
+        if (!this.level.isClientSide && this.getAlternativeTarget(0) > 0 && this.isAlive() && !this.getIsCharge() && this.getAnimation() != STUN_ANIAMATION) {
             if (entity != null) {
                 double d0 = vec3.y;
                 double l0 = this.getAnimation() == MISSILE_FIRE_ANIAMATION ? 1.0D : 2.25d;
@@ -237,6 +247,13 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
             setIsCharge(false);
         }
 
+        if(this.getAnimation() == STUN_ANIAMATION) {
+            if(this.getAnimationTick() == 15){
+                this.level.playSound((Player)null, this, ModSounds.HARBINGER_STUN.get(), SoundSource.HOSTILE, 4F, level.random.nextFloat() * 0.2F + 1.0F);
+            }
+        }
+
+
         for(int j = 0; j < 2; ++j) {
             int k = this.getAlternativeTarget(j + 1);
             Entity entity1 = null;
@@ -269,7 +286,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
             double d4 = d1 * dist;
             double d5 = d2 * dist;
             this.level.addParticle(ModParticle.LIGHTNING.get(), this.getX() + d0, this.getY() + 2, this.getZ() + d2, d3, d4, d5);
-            if(entity != null && this.getAnimation() != MISSILE_FIRE_ANIAMATION ) {
+            if (entity != null && this.getAnimation() != MISSILE_FIRE_ANIAMATION) {
                 float f = Mth.cos((yBodyRot) * ((float) Math.PI / 180F));
                 float f1 = Mth.sin((yBodyRot) * ((float) Math.PI / 180F));
                 double theta = (yBodyRot) * (Math.PI / 180);
@@ -295,7 +312,12 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
                     this.level.addParticle(ParticleTypes.SMOKE, getX() + vec * vecX + extraX + f * -math, this.getY() + extraY, getZ() + vec * vecZ + extraZ + f1 * -math, 0, -0.07, 0);
                 }
             }
+            if (this.getAnimation() == STUN_ANIAMATION)
+                for (int i = 0; i < 2; ++i) {
+                    this.level.addParticle(ParticleTypes.LARGE_SMOKE, this.getRandomX(1.5D), this.getRandomY(), this.getRandomZ(1.5D), 0.0D, 0.0D, 0.0D);
+                }
         }
+
 
     }
 

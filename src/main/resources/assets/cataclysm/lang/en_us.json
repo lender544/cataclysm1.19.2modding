@@ -85,6 +85,7 @@
   "block.cataclysm.void_lantern_block":"Void Lantern Block",
   "block.cataclysm.ender_guardian_spawner":"Ender Guardian Spawner",
   "block.cataclysm.altar_of_fire":"Altar Of Fire",
+  "block.cataclysm.emp":"EMP",
 
   "entity.cataclysm.ender_golem": "Ender Golem",
   "entity.cataclysm.ender_guardian": "Ender Guardian",

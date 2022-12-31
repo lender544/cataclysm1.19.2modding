@@ -47,7 +47,7 @@ public class EM_PulseParticle extends Particle {
         super.tick();
         this.prevSize = size;
         this.prevAlpha = alpha;
-        this.size += 0.4F;
+        this.size += 0.3F;
         this.xd *= 0.1D;
         this.yd *= 0.8D;
         this.zd *= 0.1D;

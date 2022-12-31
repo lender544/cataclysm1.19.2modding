@@ -1,12 +1,16 @@
 package L_Ender.cataclysm.tileentities;
 
 import L_Ender.cataclysm.blocks.BlockEMP;
+import L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import L_Ender.cataclysm.init.ModParticle;
+import L_Ender.cataclysm.init.ModSounds;
 import L_Ender.cataclysm.init.ModTileentites;
 import L_Ender.cataclysm.util.CMDamageTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -51,6 +55,8 @@ public class TileEntityEMP extends BlockEntity {
         float z = this.getBlockPos().getZ() + 0.5F;
         if(!overload && chompProgress == 20F ){
             level.addParticle(ModParticle.EM_PULSE.get(), x, y, z, 0, 0, 0);
+            ScreenShake_Entity.ScreenShake(this.level, Vec3.atCenterOf(this.getBlockPos()), 20, 0.01f, 0, 20);
+            level.playSound((Player)null, this.getBlockPos(), ModSounds.EMP_ACTIVATED.get(), SoundSource.BLOCKS, 4F, level.random.nextFloat() * 0.2F + 1.0F);
             level.setBlockAndUpdate(this.getBlockPos(), getBlockState().setValue(BlockEMP.OVERLOAD, true));
             AABB screamBox = new AABB(this.getBlockPos().getX() - 5, this.getBlockPos().getY() - 5F, this.getBlockPos().getZ() - 5, this.getBlockPos().getX() + 5, this.getBlockPos().getY() + 5F, this.getBlockPos().getZ() + 5F);
             for(LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, screamBox)){

@@ -86,6 +86,7 @@
   "block.cataclysm.void_lantern_block":"공허 랜턴 블록",
   "block.cataclysm.ender_guardian_spawner":"엔더 수호자 스포너",
   "block.cataclysm.altar_of_fire":"불의 제단",
+  "block.cataclysm.emp":"EMP",
 
   "entity.cataclysm.ender_golem": "엔더 골렘",
   "entity.cataclysm.ender_guardian": "엔더 수호자",

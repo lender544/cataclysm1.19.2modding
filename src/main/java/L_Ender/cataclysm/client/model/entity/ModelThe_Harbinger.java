@@ -454,6 +454,17 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         animator.setStaticKeyframe(10);
 
         animator.resetKeyframe(10);
+
+        animator.setAnimation(The_Harbinger_Entity.STUN_ANIAMATION);
+        animator.startKeyframe(15);
+        animator.rotate(root,(float)Math.toRadians(20F),0, 0);
+        animator.rotate(main_head,(float)Math.toRadians(32.5F),0, 0);
+        animator.rotate(righthead,(float)Math.toRadians(35F),0, 0);
+        animator.rotate(lefthead,(float)Math.toRadians(35F),0, 0);
+        animator.endKeyframe();
+        animator.setStaticKeyframe(50);
+
+        animator.resetKeyframe(20);
     }
 
     @Override

@@ -379,5 +379,21 @@
         "name": "cataclysm:entity/harbinger_prepare"
       }
     ]
+  },
+  "harbinger_stun": {
+    "subtitle": "harbinger_stun.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/harbinger_stun"
+      }
+    ]
+  },
+  "emp_activated": {
+    "subtitle": "emp_activated.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/emp_activated"
+      }
+    ]
   }
 }

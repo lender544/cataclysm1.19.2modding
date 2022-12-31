@@ -1,10 +1,13 @@
 package L_Ender.cataclysm.entity.projectile;
 
 
+import L_Ender.cataclysm.blocks.BlockEMP;
 import L_Ender.cataclysm.client.tool.ControlledAnimation;
 import L_Ender.cataclysm.entity.The_Harbinger_Entity;
+import L_Ender.cataclysm.init.ModBlocks;
 import L_Ender.cataclysm.init.ModParticle;
 import L_Ender.cataclysm.util.CMDamageTypes;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -17,6 +20,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
@@ -122,6 +127,16 @@ public class Death_Laser_Beam_Entity extends Entity {
             List<LivingEntity> hit = raytraceEntities(level, new Vec3(getX(), getY(), getZ()), new Vec3(endPosX, endPosY, endPosZ), false, true, true).entities;
             if (blockSide != null) {
                 spawnExplosionParticles(3);
+                if (!this.level.isClientSide) {
+                    for (BlockPos pos : BlockPos.betweenClosed(Mth.floor(collidePosX - 0.5F), Mth.floor(collidePosY - 0.5F), Mth.floor(collidePosZ - 0.5F), Mth.floor(collidePosX + 0.5F), Mth.floor(collidePosY + 0.5F), Mth.floor(collidePosZ + 0.5F))) {
+                        BlockState block = level.getBlockState(pos);
+                        if (block.is(ModBlocks.EMP.get())) {
+                            if(!block.getValue(BlockEMP.POWERED) && block.getValue(BlockEMP.OVERLOAD)) {
+                                this.level.setBlockAndUpdate(pos, block.setValue(BlockEMP.OVERLOAD, false));
+                            }
+                        }
+                    }
+                }
             }
             if (!level.isClientSide) {
                 for (LivingEntity target : hit) {

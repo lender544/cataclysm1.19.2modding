@@ -38,6 +38,7 @@ public class BlockEMP extends BaseEntityBlock {
         super(Properties.of(Material.HEAVY_METAL)
                 .noOcclusion()
                 .lightLevel((block) -> 7)
+                .noLootTable()
                 .emissiveRendering((block, world, pos) -> true)
                 .strength(-1.0F, 3600000.0F)
                 .sound(SoundType.METAL));
