@@ -197,7 +197,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         if (!this.level.isClientSide && this.getAlternativeTarget(0) > 0 && this.isAlive() && !this.getIsCharge() && this.getAnimation() != STUN_ANIAMATION) {
             if (entity != null) {
                 double d0 = vec3.y;
-                double l0 = this.getAnimation() == MISSILE_FIRE_ANIAMATION ? 1.0D : 2.25d;
+                double l0 = (this.getAnimation() == MISSILE_FIRE_ANIAMATION || this.getAnimation() == LAUNCH_ANIAMATION ) ? 1.0D : 2.25d;
                 if (this.getY() < entity.getY() + l0) {
                     d0 = Math.max(0.0D, d0);
                     d0 += 0.3D - d0 * (double) 0.6F;
@@ -214,7 +214,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         LivingEntity target = this.getTarget();
         if (this.isAlive()) {
             if (target != null && target.isAlive() && skill_cooldown <= 0 && (Laser_Mode_Progress == 30 || Laser_Mode_Progress == 0)) {
-                if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.getRandom().nextFloat() * 100.0F < 4f && this.distanceToSqr(target) < 64) {
+                if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceToSqr(target) < 64 && (this.getRandom().nextFloat() * 100.0F < 4f && this.hasLineOfSight(target) || this.getRandom().nextFloat() * 100.0F < 20f && !this.hasLineOfSight(target))) {
                     skill_cooldown = SKILL_COOLDOWN;
                     this.setAnimation(CHARGE_ANIMATION);
                 } else  if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.getRandom().nextFloat() * 100.0F < 2f && (Laser_Mode_Progress == 30 || Laser_Mode_Progress == 0) || !isNoAi() && this.getAnimation() == NO_ANIMATION && this.getRandom().nextFloat() * 100.0F < 4f && this.distanceToSqr(target) > 49) {
@@ -646,32 +646,17 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         }
 
         public void tick() {
-            for (int i = 1; i < 3; ++i) {
-                int l1 = entity.getAlternativeTarget(i);
-                if (l1 > 0) {
-                    LivingEntity livingentity = (LivingEntity) entity.level.getEntity(l1);
-                    if (livingentity != null && entity.canAttack(livingentity) && !(entity.distanceToSqr(livingentity) > 1600.0D) && entity.hasLineOfSight(livingentity)) {
-                        if (entity.getAnimationTick() == 13) {
-                            this.launch(2, (LivingEntity) livingentity);
-                            break;
-                        }
-
-                        if (entity.getAnimationTick() == 19) {
-                            this.launch(1, (LivingEntity) livingentity);
-                            break;
-                        }
-                    } else {
-                        entity.setAlternativeTarget(i, 0);
-                    }
-                } else {
-                    List<LivingEntity> list = entity.level.getNearbyEntities(LivingEntity.class, TARGETING_CONDITIONS, entity, entity.getBoundingBox().inflate(20.0D, 8.0D, 20.0D));
-                    if (!list.isEmpty()) {
-                        LivingEntity livingentity1 = list.get(entity.random.nextInt(list.size()));
-                        entity.setAlternativeTarget(i, livingentity1.getId());
-                    }
+            LivingEntity target = entity.getTarget();
+            if (target != null) {
+                if (entity.getAnimationTick() == 13) {
+                    this.launch(2, (LivingEntity) target);
                 }
 
+                if (entity.getAnimationTick() == 19) {
+                    this.launch(1, (LivingEntity) target);
+                }
             }
+
 
         }
 
@@ -692,10 +677,10 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
             double d4 = p_31451_ - d1;
             double d5 = p_31452_ - d2;
             double d6 = Mth.sqrt((float) (d3 * d3 + d5 * d5));
-            for (int i = 0; i < 3; ++i) {
+            for (int i = 0; i < 5; ++i) {
                 Wither_Howitzer_Entity lava = new Wither_Howitzer_Entity(ModEntities.WITHER_HOWITZER.get(), entity.level, entity);
                 lava.setPosRaw(d0, d1, d2);
-                lava.shoot(d3, d4 + d6 * 8, d5, 1.0F, 15);
+                lava.shoot(d3, d4 + d6 * 8F, d5, 0.6F, 30);
                 entity.level.addFreshEntity(lava);
             }
         }
@@ -711,35 +696,16 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
 
         public void tick() {
             LivingEntity target = entity.getTarget();
-            for (int i = 1; i < 3; ++i) {
-                int l1 = entity.getAlternativeTarget(i);
-                if (l1 > 0) {
-                    LivingEntity livingentity = (LivingEntity) entity.level.getEntity(l1);
-                    if (livingentity != null && entity.canAttack(livingentity) && !(entity.distanceToSqr(livingentity) > 1600.0D) && entity.hasLineOfSight(livingentity)) {
-                        if (entity.getAnimationTick() == 80 || entity.getAnimationTick() == 84  || entity.getAnimationTick() == 88) {
-                            this.mlaunch(2, (LivingEntity) livingentity);
-                            break;
-                        }
-
-                        if (entity.getAnimationTick() == 98 || entity.getAnimationTick() == 102 || entity.getAnimationTick() == 106) {
-                            this.mlaunch(1, (LivingEntity) livingentity);
-                            break;
-                        }
-                    } else {
-                        entity.setAlternativeTarget(i, 0);
-                    }
-                } else {
-                    List<LivingEntity> list = entity.level.getNearbyEntities(LivingEntity.class, TARGETING_CONDITIONS, entity, entity.getBoundingBox().inflate(20.0D, 8.0D, 20.0D));
-                    if (!list.isEmpty()) {
-                        LivingEntity livingentity1 = list.get(entity.random.nextInt(list.size()));
-                        entity.setAlternativeTarget(i, livingentity1.getId());
-                    }
-                }
-
-            }
             if (target != null) {
                 entity.lookAt(target, 30, 30);
                 entity.getLookControl().setLookAt(target, 30, 30);
+                if (entity.getAnimationTick() == 80 || entity.getAnimationTick() == 84  || entity.getAnimationTick() == 88) {
+                    this.mlaunch(2, target);
+                }
+                if (entity.getAnimationTick() == 98 || entity.getAnimationTick() == 102 || entity.getAnimationTick() == 106) {
+                    this.mlaunch(1, target);
+                }
+
 
             }
             if (entity.getAnimationTick() == 27) {

@@ -53,7 +53,7 @@ public class TileEntityEMP extends BlockEntity {
         float x = this.getBlockPos().getX() + 0.5F;
         float y = this.getBlockPos().getY() + 0.5f;
         float z = this.getBlockPos().getZ() + 0.5F;
-        if(!overload && chompProgress == 20F ){
+        if(!overload && chompProgress == 15F ){
             level.addParticle(ModParticle.EM_PULSE.get(), x, y, z, 0, 0, 0);
             ScreenShake_Entity.ScreenShake(this.level, Vec3.atCenterOf(this.getBlockPos()), 20, 0.01f, 0, 20);
             level.playSound((Player)null, this.getBlockPos(), ModSounds.EMP_ACTIVATED.get(), SoundSource.BLOCKS, 4F, level.random.nextFloat() * 0.2F + 1.0F);

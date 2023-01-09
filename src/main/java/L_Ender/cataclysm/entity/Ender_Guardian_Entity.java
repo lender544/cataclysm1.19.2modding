@@ -369,6 +369,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
                 ScreenShake_Entity.ScreenShake(level, this.position(), 15, 0.1f, 0, 10);
             }
         }
+
         if (this.getAnimation() == GUARDIAN_LEFT_ATTACK) {
             if (this.getAnimationTick() == 19) {
                 AreaAttack(5.85f,5,80,1,80);

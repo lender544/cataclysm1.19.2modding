@@ -61,7 +61,7 @@ public class Model_EMP extends AdvancedEntityModel<Entity> {
 	public void animate(TileEntityEMP beak, float partialTick) {
 		this.resetToDefaultPose();
 		float amount = beak.getChompProgress(partialTick);
-		progressPositionPrev(inner, amount,0, 5, 0, 20f);
-		progressPositionPrev(up, amount,0, 6, 0, 20f);
+		progressPositionPrev(inner, amount,0, 5, 0, 15f);
+		progressPositionPrev(up, amount,0, 5.5F, 0, 15f);
 	}
 }

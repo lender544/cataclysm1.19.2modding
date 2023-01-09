@@ -36,10 +36,15 @@ public class RendererEMP<T extends TileEntityEMP> implements BlockEntityRenderer
     @Override
     public void render(T tileEntityIn, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
         matrixStackIn.pushPose();
-        matrixStackIn.translate(0.5F, 1.5F, 0.5F);
-        matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(180.0F));
+        Direction dir = tileEntityIn.getBlockState().getValue(BlockEMP.TIP_DIRECTION);
+        if(dir == Direction.UP){
+            matrixStackIn.translate(0.5F, 1.5F, 0.5F);
+        }else {
+            matrixStackIn.translate(0.5F, -0.5F, 0.5F);
+        }
+        matrixStackIn.mulPose(dir.getOpposite().getRotation());
         matrixStackIn.pushPose();
-        matrixStackIn.translate(0, 0.2F, 0.0F);
+        matrixStackIn.translate(0, 0.15F, 0.0F);
         matrixStackIn.scale(0.9f,0.9f,0.9f);
         MODEL_EMP.animate(tileEntityIn, partialTicks);
         MODEL_EMP.renderToBuffer(matrixStackIn, bufferIn.getBuffer(RenderType.entityCutoutNoCull(TEXTURE)), combinedLightIn, combinedOverlayIn, 1, 1F, 1, 1);

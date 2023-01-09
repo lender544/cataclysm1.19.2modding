@@ -31,6 +31,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import javax.annotation.Nullable;
 
 public class BlockEMP extends BaseEntityBlock {
+    public static final DirectionProperty TIP_DIRECTION = BlockStateProperties.VERTICAL_DIRECTION;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final BooleanProperty OVERLOAD = BooleanProperty.create("overload");
 
@@ -42,7 +43,7 @@ public class BlockEMP extends BaseEntityBlock {
                 .emissiveRendering((block, world, pos) -> true)
                 .strength(-1.0F, 3600000.0F)
                 .sound(SoundType.METAL));
-        this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, false).setValue(OVERLOAD, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(TIP_DIRECTION, Direction.UP).setValue(POWERED, false).setValue(OVERLOAD, false));
     }
 
 
@@ -69,7 +70,7 @@ public class BlockEMP extends BaseEntityBlock {
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(POWERED, context.getLevel().hasNeighborSignal(context.getClickedPos())).setValue(OVERLOAD, false);
+        return this.defaultBlockState().setValue(TIP_DIRECTION, context.getNearestLookingVerticalDirection().getOpposite()).setValue(POWERED, context.getLevel().hasNeighborSignal(context.getClickedPos())).setValue(OVERLOAD, false);
     }
 
 
@@ -102,7 +103,7 @@ public class BlockEMP extends BaseEntityBlock {
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(POWERED,OVERLOAD);
+        builder.add(TIP_DIRECTION,POWERED,OVERLOAD);
     }
 
     @Nullable
