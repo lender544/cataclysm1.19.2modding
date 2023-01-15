@@ -6,6 +6,7 @@ import L_Ender.cataclysm.client.tool.ControlledAnimation;
 import L_Ender.cataclysm.entity.The_Harbinger_Entity;
 import L_Ender.cataclysm.init.ModBlocks;
 import L_Ender.cataclysm.init.ModParticle;
+import L_Ender.cataclysm.init.ModTag;
 import L_Ender.cataclysm.util.CMDamageTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -14,11 +15,13 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -134,6 +137,10 @@ public class Death_Laser_Beam_Entity extends Entity {
                             if(!block.getValue(BlockEMP.POWERED) && block.getValue(BlockEMP.OVERLOAD)) {
                                 this.level.setBlockAndUpdate(pos, block.setValue(BlockEMP.OVERLOAD, false));
                             }
+                        }
+
+                        if (!block.isAir() && block.is(ModTag.CM_GLASS) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(caster, pos, block)) {
+                            level.destroyBlock(pos, true);
                         }
                     }
                 }

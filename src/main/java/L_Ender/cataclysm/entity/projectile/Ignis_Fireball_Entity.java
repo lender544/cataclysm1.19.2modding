@@ -55,8 +55,15 @@ public class Ignis_Fireball_Entity extends AbstractHurtingProjectile {
                 }
             }
         }
-        if (this.tickCount > 300) {
-            this.discard();
+
+        if(getFired() && timer < -80){
+            float sqrt = (float)this.getDeltaMovement().length();
+            if (sqrt < 0.05F) {
+             //   if (!this.level.isClientSide) {
+                 //   this.level.explode(this, this.getX(), this.getY(), this.getZ(), 2.0F, true, Explosion.BlockInteraction.NONE);
+                this.discard();
+             //   }
+            }
         }
 
         if (timer == 0 || timer == -40) {

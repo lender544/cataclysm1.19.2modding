@@ -21,6 +21,8 @@ public class ModTag {
 
     public static final TagKey<Block> ENDER_GOLEM_CAN_DESTROY = registerBlockTag("ender_golem_can_destroy");
 
+    public static final TagKey<Block> CM_GLASS = registerBlockTag("cm_glass");
+
     public static final TagKey<Block> ENDER_GUARDIAN_CAN_DESTROY = registerBlockTag("ender_guardian_can_destroy");
 
     public static final TagKey<Block> ALTAR_DESTROY_IMMUNE = registerBlockTag("altar_destroy_immune");

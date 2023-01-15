@@ -57,8 +57,11 @@ public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
                 }
             }
         }
-        if (this.tickCount > 300) {
-            this.discard();
+        if(timer < -80){
+            float sqrt = (float)this.getDeltaMovement().length();
+            if (sqrt < 0.1F) {
+                this.discard();
+            }
         }
         if (timer == 0 || timer == -40) {
             if(this.getTotalBounces() == 0) {

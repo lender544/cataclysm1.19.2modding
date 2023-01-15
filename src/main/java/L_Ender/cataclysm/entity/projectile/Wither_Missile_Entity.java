@@ -22,7 +22,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-public class Wither_Missile_Entity  extends Projectile {
+public class Wither_Missile_Entity extends Projectile {
     public double xPower;
     public double yPower;
     public double zPower;
