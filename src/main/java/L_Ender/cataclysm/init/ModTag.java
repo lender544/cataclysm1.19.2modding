@@ -7,6 +7,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.structure.Structure;
 
 
 public class ModTag {
@@ -37,6 +38,14 @@ public class ModTag {
 
     public static final TagKey<Block> NETHERITE_MONSTROSITY_BREAK = registerBlockTag("netherite_monstrosity_break");
 
+    public static final TagKey<Structure> EYE_OF_MECH_LOCATED = registerStructureTag("eye_of_mech_located");
+
+    public static final TagKey<Structure> EYE_OF_RUINED_LOCATED = registerStructureTag("eye_of_ruined_located");
+
+    public static final TagKey<Structure> EYE_OF_FLAME_LOCATED = registerStructureTag("eye_of_flame_located");
+
+    public static final TagKey<Structure> EYE_OF_MONSTROUS_LOCATED = registerStructureTag("eye_of_monstrous_located");
+
     private static TagKey<EntityType<?>> registerEntityTag(String name) {
         return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(cataclysm.MODID, name));
     }
@@ -49,4 +58,7 @@ public class ModTag {
         return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(cataclysm.MODID, name));
     }
 
+    private static TagKey<Structure> registerStructureTag(String name) {
+        return TagKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(cataclysm.MODID, name));
+    }
 }

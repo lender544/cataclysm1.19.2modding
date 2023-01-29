@@ -181,7 +181,7 @@ public class RuinedCitadelStructure extends Structure {
         WorldgenRandom worldgenrandom = new WorldgenRandom(new LegacyRandomSource(0L));
         worldgenrandom.setSeed((long) (i ^ j << 9) ^ p_228964_.seed());
         worldgenrandom.nextInt();
-        return onTopOfChunkCenter(p_228964_, Heightmap.Types.OCEAN_FLOOR_WG, (p_228967_) -> {
+        return onTopOfChunkCenter(p_228964_, Heightmap.Types.WORLD_SURFACE_WG, (p_228967_) -> {
             generatePieces(p_228967_, p_228964_);
         });
     }

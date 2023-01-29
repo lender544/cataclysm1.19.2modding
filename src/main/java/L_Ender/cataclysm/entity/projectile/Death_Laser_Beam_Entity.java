@@ -133,14 +133,16 @@ public class Death_Laser_Beam_Entity extends Entity {
                 if (!this.level.isClientSide) {
                     for (BlockPos pos : BlockPos.betweenClosed(Mth.floor(collidePosX - 0.5F), Mth.floor(collidePosY - 0.5F), Mth.floor(collidePosZ - 0.5F), Mth.floor(collidePosX + 0.5F), Mth.floor(collidePosY + 0.5F), Mth.floor(collidePosZ + 0.5F))) {
                         BlockState block = level.getBlockState(pos);
+                        if (!block.isAir() && block.is(ModTag.CM_GLASS) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(caster, pos, block)) {
+                            level.destroyBlock(pos, true);
+                        }
+                    }
+                    for (BlockPos pos : BlockPos.betweenClosed(Mth.floor(collidePosX - 2.5F), Mth.floor(collidePosY - 2.5F), Mth.floor(collidePosZ - 2.5F), Mth.floor(collidePosX + 2.5F), Mth.floor(collidePosY + 2.5F), Mth.floor(collidePosZ + 2.5F))) {
+                        BlockState block = level.getBlockState(pos);
                         if (block.is(ModBlocks.EMP.get())) {
                             if(!block.getValue(BlockEMP.POWERED) && block.getValue(BlockEMP.OVERLOAD)) {
                                 this.level.setBlockAndUpdate(pos, block.setValue(BlockEMP.OVERLOAD, false));
                             }
-                        }
-
-                        if (!block.isAir() && block.is(ModTag.CM_GLASS) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(caster, pos, block)) {
-                            level.destroyBlock(pos, true);
                         }
                     }
                 }

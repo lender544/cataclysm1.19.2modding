@@ -27,12 +27,12 @@ public class Wither_Missile_Entity extends Projectile {
     public double yPower;
     public double zPower;
 
-    public Wither_Missile_Entity(EntityType<? extends Wither_Missile_Entity> p_36833_, Level p_36834_) {
-        super(p_36833_, p_36834_);
+    public Wither_Missile_Entity(EntityType<? extends Wither_Missile_Entity> type, Level level) {
+        super(type, level);
     }
 
-    public Wither_Missile_Entity(EntityType<? extends Wither_Missile_Entity> p_36817_, double p_36818_, double p_36819_, double p_36820_, double p_36821_, double p_36822_, double p_36823_, Level p_36824_) {
-        this(p_36817_, p_36824_);
+    public Wither_Missile_Entity(EntityType<? extends Wither_Missile_Entity> type, double p_36818_, double p_36819_, double p_36820_, double p_36821_, double p_36822_, double p_36823_, Level level) {
+        this(type, level);
         this.moveTo(p_36818_, p_36819_, p_36820_, this.getYRot(), this.getXRot());
         this.reapplyPosition();
         double d0 = Math.sqrt(p_36821_ * p_36821_ + p_36822_ * p_36822_ + p_36823_ * p_36823_);
@@ -49,9 +49,6 @@ public class Wither_Missile_Entity extends Projectile {
         this.setOwner(p_36827_);
         this.setRot(p_36827_.getYRot(), p_36827_.getXRot());
     }
-
-
-
 
     protected void defineSynchedData() {
     }

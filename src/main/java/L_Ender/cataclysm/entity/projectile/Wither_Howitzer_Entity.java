@@ -1,8 +1,14 @@
 package L_Ender.cataclysm.entity.projectile;
 
+import L_Ender.cataclysm.entity.The_Harbinger_Entity;
 import L_Ender.cataclysm.entity.effect.Wither_Smoke_Effect_Entity;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -19,6 +25,9 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 
 public class Wither_Howitzer_Entity extends ThrowableProjectile {
+
+    private static final EntityDataAccessor<Float> RADIUS = SynchedEntityData.defineId(Wither_Howitzer_Entity.class, EntityDataSerializers.FLOAT);
+
     public Wither_Howitzer_Entity(EntityType<Wither_Howitzer_Entity> type, Level world) {
         super(type, world);
     }
@@ -29,9 +38,19 @@ public class Wither_Howitzer_Entity extends ThrowableProjectile {
 
     @Override
     protected void defineSynchedData() {
-
+        this.entityData.define(RADIUS,0.5F);
     }
 
+
+    public void setRadius(float p_19713_) {
+        if (!this.level.isClientSide) {
+            this.getEntityData().set(RADIUS, Mth.clamp(p_19713_, 0.0F, 32.0F));
+        }
+    }
+
+    public float getRadius() {
+        return this.getEntityData().get(RADIUS);
+    }
 
     protected void onHitEntity(EntityHitResult p_37626_) {
         super.onHitEntity(p_37626_);
@@ -72,7 +91,7 @@ public class Wither_Howitzer_Entity extends ThrowableProjectile {
         if (!this.level.isClientSide) {
             this.level.explode(this, this.getX(), this.getY(), this.getZ(), 2.0F, false, Explosion.BlockInteraction.NONE);
             Wither_Smoke_Effect_Entity areaeffectcloud = new Wither_Smoke_Effect_Entity(this.level, this.getX(), this.getY(), this.getZ());
-            areaeffectcloud.setRadius(3.5F);
+            areaeffectcloud.setRadius(this.getRadius());
             LivingEntity entity1 = (LivingEntity) this.getOwner();
             areaeffectcloud.setOwner(entity1);
             areaeffectcloud.setRadiusOnUse(-0.5F);
@@ -82,6 +101,16 @@ public class Wither_Howitzer_Entity extends ThrowableProjectile {
             this.level.addFreshEntity(areaeffectcloud);
             this.discard();
         }
+    }
+
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putFloat("radius", getRadius());
+    }
+
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setRadius(compound.getFloat("radius"));
     }
 
 

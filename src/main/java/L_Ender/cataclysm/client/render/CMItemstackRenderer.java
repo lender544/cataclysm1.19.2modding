@@ -5,6 +5,7 @@ import L_Ender.cataclysm.client.model.block.Model_EMP;
 import L_Ender.cataclysm.client.model.item.ModelBulwark_of_the_flame;
 import L_Ender.cataclysm.client.model.item.ModelGauntlet_of_Guard;
 import L_Ender.cataclysm.client.model.item.ModelIncinerator;
+import L_Ender.cataclysm.client.model.item.ModelWither_Assault_SHoulder_Weapon;
 import L_Ender.cataclysm.init.ModBlocks;
 import L_Ender.cataclysm.init.ModItems;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -35,10 +36,12 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
     private static final ModelGauntlet_of_Guard GAUNTLET_OF_GUARD_MODEL = new ModelGauntlet_of_Guard();
     private static final ModelIncinerator THE_INCINERATOR_MODEL = new ModelIncinerator();
     private static final Model_Altar_of_Fire ALTAR_OF_FIRE_MODEL = new Model_Altar_of_Fire();
+    private static final ModelWither_Assault_SHoulder_Weapon WASW_MODEL = new ModelWither_Assault_SHoulder_Weapon();
     private static final ResourceLocation BULWARK_OF_THE_FLAME_TEXTURE = new ResourceLocation("cataclysm:textures/items/bulwark_of_the_flame.png");
     private static final ResourceLocation GAUNTLET_OF_GUARD_TEXTURE = new ResourceLocation("cataclysm:textures/items/gauntlet_of_guard.png");
     private static final ResourceLocation THE_INCINERATOR_TEXTURE = new ResourceLocation("cataclysm:textures/items/the_incinerator.png");
     private static final ResourceLocation ALTAR_OF_FIRE_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altar_of_fire.png");
+    private static final ResourceLocation WASW_TEXTURE = new ResourceLocation("cataclysm:textures/items/wither_assualt_shoulder_weapon.png");
     private static final ResourceLocation EMP_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/emp.png");
     private static final ResourceLocation TEXTURE_1 = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altarfire1.png");
     private static final ResourceLocation TEXTURE_2 = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altarfire2.png");
@@ -82,8 +85,19 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
             matrixStackIn.pushPose();
             matrixStackIn.translate(0.5F, 0.5F, 0.5F);
             //matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(-180));
+            matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(-180));
             VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(bufferIn, RenderType.armorCutoutNoCull(THE_INCINERATOR_TEXTURE), false, itemStackIn.hasFoil());
             THE_INCINERATOR_MODEL.renderToBuffer(matrixStackIn, vertexconsumer, combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
+            matrixStackIn.popPose();
+        }
+
+        if (itemStackIn.getItem() == ModItems.WITHER_ASSULT_SHOULDER_WEAPON.get()) {
+            matrixStackIn.pushPose();
+            matrixStackIn.translate(0.5F, 0.5F, 0.5F);
+            matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(-180));
+            //matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(-180));
+            VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(bufferIn, RenderType.armorCutoutNoCull(WASW_TEXTURE), false, itemStackIn.hasFoil());
+            WASW_MODEL.renderToBuffer(matrixStackIn, vertexconsumer, combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
             matrixStackIn.popPose();
         }
 

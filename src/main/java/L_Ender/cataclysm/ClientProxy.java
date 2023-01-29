@@ -96,6 +96,9 @@ public class ClientProxy extends CommonProxy {
         EntityRenderers.register(ModEntities.VOID_SHARD.get(), (render) -> {
             return new ThrownItemRenderer<>(render, 0.75F, true);
         });
+        EntityRenderers.register(ModEntities.EYE_OF_DUNGEON.get(), (render) -> {
+            return new ThrownItemRenderer<>(render, 1.0F, true);
+        });
         EntityRenderers.register(ModEntities.BLAZING_BONE.get(), RendererBlazing_Bone::new);
         MinecraftForge.EVENT_BUS.register(new ClientEvent());
         try {

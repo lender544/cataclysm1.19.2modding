@@ -5,6 +5,9 @@ import net.minecraftforge.fml.config.ModConfig;
 
 public class CMConfig {
 
+    public static double LavaVisionOpacity = 0.5F;
+    public static boolean shadersCompat = false;
+
     public static int Voidrunedamage = 7;
     public static int Lavabombradius = 2;
 
@@ -50,6 +53,8 @@ public class CMConfig {
 
     public static void bake(ModConfig config) {
         try {
+            LavaVisionOpacity = ConfigHolder.COMMON.LavaVisionOpacity.get();
+            shadersCompat = ConfigHolder.COMMON.shadersCompat.get();
             Voidrunedamage = ConfigHolder.COMMON.Voidrunedamage.get();
             Lavabombradius = ConfigHolder.COMMON.Lavabombradius.get();
             ScreenShake = ConfigHolder.COMMON.ScreenShake.get();

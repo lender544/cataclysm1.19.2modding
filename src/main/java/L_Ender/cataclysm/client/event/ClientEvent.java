@@ -2,11 +2,13 @@ package L_Ender.cataclysm.client.event;
 
 import L_Ender.cataclysm.client.render.CMItemstackRenderer;
 import L_Ender.cataclysm.client.render.CMRenderTypes;
+import L_Ender.cataclysm.client.render.etc.LavaVisionFluidRenderer;
 import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.entity.Ignis_Entity;
 import L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import L_Ender.cataclysm.init.ModEffect;
 import L_Ender.cataclysm.init.ModItems;
+import com.github.alexthe666.citadel.client.event.EventGetFluidRenderType;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -15,6 +17,8 @@ import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.block.LiquidBlockRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.network.chat.Component;
@@ -25,19 +29,21 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.FogType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.client.event.RenderLevelLastEvent;
-import net.minecraftforge.client.event.RenderLivingEvent;
-import net.minecraftforge.client.event.ViewportEvent;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientEvent {
     public static final ResourceLocation FLAME_STRIKE = new ResourceLocation("cataclysm:textures/entity/soul_flame_strike_sigil.png");
+    private boolean previousLavaVision = false;
+    private LiquidBlockRenderer previousFluidRenderer;
+
 
     @SubscribeEvent
     public void onCameraSetup(ViewportEvent.ComputeCameraAngles event) {
@@ -134,5 +140,47 @@ public class ClientEvent {
 
     }
 
+    private void updateAllChunks() {
+        if (Minecraft.getInstance().levelRenderer.viewArea != null) {
+            int length = Minecraft.getInstance().levelRenderer.viewArea.chunks.length;
+            for (int i = 0; i < length; i++) {
+                Minecraft.getInstance().levelRenderer.viewArea.chunks[i].dirty = true;
+            }
+        }
+    }
+
+    @SubscribeEvent
+    @OnlyIn(Dist.CLIENT)
+    public void onRenderWorldLastEvent(RenderLevelStageEvent event) {
+        if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_SKY) {
+            if (!CMConfig.shadersCompat) {
+                ItemStack itemstack = Minecraft.getInstance().player.getInventory().getArmor(3);
+                if (itemstack.is(ModItems.IGNITIUM_HELMET.get())) {
+                    if (!previousLavaVision) {
+                        previousFluidRenderer = Minecraft.getInstance().getBlockRenderer().liquidBlockRenderer;
+                        Minecraft.getInstance().getBlockRenderer().liquidBlockRenderer = new LavaVisionFluidRenderer();
+                        updateAllChunks();
+                    }
+                } else {
+                    if (previousLavaVision) {
+                        if (previousFluidRenderer != null) {
+                            Minecraft.getInstance().getBlockRenderer().liquidBlockRenderer = previousFluidRenderer;
+                        }
+                        updateAllChunks();
+                    }
+                }
+                previousLavaVision = itemstack.is(ModItems.IGNITIUM_HELMET.get());
+            }
+        }
+    }
+
+    @SubscribeEvent
+    @OnlyIn(Dist.CLIENT)
+    public void onGetFluidRenderType(EventGetFluidRenderType event) {
+        if (Minecraft.getInstance().player.getInventory().getArmor(3).is(ModItems.IGNITIUM_HELMET.get()) && (event.getFluidState().is(Fluids.LAVA) || event.getFluidState().is(Fluids.FLOWING_LAVA))) {
+            event.setRenderType(RenderType.translucent());
+            event.setResult(Event.Result.ALLOW);
+        }
+    }
 
 }

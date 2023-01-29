@@ -55,6 +55,7 @@
   "item.cataclysm.nameless_sorcerer_spawn_egg": "Ovo Gerador de Feiticeiro Sem Nome",
   "item.cataclysm.ignis_spawn_egg": "Ovo Gerador de Ignis",
   "item.cataclysm.ignited_revenant_spawn_egg": "Ovo Gerador de Fantasma Incendiado",
+  "item.cataclysm.the_harbinger_spawn_egg": "Ovo Gerador de O Wither Robô-Mecânico",
 
   "itemGroup.cataclysm": "Cataclysm",
   "block.cataclysm.witherite_block": "Bloco de Witherito",
@@ -84,6 +85,7 @@
   "block.cataclysm.void_lantern_block":"Bloco de Lanterna do Vazio",
   "block.cataclysm.ender_guardian_spawner":"Invocador do Guardião do Fim",
   "block.cataclysm.altar_of_fire":"Altar De Fogo",
+  "block.cataclysm.emp":"EMP",
 
   "entity.cataclysm.ender_golem": "Golem do Fim",
   "entity.cataclysm.ender_guardian": "Guardião do Fim",
@@ -103,6 +105,11 @@
   "entity.cataclysm.smoke_effect": "Cinza",
   "entity.cataclysm.ignited_revenant": "Fantasma Incendiado",
   "entity.cataclysm.ashen_breath": "Bafo Cinzanto",
+  "entity.cataclysm.the_harbinger": "O Wither Robô-Mecânico",
+  "entity.cataclysm.wither_missile": "Míssil de Wither",
+  "entity.cataclysm.wither_howitzer": "Morteiro de Wither",
+  "entity.cataclysm.laser_beam": "Raio Laser",
+  "entity.cataclysm.death_laser_beam": "Raio Laser Mortal",
 
   "effect.cataclysm.monstrous": "Monstruoso",
   "effect.cataclysm.blazing_brand": "Marca de Fogo",
@@ -129,6 +136,18 @@
   "endermaptera_step.sub": "Besouro do Fim anda",
   "endermaptera_death.sub": "Besouro do Fim morre",
   "voidrunerising.sub": "Runa do Vazio sobe",
+  "revenant_idle.sub": "Fantasma Incendiado grunhe",
+  "revenant_hurt.sub": "Fantasma Incendiado toma dano",
+  "revenant_breath.sub": "Fantasma Incendiado solta bafo cinza",
+  "revenant_death.sub": "Fantasma Incendiado morre",
+  "ignis_ambient.sub": "Ignis está queimando",
+  "ignis_hurt.sub": "Ignis toma dano",
+  "strongswingattack.sub": "Ignis foi cortado fora",
+  "sword_stomp.sub": "Ataques do Ignis",
+  "ignis_poke.sub": "Ignis segurando",
+  "flame_burst.sub": "A explosão de uma chama",
+  "ignis_death.sub": "Ignis morre",
+  "ignis_music.sub": "Música de fundo do Ignis",
 
   "advancements.cataclysm.root.title": "Cataclysm",
   "advancements.cataclysm.root.description": "Cataclysm!",
@@ -136,10 +155,20 @@
   "advancements.cataclysm.find_ruined_citadel.description": "Ache uma Cidadela Em Ruínas",
   "advancements.cataclysm.find_soul_black_smith.title": "O Ferreiro Da Alma",
   "advancements.cataclysm.find_soul_black_smith.description": "Ache o Ferreiro Das Almas",
+  "advancements.cataclysm.burning_arena.title": "Uma Arena em Chamas",
+  "advancements.cataclysm.burning_arena.description": "Ache a Arena em Chamas",
   "advancements.cataclysm.kill_ender_golem.title": "Um Golpe do Fim",
   "advancements.cataclysm.kill_ender_golem.description": "Destrua um Golem do Fim",
   "advancements.cataclysm.kill_ender_guardian.title": "Isso era um Shulker?",
   "advancements.cataclysm.kill_ender_guardian.description": "Destrua um Guardião do Fim",
+  "advancements.cataclysm.kill_revenant.title": "A Coisa Imperfeita",
+  "advancements.cataclysm.kill_revenant.description": "Destrua um Fantasma Incendiado",
   "advancements.cataclysm.kill_monstrosity.title": "A Máquina de Guerra Destruída do Nether",
-  "advancements.cataclysm.kill_monstrosity.description": "Destrua uma Monstruosidade de Netherito"
+  "advancements.cataclysm.kill_monstrosity.description": "Destrua uma Monstruosidade de Netherito",
+  "advancements.cataclysm.kill_ignis.title": "O Fogo Apagado",
+  "advancements.cataclysm.kill_ignis.description": "Vença a Batalha Contra o Ignis",
+
+
+  "death.attack.cataclysm.laser": "%s foi exterminado(a) pelo laser de %s",
+  "death.attack.cataclysm.emp": "%s virou Frango Grelhado Queimado"
 }

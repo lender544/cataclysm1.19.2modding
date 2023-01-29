@@ -5,6 +5,9 @@ import net.minecraftforge.common.ForgeConfigSpec;
 public class CommonConfig {
 
 
+    public final ForgeConfigSpec.DoubleValue LavaVisionOpacity;
+    public final ForgeConfigSpec.BooleanValue shadersCompat;
+
     public final ForgeConfigSpec.IntValue Voidrunedamage;
     public final ForgeConfigSpec.IntValue Lavabombradius;
 
@@ -46,6 +49,8 @@ public class CommonConfig {
 
     public CommonConfig(final ForgeConfigSpec.Builder builder) {
         builder.push("Etc");
+        LavaVisionOpacity = buildDouble(builder, "lavaVisionOpacity", "all", 0.5D, 0.01D, 1D, "Lava Opacity for the Ignitium Helemt.");
+        shadersCompat = buildBoolean(builder, "shadersCompat", "all", false, "Whether to disable certain aspects of the Ignitium Helemt. Enable if issues with shaders persist.");
         Voidrunedamage = buildInt(builder, "Voidrunedamage", "all", 7, 0, 1000000, "Void Rune's Damage");
         Lavabombradius = buildInt(builder, "Lavabombradius", "all", 2, 1, 7, "Lava bomb's Radius");
         ScreenShake = buildBoolean(builder, "ScreenShake(on/off)", "all", true, "ScreenShake(on/off)");

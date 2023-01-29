@@ -24,10 +24,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
@@ -53,7 +50,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 
-public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMob {
+public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMob, PowerableMob {
     public static final Animation DEATHLASER_ANIMATION = Animation.create(114);
     public static final Animation CHARGE_ANIMATION = Animation.create(39);
     public static final Animation DEATH_ANIMATION = Animation.create(144);
@@ -557,6 +554,10 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         return this.entityData.get(ISCHARGE);
     }
 
+    public boolean isPowered() {
+        return this.getHealth() <= this.getMaxHealth() / 2.0F;
+    }
+
     @Override
     public boolean canBePushedByEntity(Entity entity) {
         return false;
@@ -677,10 +678,11 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
             double d4 = p_31451_ - d1;
             double d5 = p_31452_ - d2;
             double d6 = Mth.sqrt((float) (d3 * d3 + d5 * d5));
-            for (int i = 0; i < 5; ++i) {
+            for (int i = 0; i < 7; ++i) {
                 Wither_Howitzer_Entity lava = new Wither_Howitzer_Entity(ModEntities.WITHER_HOWITZER.get(), entity.level, entity);
                 lava.setPosRaw(d0, d1, d2);
-                lava.shoot(d3, d4 + d6 * 8F, d5, 0.6F, 30);
+                lava.setRadius(3.0F);
+                lava.shoot(d3, d4 + d6 * 6F, d5, 0.6F, 60);
                 entity.level.addFreshEntity(lava);
             }
         }

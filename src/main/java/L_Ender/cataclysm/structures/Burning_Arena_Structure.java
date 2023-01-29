@@ -107,13 +107,13 @@ public class Burning_Arena_Structure extends Structure {
     public Optional<GenerationStub> findGenerationPoint(GenerationContext p_228964_) {
         int i = p_228964_.chunkPos().x >> 16;
         int j = p_228964_.chunkPos().z >> 16;
-
+        BlockPos blockpos = new BlockPos(p_228964_.chunkPos().getMinBlockX(), 21, p_228964_.chunkPos().getMinBlockZ());
         WorldgenRandom worldgenrandom = new WorldgenRandom(new LegacyRandomSource(0L));
         worldgenrandom.setSeed((long) (i ^ j << 9) ^ p_228964_.seed());
         worldgenrandom.nextInt();
-        return onTopOfChunkCenter(p_228964_, Heightmap.Types.OCEAN_FLOOR_WG, (p_228967_) -> {
-            generatePieces(p_228967_, p_228964_);
-        });
+        return Optional.of(new Structure.GenerationStub(blockpos, (p_228526_) -> {
+            generatePieces(p_228526_, p_228964_);
+        }));
     }
 
     private static void generatePieces(StructurePiecesBuilder p_197233_, GenerationContext p_197234_) {

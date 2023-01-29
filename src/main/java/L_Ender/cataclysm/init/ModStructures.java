@@ -18,12 +18,16 @@ public class ModStructures {
 
     public static final RegistryObject<StructureType<SoulBlackSmithStructure>> SOUL_BLACK_SMITH = STRUCTURE_TYPE_DEF_REG.register("soul_black_smith", () -> () -> SoulBlackSmithStructure.CODEC);
     public static final RegistryObject<StructureType<RuinedCitadelStructure>> RUINED_CITADEL = STRUCTURE_TYPE_DEF_REG.register("ruined_citadel", () -> () -> RuinedCitadelStructure.CODEC);
-    public static final RegistryObject<StructureType<Burning_Arena_Structure>> BURNING_ARENA = STRUCTURE_TYPE_DEF_REG.register("burning_arena", () -> () -> Burning_Arena_Structure.CODEC);
+    public static final RegistryObject<StructureType<Burning_Arena_Structure>> BURNING_ARENA = STRUCTURE_TYPE_DEF_REG.register("burning_arena", () -> () ->
+            Burning_Arena_Structure.CODEC);
+
+    public static final RegistryObject<StructureType<AncientFactoryStructure>> ANCIENT_FACTORY = STRUCTURE_TYPE_DEF_REG.register("ancient_factory", () -> () ->
+            AncientFactoryStructure.CODEC);
 
     public static final RegistryObject<StructurePieceType> SBSP = STRUCTURE_PIECE_DEF_REG.register("soul_black_smith", () -> SoulBlackSmithStructure.Piece::new);
     public static final RegistryObject<StructurePieceType> RCP = STRUCTURE_PIECE_DEF_REG.register("ruined_citadel", () -> RuinedCitadelStructure.Piece::new);
     public static final RegistryObject<StructurePieceType> BAP = STRUCTURE_PIECE_DEF_REG.register("burning_arena", () -> Burning_Arena_Structure.Piece::new);
-
+    public static final RegistryObject<StructurePieceType> AFP = STRUCTURE_PIECE_DEF_REG.register("ancient_factory", () -> AncientFactoryStructure.Piece::new);
 
     public static final ResourceKey<Structure> SOUL_BLACK_SMITH_KEY = ResourceKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(cataclysm.MODID, "soul_black_smith"));
     public static final ResourceKey<Structure> RUINED_CITADEL_KEY = ResourceKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(cataclysm.MODID, "ruined_citadel"));

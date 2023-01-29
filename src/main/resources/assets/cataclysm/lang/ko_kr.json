@@ -47,7 +47,11 @@
   "item.cataclysm.music_disc_netherite_monstrosity.desc": "Ross Bugden - Rapture",
   "item.cataclysm.music_disc_ender_guardian.desc": "Ean Grimm - Eternal",
   "item.cataclysm.music_disc_ignis.desc": "魔界Symphony - God of Blaze",
-
+  "item.cataclysm.mech_eye": "기계의 눈",
+  "item.cataclysm.monstrous_eye": "괴물의 눈",
+  "item.cataclysm.void_eye": "공허의 눈",
+  "item.cataclysm.flame_eye": "불의 눈",
+  "item.cataclysm.wither_assault_shoulder_weapon": "견착식 위더 무기",
 
   "item.cataclysm.endermaptera_spawn_egg": "엔더마프테라 생성 알",
   "item.cataclysm.ender_golem_spawn_egg": "엔더 골렘 생성 알",

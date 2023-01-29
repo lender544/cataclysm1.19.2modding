@@ -2,6 +2,10 @@ package L_Ender.cataclysm.init;
 
 import L_Ender.cataclysm.cataclysm;
 import L_Ender.cataclysm.items.*;
+import L_Ender.cataclysm.items.Dungeon_Eye.FlameEyeItem;
+import L_Ender.cataclysm.items.Dungeon_Eye.MechEyeItem;
+import L_Ender.cataclysm.items.Dungeon_Eye.MonstrousEyeItem;
+import L_Ender.cataclysm.items.Dungeon_Eye.VoidEyeItem;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
@@ -115,6 +119,9 @@ public class ModItems {
     public static final RegistryObject<Item> THE_INCINERATOR = ITEMS.register("the_incinerator",
             () -> new The_Incinerator(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant().tab(cataclysm.CATACLYSM_GROUP)));
 
+    public static final RegistryObject<Item> WITHER_ASSULT_SHOULDER_WEAPON = ITEMS.register("wither_assault_shoulder_weapon",
+            () -> new Wither_Assault_SHoulder_Weapon(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant().tab(cataclysm.CATACLYSM_GROUP)));
+
     public static final RegistryObject<Item> FINAL_FRACTAL = ITEMS.register("final_fractal",
             () -> new final_fractal(ModItemTier.TOOL_WITHERITE, new Item.Properties().fireResistant().rarity(Rarity.EPIC)));
 
@@ -172,6 +179,18 @@ public class ModItems {
     public static final RegistryObject<Item> MUSIC_DISC_IGNIS = ITEMS.register("music_disc_ignis",
             () -> new RecordItem(14, ModSounds.IGNIS_MUSIC,new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).stacksTo(1).rarity(Rarity.EPIC).fireResistant(), 128 * 20));
 
+    public static final RegistryObject<Item> MECH_EYE = ITEMS.register("mech_eye",
+            () -> new MechEyeItem(new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).fireResistant()));
+
+    public static final RegistryObject<Item> FLAME_EYE = ITEMS.register("flame_eye",
+            () -> new FlameEyeItem(new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).fireResistant()));
+
+    public static final RegistryObject<Item> VOID_EYE = ITEMS.register("void_eye",
+            () -> new VoidEyeItem(new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).fireResistant()));
+
+    public static final RegistryObject<Item> MONSTROUS_EYE = ITEMS.register("monstrous_eye",
+            () -> new MonstrousEyeItem(new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).fireResistant()));
+
     public static final RegistryObject<SpawnEggItem> ENDER_GOLEM_SPAWN_EGG = ITEMS.register("ender_golem_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.ENDER_GOLEM, 0x2a1a42, 0xa153fe, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
 
@@ -196,6 +215,8 @@ public class ModItems {
 
     public static final RegistryObject<SpawnEggItem> THE_HARBINGER_SPAWN_EGG = ITEMS.register("the_harbinger_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.THE_HARBINGER, 0x1e2021, 0xae2334, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
+
+
 
 }
 
