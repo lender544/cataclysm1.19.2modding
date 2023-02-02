@@ -76,7 +76,7 @@ public class AncientFactoryStructure extends Structure {
     public Optional<GenerationStub> findGenerationPoint(GenerationContext p_228964_) {
         int i = p_228964_.chunkPos().x >> 16;
         int j = p_228964_.chunkPos().z >> 16;
-        BlockPos blockpos = new BlockPos(p_228964_.chunkPos().getMinBlockX(), -25, p_228964_.chunkPos().getMinBlockZ());
+        BlockPos blockpos = new BlockPos(p_228964_.chunkPos().getMinBlockX(), -27, p_228964_.chunkPos().getMinBlockZ());
         WorldgenRandom worldgenrandom = new WorldgenRandom(new LegacyRandomSource(0L));
         worldgenrandom.setSeed((long) (i ^ j << 9) ^ p_228964_.seed());
         worldgenrandom.nextInt();

@@ -14,6 +14,8 @@
     "minecraft:moving_piston",
     "minecraft:soul_fire",
     "minecraft:fire",
+    "minecraft:light",
+    "minecraft:reinforced_deepslate",
     "minecraft:structure_block",
     "cataclysm:ender_guardian_spawner",
     "cataclysm:altar_of_fire",

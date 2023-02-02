@@ -36,6 +36,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
@@ -172,6 +173,12 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
                     AnimationHandler.INSTANCE.sendAnimationMessage(this, STUN_ANIAMATION);
                 }
             }
+            if (this.isPowered()) {
+                if (entity1 instanceof AbstractArrow) {
+                    return false;
+                }
+            }
+
 
             return super.hurt(source, p_31462_);
         }

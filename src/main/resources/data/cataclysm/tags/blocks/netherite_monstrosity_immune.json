@@ -16,6 +16,8 @@
     "minecraft:fire",
     "minecraft:lava",
     "minecraft:water",
+    "minecraft:light",
+    "minecraft:reinforced_deepslate",
     "minecraft:structure_block",
     "minecraft:ancient_debris",
     "minecraft:obsidian",

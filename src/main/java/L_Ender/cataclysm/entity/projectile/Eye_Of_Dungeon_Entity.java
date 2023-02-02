@@ -2,6 +2,7 @@ package L_Ender.cataclysm.entity.projectile;
 
 import L_Ender.cataclysm.init.ModEntities;
 import L_Ender.cataclysm.init.ModParticle;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -43,7 +44,9 @@ public class Eye_Of_Dungeon_Entity extends Entity implements ItemSupplier {
     }
 
     public void setItem(ItemStack p_32046_) {
-        this.getEntityData().set(DATA_ITEM_STACK, p_32046_);
+        this.getEntityData().set(DATA_ITEM_STACK, Util.make(p_32046_.copy(), (p_36978_) -> {
+            p_36978_.setCount(1);
+        }));
     }
 
     private ItemStack getItemRaw() {

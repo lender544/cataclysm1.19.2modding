@@ -58,7 +58,7 @@ public class TileEntityEMP extends BlockEntity {
             ScreenShake_Entity.ScreenShake(this.level, Vec3.atCenterOf(this.getBlockPos()), 20, 0.01f, 0, 20);
             level.playSound((Player)null, this.getBlockPos(), ModSounds.EMP_ACTIVATED.get(), SoundSource.BLOCKS, 4F, level.random.nextFloat() * 0.2F + 1.0F);
             level.setBlockAndUpdate(this.getBlockPos(), getBlockState().setValue(BlockEMP.OVERLOAD, true));
-            AABB screamBox = new AABB(this.getBlockPos().getX() - 5, this.getBlockPos().getY() - 5F, this.getBlockPos().getZ() - 5, this.getBlockPos().getX() + 5, this.getBlockPos().getY() + 5F, this.getBlockPos().getZ() + 5F);
+            AABB screamBox = new AABB(this.getBlockPos().getX() - 5f, this.getBlockPos().getY() - 5F, this.getBlockPos().getZ() - 5, this.getBlockPos().getX() + 5, this.getBlockPos().getY() + 5F, this.getBlockPos().getZ() + 5F);
             for(LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, screamBox)){
                 entity.hurt(CMDamageTypes.EMP, 6 + entity.getRandom().nextInt(3));
 
