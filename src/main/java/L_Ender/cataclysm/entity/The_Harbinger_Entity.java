@@ -215,6 +215,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
             }
         }
 
+
         LivingEntity target = this.getTarget();
         if (this.isAlive()) {
             if (target != null && target.isAlive() && skill_cooldown <= 0 && (Laser_Mode_Progress == 30 || Laser_Mode_Progress == 0)) {
