@@ -1,10 +1,7 @@
 package L_Ender.cataclysm.init;
 
 import L_Ender.cataclysm.cataclysm;
-import L_Ender.cataclysm.tileentities.TileEntityEnderGuardianSpawner;
-import L_Ender.cataclysm.tileentities.TileEntityObsidianExplosionTrapBricks;
-import L_Ender.cataclysm.tileentities.TileEntityAltarOfFire;
-import L_Ender.cataclysm.tileentities.TileEntityEMP;
+import L_Ender.cataclysm.tileentities.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -27,5 +24,8 @@ public class ModTileentites {
 
     public static final RegistryObject<BlockEntityType<TileEntityEMP>> EMP = TILE_ENTITY_TYPES.register("emp", () ->
             BlockEntityType.Builder.of(TileEntityEMP::new, ModBlocks.EMP.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<TileEntityMechanical_Infusion_Forge>> MECHANICAL_INFUSION_FORGE = TILE_ENTITY_TYPES.register("mechanical_infusion_forge", () ->
+            BlockEntityType.Builder.of(TileEntityMechanical_Infusion_Forge::new, ModBlocks.MECHANICAL_INFUSION_FORGE.get()).build(null));
 
 }

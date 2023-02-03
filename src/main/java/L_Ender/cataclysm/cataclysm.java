@@ -74,6 +74,9 @@ public class cataclysm {
         ModTileentites.TILE_ENTITY_TYPES.register(bus);
         ModEntities.ENTITY_TYPE.register(bus);
         ModSounds.SOUNDS.register(bus);
+        ModRecipeSerializers.RECIPE_SERIALIZERS.register(bus);
+        ModRecipeTypes.RECIPE_TYPES.register(bus);
+        ModMenu.DEF_REG.register(bus);
         PROXY.init();
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new ServerEventHandler());

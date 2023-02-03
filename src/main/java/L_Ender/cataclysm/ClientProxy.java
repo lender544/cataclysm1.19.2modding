@@ -1,12 +1,14 @@
 package L_Ender.cataclysm;
 
 import L_Ender.cataclysm.client.event.ClientEvent;
+import L_Ender.cataclysm.client.gui.GUIWeponInfusion;
 import L_Ender.cataclysm.client.particle.EM_PulseParticle;
 import L_Ender.cataclysm.client.particle.LightningParticle;
 import L_Ender.cataclysm.client.particle.SoulLavaParticle;
 import L_Ender.cataclysm.client.render.CMItemstackRenderer;
 import L_Ender.cataclysm.client.render.blockentity.RendererAltar_of_Fire;
 import L_Ender.cataclysm.client.render.blockentity.RendererEMP;
+import L_Ender.cataclysm.client.render.blockentity.RendererMechanical_Infusion_Forge;
 import L_Ender.cataclysm.client.render.entity.*;
 import L_Ender.cataclysm.client.render.item.CMItemRenderProperties;
 import L_Ender.cataclysm.client.render.item.CustomArmorRenderProperties;
@@ -17,11 +19,9 @@ import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.entity.Ender_Guardian_Entity;
 import L_Ender.cataclysm.entity.Ignis_Entity;
 import L_Ender.cataclysm.entity.Netherite_Monstrosity_Entity;
-import L_Ender.cataclysm.init.ModEntities;
-import L_Ender.cataclysm.init.ModItems;
-import L_Ender.cataclysm.init.ModParticle;
-import L_Ender.cataclysm.init.ModTileentites;
+import L_Ender.cataclysm.init.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -111,6 +111,9 @@ public class ClientProxy extends CommonProxy {
 
         BlockEntityRenderers.register(ModTileentites.ALTAR_OF_FIRE.get(), RendererAltar_of_Fire::new);
         BlockEntityRenderers.register(ModTileentites.EMP.get(), RendererEMP::new);
+        BlockEntityRenderers.register(ModTileentites.MECHANICAL_INFUSION_FORGE.get(), RendererMechanical_Infusion_Forge::new);
+
+        MenuScreens.register(ModMenu.WEAPON_INFUSION.get(), GUIWeponInfusion::new);
     }
 
 

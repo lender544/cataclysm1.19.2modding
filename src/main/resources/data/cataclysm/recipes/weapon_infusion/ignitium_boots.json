@@ -1,0 +1,12 @@
+{
+    "type": "cataclysm:weapon_infusion",
+    "base": {
+        "item": "minecraft:netherite_boots"
+    },
+    "addition": {
+        "item": "cataclysm:ignitium_ingot"
+    },
+    "result": {
+        "item": "cataclysm:ignitium_boots"
+    }
+}

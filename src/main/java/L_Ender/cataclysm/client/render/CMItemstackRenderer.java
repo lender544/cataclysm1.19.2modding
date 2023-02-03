@@ -2,6 +2,7 @@ package L_Ender.cataclysm.client.render;
 
 import L_Ender.cataclysm.client.model.block.Model_Altar_of_Fire;
 import L_Ender.cataclysm.client.model.block.Model_EMP;
+import L_Ender.cataclysm.client.model.block.Model_Mechanical_Forge;
 import L_Ender.cataclysm.client.model.item.ModelBulwark_of_the_flame;
 import L_Ender.cataclysm.client.model.item.ModelGauntlet_of_Guard;
 import L_Ender.cataclysm.client.model.item.ModelIncinerator;
@@ -33,6 +34,7 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
 
     private static final ModelBulwark_of_the_flame BULWARK_OF_THE_FLAME_MODEL = new ModelBulwark_of_the_flame();
     private static final Model_EMP EMP_MODEL = new Model_EMP();
+    private static final Model_Mechanical_Forge MF_MODEL = new Model_Mechanical_Forge();
     private static final ModelGauntlet_of_Guard GAUNTLET_OF_GUARD_MODEL = new ModelGauntlet_of_Guard();
     private static final ModelIncinerator THE_INCINERATOR_MODEL = new ModelIncinerator();
     private static final Model_Altar_of_Fire ALTAR_OF_FIRE_MODEL = new Model_Altar_of_Fire();
@@ -41,6 +43,8 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
     private static final ResourceLocation GAUNTLET_OF_GUARD_TEXTURE = new ResourceLocation("cataclysm:textures/items/gauntlet_of_guard.png");
     private static final ResourceLocation THE_INCINERATOR_TEXTURE = new ResourceLocation("cataclysm:textures/items/the_incinerator.png");
     private static final ResourceLocation ALTAR_OF_FIRE_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altar_of_fire.png");
+    private static final ResourceLocation MIF_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/mechanical_infusion_forge.png");
+
     private static final ResourceLocation WASW_TEXTURE = new ResourceLocation("cataclysm:textures/items/wither_assualt_shoulder_weapon.png");
     private static final ResourceLocation EMP_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/emp.png");
     private static final ResourceLocation TEXTURE_1 = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altarfire1.png");
@@ -120,6 +124,14 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
             matrixStackIn.popPose();
         }
 
+        if(itemStackIn.getItem() == ModBlocks.MECHANICAL_INFUSION_FORGE.get().asItem()){
+            matrixStackIn.pushPose();
+            matrixStackIn.translate(0.5F, 1.5F, 0.5F);
+            matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(-180));
+            MF_MODEL.resetToDefaultPose();
+            MF_MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(RenderType.entityCutoutNoCull(MIF_TEXTURE)), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
+            matrixStackIn.popPose();
+        }
     }
 
     private ResourceLocation getIdleTexture(int age) {
