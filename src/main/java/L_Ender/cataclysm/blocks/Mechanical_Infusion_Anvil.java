@@ -2,9 +2,7 @@ package L_Ender.cataclysm.blocks;
 
 import L_Ender.cataclysm.init.ModTileentites;
 import L_Ender.cataclysm.inventory.WeaponInfusionMenu;
-import L_Ender.cataclysm.tileentities.TileEntityAltarOfFire;
-import L_Ender.cataclysm.tileentities.TileEntityEMP;
-import L_Ender.cataclysm.tileentities.TileEntityMechanical_Infusion_Forge;
+import L_Ender.cataclysm.tileentities.TileEntityMechanical_infusion_Anvil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.stats.Stats;
@@ -26,10 +24,10 @@ import net.minecraft.world.phys.BlockHitResult;
 
 import javax.annotation.Nullable;
 
-public class Mechanical_Infusion_Forge extends BaseEntityBlock {
+public class Mechanical_Infusion_Anvil extends BaseEntityBlock {
     private static final Component CONTAINER_TITLE = Component.translatable("cataclysm.container.weapon_infusion");
 
-    public Mechanical_Infusion_Forge() {
+    public Mechanical_Infusion_Anvil() {
         super(Properties.of(Material.HEAVY_METAL)
                 .lightLevel((block) -> 7)
                 .emissiveRendering((block, world, pos) -> true)
@@ -49,7 +47,6 @@ public class Mechanical_Infusion_Forge extends BaseEntityBlock {
     }
 
     public MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
-        BlockEntity te = level.getBlockEntity(pos);
         return new SimpleMenuProvider((i, inv, player) -> {
             return new WeaponInfusionMenu(i, inv, ContainerLevelAccess.create(level, pos));
         }, CONTAINER_TITLE);
@@ -58,11 +55,11 @@ public class Mechanical_Infusion_Forge extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new TileEntityMechanical_Infusion_Forge(pos, state);
+        return new TileEntityMechanical_infusion_Anvil(pos, state);
     }
 
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_152180_, BlockState p_152181_, BlockEntityType<T> p_152182_) {
-        return createTickerHelper(p_152182_, ModTileentites.MECHANICAL_INFUSION_FORGE.get(), TileEntityMechanical_Infusion_Forge::commonTick);
+        return createTickerHelper(p_152182_, ModTileentites.MECHANICAL_INFUSION_ANVIL.get(), TileEntityMechanical_infusion_Anvil::commonTick);
     }
 }

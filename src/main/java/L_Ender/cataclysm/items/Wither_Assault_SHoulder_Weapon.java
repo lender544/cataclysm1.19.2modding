@@ -112,11 +112,6 @@ public class Wither_Assault_SHoulder_Weapon extends Item {
 
 
     @Override
-    public boolean canPerformAction(ItemStack stack, net.minecraftforge.common.ToolAction toolAction) {
-        return net.minecraftforge.common.ToolActions.DEFAULT_SWORD_ACTIONS.contains(toolAction);
-    }
-
-    @Override
     public void initializeClient(java.util.function.Consumer<IClientItemExtensions> consumer) {
         consumer.accept((IClientItemExtensions) cataclysm.PROXY.getISTERProperties());
     }

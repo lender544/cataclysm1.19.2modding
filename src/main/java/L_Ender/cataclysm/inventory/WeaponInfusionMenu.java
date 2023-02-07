@@ -37,7 +37,7 @@ public class WeaponInfusionMenu extends ItemCombinerMenu {
     }
 
     protected boolean isValidBlock(BlockState p_40266_) {
-        return p_40266_.is(ModBlocks.MECHANICAL_INFUSION_FORGE.get());
+        return p_40266_.is(ModBlocks.MECHANICAL_INFUSION_ANVIL.get());
     }
 
     protected boolean mayPickup(Player p_40268_, boolean p_40269_) {

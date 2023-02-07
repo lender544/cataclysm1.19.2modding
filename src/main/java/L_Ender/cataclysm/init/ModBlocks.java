@@ -127,8 +127,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> EMP = registerBlockAndItem("emp",
             BlockEMP::new, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).rarity(Rarity.EPIC), true);
 
-    public static final RegistryObject<Block> MECHANICAL_INFUSION_FORGE = registerBlockAndItem("mechanical_infusion_forge",
-            Mechanical_Infusion_Forge::new, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).rarity(Rarity.EPIC), true);
+    public static final RegistryObject<Block> MECHANICAL_INFUSION_ANVIL = registerBlockAndItem("mechanical_infusion_anvil",
+            Mechanical_Infusion_Anvil::new, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).rarity(Rarity.EPIC), true);
 
     public static final RegistryObject<Block> CHORUS_PLANKS = BLOCKS.register("chorus_planks",
             () -> new Block(BlockBehaviour.Properties.of(Material.NETHER_WOOD, MaterialColor.COLOR_PURPLE).

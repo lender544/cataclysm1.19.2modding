@@ -1,6 +1,7 @@
 package L_Ender.cataclysm.entity.projectile;
 
 import L_Ender.cataclysm.entity.The_Harbinger_Entity;
+import L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import L_Ender.cataclysm.entity.effect.Wither_Smoke_Effect_Entity;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -99,6 +100,7 @@ public class Wither_Howitzer_Entity extends ThrowableProjectile {
             areaeffectcloud.setDuration(areaeffectcloud.getDuration() / 2);
             areaeffectcloud.setRadiusPerTick(-areaeffectcloud.getRadius() / (float)areaeffectcloud.getDuration());
             this.level.addFreshEntity(areaeffectcloud);
+            ScreenShake_Entity.ScreenShake(level, this.position(), 40, 0.05f, 0, 20);
             this.discard();
         }
     }

@@ -55,7 +55,7 @@ public class void_core extends Item {
         }
         ItemStack stack = player.getItemInHand(hand);
         if (hasSucceeded) {
-            player.getCooldowns().addCooldown(this, 120);
+            player.getCooldowns().addCooldown(this, 160);
             return InteractionResultHolder.success(stack);
         }
         return InteractionResultHolder.pass(stack);

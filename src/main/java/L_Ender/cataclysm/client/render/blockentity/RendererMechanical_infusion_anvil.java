@@ -3,7 +3,7 @@ package L_Ender.cataclysm.client.render.blockentity;
 
 import L_Ender.cataclysm.client.model.block.Model_Mechanical_Forge;
 
-import L_Ender.cataclysm.tileentities.TileEntityMechanical_Infusion_Forge;
+import L_Ender.cataclysm.tileentities.TileEntityMechanical_infusion_Anvil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -13,12 +13,12 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Con
 
 import net.minecraft.resources.ResourceLocation;
 
-public class RendererMechanical_Infusion_Forge<T extends TileEntityMechanical_Infusion_Forge> implements BlockEntityRenderer<T> {
+public class RendererMechanical_infusion_anvil<T extends TileEntityMechanical_infusion_Anvil> implements BlockEntityRenderer<T> {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation("cataclysm:textures/blocks/mechanical_infusion_forge.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation("cataclysm:textures/blocks/mechanical_infusion_anvil.png");
     private static final Model_Mechanical_Forge MODEL = new Model_Mechanical_Forge();
 
-    public RendererMechanical_Infusion_Forge(Context rendererDispatcherIn) {
+    public RendererMechanical_infusion_anvil(Context rendererDispatcherIn) {
     }
 
     @Override

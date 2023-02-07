@@ -4,7 +4,7 @@ package L_Ender.cataclysm.client.model.block;// Made with Blockbench 4.6.2
 
 
 
-import L_Ender.cataclysm.tileentities.TileEntityMechanical_Infusion_Forge;
+import L_Ender.cataclysm.tileentities.TileEntityMechanical_infusion_Anvil;
 import com.github.alexthe666.citadel.client.model.AdvancedEntityModel;
 import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
 import com.github.alexthe666.citadel.client.model.basic.BasicModelPart;

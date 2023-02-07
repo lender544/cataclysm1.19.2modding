@@ -43,9 +43,10 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
     private static final ResourceLocation GAUNTLET_OF_GUARD_TEXTURE = new ResourceLocation("cataclysm:textures/items/gauntlet_of_guard.png");
     private static final ResourceLocation THE_INCINERATOR_TEXTURE = new ResourceLocation("cataclysm:textures/items/the_incinerator.png");
     private static final ResourceLocation ALTAR_OF_FIRE_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altar_of_fire.png");
-    private static final ResourceLocation MIF_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/mechanical_infusion_forge.png");
+    private static final ResourceLocation MIF_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/mechanical_infusion_anvil.png");
 
     private static final ResourceLocation WASW_TEXTURE = new ResourceLocation("cataclysm:textures/items/wither_assualt_shoulder_weapon.png");
+    private static final ResourceLocation VASW_TEXTURE = new ResourceLocation("cataclysm:textures/items/void_assualt_shoulder_weapon.png");
     private static final ResourceLocation EMP_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/emp.png");
     private static final ResourceLocation TEXTURE_1 = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altarfire1.png");
     private static final ResourceLocation TEXTURE_2 = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altarfire2.png");
@@ -105,6 +106,17 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
             matrixStackIn.popPose();
         }
 
+        if (itemStackIn.getItem() == ModItems.VOID_ASSULT_SHOULDER_WEAPON.get()) {
+            matrixStackIn.pushPose();
+            matrixStackIn.translate(0.5F, 0.5F, 0.5F);
+            matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(-180));
+            //matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(-180));
+            VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(bufferIn, RenderType.armorCutoutNoCull(VASW_TEXTURE), false, itemStackIn.hasFoil());
+            WASW_MODEL.renderToBuffer(matrixStackIn, vertexconsumer, combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
+            matrixStackIn.popPose();
+        }
+
+
         if(itemStackIn.getItem() == ModBlocks.ALTAR_OF_FIRE.get().asItem()){
             matrixStackIn.pushPose();
             matrixStackIn.translate(0.5F, 1.5F, 0.5F);
@@ -124,7 +136,7 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
             matrixStackIn.popPose();
         }
 
-        if(itemStackIn.getItem() == ModBlocks.MECHANICAL_INFUSION_FORGE.get().asItem()){
+        if(itemStackIn.getItem() == ModBlocks.MECHANICAL_INFUSION_ANVIL.get().asItem()){
             matrixStackIn.pushPose();
             matrixStackIn.translate(0.5F, 1.5F, 0.5F);
             matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(-180));

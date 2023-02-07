@@ -8,7 +8,7 @@ import L_Ender.cataclysm.client.particle.SoulLavaParticle;
 import L_Ender.cataclysm.client.render.CMItemstackRenderer;
 import L_Ender.cataclysm.client.render.blockentity.RendererAltar_of_Fire;
 import L_Ender.cataclysm.client.render.blockentity.RendererEMP;
-import L_Ender.cataclysm.client.render.blockentity.RendererMechanical_Infusion_Forge;
+import L_Ender.cataclysm.client.render.blockentity.RendererMechanical_infusion_anvil;
 import L_Ender.cataclysm.client.render.entity.*;
 import L_Ender.cataclysm.client.render.item.CMItemRenderProperties;
 import L_Ender.cataclysm.client.render.item.CustomArmorRenderProperties;
@@ -93,6 +93,7 @@ public class ClientProxy extends CommonProxy {
         EntityRenderers.register(ModEntities.WITHER_MISSILE.get(), RendererWither_Missile::new);
         EntityRenderers.register(ModEntities.WITHER_HOMING_MISSILE.get(), RendererWither_Homing_Missile::new);
         EntityRenderers.register(ModEntities.WITHER_HOWITZER.get(), RendererWither_Howitzer::new);
+        EntityRenderers.register(ModEntities.VOID_HOWITZER.get(), RendererVoid_Howitzer::new);
         EntityRenderers.register(ModEntities.VOID_SHARD.get(), (render) -> {
             return new ThrownItemRenderer<>(render, 0.75F, true);
         });
@@ -111,7 +112,7 @@ public class ClientProxy extends CommonProxy {
 
         BlockEntityRenderers.register(ModTileentites.ALTAR_OF_FIRE.get(), RendererAltar_of_Fire::new);
         BlockEntityRenderers.register(ModTileentites.EMP.get(), RendererEMP::new);
-        BlockEntityRenderers.register(ModTileentites.MECHANICAL_INFUSION_FORGE.get(), RendererMechanical_Infusion_Forge::new);
+        BlockEntityRenderers.register(ModTileentites.MECHANICAL_INFUSION_ANVIL.get(), RendererMechanical_infusion_anvil::new);
 
         MenuScreens.register(ModMenu.WEAPON_INFUSION.get(), GUIWeponInfusion::new);
     }

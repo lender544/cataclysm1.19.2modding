@@ -465,6 +465,68 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         animator.setStaticKeyframe(50);
 
         animator.resetKeyframe(20);
+
+
+        animator.setAnimation(The_Harbinger_Entity.MISSILE_FIRE_FAST_ANIAMATION);
+        animator.startKeyframe(5);
+        animator.rotate(mid,(float)Math.toRadians(-25F),0, 0);
+        animator.rotate(main_head,(float)Math.toRadians(-15F),0, 0);
+        animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
+        animator.rotate(jaw,(float)Math.toRadians(32.5F),0, 0);
+        animator.endKeyframe();
+
+        animator.setStaticKeyframe(10);
+
+        animator.startKeyframe(8);
+        animator.rotate(mid,(float)Math.toRadians(35F),0, 0);
+        animator.rotate(main_head,(float)Math.toRadians(-25F),0, 0);
+        animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
+        animator.rotate(jaw,(float)Math.toRadians(32.5F),0, 0);
+        animator.rotate(jetpack,(float)Math.toRadians(50F),0, 0);
+        animator.endKeyframe();
+
+        animator.setStaticKeyframe(10);
+
+        animator.startKeyframe(8);
+        animator.rotate(mid,(float)Math.toRadians(35F),0, 0);
+        animator.rotate(main_head,(float)Math.toRadians(-25F),0, 0);
+        animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
+        animator.rotate(jaw,(float)Math.toRadians(32.5F),0, 0);
+        animator.rotate(jetpack,(float)Math.toRadians(-17.5F),0, 0);
+        animator.rotate(rightside,(float)Math.toRadians(40F),(float)Math.toRadians(92.5F), (float)Math.toRadians(-145F));
+        animator.rotate(leftside,(float)Math.toRadians(40F),(float)Math.toRadians(-92.5F), (float)Math.toRadians(145F));
+        animator.endKeyframe();
+
+        animator.setStaticKeyframe(10);
+
+        animator.startKeyframe(8);
+        animator.rotate(mid,(float)Math.toRadians(35F),0, 0);
+        animator.rotate(main_head,(float)Math.toRadians(-25F),0, 0);
+        animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
+        animator.rotate(jaw,(float)Math.toRadians(32.5F),0, 0);
+        animator.rotate(jetpack,(float)Math.toRadians(70F),0, 0);
+        animator.rotate(rightside,(float)Math.toRadians(67.5F),(float)Math.toRadians(72.5F), (float)Math.toRadians(-145F));
+        animator.rotate(leftside,(float)Math.toRadians(67.5F),(float)Math.toRadians(-72.5F), (float)Math.toRadians(145F));
+        animator.endKeyframe();
+
+        animator.setStaticKeyframe(10);
+
+        animator.startKeyframe(3);
+        animator.rotate(mid,(float)Math.toRadians(35F),0, 0);
+        animator.rotate(main_head,(float)Math.toRadians(-25F),0, 0);
+        animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
+        animator.rotate(jaw,(float)Math.toRadians(32.5F),0, 0);
+        animator.rotate(jetpack,(float)Math.toRadians(70F),0, 0);
+        animator.rotate(rightside,(float)Math.toRadians(67.5F),(float)Math.toRadians(72.5F), (float)Math.toRadians(-145F));
+        animator.rotate(leftside,(float)Math.toRadians(67.5F),(float)Math.toRadians(-72.5F), (float)Math.toRadians(145F));
+        animator.move(rightside,0,0, 5);
+        animator.move(leftside,0,0, 5);
+        animator.endKeyframe();
+
+        animator.setStaticKeyframe(10);
+
+        animator.resetKeyframe(10);
+
     }
 
     @Override

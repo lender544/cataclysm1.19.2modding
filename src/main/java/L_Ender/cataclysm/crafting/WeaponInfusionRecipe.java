@@ -1,5 +1,6 @@
 package L_Ender.cataclysm.crafting;
 
+import L_Ender.cataclysm.init.ModBlocks;
 import L_Ender.cataclysm.init.ModRecipeSerializers;
 import L_Ender.cataclysm.init.ModRecipeTypes;
 import com.google.gson.JsonObject;
@@ -11,7 +12,6 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 
 import java.util.stream.Stream;
 
@@ -50,12 +50,21 @@ public class WeaponInfusionRecipe implements Recipe<Container> {
         return this.result;
     }
 
+    public Ingredient getbaseIngredient() {
+        return this.base;
+    }
+
+    public Ingredient getAdditionIngredient() {
+        return this.addition;
+    }
+
+
     public boolean isAdditionIngredient(ItemStack p_44536_) {
         return this.addition.test(p_44536_);
     }
 
     public ItemStack getToastSymbol() {
-        return new ItemStack(Blocks.SMITHING_TABLE);
+        return new ItemStack(ModBlocks.MECHANICAL_INFUSION_ANVIL.get());
     }
 
     public ResourceLocation getId() {
@@ -88,7 +97,6 @@ public class WeaponInfusionRecipe implements Recipe<Container> {
             Ingredient ingredient = Ingredient.fromNetwork(p_44566_);
             Ingredient ingredient1 = Ingredient.fromNetwork(p_44566_);
             ItemStack itemstack = p_44566_.readItem();
-            int InfusionTimeIn = p_44566_.readVarInt();
             return new WeaponInfusionRecipe(p_44565_, ingredient, ingredient1, itemstack);
         }
 

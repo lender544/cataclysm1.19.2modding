@@ -142,4 +142,7 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> EMP_ACTIVATED = SOUNDS.register("emp_activated",
             () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"emp_activated")));
+
+    public static final RegistryObject<SoundEvent> DEATH_LASER = SOUNDS.register("death_laser",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"death_laser")));
 }

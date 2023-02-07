@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "cataclysm:block/mechanical_infusion_forge"
+      "model": "cataclysm:block/mechanical_infusion_anvil"
     }
   }
 }
