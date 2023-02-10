@@ -2,7 +2,7 @@ package L_Ender.cataclysm.client.render;
 
 import L_Ender.cataclysm.client.model.block.Model_Altar_of_Fire;
 import L_Ender.cataclysm.client.model.block.Model_EMP;
-import L_Ender.cataclysm.client.model.block.Model_Mechanical_Forge;
+import L_Ender.cataclysm.client.model.block.Model_Mechanical_Anvil;
 import L_Ender.cataclysm.client.model.item.ModelBulwark_of_the_flame;
 import L_Ender.cataclysm.client.model.item.ModelGauntlet_of_Guard;
 import L_Ender.cataclysm.client.model.item.ModelIncinerator;
@@ -11,15 +11,12 @@ import L_Ender.cataclysm.init.ModBlocks;
 import L_Ender.cataclysm.init.ModItems;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.blaze3d.vertex.VertexMultiConsumer;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
@@ -34,7 +31,7 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
 
     private static final ModelBulwark_of_the_flame BULWARK_OF_THE_FLAME_MODEL = new ModelBulwark_of_the_flame();
     private static final Model_EMP EMP_MODEL = new Model_EMP();
-    private static final Model_Mechanical_Forge MF_MODEL = new Model_Mechanical_Forge();
+    private static final Model_Mechanical_Anvil MF_MODEL = new Model_Mechanical_Anvil();
     private static final ModelGauntlet_of_Guard GAUNTLET_OF_GUARD_MODEL = new ModelGauntlet_of_Guard();
     private static final ModelIncinerator THE_INCINERATOR_MODEL = new ModelIncinerator();
     private static final Model_Altar_of_Fire ALTAR_OF_FIRE_MODEL = new Model_Altar_of_Fire();
@@ -43,7 +40,7 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
     private static final ResourceLocation GAUNTLET_OF_GUARD_TEXTURE = new ResourceLocation("cataclysm:textures/items/gauntlet_of_guard.png");
     private static final ResourceLocation THE_INCINERATOR_TEXTURE = new ResourceLocation("cataclysm:textures/items/the_incinerator.png");
     private static final ResourceLocation ALTAR_OF_FIRE_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altar_of_fire.png");
-    private static final ResourceLocation MIF_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/mechanical_infusion_anvil.png");
+    private static final ResourceLocation MIF_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/mechanical_fusion_anvil.png");
 
     private static final ResourceLocation WASW_TEXTURE = new ResourceLocation("cataclysm:textures/items/wither_assualt_shoulder_weapon.png");
     private static final ResourceLocation VASW_TEXTURE = new ResourceLocation("cataclysm:textures/items/void_assualt_shoulder_weapon.png");
@@ -136,7 +133,7 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
             matrixStackIn.popPose();
         }
 
-        if(itemStackIn.getItem() == ModBlocks.MECHANICAL_INFUSION_ANVIL.get().asItem()){
+        if(itemStackIn.getItem() == ModBlocks.MECHANICAL_FUSION_ANVIL.get().asItem()){
             matrixStackIn.pushPose();
             matrixStackIn.translate(0.5F, 1.5F, 0.5F);
             matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(-180));

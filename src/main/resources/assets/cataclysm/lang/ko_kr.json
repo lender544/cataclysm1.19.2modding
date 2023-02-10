@@ -22,6 +22,7 @@
   "item.cataclysm.incinerator2.desc": "전방으로 불기둥이 나간다",
   "item.cataclysm.incinerator3.desc": "주의: 불기둥이 사라질때 폭발하여 아이템이 사라질 수 있음.",
   "you_cant_escape": "넌 벗어날 수 없다.",
+  "cataclysm.container.weapon_fusion": "무기 융합",
 
   "item.cataclysm.enderite_ingot": "엔더라이트 주괴",
   "item.cataclysm.ignitium_ingot": "이그니티움 주괴",
@@ -92,6 +93,7 @@
   "block.cataclysm.ender_guardian_spawner":"엔더 수호자 스포너",
   "block.cataclysm.altar_of_fire":"불의 제단",
   "block.cataclysm.emp":"EMP",
+  "block.cataclysm.mechanical_fusion_anvil":"기계식 융합 모루",
 
   "entity.cataclysm.ender_golem": "엔더 골렘",
   "entity.cataclysm.ender_guardian": "엔더 수호자",

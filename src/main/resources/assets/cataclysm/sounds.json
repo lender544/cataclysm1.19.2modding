@@ -318,6 +318,14 @@
       }
     ]
   },
+  "harbinger_music": {
+    "subtitle": "harbinger_music.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:music_disc/harbinger_theme"
+      }
+    ]
+  },
   "revenant_breath": {
     "subtitle": "revenant_breath.sub",
     "sounds": [

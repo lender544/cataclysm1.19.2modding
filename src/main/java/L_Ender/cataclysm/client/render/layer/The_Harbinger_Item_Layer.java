@@ -19,21 +19,21 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class The_Harbinger_Item_Layer extends RenderLayer<The_Harbinger_Entity, ModelThe_Harbinger> {
-    private AdvancedModelBox modelRenderer;
+    private AdvancedModelBox AdvancedModelBox;
     private ItemStack itemstack;
     private ItemTransforms.TransformType transformType;
 
-    public The_Harbinger_Item_Layer(RendererThe_Harbinger renderIn, AdvancedModelBox modelRenderer, ItemStack itemstack, ItemTransforms.TransformType transformType) {
+    public The_Harbinger_Item_Layer(RendererThe_Harbinger renderIn, AdvancedModelBox AdvancedModelBox, ItemStack itemstack, ItemTransforms.TransformType transformType) {
         super(renderIn);
         this.itemstack = itemstack;
-        this.modelRenderer = modelRenderer;
+        this.AdvancedModelBox = AdvancedModelBox;
         this.transformType = transformType;
     }
 
     @Override
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, The_Harbinger_Entity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         matrixStackIn.pushPose();
-        RenderUtils.matrixStackFromModel(matrixStackIn, getModelRenderer());
+        RenderUtils.matrixStackFromModel(matrixStackIn, getAdvancedModelBox());
         matrixStackIn.translate(-0.0125F, 0.0F, 0.0F);
         Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderItem(entity, getItemstack(), transformType, false, matrixStackIn, bufferIn, packedLightIn);
         matrixStackIn.popPose();
@@ -47,11 +47,11 @@ public class The_Harbinger_Item_Layer extends RenderLayer<The_Harbinger_Entity, 
         this.itemstack = itemstack;
     }
 
-    public AdvancedModelBox getModelRenderer() {
-        return modelRenderer;
+    public AdvancedModelBox getAdvancedModelBox() {
+        return AdvancedModelBox;
     }
 
-    public void setModelRenderer(AdvancedModelBox modelRenderer) {
-        this.modelRenderer = modelRenderer;
+    public void setAdvancedModelBox(AdvancedModelBox AdvancedModelBox) {
+        this.AdvancedModelBox = AdvancedModelBox;
     }
 }

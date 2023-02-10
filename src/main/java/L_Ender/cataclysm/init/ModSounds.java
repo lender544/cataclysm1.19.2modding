@@ -145,4 +145,7 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> DEATH_LASER = SOUNDS.register("death_laser",
             () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"death_laser")));
+
+    public static final RegistryObject<SoundEvent> HARBINGER_MUSIC = SOUNDS.register("harbinger_music",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"harbinger_music")));
 }

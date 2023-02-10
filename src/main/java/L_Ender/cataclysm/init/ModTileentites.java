@@ -25,7 +25,7 @@ public class ModTileentites {
     public static final RegistryObject<BlockEntityType<TileEntityEMP>> EMP = TILE_ENTITY_TYPES.register("emp", () ->
             BlockEntityType.Builder.of(TileEntityEMP::new, ModBlocks.EMP.get()).build(null));
 
-    public static final RegistryObject<BlockEntityType<TileEntityMechanical_infusion_Anvil>> MECHANICAL_INFUSION_ANVIL = TILE_ENTITY_TYPES.register("mechanical_infusion_anvil", () ->
-            BlockEntityType.Builder.of(TileEntityMechanical_infusion_Anvil::new, ModBlocks.MECHANICAL_INFUSION_ANVIL.get()).build(null));
+    public static final RegistryObject<BlockEntityType<TileEntityMechanical_fusion_Anvil>> MECHANICAL_FUSION_ANVIL = TILE_ENTITY_TYPES.register("mechanical_fusion_anvil", () ->
+            BlockEntityType.Builder.of(TileEntityMechanical_fusion_Anvil::new, ModBlocks.MECHANICAL_FUSION_ANVIL.get()).build(null));
 
 }

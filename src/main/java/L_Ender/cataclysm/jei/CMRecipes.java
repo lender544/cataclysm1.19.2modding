@@ -1,6 +1,6 @@
 package L_Ender.cataclysm.jei;
 
-import L_Ender.cataclysm.crafting.WeaponInfusionRecipe;
+import L_Ender.cataclysm.crafting.WeaponfusionRecipe;
 import L_Ender.cataclysm.init.ModRecipeTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -24,8 +24,8 @@ public class CMRecipes
 		}
 	}
 
-	public List<WeaponInfusionRecipe> getWeaponInfusionRecipes() {
-		return recipeManager.getAllRecipesFor(ModRecipeTypes.WEAPON_INFUSION.get()).stream().toList();
+	public List<WeaponfusionRecipe> getWeaponfusionRecipes() {
+		return recipeManager.getAllRecipesFor(ModRecipeTypes.WEAPON_FUSION.get()).stream().toList();
 	}
 
 }

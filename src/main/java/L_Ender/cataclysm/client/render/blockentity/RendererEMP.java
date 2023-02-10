@@ -1,29 +1,15 @@
 package L_Ender.cataclysm.client.render.blockentity;
 
 import L_Ender.cataclysm.blocks.BlockEMP;
-import L_Ender.cataclysm.client.model.block.Model_Altar_of_Fire;
 import L_Ender.cataclysm.client.model.block.Model_EMP;
-import L_Ender.cataclysm.client.render.CMRenderTypes;
-import L_Ender.cataclysm.tileentities.TileEntityAltarOfFire;
 import L_Ender.cataclysm.tileentities.TileEntityEMP;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix3f;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
 
 public class RendererEMP<T extends TileEntityEMP> implements BlockEntityRenderer<T> {
 

@@ -60,7 +60,7 @@ public class The_Incinerator extends Item {
         if (p_43396_ instanceof Player player) {
             int i = this.getUseDuration(p_43394_) - p_43397_;
             double headY = player.getY() + 1.0D;
-            int standingOnY = Mth.floor(player.getY()) - 1;
+            int standingOnY = Mth.floor(player.getY()) - 2;
             float yawRadians = (float) (Math.toRadians(90 + player.getYRot()));
             boolean hasSucceeded = false;
             if (i >= 60) {

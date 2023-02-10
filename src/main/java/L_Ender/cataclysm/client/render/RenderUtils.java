@@ -12,19 +12,19 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 
 public class RenderUtils {
-    public static void matrixStackFromModel(PoseStack matrixStack, AdvancedModelBox modelRenderer) {
-        AdvancedModelBox parent = modelRenderer.getParent();
+    public static void matrixStackFromModel(PoseStack matrixStack, AdvancedModelBox AdvancedModelBox) {
+        AdvancedModelBox parent = AdvancedModelBox.getParent();
         if (parent != null) matrixStackFromModel(matrixStack, parent);
-        modelRenderer.translateRotate(matrixStack);
+        AdvancedModelBox.translateRotate(matrixStack);
     }
 
-    public static Vec3 getWorldPosFromModel(Entity entity, float entityYaw, AdvancedModelBox modelRenderer) {
+    public static Vec3 getWorldPosFromModel(Entity entity, float entityYaw, AdvancedModelBox AdvancedModelBox) {
         PoseStack matrixStack = new PoseStack();
         matrixStack.translate(entity.getX(), entity.getY(), entity.getZ());
         matrixStack.mulPose(new Quaternion(0, -entityYaw + 180, 0, true));
         matrixStack.scale(-1, -1, 1);
         matrixStack.translate(0, -1.5f, 0);
-        RenderUtils.matrixStackFromModel(matrixStack, modelRenderer);
+        RenderUtils.matrixStackFromModel(matrixStack, AdvancedModelBox);
         PoseStack.Pose matrixEntry = matrixStack.last();
         Matrix4f matrix4f = matrixEntry.pose();
 

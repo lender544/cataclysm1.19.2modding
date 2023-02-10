@@ -1,5 +1,6 @@
 package L_Ender.cataclysm.entity;
 
+import L_Ender.cataclysm.cataclysm;
 import L_Ender.cataclysm.entity.AI.AttackAniamtionGoal3;
 import L_Ender.cataclysm.entity.AI.SimpleAnimationGoal;
 import L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
@@ -44,6 +45,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -217,6 +220,10 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         }
 
         if (skill_cooldown > 0) skill_cooldown--;
+
+        if (!this.isSilent() && !level.isClientSide) {
+            this.level.broadcastEntityEvent(this, (byte) 67);
+        }
 
         Entity entity = this.level.getEntity(this.getAlternativeTarget(0));
         if (!this.level.isClientSide && this.getAlternativeTarget(0) > 0 && this.isAlive() && !this.getIsCharge() && this.getAnimation() != STUN_ANIAMATION) {
@@ -659,6 +666,15 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
 
     public boolean canBeAffected(MobEffectInstance p_31495_) {
         return p_31495_.getEffect() != MobEffects.WITHER && super.canBeAffected(p_31495_);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public void handleEntityEvent(byte id) {
+        if (id == 67) {
+            cataclysm.PROXY.onEntityStatus(this, id);
+        } else {
+            super.handleEntityEvent(id);
+        }
     }
 
     static class DeathLaserGoal extends SimpleAnimationGoal<The_Harbinger_Entity> {

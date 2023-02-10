@@ -1,7 +1,7 @@
 package L_Ender.cataclysm.init;
 
 import L_Ender.cataclysm.cataclysm;
-import L_Ender.cataclysm.crafting.WeaponInfusionRecipe;
+import L_Ender.cataclysm.crafting.WeaponfusionRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -11,6 +11,6 @@ public class ModRecipeSerializers
 {
 	public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, cataclysm.MODID);
 
-	public static final RegistryObject<RecipeSerializer<?>> WEAPON_INFUSION = RECIPE_SERIALIZERS.register("weapon_infusion", WeaponInfusionRecipe.Serializer::new);
+	public static final RegistryObject<RecipeSerializer<?>> WEAPON_fusion = RECIPE_SERIALIZERS.register("weapon_fusion", WeaponfusionRecipe.Serializer::new);
 
 }

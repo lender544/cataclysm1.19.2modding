@@ -1,5 +1,5 @@
 {
-    "type": "cataclysm:weapon_infusion",
+    "type": "cataclysm:weapon_fusion",
     "base": {
         "item": "cataclysm:wither_assault_shoulder_weapon"
     },

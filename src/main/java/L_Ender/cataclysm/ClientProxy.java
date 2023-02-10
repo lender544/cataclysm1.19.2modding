@@ -1,24 +1,26 @@
 package L_Ender.cataclysm;
 
 import L_Ender.cataclysm.client.event.ClientEvent;
-import L_Ender.cataclysm.client.gui.GUIWeponInfusion;
+import L_Ender.cataclysm.client.gui.GUIWeponfusion;
 import L_Ender.cataclysm.client.particle.EM_PulseParticle;
 import L_Ender.cataclysm.client.particle.LightningParticle;
 import L_Ender.cataclysm.client.particle.SoulLavaParticle;
 import L_Ender.cataclysm.client.render.CMItemstackRenderer;
 import L_Ender.cataclysm.client.render.blockentity.RendererAltar_of_Fire;
 import L_Ender.cataclysm.client.render.blockentity.RendererEMP;
-import L_Ender.cataclysm.client.render.blockentity.RendererMechanical_infusion_anvil;
+import L_Ender.cataclysm.client.render.blockentity.RendererMechanical_fusion_anvil;
 import L_Ender.cataclysm.client.render.entity.*;
 import L_Ender.cataclysm.client.render.item.CMItemRenderProperties;
 import L_Ender.cataclysm.client.render.item.CustomArmorRenderProperties;
 import L_Ender.cataclysm.client.sound.SoundEnderGuardianMusic;
+import L_Ender.cataclysm.client.sound.SoundHarbingerMusic;
 import L_Ender.cataclysm.client.sound.SoundIgnisMusic;
 import L_Ender.cataclysm.client.sound.SoundMonstrosityMusic;
 import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.entity.Ender_Guardian_Entity;
 import L_Ender.cataclysm.entity.Ignis_Entity;
 import L_Ender.cataclysm.entity.Netherite_Monstrosity_Entity;
+import L_Ender.cataclysm.entity.The_Harbinger_Entity;
 import L_Ender.cataclysm.init.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -52,6 +54,7 @@ public class ClientProxy extends CommonProxy {
     public static final Map<Integer, SoundMonstrosityMusic> MONSTROSITY_SOUND_MAP = new HashMap<>();
     public static final Map<Integer, SoundEnderGuardianMusic> GUARDIAN_SOUND_MAP = new HashMap<>();
     public static final Map<Integer, SoundIgnisMusic> IGNIS_SOUND_MAP = new HashMap<>();
+    public static final Map<Integer, SoundHarbingerMusic> HARBINGER_SOUND_MAP = new HashMap<>();
 
     public void init() {
        // FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientLayerEvent::onAddLayers);
@@ -112,9 +115,9 @@ public class ClientProxy extends CommonProxy {
 
         BlockEntityRenderers.register(ModTileentites.ALTAR_OF_FIRE.get(), RendererAltar_of_Fire::new);
         BlockEntityRenderers.register(ModTileentites.EMP.get(), RendererEMP::new);
-        BlockEntityRenderers.register(ModTileentites.MECHANICAL_INFUSION_ANVIL.get(), RendererMechanical_infusion_anvil::new);
+        BlockEntityRenderers.register(ModTileentites.MECHANICAL_FUSION_ANVIL.get(), RendererMechanical_fusion_anvil::new);
 
-        MenuScreens.register(ModMenu.WEAPON_INFUSION.get(), GUIWeponInfusion::new);
+        MenuScreens.register(ModMenu.WEAPON_FUSION.get(), GUIWeponfusion::new);
     }
 
 
@@ -183,6 +186,24 @@ public class ClientProxy extends CommonProxy {
                 }
 
             }
+            if (entity instanceof The_Harbinger_Entity && entity.isAlive() && updateKind == 67) {
+                if (f2 <= 0) {
+                    HARBINGER_SOUND_MAP.clear();
+                } else {
+                    SoundHarbingerMusic sound;
+                    if (HARBINGER_SOUND_MAP.get(entity.getId()) == null) {
+                        sound = new SoundHarbingerMusic((The_Harbinger_Entity) entity);
+                        HARBINGER_SOUND_MAP.put(entity.getId(), sound);
+                    } else {
+                        sound = HARBINGER_SOUND_MAP.get(entity.getId());
+                    }
+                    if (!Minecraft.getInstance().getSoundManager().isActive(sound) && sound.isNearest()) {
+                        Minecraft.getInstance().getSoundManager().play(sound);
+                    }
+                }
+
+            }
+
         }
     }
 
