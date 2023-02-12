@@ -20,6 +20,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
@@ -41,7 +42,10 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -61,8 +65,8 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     public static final Animation LAUNCH_ANIAMATION = Animation.create(59);
     public static final Animation MISSILE_FIRE_ANIAMATION = Animation.create(118);
     public static final Animation MISSILE_FIRE_FAST_ANIAMATION = Animation.create(96);
-    public static final Animation STUN_ANIAMATION = Animation.create(85);
-    public static final int SKILL_COOLDOWN = 300;
+    public static final Animation STUN_ANIAMATION = Animation.create(105);
+    public static final int SKILL_COOLDOWN = 240;
     private static final EntityDataAccessor<Integer> FIRST_HEAD_TARGET = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> SECOND_HEAD_TARGET = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> THIRD_HEAD_TARGET = SynchedEntityData.defineId(The_Harbinger_Entity.class, EntityDataSerializers.INT);
@@ -80,7 +84,8 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     public float Laser_Mode_Progress;
     public float prev_Laser_Mode_Progress;
     private int destroyBlocksTick;
-    private final ServerBossEvent bossEvent = (ServerBossEvent)(new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
+    private int blockBreakCounter;
+    private final ServerBossEvent bossEvent = (ServerBossEvent) (new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
     private int mode_change_cooldown = 0;
     private int skill_cooldown = 160;
 
@@ -98,15 +103,15 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     @Override
     public Animation[] getAnimations() {
         return new Animation[]{
-                NO_ANIMATION,DEATHLASER_ANIMATION,CHARGE_ANIMATION,DEATH_ANIMATION,LAUNCH_ANIAMATION,MISSILE_FIRE_ANIAMATION,STUN_ANIAMATION,MISSILE_FIRE_FAST_ANIAMATION};
+                NO_ANIMATION, DEATHLASER_ANIMATION, CHARGE_ANIMATION, DEATH_ANIMATION, LAUNCH_ANIAMATION, MISSILE_FIRE_ANIAMATION, STUN_ANIAMATION, MISSILE_FIRE_FAST_ANIAMATION};
     }
 
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new DeathLaserGoal(this,DEATHLASER_ANIMATION));
-        this.goalSelector.addGoal(1, new ChargeGoal(this,CHARGE_ANIMATION));
-        this.goalSelector.addGoal(1, new LaunchGoal(this,LAUNCH_ANIAMATION));
-        this.goalSelector.addGoal(1, new MissileLaunchGoal(this,MISSILE_FIRE_ANIAMATION));
-        this.goalSelector.addGoal(1, new MissileLaunchGoal2(this,MISSILE_FIRE_FAST_ANIAMATION));
+        this.goalSelector.addGoal(1, new DeathLaserGoal(this, DEATHLASER_ANIMATION));
+        this.goalSelector.addGoal(1, new ChargeGoal(this, CHARGE_ANIMATION));
+        this.goalSelector.addGoal(1, new LaunchGoal(this, LAUNCH_ANIAMATION));
+        this.goalSelector.addGoal(1, new MissileLaunchGoal(this, MISSILE_FIRE_ANIAMATION));
+        this.goalSelector.addGoal(1, new MissileLaunchGoal2(this, MISSILE_FIRE_FAST_ANIAMATION));
         this.goalSelector.addGoal(1, new AttackAniamtionGoal3<>(this, STUN_ANIAMATION));
         this.goalSelector.addGoal(2, new RangedAttackGoal(this, 1.0D, 40, 20.0F));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomFlyingGoal(this, 1.0D));
@@ -118,9 +123,9 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
 
     public static AttributeSupplier.Builder harbinger() {
         return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 390.0D)
-                .add(Attributes.MOVEMENT_SPEED, (double)0.6F)
-                .add(Attributes.ATTACK_DAMAGE, (double)10F)
-                .add(Attributes.FLYING_SPEED, (double)0.6F)
+                .add(Attributes.MOVEMENT_SPEED, (double) 0.6F)
+                .add(Attributes.ATTACK_DAMAGE, (double) 10F)
+                .add(Attributes.FLYING_SPEED, (double) 0.6F)
                 .add(Attributes.FOLLOW_RANGE, 40.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
                 .add(Attributes.ARMOR, 12.0D);
@@ -139,7 +144,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
 
     @Override
     public ItemEntity spawnAtLocation(ItemStack stack) {
-        ItemEntity itementity = this.spawnAtLocation(stack,0.0f);
+        ItemEntity itementity = this.spawnAtLocation(stack, 0.0f);
         if (itementity != null) {
             itementity.setGlowingTag(true);
             itementity.setExtendedLifetime();
@@ -173,7 +178,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
             return false;
         } else {
 
-            for(int i = 0; i < this.idleHeadUpdates.length; ++i) {
+            for (int i = 0; i < this.idleHeadUpdates.length; ++i) {
                 this.idleHeadUpdates[i] += 3;
             }
 
@@ -181,7 +186,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
                 this.destroyBlocksTick = 20;
             }
 
-            if(this.getAnimation() != STUN_ANIAMATION && this.getAnimation() != DEATHLASER_ANIMATION) {
+            if (this.getAnimation() != STUN_ANIAMATION && this.getAnimation() != DEATHLASER_ANIMATION) {
                 if ("cataclysm.emp".equals(source.getMsgId())) {
                     AnimationHandler.INSTANCE.sendAnimationMessage(this, STUN_ANIAMATION);
                 }
@@ -229,33 +234,34 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         if (!this.level.isClientSide && this.getAlternativeTarget(0) > 0 && this.isAlive() && !this.getIsCharge() && this.getAnimation() != STUN_ANIAMATION) {
             if (entity != null) {
                 double d0 = vec3.y;
-                double l0 = (this.getAnimation() == MISSILE_FIRE_ANIAMATION || this.getAnimation() == LAUNCH_ANIAMATION ) ? 1.0D : 2.25d;
+                double l0 = (this.getAnimation() == MISSILE_FIRE_ANIAMATION || this.getAnimation() == LAUNCH_ANIAMATION) ? 1.0D : 2.25d;
                 if (this.getY() < entity.getY() + l0) {
                     d0 = Math.max(0.0D, d0);
                     d0 += 0.3D - d0 * (double) 0.6F;
                 }
                 vec3 = new Vec3(vec3.x, d0, vec3.z);
                 Vec3 vec31 = new Vec3(entity.getX() - this.getX(), 0.0D, entity.getZ() - this.getZ());
-                if (vec31.horizontalDistanceSqr() > 9.0D && !(this.getAnimation() == DEATHLASER_ANIMATION && this.getAnimationTick() > 8 || this.getAnimation() == MISSILE_FIRE_ANIAMATION) ) {
+                if (vec31.horizontalDistanceSqr() > 9.0D && !(this.getAnimation() == DEATHLASER_ANIMATION && this.getAnimationTick() > 8 || this.getAnimation() == MISSILE_FIRE_ANIAMATION)) {
                     Vec3 vec32 = vec31.normalize();
                     vec3 = vec3.add(vec32.x * 0.3D - vec3.x * 0.6D, 0.0D, vec32.z * 0.3D - vec3.z * 0.6D);
                 }
+
             }
         }
 
         LivingEntity target = this.getTarget();
         if (this.isAlive()) {
             if (target != null && target.isAlive() && skill_cooldown <= 0 && (Laser_Mode_Progress == 30 || Laser_Mode_Progress == 0)) {
-                if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.getOverload() > 3 && this.getRandom().nextFloat() * 100.0F < 3f) {
+                if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.getOverload() >= 3 && this.getRandom().nextFloat() * 100.0F < 3f) {
                     skill_cooldown = SKILL_COOLDOWN;
                     this.setAnimation(DEATHLASER_ANIMATION);
-                } else if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.getOverload() <= 3 && this.distanceToSqr(target) < 64 && (this.getRandom().nextFloat() * 100.0F < 4f && this.hasLineOfSight(target) || this.getRandom().nextFloat() * 100.0F < 20f && !this.hasLineOfSight(target))) {
+                } else if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.getOverload() < 3 && this.distanceToSqr(target) < 64 && (this.getRandom().nextFloat() * 100.0F < 4f && this.hasLineOfSight(target) || this.getRandom().nextFloat() * 100.0F < 20f && !this.hasLineOfSight(target))) {
                     skill_cooldown = SKILL_COOLDOWN;
                     this.setAnimation(CHARGE_ANIMATION);
-                } else if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.getOverload() <= 3  && this.getRandom().nextFloat() * 100.0F < 3f && Laser_Mode_Progress == 0) {
+                } else if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.getOverload() < 3 && this.getRandom().nextFloat() * 100.0F < 3f && Laser_Mode_Progress == 0) {
                     skill_cooldown = SKILL_COOLDOWN;
                     this.setAnimation(LAUNCH_ANIAMATION);
-                } else if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.getOverload() <= 3  && this.getRandom().nextFloat() * 100.0F < 1.5f) {
+                } else if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.getOverload() < 3 && this.getRandom().nextFloat() * 100.0F < 1.5f) {
                     skill_cooldown = SKILL_COOLDOWN;
                     Animation missile = this.isPowered() ? MISSILE_FIRE_FAST_ANIAMATION : MISSILE_FIRE_ANIAMATION;
                     this.setAnimation(missile);
@@ -265,27 +271,27 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
 
         this.setDeltaMovement(vec3);
         if (vec3.horizontalDistanceSqr() > 0.05D) {
-            this.setYRot((float)Mth.atan2(vec3.z, vec3.x) * (180F / (float)Math.PI) - 90.0F);
+            this.setYRot((float) Mth.atan2(vec3.z, vec3.x) * (180F / (float) Math.PI) - 90.0F);
         }
 
         super.aiStep();
         AnimationHandler.INSTANCE.updateAnimations(this);
-        for(int i = 0; i < 2; ++i) {
+        for (int i = 0; i < 2; ++i) {
             this.yRotOHeads[i] = this.yRotHeads[i];
             this.xRotOHeads[i] = this.xRotHeads[i];
         }
 
 
-        if((this.getAnimation() != CHARGE_ANIMATION) && getIsCharge()) {
+        if ((this.getAnimation() != CHARGE_ANIMATION) && getIsCharge()) {
             setIsCharge(false);
         }
 
-        if(this.getAnimation() == STUN_ANIAMATION) {
-            if(this.getAnimationTick() == 15){
-                this.level.playSound((Player)null, this, ModSounds.HARBINGER_STUN.get(), SoundSource.HOSTILE, 4F, level.random.nextFloat() * 0.2F + 1.0F);
+        if (this.getAnimation() == STUN_ANIAMATION) {
+            if (this.getAnimationTick() == 15) {
+                this.level.playSound((Player) null, this, ModSounds.HARBINGER_STUN.get(), SoundSource.HOSTILE, 4F, level.random.nextFloat() * 0.2F + 1.0F);
             }
         }
-        if(this.getAnimation() == DEATHLASER_ANIMATION) {
+        if (this.getAnimation() == DEATHLASER_ANIMATION) {
             if (this.getAnimationTick() == 23) {
                 this.level.playSound((Player) null, this, ModSounds.DEATH_LASER.get(), SoundSource.HOSTILE, 1.0f, 0.75f);
 
@@ -293,7 +299,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         }
 
 
-        for(int j = 0; j < 2; ++j) {
+        for (int j = 0; j < 2; ++j) {
             int k = this.getAlternativeTarget(j + 1);
             Entity entity1 = null;
             if (k > 0) {
@@ -308,8 +314,8 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
                 double d5 = entity1.getEyeY() - d1;
                 double d6 = entity1.getZ() - d3;
                 double d7 = Math.sqrt(d4 * d4 + d6 * d6);
-                float f = (float)(Mth.atan2(d6, d4) * (double)(180F / (float)Math.PI)) - 90.0F;
-                float f1 = (float)(-(Mth.atan2(d5, d7) * (double)(180F / (float)Math.PI)));
+                float f = (float) (Mth.atan2(d6, d4) * (double) (180F / (float) Math.PI)) - 90.0F;
+                float f1 = (float) (-(Mth.atan2(d5, d7) * (double) (180F / (float) Math.PI)));
                 this.xRotHeads[j] = this.m_31442_(this.xRotHeads[j], f1, 40.0F);
                 this.yRotHeads[j] = this.m_31442_(this.yRotHeads[j], f, 10.0F);
             } else {
@@ -361,89 +367,126 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     }
 
 
-    private void blockbreak(){
-        if(getIsCharge()){
-            if (!this.level.isClientSide){
+    private void blockbreak() {
+        if (getIsCharge()) {
+            if (!this.level.isClientSide) {
                 if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
-                boolean flag = false;
-                AABB aabb = this.getBoundingBox().inflate(1.5D,0.2D,1.5D);
-                for(BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(aabb.minY), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
-                    BlockState blockstate = this.level.getBlockState(blockpos);
-                    if (blockstate.getMaterial() != Material.AIR && blockstate.canEntityDestroy(this.level, blockpos, this)  && !blockstate.is(ModTag.HARBINGER_IMMUNE) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(this, blockpos, blockstate)) {
-                        if (random.nextInt(3) == 0 && !blockstate.hasBlockEntity()) {
-                            Cm_Falling_Block_Entity fallingBlockEntity = new Cm_Falling_Block_Entity(level, blockpos.getX() + 0.5D, blockpos.getY() + 0.5D, blockpos.getZ() + 0.5D, blockstate, 20);
-                            flag = this.level.destroyBlock(blockpos, false, this) || flag;
-                            fallingBlockEntity.setDeltaMovement(fallingBlockEntity.getDeltaMovement().add(this.position().subtract(fallingBlockEntity.position()).multiply((-1.2D + random.nextDouble()) / 3, 0.2D + getRandom().nextGaussian() * 0.15D, (-1.2D + random.nextDouble()) / 3)));
-                            level.addFreshEntity(fallingBlockEntity);
-                        } else {
-                            flag = this.level.destroyBlock(blockpos, false, this) || flag;
+                    boolean flag = false;
+                    AABB aabb = this.getBoundingBox().inflate(1.5D, 0.2D, 1.5D);
+                    for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(aabb.minY), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
+                        BlockState blockstate = this.level.getBlockState(blockpos);
+                        FluidState fluidState = level.getFluidState(blockpos);
+                        if (blockstate.getMaterial() != Material.AIR && blockstate.canEntityDestroy(this.level, blockpos, this) && fluidState.isEmpty() && !blockstate.is(ModTag.HARBINGER_IMMUNE) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(this, blockpos, blockstate)) {
+                            if (random.nextInt(3) == 0 && !blockstate.hasBlockEntity()) {
+                                Cm_Falling_Block_Entity fallingBlockEntity = new Cm_Falling_Block_Entity(level, blockpos.getX() + 0.5D, blockpos.getY() + 0.5D, blockpos.getZ() + 0.5D, blockstate, 20);
+                                flag = this.level.destroyBlock(blockpos, false, this) || flag;
+                                fallingBlockEntity.setDeltaMovement(fallingBlockEntity.getDeltaMovement().add(this.position().subtract(fallingBlockEntity.position()).multiply((-1.2D + random.nextDouble()) / 3, 0.2D + getRandom().nextGaussian() * 0.15D, (-1.2D + random.nextDouble()) / 3)));
+                                level.addFreshEntity(fallingBlockEntity);
+                            } else {
+                                flag = this.level.destroyBlock(blockpos, false, this) || flag;
+                            }
                         }
+
+
                     }
-
-
-                }
-                if (flag) {
-                    this.level.levelEvent((Player)null, 1022, this.blockPosition(), 0);
-
-                }
-            }
-        }
-        if(this.tickCount % 4 == 0) {
-            for (LivingEntity Lentity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.5D))) {
-                if (!isAlliedTo(Lentity) && !(Lentity instanceof The_Harbinger_Entity) && Lentity != this) {
-                    boolean flag = Lentity.hurt(DamageSource.mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE)+ this.random.nextInt(5));
                     if (flag) {
-                        if (Lentity.isOnGround()) {
-                            double d0 = Lentity.getX() - this.getX();
-                            double d1 = Lentity.getZ() - this.getZ();
-                            double d2 = Math.max(d0 * d0 + d1 * d1, 0.001D);
-                            float f = 1.5F;
-                            Lentity.push(d0 / d2 * f, 0.5F, d1 / d2 * f);
-                        }
+                        this.level.levelEvent((Player) null, 1022, this.blockPosition(), 0);
+
                     }
                 }
             }
-        }
-        }
-    }
-
-    private void destroyBlock(){
-        if (!this.level.isClientSide){
-        if (this.destroyBlocksTick > 0) {
-            --this.destroyBlocksTick;
-            if (this.destroyBlocksTick == 0 && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
-                int j1 = Mth.floor(this.getY());
-                int i2 = Mth.floor(this.getX());
-                int j2 = Mth.floor(this.getZ());
-                boolean flag = false;
-
-                for (int j = -1; j <= 1; ++j) {
-                    for (int k2 = -1; k2 <= 1; ++k2) {
-                        for (int k = 0; k <= 3; ++k) {
-                            int l2 = i2 + j;
-                            int l = j1 + k;
-                            int i1 = j2 + k2;
-                            BlockPos blockpos = new BlockPos(l2, l, i1);
-                            BlockState blockstate = this.level.getBlockState(blockpos);
-                            if (blockstate.getMaterial() != Material.AIR && blockstate.canEntityDestroy(this.level, blockpos, this)  && !blockstate.is(ModTag.HARBINGER_IMMUNE) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(this, blockpos, blockstate)) {
-                                if (random.nextInt(5) == 0 && !blockstate.hasBlockEntity()) {
-                                    Cm_Falling_Block_Entity fallingBlockEntity = new Cm_Falling_Block_Entity(level, blockpos.getX() + 0.5D, blockpos.getY() + 0.5D, blockpos.getZ() + 0.5D, blockstate, 20);
-                                    flag = this.level.destroyBlock(blockpos, false, this) || flag;
-                                    fallingBlockEntity.setDeltaMovement(fallingBlockEntity.getDeltaMovement().add(this.position().subtract(fallingBlockEntity.position()).multiply((-1.2D + random.nextDouble()) / 3, 0.2D + getRandom().nextGaussian() * 0.15D, (-1.2D + random.nextDouble()) / 3)));
-                                    level.addFreshEntity(fallingBlockEntity);
-                                } else {
-                                    flag = this.level.destroyBlock(blockpos, false, this) || flag;
-                                }
+            if (this.tickCount % 4 == 0) {
+                for (LivingEntity Lentity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.5D))) {
+                    if (!isAlliedTo(Lentity) && !(Lentity instanceof The_Harbinger_Entity) && Lentity != this) {
+                        boolean flag = Lentity.hurt(DamageSource.mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) + this.random.nextInt(5));
+                        if (flag) {
+                            if (Lentity.isOnGround()) {
+                                double d0 = Lentity.getX() - this.getX();
+                                double d1 = Lentity.getZ() - this.getZ();
+                                double d2 = Math.max(d0 * d0 + d1 * d1, 0.001D);
+                                float f = 1.5F;
+                                Lentity.push(d0 / d2 * f, 0.5F, d1 / d2 * f);
                             }
                         }
                     }
                 }
+            }
+        }
+    }
 
-                if (flag) {
-                    this.level.levelEvent((Player) null, 1022, this.blockPosition(), 0);
+    private void destoryblock2() {
+        if (this.blockBreakCounter > 0) {
+            --this.blockBreakCounter;
+            return;
+        }
+        boolean flag = false;
+        if (this.getAnimation() == NO_ANIMATION) {
+            if (!getIsCharge()) {
+                if (!level.isClientSide && this.blockBreakCounter == 0 && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(level, this)) {
+                    AABB aabb = this.getBoundingBox().inflate(0.2D);
+                    for (BlockPos pos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(aabb.minY), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
+                        BlockState blockstate = level.getBlockState(pos);
+                        FluidState fluidState = level.getFluidState(pos);
+                        if (blockstate.getMaterial() != Material.AIR && blockstate.canEntityDestroy(this.level, pos, this) && fluidState.isEmpty() && !blockstate.is(ModTag.HARBINGER_IMMUNE)) {
+                            if (random.nextInt(5) == 0 && !blockstate.hasBlockEntity()) {
+                                Cm_Falling_Block_Entity fallingBlockEntity = new Cm_Falling_Block_Entity(level, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, blockstate, 20);
+                                flag = this.level.destroyBlock(pos, false, this) || flag;
+                                fallingBlockEntity.setDeltaMovement(fallingBlockEntity.getDeltaMovement().add(this.position().subtract(fallingBlockEntity.position()).multiply((-1.2D + random.nextDouble()) / 3, 0.2D + getRandom().nextGaussian() * 0.15D, (-1.2D + random.nextDouble()) / 3)));
+                                level.addFreshEntity(fallingBlockEntity);
+                            } else {
+                                flag = this.level.destroyBlock(pos, false, this) || flag;
+                                this.setDeltaMovement(this.getDeltaMovement().multiply(0.6F, 1, 0.6F));
+                            }
+                        }
+                    }
                 }
             }
         }
+        if (flag) {
+            blockBreakCounter = 20;
+            this.level.levelEvent((Player) null, 1022, this.blockPosition(), 0);
+        }
+    }
+
+    private void destroyBlock(){
+        if(this.getAnimation() != STUN_ANIAMATION) {
+            if (!this.level.isClientSide){
+                if (this.destroyBlocksTick > 0) {
+                    --this.destroyBlocksTick;
+                    if (this.destroyBlocksTick == 0 && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+                        int j1 = Mth.floor(this.getY());
+                        int i2 = Mth.floor(this.getX());
+                        int j2 = Mth.floor(this.getZ());
+                        boolean flag = false;
+
+                        for (int j = -1; j <= 1; ++j) {
+                            for (int k2 = -1; k2 <= 1; ++k2) {
+                                for (int k = 0; k <= 3; ++k) {
+                                    int l2 = i2 + j;
+                                    int l = j1 + k;
+                                    int i1 = j2 + k2;
+                                    BlockPos blockpos = new BlockPos(l2, l, i1);
+                                    BlockState blockstate = this.level.getBlockState(blockpos);
+                                    if (blockstate.getMaterial() != Material.AIR && blockstate.canEntityDestroy(this.level, blockpos, this) && !blockstate.is(ModTag.HARBINGER_IMMUNE) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(this, blockpos, blockstate)) {
+                                        if (random.nextInt(5) == 0 && !blockstate.hasBlockEntity()) {
+                                            Cm_Falling_Block_Entity fallingBlockEntity = new Cm_Falling_Block_Entity(level, blockpos.getX() + 0.5D, blockpos.getY() + 0.5D, blockpos.getZ() + 0.5D, blockstate, 20);
+                                            flag = this.level.destroyBlock(blockpos, false, this) || flag;
+                                            fallingBlockEntity.setDeltaMovement(fallingBlockEntity.getDeltaMovement().add(this.position().subtract(fallingBlockEntity.position()).multiply((-1.2D + random.nextDouble()) / 3, 0.2D + getRandom().nextGaussian() * 0.15D, (-1.2D + random.nextDouble()) / 3)));
+                                            level.addFreshEntity(fallingBlockEntity);
+                                        } else {
+                                            flag = this.level.destroyBlock(blockpos, false, this) || flag;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        if (flag) {
+                            this.level.levelEvent((Player) null, 1022, this.blockPosition(), 0);
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -475,6 +518,10 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         }
         blockbreak();
         destroyBlock();
+       if(this.getTarget() !=null) {
+           destoryblock2();
+       }
+
         if(mode_change_cooldown < MODE_CHANGE_COOLDOWN ) {
             mode_change_cooldown++;
         }else if(this.getAnimation() == NO_ANIMATION){

@@ -1,7 +1,7 @@
 {
   "type": "cataclysm:ancient_factory",
   "biomes": "#cataclysm:has_structure/ancient_factory_biomes",
-  "step": "surface_structures",
+  "step": "underground_decoration",
 
   "start_height": {
     "absolute": 0

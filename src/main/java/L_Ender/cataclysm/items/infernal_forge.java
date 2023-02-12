@@ -1,6 +1,7 @@
 package L_Ender.cataclysm.items;
 
 
+import L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import L_Ender.cataclysm.init.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -63,6 +64,7 @@ public class infernal_forge extends PickaxeItem {
         Level world = context.getLevel();
         boolean berserk = player.getMaxHealth() * 1 / 2 >= player.getHealth();
         double radius = 4.0D;
+        ScreenShake_Entity.ScreenShake(world, player.position(), 30, 0.1f, 0, 30);
         world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GENERIC_EXPLODE, SoundSource.PLAYERS, 1.5f, 1F / (player.getRandom().nextFloat() * 0.4F + 0.8F));
         List<Entity> list = world.getEntities(player, player.getBoundingBox().inflate(radius, radius, radius));
         for (Entity entity : list) {

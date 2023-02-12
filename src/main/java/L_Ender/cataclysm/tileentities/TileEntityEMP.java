@@ -60,7 +60,7 @@ public class TileEntityEMP extends BlockEntity {
             level.setBlockAndUpdate(this.getBlockPos(), getBlockState().setValue(BlockEMP.OVERLOAD, true));
             AABB screamBox = new AABB(this.getBlockPos().getX() - 5f, this.getBlockPos().getY() - 5F, this.getBlockPos().getZ() - 5, this.getBlockPos().getX() + 5, this.getBlockPos().getY() + 5F, this.getBlockPos().getZ() + 5F);
             for(LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, screamBox)){
-                entity.hurt(CMDamageTypes.EMP, 6 + entity.getRandom().nextInt(3));
+                entity.hurt(CMDamageTypes.EMP, 3 + entity.getRandom().nextInt(3));
 
             }
         }

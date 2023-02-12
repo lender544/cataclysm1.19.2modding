@@ -46,7 +46,7 @@ public class RendererThe_Harbinger extends MobRenderer<The_Harbinger_Entity, Mod
     public Vec3 getRenderOffset(The_Harbinger_Entity entityIn, float partialTicks) {
         if (entityIn.getAnimation() == The_Harbinger_Entity.DEATHLASER_ANIMATION && entityIn.getAnimationTick() >= 27 && entityIn.getAnimationTick() <= 48
                 || entityIn.getAnimation() == The_Harbinger_Entity.DEATH_ANIMATION
-                || entityIn.getAnimation() == The_Harbinger_Entity.STUN_ANIAMATION && entityIn.getAnimationTick() <= 65 ) {
+                || entityIn.getAnimation() == The_Harbinger_Entity.STUN_ANIAMATION && entityIn.getAnimationTick() <= 90 ) {
             double d0 = 0.05D;
             return new Vec3(this.rnd.nextGaussian() * d0, 0.0D, this.rnd.nextGaussian() * d0);
         } else {

@@ -3,10 +3,7 @@ package L_Ender.cataclysm.client.render;
 import L_Ender.cataclysm.client.model.block.Model_Altar_of_Fire;
 import L_Ender.cataclysm.client.model.block.Model_EMP;
 import L_Ender.cataclysm.client.model.block.Model_Mechanical_Anvil;
-import L_Ender.cataclysm.client.model.item.ModelBulwark_of_the_flame;
-import L_Ender.cataclysm.client.model.item.ModelGauntlet_of_Guard;
-import L_Ender.cataclysm.client.model.item.ModelIncinerator;
-import L_Ender.cataclysm.client.model.item.ModelWither_Assault_SHoulder_Weapon;
+import L_Ender.cataclysm.client.model.item.*;
 import L_Ender.cataclysm.init.ModBlocks;
 import L_Ender.cataclysm.init.ModItems;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -33,12 +30,16 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
     private static final Model_EMP EMP_MODEL = new Model_EMP();
     private static final Model_Mechanical_Anvil MF_MODEL = new Model_Mechanical_Anvil();
     private static final ModelGauntlet_of_Guard GAUNTLET_OF_GUARD_MODEL = new ModelGauntlet_of_Guard();
+    private static final ModelGauntlet_of_Bulwark GAUNTLET_OF_BULWARK_MODEL = new ModelGauntlet_of_Bulwark();
     private static final ModelIncinerator THE_INCINERATOR_MODEL = new ModelIncinerator();
     private static final Model_Altar_of_Fire ALTAR_OF_FIRE_MODEL = new Model_Altar_of_Fire();
     private static final ModelWither_Assault_SHoulder_Weapon WASW_MODEL = new ModelWither_Assault_SHoulder_Weapon();
+    private static final ModelVoid_Forge VOID_FORGE_MODEL = new ModelVoid_Forge();
     private static final ResourceLocation BULWARK_OF_THE_FLAME_TEXTURE = new ResourceLocation("cataclysm:textures/items/bulwark_of_the_flame.png");
     private static final ResourceLocation GAUNTLET_OF_GUARD_TEXTURE = new ResourceLocation("cataclysm:textures/items/gauntlet_of_guard.png");
+    private static final ResourceLocation GAUNTLET_OF_BULWARK_TEXTURE = new ResourceLocation("cataclysm:textures/items/gauntlet_of_bulwark.png");
     private static final ResourceLocation THE_INCINERATOR_TEXTURE = new ResourceLocation("cataclysm:textures/items/the_incinerator.png");
+    private static final ResourceLocation VOID_FORGE_TEXTURE = new ResourceLocation("cataclysm:textures/items/void_forge.png");
     private static final ResourceLocation ALTAR_OF_FIRE_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altar_of_fire.png");
     private static final ResourceLocation MIF_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/mechanical_fusion_anvil.png");
 
@@ -83,6 +84,15 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
             matrixStackIn.popPose();
         }
 
+        if (itemStackIn.getItem() == ModItems.GAUNTLET_OF_BULWARK.get()) {
+            matrixStackIn.pushPose();
+            matrixStackIn.translate(0.5F, 0.5F, 0.5F);
+            VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(bufferIn, RenderType.armorCutoutNoCull(GAUNTLET_OF_BULWARK_TEXTURE), false, itemStackIn.hasFoil());
+            GAUNTLET_OF_BULWARK_MODEL.renderToBuffer(matrixStackIn, vertexconsumer, combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
+            matrixStackIn.popPose();
+        }
+
+
         if (itemStackIn.getItem() == ModItems.THE_INCINERATOR.get()) {
             matrixStackIn.pushPose();
             matrixStackIn.translate(0.5F, 0.5F, 0.5F);
@@ -113,6 +123,15 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
             matrixStackIn.popPose();
         }
 
+        if (itemStackIn.getItem() == ModItems.VOID_FORGE.get()) {
+            matrixStackIn.pushPose();
+            matrixStackIn.translate(0.5F, 0.5F, 0.5F);
+            //matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(-180));
+            matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(-180));
+            VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(bufferIn, RenderType.armorCutoutNoCull(VOID_FORGE_TEXTURE), false, itemStackIn.hasFoil());
+            VOID_FORGE_MODEL.renderToBuffer(matrixStackIn, vertexconsumer, combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
+            matrixStackIn.popPose();
+        }
 
         if(itemStackIn.getItem() == ModBlocks.ALTAR_OF_FIRE.get().asItem()){
             matrixStackIn.pushPose();
