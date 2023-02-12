@@ -1,7 +1,9 @@
 package L_Ender.cataclysm.structures;
 
 import L_Ender.cataclysm.cataclysm;
+import L_Ender.cataclysm.entity.Ignited_Revenant_Entity;
 import L_Ender.cataclysm.entity.Netherite_Monstrosity_Entity;
+import L_Ender.cataclysm.entity.The_Harbinger_Entity;
 import L_Ender.cataclysm.init.ModEntities;
 import L_Ender.cataclysm.init.ModStructures;
 import com.google.common.collect.ImmutableMap;
@@ -140,7 +142,13 @@ public class AncientFactoryStructure extends Structure {
 
         @Override
         protected void handleDataMarker(String function, BlockPos pos, ServerLevelAccessor worldIn, RandomSource rand, BoundingBox sbb) {
-
+            if ("harbinger".equals(function)) {
+                worldIn.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
+                The_Harbinger_Entity harbinger = ModEntities.THE_HARBINGER.get().create(worldIn.getLevel());
+                harbinger.setIsAct(false);
+                harbinger.moveTo(pos, 180.0F, 180.0F);
+                worldIn.addFreshEntity(harbinger);
+            }
         }
     }
 }

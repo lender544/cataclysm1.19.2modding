@@ -263,7 +263,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
             if (skill_cooldown > 0) skill_cooldown--;
         }
 
-        if (!this.isSilent() && !level.isClientSide) {
+        if (!this.isSilent() && !level.isClientSide && this.deactivateProgress == 0) {
             this.level.broadcastEntityEvent(this, (byte) 67);
         }
 
