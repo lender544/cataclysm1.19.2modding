@@ -13,14 +13,14 @@
             "item": "minecraft:netherite_scrap"
         },
         "G": {
-            "item": "minecraft:gilded_blackstone"
+            "item": "minecraft:blackstone"
         },
         "E": {
             "item": "minecraft:ender_eye"
         }
     },
     "result": {
-        "item": "cataclysm:flame_eye",
+        "item": "cataclysm:monstrous_eye",
         "count": 1
     }
 }

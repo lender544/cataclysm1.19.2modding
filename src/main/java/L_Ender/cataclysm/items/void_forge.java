@@ -66,7 +66,7 @@ public class void_forge extends PickaxeItem {
             ScreenShake_Entity.ScreenShake(world, player.position(), 30, 0.1f, 0, 30);
             for (Vec3 vector3d : all) {
                 float f = (float) Mth.atan2(vector3d.z, vector3d.x);
-                player.getCooldowns().addCooldown(this, 80);
+                player.getCooldowns().addCooldown(this, 120);
                 for (int i = 0; i < 4; i++) {
                     double d2 = 1.75D * (double) (i + 1);
                     int j = 2 * i;

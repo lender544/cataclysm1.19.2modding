@@ -534,8 +534,10 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         animate(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         float idleSpeed = 0.1F;
         float idleDegree = 0.1F;
-        this.walk(body, idleSpeed * 0.75F, idleDegree * 0.5F, true, 0, -0.05F, ageInTicks, 1);
-        this.walk(tail, idleSpeed * 0.75F, idleDegree * 0.35F, true, 1, -0.05F, ageInTicks, 1);
+        if(entityIn.deactivateProgress == 0) {
+            this.walk(body, idleSpeed * 0.75F, idleDegree * 0.5F, true, 0, -0.05F, ageInTicks, 1);
+            this.walk(tail, idleSpeed * 0.75F, idleDegree * 0.35F, true, 1, -0.05F, ageInTicks, 1);
+        }
 
         this.main_head.rotateAngleY += netHeadYaw * ((float) Math.PI / 180F);
         this.main_head.rotateAngleX += headPitch * ((float) Math.PI / 180F);
@@ -545,8 +547,6 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
             setupHeadRotation(entityIn, this.lefthead, 1);
 
         }
-
-
         float partialTick = ageInTicks - entityIn.tickCount;
         float Laser_Mode_Progress = entityIn.prev_Laser_Mode_Progress + (entityIn.Laser_Mode_Progress - entityIn.prev_Laser_Mode_Progress) * partialTick;
         progressPositionPrev(left_upper_guard,Laser_Mode_Progress,0, 0, 5, 30f);
@@ -561,6 +561,10 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         progressRotationPrev(right_lower_guard,Laser_Mode_Progress,(float)Math.toRadians(-45F),0,0,30f);
         progressPositionPrev(rightlaser,Laser_Mode_Progress,0, 0, -6, 30f);
         progressPositionPrev(rightlaser2,Laser_Mode_Progress,0, 0, -2, 30f);
+        float deactivateProgress = entityIn.prevdeactivateProgress + (entityIn.deactivateProgress - entityIn.prevdeactivateProgress) * partialTick;
+        progressRotationPrev(main_head,deactivateProgress,(float)Math.toRadians(45F), 0, 0, 40f);
+        progressRotationPrev(lefthead,deactivateProgress,(float)Math.toRadians(45F), 0, 0, 40f);
+        progressRotationPrev(righthead,deactivateProgress,(float)Math.toRadians(45F), 0, 0, 40f);
     }
 
     private static void setupHeadRotation(The_Harbinger_Entity entityIn, AdvancedModelBox p_171073_, int p_171074_) {

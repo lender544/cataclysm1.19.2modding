@@ -32,11 +32,13 @@ public class The_Harbinger_Item_Layer extends RenderLayer<The_Harbinger_Entity, 
 
     @Override
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, The_Harbinger_Entity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        matrixStackIn.pushPose();
-        RenderUtils.matrixStackFromModel(matrixStackIn, getAdvancedModelBox());
-        matrixStackIn.translate(-0.0125F, 0.0F, 0.0F);
-        Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderItem(entity, getItemstack(), transformType, false, matrixStackIn, bufferIn, packedLightIn);
-        matrixStackIn.popPose();
+        if (entity.getIsAct()) {
+            matrixStackIn.pushPose();
+            RenderUtils.matrixStackFromModel(matrixStackIn, getAdvancedModelBox());
+            matrixStackIn.translate(-0.0125F, 0.0F, 0.0F);
+            Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderItem(entity, getItemstack(), transformType, false, matrixStackIn, bufferIn, packedLightIn);
+            matrixStackIn.popPose();
+        }
     }
 
     public ItemStack getItemstack() {

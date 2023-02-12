@@ -27,9 +27,11 @@ public class The_Harbinger_Layer extends RenderLayer<The_Harbinger_Entity, Model
 
     @Override
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, The_Harbinger_Entity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+        float f = 1.0F - entity.deactivateProgress / 40;
         RenderType eyes = RenderType.eyes(HARBINGER_LAYER_TEXTURES);
         VertexConsumer VertexConsumer = bufferIn.getBuffer(eyes);
-        this.getParentModel().renderToBuffer(matrixStackIn, VertexConsumer, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.getParentModel().renderToBuffer(matrixStackIn, VertexConsumer, packedLightIn, OverlayTexture.NO_OVERLAY, f, f, f, f);
+
     }
 }
 

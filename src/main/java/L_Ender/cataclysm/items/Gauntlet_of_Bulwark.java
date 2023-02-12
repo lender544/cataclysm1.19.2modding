@@ -14,6 +14,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
@@ -75,19 +76,21 @@ public class Gauntlet_of_Bulwark extends Item {
     public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
         double radius = 4.5D;
         Level world = player.level;
-        List<LivingEntity> list = world.getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(radius));
+        List<Entity> list = world.getEntities(player, player.getBoundingBox().inflate(radius));
         int c = this.getUseDuration(stack) - count;
             if (c == 20) {
                 player.playSound(ModSounds.FLAME_BURST.get(), 1.0F, 1.0f);
-                for (LivingEntity entity : list) {
-                    if (entity instanceof Player && ((Player) entity).getAbilities().invulnerable) continue;
-                    entity.addEffect(new MobEffectInstance(ModEffect.EFFECTBLAZING_BRAND.get(), 40));
-                    if (entity.isOnGround()) {
-                        double d0 = entity.getX() - player.getX();
-                        double d1 = entity.getZ() - player.getZ();
-                        double d2 = Math.max(d0 * d0 + d1 * d1, 0.001D);
-                        float f = 1.5F;
-                        entity.push(d0 / d2 * f, 0.1F, d1 / d2 * f);
+                for (Entity entity : list) {
+                    if (entity instanceof LivingEntity) {
+                        if (entity instanceof Player && ((Player) entity).getAbilities().invulnerable) continue;
+                        ((LivingEntity) entity).addEffect(new MobEffectInstance(ModEffect.EFFECTBLAZING_BRAND.get(), 40));
+                        if (entity.isOnGround()) {
+                            double d0 = entity.getX() - player.getX();
+                            double d1 = entity.getZ() - player.getZ();
+                            double d2 = Math.max(d0 * d0 + d1 * d1, 0.001D);
+                            float f = 1.5F;
+                            entity.push(d0 / d2 * f, 0.1F, d1 / d2 * f);
+                        }
                     }
 
                 }
