@@ -33,7 +33,7 @@
       "rolls": 1,
       "entries": [
         {
-          "type": "item",
+          "type": "minecraft:item",
           "name": "cataclysm:music_disc_netherite_monstrosity",
           "weight": 1
         }
