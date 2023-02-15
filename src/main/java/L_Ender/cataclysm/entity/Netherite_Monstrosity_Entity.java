@@ -7,6 +7,7 @@ import L_Ender.cataclysm.entity.AI.AttackMoveGoal;
 import L_Ender.cataclysm.entity.AI.SimpleAnimationGoal;
 import L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
 import L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
+import L_Ender.cataclysm.entity.etc.CMBossInfoServer;
 import L_Ender.cataclysm.entity.etc.CMPathNavigateGround;
 import L_Ender.cataclysm.entity.etc.SmartBodyHelper2;
 import L_Ender.cataclysm.entity.partentity.Cm_Part_Entity;
@@ -74,7 +75,8 @@ import java.util.EnumSet;
 
 public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy {
 
-    private final ServerBossEvent bossInfo = (ServerBossEvent) (new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(false);
+   // private final ServerBossEvent bossInfo = (ServerBossEvent) (new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(false);
+    private final CMBossInfoServer bossInfo = new CMBossInfoServer(this,false);
     public int frame;
     public static final Animation MONSTROSITY_EARTHQUAKE = Animation.create(75);
     public static final Animation MONSTROSITY_CHARGE = Animation.create(82);
@@ -265,7 +267,7 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
         if (!this.isSilent() && !level.isClientSide && this.getIsAwaken()) {
             this.level.broadcastEntityEvent(this, (byte) 67);
         }
-
+        if (tickCount % 4 == 0) bossInfo.update();
         frame++;
         float moveX = (float) (getX() - xo);
         float moveZ = (float) (getZ() - zo);
@@ -494,7 +496,8 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
                             BlockPos blockpos = new BlockPos(i3, k, l);
                             BlockState block = level.getBlockState(blockpos);
                             BlockEntity tileEntity = level.getBlockEntity(blockpos);
-                            if (block.getMaterial() != Material.AIR && !block.is(ModTag.NETHERITE_MONSTROSITY_IMMUNE)) {
+                            FluidState fluidState = level.getFluidState(blockpos);
+                            if (block.getMaterial() != Material.AIR && fluidState.isEmpty() && !block.is(ModTag.NETHERITE_MONSTROSITY_IMMUNE)) {
                                 if (tileEntity == null && random.nextInt(4) + 1 == 4) {
                                     this.level.removeBlock(blockpos, true);
                                     Cm_Falling_Block_Entity fallingBlockEntity = new Cm_Falling_Block_Entity(level, i3 + 0.5D, k + 0.5D, l + 0.5D, block,5);
@@ -525,8 +528,9 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
                             for (int c = (int) Math.round(this.getBoundingBox().minZ); c <= (int) Math.round(this.getBoundingBox().maxZ); c++) {
                                 BlockPos blockpos = new BlockPos(a, b, c);
                                 BlockState block = level.getBlockState(blockpos);
+                                FluidState fluidState = level.getFluidState(blockpos);
                                 BlockEntity tileEntity = level.getBlockEntity(blockpos);
-                                if (block.getMaterial() != Material.AIR && block.is(ModTag.NETHERITE_MONSTROSITY_BREAK)) {
+                                if (block.getMaterial() != Material.AIR && fluidState.isEmpty() && block.is(ModTag.NETHERITE_MONSTROSITY_BREAK)) {
                                     boolean flag = level.destroyBlock(new BlockPos(a, b, c), shouldDropItem(tileEntity));
                                     if (flag) {
                                         blockBreakCounter = 10;
@@ -629,6 +633,11 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
         super.stopSeenByPlayer(player);
         this.bossInfo.removePlayer(player);
     }
+
+    public BossEvent.BossBarColor bossBarColor() {
+        return BossEvent.BossBarColor.RED;
+    }
+
 
     @Nullable
     public Animation getDeathAnimation()

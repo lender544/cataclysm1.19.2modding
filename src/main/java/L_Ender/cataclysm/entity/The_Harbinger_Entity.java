@@ -4,6 +4,7 @@ import L_Ender.cataclysm.cataclysm;
 import L_Ender.cataclysm.entity.AI.AttackAniamtionGoal3;
 import L_Ender.cataclysm.entity.AI.SimpleAnimationGoal;
 import L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
+import L_Ender.cataclysm.entity.etc.CMBossInfoServer;
 import L_Ender.cataclysm.entity.projectile.*;
 import L_Ender.cataclysm.init.*;
 import com.github.alexthe666.citadel.animation.Animation;
@@ -61,7 +62,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 
@@ -95,7 +98,8 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     public float prevdeactivateProgress;
     private int destroyBlocksTick;
     private int blockBreakCounter;
-    private final ServerBossEvent bossEvent = (ServerBossEvent) (new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
+    private final CMBossInfoServer bossEvent = new CMBossInfoServer(this,true);
+
     private int mode_change_cooldown = 0;
     private int skill_cooldown = 160;
 
@@ -251,7 +255,6 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         if (!this.getIsLaserMode() && Laser_Mode_Progress > 0F) {
             Laser_Mode_Progress--;
         }
-
         prevdeactivateProgress = deactivateProgress;
         if (!this.getIsAct() && deactivateProgress < 40F) {
             deactivateProgress = 40;
@@ -261,6 +264,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         }
         if (this.getIsAct()) {
             if (skill_cooldown > 0) skill_cooldown--;
+            if (tickCount % 4 == 0) bossEvent.update();
         }
 
         if (!this.isSilent() && !level.isClientSide && this.deactivateProgress == 0) {
@@ -271,7 +275,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         if (!this.level.isClientSide && this.getAlternativeTarget(0) > 0 && this.isAlive() && !this.getIsCharge() && this.getAnimation() != STUN_ANIAMATION) {
             if (entity != null) {
                 double d0 = vec3.y;
-                double l0 = (this.getAnimation() == MISSILE_FIRE_ANIAMATION || this.getAnimation() == LAUNCH_ANIAMATION) ? 1.0D : 2.25d;
+                double l0 = (this.getAnimation() == MISSILE_FIRE_FAST_ANIAMATION || this.getAnimation() == MISSILE_FIRE_ANIAMATION || this.getAnimation() == LAUNCH_ANIAMATION) ? 1.0D : 2.25d;
                 if (this.getY() < entity.getY() + l0) {
                     d0 = Math.max(0.0D, d0);
                     d0 += 0.3D - d0 * (double) 0.6F;
@@ -786,6 +790,10 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         return p_31495_.getEffect() != MobEffects.WITHER && super.canBeAffected(p_31495_);
     }
 
+    public BossEvent.BossBarColor bossBarColor() {
+        return BossEvent.BossBarColor.PURPLE;
+    }
+
     @OnlyIn(Dist.CLIENT)
     public void handleEntityEvent(byte id) {
         if (id == 67) {
@@ -813,6 +821,9 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
             if (entity.getAnimationTick() == 8 && !entity.level.isClientSide) {
                 //Death_Laser_Beam_Entity DeathBeam = new Death_Laser_Beam_Entity(ModEntities.DEATH_LASER_BEAM.get(), entity.level, entity, entity.getX() + radius1 * Math.sin(-entity.getYRot() * Math.PI / 180), entity.getY() + 2.9, entity.getZ() + radius1 * Math.cos(-entity.getYRot() * Math.PI / 180), (float) ((entity.yHeadRot + 90) * Math.PI / 180), (float) (-entity.getXRot() * Math.PI / 180), 20);
                 Death_Laser_Beam_Entity DeathBeam = new Death_Laser_Beam_Entity(ModEntities.DEATH_LASER_BEAM.get(), entity.level, entity, entity.getX(), entity.getY() + 2.9, entity.getZ(), (float) ((entity.yHeadRot + 90) * Math.PI / 180), (float) (-entity.getXRot() * Math.PI / 180), 60);
+                if(entity.isPowered()){
+                    DeathBeam.setFire(true);
+                }
                 entity.level.addFreshEntity(DeathBeam);
             }
 

@@ -7,6 +7,7 @@ import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -238,6 +239,11 @@ public class Boss_monster extends Monster implements IAnimatedEntity {
                 }
             }
         }
+    }
+
+
+    public BossEvent.BossBarColor bossBarColor() {
+        return BossEvent.BossBarColor.PURPLE;
     }
 
     @Override

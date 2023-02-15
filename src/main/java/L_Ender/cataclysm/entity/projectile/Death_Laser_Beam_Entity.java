@@ -20,9 +20,11 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
@@ -56,6 +58,7 @@ public class Death_Laser_Beam_Entity extends Entity {
     private static final EntityDataAccessor<Integer> DURATION = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> CASTER = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> HEAD = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> FIRE = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.BOOLEAN);
     public float prevYaw;
     public float prevPitch;
 
@@ -145,11 +148,23 @@ public class Death_Laser_Beam_Entity extends Entity {
                             }
                         }
                     }
+                    if(this.getFire()) {
+                        BlockPos blockpos1 = new BlockPos(collidePosX, collidePosY, collidePosZ);
+                        if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+                            if (this.level.isEmptyBlock(blockpos1)) {
+                                this.level.setBlockAndUpdate(blockpos1, BaseFireBlock.getState(this.level, blockpos1));
+                            }
+                        }
+
+                    }
                 }
             }
             if (!level.isClientSide) {
                 for (LivingEntity target : hit) {
-                    target.hurt(CMDamageTypes.causeLaserDamage(this, caster).bypassArmor(), 4);
+                    boolean flag = target.hurt(CMDamageTypes.causeLaserDamage(this, caster).bypassArmor(), 4);
+                    if(flag){
+                        target.setSecondsOnFire(5);
+                    }
                 }
             }
         }
@@ -177,6 +192,7 @@ public class Death_Laser_Beam_Entity extends Entity {
         this.entityData.define(DURATION, 0);
         this.entityData.define(CASTER, -1);
         this.entityData.define(HEAD, 0);
+        this.entityData.define(FIRE, false);
     }
 
     public float getYaw() {
@@ -219,6 +235,15 @@ public class Death_Laser_Beam_Entity extends Entity {
     public void setCasterID(int id) {
         entityData.set(CASTER, id);
     }
+
+    public boolean getFire() {
+        return this.entityData.get(FIRE);
+    }
+
+    public void setFire(boolean fire) {
+        this.entityData.set(FIRE, fire);
+    }
+
 
     @Override
     protected void readAdditionalSaveData(CompoundTag nbt) {}

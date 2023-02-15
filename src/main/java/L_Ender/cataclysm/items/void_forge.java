@@ -56,7 +56,7 @@ public class void_forge extends PickaxeItem {
     public InteractionResult useOn(UseOnContext context) {
         ItemStack stack = context.getItemInHand();
         Player player = context.getPlayer();
-        int standingOnY = Mth.floor(player.getY()) - 1;
+        int standingOnY = Mth.floor(player.getY()) - 3;
         Level world = context.getLevel();
         if (player.getMainHandItem() == stack) {
             Vec3 looking = player.getLookAngle();
