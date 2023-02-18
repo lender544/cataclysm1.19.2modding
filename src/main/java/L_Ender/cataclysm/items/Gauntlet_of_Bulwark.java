@@ -1,6 +1,7 @@
 package L_Ender.cataclysm.items;
 
 import L_Ender.cataclysm.cataclysm;
+import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.entity.effect.Charge_Watcher_Entity;
 import L_Ender.cataclysm.init.ModEffect;
 import L_Ender.cataclysm.init.ModSounds;
@@ -136,7 +137,7 @@ public class Gauntlet_of_Bulwark extends Item {
                             f1 * 0.5F, f3 * 0.5F,
                             entityLiving);
                     level.addFreshEntity(initializer);
-                    ((Player) entityLiving).getCooldowns().addCooldown(this, 80);
+                    ((Player) entityLiving).getCooldowns().addCooldown(this, CMConfig.GauntletOfBulwarkCooldown);
                 }
             }
         }

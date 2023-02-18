@@ -1,6 +1,7 @@
 package L_Ender.cataclysm.items;
 
 import L_Ender.cataclysm.cataclysm;
+import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.entity.effect.Flame_Strike_Entity;
 import L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import L_Ender.cataclysm.init.ModSounds;
@@ -73,7 +74,7 @@ public class The_Incinerator extends Item {
                 }
                 if (hasSucceeded) {
                     if (!p_43395_.isClientSide) {
-                        player.getCooldowns().addCooldown(this, 400);
+                        player.getCooldowns().addCooldown(this, CMConfig.TheIncineratorCooldown);
                     }
                     ScreenShake_Entity.ScreenShake(p_43395_, player.position(), 30, 0.15f, 0, 30);
                     player.playSound(ModSounds.SWORD_STOMP.get(), 1.0F, 1.0f);

@@ -1,6 +1,7 @@
 package L_Ender.cataclysm.items;
 
 
+import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import L_Ender.cataclysm.init.ModSounds;
 import net.minecraft.ChatFormatting;
@@ -53,7 +54,7 @@ public class infernal_forge extends PickaxeItem {
         Player player = context.getPlayer();
         if (player.getMainHandItem() == stack) {
             EarthQuake(context);
-            player.getCooldowns().addCooldown(this, 80);
+            player.getCooldowns().addCooldown(this, CMConfig.InfernalForgeCooldown);
             return InteractionResult.SUCCESS;
         }
         return super.useOn(context);

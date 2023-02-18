@@ -1,5 +1,6 @@
 package L_Ender.cataclysm.entity.projectile;
 
+import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.entity.The_Harbinger_Entity;
 import L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import L_Ender.cataclysm.entity.effect.Wither_Smoke_Effect_Entity;
@@ -61,7 +62,7 @@ public class Wither_Howitzer_Entity extends ThrowableProjectile {
             boolean flag;
             if (entity1 instanceof LivingEntity) {
                 LivingEntity livingentity = (LivingEntity)entity1;
-                flag = entity.hurt(DamageSource.indirectMobAttack(this, livingentity).setProjectile(), 8.0F);
+                flag = entity.hurt(DamageSource.indirectMobAttack(this, livingentity).setProjectile(), (float) CMConfig.WitherHowizterdamage);
                 if (flag) {
                     if (entity.isAlive()) {
                         this.doEnchantDamageEffects(livingentity, entity);

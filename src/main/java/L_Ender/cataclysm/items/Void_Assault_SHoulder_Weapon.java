@@ -1,6 +1,7 @@
 package L_Ender.cataclysm.items;
 
 import L_Ender.cataclysm.cataclysm;
+import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.entity.projectile.Void_Howitzer_Entity;
 import L_Ender.cataclysm.entity.projectile.Wither_Howitzer_Entity;
 import L_Ender.cataclysm.entity.projectile.Wither_Missile_Entity;
@@ -44,7 +45,7 @@ public class Void_Assault_SHoulder_Weapon extends Item {
             float f = getPowerForTime(i);
             if (!((double) f < 0.5D)) {
                 p_43395_.playSound((Player)null, player.getX(), player.getY(), player.getZ(), SoundEvents.WITHER_SHOOT, SoundSource.PLAYERS,1.0F, 0.7F);
-                player.getCooldowns().addCooldown(this, 120);
+                player.getCooldowns().addCooldown(this, CMConfig.VASWCooldown);
                 if (!p_43395_.isClientSide) {
                     Void_Howitzer_Entity rocket = new Void_Howitzer_Entity(ModEntities.VOID_HOWITZER.get(), p_43395_, player);
                     rocket.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, f * 1.0F, 1.0F);

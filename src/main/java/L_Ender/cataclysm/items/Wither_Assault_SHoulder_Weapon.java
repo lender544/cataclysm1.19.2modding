@@ -1,6 +1,7 @@
 package L_Ender.cataclysm.items;
 
 import L_Ender.cataclysm.cataclysm;
+import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.entity.effect.Flame_Strike_Entity;
 import L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import L_Ender.cataclysm.entity.projectile.Wither_Howitzer_Entity;
@@ -62,7 +63,7 @@ public class Wither_Assault_SHoulder_Weapon extends Item {
             if (!((double) f < 0.5D)) {
                 p_43395_.playSound((Player)null, player.getX(), player.getY(), player.getZ(), SoundEvents.WITHER_SHOOT, SoundSource.PLAYERS,1.0F, 0.7F);
                 if(p_43396_.isShiftKeyDown()) {
-                    player.getCooldowns().addCooldown(this, 100);
+                    player.getCooldowns().addCooldown(this, CMConfig.WASWHowitzerCooldown);
                     if (!p_43395_.isClientSide) {
                         Wither_Howitzer_Entity rocket = new Wither_Howitzer_Entity(ModEntities.WITHER_HOWITZER.get(), p_43395_, player);
                         rocket.setRadius(1.75F);
@@ -70,7 +71,7 @@ public class Wither_Assault_SHoulder_Weapon extends Item {
                         p_43395_.addFreshEntity(rocket);
                     }
                 }else {
-                    player.getCooldowns().addCooldown(this, 40);
+                    player.getCooldowns().addCooldown(this, CMConfig.WASWMissileCooldown);
                     if (!p_43395_.isClientSide) {
                         float d7 = p_43396_.getYRot();
                         float d = p_43396_.getXRot();

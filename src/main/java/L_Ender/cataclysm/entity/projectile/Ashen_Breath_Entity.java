@@ -1,5 +1,6 @@
 package L_Ender.cataclysm.entity.projectile;
 
+import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.entity.Ignited_Revenant_Entity;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -117,7 +118,7 @@ public class Ashen_Breath_Entity extends Entity {
             if (inRange && yawCheck && pitchCheck || CloseCheck) {
                 if (this.tickCount % 3 == 0) {
                     if (!isAlliedTo(entityHit) && entityHit != caster) {
-                        boolean flag = entityHit.hurt(DamageSource.indirectMagic(this, caster), 4);
+                        boolean flag = entityHit.hurt(DamageSource.indirectMagic(this, caster), (float) CMConfig.Ashenbreathdamage);
                         if (flag) {
                             //entityHit.setDeltaMovement(entityHit.getDeltaMovement().multiply(0.25, 1, 0.25));
                             MobEffectInstance effectinstance = new MobEffectInstance(MobEffects.BLINDNESS, 60, 0, false, false, true);

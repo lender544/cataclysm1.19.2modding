@@ -1,6 +1,7 @@
 package L_Ender.cataclysm.entity;
 
 import L_Ender.cataclysm.cataclysm;
+import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.entity.AI.AttackAniamtionGoal3;
 import L_Ender.cataclysm.entity.AI.SimpleAnimationGoal;
 import L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
@@ -112,6 +113,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     public The_Harbinger_Entity(EntityType entity, Level world) {
         super(entity, world);
         this.moveControl = new FlyingMoveControl(this, 10, false);
+        setConfigattribute(this, CMConfig.HarbingerHealthMultiplier, CMConfig.HarbingerDamageMultiplier);
     }
 
     protected PathNavigation createNavigation(Level p_186262_) {
@@ -200,7 +202,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         }
     }
 
-    public boolean hurt(DamageSource source, float p_31462_) {
+    public boolean hurt(DamageSource source, float damage) {
         Entity entity1 = source.getEntity();
         if (entity1 instanceof The_Harbinger_Entity) {
             return false;
@@ -208,9 +210,16 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
             for (int i = 0; i < this.idleHeadUpdates.length; ++i) {
                 this.idleHeadUpdates[i] += 3;
             }
+            double range = calculateRange(source);
+            if (range > CMConfig.HarbingerLongRangelimit * CMConfig.HarbingerLongRangelimit) {
+                return false;
+            }
 
             if (this.destroyBlocksTick <= 0) {
                 this.destroyBlocksTick = 20;
+            }
+            if (!source.isBypassInvul()) {
+                damage = Math.min(CMConfig.HarbingerDamageCap, damage);
             }
 
             if (this.getAnimation() != STUN_ANIAMATION && this.getAnimation() != DEATHLASER_ANIMATION) {
@@ -231,7 +240,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
                 }
             }
 
-            return super.hurt(source, p_31462_);
+            return super.hurt(source, damage);
         }
     }
 

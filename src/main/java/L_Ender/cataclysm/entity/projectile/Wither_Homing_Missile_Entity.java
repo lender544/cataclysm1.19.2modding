@@ -1,5 +1,6 @@
 package L_Ender.cataclysm.entity.projectile;
 
+import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.entity.Ignis_Entity;
 import L_Ender.cataclysm.entity.The_Harbinger_Entity;
 import L_Ender.cataclysm.init.ModEntities;
@@ -193,7 +194,7 @@ public class Wither_Homing_Missile_Entity extends Projectile {
             boolean flag;
             if (entity1 instanceof LivingEntity) {
                 LivingEntity livingentity = (LivingEntity)entity1;
-                flag = entity.hurt(DamageSource.indirectMobAttack(this, livingentity).setProjectile(), 3.0F);
+                flag = entity.hurt(DamageSource.indirectMobAttack(this, livingentity).setProjectile(), (float) CMConfig.WitherHomingMissiledamage);
                 if (flag) {
                     if (entity.isAlive()) {
                         this.doEnchantDamageEffects(livingentity, entity);

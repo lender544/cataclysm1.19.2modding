@@ -3,6 +3,7 @@ package L_Ender.cataclysm.entity.projectile;
 
 import L_Ender.cataclysm.blocks.BlockEMP;
 import L_Ender.cataclysm.client.tool.ControlledAnimation;
+import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.entity.The_Harbinger_Entity;
 import L_Ender.cataclysm.init.ModBlocks;
 import L_Ender.cataclysm.init.ModParticle;
@@ -136,7 +137,7 @@ public class Death_Laser_Beam_Entity extends Entity {
                 if (!this.level.isClientSide) {
                     for (BlockPos pos : BlockPos.betweenClosed(Mth.floor(collidePosX - 0.5F), Mth.floor(collidePosY - 0.5F), Mth.floor(collidePosZ - 0.5F), Mth.floor(collidePosX + 0.5F), Mth.floor(collidePosY + 0.5F), Mth.floor(collidePosZ + 0.5F))) {
                         BlockState block = level.getBlockState(pos);
-                        if (!block.isAir() && block.is(ModTag.CM_GLASS) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(caster, pos, block)) {
+                        if (!block.isAir() && block.is(ModTag.CM_GLASS) && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
                             level.destroyBlock(pos, true);
                         }
                     }
@@ -150,9 +151,15 @@ public class Death_Laser_Beam_Entity extends Entity {
                     }
                     if(this.getFire()) {
                         BlockPos blockpos1 = new BlockPos(collidePosX, collidePosY, collidePosZ);
-                        if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+                        if(CMConfig.HarbingerLightFire) {
                             if (this.level.isEmptyBlock(blockpos1)) {
                                 this.level.setBlockAndUpdate(blockpos1, BaseFireBlock.getState(this.level, blockpos1));
+                            }
+                        }else{
+                            if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+                                if (this.level.isEmptyBlock(blockpos1)) {
+                                    this.level.setBlockAndUpdate(blockpos1, BaseFireBlock.getState(this.level, blockpos1));
+                                }
                             }
                         }
 
@@ -161,9 +168,11 @@ public class Death_Laser_Beam_Entity extends Entity {
             }
             if (!level.isClientSide) {
                 for (LivingEntity target : hit) {
-                    boolean flag = target.hurt(CMDamageTypes.causeLaserDamage(this, caster).bypassArmor(), 4);
-                    if(flag){
-                        target.setSecondsOnFire(5);
+                    boolean flag = target.hurt(CMDamageTypes.causeLaserDamage(this, caster).bypassArmor(), (float) CMConfig.DeathLaserdamage);
+                    if(this.getFire()) {
+                        if (flag) {
+                            target.setSecondsOnFire(5);
+                        }
                     }
                 }
             }

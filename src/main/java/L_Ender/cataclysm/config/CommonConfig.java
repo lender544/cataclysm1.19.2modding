@@ -8,8 +8,26 @@ public class CommonConfig {
     public final ForgeConfigSpec.DoubleValue LavaVisionOpacity;
     public final ForgeConfigSpec.BooleanValue shadersCompat;
 
-    public final ForgeConfigSpec.IntValue Voidrunedamage;
+    public final ForgeConfigSpec.IntValue BulwarkOfTheFlameCooldown;
+    public final ForgeConfigSpec.IntValue GauntletOfBulwarkCooldown;
+    public final ForgeConfigSpec.IntValue InfernalForgeCooldown;
+    public final ForgeConfigSpec.IntValue VoidForgeCooldown;
+    public final ForgeConfigSpec.IntValue TheIncineratorCooldown;
+    public final ForgeConfigSpec.IntValue WASWMissileCooldown;
+    public final ForgeConfigSpec.IntValue WASWHowitzerCooldown;
+    public final ForgeConfigSpec.IntValue VASWCooldown;
+    public final ForgeConfigSpec.IntValue VoidCoreCooldown;
+
+
+    public final ForgeConfigSpec.DoubleValue Voidrunedamage;
     public final ForgeConfigSpec.IntValue Lavabombradius;
+    public final ForgeConfigSpec.DoubleValue Ashenbreathdamage;
+    public final ForgeConfigSpec.DoubleValue DeathLaserdamage;
+    public final ForgeConfigSpec.DoubleValue Laserdamage;
+    public final ForgeConfigSpec.DoubleValue BlazingBonedamage;
+    public final ForgeConfigSpec.DoubleValue WitherMissiledamage;
+    public final ForgeConfigSpec.DoubleValue WitherHowizterdamage;
+    public final ForgeConfigSpec.DoubleValue WitherHomingMissiledamage;
 
     public final ForgeConfigSpec.BooleanValue ScreenShake;
     public final ForgeConfigSpec.BooleanValue BossMusic;
@@ -42,6 +60,11 @@ public class CommonConfig {
     public final ForgeConfigSpec.DoubleValue RevenantHealthMultiplier;
     public final ForgeConfigSpec.DoubleValue RevenantDamageMultiplier;
 
+    public final ForgeConfigSpec.DoubleValue HarbingerHealthMultiplier;
+    public final ForgeConfigSpec.DoubleValue HarbingerDamageMultiplier;
+    public final ForgeConfigSpec.DoubleValue HarbingerLongRangelimit;
+    public final ForgeConfigSpec.IntValue HarbingerDamageCap;
+    public final ForgeConfigSpec.BooleanValue HarbingerLightFire;
 
     public final ForgeConfigSpec.IntValue IgnisDamageCap;
     public final ForgeConfigSpec.DoubleValue IgnisLongRangelimit;
@@ -51,10 +74,32 @@ public class CommonConfig {
         builder.push("Etc");
         LavaVisionOpacity = buildDouble(builder, "lavaVisionOpacity", "all", 0.5D, 0.01D, 1D, "Lava Opacity for the Ignitium Helemt.");
         shadersCompat = buildBoolean(builder, "shadersCompat", "all", false, "Whether to disable certain aspects of the Ignitium Helemt. Enable if issues with shaders persist.");
-        Voidrunedamage = buildInt(builder, "Voidrunedamage", "all", 7, 0, 1000000, "Void Rune's Damage");
-        Lavabombradius = buildInt(builder, "Lavabombradius", "all", 2, 1, 7, "Lava bomb's Radius");
         ScreenShake = buildBoolean(builder, "ScreenShake(on/off)", "all", true, "ScreenShake(on/off)");
         BossMusic = buildBoolean(builder, "BossMusic(on/off)", "all", true, "BossMusic(on/off)");
+        builder.pop();
+
+        builder.push("Weapon Cooldown");
+        BulwarkOfTheFlameCooldown = buildInt(builder, "BulwarkOfTheFlameCooldown", "all", 80, 0, 1000000, "Bulwark of the Flame's Cooldown");
+        GauntletOfBulwarkCooldown = buildInt(builder, "GauntletOfBulwarkCooldown", "all", 80, 0, 1000000, "Gauntlet of Bulwark's Cooldown");
+        InfernalForgeCooldown = buildInt(builder, "InfernalForgeCooldown", "all", 80, 0, 1000000, "Infernal Forge's Cooldown");
+        VoidForgeCooldown = buildInt(builder, "VoidForgeCooldown", "all", 120, 0, 1000000, "Void Forge's Cooldown");
+        TheIncineratorCooldown = buildInt(builder, "TheIncineratorCooldown", "all", 400, 0, 1000000, "The Incinerator's Cooldown");
+        WASWMissileCooldown = buildInt(builder, "WASWMissileCooldown", "all", 40, 0, 1000000, "Wither Assault Shoulder Weapon's Missile Cooldown");
+        WASWHowitzerCooldown = buildInt(builder, "WASWHowitzerCooldown", "all", 100, 0, 1000000, "Wither Assault Shoulder Weapon's Howitzer Cooldown");
+        VASWCooldown = buildInt(builder, "VASWCooldown", "all", 120, 0, 1000000, "Void Assault Shoulder Weapon's Cooldown");
+        VoidCoreCooldown = buildInt(builder, "VoidCoreCooldown", "all", 160, 0, 1000000, "Void Core's Cooldown");
+        builder.pop();
+
+        builder.push("Entity damage");
+        Voidrunedamage = buildDouble(builder, "Voidrunedamage", "all", 7.0D, 0D, 1000000D, "Void Rune's Damage");
+        Ashenbreathdamage = buildDouble(builder, "Ashenbreathdamage", "all", 4, 0D, 1000000D, "Ashen Breath's Damage");
+        DeathLaserdamage = buildDouble(builder, "DeathLaserdamage", "all", 4, 0D, 1000000D, "Death Laser's Damage");
+        Laserdamage = buildDouble(builder, "Laserdamage", "all", 4, 0D, 1000000D, "Laser's Damage");
+        BlazingBonedamage = buildDouble(builder, "BlazingBonedamage", "all", 5, 0D, 1000000D, "Blazing Bone's Damage");
+        WitherMissiledamage = buildDouble(builder, "WitherMissiledamage", "all", 8, 0D, 1000000D, "Wither Missile's Damage");
+        WitherHowizterdamage = buildDouble(builder, "WitherHowizterdamage", "all", 8, 0D, 1000000D, "Wither Howizter's Damage");
+        WitherHomingMissiledamage = buildDouble(builder, "WitherHomingMissiledamage", "all", 3, 0, 1000000, "Wither Homing Missile's Damage");
+        Lavabombradius = buildInt(builder, "Lavabombradius", "all", 2, 1, 7, "Lava bomb's Radius");
         builder.pop();
 
         builder.push("Ender Guardian");
@@ -96,6 +141,14 @@ public class CommonConfig {
         builder.push("revenant");
         RevenantHealthMultiplier = buildDouble(builder, "RevenantHealthMultiplier", "all", 1.0D, 0D, 1000000D, "Revenant's Health Multiplier");
         RevenantDamageMultiplier = buildDouble(builder, "RevenantDamageMultiplier", "all", 1.0D, 0D, 1000000D, "Revenant's Damage Multiplier");
+        builder.pop();
+
+        builder.push("The Harbinger");
+        HarbingerHealthMultiplier = buildDouble(builder, "HarbingerHealthMultiplier", "all", 1.0D, 0D, 1000000D, "Harbinger's Health Multiplier");
+        HarbingerDamageMultiplier = buildDouble(builder, "HarbingerDamageMultiplier", "all", 1.0D, 0D, 1000000D, "Harbinger's Damage Multiplier");
+        HarbingerLongRangelimit = buildDouble(builder, "The Harbinger's prevent attacks from far away Range", "all", 35D, 1D, 1000000D, "Harbinger's Immune to Long distance attack range.");
+        HarbingerDamageCap = buildInt(builder, "The Harbinger DamageCap", "all", 22, 0, 1000000, "Harbinger's DamageCap");
+        HarbingerLightFire = buildBoolean(builder, "The Harbinger Light A Fire", "all", true, "Harbinger's lasers can light a fire in MobGriefing");
         builder.pop();
     }
 

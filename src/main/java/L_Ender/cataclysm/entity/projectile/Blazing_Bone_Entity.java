@@ -1,5 +1,6 @@
 package L_Ender.cataclysm.entity.projectile;
 
+import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.init.ModEntities;
 import L_Ender.cataclysm.init.ModItems;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -58,7 +59,7 @@ public class Blazing_Bone_Entity extends ThrowableItemProjectile {
         super.onHitEntity(result);
         Entity shooter = this.getOwner();
         Entity entity = result.getEntity();
-        float i = 5f;
+        float i = (float) CMConfig.BlazingBonedamage;
         if (shooter instanceof LivingEntity) {
             if (!((entity == shooter) || (shooter.isAlliedTo(entity)))) {
                 entity.hurt(DamageSource.indirectMobAttack(this, (LivingEntity) shooter).setProjectile(), i);

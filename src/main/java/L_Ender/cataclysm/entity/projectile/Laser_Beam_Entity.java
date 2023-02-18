@@ -1,5 +1,6 @@
 package L_Ender.cataclysm.entity.projectile;
 
+import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.init.ModEntities;
 import L_Ender.cataclysm.util.CMDamageTypes;
 import net.minecraft.core.BlockPos;
@@ -50,7 +51,7 @@ public class Laser_Beam_Entity extends Projectile {
             LivingEntity entity1 = (LivingEntity) this.getOwner();
             int i = entity.getRemainingFireTicks();
             entity.setSecondsOnFire(5);
-            if (!entity.hurt(CMDamageTypes.causeLaserDamage(this, entity1).setProjectile(), 4.0F)) {
+            if (!entity.hurt(CMDamageTypes.causeLaserDamage(this, entity1).setProjectile(), (float) CMConfig.Laserdamage)) {
                 entity.setRemainingFireTicks(i);
             } else if (entity1 != null) {
                 this.doEnchantDamageEffects((LivingEntity)entity1, entity);
@@ -62,10 +63,17 @@ public class Laser_Beam_Entity extends Projectile {
         super.onHitBlock(p_37384_);
         if (!this.level.isClientSide) {
             Entity entity = this.getOwner();
-            if (!(entity instanceof Mob) || net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, entity)) {
+            if(CMConfig.HarbingerLightFire) {
                 BlockPos blockpos = p_37384_.getBlockPos().relative(p_37384_.getDirection());
                 if (this.level.isEmptyBlock(blockpos)) {
                     this.level.setBlockAndUpdate(blockpos, BaseFireBlock.getState(this.level, blockpos));
+                }
+            } else{
+                if (!(entity instanceof Mob) || net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, entity)) {
+                    BlockPos blockpos = p_37384_.getBlockPos().relative(p_37384_.getDirection());
+                    if (this.level.isEmptyBlock(blockpos)) {
+                        this.level.setBlockAndUpdate(blockpos, BaseFireBlock.getState(this.level, blockpos));
+                    }
                 }
             }
 

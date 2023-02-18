@@ -1,5 +1,6 @@
 package L_Ender.cataclysm.items;
 
+import L_Ender.cataclysm.config.CMConfig;
 import L_Ender.cataclysm.entity.projectile.Void_Rune_Entity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -55,7 +56,7 @@ public class void_core extends Item {
         }
         ItemStack stack = player.getItemInHand(hand);
         if (hasSucceeded) {
-            player.getCooldowns().addCooldown(this, 160);
+            player.getCooldowns().addCooldown(this, CMConfig.VoidCoreCooldown);
             return InteractionResultHolder.success(stack);
         }
         return InteractionResultHolder.pass(stack);

@@ -168,12 +168,12 @@ public class Void_Rune_Entity extends Entity {
         if (Hitentity.isAlive() && !Hitentity.isInvulnerable() && Hitentity != livingentity) {
             if (this.tickCount % 5 == 0) {
                 if (livingentity == null) {
-                    Hitentity.hurt(DamageSource.MAGIC, CMConfig.Voidrunedamage);
+                    Hitentity.hurt(DamageSource.MAGIC, (float) CMConfig.Voidrunedamage);
                 } else {
                     if (livingentity.isAlliedTo(Hitentity)) {
                         return;
                     }
-                    Hitentity.hurt(DamageSource.indirectMagic(this, livingentity), CMConfig.Voidrunedamage);
+                    Hitentity.hurt(DamageSource.indirectMagic(this, livingentity), (float) CMConfig.Voidrunedamage);
                 }
             }
         }
