@@ -1,5 +1,5 @@
 {
-    "type": "minecraft:smithing",
+    "type": "cataclysm:weapon_fusion",
     "base": {
         "item": "cataclysm:ignitium_chestplate"
     },

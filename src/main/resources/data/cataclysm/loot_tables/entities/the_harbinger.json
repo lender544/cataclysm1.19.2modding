@@ -1,13 +1,23 @@
 {
   "pools": [
     {
-      "name": "the_harbinger",
+      "name": "block",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:nether_star",
+          "name": "cataclysm:witherite_block",
           "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "weapon",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "cataclysm:wither_assault_shoulder_weapon"
         }
       ]
     },

@@ -22,7 +22,7 @@ public class ModItems {
             () -> new BlockItem(ModBlocks.ENDERRITE_BLOCK.get(), new Item.Properties().fireResistant().rarity(Rarity.EPIC)));
 
     public static final RegistryObject<BlockItem> WITHERITE_BLCOK = ITEMS.register("witherite_block",
-            () -> new BlockItem(ModBlocks.WITHERITE_BLOCK.get(), new Item.Properties().fireResistant().rarity(Rarity.EPIC)));
+            () -> new BlockItem(ModBlocks.WITHERITE_BLOCK.get(), new Item.Properties().fireResistant().rarity(Rarity.EPIC).tab(cataclysm.CATACLYSM_GROUP)));
 
     public static final RegistryObject<BlockItem> IGNITIUM_BLOCK = ITEMS.register("ignitium_block",
             () -> new BlockItem(ModBlocks.IGNITIUM_BLOCK.get(), new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).fireResistant().rarity(Rarity.EPIC)));
@@ -99,7 +99,7 @@ public class ModItems {
 
 
     public static final RegistryObject<Item> WITHERITE_INGOT = ITEMS.register("witherite_ingot",
-            () -> new Item(new Item.Properties().fireResistant().rarity(Rarity.EPIC)));
+            () -> new Item(new Item.Properties().fireResistant().rarity(Rarity.EPIC).tab(cataclysm.CATACLYSM_GROUP)));
 
     public static final RegistryObject<Item> ENDERITE_INGOT = ITEMS.register("enderite_ingot",
             () -> new Item(new Item.Properties().fireResistant().rarity(Rarity.EPIC)));
