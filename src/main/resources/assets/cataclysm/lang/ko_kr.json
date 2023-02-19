@@ -21,6 +21,13 @@
   "item.cataclysm.incinerator.desc": "3초이상 캐스팅을 한뒤 사용을 멈추면",
   "item.cataclysm.incinerator2.desc": "전방으로 불기둥이 나간다",
   "item.cataclysm.incinerator3.desc": "주의: 불기둥이 사라질때 폭발하여 아이템이 사라질 수 있음.",
+  "item.cataclysm.void_forge.desc": "주로 사용하는 손에 있을때 우클릭으로 블록을 내리쳐 공허의 룬을 부채꼴 모양으로 소환한다.",
+  "item.cataclysm.void_forge.desc2": "(여전히 곡괭이다)",
+  "item.cataclysm.void_assault_shoulder_weapon.desc": "공허 곡사포를 쏠 수 있다.",
+  "item.cataclysm.wither_assault_shoulder_weapon.desc": "위더 미사일을 쏠 수 있다.",
+  "item.cataclysm.wither_assault_shoulder_weapon.desc2": "웅크린채로 사용시 위더 곡사포를 쏠 수 있다",
+  "item.cataclysm.gauntlet_of_bulwark.desc": "1초간 충전뒤, 주변의 엔티티를 밀쳐내고 불타는 낙인을 건다.",
+  "item.cataclysm.gauntlet_of_bulwark.desc2": "사용을 멈추면 돌진을 하며 적들에게 피해를 준다.",
   "you_cant_escape": "넌 벗어날 수 없다.",
   "cataclysm.container.weapon_fusion": "§c무기 융합",
 
@@ -121,6 +128,7 @@
   "entity.cataclysm.wither_missile": "위더 미사일",
   "entity.cataclysm.wither_howitzer": "위더 곡사포",
   "entity.cataclysm.wither_homing_missile": "위더 유도 미사일",
+  "entity.cataclysm.void_howitzer": "공허 곡사포",
   "entity.cataclysm.laser_beam": "레이저",
   "entity.cataclysm.death_laser_beam": "죽음의 레이저",
 

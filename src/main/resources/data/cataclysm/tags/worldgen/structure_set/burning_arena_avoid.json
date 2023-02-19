@@ -2,7 +2,6 @@
   "replace": false,
   "values": [
     "cataclysm:soul_black_smith",
-    "minecraft:fortress",
-    "minecraft:bastion_remnant"
+    "minecraft:nether_complexes"
   ]
 }

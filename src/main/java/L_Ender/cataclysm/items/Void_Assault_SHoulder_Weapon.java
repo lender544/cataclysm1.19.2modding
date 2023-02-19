@@ -6,6 +6,7 @@ import L_Ender.cataclysm.entity.projectile.Void_Howitzer_Entity;
 import L_Ender.cataclysm.entity.projectile.Wither_Howitzer_Entity;
 import L_Ender.cataclysm.entity.projectile.Wither_Missile_Entity;
 import L_Ender.cataclysm.init.ModEntities;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -82,5 +83,6 @@ public class Void_Assault_SHoulder_Weapon extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+        tooltip.add(Component.translatable("item.cataclysm.void_assault_shoulder_weapon.desc").withStyle(ChatFormatting.DARK_GREEN));
     }
 }

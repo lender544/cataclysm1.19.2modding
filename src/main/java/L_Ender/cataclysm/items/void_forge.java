@@ -146,8 +146,8 @@ public class void_forge extends PickaxeItem {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-       // tooltip.add(Component.translatable("item.cataclysm.infernal_forge.desc").withStyle(ChatFormatting.DARK_GREEN));
-      //  tooltip.add(Component.translatable("item.cataclysm.infernal_forge.desc2").withStyle(ChatFormatting.DARK_GREEN));
+        tooltip.add(Component.translatable("item.cataclysm.void_forge.desc").withStyle(ChatFormatting.DARK_GREEN));
+        tooltip.add(Component.translatable("item.cataclysm.void_forge.desc2").withStyle(ChatFormatting.DARK_GREEN));
     }
 }
 

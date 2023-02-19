@@ -2,7 +2,6 @@
   "replace": false,
   "values": [
     "cataclysm:burning_arena",
-    "minecraft:fortress",
-    "minecraft:bastion_remnant"
+    "minecraft:nether_complexes"
   ]
 }

@@ -372,6 +372,22 @@
       }
     ]
   },
+  "harbinger_charge_prepare": {
+    "subtitle": "harbinger_charge_prepare.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/harbinger_charge_prepare"
+      }
+    ]
+  },
+  "harbinger_charge": {
+    "subtitle": "harbinger_charge.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/harbinger_charge"
+      }
+    ]
+  },
   "harbinger_mode_change": {
     "subtitle": "harbinger_mode_change.sub",
     "sounds": [

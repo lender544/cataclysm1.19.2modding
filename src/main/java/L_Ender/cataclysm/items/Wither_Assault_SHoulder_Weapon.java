@@ -119,5 +119,7 @@ public class Wither_Assault_SHoulder_Weapon extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+        tooltip.add(Component.translatable("item.cataclysm.wither_assault_shoulder_weapon.desc").withStyle(ChatFormatting.DARK_GREEN));
+        tooltip.add(Component.translatable("item.cataclysm.wither_assault_shoulder_weapon.desc2").withStyle(ChatFormatting.DARK_GREEN));
     }
 }

@@ -71,7 +71,7 @@ import java.util.function.Predicate;
 
 public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMob, PowerableMob {
     public static final Animation DEATHLASER_ANIMATION = Animation.create(114);
-    public static final Animation CHARGE_ANIMATION = Animation.create(39);
+    public static final Animation CHARGE_ANIMATION = Animation.create(45);
     public static final Animation DEATH_ANIMATION = Animation.create(144);
     public static final Animation LAUNCH_ANIAMATION = Animation.create(59);
     public static final Animation MISSILE_FIRE_ANIAMATION = Animation.create(118);
@@ -291,7 +291,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
                 }
                 vec3 = new Vec3(vec3.x, d0, vec3.z);
                 Vec3 vec31 = new Vec3(entity.getX() - this.getX(), 0.0D, entity.getZ() - this.getZ());
-                if (vec31.horizontalDistanceSqr() > 9.0D && !(this.getAnimation() == DEATHLASER_ANIMATION && this.getAnimationTick() > 8 || this.getAnimation() == MISSILE_FIRE_ANIAMATION)) {
+                if (vec31.horizontalDistanceSqr() > 25.0D && !(this.getAnimation() == DEATHLASER_ANIMATION && this.getAnimationTick() > 8 || this.getAnimation() == MISSILE_FIRE_ANIAMATION || this.getAnimation() == MISSILE_FIRE_FAST_ANIAMATION)) {
                     Vec3 vec32 = vec31.normalize();
                     vec3 = vec3.add(vec32.x * 0.3D - vec3.x * 0.6D, 0.0D, vec32.z * 0.3D - vec3.z * 0.6D);
                 }
@@ -348,6 +348,12 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
 
             }
         }
+        if (this.getAnimation() == CHARGE_ANIMATION) {
+            if (this.getAnimationTick() == 24) {
+                this.level.playSound((Player) null, this, ModSounds.HARBINGER_CHARGE.get(), SoundSource.HOSTILE, 1.0f, 0.65f);
+            }
+        }
+
 
         for (int j = 0; j < 2; ++j) {
             int k = this.getAlternativeTarget(j + 1);
@@ -799,6 +805,10 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         return p_31495_.getEffect() != MobEffects.WITHER && super.canBeAffected(p_31495_);
     }
 
+    public boolean addEffect(MobEffectInstance p_182397_, @Nullable Entity p_182398_) {
+        return false;
+    }
+
     public BossEvent.BossBarColor bossBarColor() {
         return BossEvent.BossBarColor.PURPLE;
     }
@@ -855,33 +865,34 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         public void start() {
             super.start();
             entity.setOverload(entity.getOverload() + 1);
+            entity.playSound(ModSounds.HARBINGER_CHARGE_PREPARE.get(), 1, 1.0F);
         }
 
         public void tick() {
             LivingEntity target = entity.getTarget();
 
 
-            if (entity.getAnimationTick() == 18) {
+            if (entity.getAnimationTick() == 24) {
                 entity.setIsCharge(true);
 
             }
-            if (entity.getAnimationTick() == 30) {
+            if (entity.getAnimationTick() == 36) {
                 entity.setIsCharge(false);
             }
 
             if (target != null) {
-                if (entity.getAnimationTick() < 18) {
+                if (entity.getAnimationTick() < 24) {
                     entity.lookAt(target, 30, 30);
                     entity.getLookControl().setLookAt(target, 30, 30);
                 }
-                if (entity.getAnimationTick() == 18) {
+                if (entity.getAnimationTick() == 24) {
                     //  Vec3 vec3 = (new Vec3(target.getX() - entity.getX(), target.getY() - entity.getY(), target.getZ() - entity.getZ()));
                     // entity.setDeltaMovement(vec3.x * 0.8,vec3.y * 1.0, vec3.z * 0.8);
                     //entity.setDeltaMovement(entity.getDeltaMovement().add(vec3.x * 0.8D, 0.9D, vec3.z * 0.8D));
                     Vec3 rot = target.position().subtract(0.0, 2.0, 0.0).add(entity.position().multiply(-1.0, -1.0, -1.0)).normalize();
                     entity.setDeltaMovement(rot.multiply(4.0, 5.0, 4.0));
                 }
-                if (entity.getAnimationTick() == 39) {
+                if (entity.getAnimationTick() == 45) {
                     AnimationHandler.INSTANCE.sendAnimationMessage(entity, CHARGE_ANIMATION);
                 }
             }
