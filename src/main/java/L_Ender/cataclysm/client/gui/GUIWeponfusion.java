@@ -13,7 +13,7 @@ public class GUIWeponfusion extends ItemCombinerScreen<WeaponfusionMenu> {
 
     public GUIWeponfusion(WeaponfusionMenu p_99290_, Inventory p_99291_, Component p_99292_) {
         super(p_99290_, p_99291_, p_99292_, SMITHING_LOCATION);
-        this.titleLabelX = 60;
+        this.titleLabelX = 66;
         this.titleLabelY = 18;
     }
 

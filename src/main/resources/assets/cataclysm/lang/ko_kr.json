@@ -176,6 +176,8 @@
   "advancements.cataclysm.find_ruined_citadel.description": "폐허가 된 성채를 찾으세요",
   "advancements.cataclysm.find_soul_black_smith.title": "영혼의 대장간",
   "advancements.cataclysm.find_soul_black_smith.description": "영혼 대장간을 찾으세요",
+  "advancements.cataclysm.ancient_factory.title": "고대의 문명",
+  "advancements.cataclysm.ancient_factory.description": "고대의 공장을 찾으세요",
   "advancements.cataclysm.burning_arena.title": "불타는 투기장",
   "advancements.cataclysm.burning_arena.description": "불타는 투기장을 찾으세요",
   "advancements.cataclysm.kill_ender_golem.title": "팔레트 스왑",
@@ -188,7 +190,8 @@
   "advancements.cataclysm.kill_monstrosity.description": "네더라이트 괴물을 처치하세요",
   "advancements.cataclysm.kill_ignis.title": "꺼져버린 불꽃",
   "advancements.cataclysm.kill_ignis.description": "이그니스를 소환한 뒤, 쓰러뜨리세요",
-
+  "advancements.cataclysm.kill_harbinger.title": "고대의 존재",
+  "advancements.cataclysm.kill_harbinger.description": "하빈저를 깨우고, 쓰러뜨리세요",
 
   "death.attack.cataclysm.laser": "%s는 %s의 레이저에 의해 말살되었습니다.",
   "death.attack.cataclysm.emp": "%s는 전기구이 통닭이 되버렸습니다.",

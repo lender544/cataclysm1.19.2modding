@@ -372,6 +372,14 @@
       }
     ]
   },
+  "harbinger_deathlaser_prepare": {
+    "subtitle": "harbinger_deathlaser_prepare.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/harbinger_deathlaser_prepare"
+      }
+    ]
+  },
   "harbinger_charge_prepare": {
     "subtitle": "harbinger_charge_prepare.sub",
     "sounds": [

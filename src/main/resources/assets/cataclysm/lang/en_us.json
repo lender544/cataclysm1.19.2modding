@@ -178,6 +178,8 @@
   "advancements.cataclysm.find_soul_black_smith.description": "Find the Soul Blacksmith",
   "advancements.cataclysm.burning_arena.title": "A Burning Arena",
   "advancements.cataclysm.burning_arena.description": "Find the Burning Arena",
+  "advancements.cataclysm.ancient_factory.title": "Out-Of-Place",
+  "advancements.cataclysm.ancient_factory.description": "Find the Ancient Factory",
   "advancements.cataclysm.kill_ender_golem.title": "Palette Swap",
   "advancements.cataclysm.kill_ender_golem.description": "Kill the Ender Golem",
   "advancements.cataclysm.kill_ender_guardian.title": "Was that Shulker?",
@@ -188,7 +190,8 @@
   "advancements.cataclysm.kill_monstrosity.description": "Kill the Netherite Monstrosity",
   "advancements.cataclysm.kill_ignis.title": "The Extinguished Fire",
   "advancements.cataclysm.kill_ignis.description": "Summon and Defeat the Ignis",
-
+  "advancements.cataclysm.kill_harbinger.title": "Out Of Place Things",
+  "advancements.cataclysm.kill_harbinger.description": "Wake and Defeat the Harbinger",
 
   "death.attack.cataclysm.laser": "%s was exterminated by %s 's laser",
   "death.attack.cataclysm.emp": "%s has become Electric Grilled Chicken",

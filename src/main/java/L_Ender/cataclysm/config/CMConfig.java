@@ -20,7 +20,7 @@ public class CMConfig {
 
     public static double Voidrunedamage = 7;
     public static double Ashenbreathdamage = 4;
-    public static double DeathLaserdamage = 4;
+    public static double DeathLaserdamage = 6;
     public static double Laserdamage = 4;
     public static double BlazingBonedamage = 5;
     public static double WitherMissiledamage = 8;

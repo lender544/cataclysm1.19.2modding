@@ -249,14 +249,15 @@ public class ModelThe_Harbinger extends AdvancedEntityModel<The_Harbinger_Entity
         this.resetToDefaultPose();
         animator.update(entity);
         animator.setAnimation(The_Harbinger_Entity.DEATHLASER_ANIMATION);
-        animator.startKeyframe(20);
+        animator.startKeyframe(25);
         animator.rotate(mid,(float)Math.toRadians(-37.5F),0, 0);
         animator.rotate(main_head,(float)Math.toRadians(-15F),0, 0);
         animator.rotate(head,(float)Math.toRadians(-5F),0, 0);
         animator.rotate(jaw,(float)Math.toRadians(-17.5F),0, 0);
         animator.rotate(jetpack,(float)Math.toRadians(-7.5F),0, 0);
         animator.endKeyframe();
-        animator.setStaticKeyframe(5);
+        animator.setStaticKeyframe(10);
+
         animator.startKeyframe(3);
         //animator.rotate(root,(float)Math.toRadians(12.5F),0, 0);
         animator.rotate(main_head,(float)Math.toRadians(-15F),0, 0);

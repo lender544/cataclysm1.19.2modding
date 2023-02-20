@@ -93,7 +93,7 @@ public class CommonConfig {
         builder.push("Entity damage");
         Voidrunedamage = buildDouble(builder, "Voidrunedamage", "all", 7.0D, 0D, 1000000D, "Void Rune's Damage");
         Ashenbreathdamage = buildDouble(builder, "Ashenbreathdamage", "all", 4, 0D, 1000000D, "Ashen Breath's Damage");
-        DeathLaserdamage = buildDouble(builder, "DeathLaserdamage", "all", 4, 0D, 1000000D, "Death Laser's Damage");
+        DeathLaserdamage = buildDouble(builder, "DeathLaserdamage", "all", 6, 0D, 1000000D, "Death Laser's Damage");
         Laserdamage = buildDouble(builder, "Laserdamage", "all", 4, 0D, 1000000D, "Laser's Damage");
         BlazingBonedamage = buildDouble(builder, "BlazingBonedamage", "all", 5, 0D, 1000000D, "Blazing Bone's Damage");
         WitherMissiledamage = buildDouble(builder, "WitherMissiledamage", "all", 8, 0D, 1000000D, "Wither Missile's Damage");
