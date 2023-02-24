@@ -336,7 +336,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         if ((this.getAnimation() != CHARGE_ANIMATION) && getIsCharge()) {
             setIsCharge(false);
         }
-        setInvulnerable(!getIsAct());
+        //setInvulnerable(!getIsAct());
         if (this.getAnimation() == STUN_ANIAMATION) {
             if (this.getAnimationTick() == 15) {
                 this.level.playSound((Player) null, this, ModSounds.HARBINGER_STUN.get(), SoundSource.HOSTILE, 4F, level.random.nextFloat() * 0.2F + 1.0F);

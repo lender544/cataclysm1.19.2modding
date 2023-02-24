@@ -1,8 +1,10 @@
 package L_Ender.cataclysm.event;
 
 import L_Ender.cataclysm.cataclysm;
+import L_Ender.cataclysm.entity.The_Harbinger_Entity;
 import L_Ender.cataclysm.init.ModBlocks;
 import L_Ender.cataclysm.init.ModEffect;
+import L_Ender.cataclysm.init.ModEntities;
 import L_Ender.cataclysm.init.ModItems;
 import L_Ender.cataclysm.items.final_fractal;
 import L_Ender.cataclysm.items.zweiender;
@@ -15,6 +17,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
@@ -41,37 +44,31 @@ public class ServerEventHandler {
         final BlockPos p_45021_ = event.getEntity().blockPosition();
         if (!event.getEntity().getItemBySlot(EquipmentSlot.FEET).isEmpty() && event.getEntity().getItemBySlot(EquipmentSlot.FEET).getItem() == ModItems.IGNITIUM_BOOTS.get()) {
             if(!event.getEntity().isShiftKeyDown()){
-            if (event.getEntity().isOnGround()) {
-                BlockState blockstate = ModBlocks.MELTING_NETHERRACK.get().defaultBlockState();
-                float f = (float) Math.min(16, 2 + p_45022_);
-                BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+                if (event.getEntity().isOnGround()) {
+                    BlockState blockstate = ModBlocks.MELTING_NETHERRACK.get().defaultBlockState();
+                    float f = (float) Math.min(16, 2 + p_45022_);
+                    BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
-                for (BlockPos blockpos : BlockPos.betweenClosed(p_45021_.offset((double) (-f), -1.0D, (double) (-f)), p_45021_.offset((double) f, -1.0D, (double) f))) {
-                    if (blockpos.closerToCenterThan(event.getEntity().position(), (double) f)) {
-                        blockpos$mutableblockpos.set(blockpos.getX(), blockpos.getY() + 1, blockpos.getZ());
-                        BlockState blockstate1 = event.getEntity().level.getBlockState(blockpos$mutableblockpos);
-                        if (blockstate1.isAir()) {
-                            BlockState blockstate2 = event.getEntity().level.getBlockState(blockpos);
-                            boolean isFull = blockstate2.getBlock() == Blocks.LAVA && blockstate2.getValue(LiquidBlock.LEVEL) == 0; //TODO: Forge, modded waters?
-                            if (blockstate2.getMaterial() == Material.LAVA && isFull && blockstate.canSurvive(event.getEntity().level, blockpos) && event.getEntity().level.isUnobstructed(blockstate, blockpos, CollisionContext.empty()) && !net.minecraftforge.event.ForgeEventFactory.onBlockPlace(event.getEntity(), net.minecraftforge.common.util.BlockSnapshot.create(event.getEntity().level.dimension(), event.getEntity().level, blockpos), net.minecraft.core.Direction.UP)) {
-                                event.getEntity().level.setBlockAndUpdate(blockpos, blockstate);
-                                event.getEntity().level.scheduleTick(blockpos, ModBlocks.MELTING_NETHERRACK.get(), Mth.nextInt(event.getEntity().getRandom(), 60, 120));
+                    for (BlockPos blockpos : BlockPos.betweenClosed(p_45021_.offset((double) (-f), -1.0D, (double) (-f)), p_45021_.offset((double) f, -1.0D, (double) f))) {
+                        if (blockpos.closerToCenterThan(event.getEntity().position(), (double) f)) {
+                            blockpos$mutableblockpos.set(blockpos.getX(), blockpos.getY() + 1, blockpos.getZ());
+                            BlockState blockstate1 = event.getEntity().level.getBlockState(blockpos$mutableblockpos);
+                            if (blockstate1.isAir()) {
+                                BlockState blockstate2 = event.getEntity().level.getBlockState(blockpos);
+                                boolean isFull = blockstate2.getBlock() == Blocks.LAVA && blockstate2.getValue(LiquidBlock.LEVEL) == 0; //TODO: Forge, modded waters?
+                                if (blockstate2.getMaterial() == Material.LAVA && isFull && blockstate.canSurvive(event.getEntity().level, blockpos) && event.getEntity().level.isUnobstructed(blockstate, blockpos, CollisionContext.empty()) && !net.minecraftforge.event.ForgeEventFactory.onBlockPlace(event.getEntity(), net.minecraftforge.common.util.BlockSnapshot.create(event.getEntity().level.dimension(), event.getEntity().level, blockpos), net.minecraft.core.Direction.UP)) {
+                                    event.getEntity().level.setBlockAndUpdate(blockpos, blockstate);
+                                    event.getEntity().level.scheduleTick(blockpos, ModBlocks.MELTING_NETHERRACK.get(), Mth.nextInt(event.getEntity().getRandom(), 60, 120));
+                                }
+
                             }
-
                         }
                     }
                 }
             }
-            }
         }
-       // if (event.getEntity() instanceof Player player) {
-       //     int i = RendererUtils.getUsingIncineratorTime(event.getEntity());
-        //    if (player.getUseItem().getItem() != ModItems.THE_INCINERATOR.get()) {
-       //         if (i >= 0) {
-         //           RendererUtils.setUsingIncineratorTime(player, 0);
-        //        }
-        //    }
-       // }
+
+
     }
 
     @SubscribeEvent
@@ -118,7 +115,13 @@ public class ServerEventHandler {
             if (event.getEntity().hasEffect(ModEffect.EFFECTSTUN.get())) {
                 ((Mob) event.getEntity()).setTarget(null);
             }
+            if (event.getTarget() instanceof The_Harbinger_Entity harbinger) {
+                if (!harbinger.getIsAct()) {
+                    ((Mob) event.getEntity()).setTarget(null);
+                }
+            }
         }
+
     }
 
     @SubscribeEvent

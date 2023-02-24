@@ -190,8 +190,15 @@ public class Ender_Guardian_Entity extends Boss_monster {
     }
 
     public void setIsHelmetless(boolean isHelmetless) {
+        boolean prev = isHelmetless();
+        if (!prev && isHelmetless) {
+            this.getAttribute(Attributes.ARMOR).setBaseValue(10F);
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.29F);
+        }else{
+            this.getAttribute(Attributes.ARMOR).setBaseValue(20F);
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.27F);
+        }
         this.entityData.set(IS_HELMETLESS, isHelmetless);
-
     }
 
     public boolean getIsHelmetless() {
