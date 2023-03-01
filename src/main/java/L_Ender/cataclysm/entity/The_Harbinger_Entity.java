@@ -112,6 +112,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
 
     public The_Harbinger_Entity(EntityType entity, Level world) {
         super(entity, world);
+        this.xpReward = 300;
         this.moveControl = new FlyingMoveControl(this, 10, false);
         setConfigattribute(this, CMConfig.HarbingerHealthMultiplier, CMConfig.HarbingerDamageMultiplier);
     }

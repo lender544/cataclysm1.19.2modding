@@ -699,6 +699,128 @@ public class ModelEnder_Guardian extends AdvancedEntityModel<Ender_Guardian_Enti
         animator.setStaticKeyframe(20);
 
         animator.resetKeyframe(15);
+
+        animator.setAnimation(Ender_Guardian_Entity.GUARDIAN_HUG_ME);
+        animator.startKeyframe(15);
+        animator.rotate(root,0,(float)Math.toRadians(27.5f),0);
+        animator.move(right_leg,0,0,8);
+        animator.move(left_leg,0,0,-6);
+        animator.rotate(upperbody,(float)Math.toRadians(35f),(float)Math.toRadians(-15f),0);
+        animator.move(upperbody,0,2,0);
+        animator.rotate(left_leg,0,(float)Math.toRadians(-35f),0);
+        animator.rotate(right_arm,(float)Math.toRadians(42.5f),(float)Math.toRadians(-2.5f),(float)Math.toRadians(62.5f));
+        animator.rotate(left_arm,(float)Math.toRadians(60f),(float)Math.toRadians(7.5f),(float)Math.toRadians(-57.5f));
+        animator.rotate(right_arm2,(float)Math.toRadians(-90f),0,0);
+        animator.rotate(left_arm2,(float)Math.toRadians(-90f),0,0);
+        animator.rotate(helmet,(float)Math.toRadians(-25f),(float)Math.toRadians(-7.5f),0);
+        animator.endKeyframe();
+        animator.setStaticKeyframe(20);
+
+        animator.startKeyframe(6);
+        animator.rotate(root,0,(float)Math.toRadians(-17.5f),0);
+        animator.rotate(right_leg,0,(float)Math.toRadians(25f),0);
+        animator.move(right_leg,0,0,-6);
+        animator.move(left_leg,0,0,9);
+        animator.rotate(upperbody,(float)Math.toRadians(-22.5f),(float)Math.toRadians(2.5f),0);
+        animator.rotate(armor,0,0,(float)Math.toRadians(2.5f));
+        animator.rotate(right_arm,(float)Math.toRadians(-60f),(float)Math.toRadians(5f),(float)Math.toRadians(45f));
+        animator.rotate(left_arm,(float)Math.toRadians(-62.5f),(float)Math.toRadians(2.5f),(float)Math.toRadians(-35f));
+        animator.rotate(right_arm2,(float)Math.toRadians(-82.5f),0,0);
+        animator.rotate(left_arm2,(float)Math.toRadians(-90f),0,0);
+        animator.rotate(helmet,(float)Math.toRadians(17.5f),(float)Math.toRadians(17.5f),(float)Math.toRadians(5f));
+        animator.endKeyframe();
+        animator.setStaticKeyframe(20);
+
+        animator.resetKeyframe(15);
+
+        animator.setAnimation(Ender_Guardian_Entity.GUARDIAN_AIR_STRIKE1);
+        animator.startKeyframe(15);
+        animator.rotate(upperbody,(float)Math.toRadians(-15f),0,0);
+        animator.rotate(right_arm,(float)Math.toRadians(-15f),(float)Math.toRadians(-10f),(float)Math.toRadians(47.5f));
+        animator.rotate(left_arm,(float)Math.toRadians(-17.5f),(float)Math.toRadians(10f),(float)Math.toRadians(-47.5f));
+        animator.move(right_arm,0,0,-4);
+        animator.move(left_arm,0,0,-4);
+        animator.rotate(right_arm2,(float)Math.toRadians(-110f),(float)Math.toRadians(-30f),0);
+        animator.rotate(left_arm2,(float)Math.toRadians(-110f),(float)Math.toRadians(30f),0);
+        animator.move(right_arm2,0,6,0);
+        animator.move(left_arm2,0,6,0);
+        animator.endKeyframe();
+
+        animator.setStaticKeyframe(3);
+
+        animator.startKeyframe(2);
+        animator.rotate(upperbody,(float)Math.toRadians(-15f),0,0);
+        animator.rotate(right_arm,(float)Math.toRadians(-50f),(float)Math.toRadians(-25f),(float)Math.toRadians(32.5f));
+        animator.rotate(left_arm,(float)Math.toRadians(-50f),(float)Math.toRadians(25f),(float)Math.toRadians(-32.5f));
+        animator.move(right_arm,2.5f,2f,-6);
+        animator.move(left_arm,-2.75f,2f,-6);
+        animator.rotate(right_arm2,(float)Math.toRadians(-105f),(float)Math.toRadians(-50f),(float)Math.toRadians(12.5f));
+        animator.rotate(left_arm2,(float)Math.toRadians(-105f),(float)Math.toRadians(50f),(float)Math.toRadians(-12.5));
+        animator.move(right_arm2,0,6f,0);
+        animator.move(left_arm2,0,6f,0);
+        animator.endKeyframe();
+        animator.setStaticKeyframe(20);
+
+        animator.startKeyframe(8);
+        animator.rotate(root,0,(float)Math.toRadians(-17.5f),0);
+        animator.rotate(lowerbody,(float)Math.toRadians(-5f),0,0);
+        animator.move(lowerbody,0,3,0);
+        animator.rotate(upperbody,(float)Math.toRadians(-27.5f),(float)Math.toRadians(-2.5f),(float)Math.toRadians(5f));
+        animator.rotate(right_arm,(float)Math.toRadians(-82.5f),(float)Math.toRadians(17.5f),(float)Math.toRadians(45f));
+        animator.rotate(left_arm,(float)Math.toRadians(-100f),(float)Math.toRadians(-17.5f),(float)Math.toRadians(-27.5f));
+        animator.move(right_arm,2f,-2f,-2);
+        animator.move(left_arm,-2f,-1f,-3);
+        animator.rotate(right_arm2,(float)Math.toRadians(-82.5f),0,0);
+        animator.rotate(left_arm2,(float)Math.toRadians(-90f),0,0);
+        animator.rotate(helmet,(float)Math.toRadians(17.5f),(float)Math.toRadians(17.5f),(float)Math.toRadians(5f));
+        animator.rotate(right_leg,0,(float)Math.toRadians(30f),0);
+        animator.move(right_leg,0,2,-6);
+        animator.move(left_leg,0,3,9);
+        animator.endKeyframe();
+        animator.setStaticKeyframe(60);
+
+        animator.resetKeyframe(15);
+
+        animator.setAnimation(Ender_Guardian_Entity.GUARDIAN_AIR_STRIKE2);
+        animator.startKeyframe(0);
+        animator.rotate(root,0,(float)Math.toRadians(-17.5f),0);
+        animator.rotate(lowerbody,(float)Math.toRadians(-5f),0,0);
+        animator.move(lowerbody,0,3,0);
+        animator.rotate(upperbody,(float)Math.toRadians(-27.5f),(float)Math.toRadians(-2.5f),(float)Math.toRadians(5f));
+        animator.rotate(right_arm,(float)Math.toRadians(-82.5f),(float)Math.toRadians(17.5f),(float)Math.toRadians(45f));
+        animator.rotate(left_arm,(float)Math.toRadians(-100f),(float)Math.toRadians(-17.5f),(float)Math.toRadians(-27.5f));
+        animator.move(right_arm,2f,-2f,-2);
+        animator.move(left_arm,-2f,-1f,-3);
+        animator.rotate(right_arm2,(float)Math.toRadians(-82.5f),0,0);
+        animator.rotate(left_arm2,(float)Math.toRadians(-90f),0,0);
+        animator.rotate(helmet,(float)Math.toRadians(17.5f),(float)Math.toRadians(17.5f),(float)Math.toRadians(5f));
+        animator.rotate(right_leg,0,(float)Math.toRadians(30f),0);
+        animator.move(right_leg,0,2,-6);
+        animator.move(left_leg,0,3,9);
+
+        animator.endKeyframe();
+
+        animator.startKeyframe(4);
+        animator.rotate(root,0,(float)Math.toRadians(-17.5f),0);
+        animator.rotate(lowerbody,(float)Math.toRadians(35f),0,0);
+        animator.move(lowerbody,0,7,0);
+        animator.rotate(upperbody,(float)Math.toRadians(27.5f),(float)Math.toRadians(12.5f),(float)Math.toRadians(5f));
+        animator.rotate(right_arm,(float)Math.toRadians(-65f),(float)Math.toRadians(-15f),(float)Math.toRadians(32.5f));
+        animator.rotate(left_arm,(float)Math.toRadians(-65f),(float)Math.toRadians(15f),(float)Math.toRadians(-32.5f));
+        animator.move(right_arm,2f,9f,-6);
+        animator.move(left_arm,-1f,11f,-6);
+        animator.rotate(right_arm2,(float)Math.toRadians(-90f),0,0);
+        animator.rotate(left_arm2,(float)Math.toRadians(-90f),0,0);
+
+        animator.rotate(right_leg,0,(float)Math.toRadians(20f),0);
+        animator.rotate(left_leg,(float)Math.toRadians(-15f),0,0);
+        animator.move(right_leg,0,0,-6);
+        animator.move(left_leg,0,1,5);
+        animator.endKeyframe();
+        animator.setStaticKeyframe(20);
+        animator.resetKeyframe(15);
+
+
     }
 
     @Override

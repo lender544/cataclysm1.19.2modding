@@ -11,6 +11,7 @@ import L_Ender.cataclysm.entity.etc.CMPathNavigateGround;
 import L_Ender.cataclysm.entity.etc.SmartBodyHelper2;
 import L_Ender.cataclysm.entity.projectile.Ender_Guardian_Bullet_Entity;
 import L_Ender.cataclysm.entity.projectile.Void_Rune_Entity;
+import L_Ender.cataclysm.init.ModEffect;
 import L_Ender.cataclysm.init.ModSounds;
 import L_Ender.cataclysm.init.ModTag;
 import com.github.alexthe666.citadel.animation.Animation;
@@ -20,6 +21,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -32,6 +34,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -57,6 +60,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
@@ -67,6 +71,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Optional;
 
 import static java.lang.Math.*;
 
@@ -74,8 +79,8 @@ public class Ender_Guardian_Entity extends Boss_monster {
 
     private final ServerBossEvent bossInfo = (ServerBossEvent) (new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(false);
     private static final EntityDataAccessor<Boolean> IS_HELMETLESS = SynchedEntityData.defineId(Ender_Guardian_Entity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> IS_AWAKEN = SynchedEntityData.defineId(Ender_Guardian_Entity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> USED_MASS_DESTRUCTION = SynchedEntityData.defineId(Ender_Guardian_Entity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Optional<BlockPos>> TELEPORT_POS = SynchedEntityData.defineId(Ender_Guardian_Entity.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
     public static final Animation GUARDIAN_RIGHT_STRONG_ATTACK = Animation.create(60);
     public static final Animation GUARDIAN_LEFT_STRONG_ATTACK = Animation.create(60);
     public static final Animation GUARDIAN_RIGHT_ATTACK = Animation.create(40);
@@ -87,9 +92,10 @@ public class Ender_Guardian_Entity extends Boss_monster {
     public static final Animation GUARDIAN_RAGE_STOMP = Animation.create(83);
     public static final Animation GUARDIAN_MASS_DESTRUCTION = Animation.create(75);
     public static final Animation GUARDIAN_FALLEN = Animation.create(196);
+    public static final Animation GUARDIAN_HUG_ME = Animation.create(76);
+    public static final Animation GUARDIAN_AIR_STRIKE1 = Animation.create(123);
+    public static final Animation GUARDIAN_AIR_STRIKE2 = Animation.create(39);
     public static final int STOMP_COOLDOWN = 400;
-    public float deactivateProgress;
-    public float prevdeactivateProgress;
     public boolean Breaking = CMConfig.EnderguardianBlockBreaking;
 
     private int stomp_cooldown = 0;
@@ -120,15 +126,28 @@ public class Ender_Guardian_Entity extends Boss_monster {
                 GUARDIAN_MASS_DESTRUCTION,
                 GUARDIAN_RAGE_STOMP,
                 GUARDIAN_RAGE_UPPERCUT,
-                GUARDIAN_FALLEN};
+                GUARDIAN_FALLEN,
+                GUARDIAN_HUG_ME,
+                GUARDIAN_AIR_STRIKE1,
+                GUARDIAN_AIR_STRIKE2};
     }
 
     protected void registerGoals() {
         this.goalSelector.addGoal(2, new AttackMoveGoal(this,true,1.0));
         this.goalSelector.addGoal(1, new PunchAttackGoal(this));
-        this.goalSelector.addGoal(1, new AttackAnimationGoal2<>(this, GUARDIAN_MASS_DESTRUCTION, 39, 50));
+        this.goalSelector.addGoal(1, new AttackAnimationGoal2<>(this, GUARDIAN_MASS_DESTRUCTION, 39, 50){
+            @Override
+            public void start() {
+                super.start();
+                entity.setUsedMassDestruction(true);
+            }
+        });
         this.goalSelector.addGoal(1, new AttackAnimationGoal2<>(this, GUARDIAN_BURST_ATTACK, 27, 47));
+        this.goalSelector.addGoal(1, new SimpleAnimationGoal<>(this, GUARDIAN_AIR_STRIKE2));
+        this.goalSelector.addGoal(1, new HugmeGoal(this, GUARDIAN_HUG_ME,30,20));
+        this.goalSelector.addGoal(1, new TeleportStrikeGoal(this, GUARDIAN_AIR_STRIKE1));
         this.goalSelector.addGoal(1, new StompAttackGoal(this));
+
         this.goalSelector.addGoal(1, new UppercutAndBulletGoal(this,GUARDIAN_UPPERCUT_AND_BULLET));
         this.goalSelector.addGoal(1, new RageUppercut(this,GUARDIAN_RAGE_UPPERCUT));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -153,7 +172,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(IS_HELMETLESS, false);
-        this.entityData.define(IS_AWAKEN, true);
+        this.entityData.define(TELEPORT_POS, Optional.empty());
         this.entityData.define(USED_MASS_DESTRUCTION, false);
     }
 
@@ -174,15 +193,22 @@ public class Ender_Guardian_Entity extends Boss_monster {
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
+        Optional<BlockPos> restPos = getTeleportPos();
+        if (restPos.isPresent()) {
+            compound.put("TeleportPos", NbtUtils.writeBlockPos(getTeleportPos().get()));
+        }
+
         compound.putBoolean("is_Helmetless", getIsHelmetless());
-        compound.putBoolean("is_Awaken", getIsAwaken());
         compound.putBoolean("used_mass_destruction", getUsedMassDestruction());
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+        if (compound.contains("TeleportPos")) {
+            setTeleportPos(NbtUtils.readBlockPos(compound.getCompound("TeleportPos")));
+        }
+
         setIsHelmetless(compound.getBoolean("is_Helmetless"));
-        setIsAwaken(compound.getBoolean("is_Awaken"));
         setUsedMassDestruction(compound.getBoolean("used_mass_destruction"));
         if (this.hasCustomName()) {
             this.bossInfo.setName(this.getDisplayName());
@@ -191,8 +217,8 @@ public class Ender_Guardian_Entity extends Boss_monster {
 
     public void setIsHelmetless(boolean isHelmetless) {
         boolean prev = isHelmetless();
-        if (!prev && isHelmetless) {
-            this.getAttribute(Attributes.ARMOR).setBaseValue(10F);
+        if (isHelmetless) {
+            this.getAttribute(Attributes.ARMOR).setBaseValue(15F);
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.29F);
         }else{
             this.getAttribute(Attributes.ARMOR).setBaseValue(20F);
@@ -214,12 +240,12 @@ public class Ender_Guardian_Entity extends Boss_monster {
         return this.entityData.get(USED_MASS_DESTRUCTION);
     }
 
-    public void setIsAwaken(boolean isAwaken) {
-        this.entityData.set(IS_AWAKEN, isAwaken);
+    public void setTeleportPos(BlockPos p_30220_) {
+        this.entityData.set(TELEPORT_POS, Optional.of(p_30220_));
     }
 
-    public boolean getIsAwaken() {
-        return this.entityData.get(IS_AWAKEN);
+    public Optional<BlockPos> getTeleportPos() {
+        return this.entityData.get(TELEPORT_POS);
     }
 
 
@@ -276,10 +302,6 @@ public class Ender_Guardian_Entity extends Boss_monster {
         }
         repelEntities(1.8F, 4.0f, 1.8F, 1.8F);
         this.bossInfo.setProgress(this.getHealth() / this.getMaxHealth());
-        prevdeactivateProgress = deactivateProgress;
-        if (!this.getIsAwaken() && deactivateProgress < 40F) {
-            deactivateProgress = 40;
-        }
         LivingEntity target = this.getTarget();
         Animation animation = getRandomAttack(random);
         if (this.isAlive()) {
@@ -293,38 +315,49 @@ public class Ender_Guardian_Entity extends Boss_monster {
             else if (target != null && target.isAlive()) {
                 if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 2.75F) {
                     if (this.random.nextInt(2) == 0) {
-                        this.setAnimation(GUARDIAN_BURST_ATTACK);
+                      //  this.setAnimation(GUARDIAN_BURST_ATTACK);
+                        this.setAnimation(GUARDIAN_HUG_ME);
+
                     } else {
-                        this.setAnimation(animation);
+                      //  this.setAnimation(animation);
+                        this.setAnimation(GUARDIAN_HUG_ME);
                     }
                 } else if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) > 2.75F && this.distanceTo(target) < 4.3F && target.hasEffect(MobEffects.LEVITATION)) {
                     if (this.random.nextInt(3) == 0) {
                         if (this.getIsHelmetless()) {
-                            this.setAnimation(GUARDIAN_RAGE_UPPERCUT);
+                           // this.setAnimation(GUARDIAN_RAGE_UPPERCUT);
+                            this.setAnimation(GUARDIAN_HUG_ME);
                         } else {
-                            this.setAnimation(GUARDIAN_UPPERCUT_AND_BULLET);
+                           // this.setAnimation(GUARDIAN_UPPERCUT_AND_BULLET);
+                            this.setAnimation(GUARDIAN_HUG_ME);
                         }
                     } else {
-                        this.setAnimation(GUARDIAN_BURST_ATTACK);
+                        //this.setAnimation(GUARDIAN_BURST_ATTACK);
+                        this.setAnimation(GUARDIAN_HUG_ME);
                     }
                 } else if (stomp_cooldown <= 0 && !isNoAi() && this.getAnimation() == NO_ANIMATION && target.isOnGround()&& (this.distanceTo(target) > 6F && this.distanceTo(target) < 13F || this.distanceTo(target) > 2.75F && this.distanceTo(target) < 4.3F && this.random.nextInt(12) == 0)) {
                     stomp_cooldown = STOMP_COOLDOWN;
                     if (this.getIsHelmetless()) {
-                        this.setAnimation(GUARDIAN_RAGE_STOMP);
+                       // this.setAnimation(GUARDIAN_RAGE_STOMP);
+                        this.setAnimation(GUARDIAN_HUG_ME);
                     } else {
-                        this.setAnimation(GUARDIAN_STOMP);
+                        //this.setAnimation(GUARDIAN_STOMP);
+                        this.setAnimation(GUARDIAN_HUG_ME);
 
                     }
                 } else if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) > 2.75F && this.distanceTo(target) < 4.3F) {
                     if (this.random.nextInt(4) == 0) {
                         if (this.getIsHelmetless()) {
-                            this.setAnimation(GUARDIAN_RAGE_UPPERCUT);
+                            //this.setAnimation(GUARDIAN_RAGE_UPPERCUT);
+                            this.setAnimation(GUARDIAN_HUG_ME);
                         } else {
-                            this.setAnimation(GUARDIAN_UPPERCUT_AND_BULLET);
+                          // this.setAnimation(GUARDIAN_UPPERCUT_AND_BULLET);
+                            this.setAnimation(GUARDIAN_HUG_ME);
 
                         }
                     } else {
-                        this.setAnimation(animation);
+                        //this.setAnimation(animation);
+                        this.setAnimation(GUARDIAN_HUG_ME);
                     }
                 }
             }
@@ -332,11 +365,12 @@ public class Ender_Guardian_Entity extends Boss_monster {
 
         AnimationHandler.INSTANCE.updateAnimations(this);
 
-        if (this.getIsHelmetless()) {
-            this.getAttribute(Attributes.ARMOR).setBaseValue(10F);
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.29F);
-        }
+        if (stomp_cooldown > 0) stomp_cooldown--;
 
+    }
+
+    public void aiStep() {
+        super.aiStep();
         if (this.getAnimation() == GUARDIAN_LEFT_STRONG_ATTACK) {
             if (this.getAnimationTick() < 2) {
                 GravityPullparticle();
@@ -346,7 +380,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
             }
             if (this.getAnimationTick() == 34) {
                 this.playSound(ModSounds.ENDER_GUARDIAN_FIST.get(), 0.5f, 1F + this.getRandom().nextFloat() * 0.1F);
-                AreaAttack(5.15f,5,70,1.1f,100);
+                AreaAttack(5.15f,5,70,1.1f,100,0,0,false);
                 Attackparticle(2.2f,0);
                 ScreenShake_Entity.ScreenShake(level, this.position(), 20, 0.2f, 0, 10);
             }
@@ -360,7 +394,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
                 GravityPull();
             }
             if (this.getAnimationTick() == 29) {
-                AreaAttack(5.15f,5,70,1.1f,100);
+                AreaAttack(5.15f,5,70,1.1f,100,0,0,false);
                 this.playSound(ModSounds.ENDER_GUARDIAN_FIST.get(), 0.5f, 1F + this.getRandom().nextFloat() * 0.1F);
                 Attackparticle(2.2f,0);
                 ScreenShake_Entity.ScreenShake(level, this.position(), 20, 0.2f, 0, 10);
@@ -370,7 +404,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
 
         if (this.getAnimation() == GUARDIAN_RIGHT_ATTACK) {
             if (this.getAnimationTick() == 22) {
-                AreaAttack(5.85f,5,80,1,80);
+                AreaAttack(5.85f,5,80,1,80,0,0,false);
                 this.playSound(ModSounds.ENDER_GUARDIAN_FIST.get(), 0.5f, 1F + this.getRandom().nextFloat() * 0.1F);
                 Attackparticle(2.75f,0.5f);
                 ScreenShake_Entity.ScreenShake(level, this.position(), 15, 0.1f, 0, 10);
@@ -379,7 +413,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
 
         if (this.getAnimation() == GUARDIAN_LEFT_ATTACK) {
             if (this.getAnimationTick() == 19) {
-                AreaAttack(5.85f,5,80,1,80);
+                AreaAttack(5.85f,5,80,1,80,0,0,false);
                 this.playSound(ModSounds.ENDER_GUARDIAN_FIST.get(), 0.5f, 1F + this.getRandom().nextFloat() * 0.1F);
                 Attackparticle(2.75f,-0.5f);
                 ScreenShake_Entity.ScreenShake(level, this.position(), 15, 0.1f, 0, 10);
@@ -392,13 +426,13 @@ public class Ender_Guardian_Entity extends Boss_monster {
             }
             if (this.getAnimationTick() == 27) {
                 this.playSound(SoundEvents.GENERIC_EXPLODE, 1.5f, 1F + this.getRandom().nextFloat() * 0.1F);
-                AreaAttack(7.5f,6,100,1,0);
+                AreaAttack(7.5f,6,100,1,0,0,0,true);
             }
         }
         if (this.getAnimation() == GUARDIAN_UPPERCUT_AND_BULLET || this.getAnimation() == GUARDIAN_RAGE_UPPERCUT) {
             if (this.getAnimationTick() == 27) {
                 this.playSound(SoundEvents.GENERIC_EXPLODE, 1.5f, 1F + this.getRandom().nextFloat() * 0.1F);
-                AreaAttack(6.25f,6,60,1.5f,150);
+                AreaAttack(6.25f,6,60,1.5f,150,60,0.5F,false);
                 ScreenShake_Entity.ScreenShake(level, this.position(), 15, 0.3f, 0, 10);
             }
         }
@@ -419,14 +453,14 @@ public class Ender_Guardian_Entity extends Boss_monster {
         if (this.getAnimation() == GUARDIAN_RAGE_UPPERCUT) {
             if (this.getAnimationTick() == 84) {
                 RageAttack();
-                AreaAttack(5.5f,5,120,1.2f,100);
+                AreaAttack(5.5f,5,120,1.2f,100,0,0.0F,false);
+
                 this.playSound(SoundEvents.GENERIC_EXPLODE, 1.5f, 1F + this.getRandom().nextFloat() * 0.1F);
                 ScreenShake_Entity.ScreenShake(level, this.position(), 15, 0.2f, 0, 10);
             }
         }
 
         if (this.getAnimation() == GUARDIAN_MASS_DESTRUCTION) {
-            this.setUsedMassDestruction(true);
             if (this.getAnimationTick() == 39) {
                 Attackparticle(2.75f,2.25f);
                 Attackparticle(2.75f,-2.25f);
@@ -444,9 +478,22 @@ public class Ender_Guardian_Entity extends Boss_monster {
             }
         }
 
-        if (stomp_cooldown > 0) stomp_cooldown--;
+        if (this.getAnimation() == GUARDIAN_HUG_ME) {
+            if (this.getAnimationTick() == 15) {
+                Teleportparticle();
+            }
+
+            if (this.getAnimationTick() == 38) {
+                AreaAttack(6.0f,6.0f,120,1.0f,80,60,0.6F,false);
+                this.playSound(SoundEvents.GENERIC_EXPLODE, 1.5f, 1F + this.getRandom().nextFloat() * 0.1F);
+                ScreenShake_Entity.ScreenShake(level, this.position(), 15, 0.2f, 0, 10);
+
+            }
+        }
+
 
     }
+
 
     public boolean isHelmetless() {
         return this.getHealth() <= this.getMaxHealth() / 2.0F;
@@ -472,7 +519,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
     }
 
 
-    private void AreaAttack(float range,float height,float arc ,float damage,int ticks) {
+    private void AreaAttack(float range, float height, float arc, float damage, int shieldbreakticks, int stunticks, float airborne, boolean knockback) {
         List<LivingEntity> entitiesHit = this.getEntityLivingBaseNearby(range, height, range, range);
         for (LivingEntity entityHit : entitiesHit) {
             float entityHitAngle = (float) ((Math.atan2(entityHit.getZ() - this.getZ(), entityHit.getX() - this.getX()) * (180 / Math.PI) - 90) % 360);
@@ -487,20 +534,28 @@ public class Ender_Guardian_Entity extends Boss_monster {
             float entityHitDistance = (float) Math.sqrt((entityHit.getZ() - this.getZ()) * (entityHit.getZ() - this.getZ()) + (entityHit.getX() - this.getX()) * (entityHit.getX() - this.getX()));
             if (entityHitDistance <= range && (entityRelativeAngle <= arc / 2 && entityRelativeAngle >= -arc / 2) || (entityRelativeAngle >= 360 - arc / 2 || entityRelativeAngle <= -360 + arc / 2)) {
                 if (!(entityHit instanceof Ender_Guardian_Entity)) {
-                    entityHit.hurt(DamageSource.mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) * damage);
-                    if (entityHit instanceof Player && entityHit.isBlocking() && !(this.getAnimation() == GUARDIAN_BURST_ATTACK)) {
-                        disableShield(entityHit, ticks);
+                    boolean flag = entityHit.hurt(DamageSource.mobAttack(this), (float) (this.getAttributeValue(Attributes.ATTACK_DAMAGE) * damage ));
+                    if (entityHit instanceof Player && entityHit.isBlocking() && shieldbreakticks > 0) {
+                        disableShield(entityHit, shieldbreakticks);
                     }
-                    if(this.getAnimation() == GUARDIAN_UPPERCUT_AND_BULLET || this.getAnimation() == GUARDIAN_RAGE_UPPERCUT){
-                        entityHit.setDeltaMovement(entityHit.getDeltaMovement().add(0.0D, 0.5F, 0.0D));
+                    if (airborne > 0) {
+                        entityHit.setDeltaMovement(entityHit.getDeltaMovement().add(0.0D, airborne, 0.0D));
+
                     }
-                    if(this.getAnimation() == GUARDIAN_BURST_ATTACK){
+                    if (flag) {
+                        if (stunticks > 0) {
+                            entityHit.addEffect(new MobEffectInstance(ModEffect.EFFECTSTUN.get(), stunticks));
+                        }
+                    }
+
+                    if(knockback){
                         launch(entityHit);
                     }
                 }
             }
         }
     }
+
 
     private void MassDestruction(float grow, float damage, int ticks) {
         this.playSound(SoundEvents.GENERIC_EXPLODE, 1.5f, 1F + this.getRandom().nextFloat() * 0.1F);
@@ -561,6 +616,27 @@ public class Ender_Guardian_Entity extends Boss_monster {
             }
         }
     }
+
+    private void Teleportparticle() {
+        if (this.level.isClientSide) {
+            if (getTeleportPos().isPresent()) {
+                double d0 = this.getTeleportPos().get().getX();
+                double d1 = this.getY();
+                double d2 = this.getTeleportPos().get().getZ();
+                if (this.level.isClientSide) {
+                    for (int i1 = 0; i1 < 40 + random.nextInt(12); i1++) {
+                        double DeltaMovementY = getRandom().nextGaussian() * 0.07D;
+                        float angle = (0.01745329251F * this.yBodyRot) + i1;
+                        double extraX = 2F * Mth.sin((float) (Math.PI + angle));
+                        double extraY = 0.3F;
+                        double extraZ = 2F * Mth.cos(angle);
+                        this.level.addParticle(ParticleTypes.END_ROD, d0 + extraX, d1 + extraY, d2 + extraZ, 0, DeltaMovementY, 0);
+                    }
+                }
+            }
+        }
+    }
+
 
     private void launch(Entity entityHit) {
         double d0 = entityHit.getX() - this.getX();
@@ -777,7 +853,88 @@ public class Ender_Guardian_Entity extends Boss_monster {
             }
         }
     }
-    
+
+
+    private void teleportTowards(Entity p_32501_) {
+        double d0 = 16.0D;
+        double d1 = p_32501_.getX() + (this.random.nextDouble() - 0.5D) * 4.0D;
+        double d2 = p_32501_.getY();
+        double d3 = p_32501_.getZ() + (this.random.nextDouble() - 0.5D) * 4.0D;
+        this.teleport(d1, d2, d3);
+
+    }
+
+    private boolean teleport(double p_32544_, double p_32545_, double p_32546_) {
+        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(p_32544_, p_32545_, p_32546_);
+
+        while(blockpos$mutableblockpos.getY() > this.level.getMinBuildHeight() && !this.level.getBlockState(blockpos$mutableblockpos).getMaterial().blocksMotion()) {
+            blockpos$mutableblockpos.move(Direction.DOWN);
+        }
+
+        BlockState blockstate = this.level.getBlockState(blockpos$mutableblockpos);
+        boolean flag = blockstate.getMaterial().blocksMotion();
+        if (flag) {
+            net.minecraftforge.event.entity.EntityTeleportEvent.EnderEntity event = net.minecraftforge.event.ForgeEventFactory.onEnderTeleport(this, p_32544_, p_32545_, p_32546_);
+            if (event.isCanceled()) return false;
+            Vec3 vec3 = this.position();
+            boolean flag2 = this.ProperTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), true);
+            if (flag2) {
+                this.level.gameEvent(GameEvent.TELEPORT, vec3, GameEvent.Context.of(this));
+                if (!this.isSilent()) {
+                    this.playSound(SoundEvents.SHULKER_TELEPORT, 1.0F, 1.0F);
+                }
+            }
+            return flag2;
+        } else {
+            return false;
+        }
+    }
+
+
+    public boolean ProperTeleport(double p_20985_, double p_20986_, double p_20987_, boolean p_20988_) {
+        double d0 = this.getX();
+        double d1 = this.getY();
+        double d2 = this.getZ();
+        double d3 = p_20986_;
+        boolean flag = false;
+        BlockPos blockpos = new BlockPos(p_20985_, p_20986_, p_20987_);
+        Level level = this.level;
+        if (level.hasChunkAt(blockpos)) {
+            boolean flag1 = false;
+
+            while(!flag1 && blockpos.getY() > level.getMinBuildHeight()) {
+                BlockPos blockpos1 = blockpos.below();
+                BlockState blockstate = level.getBlockState(blockpos1);
+                if (blockstate.getMaterial().blocksMotion()) {
+                    flag1 = true;
+                } else {
+                    --d3;
+                    blockpos = blockpos1;
+                }
+            }
+
+            if (flag1) {
+                this.teleportTo(p_20985_, d3, p_20987_);
+                if (level.noCollision(this) && !level.containsAnyLiquid(this.getBoundingBox())) {
+                    flag = true;
+                }
+            }
+        }
+
+        if (!flag) {
+            this.teleportTo(d0, d1, d2);
+            return false;
+        } else {
+            if (p_20988_) {
+                level.broadcastEntityEvent(this, (byte)46);
+            }
+            this.getNavigation().stop();
+
+            return true;
+        }
+    }
+
+
     @Override
     public boolean isPushedByFluid() {
         return false;
@@ -1008,6 +1165,86 @@ public class Ender_Guardian_Entity extends Boss_monster {
     }
 
 
+    static class TeleportStrikeGoal extends SimpleAnimationGoal<Ender_Guardian_Entity> {
+
+        public TeleportStrikeGoal(Ender_Guardian_Entity entity, Animation animation) {
+            super(entity, animation);
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
+        }
+
+        public void tick() {
+            LivingEntity target = entity.getTarget();
+            if (target != null) {
+                entity.lookAt(target, 30.0F, 30.0F);
+                entity.getLookControl().setLookAt(target, 30.0F, 30.0F);
+
+                if(entity.getAnimationTick() == 40){
+                    entity.teleportTo(target.getX(), target.getY() + 8, target.getZ());
+                }
+            }
+
+
+            if (entity.getAnimationTick() > 48 && entity.isOnGround()) {
+                AnimationHandler.INSTANCE.sendAnimationMessage(entity, GUARDIAN_AIR_STRIKE2);
+            }
+
+        }
+    }
+
+
+    class HugmeGoal extends SimpleAnimationGoal<Ender_Guardian_Entity> {
+
+        private final float sensing;
+        private final int teleport;
+        public  double prevX;
+        public double prevZ;
+        private int newX;
+        private int newZ;
+
+        public HugmeGoal(Ender_Guardian_Entity entity, Animation animation, float sensing, int teleport) {
+            super(entity, animation);
+            this.sensing = sensing;
+            this.teleport = teleport;
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
+        }
+
+
+
+        @Override
+        public void start() {
+            super.start();
+            LivingEntity target = entity.getTarget();
+            if (target != null) {
+                prevX = target.getX();
+                prevZ = target.getZ();
+            }
+        }
+
+
+        public void tick() {
+            LivingEntity target = entity.getTarget();
+            if (Ender_Guardian_Entity.this.getAnimationTick() < 40 && target != null) {
+                Ender_Guardian_Entity.this.lookAt(target, 30.0F, 30.0F);
+                Ender_Guardian_Entity.this.getLookControl().setLookAt(target, 30.0F, 30.0F);
+            }else {
+                Ender_Guardian_Entity.this.setYRot(Ender_Guardian_Entity.this.yRotO);
+                //  Ender_Guardian_Entity.this.yBodyRot = Ender_Guardian_Entity.this.yBodyRotO;
+            }
+            if (entity.getAnimationTick() == (teleport - 6) && target != null) {
+                double x = target.getX();
+                double z = target.getZ();
+                double vx = (x - prevX) / teleport;
+                double vz = (z - prevZ) / teleport;
+                newX = Mth.floor(x + vx * sensing);
+                newZ = Mth.floor(z + vz * sensing);
+                entity.setTeleportPos(new BlockPos(newX, target.getY(), newZ));
+            }
+
+            if (entity.getAnimationTick() == teleport && target != null){
+                entity.teleport(newX, target.getY(), newZ);
+            }
+        }
+    }
 
     @OnlyIn(Dist.CLIENT)
     public void handleEntityEvent(byte id) {

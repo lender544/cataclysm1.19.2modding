@@ -559,8 +559,9 @@ public class Nameless_Sorcerer_Entity extends AbstractIllager implements IAnimat
 
             LivingEntity target = Nameless_Sorcerer_Entity.this.getTarget();
 
-            this.teleportEntity(target);
-
+            if(target != null) {
+                this.teleportEntity(target);
+            }
 
         }
 
