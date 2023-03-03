@@ -180,7 +180,7 @@ public class ModItems {
             () -> new Item(new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).fireResistant().rarity(Rarity.RARE)));
 
     public static final RegistryObject<Item> MUSIC_DISC_NETHERITE_MONSTROSITY = ITEMS.register("music_disc_netherite_monstrosity",
-            () -> new RecordItem(14, ModSounds.MONSTROSITY_MUSIC,new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).stacksTo(1).rarity(Rarity.EPIC).fireResistant(), 169 * 20));
+            () -> new RecordItem(14, ModSounds.MONSTROSITY_MUSIC,new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).stacksTo(1).rarity(Rarity.EPIC).fireResistant(), 79 * 20));
 
     public static final RegistryObject<Item> MUSIC_DISC_ENDER_GUARDIAN = ITEMS.register("music_disc_ender_guardian",
             () -> new RecordItem(14, ModSounds.ENDERGUARDIAN_MUSIC,new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).stacksTo(1).rarity(Rarity.EPIC).fireResistant(), 148 * 20));

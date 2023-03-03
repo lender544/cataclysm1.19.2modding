@@ -804,7 +804,7 @@ public class ModelEnder_Guardian extends AdvancedEntityModel<Ender_Guardian_Enti
         animator.rotate(root,0,(float)Math.toRadians(-17.5f),0);
         animator.rotate(lowerbody,(float)Math.toRadians(35f),0,0);
         animator.move(lowerbody,0,7,0);
-        animator.rotate(upperbody,(float)Math.toRadians(27.5f),(float)Math.toRadians(12.5f),(float)Math.toRadians(5f));
+        animator.rotate(upperbody,(float)Math.toRadians(27.5f),(float)Math.toRadians(12.5f),(float)Math.toRadians(-5f));
         animator.rotate(right_arm,(float)Math.toRadians(-65f),(float)Math.toRadians(-15f),(float)Math.toRadians(32.5f));
         animator.rotate(left_arm,(float)Math.toRadians(-65f),(float)Math.toRadians(15f),(float)Math.toRadians(-32.5f));
         animator.move(right_arm,2f,9f,-6);

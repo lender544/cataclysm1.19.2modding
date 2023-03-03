@@ -95,10 +95,17 @@ public class Ender_Guardian_Entity extends Boss_monster {
     public static final Animation GUARDIAN_HUG_ME = Animation.create(76);
     public static final Animation GUARDIAN_AIR_STRIKE1 = Animation.create(123);
     public static final Animation GUARDIAN_AIR_STRIKE2 = Animation.create(39);
+    public static final Animation GUARDIAN_RIGHT_follow_through = Animation.create(39);
     public static final int STOMP_COOLDOWN = 400;
+    public static final int UPPERCUT_COOLDOWN = 200;
+    public static final int TELEPORT_COOLDOWN = 280;
+    public static final int TELEPORT_SMASH_COOLDOWN = 600;
     public boolean Breaking = CMConfig.EnderguardianBlockBreaking;
 
     private int stomp_cooldown = 0;
+    private int teleport_cooldown = 0;
+    private int teleport_smash_cooldown = 0;
+    private int uppercut_cooldown = 0;
 
     public Ender_Guardian_Entity(EntityType entity, Level world) {
         super(entity, world);
@@ -147,7 +154,6 @@ public class Ender_Guardian_Entity extends Boss_monster {
         this.goalSelector.addGoal(1, new HugmeGoal(this, GUARDIAN_HUG_ME,30,20));
         this.goalSelector.addGoal(1, new TeleportStrikeGoal(this, GUARDIAN_AIR_STRIKE1));
         this.goalSelector.addGoal(1, new StompAttackGoal(this));
-
         this.goalSelector.addGoal(1, new UppercutAndBulletGoal(this,GUARDIAN_UPPERCUT_AND_BULLET));
         this.goalSelector.addGoal(1, new RageUppercut(this,GUARDIAN_RAGE_UPPERCUT));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -216,7 +222,6 @@ public class Ender_Guardian_Entity extends Boss_monster {
     }
 
     public void setIsHelmetless(boolean isHelmetless) {
-        boolean prev = isHelmetless();
         if (isHelmetless) {
             this.getAttribute(Attributes.ARMOR).setBaseValue(15F);
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.29F);
@@ -287,6 +292,10 @@ public class Ender_Guardian_Entity extends Boss_monster {
         return super.hurt(source, damage);
     }
 
+    @Override
+    public boolean isInvulnerableTo(DamageSource source) {
+        return source == DamageSource.IN_WALL  || super.isInvulnerableTo(source);
+    }
 
     public boolean causeFallDamage(float p_148711_, float p_148712_, DamageSource p_148713_) {
         return false;
@@ -304,6 +313,8 @@ public class Ender_Guardian_Entity extends Boss_monster {
         this.bossInfo.setProgress(this.getHealth() / this.getMaxHealth());
         LivingEntity target = this.getTarget();
         Animation animation = getRandomAttack(random);
+        Animation animation2 = this.getIsHelmetless() ? GUARDIAN_RAGE_UPPERCUT : GUARDIAN_UPPERCUT_AND_BULLET;
+
         if (this.isAlive()) {
             if (!this.getIsHelmetless() && this.isHelmetless()) {
                 this.setIsHelmetless(true);
@@ -313,51 +324,34 @@ public class Ender_Guardian_Entity extends Boss_monster {
                 this.setAnimation(GUARDIAN_MASS_DESTRUCTION);
             }
             else if (target != null && target.isAlive()) {
-                if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 2.75F) {
-                    if (this.random.nextInt(2) == 0) {
-                      //  this.setAnimation(GUARDIAN_BURST_ATTACK);
-                        this.setAnimation(GUARDIAN_HUG_ME);
-
+                if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceToSqr(target) >= 256 && this.distanceToSqr(target) <= 1024.0D && target.isOnGround() && (this.getIsHelmetless() && this.getRandom().nextFloat() * 100.0F < 20f || !this.getIsHelmetless() && this.getRandom().nextFloat() * 100.0F < 1f) && teleport_smash_cooldown <= 0) {
+                    teleport_smash_cooldown = TELEPORT_SMASH_COOLDOWN;
+                    this.setAnimation(GUARDIAN_AIR_STRIKE1);
+                } else if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) >= 4.3 && this.distanceTo(target) <= 16D && target.isOnGround() && this.getRandom().nextFloat() * 100.0F < 4f && teleport_cooldown <= 0) {
+                    teleport_cooldown = TELEPORT_COOLDOWN;
+                    this.setAnimation(GUARDIAN_HUG_ME);
+                } else if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 4.3 && target.isOnGround() && this.getRandom().nextFloat() * 100.0F < 0.7f && teleport_cooldown <= 0) {
+                    teleport_cooldown = TELEPORT_COOLDOWN;
+                    this.setAnimation(GUARDIAN_HUG_ME);
+                } else if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) < 2.75F) {
+                    if (this.random.nextInt(6) == 0) {
+                        this.setAnimation(GUARDIAN_BURST_ATTACK);
                     } else {
-                      //  this.setAnimation(animation);
-                        this.setAnimation(GUARDIAN_HUG_ME);
+                        this.setAnimation(animation);
                     }
-                } else if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) > 2.75F && this.distanceTo(target) < 4.3F && target.hasEffect(MobEffects.LEVITATION)) {
-                    if (this.random.nextInt(3) == 0) {
-                        if (this.getIsHelmetless()) {
-                           // this.setAnimation(GUARDIAN_RAGE_UPPERCUT);
-                            this.setAnimation(GUARDIAN_HUG_ME);
-                        } else {
-                           // this.setAnimation(GUARDIAN_UPPERCUT_AND_BULLET);
-                            this.setAnimation(GUARDIAN_HUG_ME);
-                        }
-                    } else {
-                        //this.setAnimation(GUARDIAN_BURST_ATTACK);
-                        this.setAnimation(GUARDIAN_HUG_ME);
-                    }
-                } else if (stomp_cooldown <= 0 && !isNoAi() && this.getAnimation() == NO_ANIMATION && target.isOnGround()&& (this.distanceTo(target) > 6F && this.distanceTo(target) < 13F || this.distanceTo(target) > 2.75F && this.distanceTo(target) < 4.3F && this.random.nextInt(12) == 0)) {
+                } else if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) > 2.75F && this.distanceTo(target) < 4.3F && (target.hasEffect(MobEffects.LEVITATION) || target.hasEffect(ModEffect.EFFECTSTUN.get()))) {
+                    uppercut_cooldown = UPPERCUT_COOLDOWN;
+                    this.setAnimation(animation2);
+                } else if (stomp_cooldown <= 0 && !isNoAi() && this.getAnimation() == NO_ANIMATION && target.isOnGround() && (this.distanceTo(target) > 6F && this.distanceTo(target) < 13F && this.getRandom().nextFloat() * 100.0F < 10f || this.distanceTo(target) > 2.75F && this.distanceTo(target) < 4.3F && this.getRandom().nextFloat() * 100.0F < 2f)) {
                     stomp_cooldown = STOMP_COOLDOWN;
-                    if (this.getIsHelmetless()) {
-                       // this.setAnimation(GUARDIAN_RAGE_STOMP);
-                        this.setAnimation(GUARDIAN_HUG_ME);
-                    } else {
-                        //this.setAnimation(GUARDIAN_STOMP);
-                        this.setAnimation(GUARDIAN_HUG_ME);
-
-                    }
+                    Animation animation3 = this.getIsHelmetless() ? GUARDIAN_RAGE_STOMP : GUARDIAN_STOMP;
+                    this.setAnimation(animation3);
                 } else if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) > 2.75F && this.distanceTo(target) < 4.3F) {
                     if (this.random.nextInt(4) == 0) {
-                        if (this.getIsHelmetless()) {
-                            //this.setAnimation(GUARDIAN_RAGE_UPPERCUT);
-                            this.setAnimation(GUARDIAN_HUG_ME);
-                        } else {
-                          // this.setAnimation(GUARDIAN_UPPERCUT_AND_BULLET);
-                            this.setAnimation(GUARDIAN_HUG_ME);
-
-                        }
+                        uppercut_cooldown = UPPERCUT_COOLDOWN;
+                        this.setAnimation(animation2);
                     } else {
-                        //this.setAnimation(animation);
-                        this.setAnimation(GUARDIAN_HUG_ME);
+                        this.setAnimation(animation);
                     }
                 }
             }
@@ -366,7 +360,9 @@ public class Ender_Guardian_Entity extends Boss_monster {
         AnimationHandler.INSTANCE.updateAnimations(this);
 
         if (stomp_cooldown > 0) stomp_cooldown--;
-
+        if (teleport_cooldown > 0) teleport_cooldown--;
+        if (teleport_smash_cooldown > 0) teleport_smash_cooldown--;
+        if (uppercut_cooldown > 0) uppercut_cooldown--;
     }
 
     public void aiStep() {
@@ -464,6 +460,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
             if (this.getAnimationTick() == 39) {
                 Attackparticle(2.75f,2.25f);
                 Attackparticle(2.75f,-2.25f);
+                this.playSound(SoundEvents.GENERIC_EXPLODE, 1.5f, 1F + this.getRandom().nextFloat() * 0.1F);
                 MassDestruction(5.0f, 1.1f,150);
                 ScreenShake_Entity.ScreenShake(level, this.position(), 15, 0.3f, 0, 10);
                 if (!this.level.isClientSide) {
@@ -491,7 +488,47 @@ public class Ender_Guardian_Entity extends Boss_monster {
             }
         }
 
+        if (this.getAnimation() == GUARDIAN_AIR_STRIKE1) {
+            if (this.getAnimationTick() == 20) {
+                ScreenShake_Entity.ScreenShake(level, this.position(), 20, 0.15f, 0, 20);
+                this.playSound(SoundEvents.GENERIC_EXPLODE, 1.5f, 1F + this.getRandom().nextFloat() * 0.1F);
+            }
 
+            if (this.getAnimationTick() == 40) {
+                this.playSound(SoundEvents.SHULKER_TELEPORT, 1.0F, 1.0F);
+            }
+        }
+
+
+        if (this.getAnimation() == GUARDIAN_AIR_STRIKE2) {
+            if (this.getAnimationTick() == 3) {
+                MassDestruction(3.0F,1.5F,200);
+                this.playSound(ModSounds.ENDER_GUARDIAN_FIST.get(), 0.5f, 1F + this.getRandom().nextFloat() * 0.1F);
+                Attackparticle(2.5f,1.25f);
+                Attackparticle(2.5f,-0.5f);
+                ScreenShake_Entity.ScreenShake(level, this.position(), 20, 0.3f, 0, 20);
+                switch (random.nextInt(3)) {
+                    case 0 -> StrikeRune(8,0.5);
+                   case 1 -> StrikeRune(10,0.75);
+                    case 2 -> StrikeRune(12,1);
+                    default -> {
+                    }
+                }
+            }
+        }
+    }
+
+
+    private void StrikeRune(int rune, double time) {
+        for (int i = 0; i < rune; i++) {
+            float throwAngle = i * Mth.PI / (rune/2);
+            for (int k = 0; k < 8; ++k) {
+                double d2 = 1.15D * (double) (k + 1);
+                int d3 = (int) (time * (k + 1));
+                this.spawnFangs(this.getX() + (double) Mth.cos(throwAngle) * 1.25D * d2, this.getZ() + (double) Mth.sin(throwAngle) * 1.25D * d2, this.getY(), this.getY() + 2, throwAngle, d3);
+            }
+
+        }
     }
 
 
@@ -558,7 +595,6 @@ public class Ender_Guardian_Entity extends Boss_monster {
 
 
     private void MassDestruction(float grow, float damage, int ticks) {
-        this.playSound(SoundEvents.GENERIC_EXPLODE, 1.5f, 1F + this.getRandom().nextFloat() * 0.1F);
         for (LivingEntity entityHit : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(grow))) {
             if (!isAlliedTo(entityHit) && !(entityHit instanceof Ender_Guardian_Entity) && entityHit != this) {
                 entityHit.hurt(DamageSource.mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) * damage);
@@ -854,15 +890,6 @@ public class Ender_Guardian_Entity extends Boss_monster {
         }
     }
 
-
-    private void teleportTowards(Entity p_32501_) {
-        double d0 = 16.0D;
-        double d1 = p_32501_.getX() + (this.random.nextDouble() - 0.5D) * 4.0D;
-        double d2 = p_32501_.getY();
-        double d3 = p_32501_.getZ() + (this.random.nextDouble() - 0.5D) * 4.0D;
-        this.teleport(d1, d2, d3);
-
-    }
 
     private boolean teleport(double p_32544_, double p_32545_, double p_32546_) {
         BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(p_32544_, p_32545_, p_32546_);
@@ -1179,7 +1206,8 @@ public class Ender_Guardian_Entity extends Boss_monster {
                 entity.getLookControl().setLookAt(target, 30.0F, 30.0F);
 
                 if(entity.getAnimationTick() == 40){
-                    entity.teleportTo(target.getX(), target.getY() + 8, target.getZ());
+                    float y = entity.getIsHelmetless() ? 8.0f : 4.0f;
+                    entity.teleportTo(target.getX(), target.getY() + y, target.getZ());
                 }
             }
 
@@ -1240,8 +1268,10 @@ public class Ender_Guardian_Entity extends Boss_monster {
                 entity.setTeleportPos(new BlockPos(newX, target.getY(), newZ));
             }
 
-            if (entity.getAnimationTick() == teleport && target != null){
-                entity.teleport(newX, target.getY(), newZ);
+            if (entity.getAnimationTick() == teleport && target != null) {
+                if (entity.getTeleportPos().isPresent()) {
+                    entity.teleport(entity.getTeleportPos().get().getX(), target.getY(), entity.getTeleportPos().get().getZ());
+                }
             }
         }
     }
