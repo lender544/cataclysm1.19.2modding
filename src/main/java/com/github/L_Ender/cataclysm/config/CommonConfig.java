@@ -1,0 +1,166 @@
+package com.github.L_Ender.cataclysm.config;
+
+import net.minecraftforge.common.ForgeConfigSpec;
+
+public class CommonConfig {
+
+
+    public final ForgeConfigSpec.DoubleValue LavaVisionOpacity;
+    public final ForgeConfigSpec.BooleanValue shadersCompat;
+
+    public final ForgeConfigSpec.IntValue BulwarkOfTheFlameCooldown;
+    public final ForgeConfigSpec.IntValue GauntletOfBulwarkCooldown;
+    public final ForgeConfigSpec.IntValue InfernalForgeCooldown;
+    public final ForgeConfigSpec.IntValue VoidForgeCooldown;
+    public final ForgeConfigSpec.IntValue TheIncineratorCooldown;
+    public final ForgeConfigSpec.IntValue WASWMissileCooldown;
+    public final ForgeConfigSpec.IntValue WASWHowitzerCooldown;
+    public final ForgeConfigSpec.IntValue VASWCooldown;
+    public final ForgeConfigSpec.IntValue VoidCoreCooldown;
+
+
+    public final ForgeConfigSpec.DoubleValue Voidrunedamage;
+    public final ForgeConfigSpec.IntValue Lavabombradius;
+    public final ForgeConfigSpec.DoubleValue Ashenbreathdamage;
+    public final ForgeConfigSpec.DoubleValue DeathLaserdamage;
+    public final ForgeConfigSpec.DoubleValue Laserdamage;
+    public final ForgeConfigSpec.DoubleValue BlazingBonedamage;
+    public final ForgeConfigSpec.DoubleValue WitherMissiledamage;
+    public final ForgeConfigSpec.DoubleValue WitherHowizterdamage;
+    public final ForgeConfigSpec.DoubleValue WitherHomingMissiledamage;
+
+    public final ForgeConfigSpec.BooleanValue ScreenShake;
+    public final ForgeConfigSpec.BooleanValue BossMusic;
+
+    public final ForgeConfigSpec.DoubleValue EnderguardianHealthMultiplier;
+    public final ForgeConfigSpec.DoubleValue EnderguardianDamageMultiplier;
+    public final ForgeConfigSpec.IntValue EnderguardianDamageCap;
+    public final ForgeConfigSpec.BooleanValue EnderguardianBlockBreaking;
+    public final ForgeConfigSpec.DoubleValue EnderguardianLongRangelimit;
+    public final ForgeConfigSpec.IntValue EnderguardianBlockBreakingX;
+    public final ForgeConfigSpec.IntValue EnderguardianBlockBreakingY;
+    public final ForgeConfigSpec.IntValue EnderguardianBlockBreakingZ;
+
+    public final ForgeConfigSpec.IntValue Lavabombmagazine;
+    public final ForgeConfigSpec.IntValue Lavabombamount;
+    public final ForgeConfigSpec.DoubleValue MonstrosityHealthMultiplier;
+    public final ForgeConfigSpec.DoubleValue MonstrosityDamageMultiplier;
+    public final ForgeConfigSpec.IntValue MonstrosityDamageCap;
+    public final ForgeConfigSpec.DoubleValue MonstrosityLongRangelimit;
+    public final ForgeConfigSpec.BooleanValue NetheritemonstrosityBodyBloking;
+
+    public final ForgeConfigSpec.BooleanValue EndergolemBlockBreaking;
+    public final ForgeConfigSpec.DoubleValue EndergolemLongRangelimit;
+    public final ForgeConfigSpec.DoubleValue EndergolemHealthMultiplier;
+    public final ForgeConfigSpec.DoubleValue EndergolemDamageMultiplier;
+
+    public final ForgeConfigSpec.DoubleValue IgnisHealthMultiplier;
+    public final ForgeConfigSpec.DoubleValue IgnisDamageMultiplier;
+
+    public final ForgeConfigSpec.DoubleValue RevenantHealthMultiplier;
+    public final ForgeConfigSpec.DoubleValue RevenantDamageMultiplier;
+
+    public final ForgeConfigSpec.DoubleValue HarbingerHealthMultiplier;
+    public final ForgeConfigSpec.DoubleValue HarbingerDamageMultiplier;
+    public final ForgeConfigSpec.DoubleValue HarbingerLongRangelimit;
+    public final ForgeConfigSpec.IntValue HarbingerDamageCap;
+    public final ForgeConfigSpec.BooleanValue HarbingerLightFire;
+
+    public final ForgeConfigSpec.IntValue IgnisDamageCap;
+    public final ForgeConfigSpec.DoubleValue IgnisLongRangelimit;
+    public final ForgeConfigSpec.BooleanValue IgnisBlockBreaking;
+
+    public CommonConfig(final ForgeConfigSpec.Builder builder) {
+        builder.push("Etc");
+        LavaVisionOpacity = buildDouble(builder, "lavaVisionOpacity", "all", 0.5D, 0.01D, 1D, "Lava Opacity for the Ignitium Helemt.");
+        shadersCompat = buildBoolean(builder, "shadersCompat", "all", false, "Whether to disable certain aspects of the Ignitium Helemt. Enable if issues with shaders persist.");
+        ScreenShake = buildBoolean(builder, "ScreenShake(on/off)", "all", true, "ScreenShake(on/off)");
+        BossMusic = buildBoolean(builder, "BossMusic(on/off)", "all", true, "BossMusic(on/off)");
+        builder.pop();
+
+        builder.push("Weapon Cooldown");
+        BulwarkOfTheFlameCooldown = buildInt(builder, "BulwarkOfTheFlameCooldown", "all", 80, 0, 1000000, "Bulwark of the Flame's Cooldown");
+        GauntletOfBulwarkCooldown = buildInt(builder, "GauntletOfBulwarkCooldown", "all", 80, 0, 1000000, "Gauntlet of Bulwark's Cooldown");
+        InfernalForgeCooldown = buildInt(builder, "InfernalForgeCooldown", "all", 80, 0, 1000000, "Infernal Forge's Cooldown");
+        VoidForgeCooldown = buildInt(builder, "VoidForgeCooldown", "all", 120, 0, 1000000, "Void Forge's Cooldown");
+        TheIncineratorCooldown = buildInt(builder, "TheIncineratorCooldown", "all", 400, 0, 1000000, "The Incinerator's Cooldown");
+        WASWMissileCooldown = buildInt(builder, "WASWMissileCooldown", "all", 40, 0, 1000000, "Wither Assault Shoulder Weapon's Missile Cooldown");
+        WASWHowitzerCooldown = buildInt(builder, "WASWHowitzerCooldown", "all", 100, 0, 1000000, "Wither Assault Shoulder Weapon's Howitzer Cooldown");
+        VASWCooldown = buildInt(builder, "VASWCooldown", "all", 120, 0, 1000000, "Void Assault Shoulder Weapon's Cooldown");
+        VoidCoreCooldown = buildInt(builder, "VoidCoreCooldown", "all", 160, 0, 1000000, "Void Core's Cooldown");
+        builder.pop();
+
+        builder.push("Entity damage");
+        Voidrunedamage = buildDouble(builder, "Voidrunedamage", "all", 7.0D, 0D, 1000000D, "Void Rune's Damage");
+        Ashenbreathdamage = buildDouble(builder, "Ashenbreathdamage", "all", 4, 0D, 1000000D, "Ashen Breath's Damage");
+        DeathLaserdamage = buildDouble(builder, "DeathLaserdamage", "all", 6, 0D, 1000000D, "Death Laser's Damage");
+        Laserdamage = buildDouble(builder, "Laserdamage", "all", 4, 0D, 1000000D, "Laser's Damage");
+        BlazingBonedamage = buildDouble(builder, "BlazingBonedamage", "all", 5, 0D, 1000000D, "Blazing Bone's Damage");
+        WitherMissiledamage = buildDouble(builder, "WitherMissiledamage", "all", 8, 0D, 1000000D, "Wither Missile's Damage");
+        WitherHowizterdamage = buildDouble(builder, "WitherHowizterdamage", "all", 8, 0D, 1000000D, "Wither Howizter's Damage");
+        WitherHomingMissiledamage = buildDouble(builder, "WitherHomingMissiledamage", "all", 3, 0, 1000000, "Wither Homing Missile's Damage");
+        Lavabombradius = buildInt(builder, "Lavabombradius", "all", 2, 1, 7, "Lava bomb's Radius");
+        builder.pop();
+
+        builder.push("Ender Guardian");
+        EnderguardianHealthMultiplier = buildDouble(builder, "EnderGuardianHealthMultiplier", "all", 1.0D, 0D, 1000000D, "EnderGuardian's Health Multiplier");
+        EnderguardianDamageMultiplier = buildDouble(builder, "EnderGuardianDamageMultiplier", "all", 1.0D, 0D, 1000000D, "EnderGuardian's Damage Multiplier");
+        EnderguardianDamageCap = buildInt(builder, "EnderGuardianDamageCap", "all", 22, 0, 1000000, "EnderGuardian's DamageCap");
+        EnderguardianBlockBreaking = buildBoolean(builder, "EnderguardianBlockBreaking", "all", true, "Ender guardian's block breaking ignore the MobGriefing");
+        EnderguardianLongRangelimit = buildDouble(builder, "Guardian's prevent attacks from far away Range", "all", 12.0D, 1D, 1000000D, "Guardian's Immune to Long distance attack range.");
+        EnderguardianBlockBreakingX = buildInt(builder, "EnderGuardianBlockBreaking X", "all", 15, 0, 20, "EnderGuardianBlockBreaking radius");
+        EnderguardianBlockBreakingY = buildInt(builder, "EnderGuardianBlockBreaking Y", "all", 2, 0, 10, "EnderGuardianBlockBreaking radius");
+        EnderguardianBlockBreakingZ = buildInt(builder, "EnderGuardianBlockBreaking Z", "all", 15, 0, 20, "EnderGuardianBlockBreaking radius");
+        builder.pop();
+
+        builder.push("Netherite Monstrosity");
+        Lavabombmagazine = buildInt(builder, "LavabombMagazine", "all", 3, 1, 1000000, "Monstrosity's Lavabomb magazine.");
+        Lavabombamount = buildInt(builder, "Lavabombamount", "all", 3, 1, 1000000, "Monstrosity's Lavabomb amount" );
+        MonstrosityHealthMultiplier = buildDouble(builder, "MonstrosityHealthMultiplier", "all", 1.0D, 0D, 1000000D, "Monstrosity's Health Multiplier");
+        MonstrosityDamageMultiplier = buildDouble(builder, "MonstrosityDamageMultiplier", "all", 1.0D, 0D, 1000000D, "Monstrosity's Damage Multiplier");
+        MonstrosityDamageCap = buildInt(builder, "MonstrosityDamageCap", "all", 22, 0, 1000000, "Monstrosity's DamageCap");
+        NetheritemonstrosityBodyBloking = buildBoolean(builder, "NetheritemonstrosityBodyBloking", "all", true, "Monstrosity's bodyBlocking verdict");
+        MonstrosityLongRangelimit = buildDouble(builder, "Monstrosity's prevent attacks from far away Range", "all", 18.0D, 1D, 1000000D, "Monstrosity's Immune to Long distance attack range.");
+        builder.pop();
+
+        builder.push("Ender Golem");
+        EndergolemBlockBreaking = buildBoolean(builder, "EndergolemBlockBreaking", "all", false, "Ender Golem's block breaking ignore the MobGriefing");
+        EndergolemLongRangelimit = buildDouble(builder, "Endergolem's prevent attacks from far away Range", "all", 6.0D, 1D, 1000000D, "Endergolem's Immune to Long distance attack range.");
+        EndergolemHealthMultiplier = buildDouble(builder, "GolemHealthMultiplier", "all", 1.0D, 0D, 1000000D, "Golem's Health Multiplier");
+        EndergolemDamageMultiplier = buildDouble(builder, "GolemDamageMultiplier", "all", 1.0D, 0D, 1000000D, "Golem's Damage Multiplier");
+        builder.pop();
+
+        builder.push("Ignis");
+        IgnisHealthMultiplier = buildDouble(builder, "IgnisHealthMultiplier", "all", 1.0D, 0D, 1000000D, "Ignis's Health Multiplier");
+        IgnisDamageMultiplier = buildDouble(builder, "IgnisDamageMultiplier", "all", 1.0D, 0D, 1000000D, "Ignis's Damage Multiplier");
+        IgnisLongRangelimit = buildDouble(builder, "Ignis's prevent attacks from far away Range", "all", 15.0D, 1D, 1000000D, "Ignis's Immune to Long distance attack range.");
+        IgnisDamageCap = buildInt(builder, "IgnisDamageCap", "all", 20, 0, 1000000, "Ignis's DamageCap");
+        IgnisBlockBreaking = buildBoolean(builder, "IgnisBlockBreaking", "all", true, "Ignis's cracked block breaking ignore the MobGriefing");
+        builder.pop();
+
+        builder.push("revenant");
+        RevenantHealthMultiplier = buildDouble(builder, "RevenantHealthMultiplier", "all", 1.0D, 0D, 1000000D, "Revenant's Health Multiplier");
+        RevenantDamageMultiplier = buildDouble(builder, "RevenantDamageMultiplier", "all", 1.0D, 0D, 1000000D, "Revenant's Damage Multiplier");
+        builder.pop();
+
+        builder.push("The Harbinger");
+        HarbingerHealthMultiplier = buildDouble(builder, "HarbingerHealthMultiplier", "all", 1.0D, 0D, 1000000D, "Harbinger's Health Multiplier");
+        HarbingerDamageMultiplier = buildDouble(builder, "HarbingerDamageMultiplier", "all", 1.0D, 0D, 1000000D, "Harbinger's Damage Multiplier");
+        HarbingerLongRangelimit = buildDouble(builder, "The Harbinger's prevent attacks from far away Range", "all", 35D, 1D, 1000000D, "Harbinger's Immune to Long distance attack range.");
+        HarbingerDamageCap = buildInt(builder, "The Harbinger DamageCap", "all", 22, 0, 1000000, "Harbinger's DamageCap");
+        HarbingerLightFire = buildBoolean(builder, "The Harbinger Light A Fire", "all", true, "Harbinger's lasers can light a fire in MobGriefing");
+        builder.pop();
+    }
+
+    private static ForgeConfigSpec.BooleanValue buildBoolean(ForgeConfigSpec.Builder builder, String name, String catagory, boolean defaultValue, String comment) {
+        return builder.comment(comment).translation(name).define(name, defaultValue);
+    }
+
+    private static ForgeConfigSpec.IntValue buildInt(ForgeConfigSpec.Builder builder, String name, String catagory, int defaultValue, int min, int max, String comment) {
+        return builder.comment(comment).translation(name).defineInRange(name, defaultValue, min, max);
+    }
+
+    private static ForgeConfigSpec.DoubleValue buildDouble(ForgeConfigSpec.Builder builder, String name, String catagory, double defaultValue, double min, double max, String comment) {
+        return builder.comment(comment).translation(name).defineInRange(name, defaultValue, min, max);
+    }
+}

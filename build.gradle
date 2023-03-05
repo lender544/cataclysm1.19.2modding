@@ -38,8 +38,8 @@ apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 
 version = '0.72-1.19.2'
-group = 'com.yourname.modid' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'L_Enders_Cataclysm'
+group = 'com.github.L_Ender' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'cataclysm'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -63,48 +63,41 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                cataclysm {
                     source sourceSets.main
                 }
             }
         }
 
         server {
-            workingDirectory project.file('run')
             properties 'mixin.env.remapRefMap': 'true'
             property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
-            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/'), '--existing', sourceSets.main.resources.srcDirs[0]
+            workingDirectory project.file('run')
+            arg "-mixin.config="+"citadel.mixins.json"
+            arg "-mixin.config="+"cataclysm.mixins.json"
 
-            // Recommended logging data for a userdev environment
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
 
-            // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                citadel {
                     source sourceSets.main
                 }
             }
         }
 
         data {
-            workingDirectory project.file('run')
             properties 'mixin.env.remapRefMap': 'true'
             property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
-            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/'), '--existing', sourceSets.main.resources.srcDirs[0]
+            workingDirectory project.file('run')
+            arg "-mixin.config="+"citadel.mixins.json"
+            arg "-mixin.config="+"cataclysm.mixins.json"
 
-            // Recommended logging data for a userdev environment
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
 
-            // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
-            // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-
             mods {
-                examplemod {
+                citadel {
                     source sourceSets.main
                 }
             }
@@ -127,7 +120,9 @@ dependencies {
 
 mixin {
     add sourceSets.main, "citadel.refmap.json"
+    add sourceSets.main, "cataclysm.refmap.json"
     config 'citadel.mixins.json'
+    config 'cataclysm.mixins.json'
 }
 // Example for how to get properties into the manifest for reading by the runtime..
 jar {
@@ -150,6 +145,10 @@ apply plugin: 'org.spongepowered.mixin'
 jar.finalizedBy('reobfJar')
 // However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
 //publish.dependsOn('reobfJar')
+
+mixin {
+    add sourceSets.main, "cataclysm.refmap.json"
+}
 
 publishing {
     publications {
