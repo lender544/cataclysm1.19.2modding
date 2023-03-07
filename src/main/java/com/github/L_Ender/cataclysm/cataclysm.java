@@ -126,7 +126,7 @@ public class cataclysm {
         event.enqueueWork(Modcompat::registerDispenserBehaviors);
         NETWORK_WRAPPER.registerMessage(packetsRegistered++, MessageCMMultipart.class, MessageCMMultipart::encode, MessageCMMultipart::new, MessageCMMultipart.Handler::onMessage);
         NETWORK_WRAPPER.registerMessage(packetsRegistered++, MessageUpdateblockentity.class, MessageUpdateblockentity::write, MessageUpdateblockentity::read, MessageUpdateblockentity.Handler::handle);
-        BufferedReader urlContents = WebHelper.getURLContents("https://raw.githubusercontent.com/lender544/Cataclysm_1.19/master/src/main/resources/assets/cataclysm/patron.txt?token=GHSAT0AAAAAAB7AEOCEY3HUGNQINFFZQ7SIZAHMWGA", "assets/cataclysm/patron.txt");
+        BufferedReader urlContents = WebHelper.getURLContents("https://raw.githubusercontent.com/lender544/Cataclysm_1.19/master/src/main/resources/assets/cataclysm/patron.txt?token=GHSAT0AAAAAAB7AEOCEJYKTLIFUA75DIDWIZAHNAPA", "assets/cataclysm/patron.txt");
         if (urlContents != null) {
             try {
                 String line;
