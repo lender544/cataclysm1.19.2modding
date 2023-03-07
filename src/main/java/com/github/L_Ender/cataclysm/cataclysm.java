@@ -11,7 +11,6 @@ import com.github.L_Ender.cataclysm.message.MessageUpdateblockentity;
 import com.github.L_Ender.cataclysm.util.Cataclysm_Group;
 import com.github.L_Ender.cataclysm.util.Modcompat;
 import com.github.L_Ender.cataclysm.init.*;
-import com.github.alexthe666.citadel.web.WebHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.CreativeModeTab;
@@ -34,11 +33,6 @@ import net.minecraftforge.server.ServerLifecycleHooks;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 //import com.github.L_Ender.cataclysm.init.ModStructures;
 
 @Mod(cataclysm.MODID)
@@ -50,7 +44,6 @@ public class cataclysm {
     private static final String PROTOCOL_VERSION = Integer.toString(1);
     public static CreativeModeTab CATACLYSM_GROUP = new Cataclysm_Group();
     public static CommonProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
-    public static List<String> BLOCKED = new ArrayList<>();
     private static int packetsRegistered;
 
 
@@ -126,18 +119,6 @@ public class cataclysm {
         event.enqueueWork(Modcompat::registerDispenserBehaviors);
         NETWORK_WRAPPER.registerMessage(packetsRegistered++, MessageCMMultipart.class, MessageCMMultipart::encode, MessageCMMultipart::new, MessageCMMultipart.Handler::onMessage);
         NETWORK_WRAPPER.registerMessage(packetsRegistered++, MessageUpdateblockentity.class, MessageUpdateblockentity::write, MessageUpdateblockentity::read, MessageUpdateblockentity.Handler::handle);
-        BufferedReader urlContents = WebHelper.getURLContents("https://raw.githubusercontent.com/lender544/Cataclysm_1.19/master/src/main/resources/assets/cataclysm/patron.txt?token=GHSAT0AAAAAAB7AEOCEJYKTLIFUA75DIDWIZAHNAPA", "assets/cataclysm/patron.txt");
-        if (urlContents != null) {
-            try {
-                String line;
-                while ((line = urlContents.readLine()) != null) {
-                    BLOCKED.add(line);
-                }
-            } catch (IOException e) {
-                LOGGER.warn("Failed to load blocked contributor perks");
-            }
-        } else LOGGER.warn("Failed to load blocked contributor perks");
-
     }
 
 }

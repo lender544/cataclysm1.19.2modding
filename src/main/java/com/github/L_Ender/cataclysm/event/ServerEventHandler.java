@@ -1,20 +1,13 @@
 package com.github.L_Ender.cataclysm.event;
 
 import com.github.L_Ender.cataclysm.cataclysm;
-import com.github.L_Ender.cataclysm.entity.Ender_Guardian_Entity;
-import com.github.L_Ender.cataclysm.entity.Ignis_Entity;
-import com.github.L_Ender.cataclysm.entity.Netherite_Monstrosity_Entity;
 import com.github.L_Ender.cataclysm.entity.The_Harbinger_Entity;
 import com.github.L_Ender.cataclysm.init.ModBlocks;
 import com.github.L_Ender.cataclysm.init.ModEffect;
 import com.github.L_Ender.cataclysm.init.ModItems;
 import com.github.L_Ender.cataclysm.items.final_fractal;
 import com.github.L_Ender.cataclysm.items.zweiender;
-import com.github.alexthe666.citadel.Citadel;
-import com.github.alexthe666.citadel.server.entity.CitadelEntityData;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.EntityDamageSource;
@@ -125,27 +118,8 @@ public class ServerEventHandler {
                     ((Mob) event.getEntity()).setTarget(null);
                 }
             }
-            String username = event.getEntity().getName().getString();
-            if (cataclysm.BLOCKED.contains(username)) {
-                CompoundTag tag = CitadelEntityData.getOrCreateCitadelTag(Minecraft.getInstance().player);
-                String rendererName = tag.contains("BlockedType") ? tag.getString("BlockedType") : "cataclysm";
-                if (!rendererName.equals("none")) {
-                    if (event.getTarget() instanceof The_Harbinger_Entity) {
-                        ((Mob) event.getEntity()).setTarget(null);
-                    }
-                    if (event.getTarget() instanceof Ignis_Entity) {
-                        ((Mob) event.getEntity()).setTarget(null);
-                    }
-                    if (event.getTarget() instanceof Ender_Guardian_Entity) {
-                        ((Mob) event.getEntity()).setTarget(null);
-                    }
-                    if (event.getTarget() instanceof Netherite_Monstrosity_Entity) {
-                        ((Mob) event.getEntity()).setTarget(null);
-                    }
-                }
-            }
-
         }
+
     }
 
     @SubscribeEvent
