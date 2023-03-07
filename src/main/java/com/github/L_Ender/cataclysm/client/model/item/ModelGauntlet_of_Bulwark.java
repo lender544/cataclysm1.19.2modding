@@ -1,7 +1,4 @@
-package com.github.L_Ender.cataclysm.client.model.item;// Made with Blockbench 4.6.4
-// Exported for Minecraft version 1.15 - 1.16 with MCP mappings
-// Paste this class into your mod and generate all required imports
-
+package com.github.L_Ender.cataclysm.client.model.item;
 
 import com.github.alexthe666.citadel.client.model.AdvancedEntityModel;
 import com.github.alexthe666.citadel.client.model.AdvancedModelBox;

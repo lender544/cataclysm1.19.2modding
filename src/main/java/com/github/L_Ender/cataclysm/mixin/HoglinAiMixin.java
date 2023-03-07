@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(HoglinAi.class)
 public class HoglinAiMixin {
 
-
     @Inject(
             method = {"Lnet/minecraft/world/entity/monster/hoglin/HoglinAi;updateActivity(Lnet/minecraft/world/entity/monster/hoglin/Hoglin;)V"},
             remap = true,
@@ -23,7 +22,7 @@ public class HoglinAiMixin {
             ),
             cancellable = true
     )
-    private static void di_updateActivity(Hoglin hoglin, CallbackInfo ci) {
+    private static void cm_updateActivity(Hoglin hoglin, CallbackInfo ci) {
         Brain<Hoglin> brain = hoglin.getBrain();
         if(hoglin.hasEffect(ModEffect.EFFECTSTUN.get())){
             brain.eraseMemory(MemoryModuleType.ATTACK_TARGET);

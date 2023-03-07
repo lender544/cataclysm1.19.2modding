@@ -566,6 +566,10 @@ public class Ender_Guardian_Entity extends Boss_monster {
         return GUARDIAN_FALLEN;
     }
 
+    public boolean canBeAffected(MobEffectInstance p_31495_) {
+        return p_31495_.getEffect() != MobEffects.LEVITATION
+                && super.canBeAffected(p_31495_);
+    }
 
     private void AreaAttack(float range, float height, float arc, float damage, int shieldbreakticks, int stunticks, float airborne, boolean knockback) {
         List<LivingEntity> entitiesHit = this.getEntityLivingBaseNearby(range, height, range, range);
@@ -1076,11 +1080,9 @@ public class Ender_Guardian_Entity extends Boss_monster {
                    // Ender_Guardian_Entity.this.yBodyRot = Ender_Guardian_Entity.this.yBodyRotO;
                 }
               //Ender_Guardian_Entity.this.random.nextInt(3) == 0
-                if (Ender_Guardian_Entity.this.getAnimationTick() == 24 && target != null && Ender_Guardian_Entity.this.random.nextInt(3) == 0) {
-                    if (Ender_Guardian_Entity.this.distanceTo(target) <= 4) {
-                        AnimationHandler.INSTANCE.sendAnimationMessage(Ender_Guardian_Entity.this, GUARDIAN_LEFT_SWING);
-                    }
-                }
+             //   if (Ender_Guardian_Entity.this.getAnimationTick() == 24 && target != null && Ender_Guardian_Entity.this.random.nextInt(2) == 0 && Ender_Guardian_Entity.this.distanceTo(target) <= 4) {
+           //         AnimationHandler.INSTANCE.sendAnimationMessage(Ender_Guardian_Entity.this, GUARDIAN_LEFT_SWING);
+            //    }
             }
             if (Ender_Guardian_Entity.this.getAnimation() == GUARDIAN_RIGHT_ATTACK) {
                 if (Ender_Guardian_Entity.this.getAnimationTick() < 22 && target != null || Ender_Guardian_Entity.this.getAnimationTick() > 32 && target != null) {
@@ -1090,11 +1092,10 @@ public class Ender_Guardian_Entity extends Boss_monster {
                   //  Ender_Guardian_Entity.this.yBodyRot = Ender_Guardian_Entity.this.yBodyRotO;
                 }
 
-                if (Ender_Guardian_Entity.this.getAnimationTick() == 26 && target != null && Ender_Guardian_Entity.this.random.nextInt(3) == 0) {
-                    if (Ender_Guardian_Entity.this.distanceTo(target) <= 4) {
-                        AnimationHandler.INSTANCE.sendAnimationMessage(Ender_Guardian_Entity.this, GUARDIAN_RIGHT_SWING);
-                    }
-                }
+              //  if (Ender_Guardian_Entity.this.getAnimationTick() == 26 && target != null && Ender_Guardian_Entity.this.random.nextInt(2) == 0 && Ender_Guardian_Entity.this.distanceTo(target) <= 4) {
+              //      AnimationHandler.INSTANCE.sendAnimationMessage(Ender_Guardian_Entity.this, GUARDIAN_RIGHT_SWING);
+
+             //   }
             }
             if (Ender_Guardian_Entity.this.getAnimation() == GUARDIAN_LEFT_STRONG_ATTACK) {
                 if (Ender_Guardian_Entity.this.getAnimationTick() < 34 && target != null || Ender_Guardian_Entity.this.getAnimationTick() > 44 && target != null) {
@@ -1223,6 +1224,9 @@ public class Ender_Guardian_Entity extends Boss_monster {
         }
 
         public void tick() {
+            if(entity.getAnimationTick() < 40) {
+                entity.setDeltaMovement(0, entity.getDeltaMovement().y, 0);
+            }
             LivingEntity target = entity.getTarget();
             if (target != null) {
                 entity.lookAt(target, 30.0F, 30.0F);
