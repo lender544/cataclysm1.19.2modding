@@ -131,6 +131,7 @@
   "entity.cataclysm.void_howitzer": "Void Howitzer",
   "entity.cataclysm.laser_beam": "Laser Beam",
   "entity.cataclysm.death_laser_beam": "Death Laser Beam",
+  "entity.cataclysm.void_vortex": "Void Vortex",
 
   "effect.cataclysm.monstrous": "Monstrous",
   "effect.cataclysm.blazing_brand": "Blazing Brand",

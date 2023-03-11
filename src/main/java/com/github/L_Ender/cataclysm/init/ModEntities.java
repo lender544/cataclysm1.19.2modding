@@ -4,12 +4,9 @@ package com.github.L_Ender.cataclysm.init;
 import com.github.L_Ender.cataclysm.cataclysm;
 import com.github.L_Ender.cataclysm.entity.*;
 import com.github.L_Ender.cataclysm.entity.effect.*;
-import com.github.L_Ender.cataclysm.entity.*;
 import com.github.L_Ender.cataclysm.entity.projectile.Ashen_Breath_Entity;
 import com.github.L_Ender.cataclysm.entity.projectile.*;
 
-import com.github.L_Ender.cataclysm.entity.effect.*;
-import com.github.L_Ender.cataclysm.entity.projectile.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
@@ -216,6 +213,12 @@ public class ModEntities {
             .clientTrackingRange(4)
             .updateInterval(4)
             .build(cataclysm.MODID + ":eye_of_dungeon"));
+
+    public static final RegistryObject<EntityType<Void_Vortex_Entity>> VOID_VORTEX = ENTITY_TYPE.register("void_vortex", () -> EntityType.Builder.<Void_Vortex_Entity>of(Void_Vortex_Entity::new, MobCategory.MISC)
+            .sized(2.5F, 0.5F)
+            .fireImmune()
+            .clientTrackingRange(10).updateInterval(Integer.MAX_VALUE)
+            .build(cataclysm.MODID + ":void_vortex"));
 
     @SubscribeEvent
     public static void initializeAttributes(EntityAttributeCreationEvent event) {

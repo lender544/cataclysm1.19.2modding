@@ -46,7 +46,6 @@ public class ServerEventHandler {
                     BlockState blockstate = ModBlocks.MELTING_NETHERRACK.get().defaultBlockState();
                     float f = (float) Math.min(16, 2 + p_45022_);
                     BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
-
                     for (BlockPos blockpos : BlockPos.betweenClosed(p_45021_.offset((double) (-f), -1.0D, (double) (-f)), p_45021_.offset((double) f, -1.0D, (double) f))) {
                         if (blockpos.closerToCenterThan(event.getEntity().position(), (double) f)) {
                             blockpos$mutableblockpos.set(blockpos.getX(), blockpos.getY() + 1, blockpos.getZ());
@@ -58,15 +57,12 @@ public class ServerEventHandler {
                                     event.getEntity().level.setBlockAndUpdate(blockpos, blockstate);
                                     event.getEntity().level.scheduleTick(blockpos, ModBlocks.MELTING_NETHERRACK.get(), Mth.nextInt(event.getEntity().getRandom(), 60, 120));
                                 }
-
                             }
                         }
                     }
                 }
             }
         }
-
-
     }
 
     @SubscribeEvent
@@ -119,7 +115,6 @@ public class ServerEventHandler {
                 }
             }
         }
-
     }
 
     @SubscribeEvent

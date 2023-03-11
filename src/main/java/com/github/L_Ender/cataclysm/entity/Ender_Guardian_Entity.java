@@ -4,6 +4,7 @@ import com.github.L_Ender.cataclysm.cataclysm;
 import com.github.L_Ender.cataclysm.config.CMConfig;
 import com.github.L_Ender.cataclysm.entity.AI.*;
 import com.github.L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
+import com.github.L_Ender.cataclysm.entity.effect.Void_Vortex_Entity;
 import com.github.L_Ender.cataclysm.entity.etc.CMPathNavigateGround;
 import com.github.L_Ender.cataclysm.entity.etc.SmartBodyHelper2;
 import com.github.L_Ender.cataclysm.entity.projectile.Ender_Guardian_Bullet_Entity;
@@ -95,16 +96,19 @@ public class Ender_Guardian_Entity extends Boss_monster {
     public static final Animation GUARDIAN_AIR_STRIKE2 = Animation.create(39);
     public static final Animation GUARDIAN_RIGHT_SWING = Animation.create(42);
     public static final Animation GUARDIAN_LEFT_SWING = Animation.create(42);
+    public static final Animation GUARDIAN_BLACKHOLE = Animation.create(70);
     public static final int STOMP_COOLDOWN = 400;
     public static final int UPPERCUT_COOLDOWN = 200;
     public static final int TELEPORT_COOLDOWN = 280;
     public static final int TELEPORT_SMASH_COOLDOWN = 600;
+    public static final int VORTEX_COOLDOWN = 280;
     public boolean Breaking = CMConfig.EnderguardianBlockBreaking;
 
     private int stomp_cooldown = 0;
     private int teleport_cooldown = 0;
     private int teleport_smash_cooldown = 0;
     private int uppercut_cooldown = 0;
+    private int vortexcooldown = 0;
 
     public Ender_Guardian_Entity(EntityType entity, Level world) {
         super(entity, world);
@@ -137,7 +141,8 @@ public class Ender_Guardian_Entity extends Boss_monster {
                 GUARDIAN_AIR_STRIKE1,
                 GUARDIAN_AIR_STRIKE2,
                 GUARDIAN_LEFT_SWING,
-                GUARDIAN_RIGHT_SWING};
+                GUARDIAN_RIGHT_SWING,
+                GUARDIAN_BLACKHOLE};
     }
 
     protected void registerGoals() {
@@ -151,7 +156,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
             }
         });
         this.goalSelector.addGoal(1, new AttackAnimationGoal2<>(this, GUARDIAN_BURST_ATTACK, 27, 47));
-
+        this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, GUARDIAN_BLACKHOLE, 34, true));
         this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, GUARDIAN_RIGHT_SWING, 26, true));
         this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, GUARDIAN_LEFT_SWING, 26, true));
         this.goalSelector.addGoal(1, new SimpleAnimationGoal<>(this, GUARDIAN_AIR_STRIKE2));
@@ -330,6 +335,9 @@ public class Ender_Guardian_Entity extends Boss_monster {
                 if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceToSqr(target) >= 256 && this.distanceToSqr(target) <= 1024.0D && target.isOnGround() && this.getIsHelmetless() && this.getRandom().nextFloat() * 100.0F < 20f  && teleport_smash_cooldown <= 0) {
                     teleport_smash_cooldown = TELEPORT_SMASH_COOLDOWN;
                     this.setAnimation(GUARDIAN_AIR_STRIKE1);
+                }else if (vortexcooldown <= 0 && !isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceToSqr(target) <= 1024.0D && (this.distanceToSqr(target) >= 35.0D &&this.getRandom().nextFloat() * 100.0F < 2f || this.getRandom().nextFloat() * 100.0F < 60f && this.getY() + 3 <= target.getY())) {
+                    vortexcooldown = VORTEX_COOLDOWN;
+                    this.setAnimation(GUARDIAN_BLACKHOLE);
                 } else if (!isNoAi() && this.getAnimation() == NO_ANIMATION && this.distanceTo(target) >= 4.3 && this.distanceTo(target) <= 16D && target.isOnGround() && this.getRandom().nextFloat() * 100.0F < 4f && teleport_cooldown <= 0) {
                     teleport_cooldown = TELEPORT_COOLDOWN;
                     this.setAnimation(GUARDIAN_HUG_ME);
@@ -366,6 +374,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
         if (teleport_cooldown > 0) teleport_cooldown--;
         if (teleport_smash_cooldown > 0) teleport_smash_cooldown--;
         if (uppercut_cooldown > 0) uppercut_cooldown--;
+        if (vortexcooldown > 0) vortexcooldown--;
     }
 
     public void aiStep() {
@@ -524,6 +533,23 @@ public class Ender_Guardian_Entity extends Boss_monster {
             if (this.getAnimationTick() == 24) {
                 this.playSound(SoundEvents.PLAYER_ATTACK_SWEEP, 2.0f, 0.5F);
                 AreaAttack(4.25f,4.25f,80,1.0f,40,0,0.0F,true);
+            }
+        }
+        LivingEntity target = this.getTarget();
+        if (this.getAnimation() == GUARDIAN_BLACKHOLE) {
+            if (this.getAnimationTick() == 34) {
+                this.playSound(ModSounds.ENDER_GUARDIAN_FIST.get(), 0.3f, 1F + this.getRandom().nextFloat() * 0.1F);
+                Attackparticle(1.0f,0.2f);
+                ScreenShake_Entity.ScreenShake(level, this.position(), 10, 0.1f, 0, 5);
+                if (target != null) {
+                    double tx = target.getX();
+                    double ty = target.getY();
+                    double tz = target.getZ();
+                    double minY = Math.min(ty, this.getY());
+                    double maxY = Math.max(ty, this.getY()) + 1;
+                    float angle = (float) Mth.atan2(tz - this.getZ(), tx - this.getX());
+                    spawnVortex(tx, tz, minY, maxY, angle);
+                }
             }
         }
 
@@ -863,6 +889,35 @@ public class Ender_Guardian_Entity extends Boss_monster {
         }
     }
 
+    private void spawnVortex(double x, double z, double minY, double maxY, float rotation) {
+        BlockPos blockpos = new BlockPos(x, maxY, z);
+        boolean flag = false;
+        double d0 = 0.0D;
+
+        do {
+            BlockPos blockpos1 = blockpos.below();
+            BlockState blockstate = this.level.getBlockState(blockpos1);
+            if (blockstate.isFaceSturdy(this.level, blockpos1, Direction.UP)) {
+                if (!this.level.isEmptyBlock(blockpos)) {
+                    BlockState blockstate1 = this.level.getBlockState(blockpos);
+                    VoxelShape voxelshape = blockstate1.getCollisionShape(this.level, blockpos);
+                    if (!voxelshape.isEmpty()) {
+                        d0 = voxelshape.max(Direction.Axis.Y);
+                    }
+                }
+
+                flag = true;
+                break;
+            }
+
+            blockpos = blockpos.below();
+        } while(blockpos.getY() >= Mth.floor(minY) - 1);
+
+        if (flag) {
+            this.level.addFreshEntity(new Void_Vortex_Entity(this.level, x, (double)blockpos.getY() + d0, z, rotation, this));
+        }
+    }
+
     private void BrokenHelmet() {
         if (!this.level.isClientSide) {
             double xx = Mth.cos(this.getYRot() % 360.0F / 180.0F * 3.1415927F) * 0.75F;
@@ -1080,9 +1135,9 @@ public class Ender_Guardian_Entity extends Boss_monster {
                    // Ender_Guardian_Entity.this.yBodyRot = Ender_Guardian_Entity.this.yBodyRotO;
                 }
               //Ender_Guardian_Entity.this.random.nextInt(3) == 0
-             //   if (Ender_Guardian_Entity.this.getAnimationTick() == 24 && target != null && Ender_Guardian_Entity.this.random.nextInt(2) == 0 && Ender_Guardian_Entity.this.distanceTo(target) <= 4) {
-           //         AnimationHandler.INSTANCE.sendAnimationMessage(Ender_Guardian_Entity.this, GUARDIAN_LEFT_SWING);
-            //    }
+                if (Ender_Guardian_Entity.this.getAnimationTick() == 24 && target != null && Ender_Guardian_Entity.this.random.nextInt(2) == 0 && Ender_Guardian_Entity.this.distanceTo(target) <= 4) {
+                    AnimationHandler.INSTANCE.sendAnimationMessage(Ender_Guardian_Entity.this, GUARDIAN_LEFT_SWING);
+                }
             }
             if (Ender_Guardian_Entity.this.getAnimation() == GUARDIAN_RIGHT_ATTACK) {
                 if (Ender_Guardian_Entity.this.getAnimationTick() < 22 && target != null || Ender_Guardian_Entity.this.getAnimationTick() > 32 && target != null) {
@@ -1092,10 +1147,10 @@ public class Ender_Guardian_Entity extends Boss_monster {
                   //  Ender_Guardian_Entity.this.yBodyRot = Ender_Guardian_Entity.this.yBodyRotO;
                 }
 
-              //  if (Ender_Guardian_Entity.this.getAnimationTick() == 26 && target != null && Ender_Guardian_Entity.this.random.nextInt(2) == 0 && Ender_Guardian_Entity.this.distanceTo(target) <= 4) {
-              //      AnimationHandler.INSTANCE.sendAnimationMessage(Ender_Guardian_Entity.this, GUARDIAN_RIGHT_SWING);
+                if (Ender_Guardian_Entity.this.getAnimationTick() == 26 && target != null && Ender_Guardian_Entity.this.random.nextInt(2) == 0 && Ender_Guardian_Entity.this.distanceTo(target) <= 4) {
+                    AnimationHandler.INSTANCE.sendAnimationMessage(Ender_Guardian_Entity.this, GUARDIAN_RIGHT_SWING);
 
-             //   }
+                }
             }
             if (Ender_Guardian_Entity.this.getAnimation() == GUARDIAN_LEFT_STRONG_ATTACK) {
                 if (Ender_Guardian_Entity.this.getAnimationTick() < 34 && target != null || Ender_Guardian_Entity.this.getAnimationTick() > 44 && target != null) {

@@ -53,10 +53,9 @@ public class Lava_Bomb_Entity extends ThrowableProjectile {
 
     protected void onHitEntity(EntityHitResult result) {
         super.onHitEntity(result);
-        Entity shooter = this.getOwner();
         if (!this.level.isClientSide && !(result.getEntity() instanceof Lava_Bomb_Entity || result.getEntity() instanceof Netherite_Monstrosity_Part || result.getEntity() instanceof Netherite_Monstrosity_Entity)) {
             this.playSound(SoundEvents.GENERIC_BURN, 1.5f, 0.75f);
-            this.level.explode(shooter, this.getX(), this.getY(), this.getZ(), CMConfig.Lavabombradius, Explosion.BlockInteraction.NONE);
+            this.level.explode(this, this.getX(), this.getY(), this.getZ(), CMConfig.Lavabombradius, Explosion.BlockInteraction.NONE);
             this.doTerrainEffects();
             discard();
 

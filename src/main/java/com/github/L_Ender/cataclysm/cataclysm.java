@@ -10,7 +10,6 @@ import com.github.L_Ender.cataclysm.message.MessageCMMultipart;
 import com.github.L_Ender.cataclysm.message.MessageUpdateblockentity;
 import com.github.L_Ender.cataclysm.util.Cataclysm_Group;
 import com.github.L_Ender.cataclysm.util.Modcompat;
-import com.github.L_Ender.cataclysm.init.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.CreativeModeTab;
