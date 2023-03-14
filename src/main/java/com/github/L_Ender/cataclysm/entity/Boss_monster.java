@@ -278,7 +278,7 @@ public class Boss_monster extends Monster implements IAnimatedEntity {
     }
 
     public boolean canBeAffected(MobEffectInstance p_34192_) {
-        return p_34192_.getEffect() == ModEffect.EFFECTSTUN.get() ? false : super.canBeAffected(p_34192_);
+        return p_34192_.getEffect() != ModEffect.EFFECTSTUN.get() && super.canBeAffected(p_34192_);
     }
 
     @Nullable

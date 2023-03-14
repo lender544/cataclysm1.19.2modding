@@ -19,10 +19,12 @@ public class CommonConfig {
     public final ForgeConfigSpec.IntValue VoidCoreCooldown;
 
 
+
     public final ForgeConfigSpec.DoubleValue Voidrunedamage;
     public final ForgeConfigSpec.IntValue Lavabombradius;
     public final ForgeConfigSpec.DoubleValue Ashenbreathdamage;
     public final ForgeConfigSpec.DoubleValue DeathLaserdamage;
+    public final ForgeConfigSpec.DoubleValue DeathLaserHpdamage;
     public final ForgeConfigSpec.DoubleValue Laserdamage;
     public final ForgeConfigSpec.DoubleValue BlazingBonedamage;
     public final ForgeConfigSpec.DoubleValue WitherMissiledamage;
@@ -70,6 +72,15 @@ public class CommonConfig {
     public final ForgeConfigSpec.DoubleValue IgnisLongRangelimit;
     public final ForgeConfigSpec.BooleanValue IgnisBlockBreaking;
 
+    public final ForgeConfigSpec.DoubleValue MonstrositysHpdamage;
+    public final ForgeConfigSpec.DoubleValue EnderguardianGravityPunchHpdamage;
+    public final ForgeConfigSpec.DoubleValue EnderguardianKnockbackHpdamage;
+    public final ForgeConfigSpec.DoubleValue EnderguardianUppercutHpdamage;
+    public final ForgeConfigSpec.DoubleValue EnderguardianTeleportAttackHpdamage;
+    public final ForgeConfigSpec.DoubleValue EnderguardianAreaAttackHpdamage;
+    public final ForgeConfigSpec.DoubleValue EnderguardianRocketPunchHpdamage;
+    public final ForgeConfigSpec.DoubleValue HarbingerChargeHpDamage;
+
     public CommonConfig(final ForgeConfigSpec.Builder builder) {
         builder.push("Etc");
         LavaVisionOpacity = buildDouble(builder, "lavaVisionOpacity", "all", 0.5D, 0.01D, 1D, "Lava Opacity for the Ignitium Helemt.");
@@ -93,7 +104,8 @@ public class CommonConfig {
         builder.push("Entity damage");
         Voidrunedamage = buildDouble(builder, "Voidrunedamage", "all", 7.0D, 0D, 1000000D, "Void Rune's Damage");
         Ashenbreathdamage = buildDouble(builder, "Ashenbreathdamage", "all", 4, 0D, 1000000D, "Ashen Breath's Damage");
-        DeathLaserdamage = buildDouble(builder, "DeathLaserdamage", "all", 6, 0D, 1000000D, "Death Laser's Damage");
+        DeathLaserdamage = buildDouble(builder, "DeathLaserdamage", "all", 5, 0D, 1000000D, "Death Laser's Damage");
+        DeathLaserHpdamage = buildDouble(builder, "DeathLaserHpdamage", "all", 0.05, 0.0D, 1.0D, "Death Laser's Hp Damage");
         Laserdamage = buildDouble(builder, "Laserdamage", "all", 4, 0D, 1000000D, "Laser's Damage");
         BlazingBonedamage = buildDouble(builder, "BlazingBonedamage", "all", 5, 0D, 1000000D, "Blazing Bone's Damage");
         WitherMissiledamage = buildDouble(builder, "WitherMissiledamage", "all", 8, 0D, 1000000D, "Wither Missile's Damage");
@@ -108,6 +120,12 @@ public class CommonConfig {
         EnderguardianDamageCap = buildInt(builder, "EnderGuardianDamageCap", "all", 22, 0, 1000000, "EnderGuardian's DamageCap");
         EnderguardianBlockBreaking = buildBoolean(builder, "EnderguardianBlockBreaking", "all", true, "Ender guardian's block breaking ignore the MobGriefing");
         EnderguardianLongRangelimit = buildDouble(builder, "Guardian's prevent attacks from far away Range", "all", 12.0D, 1D, 1000000D, "Guardian's Immune to Long distance attack range.");
+        EnderguardianGravityPunchHpdamage = buildDouble(builder, "Guardian's gravity Punch Hp Damage", "all", 0.05D, 0.0D, 1.0D, "Guardian's gravity Punch Hp Damage");
+        EnderguardianTeleportAttackHpdamage = buildDouble(builder, "Guardian's Teleport attack Hp Damage", "all", 0.05D, 0.0D, 1.0D, "Guardian's Teleport attack Hp Damage");
+        EnderguardianKnockbackHpdamage = buildDouble(builder, "Guardian's knockback Hp Damage", "all", 0.06D, 0.0D, 1.0D, "Guardian's Punch Hp Damage");
+        EnderguardianUppercutHpdamage = buildDouble(builder, "Guardian's Uppercut Hp Damage", "all", 0.1D, 0.0D, 1.0D, "Guardian's Uppercut Hp Damage");
+        EnderguardianRocketPunchHpdamage = buildDouble(builder, "Guardian's RocketPunch Hp Damage", "all", 0.1D, 0.0D, 1.0D, "Guardian's RocketPunch Hp Damage");
+        EnderguardianAreaAttackHpdamage = buildDouble(builder, "Guardian's area attack Hp Damage", "all", 0.08D, 0.0D, 1.0D, "Guardian's etc area attack Hp Damage");
         EnderguardianBlockBreakingX = buildInt(builder, "EnderGuardianBlockBreaking X", "all", 15, 0, 20, "EnderGuardianBlockBreaking radius");
         EnderguardianBlockBreakingY = buildInt(builder, "EnderGuardianBlockBreaking Y", "all", 2, 0, 10, "EnderGuardianBlockBreaking radius");
         EnderguardianBlockBreakingZ = buildInt(builder, "EnderGuardianBlockBreaking Z", "all", 15, 0, 20, "EnderGuardianBlockBreaking radius");
@@ -120,6 +138,7 @@ public class CommonConfig {
         MonstrosityDamageMultiplier = buildDouble(builder, "MonstrosityDamageMultiplier", "all", 1.0D, 0D, 1000000D, "Monstrosity's Damage Multiplier");
         MonstrosityDamageCap = buildInt(builder, "MonstrosityDamageCap", "all", 22, 0, 1000000, "Monstrosity's DamageCap");
         NetheritemonstrosityBodyBloking = buildBoolean(builder, "NetheritemonstrosityBodyBloking", "all", true, "Monstrosity's bodyBlocking verdict");
+        MonstrositysHpdamage = buildDouble(builder, "Monstrosity's attack Hp Damage", "all", 0.08D, 0.0D, 1.0D, "Monstrosity's attack Hp Damage");
         MonstrosityLongRangelimit = buildDouble(builder, "Monstrosity's prevent attacks from far away Range", "all", 18.0D, 1D, 1000000D, "Monstrosity's Immune to Long distance attack range.");
         builder.pop();
 
@@ -149,6 +168,7 @@ public class CommonConfig {
         HarbingerLongRangelimit = buildDouble(builder, "The Harbinger's prevent attacks from far away Range", "all", 35D, 1D, 1000000D, "Harbinger's Immune to Long distance attack range.");
         HarbingerDamageCap = buildInt(builder, "The Harbinger DamageCap", "all", 22, 0, 1000000, "Harbinger's DamageCap");
         HarbingerLightFire = buildBoolean(builder, "The Harbinger Light A Fire", "all", true, "Harbinger's lasers can light a fire in MobGriefing");
+        HarbingerChargeHpDamage = buildDouble(builder, "The Harbinger's charge attack Hp Damage", "all", 0.06D, 0.0D, 1.0D, "The Harbinger's charge attack Hp Damage");
         builder.pop();
     }
 

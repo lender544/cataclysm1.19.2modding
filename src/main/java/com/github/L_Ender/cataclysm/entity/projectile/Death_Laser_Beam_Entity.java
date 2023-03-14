@@ -20,6 +20,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseFireBlock;
@@ -164,7 +165,7 @@ public class Death_Laser_Beam_Entity extends Entity {
             }
             if (!level.isClientSide) {
                 for (LivingEntity target : hit) {
-                    boolean flag = target.hurt(CMDamageTypes.causeLaserDamage(this, caster).bypassArmor(), (float) CMConfig.DeathLaserdamage);
+                    boolean flag = target.hurt(CMDamageTypes.causeLaserDamage(this, caster).bypassArmor(), (float) ((float) CMConfig.DeathLaserdamage + Math.min(CMConfig.DeathLaserdamage, target.getMaxHealth() * CMConfig.HarbingerChargeHpDamage)));
                     if(this.getFire()) {
                         if (flag) {
                             target.setSecondsOnFire(5);

@@ -134,7 +134,7 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
         return Monster.createMonsterAttributes()
                 .add(Attributes.FOLLOW_RANGE, 50.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
-                .add(Attributes.ATTACK_DAMAGE, 22)
+                .add(Attributes.ATTACK_DAMAGE, 21)
                 .add(Attributes.MAX_HEALTH, 500)
                 .add(Attributes.ARMOR, 10)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0);
@@ -426,7 +426,7 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
         this.playSound(SoundEvents.GENERIC_EXPLODE, 1.5f, 1F + this.getRandom().nextFloat() * 0.1F);
         for (LivingEntity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(7.0D))) {
             if (!isAlliedTo(entity) && !(entity instanceof Netherite_Monstrosity_Entity) && entity != this) {
-                boolean flag = entity.hurt(DamageSource.mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
+                boolean flag = entity.hurt(DamageSource.mobAttack(this), (float) ((float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) + Math.min(this.getAttributeValue(Attributes.ATTACK_DAMAGE), entity.getMaxHealth() * CMConfig.MonstrositysHpdamage)));
                 if (entity instanceof Player && entity.isBlocking()) {
                     disableShield(entity, 120);
                 }

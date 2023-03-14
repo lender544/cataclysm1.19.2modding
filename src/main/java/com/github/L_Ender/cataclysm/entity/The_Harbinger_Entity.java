@@ -148,7 +148,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     public static AttributeSupplier.Builder harbinger() {
         return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 390.0D)
                 .add(Attributes.MOVEMENT_SPEED, (double) 0.6F)
-                .add(Attributes.ATTACK_DAMAGE, (double) 10F)
+                .add(Attributes.ATTACK_DAMAGE, (double) 9F)
                 .add(Attributes.FLYING_SPEED, (double) 0.6F)
                 .add(Attributes.FOLLOW_RANGE, 40.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
@@ -459,7 +459,8 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
             if (this.tickCount % 4 == 0) {
                 for (LivingEntity Lentity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.5D))) {
                     if (!isAlliedTo(Lentity) && !(Lentity instanceof The_Harbinger_Entity) && Lentity != this) {
-                        boolean flag = Lentity.hurt(DamageSource.mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) + this.random.nextInt(5));
+                        boolean flag = Lentity.hurt(DamageSource.mobAttack(this),  (float) ((float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) + this.random.nextInt(5) + Math.min(this.getAttributeValue(Attributes.ATTACK_DAMAGE), Lentity.getMaxHealth() * CMConfig.HarbingerChargeHpDamage)));
+
                         if (flag) {
                             if (Lentity.isOnGround()) {
                                 double d0 = Lentity.getX() - this.getX();

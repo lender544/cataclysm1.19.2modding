@@ -96,7 +96,8 @@ public class Ender_Guardian_Entity extends Boss_monster {
     public static final Animation GUARDIAN_AIR_STRIKE2 = Animation.create(39);
     public static final Animation GUARDIAN_RIGHT_SWING = Animation.create(42);
     public static final Animation GUARDIAN_LEFT_SWING = Animation.create(42);
-    public static final Animation GUARDIAN_BLACKHOLE = Animation.create(70);
+    public static final Animation GUARDIAN_BLACKHOLE = Animation.create(62);
+    public static final Animation GUARDIAN_ROCKETPUNCH = Animation.create(58);
     public static final int STOMP_COOLDOWN = 400;
     public static final int UPPERCUT_COOLDOWN = 200;
     public static final int TELEPORT_COOLDOWN = 280;
@@ -142,7 +143,8 @@ public class Ender_Guardian_Entity extends Boss_monster {
                 GUARDIAN_AIR_STRIKE2,
                 GUARDIAN_LEFT_SWING,
                 GUARDIAN_RIGHT_SWING,
-                GUARDIAN_BLACKHOLE};
+                GUARDIAN_BLACKHOLE,
+                GUARDIAN_ROCKETPUNCH};
     }
 
     protected void registerGoals() {
@@ -156,11 +158,12 @@ public class Ender_Guardian_Entity extends Boss_monster {
             }
         });
         this.goalSelector.addGoal(1, new AttackAnimationGoal2<>(this, GUARDIAN_BURST_ATTACK, 27, 47));
-        this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, GUARDIAN_BLACKHOLE, 34, true));
+        this.goalSelector.addGoal(1, new VoidVortexGoal(this, GUARDIAN_BLACKHOLE));
+        this.goalSelector.addGoal(1, new RocketPunchGoal(this, GUARDIAN_ROCKETPUNCH));
         this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, GUARDIAN_RIGHT_SWING, 26, true));
         this.goalSelector.addGoal(1, new AttackAnimationGoal1<>(this, GUARDIAN_LEFT_SWING, 26, true));
         this.goalSelector.addGoal(1, new SimpleAnimationGoal<>(this, GUARDIAN_AIR_STRIKE2));
-        this.goalSelector.addGoal(1, new HugmeGoal(this, GUARDIAN_HUG_ME,30,20));
+        this.goalSelector.addGoal(1, new HugmeGoal(this, GUARDIAN_HUG_ME, 30, 20));
         this.goalSelector.addGoal(1, new TeleportStrikeGoal(this, GUARDIAN_AIR_STRIKE1));
         this.goalSelector.addGoal(1, new StompAttackGoal(this));
         this.goalSelector.addGoal(1, new UppercutAndBulletGoal(this,GUARDIAN_UPPERCUT_AND_BULLET));
@@ -178,7 +181,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
                 .add(Attributes.FOLLOW_RANGE, 50.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.27F)
                 .add(Attributes.ATTACK_DAMAGE, 16)
-                .add(Attributes.MAX_HEALTH, 300)
+                .add(Attributes.MAX_HEALTH, 333)
                 .add(Attributes.ARMOR, 20)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0);
     }
@@ -388,7 +391,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
             }
             if (this.getAnimationTick() == 34) {
                 this.playSound(ModSounds.ENDER_GUARDIAN_FIST.get(), 0.5f, 1F + this.getRandom().nextFloat() * 0.1F);
-                AreaAttack(5.15f,5,70,1.1f,100,0,0,false);
+                AreaAttack(5.15f,5,70,1.0f,(float) CMConfig.EnderguardianGravityPunchHpdamage,100,0,0,false);
                 Attackparticle(2.2f,0);
                 ScreenShake_Entity.ScreenShake(level, this.position(), 20, 0.2f, 0, 10);
             }
@@ -402,7 +405,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
                 GravityPull();
             }
             if (this.getAnimationTick() == 29) {
-                AreaAttack(5.15f,5,70,1.1f,100,0,0,false);
+                AreaAttack(5.15f,5,70,1.0f,(float) CMConfig.EnderguardianGravityPunchHpdamage,100,0,0,false);
                 this.playSound(ModSounds.ENDER_GUARDIAN_FIST.get(), 0.5f, 1F + this.getRandom().nextFloat() * 0.1F);
                 Attackparticle(2.2f,0);
                 ScreenShake_Entity.ScreenShake(level, this.position(), 20, 0.2f, 0, 10);
@@ -412,7 +415,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
 
         if (this.getAnimation() == GUARDIAN_RIGHT_ATTACK) {
             if (this.getAnimationTick() == 22) {
-                AreaAttack(5.85f,5,80,1,80,0,0,false);
+                AreaAttack(5.85f,5,80,1, 0,80,0,0,false);
                 this.playSound(ModSounds.ENDER_GUARDIAN_FIST.get(), 0.5f, 1F + this.getRandom().nextFloat() * 0.1F);
                 Attackparticle(2.75f,0.5f);
                 ScreenShake_Entity.ScreenShake(level, this.position(), 15, 0.1f, 0, 10);
@@ -421,7 +424,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
 
         if (this.getAnimation() == GUARDIAN_LEFT_ATTACK) {
             if (this.getAnimationTick() == 19) {
-                AreaAttack(5.85f,5,80,1,80,0,0,false);
+                AreaAttack(5.85f,5,80,1,0,80,0,0,false);
                 this.playSound(ModSounds.ENDER_GUARDIAN_FIST.get(), 0.5f, 1F + this.getRandom().nextFloat() * 0.1F);
                 Attackparticle(2.75f,-0.5f);
                 ScreenShake_Entity.ScreenShake(level, this.position(), 15, 0.1f, 0, 10);
@@ -434,13 +437,13 @@ public class Ender_Guardian_Entity extends Boss_monster {
             }
             if (this.getAnimationTick() == 27) {
                 this.playSound(SoundEvents.GENERIC_EXPLODE, 1.5f, 1F + this.getRandom().nextFloat() * 0.1F);
-                AreaAttack(7.5f,6,100,1,0,0,0,true);
+                AreaAttack(7.5f,6,100,1,(float) CMConfig.EnderguardianKnockbackHpdamage,0,0,0,true);
             }
         }
         if (this.getAnimation() == GUARDIAN_UPPERCUT_AND_BULLET || this.getAnimation() == GUARDIAN_RAGE_UPPERCUT) {
             if (this.getAnimationTick() == 27) {
                 this.playSound(SoundEvents.GENERIC_EXPLODE, 1.5f, 1F + this.getRandom().nextFloat() * 0.1F);
-                AreaAttack(6.25f,6,60,1.5f,150,60,0.5F,false);
+                AreaAttack(6.25f,7,60,1.4f,(float) CMConfig.EnderguardianUppercutHpdamage,150,60,0.5F,false);
                 ScreenShake_Entity.ScreenShake(level, this.position(), 15, 0.3f, 0, 10);
             }
         }
@@ -461,7 +464,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
         if (this.getAnimation() == GUARDIAN_RAGE_UPPERCUT) {
             if (this.getAnimationTick() == 84) {
                 RageAttack();
-                AreaAttack(5.5f,5,120,1.2f,100,0,0.0F,false);
+                AreaAttack(5.5f,5,120,1.2f,(float) CMConfig.EnderguardianAreaAttackHpdamage,100,0,0.0F,false);
 
                 this.playSound(SoundEvents.GENERIC_EXPLODE, 1.5f, 1F + this.getRandom().nextFloat() * 0.1F);
                 ScreenShake_Entity.ScreenShake(level, this.position(), 15, 0.2f, 0, 10);
@@ -493,7 +496,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
             }
 
             if (this.getAnimationTick() == 38) {
-                AreaAttack(6.0f,6.0f,120,1.0f,80,60,0.6F,false);
+                AreaAttack(6.0f,6.0f,120,1.0f,(float) CMConfig.EnderguardianTeleportAttackHpdamage,80,60,0.6F,false);
                 this.playSound(SoundEvents.GENERIC_EXPLODE, 1.5f, 1F + this.getRandom().nextFloat() * 0.1F);
                 ScreenShake_Entity.ScreenShake(level, this.position(), 15, 0.2f, 0, 10);
 
@@ -532,27 +535,24 @@ public class Ender_Guardian_Entity extends Boss_monster {
         if (this.getAnimation() == GUARDIAN_RIGHT_SWING || this.getAnimation() == GUARDIAN_LEFT_SWING) {
             if (this.getAnimationTick() == 24) {
                 this.playSound(SoundEvents.PLAYER_ATTACK_SWEEP, 2.0f, 0.5F);
-                AreaAttack(4.25f,4.25f,80,1.0f,40,0,0.0F,true);
+                AreaAttack(4.25f,4.25f,80,0.8f, 0,40,40,0.0F,true);
             }
         }
-        LivingEntity target = this.getTarget();
         if (this.getAnimation() == GUARDIAN_BLACKHOLE) {
-            if (this.getAnimationTick() == 34) {
+            if (this.getAnimationTick() == 26) {
                 this.playSound(ModSounds.ENDER_GUARDIAN_FIST.get(), 0.3f, 1F + this.getRandom().nextFloat() * 0.1F);
                 Attackparticle(1.0f,0.2f);
                 ScreenShake_Entity.ScreenShake(level, this.position(), 10, 0.1f, 0, 5);
-                if (target != null) {
-                    double tx = target.getX();
-                    double ty = target.getY();
-                    double tz = target.getZ();
-                    double minY = Math.min(ty, this.getY());
-                    double maxY = Math.max(ty, this.getY()) + 1;
-                    float angle = (float) Mth.atan2(tz - this.getZ(), tx - this.getX());
-                    spawnVortex(tx, tz, minY, maxY, angle);
-                }
             }
         }
-
+        if (this.getAnimation() == GUARDIAN_ROCKETPUNCH) {
+            if (this.getAnimationTick() == 24) {
+                this.playSound(SoundEvents.GENERIC_EXPLODE, 1.5f, 1F + this.getRandom().nextFloat() * 0.1F);
+            }
+            if (this.getAnimationTick() == 28) {
+                AreaAttack(7f,7f,120,1.25f, (float) CMConfig.EnderguardianRocketPunchHpdamage,200,0,0.0F,true);
+            }
+        }
     }
 
 
@@ -597,7 +597,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
                 && super.canBeAffected(p_31495_);
     }
 
-    private void AreaAttack(float range, float height, float arc, float damage, int shieldbreakticks, int stunticks, float airborne, boolean knockback) {
+    private void AreaAttack(float range, float height, float arc, float damage, float hpdamage, int shieldbreakticks, int stunticks, float airborne, boolean knockback) {
         List<LivingEntity> entitiesHit = this.getEntityLivingBaseNearby(range, height, range, range);
         for (LivingEntity entityHit : entitiesHit) {
             float entityHitAngle = (float) ((Math.atan2(entityHit.getZ() - this.getZ(), entityHit.getX() - this.getX()) * (180 / Math.PI) - 90) % 360);
@@ -612,7 +612,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
             float entityHitDistance = (float) Math.sqrt((entityHit.getZ() - this.getZ()) * (entityHit.getZ() - this.getZ()) + (entityHit.getX() - this.getX()) * (entityHit.getX() - this.getX()));
             if (entityHitDistance <= range && (entityRelativeAngle <= arc / 2 && entityRelativeAngle >= -arc / 2) || (entityRelativeAngle >= 360 - arc / 2 || entityRelativeAngle <= -360 + arc / 2)) {
                 if (!(entityHit instanceof Ender_Guardian_Entity)) {
-                    boolean flag = entityHit.hurt(DamageSource.mobAttack(this), (float) (this.getAttributeValue(Attributes.ATTACK_DAMAGE) * damage ));
+                    boolean flag = entityHit.hurt(DamageSource.mobAttack(this), (float) (this.getAttributeValue(Attributes.ATTACK_DAMAGE) * damage + Math.min(this.getAttributeValue(Attributes.ATTACK_DAMAGE), entityHit.getMaxHealth() * hpdamage)));
                     if (entityHit instanceof Player && entityHit.isBlocking() && shieldbreakticks > 0) {
                         disableShield(entityHit, shieldbreakticks);
                     }
@@ -638,7 +638,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
     private void MassDestruction(float grow, float damage, int ticks) {
         for (LivingEntity entityHit : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(grow))) {
             if (!isAlliedTo(entityHit) && !(entityHit instanceof Ender_Guardian_Entity) && entityHit != this) {
-                entityHit.hurt(DamageSource.mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) * damage);
+                entityHit.hurt(DamageSource.mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) * damage + entityHit.getMaxHealth() * (float) CMConfig.EnderguardianAreaAttackHpdamage);
                 if (entityHit instanceof Player && entityHit.isBlocking()) {
                     disableShield(entityHit, ticks);
                 }
@@ -1228,7 +1228,15 @@ public class Ender_Guardian_Entity extends Boss_monster {
             if (Ender_Guardian_Entity.this.getAnimationTick() == 26) {
                 float f1 = (float) Math.cos(Math.toRadians(Ender_Guardian_Entity.this.getYRot() + 90));
                 float f2 = (float) Math.sin(Math.toRadians(Ender_Guardian_Entity.this.getYRot() + 90));
-                Ender_Guardian_Entity.this.push(f1 * 2.0, 0, f2 * 2.0);
+                if(target != null) {
+                    if(entity.distanceTo(target) > 3) {
+                        Ender_Guardian_Entity.this.push(f1 * 2.0, 0, f2 * 2.0);
+                    }else{
+                        Ender_Guardian_Entity.this.push(f1 * 1.5, 0, f2 * 1.5);
+                    }
+                }else{
+                    Ender_Guardian_Entity.this.push(f1 * 2.0, 0, f2 * 2.0);
+                }
             }
             if(Ender_Guardian_Entity.this.getAnimationTick() > 32 || Ender_Guardian_Entity.this.getAnimationTick() < 26){
                 Ender_Guardian_Entity.this.setDeltaMovement(0, Ender_Guardian_Entity.this.getDeltaMovement().y, 0);
@@ -1259,7 +1267,15 @@ public class Ender_Guardian_Entity extends Boss_monster {
             if (Ender_Guardian_Entity.this.getAnimationTick() == 26) {
                 float f1 = (float) Math.cos(Math.toRadians(Ender_Guardian_Entity.this.getYRot() + 90));
                 float f2 = (float) Math.sin(Math.toRadians(Ender_Guardian_Entity.this.getYRot() + 90));
-                Ender_Guardian_Entity.this.push(f1 * 2.0, 0, f2 * 2.0);
+                if(target != null) {
+                    if(entity.distanceTo(target) > 3) {
+                        Ender_Guardian_Entity.this.push(f1 * 2.0, 0, f2 * 2.0);
+                    }else{
+                        Ender_Guardian_Entity.this.push(f1 * 1.5, 0, f2 * 1.5);
+                    }
+                }else{
+                    Ender_Guardian_Entity.this.push(f1 * 2.0, 0, f2 * 2.0);
+                }
             }
             if(Ender_Guardian_Entity.this.getAnimationTick() > 32 || Ender_Guardian_Entity.this.getAnimationTick() < 26){
                 Ender_Guardian_Entity.this.setDeltaMovement(0, Ender_Guardian_Entity.this.getDeltaMovement().y, 0);
@@ -1301,7 +1317,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
     }
 
 
-    class HugmeGoal extends SimpleAnimationGoal<Ender_Guardian_Entity> {
+    static class HugmeGoal extends SimpleAnimationGoal<Ender_Guardian_Entity> {
 
         private final float sensing;
         private final int teleport;
@@ -1332,11 +1348,11 @@ public class Ender_Guardian_Entity extends Boss_monster {
 
         public void tick() {
             LivingEntity target = entity.getTarget();
-            if (Ender_Guardian_Entity.this.getAnimationTick() < 40 && target != null) {
-                Ender_Guardian_Entity.this.lookAt(target, 30.0F, 30.0F);
-                Ender_Guardian_Entity.this.getLookControl().setLookAt(target, 30.0F, 30.0F);
+            if (entity.getAnimationTick() < 40 && target != null) {
+                entity.lookAt(target, 30.0F, 30.0F);
+                entity.getLookControl().setLookAt(target, 30.0F, 30.0F);
             }else {
-                Ender_Guardian_Entity.this.setYRot(Ender_Guardian_Entity.this.yRotO);
+                entity.setYRot(entity.yRotO);
                 //  Ender_Guardian_Entity.this.yBodyRot = Ender_Guardian_Entity.this.yBodyRotO;
             }
             if (entity.getAnimationTick() == (teleport - 6) && target != null) {
@@ -1356,6 +1372,69 @@ public class Ender_Guardian_Entity extends Boss_monster {
             }
         }
     }
+
+    static class VoidVortexGoal extends SimpleAnimationGoal<Ender_Guardian_Entity> {
+
+
+        public VoidVortexGoal(Ender_Guardian_Entity entity, Animation animation) {
+            super(entity, animation);
+
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
+        }
+
+        public void tick() {
+            LivingEntity target = entity.getTarget();
+            if (entity.getAnimationTick() < 26 && target != null) {
+                entity.getLookControl().setLookAt(target, 30.0F, 30.0F);
+            }else {
+                entity.setYRot(entity.yRotO);
+                //  Ender_Guardian_Entity.this.yBodyRot = Ender_Guardian_Entity.this.yBodyRotO;
+            }
+
+            if (entity.getAnimationTick() == 26 && target != null){
+                double tx = target.getX();
+                double ty = target.getY();
+                double tz = target.getZ();
+                double minY = Math.min(ty, entity.getY());
+                double maxY = Math.max(ty, entity.getY()) + 1;
+                float angle = (float) Mth.atan2(tz - entity.getZ(), tx - entity.getX());
+                entity.spawnVortex(tx, tz, minY, maxY, angle);
+            }
+
+            if (entity.getAnimationTick() == 37 && target != null && entity.distanceToSqr(target) >= 25.0D){
+                AnimationHandler.INSTANCE.sendAnimationMessage(entity, GUARDIAN_ROCKETPUNCH);
+            }
+        }
+    }
+
+
+    static class RocketPunchGoal extends SimpleAnimationGoal<Ender_Guardian_Entity> {
+
+
+        public RocketPunchGoal(Ender_Guardian_Entity entity, Animation animation) {
+            super(entity, animation);
+
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP, Goal.Flag.LOOK));
+        }
+
+        public void tick() {
+            LivingEntity target = entity.getTarget();
+            if (entity.getAnimationTick() < 24 && target != null) {
+                entity.getLookControl().setLookAt(target, 30.0F, 30.0F);
+            }else {
+                entity.setYRot(entity.yRotO);
+                //  Ender_Guardian_Entity.this.yBodyRot = Ender_Guardian_Entity.this.yBodyRotO;
+            }
+
+            if (entity.getAnimationTick() == 24 && target != null){
+                entity.setDeltaMovement((target.getX() - entity.getX()) * 0.3f, 0, (target.getZ() - entity.getZ()) * 0.3f);
+
+            }
+
+
+        }
+    }
+
 
     @OnlyIn(Dist.CLIENT)
     public void handleEntityEvent(byte id) {

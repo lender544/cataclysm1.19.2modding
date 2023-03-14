@@ -20,7 +20,8 @@ public class CMConfig {
 
     public static double Voidrunedamage = 7;
     public static double Ashenbreathdamage = 4;
-    public static double DeathLaserdamage = 6;
+    public static double DeathLaserdamage = 5;
+    public static double DeathLaserHpdamage = 0.05D;
     public static double Laserdamage = 4;
     public static double BlazingBonedamage = 5;
     public static double WitherMissiledamage = 8;
@@ -74,6 +75,15 @@ public class CMConfig {
     public static double IgnisLongRangelimit = 15D;
     public static double HarbingerLongRangelimit = 35D;
 
+    public static double MonstrositysHpdamage = 0.08D;
+    public static double EnderguardianGravityPunchHpdamage = 0.05D;
+    public static double EnderguardianTeleportAttackHpdamage = 0.05D;
+    public static double EnderguardianKnockbackHpdamage = 0.06D;
+    public static double EnderguardianUppercutHpdamage = 0.1D;
+    public static double EnderguardianRocketPunchHpdamage = 0.1D;
+    public static double EnderguardianAreaAttackHpdamage = 0.08D;
+    public static double HarbingerChargeHpDamage = 0.06D;
+
     public static void bake(ModConfig config) {
         try {
             LavaVisionOpacity = ConfigHolder.COMMON.LavaVisionOpacity.get();
@@ -92,6 +102,7 @@ public class CMConfig {
             Voidrunedamage = ConfigHolder.COMMON.Voidrunedamage.get();
             Ashenbreathdamage = ConfigHolder.COMMON.Ashenbreathdamage.get();
             DeathLaserdamage = ConfigHolder.COMMON.DeathLaserdamage.get();
+            DeathLaserHpdamage = ConfigHolder.COMMON.DeathLaserHpdamage.get();
             Laserdamage =  ConfigHolder.COMMON.Laserdamage.get();
             BlazingBonedamage = ConfigHolder.COMMON.BlazingBonedamage.get();
             WitherMissiledamage = ConfigHolder.COMMON.WitherMissiledamage.get();
@@ -138,6 +149,16 @@ public class CMConfig {
             EndergolemLongRangelimit = ConfigHolder.COMMON.EndergolemLongRangelimit.get();
             IgnisLongRangelimit = ConfigHolder.COMMON.IgnisLongRangelimit.get();
             HarbingerLongRangelimit = ConfigHolder.COMMON.HarbingerLongRangelimit.get();
+
+            MonstrositysHpdamage = ConfigHolder.COMMON.MonstrositysHpdamage.get();
+            EnderguardianTeleportAttackHpdamage = ConfigHolder.COMMON.EnderguardianTeleportAttackHpdamage.get();
+            EnderguardianGravityPunchHpdamage = ConfigHolder.COMMON.EnderguardianGravityPunchHpdamage.get();
+            EnderguardianKnockbackHpdamage = ConfigHolder.COMMON.EnderguardianKnockbackHpdamage.get();
+            EnderguardianUppercutHpdamage = ConfigHolder.COMMON.EnderguardianUppercutHpdamage.get();
+            EnderguardianRocketPunchHpdamage = ConfigHolder.COMMON.EnderguardianRocketPunchHpdamage.get();
+            EnderguardianAreaAttackHpdamage = ConfigHolder.COMMON.EnderguardianAreaAttackHpdamage.get();
+            HarbingerChargeHpDamage = ConfigHolder.COMMON.HarbingerChargeHpDamage.get();
+
 
         } catch (Exception e) {
             cataclysm.LOGGER.warn("An exception was caused trying to load the config for CM");
