@@ -1,6 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "cataclysm:blocks/ender_guardian_spawner"
-  }
-}

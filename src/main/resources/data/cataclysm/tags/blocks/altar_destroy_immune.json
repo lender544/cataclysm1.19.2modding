@@ -17,8 +17,8 @@
     "minecraft:light",
     "minecraft:reinforced_deepslate",
     "minecraft:structure_block",
-    "cataclysm:ender_guardian_spawner",
     "cataclysm:altar_of_fire",
+    "cataclysm:altar_of_void",
     "cataclysm:emp"
   ]
 }

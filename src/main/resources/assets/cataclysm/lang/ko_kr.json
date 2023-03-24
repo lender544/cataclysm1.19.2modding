@@ -101,8 +101,8 @@
   "block.cataclysm.end_stone_teleport_trap_bricks":"엔드 함정 석재 벽돌",
   "block.cataclysm.obsidian_explosion_trap_bricks":"흑요석 함정 벽돌",
   "block.cataclysm.void_lantern_block":"공허 랜턴 블록",
-  "block.cataclysm.ender_guardian_spawner":"엔더 수호자 스포너",
   "block.cataclysm.altar_of_fire":"불의 제단",
+  "block.cataclysm.altar_of_void":"공허의 제단",
   "block.cataclysm.emp":"EMP",
   "block.cataclysm.mechanical_fusion_anvil":"기계식 융합 모루",
 

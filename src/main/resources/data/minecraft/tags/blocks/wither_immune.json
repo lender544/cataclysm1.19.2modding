@@ -4,6 +4,7 @@
     "cataclysm:witherite_block",
     "cataclysm:enderite_block",
     "cataclysm:ignitium_block",
-    "cataclysm:ender_guardian_spawner"
+    "cataclysm:altar_of_void",
+    "cataclysm:altar_of_fire"
   ]
 }

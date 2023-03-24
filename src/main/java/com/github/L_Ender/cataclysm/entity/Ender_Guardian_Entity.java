@@ -612,7 +612,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
             float entityHitDistance = (float) Math.sqrt((entityHit.getZ() - this.getZ()) * (entityHit.getZ() - this.getZ()) + (entityHit.getX() - this.getX()) * (entityHit.getX() - this.getX()));
             if (entityHitDistance <= range && (entityRelativeAngle <= arc / 2 && entityRelativeAngle >= -arc / 2) || (entityRelativeAngle >= 360 - arc / 2 || entityRelativeAngle <= -360 + arc / 2)) {
                 if (!(entityHit instanceof Ender_Guardian_Entity)) {
-                    boolean flag = entityHit.hurt(DamageSource.mobAttack(this), (float) (this.getAttributeValue(Attributes.ATTACK_DAMAGE) * damage + Math.min(this.getAttributeValue(Attributes.ATTACK_DAMAGE), entityHit.getMaxHealth() * hpdamage)));
+                    boolean flag = entityHit.hurt(DamageSource.mobAttack(this), (float) (this.getAttributeValue(Attributes.ATTACK_DAMAGE) * damage + Math.min(this.getAttributeValue(Attributes.ATTACK_DAMAGE) * damage, entityHit.getMaxHealth() * hpdamage)));
                     if (entityHit instanceof Player && entityHit.isBlocking() && shieldbreakticks > 0) {
                         disableShield(entityHit, shieldbreakticks);
                     }
@@ -1229,11 +1229,9 @@ public class Ender_Guardian_Entity extends Boss_monster {
                 float f1 = (float) Math.cos(Math.toRadians(Ender_Guardian_Entity.this.getYRot() + 90));
                 float f2 = (float) Math.sin(Math.toRadians(Ender_Guardian_Entity.this.getYRot() + 90));
                 if(target != null) {
-                    if(entity.distanceTo(target) > 3) {
-                        Ender_Guardian_Entity.this.push(f1 * 2.0, 0, f2 * 2.0);
-                    }else{
-                        Ender_Guardian_Entity.this.push(f1 * 1.5, 0, f2 * 1.5);
-                    }
+                    float r = Ender_Guardian_Entity.this.distanceTo(target);
+                    r = Mth.clamp(r, 0, 7);
+                    Ender_Guardian_Entity.this.push(f1 * 0.3 * r, 0, f2 * 0.3 * r);
                 }else{
                     Ender_Guardian_Entity.this.push(f1 * 2.0, 0, f2 * 2.0);
                 }
@@ -1268,11 +1266,9 @@ public class Ender_Guardian_Entity extends Boss_monster {
                 float f1 = (float) Math.cos(Math.toRadians(Ender_Guardian_Entity.this.getYRot() + 90));
                 float f2 = (float) Math.sin(Math.toRadians(Ender_Guardian_Entity.this.getYRot() + 90));
                 if(target != null) {
-                    if(entity.distanceTo(target) > 3) {
-                        Ender_Guardian_Entity.this.push(f1 * 2.0, 0, f2 * 2.0);
-                    }else{
-                        Ender_Guardian_Entity.this.push(f1 * 1.5, 0, f2 * 1.5);
-                    }
+                    float r = Ender_Guardian_Entity.this.distanceTo(target);
+                    r = Mth.clamp(r, 0, 7);
+                    Ender_Guardian_Entity.this.push(f1 * 0.3 * r, 0, f2 * 0.3 * r);
                 }else{
                     Ender_Guardian_Entity.this.push(f1 * 2.0, 0, f2 * 2.0);
                 }

@@ -68,9 +68,7 @@
 "block.cataclysm.end_stone_teleport_trap_bricks":"末地石陷阱方块",
 "block.cataclysm.obsidian_explosion_trap_bricks":"黑曜石陷阱方块",
 "block.cataclysm.void_lantern_block":"虚空灯",
-"block.cataclysm.ender_guardian_spawner":"末影守卫刷怪笼",
-
-"entity.cataclysm.ender_golem": "末影傀儡",
+  "entity.cataclysm.ender_golem": "末影傀儡",
 "entity.cataclysm.ender_guardian": "末影守卫",
 "entity.cataclysm.ender_guardian_bullet": "末影守卫炮弹",
 "entity.cataclysm.lava_bomb": "熔岩炸弹",

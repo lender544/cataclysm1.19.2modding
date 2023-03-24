@@ -115,15 +115,11 @@ public class ModBlocks {
     public static final RegistryObject<Block> OBSIDIAN_EXPLOSION_TRAP_BRICKS = BLOCKS.register("obsidian_explosion_trap_bricks",
             () -> new ObsidianExplosionTrapBricks(BlockBehaviour.Properties.copy(OBSIDIAN_BRICKS.get()).randomTicks().lightLevel(getLightValueLit(7))));
 
-    public static final RegistryObject<Block> ENDER_GUARDIAN_SPAWNER = BLOCKS.register("ender_guardian_spawner",
-            () -> new BlockEnderGuardianSpawner(BlockBehaviour.Properties.of(Material.STONE)
-                    .strength(-1.0F, 3600000.0F)
-                    .noLootTable()
-                    .noOcclusion()
-                    .sound(SoundType.METAL)));
-
     public static final RegistryObject<Block> ALTAR_OF_FIRE = registerBlockAndItem("altar_of_fire",
             BlockAltarOfFire::new, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).rarity(Rarity.EPIC).fireResistant(), true);
+
+    public static final RegistryObject<Block> ALTAR_OF_VOID = registerBlockAndItem("altar_of_void",
+            BlockAltarOfVoid::new, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).rarity(Rarity.EPIC).fireResistant(), true);
 
     public static final RegistryObject<Block> EMP = registerBlockAndItem("emp",
             BlockEMP::new, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).rarity(Rarity.EPIC), true);

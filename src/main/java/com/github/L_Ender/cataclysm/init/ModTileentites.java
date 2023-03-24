@@ -17,11 +17,11 @@ public class ModTileentites {
     public static final RegistryObject<BlockEntityType<TileEntityObsidianExplosionTrapBricks>> OBSIDIAN_EXPLOSION_TRAP_BRICKS = TILE_ENTITY_TYPES.register("obsidian_explosion_trap_bricks", () ->
             BlockEntityType.Builder.of(TileEntityObsidianExplosionTrapBricks::new, ModBlocks.OBSIDIAN_EXPLOSION_TRAP_BRICKS.get()).build(null));
 
-    public static final RegistryObject<BlockEntityType<TileEntityEnderGuardianSpawner>> ENDER_GUARDIAN_SPAWNER = TILE_ENTITY_TYPES.register("ender_guardian_spawner", () ->
-            BlockEntityType.Builder.of(TileEntityEnderGuardianSpawner::new, ModBlocks.ENDER_GUARDIAN_SPAWNER.get()).build(null));
-
     public static final RegistryObject<BlockEntityType<TileEntityAltarOfFire>> ALTAR_OF_FIRE = TILE_ENTITY_TYPES.register("altar_of_fire", () ->
             BlockEntityType.Builder.of(TileEntityAltarOfFire::new, ModBlocks.ALTAR_OF_FIRE.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<TileEntityAltarOfVoid>> ALTAR_OF_VOID = TILE_ENTITY_TYPES.register("altar_of_void", () ->
+            BlockEntityType.Builder.of(TileEntityAltarOfVoid::new, ModBlocks.ALTAR_OF_VOID.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<TileEntityEMP>> EMP = TILE_ENTITY_TYPES.register("emp", () ->
             BlockEntityType.Builder.of(TileEntityEMP::new, ModBlocks.EMP.get()).build(null));
