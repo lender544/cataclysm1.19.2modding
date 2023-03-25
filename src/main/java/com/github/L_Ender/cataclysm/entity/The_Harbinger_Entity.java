@@ -97,7 +97,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     public float prevdeactivateProgress;
     private int destroyBlocksTick;
     private int blockBreakCounter;
-    private final CMBossInfoServer bossEvent = new CMBossInfoServer(this,true);
+    private final CMBossInfoServer bossEvent = new CMBossInfoServer(this.getUUID(),this,BossEvent.BossBarColor.PURPLE,true);
 
     private int mode_change_cooldown = 0;
     private int skill_cooldown = 160;
@@ -814,11 +814,6 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
                 && p_31495_.getEffect() != MobEffects.WEAKNESS
                 && p_31495_.getEffect() != MobEffects.LEVITATION
                 && super.canBeAffected(p_31495_);
-    }
-
-
-    public BossEvent.BossBarColor bossBarColor() {
-        return BossEvent.BossBarColor.PURPLE;
     }
 
     @OnlyIn(Dist.CLIENT)

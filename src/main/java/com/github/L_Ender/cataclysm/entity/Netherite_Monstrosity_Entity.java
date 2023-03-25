@@ -75,7 +75,7 @@ import java.util.EnumSet;
 public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy {
 
    // private final ServerBossEvent bossInfo = (ServerBossEvent) (new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(false);
-    private final CMBossInfoServer bossInfo = new CMBossInfoServer(this,false);
+    private final CMBossInfoServer bossInfo = new CMBossInfoServer(this.getUUID(),this,BossEvent.BossBarColor.RED,false);
     public int frame;
     public static final Animation MONSTROSITY_EARTHQUAKE = Animation.create(75);
     public static final Animation MONSTROSITY_CHARGE = Animation.create(82);
@@ -107,6 +107,9 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 0.0F);
         setConfigattribute(this, CMConfig.MonstrosityHealthMultiplier, CMConfig.MonstrosityDamageMultiplier);
+        if (this.level.isClientSide){
+            cataclysm.PROXY.addBoss(this);
+        }
     }
 
     @Override
@@ -177,6 +180,7 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
         if (this.hasCustomName()) {
             this.bossInfo.setName(this.getDisplayName());
         }
+        this.bossInfo.setId(this.getUUID());
     }
 
     public void setIsBerserk(boolean isBerserk) {
@@ -633,9 +637,6 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
         this.bossInfo.removePlayer(player);
     }
 
-    public BossEvent.BossBarColor bossBarColor() {
-        return BossEvent.BossBarColor.RED;
-    }
 
 
     @Nullable

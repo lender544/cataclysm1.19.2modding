@@ -1,6 +1,7 @@
 package com.github.L_Ender.cataclysm;
 
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.fml.common.Mod;
 
@@ -30,5 +31,10 @@ public class CommonProxy {
     public void onEntityStatus(Entity entity, byte updateKind) {
     }
 
+    public void addBoss(Mob mob) {
+    }
+
+    public void removeBoss(Mob mob) {
+    }
 
 }

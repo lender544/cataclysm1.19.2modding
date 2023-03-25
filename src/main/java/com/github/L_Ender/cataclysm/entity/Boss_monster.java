@@ -242,10 +242,6 @@ public class Boss_monster extends Monster implements IAnimatedEntity {
     }
 
 
-    public BossEvent.BossBarColor bossBarColor() {
-        return BossEvent.BossBarColor.PURPLE;
-    }
-
     @Override
     public Animation[] getAnimations() {
         return new Animation[]{NO_ANIMATION};

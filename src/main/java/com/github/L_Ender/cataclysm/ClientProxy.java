@@ -1,5 +1,6 @@
 package com.github.L_Ender.cataclysm;
 
+import com.github.L_Ender.cataclysm.client.event.BossBarEvent;
 import com.github.L_Ender.cataclysm.client.event.ClientEvent;
 import com.github.L_Ender.cataclysm.client.gui.GUIWeponfusion;
 import com.github.L_Ender.cataclysm.client.particle.EM_PulseParticle;
@@ -7,6 +8,7 @@ import com.github.L_Ender.cataclysm.client.particle.LightningParticle;
 import com.github.L_Ender.cataclysm.client.particle.SoulLavaParticle;
 import com.github.L_Ender.cataclysm.client.render.CMItemstackRenderer;
 import com.github.L_Ender.cataclysm.client.render.blockentity.RendererAltar_of_Fire;
+import com.github.L_Ender.cataclysm.client.render.blockentity.RendererAltar_of_Void;
 import com.github.L_Ender.cataclysm.client.render.blockentity.RendererEMP;
 import com.github.L_Ender.cataclysm.client.render.blockentity.RendererMechanical_fusion_anvil;
 import com.github.L_Ender.cataclysm.client.render.entity.*;
@@ -35,6 +37,7 @@ import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.Items;
@@ -115,8 +118,9 @@ public class ClientProxy extends CommonProxy {
             cataclysm.LOGGER.warn("Could not load item models for weapons");
 
         }
-
+        MinecraftForge.EVENT_BUS.addListener(BossBarEvent::renderBossBar);
         BlockEntityRenderers.register(ModTileentites.ALTAR_OF_FIRE.get(), RendererAltar_of_Fire::new);
+        BlockEntityRenderers.register(ModTileentites.ALTAR_OF_VOID.get(), RendererAltar_of_Void::new);
         BlockEntityRenderers.register(ModTileentites.EMP.get(), RendererEMP::new);
         BlockEntityRenderers.register(ModTileentites.MECHANICAL_FUSION_ANVIL.get(), RendererMechanical_fusion_anvil::new);
 
@@ -221,4 +225,14 @@ public class ClientProxy extends CommonProxy {
         return new CustomArmorRenderProperties();
     }
 
+
+    @Override
+    public void addBoss(Mob mob) {
+        BossBarEvent.addBoss(mob);
+    }
+
+    @Override
+    public void removeBoss(Mob mob) {
+        BossBarEvent.removeBoss(mob);
+    }
 }

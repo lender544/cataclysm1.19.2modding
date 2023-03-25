@@ -5,6 +5,7 @@ import com.github.L_Ender.cataclysm.config.CMConfig;
 import com.github.L_Ender.cataclysm.entity.AI.*;
 import com.github.L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.Void_Vortex_Entity;
+import com.github.L_Ender.cataclysm.entity.etc.CMBossInfoServer;
 import com.github.L_Ender.cataclysm.entity.etc.CMPathNavigateGround;
 import com.github.L_Ender.cataclysm.entity.etc.SmartBodyHelper2;
 import com.github.L_Ender.cataclysm.entity.projectile.Ender_Guardian_Bullet_Entity;
@@ -76,7 +77,7 @@ import static java.lang.Math.*;
 
 public class Ender_Guardian_Entity extends Boss_monster {
 
-    private final ServerBossEvent bossInfo = (ServerBossEvent) (new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(false);
+    private final CMBossInfoServer bossInfo = new CMBossInfoServer(this.getUUID(),this,BossEvent.BossBarColor.PURPLE,false);
     private static final EntityDataAccessor<Boolean> IS_HELMETLESS = SynchedEntityData.defineId(Ender_Guardian_Entity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> USED_MASS_DESTRUCTION = SynchedEntityData.defineId(Ender_Guardian_Entity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Optional<BlockPos>> TELEPORT_POS = SynchedEntityData.defineId(Ender_Guardian_Entity.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
@@ -121,6 +122,9 @@ public class Ender_Guardian_Entity extends Boss_monster {
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 0.0F);
         setConfigattribute(this, CMConfig.EnderguardianHealthMultiplier, CMConfig.EnderguardianDamageMultiplier);
+        if (this.level.isClientSide){
+            cataclysm.PROXY.addBoss(this);
+        }
     }
 
     @Override
@@ -230,6 +234,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
         if (this.hasCustomName()) {
             this.bossInfo.setName(this.getDisplayName());
         }
+        this.bossInfo.setId(this.getUUID());
     }
 
     public void setIsHelmetless(boolean isHelmetless) {
