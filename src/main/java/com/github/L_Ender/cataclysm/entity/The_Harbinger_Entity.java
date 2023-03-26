@@ -113,6 +113,9 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         this.xpReward = 300;
         this.moveControl = new FlyingMoveControl(this, 10, false);
         setConfigattribute(this, CMConfig.HarbingerHealthMultiplier, CMConfig.HarbingerDamageMultiplier);
+        if (this.level.isClientSide){
+            cataclysm.PROXY.addBoss(this);
+        }
     }
 
     protected PathNavigation createNavigation(Level p_186262_) {
@@ -199,6 +202,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         if (this.hasCustomName()) {
             this.bossEvent.setName(this.getDisplayName());
         }
+        this.bossEvent.setId(this.getUUID());
     }
 
     public boolean hurt(DamageSource source, float damage) {

@@ -2,8 +2,11 @@ package com.github.L_Ender.cataclysm.client.event;
 
 
 import com.github.L_Ender.cataclysm.cataclysm;
+import com.github.L_Ender.cataclysm.config.CMConfig;
 import com.github.L_Ender.cataclysm.entity.Ender_Guardian_Entity;
+import com.github.L_Ender.cataclysm.entity.Ignis_Entity;
 import com.github.L_Ender.cataclysm.entity.Netherite_Monstrosity_Entity;
+import com.github.L_Ender.cataclysm.entity.The_Harbinger_Entity;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -28,6 +31,7 @@ public class BossBarEvent {
     @SubscribeEvent
     public static void renderBossBar(CustomizeGuiOverlayEvent.BossEventProgress event){
         Minecraft minecraft = Minecraft.getInstance();
+        if(CMConfig.custombossbar) {
             if (!BOSSES.isEmpty()) {
                 int i = minecraft.getWindow().getGuiScaledWidth();
                 for (Mob boss : BOSSES) {
@@ -35,9 +39,9 @@ public class BossBarEvent {
                         event.setCanceled(true);
                         int k = i / 2 - 94;
                         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                      //  RenderSystem.setShaderTexture(0, GUI_BARS_LOCATION);
+                        //  RenderSystem.setShaderTexture(0, GUI_BARS_LOCATION);
 
-                        drawBar(event.getPoseStack(), k, event.getY() - 2,  boss);
+                        drawBar(event.getPoseStack(), k, event.getY() - 2, boss);
                         Component itextcomponent = boss.getDisplayName();
                         int l = minecraft.font.width(itextcomponent);
                         int i1 = i / 2 - l / 2;
@@ -50,8 +54,7 @@ public class BossBarEvent {
                 }
 
             }
-
-
+        }
     }
 
     private static void drawBar(PoseStack pPoseStack, int pX, int pY, Mob pEntity) {
@@ -76,6 +79,36 @@ public class BossBarEvent {
             RenderSystem.setShaderTexture(0, TEXTURE);
             blit(pPoseStack, pX , pY, 0, 9, 188, 9, 256, 256);
         }
+
+        if (pEntity instanceof Ignis_Entity ignis) {
+            RenderSystem.setShaderTexture(0, GUI_BARS_LOCATION);
+            if(ignis.getBossPhase() > 0){
+                blit(pPoseStack, pX + 3, pY + 2, 0, 10, 182, 5, 256, 256);
+                if (i > 0) {
+                    blit(pPoseStack, pX + 3, pY + 3, 0, 16, i, 5, 256, 256);
+                }
+                RenderSystem.setShaderTexture(0, TEXTURE);
+                blit(pPoseStack, pX , pY, 0, 36, 188, 9, 256, 256);
+            }else{
+                blit(pPoseStack, pX + 3, pY + 2, 0, 40, 182, 5, 256, 256);
+                if (i > 0) {
+                    blit(pPoseStack, pX + 3, pY + 3, 0, 46, i, 5, 256, 256);
+                }
+                RenderSystem.setShaderTexture(0, TEXTURE);
+                blit(pPoseStack, pX , pY, 0, 27, 188, 9, 256, 256);
+            }
+        }
+
+        if (pEntity instanceof The_Harbinger_Entity) {
+            RenderSystem.setShaderTexture(0, GUI_BARS_LOCATION);
+            blit(pPoseStack, pX + 3, pY + 2, 0, 50, 182, 5, 256, 256);
+            if (i > 0) {
+                blit(pPoseStack, pX + 3, pY + 3, 0, 56, i, 5, 256, 256);
+            }
+            RenderSystem.setShaderTexture(0, TEXTURE);
+            blit(pPoseStack, pX , pY, 0, 18, 188, 9, 256, 256);
+        }
+
     }
 
     public static void addBoss(Mob mob){

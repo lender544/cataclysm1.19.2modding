@@ -6,6 +6,7 @@ import com.github.L_Ender.cataclysm.entity.AI.*;
 import com.github.L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.Flame_Strike_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
+import com.github.L_Ender.cataclysm.entity.etc.CMBossInfoServer;
 import com.github.L_Ender.cataclysm.entity.etc.CMPathNavigateGround;
 import com.github.L_Ender.cataclysm.entity.etc.SmartBodyHelper2;
 import com.github.L_Ender.cataclysm.entity.projectile.Ignis_Abyss_Fireball_Entity;
@@ -76,7 +77,8 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class Ignis_Entity extends Boss_monster {
-    private final ServerBossEvent bossInfo = (ServerBossEvent) (new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(false);
+
+    private final CMBossInfoServer bossInfo = new CMBossInfoServer(this.getUUID(),this,this.getBossPhase() > 0 ? BossEvent.BossBarColor.BLUE : BossEvent.BossBarColor.YELLOW , false);
     public static final Animation SWING_ATTACK = Animation.create(55);
     public static final Animation SWING_ATTACK_SOUL = Animation.create(46);
     public static final Animation SWING_ATTACK_BERSERK = Animation.create(37);
@@ -172,6 +174,9 @@ public class Ignis_Entity extends Boss_monster {
         if (world.isClientSide)
             socketPosArray = new Vec3[]{new Vec3(0, 0, 0)};
         setConfigattribute(this, CMConfig.IgnisHealthMultiplier, CMConfig.IgnisDamageMultiplier);
+        if (this.level.isClientSide){
+            cataclysm.PROXY.addBoss(this);
+        }
     }
 
     @Override
@@ -408,6 +413,7 @@ public class Ignis_Entity extends Boss_monster {
         if (this.hasCustomName()) {
             this.bossInfo.setName(this.getDisplayName());
         }
+        this.bossInfo.setId(this.getUUID());
     }
 
     public void setIsBlocking(boolean isBlocking) {
@@ -619,10 +625,6 @@ public class Ignis_Entity extends Boss_monster {
                 timeWithoutTarget = 0;
                 this.setIsSword(false);
                 this.setIsBlocking(false);
-            }
-
-            if (this.getBossPhase() > 0) {
-                bossInfo.setColor(BossEvent.BossBarColor.BLUE);
             }
             if (this.getBossPhase() > 1) {
                 bossInfo.setDarkenScreen(true);

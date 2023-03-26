@@ -7,6 +7,7 @@ public class CommonConfig {
 
     public final ForgeConfigSpec.DoubleValue LavaVisionOpacity;
     public final ForgeConfigSpec.BooleanValue shadersCompat;
+    public final ForgeConfigSpec.BooleanValue custombossbar;
 
     public final ForgeConfigSpec.IntValue BulwarkOfTheFlameCooldown;
     public final ForgeConfigSpec.IntValue GauntletOfBulwarkCooldown;
@@ -86,6 +87,7 @@ public class CommonConfig {
         LavaVisionOpacity = buildDouble(builder, "lavaVisionOpacity", "all", 0.5D, 0.01D, 1D, "Lava Opacity for the Ignitium Helemt.");
         shadersCompat = buildBoolean(builder, "shadersCompat", "all", false, "Whether to disable certain aspects of the Ignitium Helemt. Enable if issues with shaders persist.");
         ScreenShake = buildBoolean(builder, "ScreenShake(on/off)", "all", true, "ScreenShake(on/off)");
+        custombossbar = buildBoolean(builder, "custombossbar(on/off)", "all", true, "custombossbar(on/off)");
         BossMusic = buildBoolean(builder, "BossMusic(on/off)", "all", true, "BossMusic(on/off)");
         builder.pop();
 
