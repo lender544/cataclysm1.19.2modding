@@ -55,6 +55,7 @@ public class Death_Laser_Beam_Entity extends Entity {
     private static final EntityDataAccessor<Float> PITCH = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Integer> DURATION = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> CASTER = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Float> BEAMDIRECTION = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Boolean> FIRE = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.BOOLEAN);
     public float prevYaw;
     public float prevPitch;
@@ -70,12 +71,13 @@ public class Death_Laser_Beam_Entity extends Entity {
         }
     }
 
-    public Death_Laser_Beam_Entity(EntityType<? extends Death_Laser_Beam_Entity> type, Level world, LivingEntity caster, double x, double y, double z, float yaw, float pitch, int duration) {
+    public Death_Laser_Beam_Entity(EntityType<? extends Death_Laser_Beam_Entity> type, Level world, LivingEntity caster, double x, double y, double z, float yaw, float pitch, int duration, float direction) {
         this(type, world);
         this.caster = caster;
         this.setYaw(yaw);
         this.setPitch(pitch);
         this.setDuration(duration);
+        this.setBeamDirection(direction);
         this.setPos(x, y, z);
         this.calculateEndPos();
         if (!world.isClientSide) {
@@ -110,7 +112,7 @@ public class Death_Laser_Beam_Entity extends Entity {
         }
 
         if (caster != null) {
-            renderYaw = (float) ((caster.yHeadRot + 90.0d) * Math.PI / 180.0d);
+            renderYaw = (float) ((caster.yHeadRot + this.getBeamDirection()) * Math.PI / 180.0d);
             renderPitch = (float) (-caster.getXRot() * Math.PI / 180.0d);
         }
 
@@ -196,6 +198,7 @@ public class Death_Laser_Beam_Entity extends Entity {
         this.entityData.define(PITCH, 0F);
         this.entityData.define(DURATION, 0);
         this.entityData.define(CASTER, -1);
+        this.entityData.define(BEAMDIRECTION, 90f);
         this.entityData.define(FIRE, false);
     }
 
@@ -222,6 +225,15 @@ public class Death_Laser_Beam_Entity extends Entity {
     public void setDuration(int duration) {
         entityData.set(DURATION, duration);
     }
+
+    public float getBeamDirection() {
+        return entityData.get(BEAMDIRECTION);
+    }
+
+    public void setBeamDirection(float beamDirection) {
+        entityData.set(BEAMDIRECTION, beamDirection);
+    }
+
 
     public int getCasterID() {
         return entityData.get(CASTER);
@@ -315,7 +327,7 @@ public class Death_Laser_Beam_Entity extends Entity {
     }
 
     private void updateWithHarbinger() {
-        this.setYaw((float) ((caster.yHeadRot + 90) * Math.PI / 180.0d));
+        this.setYaw((float) ((caster.yHeadRot + this.getBeamDirection()) * Math.PI / 180.0d));
         this.setPitch((float) (-caster.getXRot() * Math.PI / 180.0d));
         this.setPos(caster.getX() ,caster.getY() + 2.7 , caster.getZ());
     }
