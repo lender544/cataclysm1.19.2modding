@@ -55,7 +55,6 @@ public class Death_Laser_Beam_Entity extends Entity {
     private static final EntityDataAccessor<Float> PITCH = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Integer> DURATION = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> CASTER = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> HEAD = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> FIRE = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.BOOLEAN);
     public float prevYaw;
     public float prevPitch;
@@ -197,7 +196,6 @@ public class Death_Laser_Beam_Entity extends Entity {
         this.entityData.define(PITCH, 0F);
         this.entityData.define(DURATION, 0);
         this.entityData.define(CASTER, -1);
-        this.entityData.define(HEAD, 0);
         this.entityData.define(FIRE, false);
     }
 
@@ -224,15 +222,6 @@ public class Death_Laser_Beam_Entity extends Entity {
     public void setDuration(int duration) {
         entityData.set(DURATION, duration);
     }
-
-    public int getHead() {
-        return entityData.get(HEAD);
-    }
-
-    public void setHead(int head) {
-        entityData.set(HEAD, head);
-    }
-
 
     public int getCasterID() {
         return entityData.get(CASTER);
