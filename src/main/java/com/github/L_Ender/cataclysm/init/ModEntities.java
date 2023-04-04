@@ -92,6 +92,12 @@ public class ModEntities {
             .clientTrackingRange(10)
             .build(cataclysm.MODID + ":the_harbinger"));
 
+    public static final RegistryObject<EntityType<The_Leviathan_Entity>> THE_LEVIATHAN = ENTITY_TYPE.register("the_leviathan", () -> EntityType.Builder.of(The_Leviathan_Entity::new, MobCategory.MONSTER)
+            .sized(4.0F, 4.0F)
+            .fireImmune()
+            .clientTrackingRange(10)
+            .build(cataclysm.MODID + ":the_leviathan"));
+
     public static final RegistryObject<EntityType<Void_Scatter_Arrow_Entity>> VOID_SCATTER_ARROW = ENTITY_TYPE.register("void_scatter_arrow", () -> EntityType.Builder.<Void_Scatter_Arrow_Entity>of(Void_Scatter_Arrow_Entity::new, MobCategory.MISC)
             .sized(0.5f, 0.5f)
             .setCustomClientFactory(Void_Scatter_Arrow_Entity::new)
@@ -220,6 +226,11 @@ public class ModEntities {
             .clientTrackingRange(10).updateInterval(Integer.MAX_VALUE)
             .build(cataclysm.MODID + ":void_vortex"));
 
+    public static final RegistryObject<EntityType<The_Leviathan_Tongue_Entity>> TONGUE = ENTITY_TYPE.register("tongue", () -> EntityType.Builder.<The_Leviathan_Tongue_Entity>of(The_Leviathan_Tongue_Entity::new, MobCategory.MISC)
+            .sized(0.1F, 0.1F)
+            .build(cataclysm.MODID + ":TONGUE"));
+
+
     @SubscribeEvent
     public static void initializeAttributes(EntityAttributeCreationEvent event) {
         SpawnPlacements.register(ENDERMAPTERA.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Endermaptera_Entity::canSpawn);
@@ -231,6 +242,7 @@ public class ModEntities {
         event.put(ENDERMAPTERA.get(), Endermaptera_Entity.endermaptera().build());
         event.put(IGNITED_REVENANT.get(), Ignited_Revenant_Entity.ignited_revenant().build());
         event.put(THE_HARBINGER.get(), The_Harbinger_Entity.harbinger().build());
+        event.put(THE_LEVIATHAN.get(), The_Leviathan_Entity.altulmen().build());
     }
 }
 

@@ -224,9 +224,6 @@ public class ModItems {
 
     public static final RegistryObject<SpawnEggItem> THE_HARBINGER_SPAWN_EGG = ITEMS.register("the_harbinger_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.THE_HARBINGER, 0x1e2021, 0xae2334, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
-
-
-
 }
 
 
