@@ -66,7 +66,7 @@ public class LeviathanTongueUtil {
     public static boolean canLaunchTongues(Level level, LivingEntity livingEntity) {
         The_Leviathan_Tongue_Entity last = getLastTendon(livingEntity);
         if (last != null) {
-            return last.isRemoved() || last.distanceTo(livingEntity) > 30;
+            return last.isRemoved();
         }
         return true;
     }

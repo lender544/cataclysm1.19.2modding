@@ -226,9 +226,9 @@ public class ModEntities {
             .clientTrackingRange(10).updateInterval(Integer.MAX_VALUE)
             .build(cataclysm.MODID + ":void_vortex"));
 
-    public static final RegistryObject<EntityType<The_Leviathan_Tongue_Entity>> TONGUE = ENTITY_TYPE.register("tongue", () -> EntityType.Builder.<The_Leviathan_Tongue_Entity>of(The_Leviathan_Tongue_Entity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<The_Leviathan_Tongue_Entity>> THE_LEVIATHAN_TONGUE = ENTITY_TYPE.register("the_leviathan_tongue", () -> EntityType.Builder.<The_Leviathan_Tongue_Entity>of(The_Leviathan_Tongue_Entity::new, MobCategory.MISC)
             .sized(0.1F, 0.1F)
-            .build(cataclysm.MODID + ":TONGUE"));
+            .build(cataclysm.MODID + ":the_leviathan_tongue"));
 
 
     @SubscribeEvent

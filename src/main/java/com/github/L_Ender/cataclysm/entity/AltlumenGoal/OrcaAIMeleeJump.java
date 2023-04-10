@@ -81,8 +81,6 @@ public class OrcaAIMeleeJump extends JumpGoal {
             if(this.dolphin.distanceTo(target) < 3F && attackCooldown <= 0){
                 this.dolphin.onJumpHit(target);
                 attackCooldown = 20;
-            }else if(this.dolphin.distanceTo(target) < 5F){
-                this.dolphin.setAnimation(The_Leviathan_Entity.ANIMATION_BITE);
             }
         }
 

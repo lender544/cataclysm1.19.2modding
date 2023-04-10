@@ -103,7 +103,7 @@ public class ClientProxy extends CommonProxy {
         EntityRenderers.register(ModEntities.VOID_HOWITZER.get(), RendererVoid_Howitzer::new);
         EntityRenderers.register(ModEntities.VOID_VORTEX.get(), RendererVoid_Vortex::new);
 
-        EntityRenderers.register(ModEntities.TONGUE.get(), RendererThe_Leviathan_Tongue::new);
+        EntityRenderers.register(ModEntities.THE_LEVIATHAN_TONGUE.get(), RendererThe_Leviathan_Tongue::new);
 
         EntityRenderers.register(ModEntities.VOID_SHARD.get(), (render) -> {
             return new ThrownItemRenderer<>(render, 0.75F, true);

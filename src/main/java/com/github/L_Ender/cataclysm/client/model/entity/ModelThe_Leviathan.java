@@ -1,6 +1,7 @@
 package com.github.L_Ender.cataclysm.client.model.entity;
 
 
+import com.github.L_Ender.cataclysm.entity.The_Harbinger_Entity;
 import com.github.L_Ender.cataclysm.entity.The_Leviathan_Entity;
 import com.github.alexthe666.citadel.client.model.AdvancedEntityModel;
 import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
@@ -155,7 +156,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		R_down_fin2.setRotationPoint(-6.0F, -1.0F, 6.0F);
 		R_down_fin.addChild(R_down_fin2);
 		R_down_fin2.setTextureOffset(168, 85).addBox(-6.0F, 0.0F, -6.0F, 6.0F, 1.0F, 12.0F, 0.0F, false);
-		R_down_fin2.setTextureOffset(100, 174).addBox(-6.0F, 0.0F, 6.0F, 6.0F, 0.0F, 7.0F, 0.0F, false);
+		R_down_fin2.setTextureOffset(15, 159).addBox(-6.0F, 0.0F, 6.0F, 6.0F, 0.0F, 7.0F, 0.0F, false);
 
 		L_down_fin = new AdvancedModelBox(this);
 		L_down_fin.setRotationPoint(7.0F, 8.0F, 8.0F);
@@ -199,7 +200,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		R_Spike4.setRotationPoint(-2.0F, 0.0F, 5.0F);
 		Tail2.addChild(R_Spike4);
 		setRotationAngle(R_Spike4, 0.0F, 0.0F, -0.4363F);
-		R_Spike4.setTextureOffset(183, 171).addBox(-3.0F, 0.0F, -5.0F, 3.0F, 0.0F, 10.0F, 0.0F, false);
+		R_Spike4.setTextureOffset(43, 184).addBox(-3.0F, 0.0F, -5.0F, 3.0F, 0.0F, 10.0F, 0.0F, false);
 
 		L_Spike4 = new AdvancedModelBox(this);
 		L_Spike4.setRotationPoint(2.0F, 0.0F, 5.0F);
@@ -241,19 +242,19 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		UpperR_Hook.setRotationPoint(-24.0F, 2.0F, 0.0F);
 		UpperR_Tantacle4.addChild(UpperR_Hook);
 		setRotationAngle(UpperR_Hook, 0.0F, 0.0F, 0.7854F);
-		UpperR_Hook.setTextureOffset(139, 0).addBox(-2.0F, 0.0F, -1.5F, 2.0F, 8.0F, 3.0F, 0.0F, false);
+		UpperR_Hook.setTextureOffset(99, 129).addBox(-2.0F, 0.0F, -1.5F, 2.0F, 8.0F, 3.0F, 0.0F, false);
 
 		UpperR_Hook2 = new AdvancedModelBox(this);
 		UpperR_Hook2.setRotationPoint(-24.0F, 0.0F, -2.0F);
 		UpperR_Tantacle4.addChild(UpperR_Hook2);
 		setRotationAngle(UpperR_Hook2, 0.0F, 0.7854F, 0.0F);
-		UpperR_Hook2.setTextureOffset(175, 186).addBox(-2.0F, -1.5F, -8.0F, 2.0F, 3.0F, 8.0F, 0.0F, false);
+		UpperR_Hook2.setTextureOffset(189, 156).addBox(-2.0F, -1.5F, -8.0F, 2.0F, 3.0F, 8.0F, 0.0F, false);
 
 		UpperR_Hook3 = new AdvancedModelBox(this);
 		UpperR_Hook3.setRotationPoint(-24.0F, 0.0F, 2.0F);
 		UpperR_Tantacle4.addChild(UpperR_Hook3);
 		setRotationAngle(UpperR_Hook3, 0.0F, -0.7854F, 0.0F);
-		UpperR_Hook3.setTextureOffset(154, 186).addBox(-2.0F, -1.5F, 0.0F, 2.0F, 3.0F, 8.0F, 0.0F, false);
+		UpperR_Hook3.setTextureOffset(106, 189).addBox(-2.0F, -1.5F, 0.0F, 2.0F, 3.0F, 8.0F, 0.0F, false);
 
 		UpperR_Hook4 = new AdvancedModelBox(this);
 		UpperR_Hook4.setRotationPoint(-24.0F, -2.0F, 0.0F);
@@ -289,19 +290,19 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		UpperL_Hook.setRotationPoint(24.0F, 2.0F, 0.0F);
 		UpperL_Tantacle4.addChild(UpperL_Hook);
 		setRotationAngle(UpperL_Hook, 0.0F, 0.0F, -0.7854F);
-		UpperL_Hook.setTextureOffset(139, 0).addBox(0.0F, 0.0F, -1.5F, 2.0F, 8.0F, 3.0F, 0.0F, true);
+		UpperL_Hook.setTextureOffset(99, 129).addBox(0.0F, 0.0F, -1.5F, 2.0F, 8.0F, 3.0F, 0.0F, true);
 
 		UpperL_Hook2 = new AdvancedModelBox(this);
 		UpperL_Hook2.setRotationPoint(24.0F, 0.0F, -2.0F);
 		UpperL_Tantacle4.addChild(UpperL_Hook2);
 		setRotationAngle(UpperL_Hook2, 0.0F, -0.7854F, 0.0F);
-		UpperL_Hook2.setTextureOffset(175, 186).addBox(0.0F, -1.5F, -8.0F, 2.0F, 3.0F, 8.0F, 0.0F, true);
+		UpperL_Hook2.setTextureOffset(189, 156).addBox(0.0F, -1.5F, -8.0F, 2.0F, 3.0F, 8.0F, 0.0F, true);
 
 		UpperL_Hook3 = new AdvancedModelBox(this);
 		UpperL_Hook3.setRotationPoint(24.0F, 0.0F, 2.0F);
 		UpperL_Tantacle4.addChild(UpperL_Hook3);
 		setRotationAngle(UpperL_Hook3, 0.0F, 0.7854F, 0.0F);
-		UpperL_Hook3.setTextureOffset(154, 186).addBox(0.0F, -1.5F, 0.0F, 2.0F, 3.0F, 8.0F, 0.0F, true);
+		UpperL_Hook3.setTextureOffset(106, 189).addBox(0.0F, -1.5F, 0.0F, 2.0F, 3.0F, 8.0F, 0.0F, true);
 
 		UpperL_Hook4 = new AdvancedModelBox(this);
 		UpperL_Hook4.setRotationPoint(24.0F, -2.0F, 0.0F);
@@ -343,7 +344,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		LowerR_Hook2.setRotationPoint(-24.0F, 0.0F, -2.0F);
 		LowerR_Tantacle4.addChild(LowerR_Hook2);
 		setRotationAngle(LowerR_Hook2, 0.0F, 0.7854F, 0.0F);
-		LowerR_Hook2.setTextureOffset(68, 184).addBox(-2.0F, -1.5F, -8.0F, 2.0F, 3.0F, 8.0F, 0.0F, false);
+		LowerR_Hook2.setTextureOffset(187, 186).addBox(-2.0F, -1.5F, -8.0F, 2.0F, 3.0F, 8.0F, 0.0F, false);
 
 		LowerR_Hook3 = new AdvancedModelBox(this);
 		LowerR_Hook3.setRotationPoint(-24.0F, 0.0F, 2.0F);
@@ -391,7 +392,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		LowerL_Hook2.setRotationPoint(24.0F, 0.0F, -2.0F);
 		LowerL_Tantacle4.addChild(LowerL_Hook2);
 		setRotationAngle(LowerL_Hook2, 0.0F, -0.7854F, 0.0F);
-		LowerL_Hook2.setTextureOffset(68, 184).addBox(0.0F, -1.5F, -8.0F, 2.0F, 3.0F, 8.0F, 0.0F, true);
+		LowerL_Hook2.setTextureOffset(187, 186).addBox(0.0F, -1.5F, -8.0F, 2.0F, 3.0F, 8.0F, 0.0F, true);
 
 		LowerL_Hook3 = new AdvancedModelBox(this);
 		LowerL_Hook3.setRotationPoint(24.0F, 0.0F, 2.0F);
@@ -413,31 +414,31 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		Muscle = new AdvancedModelBox(this);
 		Muscle.setRotationPoint(0.0F, 0.0F, -2.0F);
 		Head.addChild(Muscle);
-		Muscle.setTextureOffset(99, 129).addBox(4.5F, -6.0F, -3.0F, 0.0F, 11.0F, 4.0F, 0.0F, false);
-		Muscle.setTextureOffset(0, 125).addBox(-4.5F, -6.0F, -3.0F, 0.0F, 11.0F, 4.0F, 0.0F, false);
+		Muscle.setTextureOffset(0, 125).addBox(4.5F, -6.0F, -3.0F, 0.0F, 11.0F, 4.0F, 0.0F, false);
+		Muscle.setTextureOffset(0, 100).addBox(-4.5F, -6.0F, -3.0F, 0.0F, 11.0F, 4.0F, 0.0F, false);
 
 		Maw = new AdvancedModelBox(this);
 		Maw.setRotationPoint(0.0F, 2.0F, 0.25F);
 		Head.addChild(Maw);
 		Maw.setTextureOffset(171, 50).addBox(-5.0F, 0.0F, -8.25F, 10.0F, 3.0F, 8.0F, 0.0F, false);
-		Maw.setTextureOffset(33, 143).addBox(5.0F, -3.0F, -8.25F, 0.0F, 3.0F, 6.0F, 0.0F, false);
+		Maw.setTextureOffset(140, 64).addBox(5.0F, -3.0F, -8.25F, 0.0F, 3.0F, 6.0F, 0.0F, false);
 		Maw.setTextureOffset(0, 21).addBox(3.0F, -3.0F, -12.25F, 0.0F, 3.0F, 4.0F, 0.0F, false);
 		Maw.setTextureOffset(66, 137).addBox(-3.0F, -5.0F, -12.25F, 6.0F, 5.0F, 0.0F, 0.0F, false);
 		Maw.setTextureOffset(0, 0).addBox(-3.0F, -3.0F, -12.25F, 0.0F, 3.0F, 4.0F, 0.0F, false);
 		Maw.setTextureOffset(5, 21).addBox(3.0F, -3.0F, -8.25F, 2.0F, 3.0F, 0.0F, 0.0F, false);
 		Maw.setTextureOffset(5, 0).addBox(-5.0F, -3.0F, -8.25F, 2.0F, 3.0F, 0.0F, 0.0F, false);
-		Maw.setTextureOffset(0, 143).addBox(-5.0F, -3.0F, -8.25F, 0.0F, 3.0F, 6.0F, 0.0F, false);
+		Maw.setTextureOffset(139, 0).addBox(-5.0F, -3.0F, -8.25F, 0.0F, 3.0F, 6.0F, 0.0F, false);
 		Maw.setTextureOffset(33, 100).addBox(-3.0F, 0.0F, -12.25F, 6.0F, 4.0F, 4.0F, 0.0F, false);
 
 		Skul = new AdvancedModelBox(this);
 		Skul.setRotationPoint(0.0F, -1.0F, 0.0F);
 		Head.addChild(Skul);
-		Skul.setTextureOffset(43, 184).addBox(-4.0F, -6.0F, -13.0F, 8.0F, 7.0F, 4.0F, 0.0F, false);
+		Skul.setTextureOffset(162, 186).addBox(-4.0F, -6.0F, -13.0F, 8.0F, 7.0F, 4.0F, 0.0F, false);
 		Skul.setTextureOffset(146, 113).addBox(-6.0F, -6.0F, -9.0F, 12.0F, 6.0F, 9.0F, 0.0F, false);
-		Skul.setTextureOffset(0, 100).addBox(-6.0F, 0.0F, -9.0F, 0.0F, 3.0F, 7.0F, 0.0F, false);
+		Skul.setTextureOffset(82, 93).addBox(-6.0F, 0.0F, -9.0F, 0.0F, 3.0F, 7.0F, 0.0F, false);
 		Skul.setTextureOffset(35, 5).addBox(-6.0F, 0.0F, -9.0F, 2.0F, 4.0F, 0.0F, 0.0F, false);
 		Skul.setTextureOffset(35, 0).addBox(4.0F, 0.0F, -9.0F, 2.0F, 4.0F, 0.0F, 0.0F, false);
-		Skul.setTextureOffset(82, 93).addBox(6.0F, 0.0F, -9.0F, 0.0F, 3.0F, 7.0F, 0.0F, false);
+		Skul.setTextureOffset(43, 0).addBox(6.0F, 0.0F, -9.0F, 0.0F, 3.0F, 7.0F, 0.0F, false);
 		Skul.setTextureOffset(115, 104).addBox(-4.0F, 1.0F, -13.0F, 8.0F, 3.0F, 0.0F, 0.0F, false);
 		Skul.setTextureOffset(30, 21).addBox(4.0F, 1.0F, -13.0F, 0.0F, 4.0F, 2.0F, 0.0F, false);
 		Skul.setTextureOffset(30, 0).addBox(-4.0F, 1.0F, -13.0F, 0.0F, 4.0F, 2.0F, 0.0F, false);
@@ -487,7 +488,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		setRotationAngle(Mouth4, 0.0436F, 0.0F, 0.0F);
 		Mouth4.setTextureOffset(122, 39).addBox(-4.0F, -4.0F, -16.0F, 8.0F, 8.0F, 16.0F, 0.0F, false);
 		Mouth4.setTextureOffset(114, 174).addBox(-6.0F, 4.0F, -16.0F, 2.0F, 0.0F, 14.0F, 0.0F, false);
-		Mouth4.setTextureOffset(182, 116).addBox(4.0F, -6.0F, -16.0F, 0.0F, 2.0F, 14.0F, 0.0F, false);
+		Mouth4.setTextureOffset(182, 139).addBox(4.0F, -6.0F, -16.0F, 0.0F, 2.0F, 14.0F, 0.0F, false);
 
 		Mouth4_e = new AdvancedModelBox(this);
 		Mouth4_e.setRotationPoint(-1.0F, -1.0F, -15.5F);
@@ -500,7 +501,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		four_mouths.addChild(Mouth3);
 		setRotationAngle(Mouth3, 0.0436F, 0.0F, 0.0F);
 		Mouth3.setTextureOffset(113, 113).addBox(-4.0F, -4.0F, -16.0F, 8.0F, 8.0F, 16.0F, 0.0F, false);
-		Mouth3.setTextureOffset(28, 182).addBox(-4.0F, -6.0F, -16.0F, 0.0F, 2.0F, 14.0F, 0.0F, false);
+		Mouth3.setTextureOffset(182, 115).addBox(-4.0F, -6.0F, -16.0F, 0.0F, 2.0F, 14.0F, 0.0F, false);
 		Mouth3.setTextureOffset(172, 29).addBox(4.0F, 4.0F, -16.0F, 2.0F, 0.0F, 14.0F, 0.0F, false);
 
 		Mouth3_e = new AdvancedModelBox(this);
@@ -515,7 +516,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		setRotationAngle(Mouth2, -0.0436F, 0.0F, 0.0F);
 		Mouth2.setTextureOffset(33, 112).addBox(-4.0F, -4.0F, -16.0F, 8.0F, 8.0F, 16.0F, 0.0F, false);
 		Mouth2.setTextureOffset(164, 171).addBox(-6.0F, -4.0F, -16.0F, 2.0F, 0.0F, 14.0F, 0.0F, false);
-		Mouth2.setTextureOffset(180, 99).addBox(4.0F, 4.0F, -16.0F, 0.0F, 2.0F, 14.0F, 0.0F, false);
+		Mouth2.setTextureOffset(28, 182).addBox(4.0F, 4.0F, -16.0F, 0.0F, 2.0F, 14.0F, 0.0F, false);
 
 		Mouth2_e = new AdvancedModelBox(this);
 		Mouth2_e.setRotationPoint(-1.0F, 1.0F, -15.5F);
@@ -546,6 +547,34 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 	public void animate(The_Leviathan_Entity entity, float f, float f1, float f2, float f3, float f4) {
 		this.resetToDefaultPose();
+		animator.update(entity);
+		animator.setAnimation(The_Leviathan_Entity.ANIMATION_GRAB);
+		animator.startKeyframe(25);
+		animator.rotate(Maw,(float)Math.toRadians(32.5F),0, 0);
+		animator.rotate(Skul,(float)Math.toRadians(-35F),0, 0);
+		animator.rotate(Mouth,(float)Math.toRadians(-37.5F),(float)Math.toRadians(42.5F), 0);
+		animator.rotate(Mouth2,(float)Math.toRadians(-37.5F),(float)Math.toRadians(-42.5F), 0);
+		animator.rotate(Mouth3,(float)Math.toRadians(37.5F),(float)Math.toRadians(42.5F), 0);
+		animator.rotate(Mouth4,(float)Math.toRadians(37.5F),(float)Math.toRadians(-42.5F), 0);
+		animator.endKeyframe();
+		animator.setStaticKeyframe(70);
+
+		animator.resetKeyframe(20);
+
+
+		animator.setAnimation(The_Leviathan_Entity.ANIMATION_GRAB_BITE);
+		animator.startKeyframe(0);
+		animator.rotate(Maw,(float)Math.toRadians(32.5F),0, 0);
+		animator.rotate(Skul,(float)Math.toRadians(-35F),0, 0);
+		animator.rotate(Mouth,(float)Math.toRadians(-37.5F),(float)Math.toRadians(42.5F), 0);
+		animator.rotate(Mouth2,(float)Math.toRadians(-37.5F),(float)Math.toRadians(-42.5F), 0);
+		animator.rotate(Mouth3,(float)Math.toRadians(37.5F),(float)Math.toRadians(42.5F), 0);
+		animator.rotate(Mouth4,(float)Math.toRadians(37.5F),(float)Math.toRadians(-42.5F), 0);
+		animator.endKeyframe();
+
+
+		animator.resetKeyframe(3);
+
 	}
 
 	@Override

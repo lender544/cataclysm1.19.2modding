@@ -27,10 +27,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PlayMessages;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 public class The_Leviathan_Tongue_Entity extends Entity {
 
@@ -38,10 +35,12 @@ public class The_Leviathan_Tongue_Entity extends Entity {
     private static final EntityDataAccessor<Integer> FROM_ID = SynchedEntityData.defineId(The_Leviathan_Tongue_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> CURRENT_TARGET_ID = SynchedEntityData.defineId(The_Leviathan_Tongue_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> PROGRESS = SynchedEntityData.defineId(The_Leviathan_Tongue_Entity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> MAX_TIME = SynchedEntityData.defineId(The_Leviathan_Tongue_Entity.class, EntityDataSerializers.FLOAT);
+
     private static final EntityDataAccessor<Boolean> RETRACTING = SynchedEntityData.defineId(The_Leviathan_Tongue_Entity.class, EntityDataSerializers.BOOLEAN);
     private boolean hasTouched = false;
     public float prevProgress = 0;
-    public static final float MAX_EXTEND_TIME = 20F;
+
 
 
     public The_Leviathan_Tongue_Entity(EntityType<?> type, Level level) {
@@ -50,7 +49,7 @@ public class The_Leviathan_Tongue_Entity extends Entity {
 
 
     public The_Leviathan_Tongue_Entity(PlayMessages.SpawnEntity spawnEntity, Level world) {
-        this(ModEntities.TONGUE.get(), world);
+        this(ModEntities.THE_LEVIATHAN_TONGUE.get(), world);
     }
 
     @Override
@@ -64,12 +63,14 @@ public class The_Leviathan_Tongue_Entity extends Entity {
         this.entityData.define(FROM_ID, -1);
         this.entityData.define(CURRENT_TARGET_ID, -1);
         this.entityData.define(PROGRESS, 0F);
+        this.entityData.define(MAX_TIME, 0F);
         this.entityData.define(RETRACTING, false);
     }
 
     @Override
     public void tick() {
         float progress = this.getProgress();
+        float MAX_EXTEND_TIME = this.getMaxExtendTime();
         this.prevProgress = progress;
         super.tick();
         Entity creator = getCreatorEntity();
@@ -78,9 +79,9 @@ public class The_Leviathan_Tongue_Entity extends Entity {
             this.setProgress(progress + 1);
         }
         if(this.isRetracting() && progress > 0F){
-            this.setProgress(progress - 1);
+            this.setProgress(progress - 1.25f);
         }
-        if(this.isRetracting() && progress == 0F){
+        if(this.isRetracting() && progress <= 0F){
             Entity from = this.getFromEntity();
             if(from instanceof The_Leviathan_Tongue_Entity){
                 The_Leviathan_Tongue_Entity tongueSegment = (The_Leviathan_Tongue_Entity) from;
@@ -93,24 +94,29 @@ public class The_Leviathan_Tongue_Entity extends Entity {
             this.remove(RemovalReason.DISCARDED);
         }
         if (creator instanceof LivingEntity) {
-            if (current != null) {
-                Vec3 target = new Vec3(current.getX(), current.getY(0.4F), current.getZ());
-                Vec3 lerp = target.subtract(this.position());
-                this.setDeltaMovement(lerp.scale(0.5F));
-                if(!level.isClientSide){
-                    if(!hasTouched && progress >= MAX_EXTEND_TIME){
-                        hasTouched = true;
-                        Entity entity = getCreatorEntity();
-                        if(entity instanceof LivingEntity){
-                            if(current.hurt(DamageSource.indirectMobAttack(this, (LivingEntity) creator), 3)){
-                                Vec3 vec3 = (new Vec3(entity.getX() - current.getX(), entity.getY() - current.getY(), entity.getZ() - current.getZ())).scale(0.35D);
-                                current.setDeltaMovement(current.getDeltaMovement().add(vec3));
+            if(creator.isAlive()) {
+                if (current != null) {
+                    Vec3 target = new Vec3(current.getX(), current.getY(0.4F), current.getZ());
+                    Vec3 lerp = target.subtract(this.position());
+                    this.setDeltaMovement(lerp.scale(0.5F));
+                    if (!level.isClientSide) {
+                        if (!hasTouched && progress >= MAX_EXTEND_TIME) {
+                            hasTouched = true;
+                            Entity entity = getCreatorEntity();
+                            if (entity instanceof LivingEntity) {
+                                if (current.hurt(DamageSource.indirectMobAttack(this, (LivingEntity) creator), 3)) {
+                                    Vec3 vec3 = (new Vec3(entity.getX() - current.getX(), entity.getY() - current.getY(), entity.getZ() - current.getZ())).scale(0.35D);
+                                    current.setDeltaMovement(current.getDeltaMovement().add(vec3));
+                                }
                             }
                         }
                     }
                 }
+            }else {
+                this.remove(RemovalReason.DISCARDED);
             }
         }
+
         Vec3 vector3d = this.getDeltaMovement();
         if(!level.isClientSide){
             if(creator instanceof LivingEntity && this.getProgress() >= MAX_EXTEND_TIME) {
@@ -182,6 +188,15 @@ public class The_Leviathan_Tongue_Entity extends Entity {
     public void setProgress(float progress) {
         this.entityData.set(PROGRESS, progress);
     }
+
+    public float getMaxExtendTime() {
+        return this.entityData.get(MAX_TIME);
+    }
+
+    public void setMaxExtendTime(float progress) {
+        this.entityData.set(MAX_TIME, progress);
+    }
+
 
     public boolean isRetracting() {
         return this.entityData.get(RETRACTING);

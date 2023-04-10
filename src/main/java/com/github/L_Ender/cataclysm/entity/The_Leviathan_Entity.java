@@ -22,9 +22,8 @@ import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.monster.Drowned;
-import net.minecraft.world.entity.monster.Guardian;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -34,8 +33,9 @@ import net.minecraft.world.phys.Vec3;
 
 public class The_Leviathan_Entity extends Boss_monster {
 
-    public static final Animation ANIMATION_BITE = Animation.create(8);
+    public static final Animation ANIMATION_GRAB = Animation.create(115);
     public static final Animation ANIMATION_TAILSWING = Animation.create(20);
+    public static final Animation ANIMATION_GRAB_BITE = Animation.create(3);
     public int jumpCooldown;
 
     public The_Leviathan_Entity(EntityType type, Level worldIn) {
@@ -45,17 +45,18 @@ public class The_Leviathan_Entity extends Boss_monster {
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
 
-
-
     public static AttributeSupplier.Builder altulmen() {
-        return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 60.0D).add(Attributes.FOLLOW_RANGE, 64.0D).add(Attributes.ARMOR, 0.0D).add(Attributes.ATTACK_DAMAGE, 10.0D).add(Attributes.KNOCKBACK_RESISTANCE, 0.7F).add(Attributes.MOVEMENT_SPEED, 1.35F);
+        return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 400.0D)
+                .add(Attributes.FOLLOW_RANGE, 64.0D)
+                .add(Attributes.ARMOR, 0.0D)
+                .add(Attributes.ATTACK_DAMAGE, 10.0D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0F)
+                .add(Attributes.MOVEMENT_SPEED, 1.35F);
     }
 
     protected PathNavigation createNavigation(Level worldIn) {
         return new SwimmerJumpPathNavigator(this, worldIn);
     }
-
-
 
     protected void defineSynchedData() {
         super.defineSynchedData();
@@ -72,11 +73,12 @@ public class The_Leviathan_Entity extends Boss_monster {
         this.goalSelector.addGoal(6, new OrcaAIMelee(this, 1.2F, true));
         this.goalSelector.addGoal(8, new FollowBoatGoal(this));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
 
     }
     @Override
     public Animation[] getAnimations() {
-        return new Animation[]{ANIMATION_BITE, ANIMATION_TAILSWING};
+        return new Animation[]{ANIMATION_GRAB, ANIMATION_TAILSWING,ANIMATION_GRAB_BITE};
     }
 
     public void travel(Vec3 travelVector) {
@@ -118,22 +120,38 @@ public class The_Leviathan_Entity extends Boss_monster {
 
         }
         LivingEntity target = this.getTarget();
-        if (target != null ) {
 
-                if (LeviathanTongueUtil.canLaunchTongues(this.level, this)) {
-                    LeviathanTongueUtil.retractFarTongues(this.level, this);
-                    if (!this.level.isClientSide) {
-                        The_Leviathan_Tongue_Entity segment = ModEntities.TONGUE.get().create(this.level);
-                        segment.copyPosition(this);
-                        this.level.addFreshEntity(segment);
-                        segment.setCreatorEntityUUID(this.getUUID());
-                        segment.setToEntityID(target.getId());
-                        segment.setFromEntityID(this.getId());
-                        segment.copyPosition(this);
-                        segment.setProgress(0.0F);
-                        LeviathanTongueUtil.setLastTongue(this, segment);
+        if(this.getAnimation() == NO_ANIMATION){
+            this.setAnimation(ANIMATION_GRAB);
+        }
+        if(this.getAnimation() == ANIMATION_GRAB){
+            if(this.getAnimationTick() == 25){
+                if (target != null ) {
+                    if (LeviathanTongueUtil.canLaunchTongues(this.level, this)) {
+                        LeviathanTongueUtil.retractFarTongues(this.level, this);
+                        if (!this.level.isClientSide) {
+                            The_Leviathan_Tongue_Entity segment = ModEntities.THE_LEVIATHAN_TONGUE.get().create(this.level);
+                            segment.copyPosition(this);
+                            this.level.addFreshEntity(segment);
+                            segment.setCreatorEntityUUID(this.getUUID());
+                            segment.setToEntityID(target.getId());
+                            segment.setFromEntityID(this.getId());
+                            segment.setMaxExtendTime(15);
+                            segment.copyPosition(this);
+                            segment.setProgress(0.0F);
+                            LeviathanTongueUtil.setLastTongue(this, segment);
+                        }
                     }
-
+                }
+            }
+            if(this.getAnimationTick() > 25 && this.getAnimationTick() <= 95){
+                if (target != null ) {
+                    if (LeviathanTongueUtil.canLaunchTongues(this.level, this)) {
+                        if (this.distanceTo(target) < 8) {
+                            AnimationHandler.INSTANCE.sendAnimationMessage(this, ANIMATION_GRAB_BITE);
+                        }
+                    }
+                }
             }
         }
 
@@ -143,14 +161,8 @@ public class The_Leviathan_Entity extends Boss_monster {
     public boolean doHurtTarget(Entity entityIn) {
         if(this.isInWaterOrBubble() && random.nextBoolean()){
             this.setAnimation(ANIMATION_TAILSWING);
-        }else{
-            this.setAnimation(ANIMATION_BITE);
         }
         return true;
-    }
-
-    public int getMaxAirSupply() {
-        return 4800;
     }
 
     protected int increaseAirSupply(int currentAir) {
@@ -180,7 +192,7 @@ public class The_Leviathan_Entity extends Boss_monster {
 
 
     public boolean canBreatheUnderwater() {
-        return false;
+        return true;
     }
 
     public void baseTick() {
@@ -188,6 +200,8 @@ public class The_Leviathan_Entity extends Boss_monster {
         super.baseTick();
         this.updateAir(i);
     }
+
+
 
     public boolean isPushedByFluid() {
         return false;

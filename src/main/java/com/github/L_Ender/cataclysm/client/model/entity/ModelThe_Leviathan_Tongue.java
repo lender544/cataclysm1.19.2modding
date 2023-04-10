@@ -22,17 +22,17 @@ public class ModelThe_Leviathan_Tongue extends AdvancedEntityModel<Entity> {
 
 		root = new AdvancedModelBox(this);
 		root.setRotationPoint(0.0F, 12.0F, 0.0F);
-		
+
 
 		tonguePivot = new AdvancedModelBox(this);
 		tonguePivot.setRotationPoint(0.0F, 0.0F, 0.0F);
 		root.addChild(tonguePivot);
-		
+
 
 		tongue = new AdvancedModelBox(this);
 		tongue.setRotationPoint(0.0F, 0.0F, 0.0F);
 		tonguePivot.addChild(tongue);
-		tongue.setTextureOffset(0, 183).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 16.0F, 2.0F, 0.0F, false);
+		tongue.setTextureOffset(0, 183).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 16.0F, 4.0F, 0.0F, false);
 		this.updateDefaultPose();
 	}
 

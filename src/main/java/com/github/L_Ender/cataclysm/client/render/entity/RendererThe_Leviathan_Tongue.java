@@ -43,7 +43,7 @@ public class RendererThe_Leviathan_Tongue extends EntityRenderer<The_Leviathan_T
         float z = (float)Mth.lerp(partialTicks, entity.zo, entity.getZ());
 
         if (fromEntity != null) {
-            float progress = (entity.prevProgress + (entity.getProgress() - entity.prevProgress) * partialTicks) / The_Leviathan_Tongue_Entity.MAX_EXTEND_TIME;
+            float progress = (entity.prevProgress + (entity.getProgress() - entity.prevProgress) * partialTicks) / entity.getMaxExtendTime();
             Vec3 distVec = getPositionOfPriorMob(entity, fromEntity, partialTicks).subtract(x, y, z);
             Vec3 to = distVec.scale(1F - progress);
             Vec3 from = distVec;
@@ -86,15 +86,14 @@ public class RendererThe_Leviathan_Tongue extends EntityRenderer<The_Leviathan_T
         double d6 = Mth.lerp(partialTicks, mob.zo, mob.getZ());
 
 
-
         if(mob instanceof The_Leviathan_Entity leviathan && segment.isCreator(mob)){
             double theta = (leviathan.yBodyRot) * (Math.PI / 180);
             theta += Math.PI / 2;
             double vecX = Math.cos(theta);
             double vecZ = Math.sin(theta);
-            double x = 2.3 * vecX;
-            double y = -0.1;
-            double Z = 2.3 * vecZ;
+            double x = 4.0 * vecX;
+            double y = 0.4;
+            double Z = 4.0 * vecZ;
             d4 = Mth.lerp(partialTicks, leviathan.xo + x, leviathan.getX() + x);
              d5 = Mth.lerp(partialTicks, leviathan.yo  + y, leviathan.getY() + y);
              d6 = Mth.lerp(partialTicks, leviathan.zo + Z, leviathan.getZ() + Z);
