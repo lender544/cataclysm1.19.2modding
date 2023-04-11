@@ -1,6 +1,5 @@
-package com.github.L_Ender.cataclysm.entity.AltlumenGoal;
+package com.github.L_Ender.cataclysm.entity.The_Leviathan;
 
-import com.github.L_Ender.cataclysm.entity.The_Leviathan_Entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;

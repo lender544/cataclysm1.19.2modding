@@ -1,8 +1,7 @@
 package com.github.L_Ender.cataclysm.client.model.entity;
 
 
-import com.github.L_Ender.cataclysm.entity.The_Harbinger_Entity;
-import com.github.L_Ender.cataclysm.entity.The_Leviathan_Entity;
+import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Entity;
 import com.github.alexthe666.citadel.client.model.AdvancedEntityModel;
 import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
 import com.github.alexthe666.citadel.client.model.ModelAnimator;
@@ -575,6 +574,8 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		animator.resetKeyframe(3);
 
+		animator.setStaticKeyframe(10);
+
 	}
 
 	@Override
@@ -625,9 +626,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		this.body.rotateAngleX += headPitch * ((float) Math.PI / 180F);
 		this.body.rotateAngleY += netHeadYaw * ((float) Math.PI / 180F);
-		if (horizontalMag(entityIn.getDeltaMovement()) > 1.0E-7D) {
-			this.body.rotateAngleX += -0.05F + -0.05F * Mth.cos(ageInTicks * 0.1F);
-		}
+
 	}
 
 	@Override

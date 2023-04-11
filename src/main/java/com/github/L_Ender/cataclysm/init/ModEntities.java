@@ -3,6 +3,8 @@ package com.github.L_Ender.cataclysm.init;
 
 import com.github.L_Ender.cataclysm.cataclysm;
 import com.github.L_Ender.cataclysm.entity.*;
+import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Entity;
+import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Tongue_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.*;
 import com.github.L_Ender.cataclysm.entity.projectile.Ashen_Breath_Entity;
 import com.github.L_Ender.cataclysm.entity.projectile.*;
@@ -242,7 +244,7 @@ public class ModEntities {
         event.put(ENDERMAPTERA.get(), Endermaptera_Entity.endermaptera().build());
         event.put(IGNITED_REVENANT.get(), Ignited_Revenant_Entity.ignited_revenant().build());
         event.put(THE_HARBINGER.get(), The_Harbinger_Entity.harbinger().build());
-        event.put(THE_LEVIATHAN.get(), The_Leviathan_Entity.altulmen().build());
+        event.put(THE_LEVIATHAN.get(), The_Leviathan_Entity.leviathan().build());
     }
 }
 

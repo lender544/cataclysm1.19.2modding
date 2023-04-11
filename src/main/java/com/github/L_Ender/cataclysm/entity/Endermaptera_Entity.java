@@ -149,18 +149,15 @@ public class Endermaptera_Entity extends Monster implements IAnimatedEntity {
     }
 
     protected SoundEvent getAmbientSound() {
-        this.playSound(ModSounds.ENDERMAPTERA_AMBIENT.get(), 1.0f, 0.6f);
-        return null;
+        return ModSounds.ENDERMAPTERA_AMBIENT.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        this.playSound(ModSounds.ENDERMAPTERA_HURT.get(), 1.0f, 0.6f);
-        return null;
+        return ModSounds.ENDERMAPTERA_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        this.playSound(ModSounds.ENDERMAPTERA_DEATH.get(), 1.0f, 0.6f);
-        return null;
+        return ModSounds.ENDERMAPTERA_DEATH.get();
     }
 
     protected void playStepSound(BlockPos pos, BlockState blockIn) {

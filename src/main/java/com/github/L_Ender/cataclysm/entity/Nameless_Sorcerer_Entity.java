@@ -1,6 +1,7 @@
 package com.github.L_Ender.cataclysm.entity;
 
 import com.github.L_Ender.cataclysm.init.ModEntities;
+import com.github.L_Ender.cataclysm.init.ModSounds;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import net.minecraft.core.BlockPos;
@@ -208,19 +209,15 @@ public class Nameless_Sorcerer_Entity extends AbstractIllager implements IAnimat
     
 
     protected SoundEvent getAmbientSound() {
-        this.playSound(SoundEvents.EVOKER_AMBIENT, 1.0f ,0.9f);
-        return null;
+        return SoundEvents.EVOKER_AMBIENT;
     }
 
     protected SoundEvent getDeathSound() {
-        this.playSound(SoundEvents.EVOKER_DEATH, 1.0f ,0.9f);
-        return null;
+        return SoundEvents.EVOKER_DEATH;
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
-        this.playSound(SoundEvents.EVOKER_HURT, 1.0f ,0.9f);
-        return null;
+        return SoundEvents.EVOKER_HURT;
     }
 
     public void applyRaidBuffs(int p_32632_, boolean p_32633_) {

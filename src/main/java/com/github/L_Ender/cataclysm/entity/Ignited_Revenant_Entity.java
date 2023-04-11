@@ -270,18 +270,15 @@ public class Ignited_Revenant_Entity extends Boss_monster {
     }
 
     protected SoundEvent getAmbientSound() {
-        this.playSound(ModSounds.REVENANT_IDLE.get(), 1.0f, 0.75f);
-        return null;
+        return ModSounds.REVENANT_IDLE.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        this.playSound(ModSounds.REVENANT_HURT.get(), 1.0f, 0.75f);
-        return null;
+        return ModSounds.REVENANT_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        this.playSound(ModSounds.REVENANT_DEATH.get(), 1.0f, 0.75f);
-        return null;
+        return ModSounds.REVENANT_DEATH.get();
     }
 
 
@@ -290,7 +287,6 @@ public class Ignited_Revenant_Entity extends Boss_monster {
         super.onDeathAIUpdate();
 
     }
-
 
     @Override
     protected BodyRotationControl createBodyControl() {

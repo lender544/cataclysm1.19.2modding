@@ -2,14 +2,15 @@ package com.github.L_Ender.cataclysm.client.render.entity;
 
 import com.github.L_Ender.cataclysm.client.model.entity.ModelThe_Leviathan_Tongue;
 import com.github.L_Ender.cataclysm.client.model.entity.ModelThe_Leviathan_Tongue_End;
-import com.github.L_Ender.cataclysm.entity.The_Leviathan_Entity;
-import com.github.L_Ender.cataclysm.entity.projectile.The_Leviathan_Tongue_Entity;
+import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Entity;
+import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Tongue_Entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -17,8 +18,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.HumanoidArm;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 
 public class RendererThe_Leviathan_Tongue extends EntityRenderer<The_Leviathan_Tongue_Entity> {
@@ -31,6 +30,10 @@ public class RendererThe_Leviathan_Tongue extends EntityRenderer<The_Leviathan_T
 
     public RendererThe_Leviathan_Tongue(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn);
+    }
+
+    public boolean shouldRender(The_Leviathan_Tongue_Entity grapple, Frustum f, double d1, double d2, double d3) {
+        return super.shouldRender(grapple, f, d1, d2, d3) || grapple.getCreatorEntity() != null && (f.isVisible(grapple.getCreatorEntity().getBoundingBox()));
     }
 
     @Override
@@ -87,16 +90,13 @@ public class RendererThe_Leviathan_Tongue extends EntityRenderer<The_Leviathan_T
 
 
         if(mob instanceof The_Leviathan_Entity leviathan && segment.isCreator(mob)){
-            double theta = (leviathan.yBodyRot) * (Math.PI / 180);
-            theta += Math.PI / 2;
-            double vecX = Math.cos(theta);
-            double vecZ = Math.sin(theta);
-            double x = 4.0 * vecX;
-            double y = 0.4;
-            double Z = 4.0 * vecZ;
-            d4 = Mth.lerp(partialTicks, leviathan.xo + x, leviathan.getX() + x);
-             d5 = Mth.lerp(partialTicks, leviathan.yo  + y, leviathan.getY() + y);
-             d6 = Mth.lerp(partialTicks, leviathan.zo + Z, leviathan.getZ() + Z);
+
+            float f = -Mth.sin(leviathan.getYRot() * ((float)Math.PI / 180F)) * Mth.cos(leviathan.getXRot() * ((float)Math.PI / 180F));
+            float f2 = Mth.cos(leviathan.getYRot() * ((float)Math.PI / 180F)) * Mth.cos(leviathan.getXRot() * ((float)Math.PI / 180F));
+
+            d4 = Mth.lerp(partialTicks, leviathan.xo + f * 3.0, leviathan.getX() + f * 3.0);
+            d5 = Mth.lerp(partialTicks, leviathan.yo + 0.4, leviathan.getY() + 0.4);
+            d6 = Mth.lerp(partialTicks, leviathan.zo + f2 * 3.0, leviathan.getZ() + f2 * 3.0);
 
         }
         return new Vec3(d4, d5, d6);

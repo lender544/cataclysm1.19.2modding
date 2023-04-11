@@ -2,8 +2,7 @@ package com.github.L_Ender.cataclysm.client.render.entity;
 
 
 import com.github.L_Ender.cataclysm.client.model.entity.ModelThe_Leviathan;
-import com.github.L_Ender.cataclysm.entity.Nameless_Sorcerer_Entity;
-import com.github.L_Ender.cataclysm.entity.The_Leviathan_Entity;
+import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;

@@ -84,7 +84,6 @@ public class ClientProxy extends CommonProxy {
         EntityRenderers.register(ModEntities.ENDERMAPTERA.get(), RendererEndermaptera::new);
         EntityRenderers.register(ModEntities.IGNITED_REVENANT.get(), RendererIgnited_Revenant::new);
         EntityRenderers.register(ModEntities.THE_HARBINGER.get(), RendererThe_Harbinger::new);
-        EntityRenderers.register(ModEntities.THE_LEVIATHAN.get(), RendererThe_Leviathan::new);
         EntityRenderers.register(ModEntities.VOID_SCATTER_ARROW.get(), RendererVoid_Scatter_Arrow::new);
         EntityRenderers.register(ModEntities.SCREEN_SHAKE.get(), RendererNull::new);
         EntityRenderers.register(ModEntities.WITHER_SMOKE_EFFECT.get(), RendererNull::new);
@@ -103,6 +102,7 @@ public class ClientProxy extends CommonProxy {
         EntityRenderers.register(ModEntities.VOID_HOWITZER.get(), RendererVoid_Howitzer::new);
         EntityRenderers.register(ModEntities.VOID_VORTEX.get(), RendererVoid_Vortex::new);
 
+        EntityRenderers.register(ModEntities.THE_LEVIATHAN.get(), RendererThe_Leviathan::new);
         EntityRenderers.register(ModEntities.THE_LEVIATHAN_TONGUE.get(), RendererThe_Leviathan_Tongue::new);
 
         EntityRenderers.register(ModEntities.VOID_SHARD.get(), (render) -> {

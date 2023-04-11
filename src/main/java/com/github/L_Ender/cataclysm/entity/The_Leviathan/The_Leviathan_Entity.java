@@ -1,10 +1,9 @@
-package com.github.L_Ender.cataclysm.entity;
+package com.github.L_Ender.cataclysm.entity.The_Leviathan;
 
+import com.github.L_Ender.cataclysm.entity.AI.SimpleAnimationGoal;
 import com.github.L_Ender.cataclysm.entity.AI.SwimmerJumpPathNavigator;
-import com.github.L_Ender.cataclysm.entity.AltlumenGoal.OrcaAIJump;
-import com.github.L_Ender.cataclysm.entity.AltlumenGoal.OrcaAIMelee;
-import com.github.L_Ender.cataclysm.entity.AltlumenGoal.OrcaAIMeleeJump;
-import com.github.L_Ender.cataclysm.entity.projectile.The_Leviathan_Tongue_Entity;
+import com.github.L_Ender.cataclysm.entity.Boss_monster;
+import com.github.L_Ender.cataclysm.entity.etc.SmartBodyHelper2;
 import com.github.L_Ender.cataclysm.entity.util.LeviathanTongueUtil;
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import com.github.alexthe666.citadel.animation.Animation;
@@ -18,12 +17,13 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.MoveControl;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -31,21 +31,23 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.EnumSet;
+
 public class The_Leviathan_Entity extends Boss_monster {
 
     public static final Animation ANIMATION_GRAB = Animation.create(115);
     public static final Animation ANIMATION_TAILSWING = Animation.create(20);
-    public static final Animation ANIMATION_GRAB_BITE = Animation.create(3);
+    public static final Animation ANIMATION_GRAB_BITE = Animation.create(13);
     public int jumpCooldown;
 
     public The_Leviathan_Entity(EntityType type, Level worldIn) {
         super(type, worldIn);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.moveControl = new MoveHelperController(this);
-        this.lookControl = new SmoothSwimmingLookControl(this, 10);
+        this.moveControl = new AnimalSwimMoveControllerSink(this, 1, 1, 6);
+        this.lookControl = new LeviathanSwimmingLookControl(this, 10);
     }
 
-    public static AttributeSupplier.Builder altulmen() {
+    public static AttributeSupplier.Builder leviathan() {
         return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 400.0D)
                 .add(Attributes.FOLLOW_RANGE, 64.0D)
                 .add(Attributes.ARMOR, 0.0D)
@@ -63,17 +65,19 @@ public class The_Leviathan_Entity extends Boss_monster {
     }
 
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new BreathAirGoal(this));
-        this.goalSelector.addGoal(1, new TryFindWaterGoal(this));
+        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(1, new LeviathanGrabAttackGoal(this,ANIMATION_GRAB));
+        this.goalSelector.addGoal(1, new LeviathanGrabBiteAttackGoal(this,ANIMATION_GRAB_BITE));
         this.goalSelector.addGoal(5, new OrcaAIJump(this, 10));
         this.goalSelector.addGoal(6, new OrcaAIMeleeJump(this));
         this.goalSelector.addGoal(6, new OrcaAIMelee(this, 1.2F, true));
         this.goalSelector.addGoal(8, new FollowBoatGoal(this));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
 
     }
     @Override
@@ -102,6 +106,7 @@ public class The_Leviathan_Entity extends Boss_monster {
             float f2 = (float) -((float) this.getDeltaMovement().y * (double) (180F / (float) Math.PI));
             this.setXRot(f2);
         }
+        this.setYRot(this.yHeadRot);
         if (this.isNoAi()) {
             this.setAirSupply(this.getMaxAirSupply());
         } else {
@@ -121,37 +126,10 @@ public class The_Leviathan_Entity extends Boss_monster {
         }
         LivingEntity target = this.getTarget();
 
-        if(this.getAnimation() == NO_ANIMATION){
-            this.setAnimation(ANIMATION_GRAB);
-        }
-        if(this.getAnimation() == ANIMATION_GRAB){
-            if(this.getAnimationTick() == 25){
-                if (target != null ) {
-                    if (LeviathanTongueUtil.canLaunchTongues(this.level, this)) {
-                        LeviathanTongueUtil.retractFarTongues(this.level, this);
-                        if (!this.level.isClientSide) {
-                            The_Leviathan_Tongue_Entity segment = ModEntities.THE_LEVIATHAN_TONGUE.get().create(this.level);
-                            segment.copyPosition(this);
-                            this.level.addFreshEntity(segment);
-                            segment.setCreatorEntityUUID(this.getUUID());
-                            segment.setToEntityID(target.getId());
-                            segment.setFromEntityID(this.getId());
-                            segment.setMaxExtendTime(15);
-                            segment.copyPosition(this);
-                            segment.setProgress(0.0F);
-                            LeviathanTongueUtil.setLastTongue(this, segment);
-                        }
-                    }
-                }
-            }
-            if(this.getAnimationTick() > 25 && this.getAnimationTick() <= 95){
-                if (target != null ) {
-                    if (LeviathanTongueUtil.canLaunchTongues(this.level, this)) {
-                        if (this.distanceTo(target) < 8) {
-                            AnimationHandler.INSTANCE.sendAnimationMessage(this, ANIMATION_GRAB_BITE);
-                        }
-                    }
-                }
+
+        if(target !=null) {
+            if (this.getAnimation() == NO_ANIMATION) {
+                this.setAnimation(ANIMATION_GRAB);
             }
         }
 
@@ -171,14 +149,6 @@ public class The_Leviathan_Entity extends Boss_monster {
 
     protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
         return 1.0F;
-    }
-
-    public int getMaxHeadXRot() {
-        return 1;
-    }
-
-    public int getMaxHeadYRot() {
-        return 1;
     }
 
     public boolean shouldUseJumpAttack(LivingEntity attackTarget) {
@@ -227,6 +197,11 @@ public class The_Leviathan_Entity extends Boss_monster {
 
     }
 
+    @Override
+    protected BodyRotationControl createBodyControl() {
+        return new SmartBodyHelper2(this);
+    }
+
     public void onJumpHit(LivingEntity entityIn) {
         boolean flag = entityIn.hurt(DamageSource.mobAttack(this), (float) ((int) this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
         if (flag) {
@@ -235,52 +210,77 @@ public class The_Leviathan_Entity extends Boss_monster {
         }
     }
 
-    static class MoveHelperController extends MoveControl {
-        private final The_Leviathan_Entity dolphin;
+    static class LeviathanGrabAttackGoal extends SimpleAnimationGoal<The_Leviathan_Entity> {
 
-        public MoveHelperController(The_Leviathan_Entity dolphinIn) {
-            super(dolphinIn);
-            this.dolphin = dolphinIn;
+        public LeviathanGrabAttackGoal(The_Leviathan_Entity entity, Animation animation) {
+            super(entity, animation);
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK, Flag.JUMP));
+        }
+
+        public void start() {
+            entity.getNavigation().stop();
+            LivingEntity target = entity.getTarget();
+            if (target != null) {
+                entity.getLookControl().setLookAt(target, 30, 30);
+            }
+            super.start();
         }
 
         public void tick() {
-            if (this.dolphin.isInWater()) {
-                this.dolphin.setDeltaMovement(this.dolphin.getDeltaMovement().add(0.0D, 0.005D, 0.0D));
+            LivingEntity target = entity.getTarget();
+            if (target != null) {
+                entity.getLookControl().setLookAt(target, 30, 30);
             }
-
-            if (this.operation == Operation.MOVE_TO && !this.dolphin.getNavigation().isDone()) {
-                double d0 = this.wantedX - this.dolphin.getX();
-                double d1 = this.wantedY - this.dolphin.getY();
-                double d2 = this.wantedZ - this.dolphin.getZ();
-                double d3 = d0 * d0 + d1 * d1 + d2 * d2;
-                if (d3 < (double) 2.5000003E-7F) {
-                    this.mob.setZza(0.0F);
-                } else {
-                    float f = (float) (Mth.atan2(d2, d0) * (double) (180F / (float) Math.PI)) - 90.0F;
-                    this.dolphin.setYRot(this.rotlerp(this.dolphin.getYRot(), f, 10.0F));
-                    this.dolphin.yBodyRot = this.dolphin.getYRot();
-                    this.dolphin.yHeadRot = this.dolphin.getYRot();
-                    float f1 = (float) (this.speedModifier * this.dolphin.getAttributeValue(Attributes.MOVEMENT_SPEED));
-                    if (this.dolphin.isInWater()) {
-                        this.dolphin.setSpeed(f1 * 0.02F);
-                        float f2 = -((float) (Mth.atan2(d1, Mth.sqrt((float) (d0 * d0 + d2 * d2))) * (double) (180F / (float) Math.PI)));
-                        f2 = Mth.clamp(Mth.wrapDegrees(f2), -85.0F, 85.0F);
-                        this.dolphin.setXRot(this.rotlerp(this.dolphin.getXRot(), f2, 5.0F));
-                        float f3 = Mth.cos(this.dolphin.getXRot() * ((float) Math.PI / 180F));
-                        float f4 = Mth.sin(this.dolphin.getXRot() * ((float) Math.PI / 180F));
-                        this.dolphin.zza = f3 * f1;
-                        this.dolphin.yya = -f4 * f1;
-                    } else {
-                        this.dolphin.setSpeed(f1 * 0.1F);
+            if (entity.getAnimationTick() == 25) {
+                if (target != null) {
+                    if (LeviathanTongueUtil.canLaunchTongues(this.entity.level, this.entity)) {
+                        LeviathanTongueUtil.retractFarTongues(this.entity.level, this.entity);
+                        if (!entity.level.isClientSide) {
+                            The_Leviathan_Tongue_Entity segment = ModEntities.THE_LEVIATHAN_TONGUE.get().create(this.entity.level);
+                            segment.copyPosition(this.entity);
+                            this.entity.level.addFreshEntity(segment);
+                            segment.setCreatorEntityUUID(this.entity.getUUID());
+                            segment.setToEntityID(target.getId());
+                            segment.setFromEntityID(this.entity.getId());
+                            segment.setMaxExtendTime(15);
+                            segment.copyPosition(this.entity);
+                            segment.setProgress(0.0F);
+                            LeviathanTongueUtil.setLastTongue(this.entity, segment);
+                        }
                     }
-
                 }
-            } else {
-                this.dolphin.setSpeed(0.0F);
-                this.dolphin.setXxa(0.0F);
-                this.dolphin.setYya(0.0F);
-                this.dolphin.setZza(0.0F);
             }
+            if (this.entity.getAnimationTick() > 25 && this.entity.getAnimationTick() <= 95) {
+                if (target != null) {
+                    if (LeviathanTongueUtil.canLaunchTongues(this.entity.level, this.entity)) {
+                        if (this.entity.distanceTo(target) < 8) {
+                            AnimationHandler.INSTANCE.sendAnimationMessage(this.entity, ANIMATION_GRAB_BITE);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    static class LeviathanGrabBiteAttackGoal extends SimpleAnimationGoal<The_Leviathan_Entity> {
+
+        public LeviathanGrabBiteAttackGoal(The_Leviathan_Entity entity, Animation animation) {
+            super(entity, animation);
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK, Flag.JUMP));
+        }
+
+        public void start() {
+            entity.getNavigation().stop();
+            LivingEntity target = entity.getTarget();
+            if (target != null) {
+                entity.getLookControl().setLookAt(target, 30, 30);
+            }
+            entity.playSound(SoundEvents.PHANTOM_BITE);
+            super.start();
+        }
+
+        public void tick() {
+            entity.setYRot(entity.yRotO);
         }
     }
 

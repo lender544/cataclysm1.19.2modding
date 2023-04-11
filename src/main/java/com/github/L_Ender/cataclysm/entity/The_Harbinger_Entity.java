@@ -632,20 +632,15 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
 
 
     protected SoundEvent getAmbientSound() {
-        if (this.getIsAct()) {
-            this.playSound(SoundEvents.WITHER_AMBIENT, 1.0f, 0.5f);
-        }
-        return null;
+        return this.getIsAct() ? ModSounds.HARBINGER_IDLE.get() : super.getAmbientSound();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        this.playSound(SoundEvents.WITHER_HURT, 1.0f, 0.5f);
-        return null;
+        return ModSounds.HARBINGER_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        this.playSound(SoundEvents.WITHER_HURT, 1.0f, 0.5f);
-        return null;
+        return ModSounds.HARBINGER_HURT.get();
     }
 
     @Override

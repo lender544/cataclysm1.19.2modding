@@ -257,13 +257,19 @@
   "endermaptera_ambient": {
     "subtitle": "endermaptera_ambient.sub",
     "sounds": [
-       "mob/spider/say1", "mob/spider/say2", "mob/spider/say3", "mob/spider/say4"
+      {"name": "mob/spider/say1", "pitch": 0.6},
+      {"name": "mob/spider/say2", "pitch": 0.6},
+      { "name": "mob/spider/say3", "pitch": 0.6},
+      { "name": "mob/spider/say4", "pitch": 0.6}
     ]
   },
   "endermaptera_hurt": {
     "subtitle": "endermaptera_hurt.sub",
     "sounds": [
-      "mob/spider/say1", "mob/spider/say2", "mob/spider/say3", "mob/spider/say4"
+      {"name": "mob/spider/say1","pitch": 0.6},
+      {"name": "mob/spider/say2","pitch": 0.6},
+      {"name":"mob/spider/say3","pitch": 0.6},
+      {"name":"mob/spider/say4","pitch": 0.6}
     ]
   },
   "endermaptera_step": {
@@ -275,7 +281,7 @@
   "endermaptera_death": {
     "subtitle": "endermaptera_death.sub",
     "sounds": [
-      "mob/spider/death"
+      {"name": "mob/spider/death", "pitch" : 0.6}
     ]
   },
   "flame_burst": {
@@ -330,7 +336,7 @@
     "subtitle": "revenant_breath.sub",
     "sounds": [
       {
-        "name": "cataclysm:entity/revenant_breath"
+        "name": "cataclysm:entity/revenant_breath" ,"pitch": 0.75
       }
     ]
   },
@@ -338,7 +344,7 @@
     "subtitle": "revenant_death.sub",
     "sounds": [
       {
-        "name": "cataclysm:entity/revenant_death"
+        "name": "cataclysm:entity/revenant_death" ,"pitch": 0.75
       }
     ]
   },
@@ -346,7 +352,7 @@
     "subtitle": "revenant_idle.sub",
     "sounds": [
       {
-        "name": "cataclysm:entity/revenant_idle"
+        "name": "cataclysm:entity/revenant_idle" ,"pitch": 0.75
       }
     ]
   },
@@ -354,13 +360,13 @@
     "subtitle": "revenant_hurt.sub",
     "sounds": [
       {
-        "name": "cataclysm:entity/revenant_hurt1"
+        "name": "cataclysm:entity/revenant_hurt1" ,"pitch": 0.75
       },
       {
-        "name": "cataclysm:entity/revenant_hurt2"
+        "name": "cataclysm:entity/revenant_hurt2" ,"pitch": 0.75
       },
       {
-        "name": "cataclysm:entity/revenant_hurt3"
+        "name": "cataclysm:entity/revenant_hurt3" ,"pitch": 0.75
       }
     ]
   },
@@ -433,6 +439,48 @@
     "sounds": [
       {
         "name": "cataclysm:entity/death_laser"
+      }
+    ]
+  },
+  "harbinger_hurt": {
+    "subtitle": "harbinger_hurt.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/harbinger_hurt1",
+        "pitch": 0.5
+      },
+      {
+        "name": "cataclysm:entity/harbinger_hurt2",
+        "pitch": 0.5
+      },
+      {
+        "name": "cataclysm:entity/harbinger_hurt3",
+        "pitch": 0.5
+      },
+      {
+        "name": "cataclysm:entity/harbinger_hurt4",
+        "pitch": 0.5
+      }
+    ]
+  },
+  "harbinger_idle": {
+    "subtitle": "harbinger_idle.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/harbinger_idle1",
+        "pitch": 0.5
+      },
+      {
+        "name": "cataclysm:entity/harbinger_idle2",
+        "pitch": 0.5
+      },
+      {
+        "name": "cataclysm:entity/harbinger_idle3",
+        "pitch": 0.5
+      },
+      {
+        "name": "cataclysm:entity/harbinger_idle4",
+        "pitch": 0.5
       }
     ]
   }

@@ -1,6 +1,5 @@
-package com.github.L_Ender.cataclysm.entity.AltlumenGoal;
+package com.github.L_Ender.cataclysm.entity.The_Leviathan;
 
-import com.github.L_Ender.cataclysm.entity.The_Leviathan_Entity;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 
 public class OrcaAIMelee extends MeleeAttackGoal {

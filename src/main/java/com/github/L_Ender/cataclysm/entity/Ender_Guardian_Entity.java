@@ -304,8 +304,13 @@ public class Ender_Guardian_Entity extends Boss_monster {
         if (entity instanceof AbstractGolem) {
             damage *= 0.5;
         }
-
-        return super.hurt(source, damage);
+        boolean attack = super.hurt(source, damage);
+        if(attack) {
+            if (this.getIsHelmetless()) {
+                this.playSound(SoundEvents.SHULKER_HURT, 1.0f, 0.8f);
+            }
+        }
+        return attack;
     }
 
     @Override
@@ -1075,23 +1080,16 @@ public class Ender_Guardian_Entity extends Boss_monster {
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        this.playSound(ModSounds.ENDERGUARDIANHURT.get(), 1.0f, 1.0f);
-        if (this.getIsHelmetless()) {
-            this.playSound(SoundEvents.SHULKER_HURT, 1.0f, 0.8f);
-        }
-        return null;
+        return ModSounds.ENDERGUARDIANHURT.get();
     }
 
     protected SoundEvent getAmbientSound() {
-        return this.getIsHelmetless() ? SoundEvents.SHULKER_AMBIENT : null;
+        return this.getIsHelmetless() ? SoundEvents.SHULKER_AMBIENT : super.getAmbientSound();
     }
 
     protected SoundEvent getDeathSound() {
-        this.playSound(ModSounds.ENDERGUARDIANDEATH.get(), 1.0f, 1.0f);
-        if (this.getIsHelmetless()) {
-            this.playSound(SoundEvents.SHULKER_DEATH, 2.0f, 0.8f);
-        }
-        return null;
+        return ModSounds.ENDERGUARDIANDEATH.get();
+
     }
 
     @Override
