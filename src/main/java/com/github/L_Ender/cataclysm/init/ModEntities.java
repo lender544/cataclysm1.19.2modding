@@ -231,8 +231,7 @@ public class ModEntities {
     public static final RegistryObject<EntityType<The_Leviathan_Tongue_Entity>> THE_LEVIATHAN_TONGUE = ENTITY_TYPE.register("the_leviathan_tongue", () -> EntityType.Builder.<The_Leviathan_Tongue_Entity>of(The_Leviathan_Tongue_Entity::new, MobCategory.MISC)
             .sized(0.1F, 0.1F)
             .build(cataclysm.MODID + ":the_leviathan_tongue"));
-
-
+    
     @SubscribeEvent
     public static void initializeAttributes(EntityAttributeCreationEvent event) {
         SpawnPlacements.register(ENDERMAPTERA.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Endermaptera_Entity::canSpawn);

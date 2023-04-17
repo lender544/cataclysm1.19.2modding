@@ -101,7 +101,6 @@ public class ClientProxy extends CommonProxy {
         EntityRenderers.register(ModEntities.WITHER_HOWITZER.get(), RendererWither_Howitzer::new);
         EntityRenderers.register(ModEntities.VOID_HOWITZER.get(), RendererVoid_Howitzer::new);
         EntityRenderers.register(ModEntities.VOID_VORTEX.get(), RendererVoid_Vortex::new);
-
         EntityRenderers.register(ModEntities.THE_LEVIATHAN.get(), RendererThe_Leviathan::new);
         EntityRenderers.register(ModEntities.THE_LEVIATHAN_TONGUE.get(), RendererThe_Leviathan_Tongue::new);
 

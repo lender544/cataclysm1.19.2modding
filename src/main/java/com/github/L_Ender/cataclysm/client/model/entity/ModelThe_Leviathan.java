@@ -170,26 +170,26 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		L_down_fin2.setTextureOffset(153, 85).addBox(0.0F, 0.0F, 6.0F, 6.0F, 0.0F, 7.0F, 0.0F, false);
 
 		Tail = new AdvancedModelBox(this);
-		Tail.setRotationPoint(0.0F, -1.0F, 13.0F);
+		Tail.setRotationPoint(0.0F, -1.0F, 14.0F);
 		Belly.addChild(Tail);
-		Tail.setTextureOffset(84, 98).addBox(-4.0F, -8.0F, 1.0F, 8.0F, 16.0F, 14.0F, 0.0F, false);
-		Tail.setTextureOffset(56, 160).addBox(0.0F, -17.0F, 1.0F, 0.0F, 9.0F, 14.0F, 0.0F, false);
-		Tail.setTextureOffset(0, 159).addBox(0.0F, 8.0F, 1.0F, 0.0F, 9.0F, 14.0F, 0.0F, false);
+		Tail.setTextureOffset(84, 98).addBox(-4.0F, -8.0F, 0.0F, 8.0F, 16.0F, 14.0F, 0.0F, false);
+		Tail.setTextureOffset(56, 160).addBox(0.0F, -17.0F, 0.0F, 0.0F, 9.0F, 14.0F, 0.0F, false);
+		Tail.setTextureOffset(0, 159).addBox(0.0F, 8.0F, 0.0F, 0.0F, 9.0F, 14.0F, 0.0F, false);
 
 		R_Spike3 = new AdvancedModelBox(this);
-		R_Spike3.setRotationPoint(-4.0F, -3.0F, 7.5F);
+		R_Spike3.setRotationPoint(-4.0F, -3.0F, 6.5F);
 		Tail.addChild(R_Spike3);
 		setRotationAngle(R_Spike3, 0.0F, 0.0F, 0.4363F);
 		R_Spike3.setTextureOffset(172, 0).addBox(-4.0F, 0.0F, -6.5F, 4.0F, 0.0F, 13.0F, 0.0F, true);
 
 		L_Spike3 = new AdvancedModelBox(this);
-		L_Spike3.setRotationPoint(4.0F, -3.0F, 7.5F);
+		L_Spike3.setRotationPoint(4.0F, -3.0F, 6.5F);
 		Tail.addChild(L_Spike3);
 		setRotationAngle(L_Spike3, 0.0F, 0.0F, -0.4363F);
 		L_Spike3.setTextureOffset(172, 0).addBox(0.0F, 0.0F, -6.5F, 4.0F, 0.0F, 13.0F, 0.0F, false);
 
 		Tail2 = new AdvancedModelBox(this);
-		Tail2.setRotationPoint(0.0F, -3.0F, 15.0F);
+		Tail2.setRotationPoint(0.0F, -3.0F, 14.0F);
 		Tail.addChild(Tail2);
 		Tail2.setTextureOffset(149, 157).addBox(0.0F, 5.0F, 0.0F, 0.0F, 13.0F, 14.0F, 0.0F, false);
 		Tail2.setTextureOffset(112, 149).addBox(-2.0F, -5.0F, 0.0F, 4.0F, 10.0F, 14.0F, 0.0F, false);
@@ -208,10 +208,10 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		L_Spike4.setTextureOffset(183, 62).addBox(0.0F, 0.0F, -5.0F, 3.0F, 0.0F, 10.0F, 0.0F, false);
 
 		Tail3 = new AdvancedModelBox(this);
-		Tail3.setRotationPoint(0.0F, -3.0F, 14.0F);
+		Tail3.setRotationPoint(0.0F, -2.5F, 14.0F);
 		Tail2.addChild(Tail3);
-		Tail3.setTextureOffset(33, 154).addBox(-2.0F, -2.0F, 0.0F, 4.0F, 5.0F, 14.0F, 0.0F, false);
-		Tail3.setTextureOffset(0, 0).addBox(0.0F, -7.0F, 0.0F, 0.0F, 25.0F, 42.0F, 0.0F, false);
+		Tail3.setTextureOffset(33, 154).addBox(-2.0F, -2.5F, 0.0F, 4.0F, 5.0F, 14.0F, 0.0F, false);
+		Tail3.setTextureOffset(0, 0).addBox(0.0F, -7.5F, 0.0F, 0.0F, 25.0F, 42.0F, 0.0F, false);
 
 		UpperR_Tantacle = new AdvancedModelBox(this);
 		UpperR_Tantacle.setRotationPoint(-8.0F, -2.0F, 6.0F);

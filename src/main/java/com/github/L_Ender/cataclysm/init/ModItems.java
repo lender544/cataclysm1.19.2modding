@@ -6,7 +6,6 @@ import com.github.L_Ender.cataclysm.items.Dungeon_Eye.FlameEyeItem;
 import com.github.L_Ender.cataclysm.items.Dungeon_Eye.MechEyeItem;
 import com.github.L_Ender.cataclysm.items.Dungeon_Eye.MonstrousEyeItem;
 import com.github.L_Ender.cataclysm.items.Dungeon_Eye.VoidEyeItem;
-import com.github.L_Ender.cataclysm.items.*;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
