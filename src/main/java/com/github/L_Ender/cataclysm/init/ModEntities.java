@@ -181,6 +181,11 @@ public class ModEntities {
             .fireImmune()
             .build(cataclysm.MODID + ":death_laser_beam"));
 
+    public static final RegistryObject<EntityType<Abyss_Blast_Entity>> ABYSS_BLAST = ENTITY_TYPE.register("abyss_blast", () -> EntityType.Builder.<Abyss_Blast_Entity>of(Abyss_Blast_Entity::new, MobCategory.MISC)
+            .sized(0.1F, 0.1F)
+            .fireImmune()
+            .build(cataclysm.MODID + ":abyss_blast"));
+
     public static final RegistryObject<EntityType<Laser_Beam_Entity>> LASER_BEAM = ENTITY_TYPE.register("laser_beam", () -> EntityType.Builder.<Laser_Beam_Entity>of(Laser_Beam_Entity::new, MobCategory.MISC)
             .sized(0.3125F, 0.3125F)
             .fireImmune()

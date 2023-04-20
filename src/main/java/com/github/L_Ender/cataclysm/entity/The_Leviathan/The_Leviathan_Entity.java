@@ -3,7 +3,10 @@ package com.github.L_Ender.cataclysm.entity.The_Leviathan;
 import com.github.L_Ender.cataclysm.entity.AI.SimpleAnimationGoal;
 import com.github.L_Ender.cataclysm.entity.AI.SwimmerJumpPathNavigator;
 import com.github.L_Ender.cataclysm.entity.Boss_monster;
+import com.github.L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import com.github.L_Ender.cataclysm.entity.etc.SmartBodyHelper2;
+import com.github.L_Ender.cataclysm.entity.projectile.Abyss_Blast_Entity;
+import com.github.L_Ender.cataclysm.entity.projectile.Death_Laser_Beam_Entity;
 import com.github.L_Ender.cataclysm.entity.util.LeviathanTongueUtil;
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import com.github.alexthe666.citadel.animation.Animation;
@@ -38,6 +41,8 @@ public class The_Leviathan_Entity extends Boss_monster {
     public static final Animation ANIMATION_GRAB = Animation.create(115);
     public static final Animation ANIMATION_TAILSWING = Animation.create(20);
     public static final Animation ANIMATION_GRAB_BITE = Animation.create(13);
+    public static final Animation ANIMATION_ABYSS_BLAST = Animation.create(173);
+
     public int jumpCooldown;
 
     public The_Leviathan_Entity(EntityType type, Level worldIn) {
@@ -71,6 +76,7 @@ public class The_Leviathan_Entity extends Boss_monster {
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(1, new LeviathanGrabAttackGoal(this,ANIMATION_GRAB));
         this.goalSelector.addGoal(1, new LeviathanGrabBiteAttackGoal(this,ANIMATION_GRAB_BITE));
+        this.goalSelector.addGoal(1, new LeviathanBlastAttackGoal(this,ANIMATION_ABYSS_BLAST));
         this.goalSelector.addGoal(5, new OrcaAIJump(this, 10));
         this.goalSelector.addGoal(6, new OrcaAIMeleeJump(this));
         this.goalSelector.addGoal(6, new OrcaAIMelee(this, 1.2F, true));
@@ -82,7 +88,7 @@ public class The_Leviathan_Entity extends Boss_monster {
     }
     @Override
     public Animation[] getAnimations() {
-        return new Animation[]{ANIMATION_GRAB, ANIMATION_TAILSWING,ANIMATION_GRAB_BITE};
+        return new Animation[]{ANIMATION_GRAB, ANIMATION_TAILSWING,ANIMATION_GRAB_BITE,ANIMATION_ABYSS_BLAST,NO_ANIMATION};
     }
 
     public void travel(Vec3 travelVector) {
@@ -99,6 +105,8 @@ public class The_Leviathan_Entity extends Boss_monster {
 
     }
 
+
+
     public void tick() {
         super.tick();
         if (jumpCooldown > 0) {
@@ -110,7 +118,6 @@ public class The_Leviathan_Entity extends Boss_monster {
         if (this.isNoAi()) {
             this.setAirSupply(this.getMaxAirSupply());
         } else {
-
             if (this.level.isClientSide && this.isInWater() && this.getDeltaMovement().lengthSqr() > 0.03D) {
                 Vec3 vector3d = this.getViewVector(0.0F);
                 float f = Mth.cos(this.getYRot() * ((float) Math.PI / 180F)) * 0.9F;
@@ -136,6 +143,30 @@ public class The_Leviathan_Entity extends Boss_monster {
         AnimationHandler.INSTANCE.updateAnimations(this);
     }
 
+    public void aiStep() {
+        super.aiStep();
+
+
+        if(this.getAnimation() == ANIMATION_ABYSS_BLAST){
+            if(this.getAnimationTick() < 30){
+                if (this.level.isClientSide) {
+                    for (int i = 0; i < 20; ++i) {
+                        float f = -Mth.sin(this.getYRot() * ((float)Math.PI / 180F)) * Mth.cos(this.getXRot() * ((float)Math.PI / 180F));
+                        float f2 = Mth.cos(this.getYRot() * ((float)Math.PI / 180F)) * Mth.cos(this.getXRot() * ((float)Math.PI / 180F));
+                        this.level.addParticle(ParticleTypes.PORTAL, this.getX() + f * 4.0,this.getY() + 1.75f , this.getZ() + f2 * 4.0, (this.random.nextDouble() - 0.5D) * 2.0D, -this.random.nextDouble(), (this.random.nextDouble() - 0.5D) * 2.0D);
+                    }
+                }
+
+            }
+
+            if(this.getAnimationTick() == 73 ) {
+                ScreenShake_Entity.ScreenShake(this.level, this.position(), 20, 0.1f, 90, 10);
+            }
+        }
+
+    }
+
+
     public boolean doHurtTarget(Entity entityIn) {
         if(this.isInWaterOrBubble() && random.nextBoolean()){
             this.setAnimation(ANIMATION_TAILSWING);
@@ -148,7 +179,7 @@ public class The_Leviathan_Entity extends Boss_monster {
     }
 
     protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
-        return 1.0F;
+        return sizeIn.height * 0.45F;
     }
 
     public boolean shouldUseJumpAttack(LivingEntity attackTarget) {
@@ -281,6 +312,39 @@ public class The_Leviathan_Entity extends Boss_monster {
 
         public void tick() {
             entity.setYRot(entity.yRotO);
+        }
+    }
+
+    static class LeviathanBlastAttackGoal extends SimpleAnimationGoal<The_Leviathan_Entity> {
+
+        public LeviathanBlastAttackGoal(The_Leviathan_Entity entity, Animation animation) {
+            super(entity, animation);
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK, Flag.JUMP));
+        }
+
+        public void start() {
+            entity.getNavigation().stop();
+            LivingEntity target = entity.getTarget();
+            if (target != null) {
+                entity.getLookControl().setLookAt(target, 30, 30);
+            }
+            super.start();
+        }
+
+        public void tick() {
+            LivingEntity target = entity.getTarget();
+            if (target != null && this.entity.getAnimationTick() < 60) {
+                entity.getLookControl().setLookAt(target, 30, 30);
+            }
+            float dir = 90.0f;
+
+            if(this.entity.getAnimationTick() == 53 ) {
+                if(!entity.level.isClientSide) {
+                    Abyss_Blast_Entity DeathBeam = new Abyss_Blast_Entity(ModEntities.ABYSS_BLAST.get(), entity.level, entity, entity.getX(), entity.getY(), entity.getZ(), (float) ((entity.yHeadRot + dir) * Math.PI / 180), (float) (-entity.getXRot() * Math.PI / 180), 80, dir);
+                    entity.level.addFreshEntity(DeathBeam);
+                }
+            }
+
         }
     }
 

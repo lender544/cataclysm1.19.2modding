@@ -25,9 +25,9 @@ public class ModelThe_Leviathan_Tongue_End extends AdvancedEntityModel<The_Levia
 		tongue = new AdvancedModelBox(this);
 		tongue.setRotationPoint(0.0F, 70.0F, -4.2F);
 		root.addChild(tongue);
-		tongue.setTextureOffset(80, 241).addBox(-3.0F, -73.0F, -0.3F, 6.0F, 6.0F, 9.0F, 0.0F, false);
-		tongue.setTextureOffset(70, 184).addBox(0.0F, -76.0F, 0.7F, 0.0F, 12.0F, 7.0F, 0.0F, false);
-		tongue.setTextureOffset(180, 106).addBox(-6.0F, -70.0F, 0.7F, 12.0F, 0.0F, 7.0F, 0.0F, false);
+		tongue.setTextureOffset(74, 93).addBox(-3.0F, -73.0F, -0.3F, 6.0F, 6.0F, 9.0F, 0.0F, false);
+		tongue.setTextureOffset(190, 106).addBox(0.0F, -76.0F, 0.7F, 0.0F, 12.0F, 7.0F, 0.0F, false);
+		tongue.setTextureOffset(139, 9).addBox(-6.0F, -70.0F, 0.7F, 12.0F, 0.0F, 7.0F, 0.0F, false);
 		this.updateDefaultPose();
 	}
 

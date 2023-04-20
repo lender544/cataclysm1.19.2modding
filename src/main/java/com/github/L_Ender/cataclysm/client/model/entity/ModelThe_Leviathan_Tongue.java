@@ -32,7 +32,7 @@ public class ModelThe_Leviathan_Tongue extends AdvancedEntityModel<Entity> {
 		tongue = new AdvancedModelBox(this);
 		tongue.setRotationPoint(0.0F, 0.0F, 0.0F);
 		tonguePivot.addChild(tongue);
-		tongue.setTextureOffset(0, 183).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 16.0F, 4.0F, 0.0F, false);
+		tongue.setTextureOffset(190, 17).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 16.0F, 4.0F, 0.0F, false);
 		this.updateDefaultPose();
 	}
 

@@ -5,6 +5,8 @@ import com.github.L_Ender.cataclysm.blocks.BlockEMP;
 import com.github.L_Ender.cataclysm.client.tool.ControlledAnimation;
 import com.github.L_Ender.cataclysm.config.CMConfig;
 import com.github.L_Ender.cataclysm.entity.The_Harbinger_Entity;
+import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Entity;
+import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Tongue_Entity;
 import com.github.L_Ender.cataclysm.init.ModBlocks;
 import com.github.L_Ender.cataclysm.init.ModParticle;
 import com.github.L_Ender.cataclysm.init.ModTag;
@@ -22,7 +24,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.AABB;
@@ -37,8 +38,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class Death_Laser_Beam_Entity extends Entity {
-    public static final double RADIUS = 30;
+public class Abyss_Blast_Entity extends Entity {
+    public static final double RADIUS = 50;
     public LivingEntity caster;
     public double endPosX, endPosY, endPosZ;
     public double collidePosX, collidePosY, collidePosZ;
@@ -50,19 +51,18 @@ public class Death_Laser_Beam_Entity extends Entity {
 
     public Direction blockSide = null;
 
-    private static final EntityDataAccessor<Float> YAW = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> PITCH = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Integer> DURATION = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> CASTER = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Float> BEAMDIRECTION = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Boolean> FIRE = SynchedEntityData.defineId(Death_Laser_Beam_Entity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Float> YAW = SynchedEntityData.defineId(Abyss_Blast_Entity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> PITCH = SynchedEntityData.defineId(Abyss_Blast_Entity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Integer> DURATION = SynchedEntityData.defineId(Abyss_Blast_Entity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> CASTER = SynchedEntityData.defineId(Abyss_Blast_Entity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Float> BEAMDIRECTION = SynchedEntityData.defineId(Abyss_Blast_Entity.class, EntityDataSerializers.FLOAT);
     public float prevYaw;
     public float prevPitch;
 
     @OnlyIn(Dist.CLIENT)
     private Vec3[] attractorPos;
 
-    public Death_Laser_Beam_Entity(EntityType<? extends Death_Laser_Beam_Entity> type, Level world) {
+    public Abyss_Blast_Entity(EntityType<? extends Abyss_Blast_Entity> type, Level world) {
         super(type, world);
         noCulling = true;
         if (world.isClientSide) {
@@ -70,7 +70,7 @@ public class Death_Laser_Beam_Entity extends Entity {
         }
     }
 
-    public Death_Laser_Beam_Entity(EntityType<? extends Death_Laser_Beam_Entity> type, Level world, LivingEntity caster, double x, double y, double z, float yaw, float pitch, int duration, float direction) {
+    public Abyss_Blast_Entity(EntityType<? extends Abyss_Blast_Entity> type, Level world, LivingEntity caster, double x, double y, double z, float yaw, float pitch, int duration, float direction) {
         this(type, world);
         this.caster = caster;
         this.setYaw(yaw);
@@ -105,7 +105,7 @@ public class Death_Laser_Beam_Entity extends Entity {
         }
 
         if (!level.isClientSide) {
-            if (caster instanceof The_Harbinger_Entity) {
+            if (caster instanceof The_Leviathan_Entity) {
                 this.updateWithHarbinger();
             }
         }
@@ -146,31 +146,12 @@ public class Death_Laser_Beam_Entity extends Entity {
                             }
                         }
                     }
-                    if(this.getFire()) {
-                        BlockPos blockpos1 = new BlockPos(collidePosX, collidePosY, collidePosZ);
-                        if(CMConfig.HarbingerLightFire) {
-                            if (this.level.isEmptyBlock(blockpos1)) {
-                                this.level.setBlockAndUpdate(blockpos1, BaseFireBlock.getState(this.level, blockpos1));
-                            }
-                        }else{
-                            if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
-                                if (this.level.isEmptyBlock(blockpos1)) {
-                                    this.level.setBlockAndUpdate(blockpos1, BaseFireBlock.getState(this.level, blockpos1));
-                                }
-                            }
-                        }
-
-                    }
                 }
             }
             if (!level.isClientSide) {
                 for (LivingEntity target : hit) {
                     boolean flag = target.hurt(CMDamageTypes.causeLaserDamage(this, caster).bypassArmor(), (float) ((float) CMConfig.DeathLaserdamage + Math.min(CMConfig.DeathLaserdamage, target.getMaxHealth() * CMConfig.HarbingerChargeHpDamage)));
-                    if(this.getFire()) {
-                        if (flag) {
-                            target.setSecondsOnFire(5);
-                        }
-                    }
+
                 }
             }
         }
@@ -198,7 +179,6 @@ public class Death_Laser_Beam_Entity extends Entity {
         this.entityData.define(DURATION, 0);
         this.entityData.define(CASTER, -1);
         this.entityData.define(BEAMDIRECTION, 90f);
-        this.entityData.define(FIRE, false);
     }
 
     public float getYaw() {
@@ -240,14 +220,6 @@ public class Death_Laser_Beam_Entity extends Entity {
 
     public void setCasterID(int id) {
         entityData.set(CASTER, id);
-    }
-
-    public boolean getFire() {
-        return this.entityData.get(FIRE);
-    }
-
-    public void setFire(boolean fire) {
-        this.entityData.set(FIRE, fire);
     }
 
 
@@ -328,7 +300,10 @@ public class Death_Laser_Beam_Entity extends Entity {
     private void updateWithHarbinger() {
         this.setYaw((float) ((caster.yHeadRot + this.getBeamDirection()) * Math.PI / 180.0d));
         this.setPitch((float) (-caster.getXRot() * Math.PI / 180.0d));
-        this.setPos(caster.getX() ,caster.getY() + 2.7 , caster.getZ());
+
+        float f = -Mth.sin(caster.getYRot() * ((float)Math.PI / 180F)) * Mth.cos(caster.getXRot() * ((float)Math.PI / 180F));
+        float f2 = Mth.cos(caster.getYRot() * ((float)Math.PI / 180F)) * Mth.cos(caster.getXRot() * ((float)Math.PI / 180F));
+        this.setPos(caster.getX() + f * 3.0,caster.getY() + 1.15f , caster.getZ() + f2 * 3.0);
     }
 
     public static class LaserbeamHitResult {

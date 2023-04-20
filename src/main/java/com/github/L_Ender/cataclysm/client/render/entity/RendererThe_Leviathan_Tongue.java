@@ -22,7 +22,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class RendererThe_Leviathan_Tongue extends EntityRenderer<The_Leviathan_Tongue_Entity> {
 
-    private static final ResourceLocation THE_LEVIATHAN_TEXTURES = new ResourceLocation("cataclysm:textures/entity/the_leviathan.png");
+    private static final ResourceLocation THE_LEVIATHAN_TEXTURES = new ResourceLocation("cataclysm:textures/entity/leviathan/the_leviathan.png");
 
     private static final ModelThe_Leviathan_Tongue TONGUE_MODEL = new ModelThe_Leviathan_Tongue();
     private static final ModelThe_Leviathan_Tongue_End TONGUE_END_MODEL = new ModelThe_Leviathan_Tongue_End();
@@ -95,7 +95,7 @@ public class RendererThe_Leviathan_Tongue extends EntityRenderer<The_Leviathan_T
             float f2 = Mth.cos(leviathan.getYRot() * ((float)Math.PI / 180F)) * Mth.cos(leviathan.getXRot() * ((float)Math.PI / 180F));
 
             d4 = Mth.lerp(partialTicks, leviathan.xo + f * 3.0, leviathan.getX() + f * 3.0);
-            d5 = Mth.lerp(partialTicks, leviathan.yo + 0.4, leviathan.getY() + 0.4);
+            d5 = Mth.lerp(partialTicks, leviathan.yo + 0.25, leviathan.getY() + 0.25);
             d6 = Mth.lerp(partialTicks, leviathan.zo + f2 * 3.0, leviathan.getZ() + f2 * 3.0);
 
         }

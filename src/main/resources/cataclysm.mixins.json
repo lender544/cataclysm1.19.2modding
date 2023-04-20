@@ -5,10 +5,7 @@
   "target": "@env(DEFAULT)",
   "refmap": "cataclysm.refmap.json",
   "mixins": [
-    "HoglinAiMixin",
-    "PiglinAiMixin",
-    "PiglinBruteAiMixin",
-    "WardenAiMixin"
+    "ItemMixin"
   ],
   "client": [
   ],
