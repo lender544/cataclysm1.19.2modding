@@ -47,6 +47,15 @@ public class The_Leviathan_Tongue_Entity extends Entity {
         return (Packet<ClientGamePacketListener>) NetworkHooks.getEntitySpawningPacket(this);
     }
 
+    public boolean shouldRender(double p_37588_, double p_37589_, double p_37590_) {
+        return true;
+    }
+
+    @Override
+    public boolean shouldRenderAtSqrDistance(double distance) {
+        return distance < 1024;
+    }
+
     @Override
     protected void defineSynchedData() {
         this.entityData.define(CREATOR_ID, Optional.empty());

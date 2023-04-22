@@ -88,7 +88,6 @@ public class RendererThe_Leviathan_Tongue extends EntityRenderer<The_Leviathan_T
         double d5 = Mth.lerp(partialTicks, mob.yo, mob.getY());
         double d6 = Mth.lerp(partialTicks, mob.zo, mob.getZ());
 
-
         if(mob instanceof The_Leviathan_Entity leviathan && segment.isCreator(mob)){
 
             float f = -Mth.sin(leviathan.getYRot() * ((float)Math.PI / 180F)) * Mth.cos(leviathan.getXRot() * ((float)Math.PI / 180F));

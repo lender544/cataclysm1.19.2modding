@@ -14,6 +14,9 @@ import com.github.alexthe666.citadel.animation.AnimationHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -35,6 +38,7 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
+import java.util.Optional;
 
 public class The_Leviathan_Entity extends Boss_monster {
 
@@ -42,6 +46,8 @@ public class The_Leviathan_Entity extends Boss_monster {
     public static final Animation ANIMATION_TAILSWING = Animation.create(20);
     public static final Animation ANIMATION_GRAB_BITE = Animation.create(13);
     public static final Animation ANIMATION_ABYSS_BLAST = Animation.create(173);
+
+    private static final EntityDataAccessor<Float> LIGHT = SynchedEntityData.defineId(The_Leviathan_Entity.class, EntityDataSerializers.FLOAT);
 
     public int jumpCooldown;
 
@@ -67,6 +73,7 @@ public class The_Leviathan_Entity extends Boss_monster {
 
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(LIGHT, 0F);
     }
 
     protected void registerGoals() {
@@ -106,7 +113,6 @@ public class The_Leviathan_Entity extends Boss_monster {
     }
 
 
-
     public void tick() {
         super.tick();
         if (jumpCooldown > 0) {
@@ -136,7 +142,7 @@ public class The_Leviathan_Entity extends Boss_monster {
 
         if(target !=null) {
             if (this.getAnimation() == NO_ANIMATION) {
-                this.setAnimation(ANIMATION_GRAB);
+                this.setAnimation(ANIMATION_ABYSS_BLAST);
             }
         }
 
@@ -145,8 +151,6 @@ public class The_Leviathan_Entity extends Boss_monster {
 
     public void aiStep() {
         super.aiStep();
-
-
         if(this.getAnimation() == ANIMATION_ABYSS_BLAST){
             if(this.getAnimationTick() < 30){
                 if (this.level.isClientSide) {
@@ -158,12 +162,24 @@ public class The_Leviathan_Entity extends Boss_monster {
                 }
 
             }
+            for (int i = 33, j = 0; i <= 73; i++, j++) {
+                float l = j * 0.025f;
+                if (this.getAnimationTick() == i) {
+                    this.setLight(l);
+                }
+            }
+
+            for (int i = 133, j = 1; i <= 173; i++, j++) {
+                float l = j * -0.025f;
+                if (this.getAnimationTick() == i) {
+                    this.setLight(l);
+                }
+            }
 
             if(this.getAnimationTick() == 73 ) {
                 ScreenShake_Entity.ScreenShake(this.level, this.position(), 20, 0.1f, 90, 10);
             }
         }
-
     }
 
 
@@ -191,7 +207,6 @@ public class The_Leviathan_Entity extends Boss_monster {
         }
     }
 
-
     public boolean canBreatheUnderwater() {
         return true;
     }
@@ -201,8 +216,6 @@ public class The_Leviathan_Entity extends Boss_monster {
         super.baseTick();
         this.updateAir(i);
     }
-
-
 
     public boolean isPushedByFluid() {
         return false;
@@ -227,6 +240,15 @@ public class The_Leviathan_Entity extends Boss_monster {
         super.readAdditionalSaveData(compound);
 
     }
+
+    public float getLight() {
+        return this.entityData.get(LIGHT);
+    }
+
+    public void setLight(float light) {
+        this.entityData.set(LIGHT, light);
+    }
+
 
     @Override
     protected BodyRotationControl createBodyControl() {
@@ -338,13 +360,12 @@ public class The_Leviathan_Entity extends Boss_monster {
             }
             float dir = 90.0f;
 
-            if(this.entity.getAnimationTick() == 53 ) {
+            if(this.entity.getAnimationTick() == 53) {
                 if(!entity.level.isClientSide) {
                     Abyss_Blast_Entity DeathBeam = new Abyss_Blast_Entity(ModEntities.ABYSS_BLAST.get(), entity.level, entity, entity.getX(), entity.getY(), entity.getZ(), (float) ((entity.yHeadRot + dir) * Math.PI / 180), (float) (-entity.getXRot() * Math.PI / 180), 80, dir);
                     entity.level.addFreshEntity(DeathBeam);
                 }
             }
-
         }
     }
 

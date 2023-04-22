@@ -150,7 +150,7 @@ public class Abyss_Blast_Entity extends Entity {
             }
             if (!level.isClientSide) {
                 for (LivingEntity target : hit) {
-                    boolean flag = target.hurt(CMDamageTypes.causeLaserDamage(this, caster).bypassArmor(), (float) ((float) CMConfig.DeathLaserdamage + Math.min(CMConfig.DeathLaserdamage, target.getMaxHealth() * CMConfig.HarbingerChargeHpDamage)));
+                    boolean flag = target.hurt(CMDamageTypes.causeLaserDamage(this, caster).bypassArmor(), (float) 1);
 
                 }
             }

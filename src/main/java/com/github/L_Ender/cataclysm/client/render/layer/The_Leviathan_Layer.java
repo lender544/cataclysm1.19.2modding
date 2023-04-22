@@ -1,10 +1,7 @@
 package com.github.L_Ender.cataclysm.client.render.layer;
 
-import com.github.L_Ender.cataclysm.client.model.entity.ModelEnder_Golem;
 import com.github.L_Ender.cataclysm.client.model.entity.ModelThe_Leviathan;
-import com.github.L_Ender.cataclysm.client.render.entity.RendererEnder_Golem;
 import com.github.L_Ender.cataclysm.client.render.entity.RendererThe_Leviathan;
-import com.github.L_Ender.cataclysm.entity.Ender_Golem_Entity;
 import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -27,7 +24,7 @@ public class The_Leviathan_Layer extends RenderLayer<The_Leviathan_Entity, Model
 
     @Override
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, The_Leviathan_Entity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        float alpha = 0.5F + (Mth.cos(ageInTicks * 0.2F) + 1F) * 0.2F;
+        float alpha = entity.getLight();
         RenderType eyes = RenderType.eyes(PULSATING_SPOTS_TEXTURE_1);
         VertexConsumer VertexConsumer = bufferIn.getBuffer(eyes);
         this.getParentModel().renderToBuffer(matrixStackIn, VertexConsumer, packedLightIn, OverlayTexture.NO_OVERLAY, alpha, alpha, alpha, alpha);
