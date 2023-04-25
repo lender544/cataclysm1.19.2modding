@@ -292,6 +292,10 @@ public class Abyss_Blast_Entity extends Entity {
         return false;
     }
 
+    public boolean shouldRender(double p_37588_, double p_37589_, double p_37590_) {
+        return true;
+    }
+
     @Override
     public boolean shouldRenderAtSqrDistance(double distance) {
         return distance < 1024;
@@ -303,7 +307,7 @@ public class Abyss_Blast_Entity extends Entity {
 
         float f = -Mth.sin(caster.getYRot() * ((float)Math.PI / 180F)) * Mth.cos(caster.getXRot() * ((float)Math.PI / 180F));
         float f2 = Mth.cos(caster.getYRot() * ((float)Math.PI / 180F)) * Mth.cos(caster.getXRot() * ((float)Math.PI / 180F));
-        this.setPos(caster.getX() + f * 3.0,caster.getY() + 1.15f , caster.getZ() + f2 * 3.0);
+        this.setPos(caster.getX(),caster.getY() +  1.15f , caster.getZ());
     }
 
     public static class LaserbeamHitResult {

@@ -10,6 +10,7 @@ import com.mojang.math.Quaternion;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -25,7 +26,8 @@ public class RendererAbyss_Blast extends EntityRenderer<Abyss_Blast_Entity> {
     private static final ResourceLocation TEXTURE = new ResourceLocation("cataclysm:textures/entity/abyss_laser_beam.png");
     private static final float TEXTURE_WIDTH = 256;
     private static final float TEXTURE_HEIGHT = 32;
-    private static final float START_RADIUS = 1.15f;
+    private static final float START_RADIUS = 0.95f;
+    private static final float END_RADIUS = 1.15f;
     private static final float BEAM_RADIUS = 1.0F;
     private boolean clearerView = false;
 
@@ -36,6 +38,11 @@ public class RendererAbyss_Blast extends EntityRenderer<Abyss_Blast_Entity> {
     @Override
     public ResourceLocation getTextureLocation(Abyss_Blast_Entity entity) {
         return TEXTURE;
+    }
+
+
+    public boolean shouldRender(Abyss_Blast_Entity solarBeam, Frustum camera, double camX, double camY, double camZ) {
+        return true;
     }
 
     @Override
@@ -75,10 +82,10 @@ public class RendererAbyss_Blast extends EntityRenderer<Abyss_Blast_Entity> {
         PoseStack.Pose matrixstack$entry = matrixStackIn.last();
         Matrix4f matrix4f = matrixstack$entry.pose();
         Matrix3f matrix3f = matrixstack$entry.normal();
-        drawVertex(matrix4f, matrix3f, builder, -START_RADIUS, -START_RADIUS, 0, minU, minV, 1, packedLightIn);
-        drawVertex(matrix4f, matrix3f, builder, -START_RADIUS, START_RADIUS, 0, minU, maxV, 1, packedLightIn);
-        drawVertex(matrix4f, matrix3f, builder, START_RADIUS, START_RADIUS, 0, maxU, maxV, 1, packedLightIn);
-        drawVertex(matrix4f, matrix3f, builder, START_RADIUS, -START_RADIUS, 0, maxU, minV, 1, packedLightIn);
+        drawVertex(matrix4f, matrix3f, builder, -START_RADIUS, -END_RADIUS, 0, minU, minV, 1, packedLightIn);
+        drawVertex(matrix4f, matrix3f, builder, -START_RADIUS, END_RADIUS, 0, minU, maxV, 1, packedLightIn);
+        drawVertex(matrix4f, matrix3f, builder, START_RADIUS, END_RADIUS, 0, maxU, maxV, 1, packedLightIn);
+        drawVertex(matrix4f, matrix3f, builder, START_RADIUS, -END_RADIUS, 0, maxU, minV, 1, packedLightIn);
     }
 
     private void renderStart(int frame, PoseStack matrixStackIn, VertexConsumer builder, int packedLightIn) {

@@ -1,7 +1,9 @@
 package com.github.L_Ender.cataclysm.client.render.entity;
 
+import com.github.L_Ender.cataclysm.client.model.entity.ModelThe_Leviathan;
 import com.github.L_Ender.cataclysm.client.model.entity.ModelThe_Leviathan_Tongue;
 import com.github.L_Ender.cataclysm.client.model.entity.ModelThe_Leviathan_Tongue_End;
+import com.github.L_Ender.cataclysm.client.render.RenderUtils;
 import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Entity;
 import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Tongue_Entity;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -23,7 +25,7 @@ import net.minecraft.world.phys.Vec3;
 public class RendererThe_Leviathan_Tongue extends EntityRenderer<The_Leviathan_Tongue_Entity> {
 
     private static final ResourceLocation THE_LEVIATHAN_TEXTURES = new ResourceLocation("cataclysm:textures/entity/leviathan/the_leviathan.png");
-
+    private static final ModelThe_Leviathan MODEL = new ModelThe_Leviathan();
     private static final ModelThe_Leviathan_Tongue TONGUE_MODEL = new ModelThe_Leviathan_Tongue();
     private static final ModelThe_Leviathan_Tongue_End TONGUE_END_MODEL = new ModelThe_Leviathan_Tongue_End();
     public static final int MAX_NECK_SEGMENTS = 128;
@@ -33,7 +35,7 @@ public class RendererThe_Leviathan_Tongue extends EntityRenderer<The_Leviathan_T
     }
 
     public boolean shouldRender(The_Leviathan_Tongue_Entity grapple, Frustum f, double d1, double d2, double d3) {
-        return super.shouldRender(grapple, f, d1, d2, d3) || grapple.getCreatorEntity() != null && (f.isVisible(grapple.getCreatorEntity().getBoundingBox()));
+        return true;
     }
 
     @Override
@@ -90,12 +92,16 @@ public class RendererThe_Leviathan_Tongue extends EntityRenderer<The_Leviathan_T
 
         if(mob instanceof The_Leviathan_Entity leviathan && segment.isCreator(mob)){
 
-            float f = -Mth.sin(leviathan.getYRot() * ((float)Math.PI / 180F)) * Mth.cos(leviathan.getXRot() * ((float)Math.PI / 180F));
-            float f2 = Mth.cos(leviathan.getYRot() * ((float)Math.PI / 180F)) * Mth.cos(leviathan.getXRot() * ((float)Math.PI / 180F));
+            float f1 = -Mth.sin(leviathan.getYRot() * ((float)Math.PI / 180F)) * Mth.cos(leviathan.getXRot() * ((float)Math.PI / 180F));
+            float f2 = -Mth.sin(leviathan.getXRot() * ((float)Math.PI / 180F));
+            float f3 = Mth.cos(leviathan.getYRot() * ((float)Math.PI / 180F)) * Mth.cos(leviathan.getXRot() * ((float)Math.PI / 180F));
 
-            d4 = Mth.lerp(partialTicks, leviathan.xo + f * 3.0, leviathan.getX() + f * 3.0);
-            d5 = Mth.lerp(partialTicks, leviathan.yo + 0.25, leviathan.getY() + 0.25);
-            d6 = Mth.lerp(partialTicks, leviathan.zo + f2 * 3.0, leviathan.getZ() + f2 * 3.0);
+            float f4 = Mth.sqrt(f1 * f1 + f2 * f2 + f3 * f3);
+
+            d4 = Mth.lerp(partialTicks, leviathan.xo + f1 * 3.0, leviathan.getX() + f1 * 3.0);
+            d5 = Mth.lerp(partialTicks, leviathan.yo + f2 * 3.5, leviathan.getY() + f2 * 3.5);
+
+            d6 = Mth.lerp(partialTicks, leviathan.zo + f3 * 3.0, leviathan.getZ() + f3 * 3.0);
 
         }
         return new Vec3(d4, d5, d6);

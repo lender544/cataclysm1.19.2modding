@@ -1,5 +1,6 @@
 package com.github.L_Ender.cataclysm.entity.The_Leviathan;
 
+import com.github.L_Ender.cataclysm.entity.AI.EntityAINearestTarget3D;
 import com.github.L_Ender.cataclysm.entity.AI.SimpleAnimationGoal;
 import com.github.L_Ender.cataclysm.entity.AI.SwimmerJumpPathNavigator;
 import com.github.L_Ender.cataclysm.entity.Boss_monster;
@@ -9,6 +10,7 @@ import com.github.L_Ender.cataclysm.entity.projectile.Abyss_Blast_Entity;
 import com.github.L_Ender.cataclysm.entity.projectile.Death_Laser_Beam_Entity;
 import com.github.L_Ender.cataclysm.entity.util.LeviathanTongueUtil;
 import com.github.L_Ender.cataclysm.init.ModEntities;
+import com.github.L_Ender.cataclysm.init.ModTag;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import net.minecraft.core.BlockPos;
@@ -42,12 +44,14 @@ import java.util.Optional;
 
 public class The_Leviathan_Entity extends Boss_monster {
 
-    public static final Animation ANIMATION_GRAB = Animation.create(115);
-    public static final Animation ANIMATION_TAILSWING = Animation.create(20);
-    public static final Animation ANIMATION_GRAB_BITE = Animation.create(13);
-    public static final Animation ANIMATION_ABYSS_BLAST = Animation.create(173);
-
+    public static final Animation LEVIATHAN_GRAB = Animation.create(115);
+    public static final Animation LEVIATHAN_TAILSWING = Animation.create(20);
+    public static final Animation LEVIATHAN_GRAB_BITE = Animation.create(13);
+    public static final Animation LEVIATHAN_ABYSS_BLAST = Animation.create(173);
+    public static final Animation LEVIATHAN_RUSH = Animation.create(173);
+    
     private static final EntityDataAccessor<Float> LIGHT = SynchedEntityData.defineId(The_Leviathan_Entity.class, EntityDataSerializers.FLOAT);
+
 
     public int jumpCooldown;
 
@@ -56,6 +60,7 @@ public class The_Leviathan_Entity extends Boss_monster {
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.moveControl = new AnimalSwimMoveControllerSink(this, 1, 1, 6);
         this.lookControl = new LeviathanSwimmingLookControl(this, 10);
+
     }
 
     public static AttributeSupplier.Builder leviathan() {
@@ -81,21 +86,21 @@ public class The_Leviathan_Entity extends Boss_monster {
         this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(1, new LeviathanGrabAttackGoal(this,ANIMATION_GRAB));
-        this.goalSelector.addGoal(1, new LeviathanGrabBiteAttackGoal(this,ANIMATION_GRAB_BITE));
-        this.goalSelector.addGoal(1, new LeviathanBlastAttackGoal(this,ANIMATION_ABYSS_BLAST));
+        this.goalSelector.addGoal(1, new LeviathanGrabAttackGoal(this,LEVIATHAN_GRAB));
+        this.goalSelector.addGoal(1, new LeviathanGrabBiteAttackGoal(this,LEVIATHAN_GRAB_BITE));
+        this.goalSelector.addGoal(1, new LeviathanBlastAttackGoal(this,LEVIATHAN_ABYSS_BLAST));
         this.goalSelector.addGoal(5, new OrcaAIJump(this, 10));
         this.goalSelector.addGoal(6, new OrcaAIMeleeJump(this));
         this.goalSelector.addGoal(6, new OrcaAIMelee(this, 1.2F, true));
         this.goalSelector.addGoal(8, new FollowBoatGoal(this));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
+        this.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, Player.class, true,true));
+        this.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(this, LivingEntity.class, 160, true, true, ModEntities.buildPredicateFromTag(ModTag.LEVIATHAN_TARGET)));
 
     }
     @Override
     public Animation[] getAnimations() {
-        return new Animation[]{ANIMATION_GRAB, ANIMATION_TAILSWING,ANIMATION_GRAB_BITE,ANIMATION_ABYSS_BLAST,NO_ANIMATION};
+        return new Animation[]{LEVIATHAN_GRAB, LEVIATHAN_TAILSWING,LEVIATHAN_GRAB_BITE,LEVIATHAN_ABYSS_BLAST,LEVIATHAN_RUSH};
     }
 
     public void travel(Vec3 travelVector) {
@@ -139,10 +144,9 @@ public class The_Leviathan_Entity extends Boss_monster {
         }
         LivingEntity target = this.getTarget();
 
-
         if(target !=null) {
             if (this.getAnimation() == NO_ANIMATION) {
-                this.setAnimation(ANIMATION_ABYSS_BLAST);
+                this.setAnimation(LEVIATHAN_ABYSS_BLAST);
             }
         }
 
@@ -151,13 +155,13 @@ public class The_Leviathan_Entity extends Boss_monster {
 
     public void aiStep() {
         super.aiStep();
-        if(this.getAnimation() == ANIMATION_ABYSS_BLAST){
+        if(this.getAnimation() == LEVIATHAN_ABYSS_BLAST){
             if(this.getAnimationTick() < 30){
                 if (this.level.isClientSide) {
                     for (int i = 0; i < 20; ++i) {
                         float f = -Mth.sin(this.getYRot() * ((float)Math.PI / 180F)) * Mth.cos(this.getXRot() * ((float)Math.PI / 180F));
                         float f2 = Mth.cos(this.getYRot() * ((float)Math.PI / 180F)) * Mth.cos(this.getXRot() * ((float)Math.PI / 180F));
-                        this.level.addParticle(ParticleTypes.PORTAL, this.getX() + f * 4.0,this.getY() + 1.75f , this.getZ() + f2 * 4.0, (this.random.nextDouble() - 0.5D) * 2.0D, -this.random.nextDouble(), (this.random.nextDouble() - 0.5D) * 2.0D);
+                        this.level.addParticle(ParticleTypes.PORTAL, this.getX() + f * 4.0,this.getY(), this.getZ() + f2 * 4.0, (this.random.nextDouble() - 0.5D) * 2.0D, -this.random.nextDouble(), (this.random.nextDouble() - 0.5D) * 2.0D);
                     }
                 }
 
@@ -185,7 +189,7 @@ public class The_Leviathan_Entity extends Boss_monster {
 
     public boolean doHurtTarget(Entity entityIn) {
         if(this.isInWaterOrBubble() && random.nextBoolean()){
-            this.setAnimation(ANIMATION_TAILSWING);
+            this.setAnimation(LEVIATHAN_TAILSWING);
         }
         return true;
     }
@@ -307,7 +311,7 @@ public class The_Leviathan_Entity extends Boss_monster {
                 if (target != null) {
                     if (LeviathanTongueUtil.canLaunchTongues(this.entity.level, this.entity)) {
                         if (this.entity.distanceTo(target) < 8) {
-                            AnimationHandler.INSTANCE.sendAnimationMessage(this.entity, ANIMATION_GRAB_BITE);
+                            AnimationHandler.INSTANCE.sendAnimationMessage(this.entity, LEVIATHAN_GRAB_BITE);
                         }
                     }
                 }

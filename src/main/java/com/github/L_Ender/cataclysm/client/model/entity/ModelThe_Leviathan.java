@@ -94,25 +94,25 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 
 		body = new AdvancedModelBox(this);
-		body.setRotationPoint(0.0F, -2.0F, -22.0F);
+		body.setRotationPoint(0.0F, -13.0F, 0.0F);
 		root.addChild(body);
-		body.setTextureOffset(67, 50).addBox(-9.0F, -22.0F, -12.0F, 18.0F, 24.0F, 18.0F, 0.0F, false);
-		body.setTextureOffset(44, 168).addBox(0.0F, -31.0F, -11.0F, 0.0F, 9.0F, 14.0F, 0.0F, false);
+		body.setTextureOffset(67, 50).addBox(-9.0F, -11.0F, -34.0F, 18.0F, 24.0F, 18.0F, 0.0F, false);
+		body.setTextureOffset(44, 168).addBox(0.0F, -20.0F, -33.0F, 0.0F, 9.0F, 14.0F, 0.0F, false);
 
 		R_Spike = new AdvancedModelBox(this);
-		R_Spike.setRotationPoint(-9.0F, -22.0F, -3.0F);
+		R_Spike.setRotationPoint(-9.0F, -11.0F, -25.0F);
 		body.addChild(R_Spike);
 		setRotationAngle(R_Spike, 0.0F, 0.0F, 0.7854F);
 		R_Spike.setTextureOffset(0, 135).addBox(-4.0F, 0.0F, -9.0F, 4.0F, 0.0F, 18.0F, 0.0F, true);
 
 		L_Spike = new AdvancedModelBox(this);
-		L_Spike.setRotationPoint(9.0F, -22.0F, -3.0F);
+		L_Spike.setRotationPoint(9.0F, -11.0F, -25.0F);
 		body.addChild(L_Spike);
 		setRotationAngle(L_Spike, 0.0F, 0.0F, -0.7854F);
 		L_Spike.setTextureOffset(0, 135).addBox(0.0F, 0.0F, -9.0F, 4.0F, 0.0F, 18.0F, 0.0F, false);
 
 		Main_belly = new AdvancedModelBox(this);
-		Main_belly.setRotationPoint(0.0F, -12.0F, 6.0F);
+		Main_belly.setRotationPoint(0.0F, -1.0F, -16.0F);
 		body.addChild(Main_belly);
 		Main_belly.setTextureOffset(43, 0).addBox(-8.0F, -9.0F, 0.0F, 16.0F, 19.0F, 16.0F, 0.0F, false);
 		Main_belly.setTextureOffset(15, 168).addBox(0.0F, -18.0F, 3.0F, 0.0F, 9.0F, 14.0F, 0.0F, false);
@@ -406,14 +406,14 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		LowerL_Hook4.setTextureOffset(0, 27).addBox(0.0F, -8.0F, -1.5F, 2.0F, 8.0F, 3.0F, 0.0F, true);
 
 		Head = new AdvancedModelBox(this);
-		Head.setRotationPoint(0.0F, -9.0F, -12.0F);
+		Head.setRotationPoint(0.0F, 2.0F, -34.0F);
 		body.addChild(Head);
 
 
 		Muscle = new AdvancedModelBox(this);
 		Muscle.setRotationPoint(0.0F, 0.0F, -2.0F);
 		Head.addChild(Muscle);
-		Muscle.setTextureOffset(43, 0).addBox(-4.5F, -6.0F, -2.0F, 0.0F, 11.0F, 4.0F, 0.0F, false);
+		Muscle.setTextureOffset(43, 0).addBox(-4.5F, -6.0F, -3.0F, 0.0F, 11.0F, 4.0F, 0.0F, false);
 		Muscle.setTextureOffset(43, 0).addBox(4.5F, -6.0F, -2.0F, 0.0F, 11.0F, 4.0F, 0.0F, true);
 
 		Maw = new AdvancedModelBox(this);
@@ -443,7 +443,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		Skul.setTextureOffset(0, 0).addBox(-4.0F, 1.0F, -13.0F, 0.0F, 4.0F, 2.0F, 0.0F, false);
 
 		R_fin = new AdvancedModelBox(this);
-		R_fin.setRotationPoint(-9.0F, -2.0F, -2.0F);
+		R_fin.setRotationPoint(-9.0F, 9.0F, -24.0F);
 		body.addChild(R_fin);
 		R_fin.setTextureOffset(90, 93).addBox(-12.0F, -1.0F, -8.0F, 12.0F, 2.0F, 16.0F, 0.0F, false);
 		R_fin.setTextureOffset(107, 114).addBox(-12.0F, -1.0F, 8.0F, 12.0F, 0.0F, 5.0F, 0.0F, false);
@@ -460,7 +460,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		R_fin3.setTextureOffset(140, 64).addBox(-11.0F, 0.0F, 5.0F, 16.0F, 0.0F, 10.0F, 0.0F, false);
 
 		L_fin = new AdvancedModelBox(this);
-		L_fin.setRotationPoint(9.0F, -2.0F, -2.0F);
+		L_fin.setRotationPoint(9.0F, 9.0F, -24.0F);
 		body.addChild(L_fin);
 		L_fin.setTextureOffset(92, 20).addBox(0.0F, -1.0F, -8.0F, 12.0F, 2.0F, 16.0F, 0.0F, false);
 		L_fin.setTextureOffset(43, 36).addBox(0.0F, -1.0F, 8.0F, 12.0F, 0.0F, 5.0F, 0.0F, false);
@@ -477,7 +477,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		L_fin3.setTextureOffset(85, 39).addBox(-5.0F, 0.0F, 5.0F, 16.0F, 0.0F, 10.0F, 0.0F, false);
 
 		four_mouths = new AdvancedModelBox(this);
-		four_mouths.setRotationPoint(0.0F, -10.0F, -13.0F);
+		four_mouths.setRotationPoint(0.0F, 1.0F, -35.0F);
 		body.addChild(four_mouths);
 
 
@@ -547,7 +547,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 	public void animate(The_Leviathan_Entity entity, float f, float f1, float f2, float f3, float f4) {
 		this.resetToDefaultPose();
 		animator.update(entity);
-		animator.setAnimation(The_Leviathan_Entity.ANIMATION_GRAB);
+		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_GRAB);
 		animator.startKeyframe(25);
 		animator.rotate(Maw,(float)Math.toRadians(32.5F),0, 0);
 		animator.rotate(Skul,(float)Math.toRadians(-35F),0, 0);
@@ -561,7 +561,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.resetKeyframe(20);
 
 
-		animator.setAnimation(The_Leviathan_Entity.ANIMATION_GRAB_BITE);
+		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_GRAB_BITE);
 		animator.startKeyframe(0);
 		animator.rotate(Maw,(float)Math.toRadians(32.5F),0, 0);
 		animator.rotate(Skul,(float)Math.toRadians(-35F),0, 0);
@@ -578,7 +578,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 
 
-		animator.setAnimation(The_Leviathan_Entity.ANIMATION_ABYSS_BLAST);
+		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_ABYSS_BLAST);
 		animator.startKeyframe(20);
 		animator.rotate(Maw,(float)Math.toRadians(20F),0, 0);
 		animator.rotate(Skul,(float)Math.toRadians(-20F),0, 0);
@@ -616,7 +616,77 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.setStaticKeyframe(80);
 
 		animator.resetKeyframe(20);
-		
+
+		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_RUSH);
+		animator.startKeyframe(15);
+		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(20F), 0);
+		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(50F), 0);
+		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(50F), 0);
+		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(70F), 0);
+
+		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-20F), 0);
+		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(-50F), 0);
+		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(-50F), 0);
+		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-70F), 0);
+
+		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(20F), 0);
+		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(50F), 0);
+		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(52.5F), 0);
+		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(55F), 0);
+
+		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(-20F), 0);
+		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(-50F), 0);
+		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(-52.5F), 0);
+		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(-55F), 0);
+
+		animator.rotate(Mouth,(float)Math.toRadians(-2.5F),0,0);
+		animator.rotate(Mouth2,(float)Math.toRadians(-2.5F),0,0);
+		animator.rotate(Mouth3,(float)Math.toRadians(2.5F),0,0);
+		animator.rotate(Mouth4,(float)Math.toRadians(2.5F),0,0);
+
+		animator.endKeyframe();
+
+		animator.setStaticKeyframe(10);
+
+		animator.startKeyframe(5);
+		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(55F), 0);
+		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(45F), 0);
+		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(50F), 0);
+		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(40F), 0);
+		animator.rotate(UpperR_Hook,0,0, (float)Math.toRadians(25F));
+		animator.rotate(UpperR_Hook2,0,(float)Math.toRadians(25F), 0);
+		animator.rotate(UpperR_Hook3,0,(float)Math.toRadians(-25F), 0);
+		animator.rotate(UpperR_Hook4,0,0, (float)Math.toRadians(-25F));
+
+		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-55F), 0);
+		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(-45F), 0);
+		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(-50F), 0);
+		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-40F), 0);
+		animator.rotate(UpperL_Hook,0,0, (float)Math.toRadians(-25F));
+		animator.rotate(UpperL_Hook2,0,(float)Math.toRadians(-25F), 0);
+		animator.rotate(UpperL_Hook3,0,(float)Math.toRadians(25F), 0);
+		animator.rotate(UpperL_Hook4,0,0, (float)Math.toRadians(25F));
+
+		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(55F), 0);
+		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(45F), 0);
+		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(52.5F), 0);
+		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(30F), 0);
+		animator.rotate(LowerR_Hook,0,0, (float)Math.toRadians(25F));
+		animator.rotate(LowerR_Hook2,0,(float)Math.toRadians(25F), 0);
+		animator.rotate(LowerR_Hook3,0,(float)Math.toRadians(-25F), 0);
+		animator.rotate(LowerR_Hook4,0,0, (float)Math.toRadians(-25F));
+
+		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(-55F), 0);
+		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(-45F), 0);
+		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(-52.5F), 0);
+		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(-30F), 0);
+		animator.rotate(LowerL_Hook,0,0, (float)Math.toRadians(-25F));
+		animator.rotate(LowerL_Hook2,0,(float)Math.toRadians(-25F), 0);
+		animator.rotate(LowerL_Hook3,0,(float)Math.toRadians(25F), 0);
+		animator.rotate(LowerL_Hook4,0,0, (float)Math.toRadians(25F));
+
+		animator.endKeyframe();
+
 	}
 
 	@Override
@@ -666,7 +736,11 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		this.flap(L_down_fin, finspeed, finDegree * 1.5F, true, 0F, -0.3F, ageInTicks , 1.0f);
 
 		this.body.rotateAngleX += headPitch * ((float) Math.PI / 180F);
-		this.root.rotateAngleY += netHeadYaw * ((float) Math.PI / 180F);
+		this.body.rotateAngleY += netHeadYaw * ((float) Math.PI / 180F);
+
+		if (horizontalMag(entityIn.getDeltaMovement()) > 1.0E-7D) {
+			//this.body.rotateAngleX += -0.05F + -0.05F * Mth.cos(ageInTicks * 0.3F);
+		}
 
 	}
 

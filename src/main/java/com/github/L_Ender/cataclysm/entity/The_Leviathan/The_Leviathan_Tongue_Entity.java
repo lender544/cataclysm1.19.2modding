@@ -9,6 +9,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
@@ -104,7 +105,9 @@ public class The_Leviathan_Tongue_Entity extends Entity {
                             Entity entity = getCreatorEntity();
                             if (entity instanceof LivingEntity) {
                                 if (current.hurt(DamageSource.indirectMobAttack(this, (LivingEntity) creator), 3)) {
-                                    Vec3 vec3 = (new Vec3(entity.getX() - current.getX(), entity.getY() - current.getY(), entity.getZ() - current.getZ())).scale(0.35D);
+                                    double f = -Mth.sin(entity.getYRot() * ((float)Math.PI / 180F)) * Mth.cos(entity.getXRot() * ((float)Math.PI / 180F));
+                                    double f2 = Mth.cos(entity.getYRot() * ((float)Math.PI / 180F)) * Mth.cos(entity.getXRot() * ((float)Math.PI / 180F));
+                                    Vec3 vec3 = (new Vec3((entity.getX() + f * 3.0) - current.getX(), entity.getY() - current.getY(), (entity.getZ()  + f2 * 3.0)  - current.getZ())).scale(0.25D);
                                     current.setDeltaMovement(current.getDeltaMovement().add(vec3));
                                 }
                             }
