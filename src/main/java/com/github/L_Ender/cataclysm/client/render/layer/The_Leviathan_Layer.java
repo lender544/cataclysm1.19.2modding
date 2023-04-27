@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -27,7 +26,7 @@ public class The_Leviathan_Layer extends RenderLayer<The_Leviathan_Entity, Model
         float alpha = entity.getLight();
         RenderType eyes = RenderType.eyes(PULSATING_SPOTS_TEXTURE_1);
         VertexConsumer VertexConsumer = bufferIn.getBuffer(eyes);
-        this.getParentModel().renderToBuffer(matrixStackIn, VertexConsumer, packedLightIn, OverlayTexture.NO_OVERLAY, alpha, alpha, alpha, alpha);
+        this.getParentModel().renderToBuffer(matrixStackIn, VertexConsumer, packedLightIn, OverlayTexture.NO_OVERLAY, alpha, alpha, alpha, 1.0f);
 
     }
 }

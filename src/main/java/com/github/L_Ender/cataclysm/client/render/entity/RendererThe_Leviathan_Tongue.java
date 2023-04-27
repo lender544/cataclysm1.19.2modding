@@ -3,12 +3,10 @@ package com.github.L_Ender.cataclysm.client.render.entity;
 import com.github.L_Ender.cataclysm.client.model.entity.ModelThe_Leviathan;
 import com.github.L_Ender.cataclysm.client.model.entity.ModelThe_Leviathan_Tongue;
 import com.github.L_Ender.cataclysm.client.model.entity.ModelThe_Leviathan_Tongue_End;
-import com.github.L_Ender.cataclysm.client.render.RenderUtils;
 import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Entity;
 import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Tongue_Entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -96,11 +94,10 @@ public class RendererThe_Leviathan_Tongue extends EntityRenderer<The_Leviathan_T
             float f2 = -Mth.sin(leviathan.getXRot() * ((float)Math.PI / 180F));
             float f3 = Mth.cos(leviathan.getYRot() * ((float)Math.PI / 180F)) * Mth.cos(leviathan.getXRot() * ((float)Math.PI / 180F));
 
-            float f4 = Mth.sqrt(f1 * f1 + f2 * f2 + f3 * f3);
+
 
             d4 = Mth.lerp(partialTicks, leviathan.xo + f1 * 3.0, leviathan.getX() + f1 * 3.0);
             d5 = Mth.lerp(partialTicks, leviathan.yo + f2 * 3.5, leviathan.getY() + f2 * 3.5);
-
             d6 = Mth.lerp(partialTicks, leviathan.zo + f3 * 3.0, leviathan.getZ() + f3 * 3.0);
 
         }

@@ -7,7 +7,7 @@ import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
 import com.github.alexthe666.citadel.client.model.ModelAnimator;
 import com.github.alexthe666.citadel.client.model.basic.BasicModelPart;
 import com.google.common.collect.ImmutableList;
-import net.minecraft.util.Mth;
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.phys.Vec3;
 
 public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity> {
@@ -618,7 +618,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.resetKeyframe(20);
 
 		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_RUSH);
-		animator.startKeyframe(15);
+		animator.startKeyframe(25);
 		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(20F), 0);
 		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(50F), 0);
 		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(50F), 0);
@@ -646,9 +646,9 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		animator.endKeyframe();
 
-		animator.setStaticKeyframe(10);
+		animator.setStaticKeyframe(20);
 
-		animator.startKeyframe(5);
+		animator.startKeyframe(4);
 		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(55F), 0);
 		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(45F), 0);
 		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(50F), 0);
@@ -685,8 +685,18 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(LowerL_Hook3,0,(float)Math.toRadians(25F), 0);
 		animator.rotate(LowerL_Hook4,0,0, (float)Math.toRadians(25F));
 
+		animator.rotate(Maw,(float)Math.toRadians(20F),0, 0);
+		animator.rotate(Skul,(float)Math.toRadians(-35F),0, 0);
+		animator.rotate(Mouth,(float)Math.toRadians(-37.5F),(float)Math.toRadians(7.5F), 0);
+		animator.rotate(Mouth2,(float)Math.toRadians(-37.5F),(float)Math.toRadians(-7.5F), 0);
+		animator.rotate(Mouth3,(float)Math.toRadians(37.5F),(float)Math.toRadians(7.5F), 0);
+		animator.rotate(Mouth4,(float)Math.toRadians(37.5F),(float)Math.toRadians(-7.5F), 0);
+
 		animator.endKeyframe();
 
+		animator.setStaticKeyframe(40);
+
+		animator.resetKeyframe(20);
 	}
 
 	@Override
@@ -698,42 +708,61 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		float swimDegree = 0.4F;
 		float finspeed = 0.1F;
 		float finDegree = 0.2F;
+		boolean swimAnimate = entityIn.isInWater();
+		float partialTick = Minecraft.getInstance().getFrameTime();
+		float NoswimProgress = entityIn.prevNoSwimProgress + (entityIn.NoSwimProgress - entityIn.prevNoSwimProgress) * partialTick;
+
+		progressRotationPrev(R_fin,NoswimProgress,0, 0, (float)Math.toRadians(-15F), 10f);
+		progressRotationPrev(L_fin,NoswimProgress,0, 0, (float)Math.toRadians(15F), 10f);
+		progressRotationPrev(R_fin2,NoswimProgress,0, 0, (float)Math.toRadians(15F), 10f);
+		progressRotationPrev(L_fin2,NoswimProgress,0, 0, (float)Math.toRadians(-15F), 10f);
+		progressRotationPrev(R_down_fin,NoswimProgress,0, 0, (float)Math.toRadians(-50F), 10f);
+		progressRotationPrev(L_down_fin,NoswimProgress,0, 0, (float)Math.toRadians(50F), 10f);
+		progressRotationPrev(R_down_fin2,NoswimProgress,0, 0, (float)Math.toRadians(50F), 10f);
+		progressRotationPrev(L_down_fin2,NoswimProgress,0, 0, (float)Math.toRadians(-50F), 10f);
+		progressRotationPrev(R_mini_fin,NoswimProgress,0, 0, (float)Math.toRadians(-32.5F), 10f);
+		progressRotationPrev(L_mini_fin,NoswimProgress,0, 0, (float)Math.toRadians(32.5F), 10f);
+		progressRotationPrev(LowerL_Tantacle,NoswimProgress,0, 0, (float)Math.toRadians(-32.5F), 10f);
+		progressRotationPrev(LowerR_Tantacle,NoswimProgress,0, 0, (float)Math.toRadians(32.5F), 10f);
+
+
 		this.chainSwing(tailBoxes, swimSpeed * 0.4F, swimDegree * 0.45F, -1, ageInTicks , 1.0f);
 		this.chainSwing(tailBoxes, swimSpeed * 4F, swimDegree * 0.6F, -1, limbSwing,limbSwingAmount);
+		if(swimAnimate) {
+			this.flap(R_fin, finspeed * 0.8F, finDegree, false, 0F, -0.2F, ageInTicks, 1.0f);
+			this.flap(R_fin2, finspeed * 0.8F, finDegree, false, 1F, -0.2F, ageInTicks, 1.0f);
+			this.flap(L_fin, finspeed * 0.8F, finDegree, true, 0F, -0.2F, ageInTicks, 1.0f);
+			this.flap(L_fin2, finspeed * 0.8F, finDegree, true, 1F, -0.2F, ageInTicks, 1.0f);
 
-		this.flap(R_fin, finspeed * 0.8F, finDegree, false, 0F, -0.2F, ageInTicks , 1.0f);
-		this.flap(R_fin2, finspeed * 0.8F, finDegree, false, 1F, -0.2F, ageInTicks , 1.0f);
-		this.flap(L_fin, finspeed * 0.8F, finDegree, true, 0F, -0.2F, ageInTicks , 1.0f);
-		this.flap(L_fin2, finspeed * 0.8F, finDegree, true, 1F, -0.2F, ageInTicks , 1.0f);
+			this.flap(R_fin, finspeed * 4.0F, finDegree, false, 0F, -0.2F, limbSwing, limbSwingAmount);
+			this.flap(R_fin2, finspeed * 4.0F, finDegree, false, 1F, -0.2F, limbSwing, limbSwingAmount);
+			this.flap(L_fin, finspeed * 4.0F, finDegree, true, 0F, -0.2F, limbSwing, limbSwingAmount);
+			this.flap(L_fin2, finspeed * 4.0F, finDegree, true, 1F, -0.2F, limbSwing, limbSwingAmount);
 
-		this.flap(R_fin, finspeed * 4.0F, finDegree, false, 0F, -0.2F, limbSwing,limbSwingAmount);
-		this.flap(R_fin2, finspeed * 4.0F, finDegree, false, 1F, -0.2F, limbSwing,limbSwingAmount);
-		this.flap(L_fin, finspeed * 4.0F, finDegree, true, 0F, -0.2F, limbSwing,limbSwingAmount);
-		this.flap(L_fin2, finspeed * 4.0F, finDegree, true, 1F, -0.2F, limbSwing,limbSwingAmount);
+			this.flap(R_mini_fin, finspeed * 1.2F, finDegree * 2.5F, false, 0F, -0.5F, ageInTicks, 1.0f);
+			this.flap(L_mini_fin, finspeed * 1.2F, finDegree * 2.5F, true, 0F, -0.5F, ageInTicks, 1.0f);
 
-		this.flap(R_mini_fin, finspeed * 1.2F, finDegree * 2.5F, false, 0F, -0.5F, ageInTicks , 1.0f);
-		this.flap(L_mini_fin, finspeed * 1.2F, finDegree * 2.5F, true, 0F, -0.5F, ageInTicks , 1.0f);
+			this.flap(R_down_fin, finspeed * 0.8F, finDegree * 1.5F, false, 0F, -0.3F, ageInTicks, 1.0f);
+			this.flap(L_down_fin, finspeed * 0.8F, finDegree * 1.5F, true, 0F, -0.3F, ageInTicks, 1.0f);
 
-		this.flap(R_down_fin, finspeed * 0.8F, finDegree * 1.5F, false, 0F, -0.3F, ageInTicks , 1.0f);
-		this.flap(L_down_fin, finspeed * 0.8F, finDegree * 1.5F, true, 0F, -0.3F, ageInTicks , 1.0f);
+			this.flap(R_mini_fin, finspeed * 4.0F, finDegree * 2.5F, false, 0F, -0.5F, limbSwing, limbSwingAmount);
+			this.flap(L_mini_fin, finspeed * 4.0F, finDegree * 2.5F, true, 0F, -0.5F, limbSwing, limbSwingAmount);
 
-		this.flap(R_mini_fin, finspeed * 4.0F, finDegree * 2.5F, false, 0F, -0.5F, limbSwing,limbSwingAmount);
-		this.flap(L_mini_fin, finspeed * 4.0F, finDegree * 2.5F, true, 0F, -0.5F,limbSwing,limbSwingAmount);
+			this.flap(R_down_fin, finspeed * 4.0F, finDegree * 1.5F, false, 0F, -0.3F, limbSwing, limbSwingAmount);
+			this.flap(L_down_fin, finspeed * 4.0F, finDegree * 1.5F, true, 0F, -0.3F, limbSwing, limbSwingAmount);
+			this.flap(L_down_fin, finspeed, finDegree * 1.5F, true, 0F, -0.3F, ageInTicks, 1.0f);
+		}else{
+			this.swing(R_fin, finspeed * 20.0F, finDegree * 1.5f, false, 0F, -0.1F, limbSwing, limbSwingAmount);
+			this.swing(L_fin, finspeed * 20.0F, finDegree * 1.5f, true, 0F, -0.1F, limbSwing, limbSwingAmount);
+		}
+		this.walk(Mouth, finspeed * 0.8F, finDegree * 0.15F, false, 0F, -0.03F, ageInTicks, 1.0f);
+		this.walk(Mouth2, finspeed * 0.8F, finDegree * 0.15F, false, 0F, -0.03F, ageInTicks, 1.0f);
+		this.walk(Mouth3, finspeed * 0.8F, finDegree * 0.15F, true, 0F, -0.03F, ageInTicks, 1.0f);
+		this.walk(Mouth4, finspeed * 0.8F, finDegree * 0.15F, true, 0F, -0.03F, ageInTicks, 1.0f);
 
-		this.flap(R_down_fin, finspeed * 4.0F, finDegree * 1.5F, false, 0F, -0.3F, limbSwing,limbSwingAmount);
-		this.flap(L_down_fin, finspeed * 4.0F, finDegree * 1.5F, true, 0F, -0.3F, limbSwing,limbSwingAmount);
+		this.walk(Maw, finspeed * 1.1F, finDegree * 0.15F, true, 0F, -0.03F, limbSwing, limbSwingAmount);
+		this.walk(Skul, finspeed * 1.1F, finDegree * 0.15F, false, 0F, -0.03F, limbSwing, limbSwingAmount);
 
-
-		this.walk(Mouth, finspeed * 0.8F, finDegree * 0.15F, false, 0F, -0.03F, ageInTicks , 1.0f);
-		this.walk(Mouth2, finspeed * 0.8F, finDegree * 0.15F, false, 0F, -0.03F, ageInTicks , 1.0f);
-		this.walk(Mouth3, finspeed * 0.8F, finDegree * 0.15F, true, 0F, -0.03F, ageInTicks , 1.0f);
-		this.walk(Mouth4, finspeed * 0.8F, finDegree * 0.15F, true, 0F, -0.03F, ageInTicks , 1.0f);
-
-		this.walk(Maw, finspeed * 1.1F, finDegree * 0.15F, true, 0F, -0.03F, limbSwing,limbSwingAmount);
-		this.walk(Skul, finspeed * 1.1F, finDegree * 0.15F, false, 0F, -0.03F, limbSwing,limbSwingAmount);
-
-
-		this.flap(L_down_fin, finspeed, finDegree * 1.5F, true, 0F, -0.3F, ageInTicks , 1.0f);
 
 		this.body.rotateAngleX += headPitch * ((float) Math.PI / 180F);
 		this.body.rotateAngleY += netHeadYaw * ((float) Math.PI / 180F);
