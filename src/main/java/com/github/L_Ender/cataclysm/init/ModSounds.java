@@ -164,4 +164,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> HARBINGER_IDLE = SOUNDS.register("harbinger_idle",
             () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"harbinger_idle")));
 
+    public static final RegistryObject<SoundEvent> ABYSS_BLAST = SOUNDS.register("abyss_blast",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"abyss_blast")));
+
 }

@@ -1,14 +1,18 @@
 package com.github.L_Ender.cataclysm.entity.The_Leviathan;
 
+import com.github.L_Ender.cataclysm.config.CMConfig;
 import com.github.L_Ender.cataclysm.entity.AI.EntityAINearestTarget3D;
 import com.github.L_Ender.cataclysm.entity.AI.SimpleAnimationGoal;
 import com.github.L_Ender.cataclysm.entity.Boss_monster;
 import com.github.L_Ender.cataclysm.entity.Ender_Guardian_Entity;
+import com.github.L_Ender.cataclysm.entity.The_Harbinger_Entity;
+import com.github.L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import com.github.L_Ender.cataclysm.entity.etc.*;
 import com.github.L_Ender.cataclysm.entity.projectile.Abyss_Blast_Entity;
 import com.github.L_Ender.cataclysm.entity.util.LeviathanTongueUtil;
 import com.github.L_Ender.cataclysm.init.ModEntities;
+import com.github.L_Ender.cataclysm.init.ModSounds;
 import com.github.L_Ender.cataclysm.init.ModTag;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
@@ -19,6 +23,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -34,7 +39,11 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
@@ -44,7 +53,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
     public static final Animation LEVIATHAN_GRAB = Animation.create(115);
     public static final Animation LEVIATHAN_TAILSWING = Animation.create(20);
     public static final Animation LEVIATHAN_GRAB_BITE = Animation.create(13);
-    public static final Animation LEVIATHAN_ABYSS_BLAST = Animation.create(173);
+    public static final Animation LEVIATHAN_ABYSS_BLAST = Animation.create(184);
     public static final Animation LEVIATHAN_RUSH = Animation.create(109);
     public float NoSwimProgress = 0;
     public float prevNoSwimProgress = 0;
@@ -93,8 +102,8 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         this.goalSelector.addGoal(0, new LeviathanRushAttackGoal(this,LEVIATHAN_RUSH));
         this.goalSelector.addGoal(8, new FollowBoatGoal(this));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
-        this.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, Player.class, true,true));
-        this.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(this, LivingEntity.class, 160, true, true, ModEntities.buildPredicateFromTag(ModTag.LEVIATHAN_TARGET)));
+        this.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, Player.class, false,true));
+        this.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(this, LivingEntity.class, 160, false, true, ModEntities.buildPredicateFromTag(ModTag.LEVIATHAN_TARGET)));
 
     }
 
@@ -168,11 +177,11 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         LivingEntity target = this.getTarget();
 
 
-        if(target !=null) {
+
             if (this.getAnimation() == NO_ANIMATION) {
                 this.setAnimation(LEVIATHAN_ABYSS_BLAST);
 
-            }
+
         }
 
         AnimationHandler.INSTANCE.updateAnimations(this);
@@ -191,34 +200,68 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
                         this.level.addParticle(ParticleTypes.PORTAL, this.getX() + f * 4.0,this.getY() + f2 * 3.5, this.getZ() + f3 * 4.0, (this.random.nextDouble() - 0.5D) * 2.0D, -this.random.nextDouble(), (this.random.nextDouble() - 0.5D) * 2.0D);
                     }
                 }
-
             }
 
-
-                if (this.getAnimationTick() >= 53) {
-
-                    this.setXRot(this.xRotO);
-
+            if (this.getAnimationTick() >= 64) {
+                this.setXRot(this.xRotO);
             }
-
-            for (int i = 33, j = 0; i <= 73; i++, j++) {
+            for (int i = 44, j = 0; i <= 84; i++, j++) {
                 float l = j * 0.025f;
                 if (this.getAnimationTick() == i) {
                     this.setLight(l);
                 }
             }
-
-            for (int i = 133, j = 1; i <= 173; i++, j++) {
+            for (int i = 144, j = 1; i <= 184; i++, j++) {
                 float l = j * -0.025f;
                 if (this.getAnimationTick() == i) {
                     this.setLight(l);
                 }
             }
-
-            if(this.getAnimationTick() == 73 ) {
+            if(this.getAnimationTick() == 84 ) {
                 ScreenShake_Entity.ScreenShake(this.level, this.position(), 20, 0.1f, 90, 10);
             }
         }
+        if(this.getAnimation() == LEVIATHAN_RUSH){
+            if (this.getAnimationTick() > 48 && this.getAnimationTick() < 89) {
+                charge();
+            }
+        }
+
+    }
+
+    private void charge() {
+            if (!this.level.isClientSide) {
+                if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+                    boolean flag = false;
+                    AABB aabb = this.getBoundingBox().inflate(1.5D, 0.2D, 1.5D);
+                    for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(aabb.minY), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
+                        BlockState blockstate = this.level.getBlockState(blockpos);
+                        FluidState fluidState = level.getFluidState(blockpos);
+                        if (blockstate.getMaterial() != Material.AIR && blockstate.canEntityDestroy(this.level, blockpos, this) && fluidState.isEmpty() && !blockstate.is(ModTag.HARBINGER_IMMUNE) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(this, blockpos, blockstate)) {
+                            flag = this.level.destroyBlock(blockpos, false, this) || flag;
+
+                        }
+                    }
+                }
+            }
+            if (this.tickCount % 6 == 0) {
+                for (LivingEntity Lentity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1.5D))) {
+                    if (!isAlliedTo(Lentity) && !(Lentity instanceof The_Harbinger_Entity) && Lentity != this) {
+                        boolean flag = Lentity.hurt(DamageSource.mobAttack(this),  (float) ((float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) + this.random.nextInt(5) + Math.min(this.getAttributeValue(Attributes.ATTACK_DAMAGE), Lentity.getMaxHealth() * CMConfig.HarbingerChargeHpDamage)));
+
+                        if (flag) {
+                            if (Lentity.isOnGround()) {
+                                double d0 = Lentity.getX() - this.getX();
+                                double d1 = Lentity.getZ() - this.getZ();
+                                double d2 = Math.max(d0 * d0 + d1 * d1, 0.001D);
+                                float f = 1.5F;
+                                Lentity.push(d0 / d2 * f, 0.5F, d1 / d2 * f);
+                            }
+                        }
+                    }
+                }
+            }
+
     }
 
 
@@ -405,6 +448,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
 
         public void start() {
             entity.getNavigation().stop();
+            entity.level.playSound((Player) null, entity, ModSounds.ABYSS_BLAST.get(), SoundSource.HOSTILE, 8.0f, 1.0f);
             super.start();
         }
 
@@ -412,13 +456,13 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             entity.getNavigation().stop();
             LivingEntity target = entity.getTarget();
             if (target != null) {
-                if (this.entity.getAnimationTick() < 68) {
+                if (this.entity.getAnimationTick() < 79) {
                     entity.getLookControl().setLookAt(target, 30, 90);
                 }
             }
             entity.setDeltaMovement(0,0,0);
             float dir = 90.0f;
-            if(this.entity.getAnimationTick() == 53) {
+            if(this.entity.getAnimationTick() == 64) {
                 if(!entity.level.isClientSide) {
                     Abyss_Blast_Entity DeathBeam = new Abyss_Blast_Entity(ModEntities.ABYSS_BLAST.get(), entity.level, entity, entity.getX(), entity.getY(), entity.getZ(), (float) ((entity.yHeadRot + dir) * Math.PI / 180), (float) (-entity.getXRot() * Math.PI / 180), 80, dir);
                     entity.level.addFreshEntity(DeathBeam);
@@ -446,13 +490,13 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
                     final float targetYaw = (float) (Mth.atan2(d2, d0) * 180.0F / (float) Math.PI - 90.0F);
                     final float targetPitch = (float) (-(Mth.atan2(d1, d3) * 180.0F / (float) Math.PI));
                     entity.setXRot((entity.getXRot() + Mth.clamp(targetPitch - entity.getXRot(), -2, 2)));
-                    if (d0 * d0 + d2 * d2 >= 25) {
+                    if (d0 * d0 + d2 * d2 >= 9) {
                         entity.setYRot((entity.getYRot() + Mth.clamp(targetYaw - entity.getYRot(), -2, 2)));
                         entity.yBodyRot = entity.getYRot();
                     }
                     if (Math.abs(Mth.wrapDegrees(targetYaw) - Mth.wrapDegrees(entity.getYRot())) < 4) {
                         final double distSq = d0 * d0 + d2 * d2;
-                        if (distSq < 25) {
+                        if (distSq < 9) {
                             entity.setYRot(entity.yRotO);
                             entity.yBodyRot = entity.yRotO;
                             entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.8, 1, 0.8));

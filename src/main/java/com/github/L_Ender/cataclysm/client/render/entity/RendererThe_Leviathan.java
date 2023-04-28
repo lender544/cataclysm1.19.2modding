@@ -33,7 +33,7 @@ public class RendererThe_Leviathan extends MobRenderer<The_Leviathan_Entity, Mod
     }
 
     public Vec3 getRenderOffset(The_Leviathan_Entity entityIn, float partialTicks) {
-        if (entityIn.getAnimation() == The_Leviathan_Entity.LEVIATHAN_ABYSS_BLAST && entityIn.getAnimationTick() <= 55) {
+        if (entityIn.getAnimation() == The_Leviathan_Entity.LEVIATHAN_ABYSS_BLAST && entityIn.getAnimationTick() <= 66) {
             double d0 = 0.01D;
             return new Vec3(this.rnd.nextGaussian() * d0, 0.0D, this.rnd.nextGaussian() * d0);
         } else {

@@ -483,5 +483,13 @@
         "pitch": 0.5
       }
     ]
+  },
+  "abyss_blast": {
+    "subtitle": "abyss_blast.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/abyss_blast"
+      }
+    ]
   }
 }
