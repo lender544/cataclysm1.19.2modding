@@ -6,7 +6,7 @@ modId= "cataclysm" #mandatory
 version="1.0" #mandatory
  # A display name for the mod
 displayName="Cataclysm Mod" #mandatory
-credits="dogulkkun,0dyss2y,mango03034,HedwigOwls" #optional
+credits="dogulkkun,0dyss2y,mango03034,HedwigOwls,Akogiri" #optional
 authors="L_Ender" #optional
 description='''
 Hello

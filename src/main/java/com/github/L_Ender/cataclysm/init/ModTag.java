@@ -36,6 +36,8 @@ public class ModTag {
 
     public static final TagKey<Block> HARBINGER_IMMUNE = registerBlockTag("harbinger_immune");
 
+    public static final TagKey<Block> LEVIATHAN_IMMUNE = registerBlockTag("leviathan_immune");
+
     public static final TagKey<Block> ENDERMAPTERA_CAN_NOT_SPAWN = registerBlockTag("endermaptera_can_not_spawn");
 
     public static final TagKey<Block> NETHERITE_MONSTROSITY_BREAK = registerBlockTag("netherite_monstrosity_break");

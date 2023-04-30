@@ -132,23 +132,17 @@ public class Abyss_Blast_Entity extends Entity {
                 if (!this.level.isClientSide) {
                     for (BlockPos pos : BlockPos.betweenClosed(Mth.floor(collidePosX - 0.5F), Mth.floor(collidePosY - 0.5F), Mth.floor(collidePosZ - 0.5F), Mth.floor(collidePosX + 0.5F), Mth.floor(collidePosY + 0.5F), Mth.floor(collidePosZ + 0.5F))) {
                         BlockState block = level.getBlockState(pos);
-                        if (!block.isAir() && block.is(ModTag.CM_GLASS) && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
-                            level.destroyBlock(pos, true);
-                        }
-                    }
-                    for (BlockPos pos : BlockPos.betweenClosed(Mth.floor(collidePosX - 2.5F), Mth.floor(collidePosY - 2.5F), Mth.floor(collidePosZ - 2.5F), Mth.floor(collidePosX + 2.5F), Mth.floor(collidePosY + 2.5F), Mth.floor(collidePosZ + 2.5F))) {
-                        BlockState block = level.getBlockState(pos);
-                        if (block.is(ModBlocks.EMP.get())) {
-                            if(!block.getValue(BlockEMP.POWERED) && block.getValue(BlockEMP.OVERLOAD)) {
-                                this.level.setBlockAndUpdate(pos, block.setValue(BlockEMP.OVERLOAD, false));
-                            }
+                        if (!block.isAir() && !block.is(ModTag.HARBINGER_IMMUNE) && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+                            level.destroyBlock(pos, false);
                         }
                     }
                 }
             }
             if (!level.isClientSide) {
                 for (LivingEntity target : hit) {
-                    boolean flag = target.hurt(CMDamageTypes.causeLaserDamage(this, caster).bypassArmor(), (float) 1);
+                    if(target != caster) {
+                        boolean flag = target.hurt(CMDamageTypes.causeLaserDamage(this, caster).bypassArmor(), (float) 0.01);
+                    }
 
                 }
             }

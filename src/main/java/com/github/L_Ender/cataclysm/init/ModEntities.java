@@ -3,6 +3,8 @@ package com.github.L_Ender.cataclysm.init;
 
 import com.github.L_Ender.cataclysm.cataclysm;
 import com.github.L_Ender.cataclysm.entity.*;
+import com.github.L_Ender.cataclysm.entity.The_Leviathan.Abyss_Portal_Entity;
+import com.github.L_Ender.cataclysm.entity.The_Leviathan.CustomGuardian;
 import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Entity;
 import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Tongue_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.*;
@@ -103,7 +105,16 @@ public class ModEntities {
             .sized(4.0F, 4.0F)
             .fireImmune()
             .clientTrackingRange(10)
+            .setShouldReceiveVelocityUpdates(true)
             .build(cataclysm.MODID + ":the_leviathan"));
+
+
+    public static final RegistryObject<EntityType<CustomGuardian>> CUSTOM_GUARDIAN = ENTITY_TYPE.register("custom_guardian", () -> EntityType.Builder.of(CustomGuardian::new, MobCategory.MONSTER)
+            .sized(0.85F, 0.85F)
+            .fireImmune()
+            .clientTrackingRange(8)
+            .build(cataclysm.MODID + ":custom_guardian"));
+
 
     public static final RegistryObject<EntityType<Void_Scatter_Arrow_Entity>> VOID_SCATTER_ARROW = ENTITY_TYPE.register("void_scatter_arrow", () -> EntityType.Builder.<Void_Scatter_Arrow_Entity>of(Void_Scatter_Arrow_Entity::new, MobCategory.MISC)
             .sized(0.5f, 0.5f)
@@ -219,6 +230,14 @@ public class ModEntities {
             .setUpdateInterval(20)
             .build(cataclysm.MODID + ":wither_howitzer"));
 
+    public static final RegistryObject<EntityType<Abyss_Orb_Entity>> ABYSS_ORB = ENTITY_TYPE.register("abyss_orb", () -> EntityType.Builder.<Abyss_Orb_Entity>of(Abyss_Orb_Entity::new, MobCategory.MISC)
+            .sized(0.5f, 0.5f)
+            .fireImmune()
+            .setUpdateInterval(1)
+            .setTrackingRange(20)
+            .setShouldReceiveVelocityUpdates(true)
+            .build(cataclysm.MODID + ":abyss_orb"));
+
     public static final RegistryObject<EntityType<Void_Howitzer_Entity>> VOID_HOWITZER = ENTITY_TYPE.register("void_howitzer", () -> EntityType.Builder.<Void_Howitzer_Entity>of(Void_Howitzer_Entity::new, MobCategory.MISC)
             .sized(0.5f, 0.5f)
             .fireImmune()
@@ -242,6 +261,14 @@ public class ModEntities {
             .sized(0.1F, 0.1F)
             .build(cataclysm.MODID + ":the_leviathan_tongue"));
 
+    public static final RegistryObject<EntityType<Abyss_Portal_Entity>> ABYSS_PORTAL = ENTITY_TYPE.register("abyss_portal", () -> EntityType.Builder.<Abyss_Portal_Entity>of(Abyss_Portal_Entity::new, MobCategory.MISC)
+            .sized(6.0F, 0.5F)
+            .fireImmune()
+            .sized(0.5F, 0.5F)
+            .setCustomClientFactory(Abyss_Portal_Entity::new)
+            .build(cataclysm.MODID + ":abyss_portal"));
+
+
     public static Predicate<LivingEntity> buildPredicateFromTag(TagKey<EntityType<?>> entityTag){
         if(entityTag == null){
             return Predicates.alwaysFalse();
@@ -262,6 +289,7 @@ public class ModEntities {
         event.put(IGNITED_REVENANT.get(), Ignited_Revenant_Entity.ignited_revenant().build());
         event.put(THE_HARBINGER.get(), The_Harbinger_Entity.harbinger().build());
         event.put(THE_LEVIATHAN.get(), The_Leviathan_Entity.leviathan().build());
+        event.put(CUSTOM_GUARDIAN.get(), CustomGuardian.m_32853_().build());
     }
 }
 
