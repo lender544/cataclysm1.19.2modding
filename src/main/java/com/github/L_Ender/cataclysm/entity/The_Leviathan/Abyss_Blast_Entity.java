@@ -1,11 +1,7 @@
-package com.github.L_Ender.cataclysm.entity.projectile;
+package com.github.L_Ender.cataclysm.entity.The_Leviathan;
 
 
-import com.github.L_Ender.cataclysm.blocks.BlockEMP;
 import com.github.L_Ender.cataclysm.client.tool.ControlledAnimation;
-import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Entity;
-import com.github.L_Ender.cataclysm.init.ModBlocks;
-import com.github.L_Ender.cataclysm.init.ModParticle;
 import com.github.L_Ender.cataclysm.init.ModTag;
 import com.github.L_Ender.cataclysm.util.CMDamageTypes;
 import net.minecraft.core.BlockPos;
@@ -132,7 +128,7 @@ public class Abyss_Blast_Entity extends Entity {
                 if (!this.level.isClientSide) {
                     for (BlockPos pos : BlockPos.betweenClosed(Mth.floor(collidePosX - 0.5F), Mth.floor(collidePosY - 0.5F), Mth.floor(collidePosZ - 0.5F), Mth.floor(collidePosX + 0.5F), Mth.floor(collidePosY + 0.5F), Mth.floor(collidePosZ + 0.5F))) {
                         BlockState block = level.getBlockState(pos);
-                        if (!block.isAir() && !block.is(ModTag.HARBINGER_IMMUNE) && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+                        if (!block.isAir() && !block.is(ModTag.LEVIATHAN_IMMUNE) && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
                             level.destroyBlock(pos, false);
                         }
                     }
@@ -258,7 +254,7 @@ public class Abyss_Blast_Entity extends Entity {
             if (entity == caster) {
                 continue;
             }
-            float pad = entity.getPickRadius() + 0.5f;
+            float pad = entity.getPickRadius() + 0.75f;
             AABB aabb = entity.getBoundingBox().inflate(pad, pad, pad);
             Optional<Vec3> hit = aabb.clip(from, to);
             if (aabb.contains(from)) {
@@ -292,6 +288,7 @@ public class Abyss_Blast_Entity extends Entity {
     public boolean shouldRenderAtSqrDistance(double distance) {
         return distance < 1024;
     }
+
 
     private void updateWithHarbinger() {
         this.setYaw((float) ((caster.yHeadRot + this.getBeamDirection()) * Math.PI / 180.0d));

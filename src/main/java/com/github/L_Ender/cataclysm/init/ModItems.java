@@ -94,6 +94,10 @@ public class ModItems {
     public static final RegistryObject<BlockItem> CHORUS_FENCE = ITEMS.register("chorus_fence",
             () -> new BlockItem(ModBlocks.CHORUS_FENCE.get(), new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
 
+    public static final RegistryObject<BlockItem> QUARTZ_BRICK_WALL = ITEMS.register("quartz_brick_wall",
+            () -> new BlockItem(ModBlocks.QUARTZ_BRICK_WALL.get(), new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
+
+
     public static final RegistryObject<Item> WITHERITE_INGOT = ITEMS.register("witherite_ingot",
             () -> new Item(new Item.Properties().fireResistant().rarity(Rarity.EPIC).tab(cataclysm.CATACLYSM_GROUP)));
 

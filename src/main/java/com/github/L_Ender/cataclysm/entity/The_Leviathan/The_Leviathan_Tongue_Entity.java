@@ -107,7 +107,7 @@ public class The_Leviathan_Tongue_Entity extends Entity {
                                 if (current.hurt(DamageSource.indirectMobAttack(this, (LivingEntity) creator), 3)) {
                                     double f = -Mth.sin(entity.getYRot() * ((float)Math.PI / 180F)) * Mth.cos(entity.getXRot() * ((float)Math.PI / 180F));
                                     double f2 = Mth.cos(entity.getYRot() * ((float)Math.PI / 180F)) * Mth.cos(entity.getXRot() * ((float)Math.PI / 180F));
-                                    Vec3 vec3 = (new Vec3((entity.getX() + f * 3.0) - current.getX(), entity.getY() - current.getY(), (entity.getZ()  + f2 * 3.0)  - current.getZ())).scale(0.25D);
+                                    Vec3 vec3 = (new Vec3((entity.getX() + f * 3.0) - current.getX(), entity.getY() - current.getY(), (entity.getZ()  + f2 * 3.0)  - current.getZ())).scale(0.35D);
                                     current.setDeltaMovement(current.getDeltaMovement().add(vec3));
                                 }
                             }

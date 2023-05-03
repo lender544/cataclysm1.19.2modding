@@ -7,7 +7,6 @@ import com.github.L_Ender.cataclysm.entity.Boss_monster;
 import com.github.L_Ender.cataclysm.entity.The_Harbinger_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import com.github.L_Ender.cataclysm.entity.etc.*;
-import com.github.L_Ender.cataclysm.entity.projectile.Abyss_Blast_Entity;
 import com.github.L_Ender.cataclysm.entity.util.LeviathanTongueUtil;
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import com.github.L_Ender.cataclysm.init.ModSounds;
@@ -63,6 +62,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
     public static final Animation LEVIATHAN_GRAB_BITE = Animation.create(13);
     public static final Animation LEVIATHAN_ABYSS_BLAST = Animation.create(184);
     public static final Animation LEVIATHAN_RUSH = Animation.create(109);
+    public static final Animation LEVIATHAN_ABYSS_BLAST_PORTAL = Animation.create(100);
     public float NoSwimProgress = 0;
     public float prevNoSwimProgress = 0;
     private boolean isLandNavigator;
@@ -118,6 +118,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         this.goalSelector.addGoal(0, new LeviathanGrabAttackGoal(this,LEVIATHAN_GRAB));
         this.goalSelector.addGoal(0, new LeviathanGrabBiteAttackGoal(this,LEVIATHAN_GRAB_BITE));
         this.goalSelector.addGoal(0, new LeviathanBlastAttackGoal(this,LEVIATHAN_ABYSS_BLAST));
+        this.goalSelector.addGoal(0, new LeviathanAbyssBlastPortalAttackGoal(this,LEVIATHAN_ABYSS_BLAST_PORTAL));
         this.goalSelector.addGoal(0, new LeviathanRushAttackGoal(this,LEVIATHAN_RUSH));
         this.goalSelector.addGoal(8, new FollowBoatGoal(this));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
@@ -155,6 +156,15 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             super.travel(travelVector);
         }
 
+    }
+
+    public boolean hurt(DamageSource source, float damage) {
+        Entity entity = source.getDirectEntity();
+        if (entity instanceof Abyss_Portal_Entity || entity instanceof Portal_Abyss_Blast_Entity) {
+            return false;
+        } else {
+            return super.hurt(source, damage);
+        }
     }
 
 
@@ -196,8 +206,8 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
 
         }
         LivingEntity target = this.getTarget();
-        if (this.getAnimation() == NO_ANIMATION && target !=null) {
-            this.setAnimation(LEVIATHAN_RUSH);
+        if (this.getAnimation() == NO_ANIMATION && target!=null) {
+            this.setAnimation(LEVIATHAN_GRAB);
         }
 
 
@@ -318,7 +328,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             List<LivingEntity> hit = raytraceEntities(level, new Vec3(getX(), getY(), getZ()), new Vec3(endPosX, endPosY, endPosZ)).entities;
             for (LivingEntity target : hit) {
                 if (!isAlliedTo(target) && !(target instanceof The_Leviathan_Entity) && target != this) {
-                    boolean flag = target.hurt(DamageSource.mobAttack(this), 0);
+                    boolean flag = target.hurt(DamageSource.mobAttack(this), 3);
                 }
             }
         }
@@ -626,7 +636,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
 
         public void start() {
             entity.getNavigation().stop();
-            entity.level.playSound((Player) null, entity, ModSounds.ABYSS_BLAST.get(), SoundSource.HOSTILE, 8.0f, 1.0f);
+            entity.level.playSound((Player) null, entity, ModSounds.ABYSS_BLAST.get(), SoundSource.HOSTILE, 4.0f, 1.0f);
             super.start();
         }
 
@@ -693,6 +703,54 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
                 }
             }
         }
+    }
+
+
+    static class LeviathanAbyssBlastPortalAttackGoal extends SimpleAnimationGoal<The_Leviathan_Entity> {
+
+        public LeviathanAbyssBlastPortalAttackGoal(The_Leviathan_Entity entity, Animation animation) {
+            super(entity, animation);
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK, Flag.JUMP));
+        }
+
+        public void tick() {
+            LivingEntity target = entity.getTarget();
+            if (target != null) {
+                entity.getLookControl().setLookAt(target, 30, 90);
+                if (this.entity.getAnimationTick() == 48) {
+                    Abyss_Blast_Portal_Entity laserBeam = new Abyss_Blast_Portal_Entity(entity.level, entity.getX(), entity.getY() +5,entity.getZ(), entity);
+                    double d0 = entity.getTarget().getX() - laserBeam.getX();
+                    double d1 = entity.getTarget().getY() + entity.getTarget().getBbHeight() * 0.5f - laserBeam.getY();
+                    double d2 = entity.getTarget().getZ() - laserBeam.getZ();
+
+                    double b0 = laserBeam.getX() - entity.getTarget().getX();
+                    double b2 = laserBeam.getZ() - entity.getTarget().getZ();
+
+                    float f = (float) (Mth.atan2(b2, b0) * (180D / Math.PI)) - 90.0F;
+                    laserBeam.setYRot(f % 360);
+                    double d3 = Math.sqrt(d0 * d0 + d2 * d2);
+                    float f1 = (float) (-(Mth.atan2(d1, d3) * (180D / Math.PI)));
+                    laserBeam.setXRot(updateRotation(laserBeam.getXRot(), f1, 90F));
+
+
+                    entity.level.addFreshEntity(laserBeam);
+
+                }
+            }
+        }
+
+
+        private static float updateRotation(float angle, float targetAngle, float maxIncrease) {
+            float f = Mth.wrapDegrees(targetAngle - angle);
+            if (f > maxIncrease) {
+                f = maxIncrease;
+            }
+            if (f < -maxIncrease) {
+                f = -maxIncrease;
+            }
+            return angle + f;
+        }
+
     }
 
     static class AIEnterPortal extends Goal {

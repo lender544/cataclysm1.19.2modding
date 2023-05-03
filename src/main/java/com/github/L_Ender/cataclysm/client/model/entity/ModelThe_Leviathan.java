@@ -697,6 +697,11 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.setStaticKeyframe(40);
 
 		animator.resetKeyframe(20);
+
+
+		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_ABYSS_BLAST_PORTAL);
+		animator.setStaticKeyframe(60);
+
 	}
 
 	@Override

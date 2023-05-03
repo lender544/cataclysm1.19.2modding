@@ -1,11 +1,12 @@
 package com.github.L_Ender.cataclysm.structures;
 
+
+import com.mojang.serialization.Codec;
 import com.github.L_Ender.cataclysm.cataclysm;
 import com.github.L_Ender.cataclysm.entity.Netherite_Monstrosity_Entity;
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import com.github.L_Ender.cataclysm.init.ModStructures;
 import com.google.common.collect.ImmutableMap;
-import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;

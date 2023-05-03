@@ -1,7 +1,7 @@
 package com.github.L_Ender.cataclysm.client.render.entity;
 
 import com.github.L_Ender.cataclysm.client.render.CMRenderTypes;
-import com.github.L_Ender.cataclysm.entity.The_Leviathan.Abyss_Blast_Entity;
+import com.github.L_Ender.cataclysm.entity.The_Leviathan.Portal_Abyss_Blast_Entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix3f;
@@ -22,31 +22,31 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class RendererAbyss_Blast extends EntityRenderer<Abyss_Blast_Entity> {
+public class RendererPortal_Abyss_Blast extends EntityRenderer<Portal_Abyss_Blast_Entity> {
     private static final ResourceLocation TEXTURE = new ResourceLocation("cataclysm:textures/entity/abyss_laser_beam.png");
     private static final float TEXTURE_WIDTH = 256;
     private static final float TEXTURE_HEIGHT = 32;
-    private static final float START_RADIUS = 0.95f;
-    private static final float END_RADIUS = 1.15f;
-    private static final float BEAM_RADIUS = 1.0F;
+    private static final float START_RADIUS = 1.9F;
+    private static final float END_RADIUS = 2.2F;
+    private static final float BEAM_RADIUS = 2.0F;
     private boolean clearerView = false;
 
-    public RendererAbyss_Blast(EntityRendererProvider.Context mgr) {
+    public RendererPortal_Abyss_Blast(EntityRendererProvider.Context mgr) {
         super(mgr);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Abyss_Blast_Entity entity) {
+    public ResourceLocation getTextureLocation(Portal_Abyss_Blast_Entity entity) {
         return TEXTURE;
     }
 
 
-    public boolean shouldRender(Abyss_Blast_Entity solarBeam, Frustum camera, double camX, double camY, double camZ) {
+    public boolean shouldRender(Portal_Abyss_Blast_Entity solarBeam, Frustum camera, double camX, double camY, double camZ) {
         return true;
     }
 
     @Override
-    public void render(Abyss_Blast_Entity solarBeam, float entityYaw, float delta, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
+    public void render(Portal_Abyss_Blast_Entity solarBeam, float entityYaw, float delta, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
         clearerView = solarBeam.caster instanceof Player && Minecraft.getInstance().player == solarBeam.caster && Minecraft.getInstance().options.getCameraType() == CameraType.FIRST_PERSON;
 
         double collidePosX = solarBeam.prevCollidePosX + (solarBeam.collidePosX - solarBeam.prevCollidePosX) * delta;

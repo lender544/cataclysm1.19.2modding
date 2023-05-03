@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "cataclysm:obsidian_brick_wall",
-    "cataclysm:purpur_wall"
+    "cataclysm:purpur_wall",
+    "cataclysm:quartz_brick_wall"
   ]
 }

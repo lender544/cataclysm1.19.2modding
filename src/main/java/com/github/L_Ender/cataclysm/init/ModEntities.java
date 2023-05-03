@@ -3,10 +3,7 @@ package com.github.L_Ender.cataclysm.init;
 
 import com.github.L_Ender.cataclysm.cataclysm;
 import com.github.L_Ender.cataclysm.entity.*;
-import com.github.L_Ender.cataclysm.entity.The_Leviathan.Abyss_Portal_Entity;
-import com.github.L_Ender.cataclysm.entity.The_Leviathan.CustomGuardian;
-import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Entity;
-import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Tongue_Entity;
+import com.github.L_Ender.cataclysm.entity.The_Leviathan.*;
 import com.github.L_Ender.cataclysm.entity.effect.*;
 import com.github.L_Ender.cataclysm.entity.projectile.Ashen_Breath_Entity;
 import com.github.L_Ender.cataclysm.entity.projectile.*;
@@ -202,6 +199,12 @@ public class ModEntities {
             .fireImmune()
             .build(cataclysm.MODID + ":abyss_blast"));
 
+    public static final RegistryObject<EntityType<Portal_Abyss_Blast_Entity>> MINI_ABYSS_BLAST = ENTITY_TYPE.register("mini_abyss_blast", () -> EntityType.Builder.<Portal_Abyss_Blast_Entity>of(Portal_Abyss_Blast_Entity::new, MobCategory.MISC)
+            .sized(0.1F, 0.1F)
+            .fireImmune()
+            .build(cataclysm.MODID + ":mini_abyss_blast"));
+
+
     public static final RegistryObject<EntityType<Laser_Beam_Entity>> LASER_BEAM = ENTITY_TYPE.register("laser_beam", () -> EntityType.Builder.<Laser_Beam_Entity>of(Laser_Beam_Entity::new, MobCategory.MISC)
             .sized(0.3125F, 0.3125F)
             .fireImmune()
@@ -262,11 +265,19 @@ public class ModEntities {
             .build(cataclysm.MODID + ":the_leviathan_tongue"));
 
     public static final RegistryObject<EntityType<Abyss_Portal_Entity>> ABYSS_PORTAL = ENTITY_TYPE.register("abyss_portal", () -> EntityType.Builder.<Abyss_Portal_Entity>of(Abyss_Portal_Entity::new, MobCategory.MISC)
-            .sized(6.0F, 0.5F)
             .fireImmune()
             .sized(0.5F, 0.5F)
             .setCustomClientFactory(Abyss_Portal_Entity::new)
             .build(cataclysm.MODID + ":abyss_portal"));
+
+
+    public static final RegistryObject<EntityType<Abyss_Blast_Portal_Entity>> ABYSS_BLAST_PORTAL = ENTITY_TYPE.register("abyss_blast_portal", () -> EntityType.Builder.<Abyss_Blast_Portal_Entity>of(Abyss_Blast_Portal_Entity::new, MobCategory.MISC)
+            .sized(0.1f, 0.1f)
+            .fireImmune()
+            .build(cataclysm.MODID + ":abyss_blast_portal"));
+
+
+
 
 
     public static Predicate<LivingEntity> buildPredicateFromTag(TagKey<EntityType<?>> entityTag){

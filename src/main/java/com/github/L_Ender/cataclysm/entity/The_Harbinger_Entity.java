@@ -247,6 +247,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         }
     }
 
+
     public void startSeenByPlayer(ServerPlayer player) {
         super.startSeenByPlayer(player);
         this.bossEvent.addPlayer(player);

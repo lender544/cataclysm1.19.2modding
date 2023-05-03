@@ -141,6 +141,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> CHORUS_FENCE = BLOCKS.register("chorus_fence",
             () -> new FenceBlock(BlockBehaviour.Properties.copy(CHORUS_PLANKS.get())));
 
+    public static final RegistryObject<Block> QUARTZ_BRICK_WALL = BLOCKS.register("quartz_brick_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.QUARTZ_BRICKS)));
+
     private static ToIntFunction<BlockState> getLightValueLit(int lightValue) {
         return (state) -> {
             return state.getValue(BlockStateProperties.LIT) ? lightValue : 0;
