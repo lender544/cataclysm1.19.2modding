@@ -1,6 +1,9 @@
 package com.github.L_Ender.cataclysm.items;
 
 import com.github.L_Ender.cataclysm.cataclysm;
+import com.github.L_Ender.cataclysm.config.CMConfig;
+import com.github.L_Ender.cataclysm.init.ModItems;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -11,6 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ElytraItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.level.Level;
@@ -44,18 +48,16 @@ public class Ignitium_Elytra_ChestPlate extends ArmorItem {
     }
 
     @Override
-    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return enchantment.category != EnchantmentCategory.BREAKABLE && enchantment.category == EnchantmentCategory.ARMOR || enchantment.category == EnchantmentCategory.ARMOR_CHEST;
-    }
-
-    @Override
     public void setDamage(ItemStack stack, int damage) {
-        super.setDamage(stack, 0);
+        if(CMConfig.Armor_Infinity_Durability) {
+            super.setDamage(stack, 0);
+        }else{
+            super.setDamage(stack, damage);
+        }
     }
 
-    @Override
-    public boolean isValidRepairItem(ItemStack itemStack, ItemStack itemStackMaterial) {
-        return false;
+    public boolean isValidRepairItem(ItemStack p_41134_, ItemStack p_41135_) {
+        return p_41135_.is(ModItems.IGNITIUM_INGOT.get());
     }
 
     @Override

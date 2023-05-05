@@ -1,9 +1,12 @@
 package com.github.L_Ender.cataclysm.items;
 
 import com.github.L_Ender.cataclysm.cataclysm;
+import com.github.L_Ender.cataclysm.config.CMConfig;
 import com.github.L_Ender.cataclysm.init.ModEffect;
+import com.github.L_Ender.cataclysm.init.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -12,10 +15,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterials;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.level.Explosion;
@@ -45,12 +45,15 @@ public class Monstrous_Helm extends ArmorItem {
 
     @Override
     public void setDamage(ItemStack stack, int damage) {
-        super.setDamage(stack, 0);
+        if(CMConfig.Armor_Infinity_Durability) {
+            super.setDamage(stack, 0);
+        }else{
+            super.setDamage(stack, damage);
+        }
     }
 
-    @Override
-    public boolean isValidRepairItem(ItemStack itemStack, ItemStack itemStackMaterial) {
-        return false;
+    public boolean isValidRepairItem(ItemStack p_41134_, ItemStack p_41135_) {
+        return p_41135_.is(Items.NETHERITE_INGOT);
     }
 
     @Override
@@ -75,14 +78,6 @@ public class Monstrous_Helm extends ArmorItem {
             player.getCooldowns().addCooldown(this, 350);
             player.addEffect(new MobEffectInstance(ModEffect.EFFECTMONSTROUS.get(), 200, 0, false, true));
         }
-    }
-
-
-    @Override
-    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-
-        return enchantment.category != EnchantmentCategory.BREAKABLE && enchantment.category == EnchantmentCategory.ARMOR || enchantment.category == EnchantmentCategory.ARMOR_HEAD;
-
     }
 
     @Override

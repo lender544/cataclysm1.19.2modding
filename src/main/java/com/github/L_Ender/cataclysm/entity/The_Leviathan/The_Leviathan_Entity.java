@@ -112,7 +112,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new LeviathanAIFindWaterAndPortal(this));
       //  this.goalSelector.addGoal(2, new AIEnterPortal(this));
-        this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
+        this.goalSelector.addGoal(4, new LeviathanAIRandomSwimming(this, 1F, 3, 15));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new LeviathanGrabAttackGoal(this,LEVIATHAN_GRAB));
@@ -472,6 +472,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             Vec3 dirVec = vec.subtract(this.position());
             Direction dir = Direction.getNearest(dirVec.x, dirVec.y, dirVec.z);
             portal.setAttachmentFacing(dir);
+            portal.setEntrance(true);
             portal.setLifespan(10000);
             if (!level.isClientSide) {
                 level.addFreshEntity(portal);
@@ -488,6 +489,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             portal.setPos(x, y, z);
             portal.setAttachmentFacing(outDir);
             portal.setLifespan(10000);
+            portal.setEntrance(true);
             if (!level.isClientSide) {
                 level.addFreshEntity(portal);
             }

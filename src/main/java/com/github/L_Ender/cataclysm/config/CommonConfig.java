@@ -9,6 +9,7 @@ public class CommonConfig {
     public final ForgeConfigSpec.BooleanValue shadersCompat;
     public final ForgeConfigSpec.BooleanValue custombossbar;
 
+    public final ForgeConfigSpec.BooleanValue Armor_Infinity_Durability;
     public final ForgeConfigSpec.IntValue BulwarkOfTheFlameCooldown;
     public final ForgeConfigSpec.IntValue GauntletOfBulwarkCooldown;
     public final ForgeConfigSpec.IntValue InfernalForgeCooldown;
@@ -91,7 +92,8 @@ public class CommonConfig {
         BossMusic = buildBoolean(builder, "BossMusic(on/off)", "all", true, "BossMusic(on/off)");
         builder.pop();
 
-        builder.push("Weapon Cooldown");
+        builder.push("Weapon");
+        Armor_Infinity_Durability = buildBoolean(builder, "Armor Infinity Durability(on/off)", "all", true, "Armor Infinity Durability(on/off)");
         BulwarkOfTheFlameCooldown = buildInt(builder, "BulwarkOfTheFlameCooldown", "all", 80, 0, 1000000, "Bulwark of the Flame's Cooldown");
         GauntletOfBulwarkCooldown = buildInt(builder, "GauntletOfBulwarkCooldown", "all", 80, 0, 1000000, "Gauntlet of Bulwark's Cooldown");
         InfernalForgeCooldown = buildInt(builder, "InfernalForgeCooldown", "all", 80, 0, 1000000, "Infernal Forge's Cooldown");
