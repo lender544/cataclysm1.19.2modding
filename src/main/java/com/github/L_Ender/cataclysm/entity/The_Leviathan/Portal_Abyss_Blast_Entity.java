@@ -48,7 +48,6 @@ public class Portal_Abyss_Blast_Entity extends Entity {
     private static final EntityDataAccessor<Float> YAW = SynchedEntityData.defineId(Portal_Abyss_Blast_Entity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> PITCH = SynchedEntityData.defineId(Portal_Abyss_Blast_Entity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Integer> DURATION = SynchedEntityData.defineId(Portal_Abyss_Blast_Entity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> CASTER = SynchedEntityData.defineId(Portal_Abyss_Blast_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> BEAMDIRECTION = SynchedEntityData.defineId(Portal_Abyss_Blast_Entity.class, EntityDataSerializers.FLOAT);
     public float prevYaw;
     public float prevPitch;
@@ -73,9 +72,6 @@ public class Portal_Abyss_Blast_Entity extends Entity {
         this.setBeamDirection(direction);
         this.setPos(x, y, z);
         this.calculateEndPos();
-        if (!world.isClientSide) {
-            this.setCasterID(caster.getId());
-        }
     }
 
     @Override
@@ -96,9 +92,6 @@ public class Portal_Abyss_Blast_Entity extends Entity {
         xo = getX();
         yo = getY();
         zo = getZ();
-        if (tickCount == 1 && level.isClientSide) {
-            caster = (LivingEntity) level.getEntity(getCasterID());
-        }
 
         if (!on && appear.getTimer() == 0) {
             this.discard();
@@ -118,9 +111,9 @@ public class Portal_Abyss_Blast_Entity extends Entity {
             if (blockSide != null) {
                 spawnExplosionParticles(3);
                 if (!this.level.isClientSide) {
-                    for (BlockPos pos : BlockPos.betweenClosed(Mth.floor(collidePosX - 0.5F), Mth.floor(collidePosY - 0.5F), Mth.floor(collidePosZ - 0.5F), Mth.floor(collidePosX + 0.5F), Mth.floor(collidePosY + 0.5F), Mth.floor(collidePosZ + 0.5F))) {
+                    for (BlockPos pos : BlockPos.betweenClosed(Mth.floor(collidePosY - 1.5F), Mth.floor(collidePosY - 1.5F), Mth.floor(collidePosZ - 1.5F), Mth.floor(collidePosX + 1.5F), Mth.floor(collidePosY + 1.5F), Mth.floor(collidePosZ + 1.5F))) {
                         BlockState block = level.getBlockState(pos);
-                        if (!block.isAir() && !block.is(ModTag.HARBINGER_IMMUNE) && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+                        if (!block.isAir() && !block.is(ModTag.LEVIATHAN_IMMUNE) && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
                             level.destroyBlock(pos, false);
                         }
                     }
@@ -157,7 +150,6 @@ public class Portal_Abyss_Blast_Entity extends Entity {
         this.entityData.define(YAW, 0F);
         this.entityData.define(PITCH, 0F);
         this.entityData.define(DURATION, 0);
-        this.entityData.define(CASTER, -1);
         this.entityData.define(BEAMDIRECTION, 90f);
     }
 
@@ -192,16 +184,6 @@ public class Portal_Abyss_Blast_Entity extends Entity {
     public void setBeamDirection(float beamDirection) {
         entityData.set(BEAMDIRECTION, beamDirection);
     }
-
-
-    public int getCasterID() {
-        return entityData.get(CASTER);
-    }
-
-    public void setCasterID(int id) {
-        entityData.set(CASTER, id);
-    }
-
 
     @Override
     protected void readAdditionalSaveData(CompoundTag compound) {
@@ -256,7 +238,7 @@ public class Portal_Abyss_Blast_Entity extends Entity {
             if (entity == caster) {
                 continue;
             }
-            float pad = entity.getPickRadius() + 0.8f;
+            float pad = entity.getPickRadius() + 1.3f;
             AABB aabb = entity.getBoundingBox().inflate(pad, pad, pad);
             Optional<Vec3> hit = aabb.clip(from, to);
             if (aabb.contains(from)) {

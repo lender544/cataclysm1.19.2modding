@@ -85,6 +85,8 @@ public class CMConfig {
     public static double EnderguardianAreaAttackHpdamage = 0.08D;
     public static double HarbingerChargeHpDamage = 0.06D;
 
+    public static boolean Armor_Infinity_Durability = true;
+
     public static void bake(ModConfig config) {
         try {
             LavaVisionOpacity = ConfigHolder.COMMON.LavaVisionOpacity.get();
@@ -161,7 +163,7 @@ public class CMConfig {
             EnderguardianAreaAttackHpdamage = ConfigHolder.COMMON.EnderguardianAreaAttackHpdamage.get();
             HarbingerChargeHpDamage = ConfigHolder.COMMON.HarbingerChargeHpDamage.get();
 
-
+            Armor_Infinity_Durability = ConfigHolder.COMMON.Armor_Infinity_Durability.get();
         } catch (Exception e) {
             cataclysm.LOGGER.warn("An exception was caused trying to load the config for CM");
             e.printStackTrace();

@@ -99,9 +99,9 @@ public class ModEntities {
             .build(cataclysm.MODID + ":the_harbinger"));
 
     public static final RegistryObject<EntityType<The_Leviathan_Entity>> THE_LEVIATHAN = ENTITY_TYPE.register("the_leviathan", () -> EntityType.Builder.of(The_Leviathan_Entity::new, MobCategory.MONSTER)
-            .sized(4.0F, 4.0F)
+            .sized(4.5F, 3F)
             .fireImmune()
-            .clientTrackingRange(10)
+            .clientTrackingRange(8)
             .setShouldReceiveVelocityUpdates(true)
             .build(cataclysm.MODID + ":the_leviathan"));
 
@@ -257,7 +257,8 @@ public class ModEntities {
     public static final RegistryObject<EntityType<Void_Vortex_Entity>> VOID_VORTEX = ENTITY_TYPE.register("void_vortex", () -> EntityType.Builder.<Void_Vortex_Entity>of(Void_Vortex_Entity::new, MobCategory.MISC)
             .sized(2.5F, 0.5F)
             .fireImmune()
-            .clientTrackingRange(10).updateInterval(Integer.MAX_VALUE)
+            .clientTrackingRange(10).
+            updateInterval(Integer.MAX_VALUE)
             .build(cataclysm.MODID + ":void_vortex"));
 
     public static final RegistryObject<EntityType<The_Leviathan_Tongue_Entity>> THE_LEVIATHAN_TONGUE = ENTITY_TYPE.register("the_leviathan_tongue", () -> EntityType.Builder.<The_Leviathan_Tongue_Entity>of(The_Leviathan_Tongue_Entity::new, MobCategory.MISC)
@@ -274,6 +275,8 @@ public class ModEntities {
     public static final RegistryObject<EntityType<Abyss_Blast_Portal_Entity>> ABYSS_BLAST_PORTAL = ENTITY_TYPE.register("abyss_blast_portal", () -> EntityType.Builder.<Abyss_Blast_Portal_Entity>of(Abyss_Blast_Portal_Entity::new, MobCategory.MISC)
             .sized(0.1f, 0.1f)
             .fireImmune()
+            .clientTrackingRange(4)
+            .updateInterval(10)
             .build(cataclysm.MODID + ":abyss_blast_portal"));
 
 

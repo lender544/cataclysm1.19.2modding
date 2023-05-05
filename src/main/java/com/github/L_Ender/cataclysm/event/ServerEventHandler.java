@@ -2,6 +2,7 @@ package com.github.L_Ender.cataclysm.event;
 
 import com.github.L_Ender.cataclysm.cataclysm;
 import com.github.L_Ender.cataclysm.entity.The_Harbinger_Entity;
+import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Entity;
 import com.github.L_Ender.cataclysm.init.ModBlocks;
 import com.github.L_Ender.cataclysm.init.ModEffect;
 import com.github.L_Ender.cataclysm.init.ModItems;

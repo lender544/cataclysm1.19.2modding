@@ -1,6 +1,8 @@
 package com.github.L_Ender.cataclysm.items;
 
 import com.github.L_Ender.cataclysm.cataclysm;
+import com.github.L_Ender.cataclysm.config.CMConfig;
+import com.github.L_Ender.cataclysm.init.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
@@ -35,30 +37,16 @@ public class Ignitium_Armor extends ArmorItem {
 
     @Override
     public void setDamage(ItemStack stack, int damage) {
-        super.setDamage(stack, 0);
+        if(CMConfig.Armor_Infinity_Durability) {
+            super.setDamage(stack, 0);
+        }else{
+            super.setDamage(stack, damage);
+        }
     }
 
-    @Override
-    public boolean isValidRepairItem(ItemStack itemStack, ItemStack itemStackMaterial) {
-        return false;
-    }
 
-
-    @Override
-    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        if (this.slot == EquipmentSlot.HEAD) {
-            return enchantment.category != EnchantmentCategory.BREAKABLE && enchantment.category == EnchantmentCategory.ARMOR || enchantment.category == EnchantmentCategory.ARMOR_HEAD;
-        }
-        if (this.slot == EquipmentSlot.CHEST) {
-            return enchantment.category != EnchantmentCategory.BREAKABLE && enchantment.category == EnchantmentCategory.ARMOR || enchantment.category == EnchantmentCategory.ARMOR_CHEST;
-        }
-        if (this.slot == EquipmentSlot.LEGS) {
-            return enchantment.category != EnchantmentCategory.BREAKABLE && enchantment.category == EnchantmentCategory.ARMOR;
-        }
-        if (this.slot == EquipmentSlot.FEET) {
-            return enchantment.category != EnchantmentCategory.BREAKABLE && enchantment.category == EnchantmentCategory.ARMOR || enchantment.category == EnchantmentCategory.ARMOR_FEET;
-        }
-        return super.canApplyAtEnchantingTable(stack,enchantment);
+    public boolean isValidRepairItem(ItemStack p_41134_, ItemStack p_41135_) {
+        return p_41135_.is(ModItems.IGNITIUM_INGOT.get());
     }
 
     @Override

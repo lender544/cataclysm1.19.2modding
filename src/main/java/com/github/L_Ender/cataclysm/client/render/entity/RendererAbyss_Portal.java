@@ -28,7 +28,7 @@ public class RendererAbyss_Portal extends EntityRenderer<Abyss_Portal_Entity> {
     public void render(Abyss_Portal_Entity entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
         matrixStackIn.pushPose();
         matrixStackIn.mulPose(entityIn.getAttachmentFacing().getOpposite().getRotation());
-        matrixStackIn.translate(0.5D, 0, 0.5D);
+        // matrixStackIn.translate(0.5D, 0, 0.5D);
         matrixStackIn.scale(2F, 2F, 2F);
         renderPortal(entityIn, matrixStackIn, bufferIn, false);
         matrixStackIn.popPose();

@@ -556,9 +556,9 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Mouth3,(float)Math.toRadians(37.5F),(float)Math.toRadians(42.5F), 0);
 		animator.rotate(Mouth4,(float)Math.toRadians(37.5F),(float)Math.toRadians(-42.5F), 0);
 		animator.endKeyframe();
-		animator.setStaticKeyframe(70);
+		animator.setStaticKeyframe(40);
 
-		animator.resetKeyframe(20);
+		animator.resetKeyframe(15);
 
 
 		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_GRAB_BITE);
@@ -694,7 +694,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		animator.endKeyframe();
 
-		animator.setStaticKeyframe(40);
+		animator.setStaticKeyframe(80);
 
 		animator.resetKeyframe(20);
 

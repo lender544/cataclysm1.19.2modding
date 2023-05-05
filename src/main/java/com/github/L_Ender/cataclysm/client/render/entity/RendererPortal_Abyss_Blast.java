@@ -26,8 +26,8 @@ public class RendererPortal_Abyss_Blast extends EntityRenderer<Portal_Abyss_Blas
     private static final ResourceLocation TEXTURE = new ResourceLocation("cataclysm:textures/entity/abyss_laser_beam.png");
     private static final float TEXTURE_WIDTH = 256;
     private static final float TEXTURE_HEIGHT = 32;
-    private static final float START_RADIUS = 1.9F;
-    private static final float END_RADIUS = 2.2F;
+    private static final float START_RADIUS = 2.0F;
+    private static final float END_RADIUS = 2.0F;
     private static final float BEAM_RADIUS = 2.0F;
     private boolean clearerView = false;
 
@@ -65,7 +65,6 @@ public class RendererPortal_Abyss_Blast extends EntityRenderer<Portal_Abyss_Blas
         }
         VertexConsumer ivertexbuilder = bufferIn.getBuffer(CMRenderTypes.getGlowingEffect(getTextureLocation(solarBeam)));
 
-        renderStart(frame, matrixStackIn, ivertexbuilder, packedLightIn);
         renderBeam(length, 180f / (float) Math.PI * yaw, 180f / (float) Math.PI * pitch, frame, matrixStackIn, ivertexbuilder, packedLightIn);
 
         matrixStackIn.pushPose();

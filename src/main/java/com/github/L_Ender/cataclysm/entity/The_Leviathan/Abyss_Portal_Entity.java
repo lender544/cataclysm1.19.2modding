@@ -31,6 +31,9 @@ public class Abyss_Portal_Entity extends Entity {
 
     protected static final EntityDataAccessor<Direction> ATTACHED_FACE = SynchedEntityData.defineId(Abyss_Portal_Entity.class, EntityDataSerializers.DIRECTION);
     protected static final EntityDataAccessor<Integer> LIFESPAN = SynchedEntityData.defineId(Abyss_Portal_Entity.class, EntityDataSerializers.INT);
+
+    protected static final EntityDataAccessor<Boolean> ENTRANCE = SynchedEntityData.defineId(Abyss_Portal_Entity.class, EntityDataSerializers.BOOLEAN);
+
     private static final EntityDataAccessor<Optional<BlockPos>> DESTINATION = SynchedEntityData.defineId(Abyss_Portal_Entity.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
     private static final EntityDataAccessor<Optional<UUID>> SISTER_UUID = SynchedEntityData.defineId(Abyss_Portal_Entity.class, EntityDataSerializers.OPTIONAL_UUID);
 
@@ -108,10 +111,10 @@ public class Abyss_Portal_Entity extends Entity {
         entities.addAll(this.level.getEntities(this, bb.deflate(0.2F)));
         entities.addAll(this.level.getEntitiesOfClass(The_Leviathan_Entity.class, bb.inflate(3)));
         if (!level.isClientSide) {
-            if (this.getDestination() != null && this.getLifespan() > 20 && tickCount > 20) {
+            if (this.getDestination() != null && this.getLifespan() > 20 && tickCount > 20 && this.getEntrance()) {
                 BlockPos offsetPos = this.getDestination().relative(this.getAttachmentFacing().getOpposite(), 2);
                 for (Entity e : entities) {
-                    if(e.isOnPortalCooldown() || e.isShiftKeyDown() || e instanceof Abyss_Portal_Entity || e.getParts() != null ){
+                    if(e.isOnPortalCooldown() || e.isShiftKeyDown() || e instanceof Abyss_Portal_Entity ){
                         continue;
                     }
                      if (e instanceof The_Leviathan_Entity) {
@@ -157,6 +160,15 @@ public class Abyss_Portal_Entity extends Entity {
         this.entityData.set(LIFESPAN, i);
     }
 
+
+    public boolean getEntrance() {
+        return this.entityData.get(ENTRANCE);
+    }
+
+    public void setEntrance(boolean entrance) {
+        this.entityData.set(ENTRANCE, entrance);
+    }
+
     public BlockPos getDestination() {
         return this.entityData.get(DESTINATION).orElse(null);
     }
@@ -174,6 +186,7 @@ public class Abyss_Portal_Entity extends Entity {
         BlockPos safeDestination = this.getDestination();
         portal.teleportToWithTicket(safeDestination.getX() + 0.5f, safeDestination.getY() + 0.5f, safeDestination.getZ() + 0.5f);
         portal.link(this);
+        portal.setEntrance(false);
         world.addFreshEntity(portal);
     }
 
@@ -198,6 +211,7 @@ public class Abyss_Portal_Entity extends Entity {
         this.entityData.define(LIFESPAN, 300);
         this.entityData.define(SISTER_UUID, Optional.empty());
         this.entityData.define(DESTINATION, Optional.empty());
+        this.entityData.define(ENTRANCE, true);
     }
 
     @Override
@@ -238,6 +252,12 @@ public class Abyss_Portal_Entity extends Entity {
             return ((ServerLevel) level).getEntity(id);
         }
         return null;
+    }
+
+    @Override
+    public boolean shouldRenderAtSqrDistance(double distance) {
+
+        return distance < 1024;
     }
 
     @Nullable
