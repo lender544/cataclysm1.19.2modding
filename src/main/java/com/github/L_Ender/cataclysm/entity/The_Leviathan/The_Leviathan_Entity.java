@@ -213,16 +213,19 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         Entity entity = source.getDirectEntity();
         if (entity instanceof Abyss_Blast_Entity || entity instanceof Portal_Abyss_Blast_Entity) {
             return false;
-        } else {
-            if(this.getAnimation() == LEVIATHAN_RUSH) {
-                if (this.getAnimationTick() >= 38 && this.getAnimationTick() <= 54) {
-                    if(super.hurt(source, damage)){
-                        AnimationHandler.INSTANCE.sendAnimationMessage(this, LEVIATHAN_STUN);
-                    }
+        }
+
+        boolean attack = super.hurt(source, damage);
+        if(this.getAnimation() == LEVIATHAN_RUSH) {
+            if (this.getAnimationTick() >= 38 && this.getAnimationTick() <= 54) {
+                if(attack){
+                    AnimationHandler.INSTANCE.sendAnimationMessage(this, LEVIATHAN_STUN);
                 }
             }
         }
-        return super.hurt(source, damage);
+
+
+        return attack;
     }
 
     public boolean attackEntityFromPart(The_Leviathan_Part leviathan_part, DamageSource source, float amount) {

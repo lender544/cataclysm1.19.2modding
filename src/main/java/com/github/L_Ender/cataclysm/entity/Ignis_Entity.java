@@ -284,7 +284,6 @@ public class Ignis_Entity extends Boss_monster {
         Entity entity = source.getDirectEntity();
         LivingEntity target = this.getTarget();
         double range = calculateRange(source);
-        boolean attack = super.hurt(source, damage);
         if (entity != null && !isNoAi() && (blockingProgress == 10 || swordProgress == 10)) {
             if (target != null && target.isAlive()) {
                 if (this.getAnimation() == NO_ANIMATION) {
@@ -357,6 +356,7 @@ public class Ignis_Entity extends Boss_monster {
         }
 
         Ignis_Entity.Crackiness irongolem$crackiness = this.getCrackiness();
+        boolean attack = super.hurt(source, damage);
         if(attack && this.getCrackiness() != irongolem$crackiness){
             this.playSound(ModSounds.IGNIS_ARMOR_BREAK.get(), 1.0f, 0.8f);
         }

@@ -106,10 +106,7 @@ public class ModelDeepling extends AdvancedEntityModel<Deepling_Entity> {
 	public void animate(Deepling_Entity entity, float f, float f1, float f2, float f3, float f4) {
 		this.resetToDefaultPose();
 		animator.update(entity);
-
 		animator.setAnimation(Deepling_Entity.TRIDENT_THROW);
-
-
 		animator.startKeyframe(10);
 		animator.rotate(left_arm,(float)Math.toRadians(-55F), (float)Math.toRadians(-10F), (float)Math.toRadians(-7.5F));
 		animator.rotate(right_arm,(float)Math.toRadians(-200F), (float)Math.toRadians(15F), (float)Math.toRadians(-35f));
