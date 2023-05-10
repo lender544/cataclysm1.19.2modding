@@ -196,7 +196,6 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
 
     private static Animation getRandomTantalcleStrike(RandomSource rand) {
         switch (rand.nextInt(4)) {
-
             case 0:
                 return LEVIATHAN_TENTACLE_STRIKE_LOWER_L;
             case 1:
@@ -254,23 +253,6 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         if (this.portalTarget != null && this.portalTarget.getLifespan() < 5) {
             this.portalTarget = null;
         }
-        if (this.isNoAi()) {
-            this.setAirSupply(this.getMaxAirSupply());
-        } else {
-            if (this.level.isClientSide && this.isInWater() && this.getDeltaMovement().lengthSqr() > 0.03D) {
-                Vec3 vector3d = this.getViewVector(0.0F);
-                float f = Mth.cos(this.getYRot() * ((float) Math.PI / 180F)) * 0.9F;
-                float f1 = Mth.sin(this.getYRot() * ((float) Math.PI / 180F)) * 0.9F;
-                float f2 = 1.2F - this.random.nextFloat() * 0.7F;
-
-                for (int i = 0; i < 2; ++i) {
-                    this.level.addParticle(ParticleTypes.DOLPHIN, this.getX() - vector3d.x * (double) f2 + (double) f, this.getY() - vector3d.y, this.getZ() - vector3d.z * (double) f2 + (double) f1, 0.0D, 0.0D, 0.0D);
-                    this.level.addParticle(ParticleTypes.DOLPHIN, this.getX() - vector3d.x * (double) f2 - (double) f, this.getY() - vector3d.y, this.getZ() - vector3d.z * (double) f2 - (double) f1, 0.0D, 0.0D, 0.0D);
-                }
-            }
-
-        }
-
         if (teleportPos != null) {
             this.setPos(teleportPos.x, teleportPos.y, teleportPos.z);
             teleportPos = null;

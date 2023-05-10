@@ -12,6 +12,7 @@ import com.github.alexthe666.citadel.client.model.basic.BasicModelPart;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.Entity;
 
 public class ModelDeepling extends AdvancedEntityModel<Deepling_Entity> {
@@ -130,17 +131,40 @@ public class ModelDeepling extends AdvancedEntityModel<Deepling_Entity> {
 
 		float walkSpeed = 0.75F;
 		float walkDegree = 0.5F;
+
+		float swimSpeed = 1.0F;
+		float swimDegree = 0.75F;
 		this.faceTarget(netHeadYaw, headPitch, 1, head);
-		this.walk(left_leg, walkSpeed, walkDegree * 1.2F, true, 0F, 0F, limbSwing, limbSwingAmount);
-		this.walk(right_leg, walkSpeed, walkDegree * 1.2F, false, 0F, 0F, limbSwing, limbSwingAmount);
-		this.walk(left_arm, walkSpeed, walkDegree * 1.2F, false, 0F, 0F, limbSwing, limbSwingAmount);
-		this.walk(right_arm, walkSpeed, walkDegree * 1.2F, true, 0F, 0F, limbSwing, limbSwingAmount);
 
 		this.walk(left_arm, 0.05f, walkDegree * 0.05F, false, 0F, 0F, ageInTicks, 1.0f);
 		this.walk(right_arm, 0.05f, walkDegree * 0.05F, true, 0F, 0F, ageInTicks, 1.0f);
 
 		this.flap(left_arm, 0.05f, walkDegree * 0.05F, false, 0F, 0, ageInTicks, 1.0f);
 		this.flap(right_arm, 0.05f, walkDegree * 0.05F, true, 0F, 0F, ageInTicks, 1.0f);
+		float partialTick = Minecraft.getInstance().getFrameTime();
+		float NoswimProgress = entity.prevSwimProgress + (entity.SwimProgress - entity.prevSwimProgress) * partialTick;
+
+
+		progressRotationPrev(root,NoswimProgress,(float)Math.toRadians(12.5F), 0, 0, 10f);
+		progressRotationPrev(left_leg,NoswimProgress,(float)Math.toRadians(20F), 0, 0, 10f);
+		progressRotationPrev(right_leg,NoswimProgress,(float)Math.toRadians(5F), 0, 0, 10f);
+		progressRotationPrev(left_arm,NoswimProgress,0, 0, (float)Math.toRadians(-37.5F), 10f);
+		progressRotationPrev(right_arm,NoswimProgress,0, 0, (float)Math.toRadians(37.5F), 10f);
+
+
+		if(entity.isInWater()){
+			this.walk(left_leg, swimSpeed * 1.4F, swimDegree * 1.4F, true, 0F, 0F, limbSwing, limbSwingAmount);
+			this.walk(right_leg, swimSpeed * 1.4F, swimDegree * 1.4F, false, 0F, 0F, limbSwing, limbSwingAmount);
+			this.walk(left_arm, swimSpeed * 1.4F, swimDegree * 1.4F, false, 0F, 0F, limbSwing, limbSwingAmount);
+			this.walk(right_arm, swimSpeed * 1.4F, swimDegree * 1.4F, true, 0F, 0F, limbSwing, limbSwingAmount);
+		}else{
+			this.walk(left_leg, walkSpeed, walkDegree * 1.2F, true, 0F, 0F, limbSwing, limbSwingAmount);
+			this.walk(right_leg, walkSpeed, walkDegree * 1.2F, false, 0F, 0F, limbSwing, limbSwingAmount);
+			this.walk(left_arm, walkSpeed, walkDegree * 1.2F, false, 0F, 0F, limbSwing, limbSwingAmount);
+			this.walk(right_arm, walkSpeed, walkDegree * 1.2F, true, 0F, 0F, limbSwing, limbSwingAmount);
+
+		}
+
 	}
 
 	public void setRotationAngle(AdvancedModelBox AdvancedModelBox, float x, float y, float z) {

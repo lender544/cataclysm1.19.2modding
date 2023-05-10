@@ -75,6 +75,7 @@
   "item.cataclysm.ignited_revenant_spawn_egg": "Ignited Revenant Spawn Egg",
   "item.cataclysm.the_harbinger_spawn_egg": "The Harbinger Spawn Egg",
   "item.cataclysm.the_leviathan_spawn_egg": "The Leviathan Spawn Egg",
+  "item.cataclysm.deepling_egg": "Deepling Spawn Egg",
 
   "itemGroup.cataclysm": "Cataclysm",
   "block.cataclysm.witherite_block": "Witherite Block",
@@ -135,6 +136,7 @@
   "entity.cataclysm.death_laser_beam": "Death Laser Beam",
   "entity.cataclysm.void_vortex": "Void Vortex",
   "entity.cataclysm.the_leviathan": "The Leviathan",
+  "entity.cataclysm.deepling": "Deepling",
 
   "effect.cataclysm.monstrous": "Monstrous",
   "effect.cataclysm.blazing_brand": "Blazing Brand",
