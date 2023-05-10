@@ -144,7 +144,6 @@ public class ModelEndermaptera extends AdvancedEntityModel<Endermaptera_Entity> 
 		animator.endKeyframe();
 		animator.setStaticKeyframe(5);
 		animator.resetKeyframe(3);
-
 		animator.setAnimation(Endermaptera_Entity.HEADBUTT_ATTACK);
 		animator.startKeyframe(5);
 		animator.move(body, 0, 0, -5);
