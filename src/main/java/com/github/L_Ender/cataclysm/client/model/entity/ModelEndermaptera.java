@@ -137,8 +137,6 @@ public class ModelEndermaptera extends AdvancedEntityModel<Endermaptera_Entity> 
 	public void animate(IAnimatedEntity entity, float f, float f1, float f2, float f3, float f4) {
 		this.resetToDefaultPose();
 		animator.update(entity);
-
-
 		animator.setAnimation(Endermaptera_Entity.JAW_ATTACK);
 		animator.startKeyframe(5);
 		animator.rotate(right_jaw, 0, (float)Math.toRadians(30F), 0);
