@@ -1,6 +1,7 @@
 package com.github.L_Ender.cataclysm.entity;
 
 import com.github.alexthe666.citadel.animation.Animation;
+import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -59,8 +60,6 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, RangedA
         this.xpReward = 6;
       
     }
-
-
 
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new DeeplingGoToWaterGoal(this, 1.0D));
@@ -161,6 +160,7 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, RangedA
         if(this.getAnimation() == NO_ANIMATION) {
             this.setAnimation(TRIDENT_THROW);
         }
+        AnimationHandler.INSTANCE.updateAnimations(this);
     }
 
 

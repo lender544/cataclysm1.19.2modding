@@ -108,14 +108,9 @@ public class ModelDeepling extends AdvancedEntityModel<Deepling_Entity> {
 		animator.update(entity);
 
 		animator.setAnimation(Deepling_Entity.TRIDENT_THROW);
-		animator.startKeyframe(5);
-		animator.rotate(left_arm,(float)Math.toRadians(-15.5F), (float)Math.toRadians(-2.5F), (float)Math.toRadians(-2.5F));
-		animator.rotate(right_arm,(float)Math.toRadians(-100F), (float)Math.toRadians(7.5F), (float)Math.toRadians(-17.5f));
-		animator.rotate(head,(float)Math.toRadians(-7.5F), (float)Math.toRadians(-12.5F), (float)Math.toRadians(-7.5F));
-		animator.rotate(body,(float)Math.toRadians(-5F), (float)Math.toRadians(7.5F), (float)Math.toRadians(-5F));
-		animator.endKeyframe();
 
-		animator.startKeyframe(5);
+
+		animator.startKeyframe(10);
 		animator.rotate(left_arm,(float)Math.toRadians(-55F), (float)Math.toRadians(-10F), (float)Math.toRadians(-7.5F));
 		animator.rotate(right_arm,(float)Math.toRadians(-200F), (float)Math.toRadians(15F), (float)Math.toRadians(-35f));
 		animator.rotate(head,(float)Math.toRadians(-7.5F), (float)Math.toRadians(-10.5F), (float)Math.toRadians(-7.5F));
