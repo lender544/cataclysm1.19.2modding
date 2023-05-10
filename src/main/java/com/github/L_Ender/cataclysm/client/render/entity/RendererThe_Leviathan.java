@@ -2,13 +2,16 @@ package com.github.L_Ender.cataclysm.client.render.entity;
 
 
 import com.github.L_Ender.cataclysm.client.model.entity.ModelThe_Leviathan;
+import com.github.L_Ender.cataclysm.client.render.RenderUtils;
 import com.github.L_Ender.cataclysm.client.render.layer.LayerBasicGlow;
 import com.github.L_Ender.cataclysm.client.render.layer.The_Leviathan_Layer;
+import com.github.L_Ender.cataclysm.entity.Ignis_Entity;
 import com.github.L_Ender.cataclysm.entity.Netherite_Monstrosity_Entity;
 import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Entity;
 import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Part;
 import com.github.L_Ender.cataclysm.entity.partentity.Netherite_Monstrosity_Part;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -51,7 +54,6 @@ public class RendererThe_Leviathan extends MobRenderer<The_Leviathan_Entity, Mod
     protected void scale(The_Leviathan_Entity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
         matrixStackIn.scale(1.75F, 1.75F, 1.75F);
     }
-
 
 }
 

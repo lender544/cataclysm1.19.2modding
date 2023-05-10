@@ -305,11 +305,10 @@ public class Ender_Guardian_Entity extends Boss_monster {
             damage *= 0.5;
         }
         boolean attack = super.hurt(source, damage);
-        if(attack) {
-            if (this.getIsHelmetless()) {
-                this.playSound(SoundEvents.SHULKER_HURT, 1.0f, 0.8f);
-            }
+        if(attack && this.getIsHelmetless() ){
+            this.playSound(SoundEvents.SHULKER_HURT, 1.0f, 0.8f);
         }
+
         return attack;
     }
 

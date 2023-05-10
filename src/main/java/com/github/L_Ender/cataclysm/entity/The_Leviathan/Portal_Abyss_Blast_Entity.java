@@ -48,19 +48,16 @@ public class Portal_Abyss_Blast_Entity extends Entity {
     private static final EntityDataAccessor<Float> YAW = SynchedEntityData.defineId(Portal_Abyss_Blast_Entity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> PITCH = SynchedEntityData.defineId(Portal_Abyss_Blast_Entity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Integer> DURATION = SynchedEntityData.defineId(Portal_Abyss_Blast_Entity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> CASTER = SynchedEntityData.defineId(Portal_Abyss_Blast_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> BEAMDIRECTION = SynchedEntityData.defineId(Portal_Abyss_Blast_Entity.class, EntityDataSerializers.FLOAT);
     public float prevYaw;
     public float prevPitch;
 
-    @OnlyIn(Dist.CLIENT)
-    private Vec3[] attractorPos;
 
     public Portal_Abyss_Blast_Entity(EntityType<? extends Portal_Abyss_Blast_Entity> type, Level world) {
         super(type, world);
         noCulling = true;
-        if (world.isClientSide) {
-            attractorPos = new Vec3[] {new Vec3(0, 0, 0)};
-        }
+
     }
 
     public Portal_Abyss_Blast_Entity(EntityType<? extends Portal_Abyss_Blast_Entity> type, Level world, LivingEntity caster, double x, double y, double z, float yaw, float pitch, int duration, float direction) {
@@ -72,7 +69,21 @@ public class Portal_Abyss_Blast_Entity extends Entity {
         this.setBeamDirection(direction);
         this.setPos(x, y, z);
         this.calculateEndPos();
+        if (!world.isClientSide) {
+            this.setCasterID(caster.getId());
+        }
     }
+
+    public Portal_Abyss_Blast_Entity(EntityType<? extends Portal_Abyss_Blast_Entity> type, Level world, double x, double y, double z, float yaw, float pitch, int duration, float direction) {
+        this(type, world);
+        this.setYaw(yaw);
+        this.setPitch(pitch);
+        this.setDuration(duration);
+        this.setBeamDirection(direction);
+        this.setPos(x, y, z);
+        this.calculateEndPos();
+    }
+
 
     @Override
     public PushReaction getPistonPushReaction() {
@@ -81,6 +92,7 @@ public class Portal_Abyss_Blast_Entity extends Entity {
 
     @Override
     public void tick() {
+        super.tick();
         super.tick();
         prevCollidePosX = collidePosX;
         prevCollidePosY = collidePosY;
@@ -92,6 +104,9 @@ public class Portal_Abyss_Blast_Entity extends Entity {
         xo = getX();
         yo = getY();
         zo = getZ();
+        if (tickCount == 1 && level.isClientSide) {
+            caster = (LivingEntity) level.getEntity(getCasterID());
+        }
 
         if (!on && appear.getTimer() == 0) {
             this.discard();
@@ -102,7 +117,6 @@ public class Portal_Abyss_Blast_Entity extends Entity {
             appear.decreaseTimer();
         }
 
-
         if (caster != null && !caster.isAlive()) discard();
 
         if (tickCount > 20) {
@@ -111,7 +125,7 @@ public class Portal_Abyss_Blast_Entity extends Entity {
             if (blockSide != null) {
                 spawnExplosionParticles(3);
                 if (!this.level.isClientSide) {
-                    for (BlockPos pos : BlockPos.betweenClosed(Mth.floor(collidePosY - 1.5F), Mth.floor(collidePosY - 1.5F), Mth.floor(collidePosZ - 1.5F), Mth.floor(collidePosX + 1.5F), Mth.floor(collidePosY + 1.5F), Mth.floor(collidePosZ + 1.5F))) {
+                    for (BlockPos pos : BlockPos.betweenClosed(Mth.floor(collidePosX - 0.5F), Mth.floor(collidePosY - 0.5F), Mth.floor(collidePosZ - 0.5F), Mth.floor(collidePosX + 0.5F), Mth.floor(collidePosY + 0.5F), Mth.floor(collidePosZ + 0.5F))) {
                         BlockState block = level.getBlockState(pos);
                         if (!block.isAir() && !block.is(ModTag.LEVIATHAN_IMMUNE) && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
                             level.destroyBlock(pos, false);
@@ -150,6 +164,7 @@ public class Portal_Abyss_Blast_Entity extends Entity {
         this.entityData.define(YAW, 0F);
         this.entityData.define(PITCH, 0F);
         this.entityData.define(DURATION, 0);
+        this.entityData.define(CASTER, -1);
         this.entityData.define(BEAMDIRECTION, 90f);
     }
 
@@ -201,6 +216,15 @@ public class Portal_Abyss_Blast_Entity extends Entity {
         compound.putFloat("BeamDirection", this.getBeamDirection());
 
     }
+
+    public int getCasterID() {
+        return entityData.get(CASTER);
+    }
+
+    public void setCasterID(int id) {
+        entityData.set(CASTER, id);
+    }
+
     @Override
     public Packet<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
@@ -262,10 +286,6 @@ public class Portal_Abyss_Blast_Entity extends Entity {
     @Override
     public boolean isPushable() {
         return false;
-    }
-
-    public boolean shouldRender(double p_37588_, double p_37589_, double p_37590_) {
-        return true;
     }
 
     @Override

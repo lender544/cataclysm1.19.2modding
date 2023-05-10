@@ -59,15 +59,10 @@ public class Death_Laser_Beam_Entity extends Entity {
     public float prevYaw;
     public float prevPitch;
 
-    @OnlyIn(Dist.CLIENT)
-    private Vec3[] attractorPos;
-
     public Death_Laser_Beam_Entity(EntityType<? extends Death_Laser_Beam_Entity> type, Level world) {
         super(type, world);
         noCulling = true;
-        if (world.isClientSide) {
-            attractorPos = new Vec3[] {new Vec3(0, 0, 0)};
-        }
+
     }
 
     public Death_Laser_Beam_Entity(EntityType<? extends Death_Laser_Beam_Entity> type, Level world, LivingEntity caster, double x, double y, double z, float yaw, float pitch, int duration, float direction) {

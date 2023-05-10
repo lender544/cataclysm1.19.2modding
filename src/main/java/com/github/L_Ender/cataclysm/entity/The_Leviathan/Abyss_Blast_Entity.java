@@ -137,7 +137,7 @@ public class Abyss_Blast_Entity extends Entity {
             if (!level.isClientSide) {
                 for (LivingEntity target : hit) {
                     if(target != caster) {
-                        boolean flag = target.hurt(CMDamageTypes.causeLaserDamage(this, caster).bypassArmor(), (float) 0.01);
+                        boolean flag = target.hurt(CMDamageTypes.causeLaserDamage(this, caster).bypassArmor(), (float) 10);
                     }
 
                 }
@@ -212,10 +212,21 @@ public class Abyss_Blast_Entity extends Entity {
 
 
     @Override
-    protected void readAdditionalSaveData(CompoundTag nbt) {}
+    protected void readAdditionalSaveData(CompoundTag compound) {
+        this.setYaw(compound.getFloat("Yaw"));
+        this.setPitch(compound.getFloat("Pitch"));
+        this.setDuration(compound.getInt("Duration"));
+        this.setBeamDirection(compound.getFloat("BeamDirection"));
+
+    }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag nbt) {}
+    protected void addAdditionalSaveData(CompoundTag compound) {
+        compound.putFloat("Yaw", this.getYaw());
+        compound.putFloat("Pitch", this.getPitch());
+        compound.putInt("Duration", this.getDuration());
+        compound.putFloat("BeamDirection", this.getBeamDirection());
+    }
 
     @Override
     public Packet<?> getAddEntityPacket() {
@@ -249,12 +260,12 @@ public class Abyss_Blast_Entity extends Entity {
             collidePosZ = endPosZ;
             blockSide = null;
         }
-        List<LivingEntity> entities = world.getEntitiesOfClass(LivingEntity.class, new AABB(Math.min(getX(), collidePosX), Math.min(getY(), collidePosY), Math.min(getZ(), collidePosZ), Math.max(getX(), collidePosX), Math.max(getY(), collidePosY), Math.max(getZ(), collidePosZ)).inflate(1, 1, 1));
+        List<LivingEntity> entities = world.getEntitiesOfClass(LivingEntity.class, new AABB(Math.min(getX(), collidePosX), Math.min(getY(), collidePosY), Math.min(getZ(), collidePosZ), Math.max(getX(), collidePosX), Math.max(getY(), collidePosY), Math.max(getZ(), collidePosZ)).inflate(2, 2, 2));
         for (LivingEntity entity : entities) {
             if (entity == caster) {
                 continue;
             }
-            float pad = entity.getPickRadius() + 0.75f;
+            float pad = entity.getPickRadius() + 0.5f;
             AABB aabb = entity.getBoundingBox().inflate(pad, pad, pad);
             Optional<Vec3> hit = aabb.clip(from, to);
             if (aabb.contains(from)) {

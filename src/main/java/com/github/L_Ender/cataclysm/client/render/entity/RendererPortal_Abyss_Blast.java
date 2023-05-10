@@ -87,17 +87,6 @@ public class RendererPortal_Abyss_Blast extends EntityRenderer<Portal_Abyss_Blas
         drawVertex(matrix4f, matrix3f, builder, START_RADIUS, -END_RADIUS, 0, maxU, minV, 1, packedLightIn);
     }
 
-    private void renderStart(int frame, PoseStack matrixStackIn, VertexConsumer builder, int packedLightIn) {
-        if (clearerView) {
-            return;
-        }
-        matrixStackIn.pushPose();
-        Quaternion quat = this.entityRenderDispatcher.cameraOrientation();
-        matrixStackIn.mulPose(quat);
-        renderFlatQuad(frame, matrixStackIn, builder, packedLightIn);
-        matrixStackIn.popPose();
-    }
-
     private void renderEnd(int frame, Direction side, PoseStack matrixStackIn, VertexConsumer builder, int packedLightIn) {
         matrixStackIn.pushPose();
         Quaternion quat = this.entityRenderDispatcher.cameraOrientation();
