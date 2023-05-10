@@ -47,7 +47,7 @@ public class Endermaptera_Entity extends Monster implements IAnimatedEntity {
     private int animationTick;
     private Animation currentAnimation;
     public static final Animation JAW_ATTACK = Animation.create(13);
-    public static final Animation HEADBUTT_ATTACK = Animation.create(13);
+    public static final Animation HEADBUTT_ATTACK = Animation.create(20);
     public float attachChangeProgress = 0F;
     public float prevAttachChangeProgress = 0F;
     private static final EntityDataAccessor<Direction> ATTACHED_FACE = SynchedEntityData.defineId(Endermaptera_Entity.class, EntityDataSerializers.DIRECTION);

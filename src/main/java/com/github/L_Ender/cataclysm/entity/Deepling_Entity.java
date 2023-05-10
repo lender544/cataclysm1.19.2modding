@@ -51,7 +51,6 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, RangedA
     boolean searchingForLand;
     public static final Animation TRIDENT_THROW = Animation.create(20);
 
-
     public Deepling_Entity(EntityType entity, Level world) {
         super(entity, world);
         this.moveControl = new Deepling_Entity.DeeplingMoveControl(this);
