@@ -33,6 +33,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
@@ -42,7 +43,7 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 
-public class Deepling_Entity extends Monster implements IAnimatedEntity, RangedAttackMob {
+public class Deepling_Entity extends Monster implements IAnimatedEntity {
     private int animationTick;
 
     private Animation currentAnimation;
@@ -50,7 +51,7 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, RangedA
     protected final WaterBoundPathNavigation waterNavigation;
     protected final GroundPathNavigation groundNavigation;
     boolean searchingForLand;
-    public static final Animation TRIDENT_THROW = Animation.create(20);
+    public static final Animation TRIDENT_THROW = Animation.create(40);
 
     public Deepling_Entity(EntityType entity, Level world) {
         super(entity, world);
@@ -63,7 +64,7 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, RangedA
 
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new DeeplingGoToWaterGoal(this, 1.0D));
-        this.goalSelector.addGoal(2, new DeeplingTridentAttackGoal(this, 1.0D, 40, 10.0F));
+        this.goalSelector.addGoal(2, new DeeplingTridentShoot(this, 0.8D, 40, 10.0F));
         this.goalSelector.addGoal(5, new DeeplingGoToBeachGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new DeeplingSwimUpGoal(this, 1.0D, this.level.getSeaLevel()));
         this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0D));
@@ -128,14 +129,12 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, RangedA
         this.playSound(SoundEvents.ENDERMAN_AMBIENT, 0.15F, 0.6F);
     }
 
-    public void playStareSound() {
-        if (this.tickCount >= this.lastStareSound + 400) {
-            this.lastStareSound = this.tickCount;
-            if (!this.isSilent()) {
-                this.level.playLocalSound(this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENDERMAN_STARE, this.getSoundSource(), 2.5F, 1.0F, false);
-            }
-        }
-
+    @Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_34088_, DifficultyInstance p_34089_, MobSpawnType p_34090_, @Nullable SpawnGroupData p_34091_, @Nullable CompoundTag p_34092_) {
+        SpawnGroupData spawngroupdata = super.finalizeSpawn(p_34088_, p_34089_, p_34090_, p_34091_, p_34092_);
+        RandomSource randomsource = p_34088_.getRandom();
+        this.populateDefaultEquipmentSlots(randomsource, p_34089_);
+        return spawngroupdata;
     }
 
     @Override
@@ -157,10 +156,24 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, RangedA
     @Override
     public void tick() {
         super.tick();
-        if(this.getAnimation() == NO_ANIMATION) {
-            this.setAnimation(TRIDENT_THROW);
-        }
+
         AnimationHandler.INSTANCE.updateAnimations(this);
+
+        LivingEntity target = this.getTarget();
+        if(target !=null) {
+            if (this.getAnimation() == TRIDENT_THROW) {
+                if (this.getAnimationTick() == 11) {
+                    ThrownTrident throwntrident = new ThrownTrident(this.level, this, new ItemStack(Items.TRIDENT));
+                    double p0 = target.getX() - this.getX();
+                    double p1 = target.getY(0.3333333333333333D) - throwntrident.getY();
+                    double p2 = target.getZ() - this.getZ();
+                    double p3 = Math.sqrt(p0 * p0 + p2 * p2);
+                    throwntrident.shoot(p0, p1 + p3 * (double) 0.2F, p2, 1.6F, (float) (14 - this.level.getDifficulty().getId() * 4));
+                    this.playSound(SoundEvents.DROWNED_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+                    this.level.addFreshEntity(throwntrident);
+                }
+            }
+        }
     }
 
 
@@ -237,17 +250,6 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, RangedA
         return false;
     }
 
-    @Override
-    public void performRangedAttack(LivingEntity p_33317_, float p_33318_) {
-        ThrownTrident throwntrident = new ThrownTrident(this.level, this, new ItemStack(Items.TRIDENT));
-        double d0 = p_33317_.getX() - this.getX();
-        double d1 = p_33317_.getY(0.3333333333333333D) - throwntrident.getY();
-        double d2 = p_33317_.getZ() - this.getZ();
-        double d3 = Math.sqrt(d0 * d0 + d2 * d2);
-        throwntrident.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.6F, (float)(14 - this.level.getDifficulty().getId() * 4));
-        this.playSound(SoundEvents.DROWNED_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-        this.level.addFreshEntity(throwntrident);
-    }
 
     public void setSearchingForLand(boolean p_32399_) {
         this.searchingForLand = p_32399_;
@@ -386,28 +388,117 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, RangedA
         }
     }
 
-    static class DeeplingTridentAttackGoal extends RangedAttackGoal {
-        private final Deepling_Entity deepling;
+    static class DeeplingTridentShoot extends Goal {
+        private final Deepling_Entity mob;
+        private final double moveSpeedAmp;
+        private int attackCooldown;
+        private final float maxAttackDistance;
+        private int attackTime = -1;
+        private int seeTime;
+        private boolean strafingClockwise;
+        private boolean strafingBackwards;
+        private int strafingTime = -1;
+        private int animationCooldown = 0;
 
-        public DeeplingTridentAttackGoal(RangedAttackMob p_32450_, double p_32451_, int p_32452_, float p_32453_) {
-            super(p_32450_, p_32451_, p_32452_, p_32453_);
-            this.deepling = (Deepling_Entity)p_32450_;
+        public DeeplingTridentShoot(Deepling_Entity mob, double moveSpeedAmpIn, int attackCooldownIn, float maxAttackDistanceIn) {
+            this.mob = mob;
+            this.moveSpeedAmp = moveSpeedAmpIn;
+            this.attackCooldown = attackCooldownIn;
+            this.maxAttackDistance = maxAttackDistanceIn * maxAttackDistanceIn;
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
         }
 
         public boolean canUse() {
-            return super.canUse() && this.deepling.getMainHandItem().is(Items.TRIDENT);
+            LivingEntity livingentity = this.mob.getTarget();
+            return livingentity != null && livingentity.isAlive() && this.mob.getMainHandItem().is(Items.TRIDENT);
+        }
+
+
+        public boolean canContinueToUse() {
+            return (this.canUse() || !this.mob.getNavigation().isDone()) ;
         }
 
         public void start() {
             super.start();
-            this.deepling.setAggressive(true);
-        //    this.deepling.startUsingItem(InteractionHand.MAIN_HAND);
+            this.mob.setAggressive(true);
+            this.mob.startUsingItem(InteractionHand.MAIN_HAND);
         }
+
 
         public void stop() {
             super.stop();
-          //  this.deepling.stopUsingItem();
-            this.deepling.setAggressive(false);
+            this.mob.setAggressive(false);
+            this.seeTime = 0;
+            this.attackTime = -1;
+            this.mob.stopUsingItem();
+        }
+
+        /**
+         * Keep ticking a continuous task that has already been started
+         */
+        public void tick() {
+            LivingEntity livingentity = this.mob.getTarget();
+            if(animationCooldown > 0){
+                animationCooldown--;
+            }
+            if (livingentity != null) {
+                double d0 = this.mob.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ());
+                boolean flag = this.mob.hasLineOfSight(livingentity);
+                boolean flag1 = this.seeTime > 0;
+                if (flag != flag1) {
+                    this.seeTime = 0;
+                }
+
+                if (flag) {
+                    ++this.seeTime;
+                } else {
+                    --this.seeTime;
+                }
+
+                if (!(d0 > (double)this.maxAttackDistance) && this.seeTime >= 20) {
+                    this.mob.getNavigation().stop();
+                    ++this.strafingTime;
+                } else {
+                    this.mob.getNavigation().moveTo(livingentity, this.moveSpeedAmp);
+                    this.strafingTime = -1;
+                }
+
+                if (this.strafingTime >= 20) {
+                    if ((double)this.mob.getRandom().nextFloat() < 0.3D) {
+                        this.strafingClockwise = !this.strafingClockwise;
+                    }
+
+                    if ((double)this.mob.getRandom().nextFloat() < 0.3D) {
+                        this.strafingBackwards = !this.strafingBackwards;
+                    }
+
+                    this.strafingTime = 0;
+                }
+
+                if (this.strafingTime > -1) {
+                    if (d0 > (double)(this.maxAttackDistance * 0.75F)) {
+                        this.strafingBackwards = false;
+                    } else if (d0 < (double)(this.maxAttackDistance * 0.25F)) {
+                        this.strafingBackwards = true;
+                    }
+
+                    this.mob.getMoveControl().strafe(this.strafingBackwards ? -0.5F : 0.5F, this.strafingClockwise ? 0.5F : -0.5F);
+                    this.mob.lookAt(livingentity, 30.0F, 30.0F);
+                } else {
+                    this.mob.getLookControl().setLookAt(livingentity, 30.0F, 30.0F);
+                }
+                if (!flag && this.seeTime < -60) {
+                    this.mob.stopUsingItem();
+                } else if (flag) {
+                    if(mob.getAnimation() != TRIDENT_THROW){
+                        mob.setAnimation(TRIDENT_THROW);
+                        this.attackTime = this.attackCooldown;
+
+
+
+                    }
+                }
+            }
         }
     }
 

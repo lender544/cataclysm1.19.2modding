@@ -121,7 +121,7 @@ public class ModelDeepling extends AdvancedEntityModel<Deepling_Entity> {
 		animator.rotate(body,(float)Math.toRadians(22.5F), (float)Math.toRadians(-30F), (float)Math.toRadians(7.5F));
 		animator.endKeyframe();
 
-		animator.resetKeyframe(8);
+		animator.resetKeyframe(28);
 	}
 
 	@Override
