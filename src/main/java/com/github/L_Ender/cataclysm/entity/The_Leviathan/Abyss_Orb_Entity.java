@@ -1,4 +1,4 @@
-package com.github.L_Ender.cataclysm.entity.projectile;
+package com.github.L_Ender.cataclysm.entity.The_Leviathan;
 
 import com.github.L_Ender.cataclysm.config.CMConfig;
 import com.github.L_Ender.cataclysm.entity.The_Harbinger_Entity;

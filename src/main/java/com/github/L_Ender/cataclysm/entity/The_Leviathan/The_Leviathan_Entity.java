@@ -361,8 +361,10 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         if (!this.level.isClientSide) {
             if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
                 boolean flag = false;
-                AABB aabb = this.getBoundingBox().inflate(3.0D, 0.5D, 3.0D);
-                for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(this.getY()), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
+
+                AABB aabb = this.getBoundingBox().inflate(4.5D, 0.5D, 4.5D);
+                double yblockbreak = this.isInWater() ? aabb.minY : this.getY();
+                for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(yblockbreak), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
                     BlockState blockstate = this.level.getBlockState(blockpos);
                     FluidState fluidState = level.getFluidState(blockpos);
                     if (blockstate.getMaterial() != Material.AIR && blockstate.canEntityDestroy(this.level, blockpos, this) && fluidState.isEmpty() && !blockstate.is(ModTag.LEVIATHAN_IMMUNE) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(this, blockpos, blockstate)) {
