@@ -1,11 +1,13 @@
 package com.github.L_Ender.cataclysm.entity;
 
+import com.github.L_Ender.cataclysm.config.CMConfig;
 import com.github.L_Ender.cataclysm.entity.AI.MobAIFindWater;
 import com.github.L_Ender.cataclysm.entity.AI.MobAILeaveWater;
 import com.github.L_Ender.cataclysm.entity.AI.MobSwimMoveControllerSink;
 import com.github.L_Ender.cataclysm.entity.etc.GroundPathNavigatorWide;
 import com.github.L_Ender.cataclysm.entity.etc.ISemiAquatic;
 import com.github.L_Ender.cataclysm.entity.etc.SemiAquaticPathNavigator;
+import com.github.L_Ender.cataclysm.entity.projectile.Ender_Guardian_Bullet_Entity;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
@@ -34,9 +36,12 @@ import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
+import net.minecraft.world.entity.animal.AbstractGolem;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.ShulkerBullet;
 import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -58,10 +63,14 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, ISemiAq
     public float prevSwimProgress = 0;
     private Animation currentAnimation;
     boolean searchingForLand;
-    public static final Animation TRIDENT_THROW = Animation.create(40);
+    public static final Animation DEEPLING_TRIDENT_THROW = Animation.create(40);
+    public static final Animation DEEPLING_MELEE = Animation.create(20);
     private int moistureAttackTime = 0;
     private boolean isLandNavigator;
     private static final EntityDataAccessor<Integer> MOISTNESS = SynchedEntityData.defineId(Deepling_Entity.class, EntityDataSerializers.INT);
+
+    public float LayerBrightness, oLayerBrightness;
+    public int LayerTicks;
 
     public Deepling_Entity(EntityType entity, Level world) {
         super(entity, world);
@@ -78,7 +87,7 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, ISemiAq
         this.goalSelector.addGoal(4, new MobAIFindWater(this));
         this.goalSelector.addGoal(4, new MobAILeaveWater(this));
         this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.0f, false));
+        this.goalSelector.addGoal(3, new AnimationMeleeAttackGoal(this, 1.0f, false));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
@@ -99,6 +108,10 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, ISemiAq
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(MOISTNESS, 60000);
+    }
+
+    public MobType getMobType() {
+        return MobType.WATER;
     }
 
     private void switchNavigator(boolean onLand) {
@@ -163,7 +176,7 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, ISemiAq
 
     @Override
     public Animation[] getAnimations() {
-        return new Animation[]{NO_ANIMATION, TRIDENT_THROW};
+        return new Animation[]{NO_ANIMATION, DEEPLING_TRIDENT_THROW,DEEPLING_MELEE};
     }
 
     public boolean isAlliedTo(Entity entityIn) {
@@ -176,6 +189,12 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, ISemiAq
         } else {
             return false;
         }
+    }
+
+
+    @Override
+    public boolean hurt(DamageSource source, float damage) {
+        return super.hurt(source, damage);
     }
 
     public int getMoistness() {
@@ -213,7 +232,7 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, ISemiAq
                 this.setMoistness(this.getMoistness() - dry);
                 if (this.getMoistness() <= 0 && moistureAttackTime-- <= 0) {
                     this.hurt(DamageSource.DRY_OUT, random.nextInt(2) == 0 ? 1.0F : 0F);
-                    moistureAttackTime = 20;
+                    moistureAttackTime = 30;
                 }
             }
         }
@@ -222,7 +241,7 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, ISemiAq
 
         LivingEntity target = this.getTarget();
         if(target !=null && this.isAlive()) {
-            if (this.getAnimation() == TRIDENT_THROW) {
+            if (this.getAnimation() == DEEPLING_TRIDENT_THROW) {
                 if (this.getAnimationTick() == 11) {
                     ThrownTrident throwntrident = new ThrownTrident(this.level, this, new ItemStack(Items.TRIDENT));
                     double p0 = target.getX() - this.getX();
@@ -234,7 +253,21 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, ISemiAq
                     this.level.addFreshEntity(throwntrident);
                 }
             }
+            if(this.getAnimation() == DEEPLING_MELEE){
+                if(distanceToSqr(target) <= 5f){
+                   if (this.getAnimationTick() == 5) {
+                       float damage = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
+                       target.hurt(DamageSource.mobAttack(this), damage);
+                   }
+                }
+            }
         }
+
+        if (this.level.isClientSide){
+            ++LayerTicks;
+            this.LayerBrightness += (0.0F - this.LayerBrightness) * 0.8F;
+        }
+
     }
 
 
@@ -420,7 +453,7 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, ISemiAq
 
         public boolean canUse() {
             LivingEntity livingentity = this.mob.getTarget();
-            return livingentity != null && livingentity.isAlive() && this.mob.getMainHandItem().is(Items.TRIDENT);
+            return livingentity != null && livingentity.isAlive() && this.mob.getMainHandItem().is(Items.TRIDENT) && this.mob.distanceToSqr(livingentity) >= 36.0D;
         }
 
 
@@ -498,11 +531,9 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, ISemiAq
                 if (!flag && this.seeTime < -60) {
                     this.mob.stopUsingItem();
                 } else if (flag) {
-                    if(mob.getAnimation() != TRIDENT_THROW){
-                        mob.setAnimation(TRIDENT_THROW);
+                    if(mob.getAnimation() != DEEPLING_TRIDENT_THROW){
+                        mob.setAnimation(DEEPLING_TRIDENT_THROW);
                         this.attackTime = this.attackCooldown;
-
-
 
                     }
                 }
@@ -510,6 +541,25 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, ISemiAq
         }
     }
 
+    static class AnimationMeleeAttackGoal extends MeleeAttackGoal {
+        protected final Deepling_Entity mob;
+
+
+        public AnimationMeleeAttackGoal(Deepling_Entity p_25552_, double p_25553_, boolean p_25554_) {
+            super(p_25552_,p_25553_,p_25554_);
+            this.mob = p_25552_;
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        }
+
+
+        protected void checkAndPerformAttack(LivingEntity p_25557_, double p_25558_) {
+            double d0 = this.getAttackReachSqr(p_25557_);
+            if (p_25558_ <= d0 && this.mob.getAnimation() == NO_ANIMATION) {
+                this.mob.setAnimation(DEEPLING_MELEE);
+            }
+
+        }
+    }
 
     static class DeeplingMoveControl extends MoveControl {
         private final Deepling_Entity drowned;

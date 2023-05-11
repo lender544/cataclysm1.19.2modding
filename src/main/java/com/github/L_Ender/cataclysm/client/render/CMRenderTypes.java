@@ -2,9 +2,12 @@ package com.github.L_Ender.cataclysm.client.render;
 
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
+import net.minecraft.Util;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
+
+import java.util.function.Function;
 
 
 public class CMRenderTypes extends RenderType {
@@ -63,6 +66,18 @@ public class CMRenderTypes extends RenderType {
                 .setCullState(NO_CULL).setOverlayState(OVERLAY)
                 .setWriteMaskState(COLOR_WRITE)
                 .createCompositeState(false));
+    }
+
+    public static RenderType CMEyes(ResourceLocation locationIn) {
+        RenderStateShard.TextureStateShard renderstateshard$texturestateshard = new RenderStateShard.TextureStateShard(locationIn, false, false);
+        return create("cm_eyes", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, RenderType
+                        .CompositeState.builder()
+                        .setShaderState(RENDERTYPE_EYES_SHADER)
+                        .setTextureState(renderstateshard$texturestateshard)
+                        .setTransparencyState(ADDITIVE_TRANSPARENCY)
+                        .setCullState(NO_CULL)
+                        .setWriteMaskState(COLOR_WRITE).
+                        createCompositeState(false));
     }
 
     public static RenderType getPulse() {

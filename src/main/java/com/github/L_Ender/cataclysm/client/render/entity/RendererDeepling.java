@@ -2,6 +2,7 @@ package com.github.L_Ender.cataclysm.client.render.entity;
 
 import com.github.L_Ender.cataclysm.client.model.entity.ModelDeepling;
 import com.github.L_Ender.cataclysm.client.model.entity.ModelEndermaptera;
+import com.github.L_Ender.cataclysm.client.render.layer.Deepling_Layer;
 import com.github.L_Ender.cataclysm.client.render.layer.LayerDeeplingItem;
 import com.github.L_Ender.cataclysm.client.render.layer.LayerGenericGlowing;
 import com.github.L_Ender.cataclysm.entity.Deepling_Entity;
@@ -22,7 +23,7 @@ public class RendererDeepling extends MobRenderer<Deepling_Entity, ModelDeepling
 
     public RendererDeepling(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new ModelDeepling(), 0.7F);
-        this.addLayer(new LayerGenericGlowing(this, SSAPBUG_LAYER_TEXTURES));
+        this.addLayer(new Deepling_Layer(this));
         this.addLayer(new LayerDeeplingItem(this, renderManagerIn.getItemInHandRenderer()));
 
     }
