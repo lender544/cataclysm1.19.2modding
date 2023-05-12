@@ -491,5 +491,88 @@
         "name": "cataclysm:entity/abyss_blast"
       }
     ]
+  },
+  "leviathan_hurt": {
+    "subtitle": "leviathan_hurt.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/leviathan_hurt",
+        "pitch": 0.7
+      }
+    ]
+  },
+  "leviathan_idle": {
+    "subtitle": "leviathan_idle.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/leviathan_idle"
+      }
+    ]
+  },
+  "leviathan_defeat": {
+    "subtitle": "leviathan_defeat.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/leviathan_defeat"
+      }
+    ]
+  },
+  "leviathan_roar": {
+    "subtitle": "leviathan_roar.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/leviathan_roar"
+      }
+    ]
+  },
+  "leviathan_stun_roar": {
+    "subtitle": "leviathan_roar.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/leviathan_stun_roar"
+      }
+    ]
+  },
+  "deepling_death": {
+    "subtitle": "deepling_death.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/deepling_death",
+        "pitch": 0.7
+      }
+    ]
+  },
+  "deepling_hurt": {
+    "subtitle": "deepling_hurt.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/deepling_hurt1"
+      },
+      {
+        "name": "cataclysm:entity/deepling_hurt2"
+      },
+      {
+        "name": "cataclysm:entity/deepling_hurt3"
+      }
+    ]
+  },
+  "deepling_swing": {
+    "subtitle": "deepling_swing.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/deepling_swing"
+      }
+    ]
+  },
+  "deepling_idle": {
+    "subtitle": "abyss_blast.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/deepling_idle1"
+      },
+      {
+        "name": "cataclysm:entity/deepling_idle2"
+      }
+    ]
   }
 }

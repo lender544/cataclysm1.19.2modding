@@ -23,6 +23,7 @@ import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
@@ -352,7 +353,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
 
         if(this.getAnimation() == LEVIATHAN_STUN){
             if (this.getAnimationTick() == 52) {
-                this.level.playSound((Player) null, this, SoundEvents.ENDER_DRAGON_GROWL, SoundSource.HOSTILE, 4.0f, 0.8f);
+                this.level.playSound((Player) null, this, ModSounds.LEVIATHAN_STUN_ROAR.get(), SoundSource.HOSTILE, 4.0f, 0.8f);
             }
         }
     }
@@ -654,6 +655,18 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
     @Override
     public int getWaterSearchRange() {
         return 32;
+    }
+
+    protected SoundEvent getAmbientSound() {
+        return ModSounds.LEVIATHAN_IDLE.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return ModSounds.LEVIATHAN_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return ModSounds.LEVIATHAN_DEFEAT.get();
     }
 
     public boolean isTargetBlocked(Vec3 target) {

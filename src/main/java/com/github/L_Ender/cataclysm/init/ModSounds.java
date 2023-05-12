@@ -167,4 +167,33 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> ABYSS_BLAST = SOUNDS.register("abyss_blast",
             () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"abyss_blast")));
 
+    public static final RegistryObject<SoundEvent> LEVIATHAN_DEFEAT = SOUNDS.register("leviathan_defeat",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"leviathan_defeat")));
+
+    public static final RegistryObject<SoundEvent> LEVIATHAN_HURT = SOUNDS.register("leviathan_hurt",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"leviathan_hurt")));
+
+    public static final RegistryObject<SoundEvent> LEVIATHAN_IDLE = SOUNDS.register("leviathan_idle",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"leviathan_idle")));
+
+    public static final RegistryObject<SoundEvent> LEVIATHAN_ROAR = SOUNDS.register("leviathan_roar",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"leviathan_roar")));
+
+    public static final RegistryObject<SoundEvent> LEVIATHAN_STUN_ROAR = SOUNDS.register("leviathan_stun_roar",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"leviathan_stun_roar")));
+
+    public static final RegistryObject<SoundEvent> DEEPLING_IDLE = SOUNDS.register("deepling_idle",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"deepling_idle")));
+
+    public static final RegistryObject<SoundEvent> DEEPLING_HURT = SOUNDS.register("deepling_hurt",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"deepling_hurt")));
+
+    public static final RegistryObject<SoundEvent> DEEPLING_DEATH = SOUNDS.register("deepling_death",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"deepling_death")));
+
+    public static final RegistryObject<SoundEvent> DEEPLING_SWING = SOUNDS.register("deepling_swing",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"deepling_swing")));
+
+
+
 }

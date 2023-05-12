@@ -8,6 +8,7 @@ import com.github.L_Ender.cataclysm.entity.etc.GroundPathNavigatorWide;
 import com.github.L_Ender.cataclysm.entity.etc.ISemiAquatic;
 import com.github.L_Ender.cataclysm.entity.etc.SemiAquaticPathNavigator;
 import com.github.L_Ender.cataclysm.entity.projectile.Ender_Guardian_Bullet_Entity;
+import com.github.L_Ender.cataclysm.init.ModSounds;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
@@ -151,20 +152,21 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, ISemiAq
     }
 
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENDERMAN_AMBIENT;
+        return ModSounds.DEEPLING_IDLE.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.ENDERMAN_HURT;
+        return ModSounds.DEEPLING_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENDERMAN_DEATH;
+        return ModSounds.DEEPLING_DEATH.get();
     }
 
     protected void playStepSound(BlockPos pos, BlockState blockIn) {
-        this.playSound(SoundEvents.ENDERMAN_AMBIENT, 0.15F, 0.6F);
+        this.playSound(ModSounds.DEEPLING_IDLE.get(), 0.15F, 0.6F);
     }
+
 
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_34088_, DifficultyInstance p_34089_, MobSpawnType p_34090_, @Nullable SpawnGroupData p_34091_, @Nullable CompoundTag p_34092_) {
@@ -240,25 +242,30 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, ISemiAq
         AnimationHandler.INSTANCE.updateAnimations(this);
 
         LivingEntity target = this.getTarget();
-        if(target !=null && this.isAlive()) {
+        if(this.isAlive()) {
             if (this.getAnimation() == DEEPLING_TRIDENT_THROW) {
-                if (this.getAnimationTick() == 11) {
-                    ThrownTrident throwntrident = new ThrownTrident(this.level, this, new ItemStack(Items.TRIDENT));
-                    double p0 = target.getX() - this.getX();
-                    double p1 = target.getY(0.3333333333333333D) - throwntrident.getY();
-                    double p2 = target.getZ() - this.getZ();
-                    double p3 = Math.sqrt(p0 * p0 + p2 * p2);
-                    throwntrident.shoot(p0, p1 + p3 * (double) 0.2F, p2, 1.6F, (float) (14 - this.level.getDifficulty().getId() * 4));
-                    this.playSound(SoundEvents.DROWNED_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-                    this.level.addFreshEntity(throwntrident);
+                if (target != null) {
+                    if (this.getAnimationTick() == 11) {
+                       ThrownTrident throwntrident = new ThrownTrident(this.level, this, new ItemStack(Items.TRIDENT));
+                       double p0 = target.getX() - this.getX();
+                       double p1 = target.getY(0.3333333333333333D) - throwntrident.getY();
+                       double p2 = target.getZ() - this.getZ();
+                       double p3 = Math.sqrt(p0 * p0 + p2 * p2);
+                       throwntrident.shoot(p0, p1 + p3 * (double) 0.2F, p2, 1.6F, (float) (14 - this.level.getDifficulty().getId() * 4));
+                       this.playSound(SoundEvents.DROWNED_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+                        this.level.addFreshEntity(throwntrident);
+                    }
                 }
             }
-            if(this.getAnimation() == DEEPLING_MELEE){
-                if(distanceToSqr(target) <= 5f){
-                   if (this.getAnimationTick() == 5) {
-                       float damage = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
-                       target.hurt(DamageSource.mobAttack(this), damage);
-                   }
+            if (this.getAnimation() == DEEPLING_MELEE) {
+                if (this.getAnimationTick() == 5) {
+                    this.playSound(ModSounds.DEEPLING_SWING.get(), 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+                    if (target != null) {
+                        if (distanceToSqr(target) <= 5.4f) {
+                            float damage = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
+                            target.hurt(DamageSource.mobAttack(this), damage);
+                        }
+                    }
                 }
             }
         }
@@ -356,6 +363,7 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, ISemiAq
     public int getWaterSearchRange() {
         return 32;
     }
+
 
     static class DeeplingGoToBeachGoal extends MoveToBlockGoal {
         private final Deepling_Entity drowned;
