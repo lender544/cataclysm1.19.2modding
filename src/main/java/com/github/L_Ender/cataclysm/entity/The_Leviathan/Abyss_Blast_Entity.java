@@ -1,6 +1,7 @@
 package com.github.L_Ender.cataclysm.entity.The_Leviathan;
 
 
+import com.github.L_Ender.cataclysm.client.particle.LightningParticle;
 import com.github.L_Ender.cataclysm.client.tool.ControlledAnimation;
 import com.github.L_Ender.cataclysm.init.ModTag;
 import com.github.L_Ender.cataclysm.util.CMDamageTypes;
@@ -155,7 +156,7 @@ public class Abyss_Blast_Entity extends Entity {
             float motionY = random.nextFloat() * 0.08F;
             float motionX = velocity * Mth.cos(yaw);
             float motionZ = velocity * Mth.sin(yaw);
-            level.addParticle(ParticleTypes.PORTAL, collidePosX, collidePosY + 0.1, collidePosZ, motionX, motionY, motionZ);
+            level.addParticle((new LightningParticle.OrbData(0.4f, 0.1f,  0.8f)), collidePosX, collidePosY + 0.1, collidePosZ, motionX, motionY, motionZ);
         }
 
     }

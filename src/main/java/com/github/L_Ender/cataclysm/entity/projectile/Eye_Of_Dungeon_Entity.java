@@ -1,5 +1,6 @@
 package com.github.L_Ender.cataclysm.entity.projectile;
 
+import com.github.L_Ender.cataclysm.client.particle.LightningParticle;
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import com.github.L_Ender.cataclysm.init.ModParticle;
 import net.minecraft.Util;
@@ -126,7 +127,7 @@ public class Eye_Of_Dungeon_Entity extends Entity implements ItemSupplier {
                     this.level.addParticle(ParticleTypes.BUBBLE, d0 - vec3.x * 0.25D, d1 - vec3.y * 0.25D, d2 - vec3.z * 0.25D, vec3.x, vec3.y, vec3.z);
                 }
             } else {
-                this.level.addParticle(ModParticle.LIGHTNING.get(), d0 - vec3.x * 0.25D + this.random.nextDouble() * 0.6D - 0.3D, d1 - vec3.y * 0.25D - 0.5D, d2 - vec3.z * 0.25D + this.random.nextDouble() * 0.6D - 0.3D, vec3.x, vec3.y, vec3.z);
+                this.level.addParticle((new LightningParticle.OrbData(1.0f, 0.2f,  0.0f)), d0 - vec3.x * 0.25D + this.random.nextDouble() * 0.6D - 0.3D, d1 - vec3.y * 0.25D - 0.5D, d2 - vec3.z * 0.25D + this.random.nextDouble() * 0.6D - 0.3D, vec3.x, vec3.y, vec3.z);
             }
 
             if (!this.level.isClientSide) {

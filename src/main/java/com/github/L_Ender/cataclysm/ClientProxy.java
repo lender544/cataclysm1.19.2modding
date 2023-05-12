@@ -67,7 +67,7 @@ public class ClientProxy extends CommonProxy {
     public static void setupParticles(RegisterParticleProvidersEvent registry) {
         cataclysm.LOGGER.debug("Registered particle factories");
         registry.register(ModParticle.SOUL_LAVA.get(), SoulLavaParticle.Factory::new);
-        registry.register(ModParticle.LIGHTNING.get(), new LightningParticle.Factory());
+        registry.register(ModParticle.LIGHTNING.get(), new LightningParticle.OrbFactory());
         registry.register(ModParticle.EM_PULSE.get(), new EM_PulseParticle.Factory());
     }
 
@@ -110,6 +110,7 @@ public class ClientProxy extends CommonProxy {
         EntityRenderers.register(ModEntities.ABYSS_BLAST_PORTAL.get(), RendererAbyss_Blast_Portal::new);
         EntityRenderers.register(ModEntities.MINI_ABYSS_BLAST.get(), RendererPortal_Abyss_Blast::new);
         EntityRenderers.register(ModEntities.DEEPLING.get(), RendererDeepling::new);
+        EntityRenderers.register(ModEntities.ABYSS_MINE.get(), RendererAbyss_Mine::new);
         EntityRenderers.register(ModEntities.VOID_SHARD.get(), (render) -> {
             return new ThrownItemRenderer<>(render, 0.75F, true);
         });

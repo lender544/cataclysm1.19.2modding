@@ -1,6 +1,7 @@
 package com.github.L_Ender.cataclysm.entity;
 
 import com.github.L_Ender.cataclysm.cataclysm;
+import com.github.L_Ender.cataclysm.client.particle.LightningParticle;
 import com.github.L_Ender.cataclysm.config.CMConfig;
 import com.github.L_Ender.cataclysm.entity.AI.AttackAniamtionGoal3;
 import com.github.L_Ender.cataclysm.entity.AI.SimpleAnimationGoal;
@@ -396,7 +397,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
                 double d3 = d0 * dist;
                 double d4 = d1 * dist;
                 double d5 = d2 * dist;
-                this.level.addParticle(ModParticle.LIGHTNING.get(), this.getX() + d0, this.getY() + 2, this.getZ() + d2, d3, d4, d5);
+                this.level.addParticle(new LightningParticle.OrbData(1.0f, 0.2f,  0.0f), this.getX() + d0, this.getY() + 2, this.getZ() + d2, d3, d4, d5);
                 if (entity != null && this.getAnimation() != MISSILE_FIRE_ANIAMATION) {
                     float f = Mth.cos((yBodyRot) * ((float) Math.PI / 180F));
                     float f1 = Mth.sin((yBodyRot) * ((float) Math.PI / 180F));

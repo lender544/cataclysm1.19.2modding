@@ -81,6 +81,14 @@ public class ModEntities {
             .fireImmune()
             .build(cataclysm.MODID + ":void_rune"));
 
+    public static final RegistryObject<EntityType<Abyss_Mine_Entity>> ABYSS_MINE = ENTITY_TYPE.register("abyss_mine", () -> EntityType.Builder.<Abyss_Mine_Entity>of(Abyss_Mine_Entity::new, MobCategory.MISC)
+            .sized(1.0F, 1.0F)
+            .clientTrackingRange(6)
+            .updateInterval(2)
+            .fireImmune()
+            .build(cataclysm.MODID + ":abyss_mine"));
+
+
     public static final RegistryObject<EntityType<Endermaptera_Entity>> ENDERMAPTERA = ENTITY_TYPE.register("endermaptera", () -> EntityType.Builder.of(Endermaptera_Entity::new, MobCategory.MONSTER)
             .sized(1.2F, 0.8f)
             .fireImmune()

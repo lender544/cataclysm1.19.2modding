@@ -2,6 +2,7 @@ package com.github.L_Ender.cataclysm.entity.projectile;
 
 
 import com.github.L_Ender.cataclysm.blocks.BlockEMP;
+import com.github.L_Ender.cataclysm.client.particle.LightningParticle;
 import com.github.L_Ender.cataclysm.client.tool.ControlledAnimation;
 import com.github.L_Ender.cataclysm.config.CMConfig;
 import com.github.L_Ender.cataclysm.entity.The_Harbinger_Entity;
@@ -181,7 +182,7 @@ public class Death_Laser_Beam_Entity extends Entity {
             float motionY = random.nextFloat() * 0.08F;
             float motionX = velocity * Mth.cos(yaw);
             float motionZ = velocity * Mth.sin(yaw);
-            level.addParticle(ModParticle.LIGHTNING.get(), collidePosX, collidePosY + 0.1, collidePosZ, motionX, motionY, motionZ);
+            this.level.addParticle((new LightningParticle.OrbData(1.0f, 0.2f,  0.0f)), collidePosX, collidePosY + 0.1, collidePosZ, motionX, motionY, motionZ);
         }
 
     }

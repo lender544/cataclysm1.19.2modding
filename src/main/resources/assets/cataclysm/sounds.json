@@ -496,8 +496,7 @@
     "subtitle": "leviathan_hurt.sub",
     "sounds": [
       {
-        "name": "cataclysm:entity/leviathan_hurt",
-        "pitch": 0.7
+        "name": "cataclysm:entity/leviathan_hurt"
       }
     ]
   },
