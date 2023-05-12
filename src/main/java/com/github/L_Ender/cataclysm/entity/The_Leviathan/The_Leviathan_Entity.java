@@ -322,12 +322,17 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
                 }
             }
             if(this.getAnimationTick() == 84 ) {
-                ScreenShake_Entity.ScreenShake(this.level, this.position(), 20, 0.1f, 90, 10);
+                ScreenShake_Entity.ScreenShake(this.level, this.position(), 30, 0.1f, 90, 10);
             }
         }
         if(this.getAnimation() == LEVIATHAN_RUSH){
             if (this.getAnimationTick() > 54 && this.getAnimationTick() < 137) {
                 charge();
+            }
+
+            if (this.getAnimationTick() == 54) {
+                this.level.playSound((Player) null, this, ModSounds.LEVIATHAN_ROAR.get(), SoundSource.HOSTILE, 4.0f, 1.0f);
+                ScreenShake_Entity.ScreenShake(this.level, this.position(), 30, 0.1f, 60, 10);
             }
         }
         if(this.getAnimation() == LEVIATHAN_GRAB_BITE){
@@ -354,6 +359,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         if(this.getAnimation() == LEVIATHAN_STUN){
             if (this.getAnimationTick() == 52) {
                 this.level.playSound((Player) null, this, ModSounds.LEVIATHAN_STUN_ROAR.get(), SoundSource.HOSTILE, 4.0f, 0.8f);
+                ScreenShake_Entity.ScreenShake(this.level, this.position(), 30, 0.1f, 40, 10);
             }
         }
     }

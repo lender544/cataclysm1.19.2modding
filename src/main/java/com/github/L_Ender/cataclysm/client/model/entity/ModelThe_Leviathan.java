@@ -8,6 +8,7 @@ import com.github.alexthe666.citadel.client.model.ModelAnimator;
 import com.github.alexthe666.citadel.client.model.basic.BasicModelPart;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 
 public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity> {
@@ -1047,12 +1048,40 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		this.walk(Skul, finspeed * 1.1F, finDegree * 0.15F, false, 0F, -0.03F, limbSwing, limbSwingAmount);
 
 
+
+		AdvancedModelBox[] URT = new AdvancedModelBox[]{UpperR_Tantacle, UpperR_Tantacle2, UpperR_Tantacle3};
+
+		AdvancedModelBox[] ULT = new AdvancedModelBox[]{UpperL_Tantacle, UpperL_Tantacle2, UpperL_Tantacle3};
+
+		AdvancedModelBox[] LRT = new AdvancedModelBox[]{LowerR_Tantacle, LowerR_Tantacle2, LowerR_Tantacle3};
+
+		AdvancedModelBox[] LLT = new AdvancedModelBox[]{LowerL_Tantacle, LowerL_Tantacle2, LowerL_Tantacle3};
+
+		this.chainSwing(URT, 0.2F, -0.2F, -3, limbSwing, limbSwingAmount);
+		this.chainWave(URT, 0.2F, -0.2F, -3, limbSwing, limbSwingAmount);
+
+		this.chainSwing(ULT, 0.2F, 0.2F, -3, limbSwing, limbSwingAmount);
+		this.chainWave(ULT, 0.2F, 0.2F, -3, limbSwing, limbSwingAmount);
+
+		this.chainSwing(LRT, 0.2F, -0.2F, -3, limbSwing, limbSwingAmount);
+		this.chainWave(LRT, 0.2F, -0.2F, -3, limbSwing, limbSwingAmount);
+
+		this.chainSwing(LLT, 0.2F, 0.2F, -3, limbSwing, limbSwingAmount);
+		this.chainWave(LLT, 0.2F, 0.2F, -3, limbSwing, limbSwingAmount);
+
 		this.body.rotateAngleX += headPitch * ((float) Math.PI / 180F);
 		this.body.rotateAngleY += netHeadYaw * ((float) Math.PI / 180F);
 
 		if (horizontalMag(entityIn.getDeltaMovement()) > 1.0E-7D) {
 			//this.body.rotateAngleX += -0.05F + -0.05F * Mth.cos(ageInTicks * 0.3F);
 		}
+
+
+
+
+
+
+
 
 	}
 
