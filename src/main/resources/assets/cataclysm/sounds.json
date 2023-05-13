@@ -564,7 +564,7 @@
     ]
   },
   "deepling_idle": {
-    "subtitle": "abyss_blast.sub",
+    "subtitle": "deepling_idle.sub",
     "sounds": [
       {
         "name": "cataclysm:entity/deepling_idle1"

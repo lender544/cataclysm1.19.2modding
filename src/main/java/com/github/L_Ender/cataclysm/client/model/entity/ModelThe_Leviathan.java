@@ -557,7 +557,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Mouth3,(float)Math.toRadians(37.5F),(float)Math.toRadians(42.5F), 0);
 		animator.rotate(Mouth4,(float)Math.toRadians(37.5F),(float)Math.toRadians(-42.5F), 0);
 		animator.endKeyframe();
-		animator.setStaticKeyframe(40);
+		animator.setStaticKeyframe(60);
 
 		animator.resetKeyframe(15);
 
@@ -754,10 +754,10 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_TENTACLE_STRIKE_UPPER_R);
 		animator.startKeyframe(23);
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(35F), 0);
-		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(5F), 0);
-		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(5F), 0);
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(10F), 0);
+		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(45F), 0);
+		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(37.5F), 0);
+		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(37.5F), 0);
+		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(47.5F), 0);
 		animator.endKeyframe();
 
 
@@ -781,10 +781,10 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_TENTACLE_STRIKE_LOWER_R);
 		animator.startKeyframe(27);
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(35F), 0);
-		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(5F), 0);
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(5F), 0);
-		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(10F), 0);
+		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(45F), 0);
+		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(37.5F), 0);
+		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(37.5F), 0);
+		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(47.5F), 0);
 		animator.endKeyframe();
 
 
@@ -808,10 +808,10 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_TENTACLE_STRIKE_UPPER_L);
 		animator.startKeyframe(25);
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-35F), 0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(-5F), 0);
-		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(-5F), 0);
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-10F), 0);
+		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-47.5F), 0);
+		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(-37.5F), 0);
+		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(-37.5F), 0);
+		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-47.5F), 0);
 		animator.endKeyframe();
 
 
@@ -834,10 +834,10 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_TENTACLE_STRIKE_LOWER_L);
 		animator.startKeyframe(20);
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(-35F), 0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(-5F), 0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(-5F), 0);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(-10F), 0);
+		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(-47.5F), 0);
+		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(-37.5F), 0);
+		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(-37.5F), 0);
+		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(-47.5F), 0);
 		animator.endKeyframe();
 
 
@@ -955,9 +955,8 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		progressRotationPrev(LowerL_Tantacle,NoswimProgress,0, 0, (float)Math.toRadians(-32.5F), 10f);
 		progressRotationPrev(LowerR_Tantacle,NoswimProgress,0, 0, (float)Math.toRadians(32.5F), 10f);
 
-		this.swing(UpperR_Tantacle, swimSpeed * 0.4F, 0.1F, false, 0F, -0.1F, ageInTicks, 1.0f);
-		//this.swing(UpperR_Tantacle2, swimSpeed * 0.4F, 0.05F, false, 1F, -0.05F, ageInTicks, 1.0f);
-		this.swing(UpperR_Tantacle3, swimSpeed * 0.4F, 0.1F, false, 2F, -0.1F, ageInTicks, 1.0f);
+		//this.swing(UpperR_Tantacle, swimSpeed * 0.4F, 0.1F, false, 0F, -0.1F, ageInTicks, 1.0f);
+		//this.swing(UpperR_Tantacle3, swimSpeed * 0.4F, 0.1F, false, 2F, -0.1F, ageInTicks, 1.0f);
 
 
 		this.flap(UpperR_Hook, swimSpeed * 0.2F, 0.35F, true, 0F, -0.35F, ageInTicks, 1.0f);
@@ -969,9 +968,8 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		this.swing(UpperR_Hook3, swimSpeed * 1.3F, 0.35F, false, 0F, -0.35F, limbSwing, limbSwingAmount);
 		this.flap(UpperR_Hook4, swimSpeed * 1.3F, 0.35F, false, 0F, -0.35F, limbSwing, limbSwingAmount);
 
-		this.swing(UpperL_Tantacle, swimSpeed * 0.4F, 0.1F, true, 0F, -0.1F, ageInTicks, 1.0f);
-		//this.swing(UpperL_Tantacle2, swimSpeed * 0.4F, 0.05F, true, 1F, -0.05F, ageInTicks, 1.0f);
-		this.swing(UpperL_Tantacle3, swimSpeed * 0.4F, 0.1F, true, 2f, -0.1F, ageInTicks, 1.0f);
+		//this.swing(UpperL_Tantacle, swimSpeed * 0.4F, 0.1F, true, 0F, -0.1F, ageInTicks, 1.0f);
+	//	this.swing(UpperL_Tantacle3, swimSpeed * 0.4F, 0.1F, true, 2f, -0.1F, ageInTicks, 1.0f);
 
 
 		this.flap(UpperL_Hook, swimSpeed * 0.2F, 0.35F, false, 0F, -0.35F, ageInTicks, 1.0f);
@@ -983,9 +981,8 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		this.swing(UpperL_Hook3, swimSpeed * 1.3F, 0.35F, true, 0F, -0.35F, limbSwing, limbSwingAmount);
 		this.flap(UpperL_Hook4, swimSpeed * 1.3F, 0.35F, true, 0F, -0.35F, limbSwing, limbSwingAmount);
 
-		this.swing(LowerR_Tantacle, swimSpeed * 0.4F, 0.1F, false, 0F, -0.1F, ageInTicks, 1.0f);
-	//	this.swing(LowerR_Tantacle2, swimSpeed * 0.4F, 0.05F, false, 1f, -0.05F, ageInTicks, 1.0f);
-		this.swing(LowerR_Tantacle3, swimSpeed * 0.4F, 0.1F, false, 2f, -0.1F, ageInTicks, 1.0f);
+		//this.swing(LowerR_Tantacle, swimSpeed * 0.4F, 0.1F, false, 0F, -0.1F, ageInTicks, 1.0f);
+		//this.swing(LowerR_Tantacle3, swimSpeed * 0.4F, 0.1F, false, 2f, -0.1F, ageInTicks, 1.0f);
 
 
 		this.flap(LowerR_Hook, swimSpeed * 0.2F, 0.35F, true, 0F, -0.35F, ageInTicks, 1.0f);
@@ -997,9 +994,9 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		this.swing(LowerR_Hook3, swimSpeed * 1.3F, 0.35F, false, 0F, -0.35F, limbSwing, limbSwingAmount);
 		this.flap(LowerR_Hook4, swimSpeed * 1.3F, 0.35F, false, 0F, -0.35F, limbSwing, limbSwingAmount);
 
-		this.swing(LowerL_Tantacle, swimSpeed * 0.4F, 0.1F, true, 0F, -0.1F, ageInTicks, 1.0f);
-	//	this.swing(LowerL_Tantacle2, swimSpeed * 0.4F, 0.05F, true, 1f, -0.05F, ageInTicks, 1.0f);
-		this.swing(LowerL_Tantacle3, swimSpeed * 0.4F, 0.1F, true, 2f, -0.1F, ageInTicks, 1.0f);
+		//this.swing(LowerL_Tantacle, swimSpeed * 0.4F, 0.1F, true, 0F, -0.1F, ageInTicks, 1.0f);
+
+		//this.swing(LowerL_Tantacle3, swimSpeed * 0.4F, 0.1F, true, 2f, -0.1F, ageInTicks, 1.0f);
 
 		this.flap(LowerL_Hook, swimSpeed * 0.2F, 0.35F, false, 0F, -0.35F, ageInTicks, 1.0f);
 		this.swing(LowerL_Hook2, swimSpeed * 0.2F, 0.35F, false, 0F, -0.35F, ageInTicks, 1.0f);
@@ -1056,6 +1053,23 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		AdvancedModelBox[] LRT = new AdvancedModelBox[]{LowerR_Tantacle, LowerR_Tantacle2, LowerR_Tantacle3};
 
 		AdvancedModelBox[] LLT = new AdvancedModelBox[]{LowerL_Tantacle, LowerL_Tantacle2, LowerL_Tantacle3};
+
+
+
+
+		this.chainWave(URT, 0.03F, -0.1F, -3, ageInTicks, 1.0f);
+		this.chainSwing(URT, 0.03F, -0.1F, -3, ageInTicks, 1.0f);
+
+		this.chainWave(ULT, 0.03F, 0.1F, -3, ageInTicks, 1.0f);
+		this.chainSwing(ULT, 0.03F, 0.1F, -3, ageInTicks, 1.0f);
+
+		this.chainWave(LRT, 0.03F, -0.1F, -3, ageInTicks, 1.0f);
+		this.chainSwing(LRT, 0.03F, -0.1F, -3, ageInTicks, 1.0f);
+
+		this.chainWave(LLT, 0.03F, 0.1F, -3, ageInTicks, 1.0f);
+		this.chainSwing(LLT, 0.03F, 0.1F, -3, ageInTicks, 1.0f);
+
+
 
 		this.chainSwing(URT, 0.2F, -0.2F, -3, limbSwing, limbSwingAmount);
 		this.chainWave(URT, 0.2F, -0.2F, -3, limbSwing, limbSwingAmount);

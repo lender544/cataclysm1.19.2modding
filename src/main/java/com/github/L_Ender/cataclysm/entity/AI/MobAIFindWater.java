@@ -11,17 +11,19 @@ import java.util.EnumSet;
 
 public class MobAIFindWater extends Goal {
     private final PathfinderMob creature;
+    private final double speed;
     private BlockPos targetPos;
     private final int executionChance = 10;
 
-    public MobAIFindWater(PathfinderMob creature) {
+    public MobAIFindWater(PathfinderMob creature, double speed) {
         this.creature = creature;
+        this.speed = speed;
         this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
     }
 
     public boolean canUse() {
         if (this.creature.isOnGround() && !this.creature.level.getFluidState(this.creature.blockPosition()).is(FluidTags.WATER)) {
-            if (this.creature instanceof ISemiAquatic && ((ISemiAquatic) this.creature).shouldEnterWater() ) {
+            if (this.creature instanceof ISemiAquatic && ((ISemiAquatic) this.creature).shouldEnterWater()) {
                 targetPos = generateTarget();
                 return targetPos != null;
             }
@@ -31,13 +33,13 @@ public class MobAIFindWater extends Goal {
 
     public void start() {
         if (targetPos != null) {
-            this.creature.getNavigation().moveTo(targetPos.getX(), targetPos.getY(), targetPos.getZ(), 1D);
+            this.creature.getNavigation().moveTo(targetPos.getX(), targetPos.getY(), targetPos.getZ(), speed);
         }
     }
 
     public void tick() {
         if (targetPos != null) {
-            this.creature.getNavigation().moveTo(targetPos.getX(), targetPos.getY(), targetPos.getZ(), 1D);
+            this.creature.getNavigation().moveTo(targetPos.getX(), targetPos.getY(), targetPos.getZ(), speed);
         }
     }
 

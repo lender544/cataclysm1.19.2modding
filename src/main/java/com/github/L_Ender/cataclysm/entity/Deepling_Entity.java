@@ -85,7 +85,7 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, ISemiAq
         this.goalSelector.addGoal(2, new DeeplingTridentShoot(this, 0.8D, 10.0F));
         this.goalSelector.addGoal(5, new DeeplingGoToBeachGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new DeeplingSwimUpGoal(this, 1.0D, this.level.getSeaLevel()));
-        this.goalSelector.addGoal(4, new MobAIFindWater(this));
+        this.goalSelector.addGoal(4, new MobAIFindWater(this,1.0d));
         this.goalSelector.addGoal(4, new MobAILeaveWater(this));
         this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new AnimationMeleeAttackGoal(this, 1.0f, false));

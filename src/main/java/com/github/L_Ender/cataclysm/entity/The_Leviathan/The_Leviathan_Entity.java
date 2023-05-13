@@ -6,6 +6,7 @@ import com.github.L_Ender.cataclysm.entity.AI.EntityAINearestTarget3D;
 import com.github.L_Ender.cataclysm.entity.AI.SimpleAnimationGoal;
 import com.github.L_Ender.cataclysm.entity.Boss_monster;
 import com.github.L_Ender.cataclysm.entity.The_Harbinger_Entity;
+import com.github.L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import com.github.L_Ender.cataclysm.entity.etc.*;
 import com.github.L_Ender.cataclysm.entity.partentity.Cm_Part_Entity;
@@ -44,6 +45,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.material.FluidState;
@@ -62,7 +64,7 @@ import java.util.Optional;
 
 public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
 
-    public static final Animation LEVIATHAN_GRAB = Animation.create(80);
+    public static final Animation LEVIATHAN_GRAB = Animation.create(100);
     public static final Animation LEVIATHAN_GRAB_BITE = Animation.create(13);
     public static final Animation LEVIATHAN_ABYSS_BLAST = Animation.create(184);
     public static final Animation LEVIATHAN_RUSH = Animation.create(157);
@@ -103,7 +105,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
 
     public double endPosX, endPosY, endPosZ;
     public double collidePosX, collidePosY, collidePosZ;
-
+    private int destroyBlocksTick;
     private static final EntityDataAccessor<Float> LIGHT = SynchedEntityData.defineId(The_Leviathan_Entity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Integer> PORTAL_TICKS = SynchedEntityData.defineId(The_Leviathan_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> BLAST_CHANCE = SynchedEntityData.defineId(The_Leviathan_Entity.class, EntityDataSerializers.INT);
@@ -214,7 +216,9 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         if (entity instanceof Abyss_Blast_Entity || entity instanceof Portal_Abyss_Blast_Entity) {
             return false;
         }
-
+        if (this.destroyBlocksTick <= 0) {
+            this.destroyBlocksTick = 20;
+        }
         boolean attack = super.hurt(source, damage);
         if(this.getAnimation() == LEVIATHAN_RUSH) {
             if (this.getAnimationTick() >= 38 && this.getAnimationTick() <= 54) {
@@ -226,6 +230,11 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
 
 
         return attack;
+    }
+
+    @Override
+    public boolean isInvulnerableTo(DamageSource source) {
+        return source == DamageSource.IN_WALL || source == DamageSource.FALLING_BLOCK || super.isInvulnerableTo(source);
     }
 
     public boolean attackEntityFromPart(The_Leviathan_Part leviathan_part, DamageSource source, float amount) {
@@ -265,6 +274,9 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         if (hunting_cooldown > 0) {
             hunting_cooldown--;
         }
+
+       // blockbreak(3,3,3);
+
         AnimationHandler.INSTANCE.updateAnimations(this);
 
         if (!this.isNoAi()) {
@@ -293,7 +305,6 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
 
     public void aiStep() {
         super.aiStep();
-        LivingEntity target = this.getTarget();
         if(this.getAnimation() == LEVIATHAN_ABYSS_BLAST){
             if(this.getAnimationTick() < 30){
                 if (this.level.isClientSide) {
@@ -360,6 +371,38 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             if (this.getAnimationTick() == 52) {
                 this.level.playSound((Player) null, this, ModSounds.LEVIATHAN_STUN_ROAR.get(), SoundSource.HOSTILE, 4.0f, 0.8f);
                 ScreenShake_Entity.ScreenShake(this.level, this.position(), 30, 0.1f, 40, 10);
+            }
+        }
+    }
+
+
+    private void blockbreak(int x, int y, int z) {
+        int MthX = Mth.floor(this.getX());
+        int MthY = Mth.floor(this.getY());
+        int MthZ = Mth.floor(this.getZ());
+        if(!this.isNoAi()){
+            if (!this.level.isClientSide) {
+                if (this.destroyBlocksTick > 0) {
+                    --this.destroyBlocksTick;
+                    if (this.destroyBlocksTick == 0 && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+                        boolean flag = false;
+                        for (int k2 = -x; k2 <= x; ++k2) {
+                            for (int l2 = -z; l2 <= z; ++l2) {
+                                for (int j = 0; j <= y; ++j) {
+                                    int i3 = MthX + k2;
+                                    int k = MthY + j;
+                                    int l = MthZ + l2;
+                                    BlockPos blockpos = new BlockPos(i3, k, l);
+                                    BlockState blockstate = this.level.getBlockState(blockpos);
+                                    FluidState fluidState = level.getFluidState(blockpos);
+                                    if (blockstate.getMaterial() != Material.AIR && blockstate.canEntityDestroy(this.level, blockpos, this) && fluidState.isEmpty() && !blockstate.is(ModTag.LEVIATHAN_IMMUNE) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(this, blockpos, blockstate)) {
+                                        flag = this.level.destroyBlock(blockpos, false, this) || flag;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -751,7 +794,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
                     }
                 }
             }
-            if (this.entity.getAnimationTick() > 25 && this.entity.getAnimationTick() <= 65) {
+            if (this.entity.getAnimationTick() > 25 && this.entity.getAnimationTick() <= 85) {
                 if (target != null && target.isAlive()) {
                     if (LeviathanTongueUtil.canLaunchTongues(this.entity.level, this.entity)) {
                         if (this.entity.distanceTo(target) < 8) {
