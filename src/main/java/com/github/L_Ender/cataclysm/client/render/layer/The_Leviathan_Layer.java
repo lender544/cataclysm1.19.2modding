@@ -23,7 +23,7 @@ public class The_Leviathan_Layer extends RenderLayer<The_Leviathan_Entity, Model
 
     @Override
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, The_Leviathan_Entity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        float alpha = entity.getLight();
+        float alpha = entity.LayerBrightness;
         RenderType eyes = RenderType.eyes(PULSATING_SPOTS_TEXTURE_1);
         VertexConsumer VertexConsumer = bufferIn.getBuffer(eyes);
         this.getParentModel().renderToBuffer(matrixStackIn, VertexConsumer, packedLightIn, OverlayTexture.NO_OVERLAY, alpha, alpha, alpha, 1.0f);

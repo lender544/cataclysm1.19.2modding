@@ -70,7 +70,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
     public static final Animation LEVIATHAN_RUSH = Animation.create(157);
     public static final Animation LEVIATHAN_STUN = Animation.create(90);
 
-    public static final Animation LEVIATHAN_ABYSS_BLAST_PORTAL = Animation.create(100);
+    public static final Animation LEVIATHAN_ABYSS_BLAST_PORTAL = Animation.create(165);
     public static final Animation LEVIATHAN_TENTACLE_STRIKE_UPPER_R = Animation.create(44);
     public static final Animation LEVIATHAN_TENTACLE_STRIKE_LOWER_R = Animation.create(44);
     public static final Animation LEVIATHAN_TENTACLE_STRIKE_UPPER_L = Animation.create(44);
@@ -80,10 +80,16 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
     public final The_Leviathan_Part tailPart2;
 
     public final The_Leviathan_Part[] leviathanParts;
+    public boolean blocksBylefttentacle = true;
+    public boolean blocksByrighttentacle = true;
 
 
     public float NoSwimProgress = 0;
     public float prevNoSwimProgress = 0;
+    public float LeftTentacleProgress = 0;
+    public float prevLeftTentacleProgress = 0;
+    public float RightTentacleProgress = 0;
+    public float prevRightTentacleProgress = 0;
     private boolean isLandNavigator;
     public Vec3 teleportPos = null;
     public Abyss_Portal_Entity portalTarget = null;
@@ -106,6 +112,8 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
     public double endPosX, endPosY, endPosZ;
     public double collidePosX, collidePosY, collidePosZ;
     private int destroyBlocksTick;
+    public float LayerBrightness;
+
     private static final EntityDataAccessor<Float> LIGHT = SynchedEntityData.defineId(The_Leviathan_Entity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Integer> PORTAL_TICKS = SynchedEntityData.defineId(The_Leviathan_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> BLAST_CHANCE = SynchedEntityData.defineId(The_Leviathan_Entity.class, EntityDataSerializers.INT);
@@ -260,6 +268,41 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             if (this.NoSwimProgress > 0F)
                 this.NoSwimProgress--;
         }
+        this.prevLeftTentacleProgress = LeftTentacleProgress;
+        this.prevRightTentacleProgress = RightTentacleProgress;
+        if (blocksByrighttentacle) {
+            if (this.RightTentacleProgress < 10F)
+                this.RightTentacleProgress++;
+        } else {
+            if (this.RightTentacleProgress > 0F)
+                this.RightTentacleProgress--;
+        }
+        if (blocksBylefttentacle) {
+            if (this.LeftTentacleProgress < 10F)
+                this.LeftTentacleProgress++;
+        } else {
+            if (this.LeftTentacleProgress > 0F)
+                this.LeftTentacleProgress--;
+        }
+
+        if(this.getAnimation() == NO_ANIMATION) {
+            setAnimation(LEVIATHAN_ABYSS_BLAST_PORTAL);
+        }
+
+        if (tickCount % 10 == 0) {
+            blocksByrighttentacle = checkBlocksByTentacle(1,-3)
+                    || checkBlocksByTentacle(2,-3)
+                    || checkBlocksByTentacle(3,-3)
+                    || checkBlocksByTentacle(4,-3)
+                    || checkBlocksByTentacle(5,-3);
+            blocksBylefttentacle = checkBlocksByTentacle(1,3)
+                    || checkBlocksByTentacle(2,3)
+                    || checkBlocksByTentacle(3,3)
+                    || checkBlocksByTentacle(4,3)
+                    || checkBlocksByTentacle(5,3);
+
+        }
+
         if (this.portalTarget != null && this.portalTarget.getLifespan() < 5) {
             this.portalTarget = null;
         }
@@ -323,13 +366,13 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             for (int i = 44, j = 0; i <= 84; i++, j++) {
                 float l = j * 0.025f;
                 if (this.getAnimationTick() == i) {
-                    this.setLight(l);
+                    LayerBrightness = l;
                 }
             }
             for (int i = 144, j = 1; i <= 184; i++, j++) {
                 float l = j * -0.025f;
                 if (this.getAnimationTick() == i) {
-                    this.setLight(l);
+                    LayerBrightness = l;
                 }
             }
             if(this.getAnimationTick() == 84 ) {
@@ -373,6 +416,14 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
                 ScreenShake_Entity.ScreenShake(this.level, this.position(), 30, 0.1f, 40, 10);
             }
         }
+
+        if(this.getAnimation() == LEVIATHAN_ABYSS_BLAST_PORTAL){
+            if (this.getAnimationTick() == 56) {
+                this.level.playSound((Player) null, this, ModSounds.LEVIATHAN_ROAR.get(), SoundSource.HOSTILE, 4.0f, 1.0f);
+                ScreenShake_Entity.ScreenShake(this.level, this.position(), 30, 0.1f, 60, 10);
+            }
+        }
+
     }
 
 
@@ -678,6 +729,20 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         fullyThrough = false;
 
     }
+
+    private boolean checkBlocksByTentacle(float vec, float math) {
+        BlockPos pos1;
+
+        double theta = (yBodyRot) * (Math.PI / 180);
+        float f = Mth.cos(this.getYRot() * ((float)Math.PI / 180F)) ;
+        float f1 = Mth.sin(this.getYRot() * ((float)Math.PI / 180F)) ;
+        theta += Math.PI / 2;
+        double vecX = Math.cos(theta);
+        double vecZ = Math.sin(theta);
+        pos1 = new BlockPos(Mth.floor(getX() + vec * vecX + f * math), Math.round((float) (getY() - 2)), Mth.floor(getZ() + vec * vecZ + f1 * math));
+        return level.getBlockState(pos1).getMaterial().blocksMotion();
+    }
+
 
 
     @Override
@@ -1014,7 +1079,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         public void tick() {
             LivingEntity target = entity.getTarget();
             if (target != null) {
-                entity.getLookControl().setLookAt(target, 30, 90);
+                entity.getLookControl().setLookAt(target, 30, 30);
                 if (this.entity.getAnimationTick() == 48) {
                     Abyss_Blast_Portal_Entity laserBeam = new Abyss_Blast_Portal_Entity(entity.level, entity.getX(), entity.getY() +5,entity.getZ(), entity);
                     double d0 = entity.getTarget().getX() - laserBeam.getX();

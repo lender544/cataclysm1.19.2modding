@@ -706,7 +706,7 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
         public void tick() {
             LivingEntity target = Netherite_Monstrosity_Entity.this.getTarget();
             Netherite_Monstrosity_Entity.this.setDeltaMovement(0, Netherite_Monstrosity_Entity.this.getDeltaMovement().y, 0);
-            double lavabombcount = CMConfig.Lavabombamount;
+            int lavabombcount = CMConfig.Lavabombamount;
 
 
             if(target !=null) {
