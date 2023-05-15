@@ -8,6 +8,8 @@ import com.github.L_Ender.cataclysm.entity.etc.GroundPathNavigatorWide;
 import com.github.L_Ender.cataclysm.entity.etc.ISemiAquatic;
 import com.github.L_Ender.cataclysm.entity.etc.SemiAquaticPathNavigator;
 import com.github.L_Ender.cataclysm.entity.projectile.Ender_Guardian_Bullet_Entity;
+import com.github.L_Ender.cataclysm.entity.projectile.ThrownCoral_Spear_Entity;
+import com.github.L_Ender.cataclysm.init.ModItems;
 import com.github.L_Ender.cataclysm.init.ModSounds;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
@@ -99,7 +101,7 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, ISemiAq
     public static AttributeSupplier.Builder deepling() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.27F)
-                .add(Attributes.ATTACK_DAMAGE, 5.0D)
+                .add(Attributes.ATTACK_DAMAGE, 4.0D)
                 .add(Attributes.MAX_HEALTH, 30)
                 .add(Attributes.FOLLOW_RANGE, 20)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.25);
@@ -144,7 +146,7 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, ISemiAq
     }
 
     protected void populateDefaultEquipmentSlots(RandomSource p_219154_, DifficultyInstance p_219155_) {
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.TRIDENT));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.CORAL_SPEAR.get()));
     }
 
     public boolean canBreatheUnderwater() {
@@ -246,7 +248,7 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, ISemiAq
             if (this.getAnimation() == DEEPLING_TRIDENT_THROW) {
                 if (target != null) {
                     if (this.getAnimationTick() == 11) {
-                       ThrownTrident throwntrident = new ThrownTrident(this.level, this, new ItemStack(Items.TRIDENT));
+                       ThrownCoral_Spear_Entity throwntrident = new ThrownCoral_Spear_Entity(this.level, this, new ItemStack(Items.TRIDENT));
                        double p0 = target.getX() - this.getX();
                        double p1 = target.getY(0.3333333333333333D) - throwntrident.getY();
                        double p2 = target.getZ() - this.getZ();
@@ -461,7 +463,7 @@ public class Deepling_Entity extends Monster implements IAnimatedEntity, ISemiAq
 
         public boolean canUse() {
             LivingEntity livingentity = this.mob.getTarget();
-            return livingentity != null && livingentity.isAlive() && this.mob.getMainHandItem().is(Items.TRIDENT) && this.mob.distanceToSqr(livingentity) >= 36.0D;
+            return livingentity != null && livingentity.isAlive() && this.mob.getMainHandItem().is(ModItems.CORAL_SPEAR.get()) && this.mob.distanceToSqr(livingentity) >= 36.0D;
         }
 
 

@@ -672,7 +672,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		animator.endKeyframe();
 
-		animator.startKeyframe(3);
+		animator.startKeyframe(2);
 		animator.rotate(Maw, (float) Math.toRadians(37.5F), 0, 0);
 		animator.rotate(Skul, (float) Math.toRadians(-40F), 0, 0);
 		animator.rotate(Mouth, (float) Math.toRadians(-37.5F), (float) Math.toRadians(40F), 0);
@@ -705,7 +705,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		animator.endKeyframe();
 
-		animator.setStaticKeyframe(77);
+		animator.setStaticKeyframe(78);
 
 		animator.resetKeyframe(20);
 

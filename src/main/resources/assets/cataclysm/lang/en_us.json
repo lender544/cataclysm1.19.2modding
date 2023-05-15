@@ -65,6 +65,7 @@
   "item.cataclysm.void_assault_shoulder_weapon": "Void Assault Shoulder Weapon",
   "item.cataclysm.gauntlet_of_bulwark": "Gauntlet Of Bulwark",
   "item.cataclysm.void_forge": "Void Forge",
+  "item.cataclysm.coral_spear": "Coral Spear",
 
   "item.cataclysm.endermaptera_spawn_egg": "Endermaptera Spawn Egg",
   "item.cataclysm.ender_golem_spawn_egg": "Ender Golem Spawn Egg",
@@ -208,7 +209,8 @@
   "advancements.cataclysm.kill_harbinger.title": "Out Of Place Things",
   "advancements.cataclysm.kill_harbinger.description": "Wake and Defeat the Harbinger",
 
-  "death.attack.cataclysm.laser": "%s was exterminated by %s 's laser",
-  "death.attack.cataclysm.emp": "%s has become Electric Grilled Chicken",
-  "death.attack.cataclysm.emp.player": "%s has become Electric Grilled Chicken"
+  "death.attack.laser": "%s was exterminated by %s 's laser",
+  "death.attack.deathlaser": "%s was exterminated by %s 's laser",
+  "death.attack.emp": "%s has become Electric Grilled Chicken",
+  "death.attack.emp.player": "%s has become Electric Grilled Chicken"
 }
