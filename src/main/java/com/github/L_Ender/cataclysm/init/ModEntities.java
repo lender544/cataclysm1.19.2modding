@@ -14,6 +14,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -293,7 +294,11 @@ public class ModEntities {
             .updateInterval(10)
             .build(cataclysm.MODID + ":abyss_blast_portal"));
 
-
+    public static final RegistryObject<EntityType<ThrownCoral_Spear_Entity>> CORAL_SPEAR = ENTITY_TYPE.register("coral_spear", () -> EntityType.Builder.<ThrownCoral_Spear_Entity>of(ThrownCoral_Spear_Entity::new, MobCategory.MISC)
+            .sized(0.5F, 0.5F)
+            .clientTrackingRange(4)
+            .updateInterval(20)
+            .build(cataclysm.MODID + ":coral_spear"));
 
 
 

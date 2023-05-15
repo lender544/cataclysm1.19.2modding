@@ -111,6 +111,7 @@ public class ClientProxy extends CommonProxy {
         EntityRenderers.register(ModEntities.MINI_ABYSS_BLAST.get(), RendererPortal_Abyss_Blast::new);
         EntityRenderers.register(ModEntities.DEEPLING.get(), RendererDeepling::new);
         EntityRenderers.register(ModEntities.ABYSS_MINE.get(), RendererAbyss_Mine::new);
+        EntityRenderers.register(ModEntities.CORAL_SPEAR.get(), RendererThrown_Coral_Spear::new);
         EntityRenderers.register(ModEntities.VOID_SHARD.get(), (render) -> {
             return new ThrownItemRenderer<>(render, 0.75F, true);
         });
@@ -121,6 +122,7 @@ public class ClientProxy extends CommonProxy {
         MinecraftForge.EVENT_BUS.register(new ClientEvent());
         try {
             ItemProperties.register(ModItems.BULWARK_OF_THE_FLAME.get(), new ResourceLocation("blocking"), (stack, p_239421_1_, p_239421_2_, j) -> p_239421_2_ != null && p_239421_2_.isUsingItem() && p_239421_2_.getUseItem() == stack ? 1.0F : 0.0F);
+            ItemProperties.register(ModItems.CORAL_SPEAR.get(), new ResourceLocation("throwing"), (stack, p_239421_1_, p_239421_2_, j) -> p_239421_2_ != null && p_239421_2_.isUsingItem() && p_239421_2_.getUseItem() == stack ? 1.0F : 0.0F);
             ItemProperties.register(Items.CROSSBOW, new ResourceLocation(cataclysm.MODID, "void_scatter_arrow"), (stack, world, entity, j) -> entity != null && CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, ModItems.VOID_SCATTER_ARROW.get()) ? 1.0F : 0.0F);
         } catch (Exception e) {
             cataclysm.LOGGER.warn("Could not load item models for weapons");

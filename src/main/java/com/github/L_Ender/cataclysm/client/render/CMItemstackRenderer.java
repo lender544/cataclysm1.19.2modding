@@ -4,6 +4,7 @@ import com.github.L_Ender.cataclysm.client.model.block.Model_Altar_of_Fire;
 import com.github.L_Ender.cataclysm.client.model.block.Model_Altar_of_Void;
 import com.github.L_Ender.cataclysm.client.model.block.Model_EMP;
 import com.github.L_Ender.cataclysm.client.model.block.Model_Mechanical_Anvil;
+import com.github.L_Ender.cataclysm.client.model.entity.ModelCoral_Spear;
 import com.github.L_Ender.cataclysm.client.model.item.*;
 import com.github.L_Ender.cataclysm.client.model.item.*;
 import com.github.L_Ender.cataclysm.init.ModBlocks;
@@ -37,6 +38,7 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
     private static final Model_Altar_of_Fire ALTAR_OF_FIRE_MODEL = new Model_Altar_of_Fire();
     private static final Model_Altar_of_Void ALTAR_OF_VOID_MODEL = new Model_Altar_of_Void();
     private static final ModelWither_Assault_SHoulder_Weapon WASW_MODEL = new ModelWither_Assault_SHoulder_Weapon();
+    private static final ModelCoral_Spear CORAL_SPEAR_MODEL = new ModelCoral_Spear();
     private static final ModelVoid_Forge VOID_FORGE_MODEL = new ModelVoid_Forge();
     private static final ResourceLocation BULWARK_OF_THE_FLAME_TEXTURE = new ResourceLocation("cataclysm:textures/items/bulwark_of_the_flame.png");
     private static final ResourceLocation GAUNTLET_OF_GUARD_TEXTURE = new ResourceLocation("cataclysm:textures/items/gauntlet_of_guard.png");
@@ -53,6 +55,8 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
     private static final ResourceLocation TEXTURE_2 = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altarfire2.png");
     private static final ResourceLocation TEXTURE_3 = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altarfire3.png");
     private static final ResourceLocation TEXTURE_4 = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altarfire4.png");
+
+    private static final ResourceLocation CORAL_SPEAR_TEXTURE = new ResourceLocation("cataclysm:textures/entity/coral_spear.png");
 
     public CMItemstackRenderer() {
         super(null, null);
@@ -116,6 +120,15 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
             WASW_MODEL.renderToBuffer(matrixStackIn, vertexconsumer, combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
             matrixStackIn.popPose();
         }
+
+        if (itemStackIn.getItem() == ModItems.CORAL_SPEAR.get()) {
+            matrixStackIn.pushPose();
+            matrixStackIn.scale(1.0F, -1.0F, -1.0F);
+            VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(bufferIn, RenderType.armorCutoutNoCull(CORAL_SPEAR_TEXTURE), false, itemStackIn.hasFoil());
+            CORAL_SPEAR_MODEL.renderToBuffer(matrixStackIn, vertexconsumer, combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
+            matrixStackIn.popPose();
+        }
+
         if (itemStackIn.getItem() == ModItems.VOID_FORGE.get()) {
             matrixStackIn.pushPose();
             matrixStackIn.translate(0.5F, 0.5F, 0.5F);
