@@ -144,6 +144,16 @@ public class ModBlocks {
     public static final RegistryObject<Block> QUARTZ_BRICK_WALL = BLOCKS.register("quartz_brick_wall",
             () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.QUARTZ_BRICKS)));
 
+    public static final RegistryObject<Block> STONE_PILLAR = BLOCKS.register("stone_pillar",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.STONE)
+                    .requiresCorrectToolForDrops()
+                    .strength(1.5F, 6.0F)));
+
+    public static final RegistryObject<Block> CHISELED_STONE_BRICK_PILLAR = BLOCKS.register("chiseled_stone_brick_pillar",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.STONE)
+                    .requiresCorrectToolForDrops()
+                    .strength(1.5F, 6.0F)));
+
     private static ToIntFunction<BlockState> getLightValueLit(int lightValue) {
         return (state) -> {
             return state.getValue(BlockStateProperties.LIT) ? lightValue : 0;

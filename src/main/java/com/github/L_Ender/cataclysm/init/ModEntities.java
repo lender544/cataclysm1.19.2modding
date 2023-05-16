@@ -214,10 +214,10 @@ public class ModEntities {
             .fireImmune()
             .build(cataclysm.MODID + ":abyss_blast"));
 
-    public static final RegistryObject<EntityType<Portal_Abyss_Blast_Entity>> MINI_ABYSS_BLAST = ENTITY_TYPE.register("mini_abyss_blast", () -> EntityType.Builder.<Portal_Abyss_Blast_Entity>of(Portal_Abyss_Blast_Entity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<Portal_Abyss_Blast_Entity>> PORTAL_ABYSS_BLAST = ENTITY_TYPE.register("portal_abyss_blast", () -> EntityType.Builder.<Portal_Abyss_Blast_Entity>of(Portal_Abyss_Blast_Entity::new, MobCategory.MISC)
             .sized(0.1F, 0.1F)
             .fireImmune()
-            .build(cataclysm.MODID + ":mini_abyss_blast"));
+            .build(cataclysm.MODID + ":portal_abyss_blast"));
 
 
     public static final RegistryObject<EntityType<Laser_Beam_Entity>> LASER_BEAM = ENTITY_TYPE.register("laser_beam", () -> EntityType.Builder.<Laser_Beam_Entity>of(Laser_Beam_Entity::new, MobCategory.MISC)
@@ -288,7 +288,7 @@ public class ModEntities {
 
 
     public static final RegistryObject<EntityType<Abyss_Blast_Portal_Entity>> ABYSS_BLAST_PORTAL = ENTITY_TYPE.register("abyss_blast_portal", () -> EntityType.Builder.<Abyss_Blast_Portal_Entity>of(Abyss_Blast_Portal_Entity::new, MobCategory.MISC)
-            .sized(0.1f, 0.1f)
+            .sized(4.0f, 0.5f)
             .fireImmune()
             .clientTrackingRange(4)
             .updateInterval(10)

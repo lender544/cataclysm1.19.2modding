@@ -29,7 +29,7 @@ import java.util.UUID;
 public class Abyss_Mine_Entity extends Entity {
     private int warmupDelayTicks;
     private boolean sentSpikeEvent;
-    private int lifeTicks;
+    private int lifeTicks= 200;
     private boolean clientSideAttackStarted;
     private LivingEntity caster;
     private UUID casterUuid;
@@ -42,11 +42,10 @@ public class Abyss_Mine_Entity extends Entity {
         super(p_i50170_1_, p_i50170_2_);
     }
 
-    public Abyss_Mine_Entity(Level worldIn, double x, double y, double z, float p_i47276_8_, int p_i47276_9_ , int life  ,LivingEntity casterIn) {
+    public Abyss_Mine_Entity(Level worldIn, double x, double y, double z, float p_i47276_8_, int p_i47276_9_ , LivingEntity casterIn) {
         this(ModEntities.ABYSS_MINE.get(), worldIn);
         this.warmupDelayTicks = p_i47276_9_;
 
-        lifeTicks =life;
         this.setCaster(casterIn);
         this.setYRot(p_i47276_8_ * (180F / (float)Math.PI));
         this.setPos(x, y, z);
@@ -78,7 +77,6 @@ public class Abyss_Mine_Entity extends Entity {
      */
     protected void readAdditionalSaveData(CompoundTag compound) {
         this.warmupDelayTicks = compound.getInt("Warmup");
-        this.lifeTicks = compound.getInt("Life");
         if (compound.hasUUID("Owner")) {
             this.casterUuid = compound.getUUID("Owner");
         }
@@ -87,7 +85,6 @@ public class Abyss_Mine_Entity extends Entity {
 
     protected void addAdditionalSaveData(CompoundTag compound) {
         compound.putInt("Warmup", this.warmupDelayTicks);
-        compound.putInt("Life", this.lifeTicks);
         if (this.casterUuid != null) {
             compound.putUUID("Owner", this.casterUuid);
         }

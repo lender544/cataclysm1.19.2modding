@@ -108,7 +108,7 @@ public class ClientProxy extends CommonProxy {
         EntityRenderers.register(ModEntities.CUSTOM_GUARDIAN.get(), RendererCustomGuardian::new);
         EntityRenderers.register(ModEntities.ABYSS_ORB.get(), RendererAbyss_Orb::new);
         EntityRenderers.register(ModEntities.ABYSS_BLAST_PORTAL.get(), RendererAbyss_Blast_Portal::new);
-        EntityRenderers.register(ModEntities.MINI_ABYSS_BLAST.get(), RendererPortal_Abyss_Blast::new);
+        EntityRenderers.register(ModEntities.PORTAL_ABYSS_BLAST.get(), RendererPortal_Abyss_Blast::new);
         EntityRenderers.register(ModEntities.DEEPLING.get(), RendererDeepling::new);
         EntityRenderers.register(ModEntities.ABYSS_MINE.get(), RendererAbyss_Mine::new);
         EntityRenderers.register(ModEntities.CORAL_SPEAR.get(), RendererThrown_Coral_Spear::new);

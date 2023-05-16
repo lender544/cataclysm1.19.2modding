@@ -72,14 +72,13 @@ public class Abyss_Blast_Portal_Entity extends Entity {
 		if (this.tickCount > getLifespan()) {
 			this.discard();
 		}
-
 		if (!this.level.isClientSide) {
 			if (this.tickCount == getLaserFire()){
 				if (caster != null) {
-					Portal_Abyss_Blast_Entity DeathBeam1 = new Portal_Abyss_Blast_Entity(ModEntities.MINI_ABYSS_BLAST.get(), this.level, this.getCaster(), this.getX(), this.getY(), this.getZ(), (float) ((this.getYRot() - 90) * Math.PI / 180), (float) (-this.getXRot() * Math.PI / 180), getLaserDuration(), 90);
+					Portal_Abyss_Blast_Entity DeathBeam1 = new Portal_Abyss_Blast_Entity(ModEntities.PORTAL_ABYSS_BLAST.get(), this.level, this.getCaster(), this.getX(), this.getY(), this.getZ(), (float) ((this.getYRot() - 90) * Math.PI / 180), (float) (90 * Math.PI / 180), getLaserDuration(), 90);
 					this.level.addFreshEntity(DeathBeam1);
 				}else{
-					Portal_Abyss_Blast_Entity DeathBeam2 = new Portal_Abyss_Blast_Entity(ModEntities.MINI_ABYSS_BLAST.get(), this.level, this.getX(), this.getY(), this.getZ(), (float) ((this.getYRot() - 90) * Math.PI / 180), (float) (-this.getXRot() * Math.PI / 180), getLaserDuration(), 90);
+					Portal_Abyss_Blast_Entity DeathBeam2 = new Portal_Abyss_Blast_Entity(ModEntities.PORTAL_ABYSS_BLAST.get(), this.level, this.getX(), this.getY(), this.getZ(), (float) ((this.getYRot() - 90) * Math.PI / 180), (float) (90 * Math.PI / 180), getLaserDuration(), 90);
 					this.level.addFreshEntity(DeathBeam2);
 				}
 			}
@@ -87,9 +86,14 @@ public class Abyss_Blast_Portal_Entity extends Entity {
 	}
 
 	@Override
-	public boolean shouldRenderAtSqrDistance(double distance) {
+	public boolean shouldRenderAtSqrDistance(double p_36837_) {
+		double d0 = this.getBoundingBox().getSize() * 10.0D;
+		if (Double.isNaN(d0)) {
+			d0 = 4.0D;
+		}
 
-		return distance < 1024;
+		d0 *= 64.0D;
+		return p_36837_ < d0 * d0;
 	}
 
 	public int getLifespan() {

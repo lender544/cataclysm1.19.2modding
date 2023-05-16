@@ -5,6 +5,7 @@ import com.github.L_Ender.cataclysm.client.model.entity.ModelWither_Missile;
 import com.github.L_Ender.cataclysm.entity.The_Leviathan.Abyss_Blast_Portal_Entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Vector3f;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -34,10 +35,10 @@ public class RendererAbyss_Blast_Portal extends EntityRenderer<Abyss_Blast_Porta
 	public void render(Abyss_Blast_Portal_Entity entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
 		matrixStackIn.pushPose();
 		matrixStackIn.scale(-1.5F, -1.5F, 1.5F);
-		float f = Mth.lerp(partialTicks, entityIn.getYRot(), entityIn.yRotO);
-		float f1 = Mth.lerp(partialTicks, entityIn.xRotO, entityIn.getXRot());
+		matrixStackIn.translate(0f, -1.5F, 0F);
+		matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(90.0F - entityIn.getYRot()));
 		VertexConsumer vertexconsumer = bufferIn.getBuffer(this.model.renderType(this.getTextureLocation(entityIn)));
-		this.model.setupAnim(entityIn, 0.0F, 0.0F, entityIn.tickCount, f, f1);
+		this.model.setupAnim(entityIn, 0.0F, 0.0F, entityIn.tickCount + partialTicks, 0, 0);
 		this.model.renderToBuffer(matrixStackIn, vertexconsumer, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 		matrixStackIn.popPose();
 		super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);

@@ -285,10 +285,6 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
                 this.LeftTentacleProgress--;
         }
 
-        if(this.getAnimation() == NO_ANIMATION) {
-            setAnimation(LEVIATHAN_ABYSS_BLAST_PORTAL);
-        }
-
         if (tickCount % 10 == 0) {
             blocksByrighttentacle = checkBlocksByTentacle(1,-3)
                     || checkBlocksByTentacle(2,-3)

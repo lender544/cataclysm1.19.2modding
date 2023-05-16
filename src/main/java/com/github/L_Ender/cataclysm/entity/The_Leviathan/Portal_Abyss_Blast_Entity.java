@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class Portal_Abyss_Blast_Entity extends Entity {
-    public static final double RADIUS = 25;
+    public static final double RADIUS = 50;
     public LivingEntity caster;
     public double endPosX, endPosY, endPosZ;
     public double collidePosX, collidePosY, collidePosZ;

@@ -21,27 +21,27 @@ public class ModelAbyss_Blast_Portal extends AdvancedEntityModel<Abyss_Blast_Por
 		texHeight = 128;
 
 		root = new AdvancedModelBox(this);
-		root.setRotationPoint(0.0F, 0.0F, 0.0F);
-		root.setTextureOffset(0, 49).addBox(-6.0F, -25.0F, -2.0F, 9.0F, 7.0F, 4.0F, 0.0F, false);
-		root.setTextureOffset(27, 49).addBox(-3.0F, -22.0F, -1.0F, 7.0F, 6.0F, 2.0F, 0.0F, false);
-		root.setTextureOffset(27, 49).addBox(-21.0F, -11.0F, -1.0F, 7.0F, 6.0F, 2.0F, 0.0F, false);
-		root.setTextureOffset(27, 49).addBox(-20.0F, 3.0F, -1.0F, 7.0F, 6.0F, 2.0F, 0.0F, false);
-		root.setTextureOffset(27, 49).addBox(5.0F, -23.0F, -1.0F, 7.0F, 6.0F, 2.0F, 0.0F, false);
-		root.setTextureOffset(0, 49).addBox(17.0F, 2.0F, -2.0F, 9.0F, 7.0F, 4.0F, 0.0F, false);
-		root.setTextureOffset(0, 49).addBox(-24.0F, -5.0F, -2.0F, 9.0F, 7.0F, 4.0F, 0.0F, false);
-		root.setTextureOffset(27, 49).addBox(15.0F, 6.0F, -1.0F, 7.0F, 6.0F, 2.0F, 0.0F, false);
-		root.setTextureOffset(46, 55).addBox(13.0F, -19.0F, -1.0F, 3.0F, 4.0F, 2.0F, 0.0F, false);
-		root.setTextureOffset(46, 55).addBox(16.0F, 13.0F, -1.0F, 3.0F, 4.0F, 2.0F, 0.0F, false);
-		root.setTextureOffset(46, 49).addBox(15.0F, -14.0F, -1.0F, 4.0F, 3.0F, 2.0F, 0.0F, false);
-		root.setTextureOffset(46, 49).addBox(-15.0F, -16.0F, -1.0F, 4.0F, 3.0F, 2.0F, 0.0F, false);
-		root.setTextureOffset(46, 49).addBox(-21.0F, 10.0F, -1.0F, 4.0F, 3.0F, 2.0F, 0.0F, false);
-		root.setTextureOffset(46, 49).addBox(-16.0F, 12.0F, -1.0F, 4.0F, 3.0F, 2.0F, 0.0F, false);
-		root.setTextureOffset(46, 49).addBox(20.0F, -2.0F, -1.0F, 4.0F, 3.0F, 2.0F, 0.0F, false);
+		root.setRotationPoint(0.0F, 22.0F, 0.0F);
+		root.setTextureOffset(0, 49).addBox(-6.0F, -2.0F, 18.0F, 9.0F, 4.0F, 7.0F, 0.0F, false);
+		root.setTextureOffset(1, 72).addBox(-3.0F, -1.0F, 16.0F, 7.0F, 2.0F, 6.0F, 0.0F, false);
+		root.setTextureOffset(1, 72).addBox(-21.0F, -1.0F, 5.0F, 7.0F, 2.0F, 6.0F, 0.0F, false);
+		root.setTextureOffset(1, 72).addBox(-20.0F, -1.0F, -9.0F, 7.0F, 2.0F, 6.0F, 0.0F, false);
+		root.setTextureOffset(1, 72).addBox(5.0F, -1.0F, 17.0F, 7.0F, 2.0F, 6.0F, 0.0F, false);
+		root.setTextureOffset(0, 49).addBox(17.0F, -2.0F, -9.0F, 9.0F, 4.0F, 7.0F, 0.0F, false);
+		root.setTextureOffset(0, 49).addBox(-24.0F, -2.0F, -2.0F, 9.0F, 4.0F, 7.0F, 0.0F, false);
+		root.setTextureOffset(1, 72).addBox(15.0F, -1.0F, -12.0F, 7.0F, 2.0F, 6.0F, 0.0F, false);
+		root.setTextureOffset(46, 55).addBox(13.0F, -1.0F, 15.0F, 3.0F, 2.0F, 4.0F, 0.0F, false);
+		root.setTextureOffset(46, 55).addBox(16.0F, -1.0F, -17.0F, 3.0F, 2.0F, 4.0F, 0.0F, false);
+		root.setTextureOffset(46, 49).addBox(15.0F, -1.0F, 11.0F, 4.0F, 2.0F, 3.0F, 0.0F, false);
+		root.setTextureOffset(46, 49).addBox(-15.0F, -1.0F, 13.0F, 4.0F, 2.0F, 3.0F, 0.0F, false);
+		root.setTextureOffset(46, 49).addBox(-21.0F, -1.0F, -13.0F, 4.0F, 2.0F, 3.0F, 0.0F, false);
+		root.setTextureOffset(46, 49).addBox(-16.0F, -1.0F, -15.0F, 4.0F, 2.0F, 3.0F, 0.0F, false);
+		root.setTextureOffset(46, 49).addBox(20.0F, -1.0F, -1.0F, 4.0F, 2.0F, 3.0F, 0.0F, false);
 
 		portal = new AdvancedModelBox(this);
 		portal.setRotationPoint(0.0F, 0.0F, 0.0F);
 		root.addChild(portal);
-		portal.setTextureOffset(0, 0).addBox(-24.0F, -24.0F, 0.0F, 48.0F, 48.0F, 0.0F, 0.0F, false);
+		portal.setTextureOffset(-48, 0).addBox(-24.0F, 0.0F, -24.0F, 48.0F, 0.0F, 48.0F, 0.0F, false);
 		this.updateDefaultPose();
 	}
 
@@ -58,10 +58,7 @@ public class ModelAbyss_Blast_Portal extends AdvancedEntityModel<Abyss_Blast_Por
 	@Override
 	public void setupAnim(Abyss_Blast_Portal_Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
 		this.resetToDefaultPose();
-		this.root.rotateAngleY = netHeadYaw * ((float) Math.PI / 180F);
-
-		this.root.rotateAngleX = headPitch * ((float) Math.PI / 180F);
-		this.portal.rotateAngleZ -= ageInTicks * 0.1f;
+		this.portal.rotateAngleY -= ageInTicks * 0.1f;
 	}
 
 
