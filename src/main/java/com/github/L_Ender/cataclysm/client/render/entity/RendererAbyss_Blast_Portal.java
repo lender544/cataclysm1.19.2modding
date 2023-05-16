@@ -34,7 +34,11 @@ public class RendererAbyss_Blast_Portal extends EntityRenderer<Abyss_Blast_Porta
 	@Override
 	public void render(Abyss_Blast_Portal_Entity entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
 		matrixStackIn.pushPose();
-		matrixStackIn.scale(-1.5F, -1.5F, 1.5F);
+		float activateProgress = entityIn.prevactivateProgress + (entityIn.activateProgress - entityIn.prevactivateProgress) * partialTicks;
+
+		float d = activateProgress * 0.15F;
+
+		matrixStackIn.scale(-d, -d, d);
 		matrixStackIn.translate(0f, -1.5F, 0F);
 		matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(90.0F - entityIn.getYRot()));
 		VertexConsumer vertexconsumer = bufferIn.getBuffer(this.model.renderType(this.getTextureLocation(entityIn)));

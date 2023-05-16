@@ -5,6 +5,7 @@ import com.github.L_Ender.cataclysm.entity.AI.AnimationGoal;
 import com.github.L_Ender.cataclysm.entity.AI.EntityAINearestTarget3D;
 import com.github.L_Ender.cataclysm.entity.AI.SimpleAnimationGoal;
 import com.github.L_Ender.cataclysm.entity.Boss_monster;
+import com.github.L_Ender.cataclysm.entity.Ender_Golem_Entity;
 import com.github.L_Ender.cataclysm.entity.The_Harbinger_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
@@ -55,6 +56,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -98,11 +100,11 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
 
     public static final int GRAB_HUNTING_COOLDOWN = 100;
 
-    public static final int RUSH_HUNTING_COOLDOWN = 140;
+    public static final int RUSH_HUNTING_COOLDOWN = 160;
 
-    public static final int BLAST_HUNTING_COOLDOWN = 200;
-
-    public static final int TENTACLE_STRIKE_HUNTING_COOLDOWN = 80;
+    public static final int BLAST_HUNTING_COOLDOWN = 80;
+    public static final int BLAST_PORTAL_HUNTING_COOLDOWN = 280;
+    public static final int TENTACLE_STRIKE_HUNTING_COOLDOWN = 140;
 
 
     public static final int MAKEPORTAL_COOLDOWN = 240;
@@ -187,7 +189,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
 
     @Override
     public Animation[] getAnimations() {
-        return new Animation[]{LEVIATHAN_GRAB,LEVIATHAN_GRAB_BITE,LEVIATHAN_ABYSS_BLAST,LEVIATHAN_RUSH,LEVIATHAN_TENTACLE_STRIKE_UPPER_R,LEVIATHAN_TENTACLE_STRIKE_UPPER_L,LEVIATHAN_TENTACLE_STRIKE_LOWER_L,LEVIATHAN_TENTACLE_STRIKE_LOWER_R,LEVIATHAN_STUN};
+        return new Animation[]{LEVIATHAN_GRAB, LEVIATHAN_ABYSS_BLAST_PORTAL,LEVIATHAN_GRAB_BITE,LEVIATHAN_ABYSS_BLAST,LEVIATHAN_RUSH,LEVIATHAN_TENTACLE_STRIKE_UPPER_R,LEVIATHAN_TENTACLE_STRIKE_UPPER_L,LEVIATHAN_TENTACLE_STRIKE_LOWER_L,LEVIATHAN_TENTACLE_STRIKE_LOWER_R,LEVIATHAN_STUN};
     }
 
     public void travel(Vec3 travelVector) {
@@ -313,7 +315,6 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         if (hunting_cooldown > 0) {
             hunting_cooldown--;
         }
-
        // blockbreak(3,3,3);
 
         AnimationHandler.INSTANCE.updateAnimations(this);
@@ -1069,47 +1070,58 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
                 entity.getLookControl().setLookAt(target, 30, 90);
             }
             super.stop();
-            entity.hunting_cooldown = BLAST_HUNTING_COOLDOWN;
+            entity.hunting_cooldown = BLAST_PORTAL_HUNTING_COOLDOWN;
         }
 
         public void tick() {
             LivingEntity target = entity.getTarget();
             if (target != null) {
-                entity.getLookControl().setLookAt(target, 30, 30);
-                if (this.entity.getAnimationTick() == 48) {
-                    Abyss_Blast_Portal_Entity laserBeam = new Abyss_Blast_Portal_Entity(entity.level, entity.getX(), entity.getY() +5,entity.getZ(), entity);
-                    double d0 = entity.getTarget().getX() - laserBeam.getX();
-                    double d1 = entity.getTarget().getY() + entity.getTarget().getBbHeight() * 0.5f - laserBeam.getY();
-                    double d2 = entity.getTarget().getZ() - laserBeam.getZ();
+                entity.getLookControl().setLookAt(target, 30, 90);
 
-                    double b0 = laserBeam.getX() - entity.getTarget().getX();
-                    double b2 = laserBeam.getZ() - entity.getTarget().getZ();
+                if (this.entity.getAnimationTick() == 56) {
+                    double d0 = Math.min(target.getY(), entity.getY()) - 50;
+                    double d1 = Math.max(target.getY(), entity.getY()) + 3D;
+                    float f = (float) Mth.atan2(target.getZ() - entity.getZ(), target.getX() - entity.getX());
+                    for (int l = 0; l < 9; ++l) {
+                        int j = (int) (5f * l);
+                        double randomNearbyX = target.getX() + (entity.random.nextGaussian() * 12.0D);
+                        double randomNearbyZ = target.getZ() + (entity.random.nextGaussian() * 12.0D);
 
-                    float f = (float) (Mth.atan2(b2, b0) * (180D / Math.PI)) - 90.0F;
-                    laserBeam.setYRot(f % 360);
-                    double d3 = Math.sqrt(d0 * d0 + d2 * d2);
-                    float f1 = (float) (-(Mth.atan2(d1, d3) * (180D / Math.PI)));
-                    laserBeam.setXRot(updateRotation(laserBeam.getXRot(), f1, 90F));
-
-
-                    entity.level.addFreshEntity(laserBeam);
+                        this.spawnFangs(randomNearbyX, randomNearbyZ, d0, d1, f, j);
+                    }
+                    this.spawnFangs(target.getX(), target.getZ(), d0, d1, f, 0);
 
                 }
             }
         }
+        private void spawnFangs(double x, double z, double minY, double maxY, float rotation, int delay) {
+            BlockPos blockpos = new BlockPos(x, maxY, z);
+            boolean flag = false;
+            double d0 = 0.0D;
 
+            do {
+                BlockPos blockpos1 = blockpos.below();
+                BlockState blockstate = entity.level.getBlockState(blockpos1);
+                if (blockstate.isFaceSturdy(entity.level, blockpos1, Direction.UP)) {
+                    if (!entity.level.isEmptyBlock(blockpos)) {
+                        BlockState blockstate1 = entity.level.getBlockState(blockpos);
+                        VoxelShape voxelshape = blockstate1.getCollisionShape(entity.level, blockpos);
+                        if (!voxelshape.isEmpty()) {
+                            d0 = voxelshape.max(Direction.Axis.Y);
+                        }
+                    }
 
-        private static float updateRotation(float angle, float targetAngle, float maxIncrease) {
-            float f = Mth.wrapDegrees(targetAngle - angle);
-            if (f > maxIncrease) {
-                f = maxIncrease;
+                    flag = true;
+                    break;
+                }
+
+                blockpos = blockpos.below();
+            } while (blockpos.getY() >= Mth.floor(minY) - 1);
+
+            if (flag) {
+                entity.level.addFreshEntity(new Abyss_Blast_Portal_Entity(entity.level, x, (double) blockpos.getY() + d0, z, rotation, delay, entity));
             }
-            if (f < -maxIncrease) {
-                f = -maxIncrease;
-            }
-            return angle + f;
         }
-
     }
 
 
@@ -1260,7 +1272,9 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             if (target != null) {
                 double dist = this.mob.distanceTo(target );
                 if(circlingTime >= this.mob.hunting_cooldown){
-                    if (this.mob.getRandom().nextFloat() * 100.0F < (2f * this.mob.getBlastChance())){
+                    if(this.mob.getRandom().nextFloat() * 100.0F < 3f){
+                        this.mob.setAnimation(LEVIATHAN_ABYSS_BLAST_PORTAL);
+                    }else if (this.mob.getRandom().nextFloat() * 100.0F < (2f * this.mob.getBlastChance())){
                         this.mob.setAnimation(LEVIATHAN_ABYSS_BLAST);
                     }else if(this.mob.getRandom().nextFloat() * 100.0F < 8f && this.mob.distanceToSqr(target) >= 900.0D){
                         this.mob.setAnimation(LEVIATHAN_GRAB);

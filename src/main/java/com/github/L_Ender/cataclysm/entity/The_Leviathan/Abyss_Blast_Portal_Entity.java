@@ -8,11 +8,14 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PlayMessages;
 import org.jetbrains.annotations.Nullable;
@@ -23,26 +26,32 @@ import java.util.UUID;
 public class Abyss_Blast_Portal_Entity extends Entity {
 
 
+	private int warmupDelayTicks;
+	private boolean sentSpikeEvent;
+	private int lifeTicks =260;
+	private int laserdurations = 160;
+	private boolean clientSideAttackStarted;
 	private LivingEntity caster;
 	private UUID casterUuid;
-	protected static final EntityDataAccessor<Integer> LIFESPAN = SynchedEntityData.defineId(Abyss_Blast_Portal_Entity.class, EntityDataSerializers.INT);
-	protected static final EntityDataAccessor<Integer> LASERFIRE = SynchedEntityData.defineId(Abyss_Blast_Portal_Entity.class, EntityDataSerializers.INT);
-	protected static final EntityDataAccessor<Integer> LASERDURATION = SynchedEntityData.defineId(Abyss_Blast_Portal_Entity.class, EntityDataSerializers.INT);
+	public float activateProgress;
+	public float prevactivateProgress;
+	private static final EntityDataAccessor<Boolean> ACTIVATE = SynchedEntityData.defineId(Abyss_Blast_Portal_Entity.class, EntityDataSerializers.BOOLEAN);
+
 
 
 	public Abyss_Blast_Portal_Entity(EntityType<? extends Entity> type, Level level) {
 		super(type, level);
 	}
 
-	public Abyss_Blast_Portal_Entity(Level worldIn, double x, double y, double z, LivingEntity casterIn) {
+	public Abyss_Blast_Portal_Entity(Level worldIn, double x, double y, double z, float p_i47276_8_, int p_i47276_9_ ,LivingEntity casterIn) {
 		this(ModEntities.ABYSS_BLAST_PORTAL.get(), worldIn);
+		this.warmupDelayTicks = p_i47276_9_;
+
 		this.setCaster(casterIn);
+		this.setYRot(p_i47276_8_ * (180F / (float)Math.PI));
 		this.setPos(x, y, z);
 	}
 
-	public Abyss_Blast_Portal_Entity(PlayMessages.SpawnEntity spawnEntity, Level level) {
-		this(ModEntities.ABYSS_BLAST_PORTAL.get(), level);
-	}
 
 	@Override
 	public Packet<?> getAddEntityPacket() {
@@ -69,18 +78,49 @@ public class Abyss_Blast_Portal_Entity extends Entity {
 
 	public void tick() {
 		super.tick();
-		if (this.tickCount > getLifespan()) {
-			this.discard();
+
+		prevactivateProgress = activateProgress;
+
+		if (isActivate() && this.activateProgress > 0F) {
+			this.activateProgress--;
 		}
-		if (!this.level.isClientSide) {
-			if (this.tickCount == getLaserFire()){
+
+		if (this.level.isClientSide) {
+			if (this.clientSideAttackStarted) {
+				--this.lifeTicks;
+				if (!isActivate() && this.activateProgress < 10F) {
+					this.activateProgress++;
+				}
+				if (this.lifeTicks == 14) {
+					this.setActivate(true);
+				}
+			}
+		} else if (--this.warmupDelayTicks < 0) {
+			if (this.warmupDelayTicks == -10) {
+				if(isActivate()) {
+					this.setActivate(false);
+				}
+			}
+			if (this.warmupDelayTicks == -22) {
 				if (caster != null) {
-					Portal_Abyss_Blast_Entity DeathBeam1 = new Portal_Abyss_Blast_Entity(ModEntities.PORTAL_ABYSS_BLAST.get(), this.level, this.getCaster(), this.getX(), this.getY(), this.getZ(), (float) ((this.getYRot() - 90) * Math.PI / 180), (float) (90 * Math.PI / 180), getLaserDuration(), 90);
+					Portal_Abyss_Blast_Entity DeathBeam1 = new Portal_Abyss_Blast_Entity(ModEntities.PORTAL_ABYSS_BLAST.get(), this.level, this.getCaster(), this.getX(), this.getY(), this.getZ(), (float) ((this.getYRot() - 90) * Math.PI / 180), (float) (90 * Math.PI / 180), laserdurations, 90);
 					this.level.addFreshEntity(DeathBeam1);
 				}else{
-					Portal_Abyss_Blast_Entity DeathBeam2 = new Portal_Abyss_Blast_Entity(ModEntities.PORTAL_ABYSS_BLAST.get(), this.level, this.getX(), this.getY(), this.getZ(), (float) ((this.getYRot() - 90) * Math.PI / 180), (float) (90 * Math.PI / 180), getLaserDuration(), 90);
+					Portal_Abyss_Blast_Entity DeathBeam2 = new Portal_Abyss_Blast_Entity(ModEntities.PORTAL_ABYSS_BLAST.get(), this.level, this.getX(), this.getY(), this.getZ(), (float) ((this.getYRot() - 90) * Math.PI / 180), (float) (90 * Math.PI / 180), laserdurations, 90);
 					this.level.addFreshEntity(DeathBeam2);
 				}
+			}
+
+
+			if (!this.sentSpikeEvent) {
+				this.playSound(SoundEvents.END_PORTAL_SPAWN, 0.5F, this.random.nextFloat() * 0.2F + 0.85F);
+				this.level.broadcastEntityEvent(this, (byte)4);
+				this.clientSideAttackStarted = true;
+				this.sentSpikeEvent = true;
+			}
+
+			if (--this.lifeTicks < 0) {
+				this.discard();
 			}
 		}
 	}
@@ -96,60 +136,53 @@ public class Abyss_Blast_Portal_Entity extends Entity {
 		return p_36837_ < d0 * d0;
 	}
 
-	public int getLifespan() {
-		return this.entityData.get(LIFESPAN);
-	}
-
-	public void setLifespan(int i) {
-		this.entityData.set(LIFESPAN, i);
-	}
-
-
-	public int getLaserDuration() {
-		return this.entityData.get(LASERDURATION);
-	}
-
-	public void setLaserDuration(int i) {
-		this.entityData.set(LASERDURATION, i);
-	}
-
-	public int getLaserFire() {
-		return this.entityData.get(LASERFIRE);
-	}
-
-	public void setLaserFire(int i) {
-		this.entityData.set(LASERFIRE, i);
-	}
 
 
 	@Override
 	protected void defineSynchedData() {
-		this.entityData.define(LIFESPAN, 300);
-		this.entityData.define(LASERFIRE, 1);
-		this.entityData.define(LASERDURATION, 90);
+		this.entityData.define(ACTIVATE, Boolean.valueOf(false));
 
 	}
 
+
+	public boolean isActivate() {
+		return this.entityData.get(ACTIVATE);
+	}
+
+	public void setActivate(boolean Activate) {
+		this.entityData.set(ACTIVATE, Activate);
+	}
 
 
 	protected void readAdditionalSaveData(CompoundTag compound) {
+		this.warmupDelayTicks = compound.getInt("Warmup");
 		if (compound.hasUUID("Owner")) {
 			this.casterUuid = compound.getUUID("Owner");
 		}
-		this.setLifespan(compound.getInt("Lifespan"));
-		this.setLaserDuration(compound.getInt("LaserDuration"));
+
 	}
 
 	protected void addAdditionalSaveData(CompoundTag compound) {
+		compound.putInt("Warmup", this.warmupDelayTicks);
 		if (this.casterUuid != null) {
 			compound.putUUID("Owner", this.casterUuid);
 		}
-		compound.putInt("Lifespan", getLifespan());
-		compound.putInt("LaserDuration", getLaserDuration());
+
 	}
+
+	@OnlyIn(Dist.CLIENT)
+	public void handleEntityEvent(byte id) {
+		super.handleEntityEvent(id);
+		if (id == 4) {
+			this.clientSideAttackStarted = true;
+		}
+
+	}
+
 
 	public PushReaction getPistonPushReaction() {
 		return PushReaction.IGNORE;
 	}
 
 }
+
