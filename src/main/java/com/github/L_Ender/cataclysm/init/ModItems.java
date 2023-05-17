@@ -100,10 +100,11 @@ public class ModItems {
     public static final RegistryObject<BlockItem> STONE_PILLAR = ITEMS.register("stone_pillar",
             () -> new BlockItem(ModBlocks.STONE_PILLAR.get(), new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
 
-
     public static final RegistryObject<BlockItem> CHISELED_STONE_BRICK_PILLAR = ITEMS.register("chiseled_stone_brick_pillar",
             () -> new BlockItem(ModBlocks.CHISELED_STONE_BRICK_PILLAR.get(), new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
 
+    public static final RegistryObject<BlockItem> STONE_TILES = ITEMS.register("stone_tiles",
+            () -> new BlockItem(ModBlocks.STONE_TILES.get(), new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
 
     public static final RegistryObject<Item> WITHERITE_INGOT = ITEMS.register("witherite_ingot",
             () -> new Item(new Item.Properties().fireResistant().rarity(Rarity.EPIC).tab(cataclysm.CATACLYSM_GROUP)));
