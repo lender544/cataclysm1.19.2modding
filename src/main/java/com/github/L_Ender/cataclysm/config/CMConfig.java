@@ -48,6 +48,7 @@ public class CMConfig {
     public static boolean EnderguardianBlockBreaking = true;
     public static boolean EndergolemBlockBreaking = false;
     public static boolean IgnisBlockBreaking = true;
+    public static boolean LeviathanBlockBreaking = true;
     public static boolean HarbingerLightFire = true;
 
     public static double MonstrosityHealthMultiplier = 1D;
@@ -69,12 +70,16 @@ public class CMConfig {
     public static double HarbingerHealthMultiplier = 1D;
     public static double HarbingerDamageMultiplier = 1D;
 
+    public static double LeviathanHealthMultiplier = 1D;
+    public static double LeviathanDamageMultiplier = 1D;
+
 
     public static double MonstrosityLongRangelimit = 18D;
     public static double EnderguardianLongRangelimit = 12D;
     public static double EndergolemLongRangelimit = 6D;
     public static double IgnisLongRangelimit = 15D;
     public static double HarbingerLongRangelimit = 35D;
+    public static double LeviathanLongRangelimit = 38D;
 
     public static double MonstrositysHpdamage = 0.08D;
     public static double EnderguardianGravityPunchHpdamage = 0.05D;
@@ -148,11 +153,13 @@ public class CMConfig {
 
             IgnisHealthMultiplier = ConfigHolder.COMMON.IgnisHealthMultiplier.get();
             IgnisDamageMultiplier = ConfigHolder.COMMON.IgnisDamageMultiplier.get();
+
             MonstrosityLongRangelimit = ConfigHolder.COMMON.MonstrosityLongRangelimit.get();
             EnderguardianLongRangelimit = ConfigHolder.COMMON.EnderguardianLongRangelimit.get();
             EndergolemLongRangelimit = ConfigHolder.COMMON.EndergolemLongRangelimit.get();
             IgnisLongRangelimit = ConfigHolder.COMMON.IgnisLongRangelimit.get();
             HarbingerLongRangelimit = ConfigHolder.COMMON.HarbingerLongRangelimit.get();
+            LeviathanLongRangelimit = ConfigHolder.COMMON.LeviathanLongRangelimit.get();
 
             MonstrositysHpdamage = ConfigHolder.COMMON.MonstrositysHpdamage.get();
             EnderguardianTeleportAttackHpdamage = ConfigHolder.COMMON.EnderguardianTeleportAttackHpdamage.get();
@@ -162,6 +169,11 @@ public class CMConfig {
             EnderguardianRocketPunchHpdamage = ConfigHolder.COMMON.EnderguardianRocketPunchHpdamage.get();
             EnderguardianAreaAttackHpdamage = ConfigHolder.COMMON.EnderguardianAreaAttackHpdamage.get();
             HarbingerChargeHpDamage = ConfigHolder.COMMON.HarbingerChargeHpDamage.get();
+
+            LeviathanHealthMultiplier = ConfigHolder.COMMON.LeviathanHealthMultiplier.get();
+            LeviathanDamageMultiplier = ConfigHolder.COMMON.LeviathanDamageMultiplier.get();
+            LeviathanBlockBreaking = ConfigHolder.COMMON.LeviathanBlockBreaking.get();
+
 
             Armor_Infinity_Durability = ConfigHolder.COMMON.Armor_Infinity_Durability.get();
         } catch (Exception e) {

@@ -60,6 +60,9 @@ public class CommonConfig {
 
     public final ForgeConfigSpec.DoubleValue IgnisHealthMultiplier;
     public final ForgeConfigSpec.DoubleValue IgnisDamageMultiplier;
+    public final ForgeConfigSpec.IntValue IgnisDamageCap;
+    public final ForgeConfigSpec.DoubleValue IgnisLongRangelimit;
+    public final ForgeConfigSpec.BooleanValue IgnisBlockBreaking;
 
     public final ForgeConfigSpec.DoubleValue RevenantHealthMultiplier;
     public final ForgeConfigSpec.DoubleValue RevenantDamageMultiplier;
@@ -70,9 +73,11 @@ public class CommonConfig {
     public final ForgeConfigSpec.IntValue HarbingerDamageCap;
     public final ForgeConfigSpec.BooleanValue HarbingerLightFire;
 
-    public final ForgeConfigSpec.IntValue IgnisDamageCap;
-    public final ForgeConfigSpec.DoubleValue IgnisLongRangelimit;
-    public final ForgeConfigSpec.BooleanValue IgnisBlockBreaking;
+    public final ForgeConfigSpec.DoubleValue LeviathanHealthMultiplier;
+    public final ForgeConfigSpec.DoubleValue LeviathanDamageMultiplier;
+    public final ForgeConfigSpec.DoubleValue LeviathanLongRangelimit;
+    public final ForgeConfigSpec.IntValue LeviathanDamageCap;
+    public final ForgeConfigSpec.BooleanValue LeviathanBlockBreaking;
 
     public final ForgeConfigSpec.DoubleValue MonstrositysHpdamage;
     public final ForgeConfigSpec.DoubleValue EnderguardianGravityPunchHpdamage;
@@ -174,6 +179,15 @@ public class CommonConfig {
         HarbingerLightFire = buildBoolean(builder, "The Harbinger Light A Fire", "all", true, "Harbinger's lasers can light a fire in MobGriefing");
         HarbingerChargeHpDamage = buildDouble(builder, "The Harbinger's charge attack Hp Damage", "all", 0.06D, 0.0D, 1.0D, "The Harbinger's charge attack Hp Damage");
         builder.pop();
+
+        builder.push("The Leviathan");
+        LeviathanHealthMultiplier = buildDouble(builder, "LeviathanHealthMultiplier", "all", 1.0D, 0D, 1000000D, "Leviathan's Health Multiplier");
+        LeviathanDamageMultiplier = buildDouble(builder, "LeviathanDamageMultiplier", "all", 1.0D, 0D, 1000000D, "Leviathan's Damage Multiplier");
+        LeviathanLongRangelimit = buildDouble(builder, "Leviathan's prevent attacks from far away Range", "all", 38.0D, 1D, 1000000D, "Leviathan's Immune to Long distance attack range.");
+        LeviathanDamageCap = buildInt(builder, "LeviathanDamageCap", "all", 20, 0, 1000000, "Leviathan's DamageCap");
+        LeviathanBlockBreaking = buildBoolean(builder, "LeviathanBlockBreaking", "all", true, "Leviathan's block breaking ignore the MobGriefing");
+        builder.pop();
+
     }
 
     private static ForgeConfigSpec.BooleanValue buildBoolean(ForgeConfigSpec.Builder builder, String name, String catagory, boolean defaultValue, String comment) {
