@@ -923,7 +923,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             entity.getNavigation().stop();
             LivingEntity target = entity.getTarget();
             if (target != null) {
-                if (this.entity.getAnimationTick() < 79) {
+                if (this.entity.getAnimationTick() < 82) {
                     entity.getLookControl().setLookAt(target, 30, 90);
                 }
             }
@@ -1278,9 +1278,9 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
                         this.mob.setAnimation(LEVIATHAN_ABYSS_BLAST_PORTAL);
                     }else if (this.mob.getRandom().nextFloat() * 100.0F < (2f * this.mob.getBlastChance()) && this.mob.CanAbyss_Blast){
                         this.mob.setAnimation(LEVIATHAN_ABYSS_BLAST);
-                    }else if(this.mob.getRandom().nextFloat() * 100.0F < 8f && this.mob.distanceToSqr(target) >= 900.0D && this.mob.CanGrab){
+                    }else if(this.mob.getRandom().nextFloat() * 100.0F < 6f && this.mob.distanceToSqr(target) >= 900.0D && this.mob.CanGrab){
                         this.mob.setAnimation(LEVIATHAN_GRAB);
-                    }else if (this.mob.getRandom().nextFloat() * 100.0F < 6f && this.mob.distanceToSqr(target) < 900.0D && this.mob.distanceToSqr(target) >= 49.0D && this.mob.CanRush){
+                    }else if (this.mob.getRandom().nextFloat() * 100.0F < 4f && this.mob.distanceToSqr(target) < 900.0D && this.mob.distanceToSqr(target) >= 49.0D && this.mob.CanRush){
                         this.mob.setAnimation(LEVIATHAN_RUSH);
                     }
                 }else{
