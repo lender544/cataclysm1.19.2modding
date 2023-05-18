@@ -51,6 +51,15 @@ public class RendererThe_Leviathan extends MobRenderer<The_Leviathan_Entity, Mod
     }
 
     @Override
+    public void render(The_Leviathan_Entity entity, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
+        super.render(entity, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+        if (entity.getAnimation() == The_Leviathan_Entity.LEVIATHAN_TAIL_WHIPS) {
+            Vec3 bladePos = RenderUtils.getWorldPosFromModel(entity, entityYaw, model.Tail_Particle);
+            entity.setSocketPosArray(0, bladePos);
+        }
+    }
+
+    @Override
     protected void scale(The_Leviathan_Entity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
         matrixStackIn.scale(1.75F, 1.75F, 1.75F);
     }

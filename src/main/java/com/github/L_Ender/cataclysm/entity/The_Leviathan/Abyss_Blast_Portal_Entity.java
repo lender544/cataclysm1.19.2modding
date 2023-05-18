@@ -100,8 +100,6 @@ public class Abyss_Blast_Portal_Entity extends Entity {
 				if(isActivate()) {
 					this.setActivate(false);
 				}
-			}
-			if (this.warmupDelayTicks == -22) {
 				if (caster != null) {
 					Portal_Abyss_Blast_Entity DeathBeam1 = new Portal_Abyss_Blast_Entity(ModEntities.PORTAL_ABYSS_BLAST.get(), this.level, this.getCaster(), this.getX(), this.getY(), this.getZ(), (float) ((this.getYRot() - 90) * Math.PI / 180), (float) (90 * Math.PI / 180), laserdurations, 90);
 					this.level.addFreshEntity(DeathBeam1);
@@ -110,7 +108,6 @@ public class Abyss_Blast_Portal_Entity extends Entity {
 					this.level.addFreshEntity(DeathBeam2);
 				}
 			}
-
 
 			if (!this.sentSpikeEvent) {
 				this.playSound(SoundEvents.END_PORTAL_SPAWN, 0.5F, this.random.nextFloat() * 0.2F + 0.85F);

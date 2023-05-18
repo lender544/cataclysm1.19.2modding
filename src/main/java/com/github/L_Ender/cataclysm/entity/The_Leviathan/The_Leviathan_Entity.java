@@ -6,12 +6,14 @@ import com.github.L_Ender.cataclysm.entity.AI.EntityAINearestTarget3D;
 import com.github.L_Ender.cataclysm.entity.AI.SimpleAnimationGoal;
 import com.github.L_Ender.cataclysm.entity.Boss_monster;
 import com.github.L_Ender.cataclysm.entity.Ender_Golem_Entity;
+import com.github.L_Ender.cataclysm.entity.Netherite_Monstrosity_Entity;
 import com.github.L_Ender.cataclysm.entity.The_Harbinger_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import com.github.L_Ender.cataclysm.entity.etc.*;
 import com.github.L_Ender.cataclysm.entity.partentity.Cm_Part_Entity;
 import com.github.L_Ender.cataclysm.entity.util.LeviathanTongueUtil;
+import com.github.L_Ender.cataclysm.init.ModEffect;
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import com.github.L_Ender.cataclysm.init.ModSounds;
 import com.github.L_Ender.cataclysm.init.ModTag;
@@ -19,6 +21,7 @@ import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
@@ -32,6 +35,10 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffectUtil;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -46,6 +53,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -57,6 +65,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.fluids.FluidType;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -77,7 +86,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
     public static final Animation LEVIATHAN_TENTACLE_STRIKE_LOWER_R = Animation.create(44);
     public static final Animation LEVIATHAN_TENTACLE_STRIKE_UPPER_L = Animation.create(44);
     public static final Animation LEVIATHAN_TENTACLE_STRIKE_LOWER_L = Animation.create(44);
-    public static final Animation LEVIATHAN_TAIL_WHIPS = Animation.create(44);
+    public static final Animation LEVIATHAN_TAIL_WHIPS = Animation.create(42);
     public final The_Leviathan_Part headPart;
     public final The_Leviathan_Part tailPart1;
     public final The_Leviathan_Part tailPart2;
@@ -115,6 +124,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
     public double collidePosX, collidePosY, collidePosZ;
     private int destroyBlocksTick;
     public float LayerBrightness;
+    private Vec3 prevTailPos = new Vec3(0, 0, 0);
 
     private static final EntityDataAccessor<Integer> PORTAL_TICKS = SynchedEntityData.defineId(The_Leviathan_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> BLAST_CHANCE = SynchedEntityData.defineId(The_Leviathan_Entity.class, EntityDataSerializers.INT);
@@ -126,7 +136,9 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         super(type, worldIn);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.maxUpStep = 1.5F;
-
+        if (worldIn.isClientSide)
+            socketPosArray = new Vec3[]{new Vec3(0, 0, 0)
+        };
         this.headPart = new The_Leviathan_Part(this, 2.8F, 2.8F);
         this.tailPart1 = new The_Leviathan_Part(this, 1.5F, 2.4F);
         this.tailPart2 = new The_Leviathan_Part(this, 1.3F, 2.4F);
@@ -163,14 +175,15 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         this.goalSelector.addGoal(0, new LeviathanGrabAttackGoal(this,LEVIATHAN_GRAB));
         this.goalSelector.addGoal(0, new LeviathanStunGoal(this,LEVIATHAN_STUN));
         this.goalSelector.addGoal(0, new LeviathanGrabBiteAttackGoal(this,LEVIATHAN_GRAB_BITE));
+        this.goalSelector.addGoal(0, new LeviathanTailWhipsAttackGoal(this,LEVIATHAN_TAIL_WHIPS));
         this.goalSelector.addGoal(0, new LeviathanTentacleAttackGoal(this));
         this.goalSelector.addGoal(0, new LeviathanBlastAttackGoal(this,LEVIATHAN_ABYSS_BLAST));
         this.goalSelector.addGoal(0, new LeviathanAbyssBlastPortalAttackGoal(this,LEVIATHAN_ABYSS_BLAST_PORTAL));
         this.goalSelector.addGoal(0, new LeviathanRushAttackGoal(this,LEVIATHAN_RUSH));
         this.goalSelector.addGoal(8, new FollowBoatGoal(this));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
-        this.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, Player.class, true,true));
-        this.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(this, LivingEntity.class, 160, true, true, ModEntities.buildPredicateFromTag(ModTag.LEVIATHAN_TARGET)));
+        this.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, Player.class, false,true));
+        this.targetSelector.addGoal(3, new EntityAINearestTarget3D<>(this, LivingEntity.class, 160, false, true, ModEntities.buildPredicateFromTag(ModTag.LEVIATHAN_TARGET)));
 
     }
 
@@ -188,7 +201,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
 
     @Override
     public Animation[] getAnimations() {
-        return new Animation[]{LEVIATHAN_GRAB, LEVIATHAN_ABYSS_BLAST_PORTAL,LEVIATHAN_GRAB_BITE,LEVIATHAN_ABYSS_BLAST,LEVIATHAN_RUSH,LEVIATHAN_TENTACLE_STRIKE_UPPER_R,LEVIATHAN_TENTACLE_STRIKE_UPPER_L,LEVIATHAN_TENTACLE_STRIKE_LOWER_L,LEVIATHAN_TENTACLE_STRIKE_LOWER_R,LEVIATHAN_STUN};
+        return new Animation[]{LEVIATHAN_GRAB,LEVIATHAN_TAIL_WHIPS, LEVIATHAN_ABYSS_BLAST_PORTAL,LEVIATHAN_GRAB_BITE,LEVIATHAN_ABYSS_BLAST,LEVIATHAN_RUSH,LEVIATHAN_TENTACLE_STRIKE_UPPER_R,LEVIATHAN_TENTACLE_STRIKE_UPPER_L,LEVIATHAN_TENTACLE_STRIKE_LOWER_L,LEVIATHAN_TENTACLE_STRIKE_LOWER_R,LEVIATHAN_STUN};
     }
 
     public void travel(Vec3 travelVector) {
@@ -228,7 +241,18 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         if (this.destroyBlocksTick <= 0) {
             this.destroyBlocksTick = 20;
         }
+
+
+        boolean flag1 = this.canDrownInFluidType(this.getEyeInFluidType());
+        if (!flag1) {
+            if(!source.isBypassInvul()) {
+                damage *= 0.05;
+            }
+
+        }
+
         boolean attack = super.hurt(source, damage);
+
         if(this.getAnimation() == LEVIATHAN_RUSH) {
             if (this.getAnimationTick() >= 38 && this.getAnimationTick() <= 54) {
                 if(attack){
@@ -406,6 +430,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             if (this.getAnimationTick() == 54) {
                 this.level.playSound((Player) null, this, ModSounds.LEVIATHAN_ROAR.get(), SoundSource.HOSTILE, 4.0f, 1.0f);
                 ScreenShake_Entity.ScreenShake(this.level, this.position(), 30, 0.1f, 60, 10);
+                roarDarkness(48,48,48,48,40);
             }
         }
         if(this.getAnimation() == LEVIATHAN_GRAB_BITE){
@@ -440,10 +465,78 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             if (this.getAnimationTick() == 56) {
                 this.level.playSound((Player) null, this, ModSounds.LEVIATHAN_ROAR.get(), SoundSource.HOSTILE, 4.0f, 1.0f);
                 ScreenShake_Entity.ScreenShake(this.level, this.position(), 30, 0.1f, 60, 10);
+                roarDarkness(48,48,48,48,40);
+            }
+        }
+        SwingParticles();
+
+        if(this.getAnimation() == LEVIATHAN_TAIL_WHIPS){
+            if (this.getAnimationTick() == 18) {
+                TailWhips();
             }
         }
 
     }
+
+
+    private void roarDarkness(double x, double y,double z, double radius,int time) {
+        List<LivingEntity> entities = getEntityLivingBaseNearby(x, y, z, radius);
+        for (LivingEntity inRange : entities) {
+            if (inRange instanceof Player && ((Player) inRange).getAbilities().invulnerable) continue;
+            if (isAlliedTo(inRange)) continue;
+            inRange.addEffect(new MobEffectInstance(MobEffects.DARKNESS, time));
+        }
+    }
+
+    private void TailWhips() {
+        for (LivingEntity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(7.0D,7.0D,7.0D))) {
+            if (!isAlliedTo(entity) && !(entity instanceof The_Leviathan_Entity) && entity != this) {
+                boolean flag = entity.hurt(DamageSource.mobAttack(this), (float) ((float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) + Math.min(this.getAttributeValue(Attributes.ATTACK_DAMAGE), entity.getMaxHealth() * CMConfig.MonstrositysHpdamage)));
+                if (entity instanceof Player && entity.isBlocking()) {
+                    disableShield(entity, 240);
+                }
+                if (flag) {
+                    launch(entity, true);
+                }
+            }
+        }
+    }
+
+    private void launch(Entity e, boolean huge) {
+        double d0 = e.getX() - this.getX();
+        double d1 = e.getZ() - this.getZ();
+        double d2 = Math.max(d0 * d0 + d1 * d1, 0.001D);
+        float f = huge ? 20F : 5F;
+        e.push(d0 / d2 * f, huge ? 1.0D : 0.2F, d1 / d2 * f);
+    }
+
+
+    private void Tailswing() {
+        Vec3 bladePos = socketPosArray[0];
+        double length = prevTailPos.subtract(bladePos).length();
+        int numClouds = (int) Math.floor(2 * length);
+        for (int i = 0; i < numClouds; i++) {
+            double x = prevTailPos.x + i * (bladePos.x - prevTailPos.x) / numClouds;
+            double y = prevTailPos.y + i * (bladePos.y - prevTailPos.y) / numClouds;
+            double z = prevTailPos.z + i * (bladePos.z - prevTailPos.z) / numClouds;
+
+            ParticleOptions type =  ParticleTypes.EXPLOSION;
+            level.addParticle(type, x, y, z, 0, 0, 0);
+        }
+    }
+
+    private void SwingParticles() {
+        if (level.isClientSide) {
+            Vec3 bladePos = socketPosArray[0];
+            if (this.getAnimation() == LEVIATHAN_TAIL_WHIPS) {
+                if (this.getAnimationTick() >= 10 && this.getAnimationTick() <= 34) {
+                    Tailswing();
+                }
+            }
+            prevTailPos = bladePos;
+        }
+    }
+    
 
 
     private void blockbreak(double x, double y, double z) {
@@ -938,6 +1031,46 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         }
     }
 
+    static class LeviathanTailWhipsAttackGoal extends SimpleAnimationGoal<The_Leviathan_Entity> {
+
+        public LeviathanTailWhipsAttackGoal(The_Leviathan_Entity entity, Animation animation) {
+            super(entity, animation);
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK, Flag.JUMP));
+        }
+
+        public void start() {
+            entity.getNavigation().stop();
+            entity.CanAbyss_Blast_Portal = true;
+            entity.CanGrab = true;
+            entity.CanRush = true;
+            entity.CanAbyss_Blast = true;
+            LivingEntity target = entity.getTarget();
+            if (target != null) {
+                entity.getLookControl().setLookAt(target, 30, 30);
+            }
+            super.start();
+        }
+
+        public void stop() {
+            super.stop();
+            entity.hunting_cooldown = TENTACLE_STRIKE_HUNTING_COOLDOWN;
+            entity.setBlastChance(entity.getBlastChance() +1);
+            LivingEntity target = entity.getTarget();
+            if (target != null) {
+                entity.getLookControl().setLookAt(target, 30, 30);
+            }
+        }
+
+        public void tick() {
+            entity.getNavigation().stop();
+            LivingEntity target = entity.getTarget();
+            if (target != null) {
+                entity.getLookControl().setLookAt(target, 30, 30);
+            }
+        }
+    }
+
+
     static class LeviathanRushAttackGoal extends SimpleAnimationGoal<The_Leviathan_Entity> {
 
         public LeviathanRushAttackGoal(The_Leviathan_Entity entity, Animation animation) {
@@ -1220,10 +1353,6 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         }
     }
 
-
-
-
-
     static class LeviathanAttackGoal extends Goal {
         private final The_Leviathan_Entity mob;
         private LivingEntity target;
@@ -1307,7 +1436,6 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         }
 
     }
-
 
     static class LeviathanMoveController extends MoveControl {
         private final The_Leviathan_Entity entity;

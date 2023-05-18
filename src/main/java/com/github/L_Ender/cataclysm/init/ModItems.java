@@ -106,6 +106,15 @@ public class ModItems {
     public static final RegistryObject<BlockItem> STONE_TILES = ITEMS.register("stone_tiles",
             () -> new BlockItem(ModBlocks.STONE_TILES.get(), new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
 
+    public static final RegistryObject<BlockItem> STONE_TILE_SLAB = ITEMS.register("stone_tile_slab",
+            () -> new BlockItem(ModBlocks.STONE_TILE_SLAB.get(), new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
+
+    public static final RegistryObject<BlockItem> STONE_TILE_STAIRS = ITEMS.register("stone_tile_stairs",
+            () -> new BlockItem(ModBlocks.STONE_TILE_STAIRS.get(), new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
+
+    public static final RegistryObject<BlockItem> STONE_TILE_WALL = ITEMS.register("stone_tile_wall",
+            () -> new BlockItem(ModBlocks.STONE_TILE_WALL.get(), new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
+
     public static final RegistryObject<Item> WITHERITE_INGOT = ITEMS.register("witherite_ingot",
             () -> new Item(new Item.Properties().fireResistant().rarity(Rarity.EPIC).tab(cataclysm.CATACLYSM_GROUP)));
 

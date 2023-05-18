@@ -33,6 +33,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 	private final AdvancedModelBox R_Spike4;
 	private final AdvancedModelBox L_Spike4;
 	private final AdvancedModelBox Tail3;
+	public final AdvancedModelBox Tail_Particle;
 	private final AdvancedModelBox UpperR_Tantacle;
 	private final AdvancedModelBox UpperR_Tantacle2;
 	private final AdvancedModelBox UpperR_Tantacle3;
@@ -213,6 +214,10 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		Tail2.addChild(Tail3);
 		Tail3.setTextureOffset(29, 146).addBox(-2.0F, -2.5F, -2.0F, 4.0F, 5.0F, 16.0F, -0.01F, false);
 		Tail3.setTextureOffset(0, 0).addBox(0.0F, -7.6F, 0.0F, 0.0F, 25.0F, 42.0F, 0.0F, false);
+
+		Tail_Particle = new AdvancedModelBox(this);
+		Tail_Particle.setRotationPoint(0.0F, -14.475F, 77.0F);
+		Tail3.addChild(Tail_Particle);
 
 		UpperR_Tantacle = new AdvancedModelBox(this);
 		UpperR_Tantacle.setRotationPoint(-8.0F, -2.0F, 6.0F);
@@ -1439,6 +1444,30 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		animator.resetKeyframe(15);
 
+
+		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_TAIL_WHIPS);
+		animator.startKeyframe(12);
+		animator.rotate(Tail3,0,(float)Math.toRadians(45f), 0);
+		animator.rotate(Tail2,0,(float)Math.toRadians(30f), 0);
+		animator.rotate(Tail2,0,(float)Math.toRadians(37.5f), 0);
+		animator.rotate(Belly,0,(float)Math.toRadians(27.5f), 0);
+		animator.rotate(Main_belly,0,(float)Math.toRadians(32.5f), 0);
+		animator.rotate(body,0,(float)Math.toRadians(-42.5f), 0);
+		animator.rotate(root,0,(float)Math.toRadians(-52.5f), 0);
+		animator.endKeyframe();
+
+		animator.startKeyframe(20);
+		animator.rotate(Belly,0,(float)Math.toRadians(2.5f), 0);
+		animator.rotate(root,0,(float)Math.toRadians(-360f), 0);
+		animator.endKeyframe();
+
+
+		animator.startKeyframe(0);
+		animator.rotate(Belly,0,(float)Math.toRadians(2.5f), 0);
+		animator.endKeyframe();
+
+		animator.resetKeyframe(10);
+
 	}
 
 	@Override
@@ -1639,6 +1668,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 				R_Spike4,
 				L_Spike4,
 				Tail3,
+				Tail_Particle,
 				UpperL_Tantacle,
 				UpperL_Tantacle2,
 				UpperL_Tantacle3,
