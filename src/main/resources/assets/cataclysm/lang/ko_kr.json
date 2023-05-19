@@ -102,6 +102,8 @@
   "block.cataclysm.purpur_wall": "퍼퍼 담장",
   "block.cataclysm.quartz_brick_wall": "석영 벽돌 담장",
   "block.cataclysm.stone_tiles":"돌 타일",
+  "block.cataclysm.stone_pillar": "돌 기둥",
+  "block.cataclysm.chiseled_stone_brick_pillar":"조각된 석재 벽돌 기둥",
   "block.cataclysm.stone_tile_slab":"돌 타일 반 블록",
   "block.cataclysm.stone_tile_stairs":"돌 타일 반 계단",
   "block.cataclysm.stone_tile_wall":"돌 타일 반 담장",

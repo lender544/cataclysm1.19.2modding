@@ -138,7 +138,7 @@ public class Abyss_Blast_Entity extends Entity {
             if (!level.isClientSide) {
                 for (LivingEntity target : hit) {
                     if(target != caster) {
-                        boolean flag = target.hurt(CMDamageTypes.causeLaserDamage(this, caster).bypassArmor(), (float) 10);
+                        boolean flag = target.hurt(CMDamageTypes.causeLaserDamage(this, caster).bypassArmor(), (float) 15);
                     }
 
                 }

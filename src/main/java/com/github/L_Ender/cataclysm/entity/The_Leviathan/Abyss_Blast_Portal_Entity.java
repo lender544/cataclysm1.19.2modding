@@ -110,7 +110,6 @@ public class Abyss_Blast_Portal_Entity extends Entity {
 			}
 
 			if (!this.sentSpikeEvent) {
-				this.playSound(SoundEvents.END_PORTAL_SPAWN, 0.5F, this.random.nextFloat() * 0.2F + 0.85F);
 				this.level.broadcastEntityEvent(this, (byte)4);
 				this.clientSideAttackStarted = true;
 				this.sentSpikeEvent = true;

@@ -37,6 +37,7 @@ public class CMConfig {
     public static int MonstrosityDamageCap = 25;
     public static int IgnisDamageCap = 20;
     public static int HarbingerDamageCap = 22;
+    public static int LeviathanDamageCap = 20;
 
     public static int Lavabombmagazine = 3;
     public static int Lavabombamount = 3;
@@ -173,7 +174,7 @@ public class CMConfig {
             LeviathanHealthMultiplier = ConfigHolder.COMMON.LeviathanHealthMultiplier.get();
             LeviathanDamageMultiplier = ConfigHolder.COMMON.LeviathanDamageMultiplier.get();
             LeviathanBlockBreaking = ConfigHolder.COMMON.LeviathanBlockBreaking.get();
-
+            LeviathanDamageCap = ConfigHolder.COMMON.LeviathanDamageCap.get();
 
             Armor_Infinity_Durability = ConfigHolder.COMMON.Armor_Infinity_Durability.get();
         } catch (Exception e) {
