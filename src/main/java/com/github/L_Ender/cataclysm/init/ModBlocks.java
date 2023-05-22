@@ -44,6 +44,9 @@ public class ModBlocks {
                         return 15;
                     })));
 
+    public static final RegistryObject<Block> DUNGEON_BLOCK = BLOCKS.register("dungeon_block",
+            () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(-1.0F, 3600000.0F).noLootTable()));
+
     public static final RegistryObject<Block> POLISHED_END_STONE = BLOCKS.register("polished_end_stone",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.END_STONE)));
 

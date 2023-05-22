@@ -5,6 +5,7 @@
     "cataclysm:enderite_block",
     "cataclysm:ignitium_block",
     "cataclysm:altar_of_void",
-    "cataclysm:altar_of_fire"
+    "cataclysm:altar_of_fire",
+    "cataclysm:dungeon_block"
   ]
 }

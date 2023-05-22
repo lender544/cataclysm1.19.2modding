@@ -19,6 +19,7 @@
     "minecraft:structure_block",
     "cataclysm:altar_of_fire",
     "cataclysm:altar_of_void",
-    "cataclysm:emp"
+    "cataclysm:emp",
+    "cataclysm:dungeon_block"
   ]
 }

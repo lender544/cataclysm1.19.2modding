@@ -500,7 +500,7 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
                             BlockState block = level.getBlockState(blockpos);
                             BlockEntity tileEntity = level.getBlockEntity(blockpos);
                             FluidState fluidState = level.getFluidState(blockpos);
-                            if (block.getMaterial() != Material.AIR && fluidState.isEmpty() && !block.is(ModTag.NETHERITE_MONSTROSITY_IMMUNE)) {
+                            if (block.getMaterial() != Material.AIR && !block.is(ModTag.NETHERITE_MONSTROSITY_IMMUNE)) {
                                 if (tileEntity == null && random.nextInt(4) + 1 == 4) {
                                     this.level.removeBlock(blockpos, true);
                                     Cm_Falling_Block_Entity fallingBlockEntity = new Cm_Falling_Block_Entity(level, i3 + 0.5D, k + 0.5D, l + 0.5D, block,5);
@@ -531,9 +531,8 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
                             for (int c = (int) Math.round(this.getBoundingBox().minZ); c <= (int) Math.round(this.getBoundingBox().maxZ); c++) {
                                 BlockPos blockpos = new BlockPos(a, b, c);
                                 BlockState block = level.getBlockState(blockpos);
-                                FluidState fluidState = level.getFluidState(blockpos);
                                 BlockEntity tileEntity = level.getBlockEntity(blockpos);
-                                if (block.getMaterial() != Material.AIR && fluidState.isEmpty() && block.is(ModTag.NETHERITE_MONSTROSITY_BREAK)) {
+                                if (block.getMaterial() != Material.AIR && block.is(ModTag.NETHERITE_MONSTROSITY_BREAK)) {
                                     boolean flag = level.destroyBlock(new BlockPos(a, b, c), shouldDropItem(tileEntity));
                                     if (flag) {
                                         blockBreakCounter = 10;

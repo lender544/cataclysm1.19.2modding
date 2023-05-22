@@ -27,6 +27,9 @@ public class ModItems {
     public static final RegistryObject<BlockItem> IGNITIUM_BLOCK = ITEMS.register("ignitium_block",
             () -> new BlockItem(ModBlocks.IGNITIUM_BLOCK.get(), new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).fireResistant().rarity(Rarity.EPIC)));
 
+    public static final RegistryObject<BlockItem> DUNGEON_BLOCK = ITEMS.register("dungeon_block",
+            () -> new BlockItem(ModBlocks.DUNGEON_BLOCK.get(), new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
+
     public static final RegistryObject<BlockItem> POLISHED_END_STONE = ITEMS.register("polished_end_stone",
             () -> new BlockItem(ModBlocks.POLISHED_END_STONE.get(), new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
 
