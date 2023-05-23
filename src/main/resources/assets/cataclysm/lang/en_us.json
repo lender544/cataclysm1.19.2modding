@@ -77,6 +77,7 @@
   "item.cataclysm.the_harbinger_spawn_egg": "The Harbinger Spawn Egg",
   "item.cataclysm.the_leviathan_spawn_egg": "The Leviathan Spawn Egg",
   "item.cataclysm.deepling_spawn_egg": "Deepling Spawn Egg",
+  "item.cataclysm.deepling_brute_spawn_egg": "Deepling Brute Spawn Egg",
 
   "itemGroup.cataclysm": "Cataclysm",
   "block.cataclysm.witherite_block": "Witherite Block",
@@ -151,6 +152,7 @@
   "entity.cataclysm.abyss_mine": "Abyss Mine",
   "entity.cataclysm.abyss_portal": "Abyss Portal",
   "entity.cataclysm.coral_spear": "Coral Spear",
+  "entity.cataclysm.deepling_brute": "Deepling Brute",
 
   "effect.cataclysm.monstrous": "Monstrous",
   "effect.cataclysm.blazing_brand": "Blazing Brand",

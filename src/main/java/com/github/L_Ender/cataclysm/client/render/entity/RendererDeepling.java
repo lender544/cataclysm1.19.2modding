@@ -19,7 +19,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class RendererDeepling extends MobRenderer<Deepling_Entity, ModelDeepling> {
 
     private static final ResourceLocation SSAPBUG_TEXTURES = new ResourceLocation("cataclysm:textures/entity/deepling/deepling_1.png");
-    private static final ResourceLocation SSAPBUG_LAYER_TEXTURES = new ResourceLocation("cataclysm:textures/entity/deepling/deepling_layer.png");
 
     public RendererDeepling(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new ModelDeepling(), 0.7F);

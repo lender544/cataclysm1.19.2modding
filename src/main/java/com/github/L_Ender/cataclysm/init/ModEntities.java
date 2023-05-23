@@ -97,9 +97,14 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<Deepling_Entity>> DEEPLING = ENTITY_TYPE.register("deepling", () -> EntityType.Builder.<Deepling_Entity>of(Deepling_Entity::new, MobCategory.MONSTER)
             .sized(0.6F, 2.2f)
-            .fireImmune()
             .clientTrackingRange(8)
             .build(cataclysm.MODID + ":deepling"));
+
+    public static final RegistryObject<EntityType<Deepling_Brute_Entity>> DEEPLING_BRUTE = ENTITY_TYPE.register("deepling_brute", () -> EntityType.Builder.<Deepling_Brute_Entity>of(Deepling_Brute_Entity::new, MobCategory.MONSTER)
+            .sized(0.6F, 2.2f)
+            .fireImmune()
+            .clientTrackingRange(8)
+            .build(cataclysm.MODID + ":deepling_brute"));
 
     public static final RegistryObject<EntityType<Ignited_Revenant_Entity>> IGNITED_REVENANT = ENTITY_TYPE.register("ignited_revenant", () -> EntityType.Builder.of(Ignited_Revenant_Entity::new, MobCategory.MONSTER)
             .sized(1.6F, 2.8f)
@@ -324,6 +329,7 @@ public class ModEntities {
         event.put(THE_LEVIATHAN.get(), The_Leviathan_Entity.leviathan().build());
         event.put(CUSTOM_GUARDIAN.get(), CustomGuardian.m_32853_().build());
         event.put(DEEPLING.get(), Deepling_Entity.deepling().build());
+        event.put(DEEPLING_BRUTE.get(), Deepling_Brute_Entity.deeplingbrute().build());
     }
 }
 
