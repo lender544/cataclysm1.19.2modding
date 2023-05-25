@@ -499,7 +499,6 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
                             BlockPos blockpos = new BlockPos(i3, k, l);
                             BlockState block = level.getBlockState(blockpos);
                             BlockEntity tileEntity = level.getBlockEntity(blockpos);
-                            FluidState fluidState = level.getFluidState(blockpos);
                             if (block.getMaterial() != Material.AIR && !block.is(ModTag.NETHERITE_MONSTROSITY_IMMUNE)) {
                                 if (tileEntity == null && random.nextInt(4) + 1 == 4) {
                                     this.level.removeBlock(blockpos, true);

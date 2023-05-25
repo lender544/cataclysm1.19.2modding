@@ -14,7 +14,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -305,7 +304,12 @@ public class ModEntities {
             .updateInterval(20)
             .build(cataclysm.MODID + ":coral_spear"));
 
-
+    public static final RegistryObject<EntityType<Dimensional_Rift_Entity>> DIMENSIONAL_RIFT = ENTITY_TYPE.register("dimensional_rift", () -> EntityType.Builder.<Dimensional_Rift_Entity>of(Dimensional_Rift_Entity::new, MobCategory.MISC)
+            .sized(2.0F, 2.0F)
+            .fireImmune()
+            .clientTrackingRange(10).
+            updateInterval(Integer.MAX_VALUE)
+            .build(cataclysm.MODID + ":dimensional_rift"));
 
     public static Predicate<LivingEntity> buildPredicateFromTag(TagKey<EntityType<?>> entityTag){
         if(entityTag == null){

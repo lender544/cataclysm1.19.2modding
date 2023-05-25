@@ -144,6 +144,16 @@ public class Void_Vortex_Entity extends Entity {
 
     }
 
+    public boolean shouldRenderAtSqrDistance(double p_36837_) {
+        double d0 = this.getBoundingBox().getSize() * 4.0D;
+        if (Double.isNaN(d0)) {
+            d0 = 4.0D;
+        }
+
+        d0 *= 64.0D;
+        return p_36837_ < d0 * d0;
+    }
+
     protected void readAdditionalSaveData(CompoundTag compound) {
         this.setLifespan(compound.getInt("Lifespan"));
         if (compound.hasUUID("Owner")) {

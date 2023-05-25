@@ -194,6 +194,12 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> DEEPLING_SWING = SOUNDS.register("deepling_swing",
             () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"deepling_swing")));
 
+    public static final RegistryObject<SoundEvent> BLACK_HOLE_OPENING = SOUNDS.register("black_hole_opening",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"black_hole_opening")));
 
+    public static final RegistryObject<SoundEvent> BLACK_HOLE_CLOSING = SOUNDS.register("black_hole_closing",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"black_hole_closing")));
 
+    public static final RegistryObject<SoundEvent> BLACK_HOLE_LOOP = SOUNDS.register("black_hole_loop",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"black_hole_loop")));
 }

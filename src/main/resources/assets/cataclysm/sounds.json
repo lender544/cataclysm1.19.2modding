@@ -563,6 +563,30 @@
       }
     ]
   },
+  "black_hole_opening": {
+    "subtitle": "black_hole_opening.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/black_hole_opening"
+      }
+    ]
+  },
+  "black_hole_closing": {
+    "subtitle": "black_hole_closing.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/black_hole_closing"
+      }
+    ]
+  },
+  "black_hole_loop": {
+    "subtitle": "black_hole_loop.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/black_hole_opening"
+      }
+    ]
+  },
   "deepling_idle": {
     "subtitle": "deepling_idle.sub",
     "sounds": [
