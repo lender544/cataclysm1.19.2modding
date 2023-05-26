@@ -1,17 +1,13 @@
 package com.github.L_Ender.cataclysm.client.render.entity;
 
 import com.github.L_Ender.cataclysm.client.model.entity.ModelDeepling;
-import com.github.L_Ender.cataclysm.client.model.entity.ModelEndermaptera;
 import com.github.L_Ender.cataclysm.client.render.layer.Deepling_Layer;
 import com.github.L_Ender.cataclysm.client.render.layer.LayerDeeplingItem;
-import com.github.L_Ender.cataclysm.client.render.layer.LayerGenericGlowing;
-import com.github.L_Ender.cataclysm.entity.Deepling_Entity;
-import com.github.L_Ender.cataclysm.entity.Endermaptera_Entity;
+import com.github.L_Ender.cataclysm.entity.Deepling.Deepling_Entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

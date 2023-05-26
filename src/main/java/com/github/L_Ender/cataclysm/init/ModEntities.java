@@ -3,6 +3,8 @@ package com.github.L_Ender.cataclysm.init;
 
 import com.github.L_Ender.cataclysm.cataclysm;
 import com.github.L_Ender.cataclysm.entity.*;
+import com.github.L_Ender.cataclysm.entity.Deepling.Deepling_Brute_Entity;
+import com.github.L_Ender.cataclysm.entity.Deepling.Deepling_Entity;
 import com.github.L_Ender.cataclysm.entity.The_Leviathan.*;
 import com.github.L_Ender.cataclysm.entity.effect.*;
 import com.github.L_Ender.cataclysm.entity.projectile.Ashen_Breath_Entity;

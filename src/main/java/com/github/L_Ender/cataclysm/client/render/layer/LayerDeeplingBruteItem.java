@@ -1,9 +1,7 @@
 package com.github.L_Ender.cataclysm.client.render.layer;
 
-import com.github.L_Ender.cataclysm.client.model.entity.ModelDeepling;
 import com.github.L_Ender.cataclysm.client.model.entity.ModelDeepling_Brute;
-import com.github.L_Ender.cataclysm.entity.Deepling_Brute_Entity;
-import com.github.L_Ender.cataclysm.entity.Deepling_Entity;
+import com.github.L_Ender.cataclysm.entity.Deepling.Deepling_Brute_Entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;

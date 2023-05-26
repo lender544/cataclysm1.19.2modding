@@ -1,12 +1,10 @@
-package com.github.L_Ender.cataclysm.entity;
+package com.github.L_Ender.cataclysm.entity.Deepling;
 
 import com.github.L_Ender.cataclysm.entity.AI.MobAIFindWater;
 import com.github.L_Ender.cataclysm.entity.AI.MobAILeaveWater;
 import com.github.L_Ender.cataclysm.entity.etc.GroundPathNavigatorWide;
 import com.github.L_Ender.cataclysm.entity.etc.ISemiAquatic;
 import com.github.L_Ender.cataclysm.entity.etc.SemiAquaticPathNavigator;
-import com.github.L_Ender.cataclysm.entity.projectile.ThrownCoral_Spear_Entity;
-import com.github.L_Ender.cataclysm.init.ModItems;
 import com.github.L_Ender.cataclysm.init.ModSounds;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
@@ -18,7 +16,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -39,7 +36,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.TridentItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -52,21 +48,12 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
 
-public class Deepling_Brute_Entity extends Monster implements IAnimatedEntity, ISemiAquatic {
-    private int animationTick;
-    public float SwimProgress = 0;
-    public float prevSwimProgress = 0;
-    private Animation currentAnimation;
+public class Deepling_Brute_Entity extends AbstractDeepling {
     boolean searchingForLand;
-    public static final Animation DEEPLING_BRUTE_TRIDENT_THROW = Animation.create(40);
+    public static final Animation DEEPLING_BRUTE_TRIDENT_THROW = Animation.create(45);
     public static final Animation DEEPLING_BRUTE_MELEE = Animation.create(20);
-    private int moistureAttackTime = 0;
     private int SpinAttackTicks;
-    private boolean isLandNavigator;
-    private static final EntityDataAccessor<Integer> MOISTNESS = SynchedEntityData.defineId(Deepling_Brute_Entity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SPINATTACK = SynchedEntityData.defineId(Deepling_Brute_Entity.class, EntityDataSerializers.BOOLEAN);
-    public float LayerBrightness, oLayerBrightness;
-    public int LayerTicks;
     public Deepling_Brute_Entity(EntityType entity, Level world) {
         super(entity, world);
         this.moveControl = new DeeplingMoveControl(this);
@@ -76,18 +63,11 @@ public class Deepling_Brute_Entity extends Monster implements IAnimatedEntity, I
     }
 
     protected void registerGoals() {
+        super.registerGoals();
         this.goalSelector.addGoal(2, new DeeplingBruteTridentShoot(this, 1.0D, 15.0F));
         this.goalSelector.addGoal(5, new DeeplingGoToBeachGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new DeeplingSwimUpGoal(this, 1.0D, this.level.getSeaLevel()));
-        this.goalSelector.addGoal(4, new MobAIFindWater(this,1.0D));
-        this.goalSelector.addGoal(4, new MobAILeaveWater(this));
-        this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new AnimationMeleeAttackGoal(this, 1.1f, false));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8D));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers());
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
     public static AttributeSupplier.Builder deeplingbrute() {
@@ -103,20 +83,8 @@ public class Deepling_Brute_Entity extends Monster implements IAnimatedEntity, I
 
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(MOISTNESS, 90000);
         this.entityData.define(SPINATTACK, false);
     }
-
-    private void switchNavigator(boolean onLand) {
-        if (onLand) {
-            this.navigation = new GroundPathNavigatorWide(this, level);
-            this.isLandNavigator = true;
-        } else {
-            this.navigation = new SemiAquaticPathNavigator(this, level);
-            this.isLandNavigator = false;
-        }
-    }
-
 
     protected PathNavigation createNavigation(Level worldIn) {
         return new WaterBoundPathNavigation(this, worldIn);
@@ -139,9 +107,6 @@ public class Deepling_Brute_Entity extends Monster implements IAnimatedEntity, I
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.TRIDENT));
     }
 
-    public boolean canBreatheUnderwater() {
-        return true;
-    }
 
     protected SoundEvent getAmbientSound() {
         return ModSounds.DEEPLING_IDLE.get();
@@ -172,25 +137,6 @@ public class Deepling_Brute_Entity extends Monster implements IAnimatedEntity, I
         return new Animation[]{NO_ANIMATION, DEEPLING_BRUTE_TRIDENT_THROW, DEEPLING_BRUTE_MELEE};
     }
 
-    public boolean isAlliedTo(Entity entityIn) {
-        if (entityIn == this) {
-            return true;
-        } else if (super.isAlliedTo(entityIn)) {
-            return true;
-        } else if (entityIn instanceof Deepling_Entity || entityIn instanceof Deepling_Brute_Entity) {
-            return this.getTeam() == null && entityIn.getTeam() == null;
-        } else {
-            return false;
-        }
-    }
-
-    public int getMoistness() {
-        return this.entityData.get(MOISTNESS);
-    }
-
-    public void setMoistness(int p_211137_1_) {
-        this.entityData.set(MOISTNESS, p_211137_1_);
-    }
 
     public boolean getSpinAttack() {
         return this.entityData.get(SPINATTACK);
@@ -203,37 +149,6 @@ public class Deepling_Brute_Entity extends Monster implements IAnimatedEntity, I
     @Override
     public void tick() {
         super.tick();
-        if (isInWater() && this.isLandNavigator) {
-            switchNavigator(false);
-        }
-        if (!isInWater() && !this.isLandNavigator) {
-            switchNavigator(true);
-        }
-        this.prevSwimProgress = SwimProgress;
-        if (this.isInWater()) {
-            if (this.SwimProgress < 10F)
-                this.SwimProgress++;
-        } else {
-            if (this.SwimProgress > 0F)
-                this.SwimProgress--;
-        }
-        if (this.isNoAi()) {
-            this.setAirSupply(this.getMaxAirSupply());
-        } else {
-            if (this.isInWaterRainOrBubble()) {
-                this.setMoistness(6000);
-            } else {
-                int dry = this.level.isDay() ? 2 : 1;
-                this.setMoistness(this.getMoistness() - dry);
-                if (this.getMoistness() <= 0 && moistureAttackTime-- <= 0) {
-                    this.hurt(DamageSource.DRY_OUT, random.nextInt(2) == 0 ? 1.0F : 0F);
-                    moistureAttackTime = 20;
-                }
-            }
-        }
-
-        AnimationHandler.INSTANCE.updateAnimations(this);
-
         LivingEntity target = this.getTarget();
         if(this.isAlive()) {
             if (this.getAnimation() == DEEPLING_BRUTE_TRIDENT_THROW) {
@@ -278,12 +193,6 @@ public class Deepling_Brute_Entity extends Monster implements IAnimatedEntity, I
                 }
             }
         }
-
-        if (this.level.isClientSide){
-            ++LayerTicks;
-            this.LayerBrightness += (0.0F - this.LayerBrightness) * 0.8F;
-        }
-
         AABB aabb = this.getBoundingBox();
         if (this.SpinAttackTicks > 0) {
             --this.SpinAttackTicks;
@@ -323,30 +232,6 @@ public class Deepling_Brute_Entity extends Monster implements IAnimatedEntity, I
 
     }
 
-    @Override
-    public int getAnimationTick() {
-        return animationTick;
-    }
-
-    @Override
-    public void setAnimationTick(int tick) {
-        animationTick = tick;
-    }
-
-    @Override
-    public Animation getAnimation() {
-        return currentAnimation;
-    }
-
-    @Override
-    public void setAnimation(Animation animation) {
-        currentAnimation = animation;
-    }
-
-
-    public boolean isPushedByFluid() {
-        return !this.isSwimming();
-    }
 
     boolean wantsToSwim() {
         if (this.searchingForLand) {
@@ -380,33 +265,12 @@ public class Deepling_Brute_Entity extends Monster implements IAnimatedEntity, I
                 }
             }
         }
-
         return false;
     }
 
 
     public void setSearchingForLand(boolean p_32399_) {
         this.searchingForLand = p_32399_;
-    }
-
-    @Override
-    public boolean shouldEnterWater() {
-        return getMoistness() < 300 || getTarget() ==null;
-    }
-
-    @Override
-    public boolean shouldLeaveWater() {
-        return this.getTarget() != null && !this.getTarget().isInWater();
-    }
-
-    @Override
-    public boolean shouldStopMoving() {
-        return false;
-    }
-
-    @Override
-    public int getWaterSearchRange() {
-        return 32;
     }
 
     static class DeeplingGoToBeachGoal extends MoveToBlockGoal {
@@ -432,7 +296,7 @@ public class Deepling_Brute_Entity extends Monster implements IAnimatedEntity, I
 
         public void start() {
             this.drowned.setSearchingForLand(false);
-            this.drowned.switchNavigator(true);
+           // this.drowned.switchNavigator(true);
             super.start();
         }
 

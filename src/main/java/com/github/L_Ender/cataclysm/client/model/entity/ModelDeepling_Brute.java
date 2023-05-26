@@ -3,7 +3,7 @@ package com.github.L_Ender.cataclysm.client.model.entity;// Made with Blockbench
 // Paste this class into your mod and generate all required imports
 
 
-import com.github.L_Ender.cataclysm.entity.Deepling_Brute_Entity;
+import com.github.L_Ender.cataclysm.entity.Deepling.Deepling_Brute_Entity;
 import com.github.alexthe666.citadel.client.model.AdvancedEntityModel;
 import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
 import com.github.alexthe666.citadel.client.model.ModelAnimator;
@@ -135,7 +135,7 @@ public class ModelDeepling_Brute extends AdvancedEntityModel<Deepling_Brute_Enti
 				animator.rotate(body, (float) Math.toRadians(22.5F), (float) Math.toRadians(30F), (float) Math.toRadians(-7.5F));
 				animator.endKeyframe();
 
-				animator.resetKeyframe(28);
+				animator.resetKeyframe(33);
 			}else {
 				animator.startKeyframe(10);
 				animator.rotate(left_arm, (float) Math.toRadians(-55F), (float) Math.toRadians(-10F), (float) Math.toRadians(-7.5F));
@@ -151,7 +151,7 @@ public class ModelDeepling_Brute extends AdvancedEntityModel<Deepling_Brute_Enti
 				animator.rotate(body, (float) Math.toRadians(22.5F), (float) Math.toRadians(-30F), (float) Math.toRadians(7.5F));
 				animator.endKeyframe();
 
-				animator.resetKeyframe(28);
+				animator.resetKeyframe(33);
 			}
 		}else{
 			if(entity.isLeftHanded()){

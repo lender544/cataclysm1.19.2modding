@@ -1,25 +1,17 @@
 package com.github.L_Ender.cataclysm.client.render.entity;
 
-import com.github.L_Ender.cataclysm.client.model.entity.ModelDeepling;
 import com.github.L_Ender.cataclysm.client.model.entity.ModelDeepling_Brute;
-import com.github.L_Ender.cataclysm.client.render.RenderUtils;
 import com.github.L_Ender.cataclysm.client.render.layer.Deepling_Brute_Layer;
-import com.github.L_Ender.cataclysm.client.render.layer.Deepling_Layer;
 import com.github.L_Ender.cataclysm.client.render.layer.LayerDeeplingBruteItem;
-import com.github.L_Ender.cataclysm.client.render.layer.LayerDeeplingItem;
-import com.github.L_Ender.cataclysm.entity.Deepling_Brute_Entity;
-import com.github.L_Ender.cataclysm.entity.Deepling_Entity;
-import com.github.L_Ender.cataclysm.entity.Ignis_Entity;
+import com.github.L_Ender.cataclysm.entity.Deepling.Deepling_Brute_Entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Pose;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
