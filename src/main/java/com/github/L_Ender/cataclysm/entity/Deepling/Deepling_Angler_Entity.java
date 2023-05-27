@@ -1,39 +1,37 @@
 package com.github.L_Ender.cataclysm.entity.Deepling;
 
-import com.github.L_Ender.cataclysm.entity.AI.MobAIFindWater;
-import com.github.L_Ender.cataclysm.entity.AI.MobAILeaveWater;
-import com.github.L_Ender.cataclysm.entity.etc.GroundPathNavigatorWide;
-import com.github.L_Ender.cataclysm.entity.etc.ISemiAquatic;
-import com.github.L_Ender.cataclysm.entity.etc.SemiAquaticPathNavigator;
+import com.github.L_Ender.cataclysm.config.CMConfig;
+import com.github.L_Ender.cataclysm.entity.Netherite_Monstrosity_Entity;
+import com.github.L_Ender.cataclysm.entity.projectile.ThrownCoral_Spear_Entity;
+import com.github.L_Ender.cataclysm.init.ModEffect;
+import com.github.L_Ender.cataclysm.init.ModItems;
 import com.github.L_Ender.cataclysm.init.ModSounds;
 import com.github.alexthe666.citadel.animation.Animation;
-import com.github.alexthe666.citadel.animation.AnimationHandler;
-import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.SpellcasterIllager;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -41,73 +39,67 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.Path;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
-import java.util.List;
 
-public class Deepling_Brute_Entity extends AbstractDeepling {
+public class Deepling_Angler_Entity extends AbstractDeepling {
     boolean searchingForLand;
-    public static final Animation DEEPLING_BRUTE_TRIDENT_THROW = Animation.create(45);
-    public static final Animation DEEPLING_BRUTE_MELEE = Animation.create(20);
-    private int SpinAttackTicks;
-    private static final EntityDataAccessor<Boolean> SPINATTACK = SynchedEntityData.defineId(Deepling_Brute_Entity.class, EntityDataSerializers.BOOLEAN);
-    public Deepling_Brute_Entity(EntityType entity, Level world) {
+    public static final Animation DEEPLING_TRIDENT_THROW = Animation.create(40);
+    public static final Animation DEEPLING_MELEE = Animation.create(20);
+    public static final Animation DEEPLING_BLIND = Animation.create(57);
+
+    private int lightcooldown = 200;
+    public static final int LIGHT_COOLDOWN = 200;
+
+
+    public Deepling_Angler_Entity(EntityType entity, Level world) {
         super(entity, world);
         this.moveControl = new DeeplingMoveControl(this);
         switchNavigator(false);
-        this.xpReward = 15;
+        this.xpReward = 8;
       
     }
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(2, new DeeplingBruteTridentShoot(this, 1.0D, 15.0F));
+        this.goalSelector.addGoal(2, new DeeplingLightGoal(this));
         this.goalSelector.addGoal(5, new DeeplingGoToBeachGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new DeeplingSwimUpGoal(this, 1.0D, this.level.getSeaLevel()));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers());
-        this.goalSelector.addGoal(3, new AnimationMeleeAttackGoal(this, 1.1f, false));
+        this.goalSelector.addGoal(3, new AnimationMeleeAttackGoal(this, 1.0f, false));
     }
 
-    public static AttributeSupplier.Builder deeplingbrute() {
+    public static AttributeSupplier.Builder deepling() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MOVEMENT_SPEED, 0.29F)
-                .add(Attributes.ATTACK_DAMAGE, 6.0D)
-                .add(Attributes.MAX_HEALTH, 65)
+                .add(Attributes.MOVEMENT_SPEED, 0.27F)
+                .add(Attributes.ATTACK_DAMAGE, 4.0D)
+                .add(Attributes.MAX_HEALTH, 30)
                 .add(Attributes.FOLLOW_RANGE, 20)
-                .add(Attributes.ARMOR, 8)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.35);
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.25);
     }
 
 
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(SPINATTACK, false);
     }
 
     protected PathNavigation createNavigation(Level worldIn) {
         return new WaterBoundPathNavigation(this, worldIn);
     }
 
-
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("Moisture", this.getMoistness());
 
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setMoistness(compound.getInt("Moisture"));
-
     }
-
     protected void populateDefaultEquipmentSlots(RandomSource p_219154_, DifficultyInstance p_219155_) {
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.TRIDENT));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.FISHING_ROD));
     }
-
 
     protected SoundEvent getAmbientSound() {
         return ModSounds.DEEPLING_IDLE.get();
@@ -135,56 +127,34 @@ public class Deepling_Brute_Entity extends AbstractDeepling {
 
     @Override
     public Animation[] getAnimations() {
-        return new Animation[]{NO_ANIMATION, DEEPLING_BRUTE_TRIDENT_THROW, DEEPLING_BRUTE_MELEE};
+        return new Animation[]{NO_ANIMATION, DEEPLING_TRIDENT_THROW, DEEPLING_MELEE,DEEPLING_BLIND};
     }
 
-
-    public boolean getSpinAttack() {
-        return this.entityData.get(SPINATTACK);
-    }
-
-    public void setSpinAttack(boolean p_211137_1_) {
-        this.entityData.set(SPINATTACK, p_211137_1_);
-    }
 
     @Override
     public void tick() {
         super.tick();
         LivingEntity target = this.getTarget();
+        if (lightcooldown > 0) {
+            lightcooldown--;
+        }
+
         if(this.isAlive()) {
-            if (this.getAnimation() == DEEPLING_BRUTE_TRIDENT_THROW) {
+            if (this.getAnimation() == DEEPLING_TRIDENT_THROW) {
                 if (target != null) {
                     if (this.getAnimationTick() == 11) {
-                        if(this.isInWaterOrRain()) {
-                            double f1 = target.getX() - this.getX();
-                            double f2 = target.getY() - this.getY();
-                            double f3 = target.getZ() - this.getZ();
-                            double f4 = Mth.sqrt((float) (f1 * f1 + f2 * f2 + f3 * f3));
-                            float f5 = 2.0F;
-                            f1 *= f5 / f4;
-                            f2 *= f5 / f4;
-                            f3 *= f5 / f4;
-                            this.push((double)f1, (double)f2, (double)f3);
-                            this.startAutoSpinAttack(20);
-                            if (this.isOnGround()) {
-                                this.move(MoverType.SELF, new Vec3(0.0D, (double)1.1999999F, 0.0D));
-                            }
-                            this.playSound( SoundEvents.TRIDENT_RIPTIDE_3,1.0F, 1.0F);
-
-                        }else{
-                            ThrownTrident throwntrident = new ThrownTrident(this.level, this, new ItemStack(Items.TRIDENT));
-                            double p0 = target.getX() - this.getX();
-                            double p1 = target.getY(0.3333333333333333D) - throwntrident.getY();
-                            double p2 = target.getZ() - this.getZ();
-                            double p3 = Math.sqrt(p0 * p0 + p2 * p2);
-                            throwntrident.shoot(p0, p1 + p3 * (double) 0.2F, p2, 1.6F, (float) (14 - this.level.getDifficulty().getId() * 4));
-                            this.playSound(SoundEvents.DROWNED_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-                            this.level.addFreshEntity(throwntrident);
-                        }
+                        ThrownCoral_Spear_Entity throwntrident = new ThrownCoral_Spear_Entity(this.level, this, new ItemStack(ModItems.CORAL_SPEAR.get()));
+                        double p0 = target.getX() - this.getX();
+                        double p1 = target.getY(0.3333333333333333D) - throwntrident.getY();
+                        double p2 = target.getZ() - this.getZ();
+                        double p3 = Math.sqrt(p0 * p0 + p2 * p2);
+                        throwntrident.shoot(p0, p1 + p3 * (double) 0.2F, p2, 1.6F, (float) (14 - this.level.getDifficulty().getId() * 4));
+                        this.playSound(SoundEvents.DROWNED_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+                        this.level.addFreshEntity(throwntrident);
                     }
                 }
             }
-            if (this.getAnimation() == DEEPLING_BRUTE_MELEE) {
+            if (this.getAnimation() == DEEPLING_MELEE) {
                 if (this.getAnimationTick() == 5) {
                     this.playSound(ModSounds.DEEPLING_SWING.get(), 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
                     if (target != null) {
@@ -193,46 +163,25 @@ public class Deepling_Brute_Entity extends AbstractDeepling {
                     }
                 }
             }
-        }
-        AABB aabb = this.getBoundingBox();
-        if (this.SpinAttackTicks > 0) {
-            --this.SpinAttackTicks;
-            this.checkAutoSpinAttack(aabb, this.getBoundingBox());
-        }
+            if (this.getAnimation() == DEEPLING_BLIND) {
+                if (this.getAnimationTick() == 18) {
+                    this.playSound(ModSounds.DEEPLING_LIGHT.get(), 0.2F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+                    for (LivingEntity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(7.0D))) {
+                        if (!isAlliedTo(entity) && entity != this) {
+                            boolean flag = entity.hurt(DamageSource.indirectMagic(this,this), (float) ((float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) * 2));
 
-    }
+                            if(flag){
+                                entity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 80));
+                            }
+                        }
+                    }
 
 
-    public void startAutoSpinAttack(int p_204080_) {
-        this.SpinAttackTicks = p_204080_;
-        if (!this.level.isClientSide) {
-            this.setSpinAttack(true);
-        }
-
-    }
-
-    protected void checkAutoSpinAttack(AABB p_21072_, AABB p_21073_) {
-        AABB aabb = p_21072_.minmax(p_21073_);
-        List<Entity> list = this.level.getEntities(this, aabb);
-        if (!list.isEmpty()) {
-            for (Entity entity : list) {
-                if (entity instanceof LivingEntity) {
-                    entity.hurt(DamageSource.mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
-                    this.SpinAttackTicks = 0;
-                    this.setDeltaMovement(this.getDeltaMovement().scale(-0.2D));
-                    break;
                 }
             }
-        } else if (this.horizontalCollision) {
-            this.SpinAttackTicks = 0;
-        }
 
-        if (!this.level.isClientSide && this.SpinAttackTicks <= 0) {
-            this.setSpinAttack(false);
         }
-
     }
-
 
     boolean wantsToSwim() {
         if (this.searchingForLand) {
@@ -266,6 +215,7 @@ public class Deepling_Brute_Entity extends AbstractDeepling {
                 }
             }
         }
+
         return false;
     }
 
@@ -275,9 +225,9 @@ public class Deepling_Brute_Entity extends AbstractDeepling {
     }
 
     static class DeeplingGoToBeachGoal extends MoveToBlockGoal {
-        private final Deepling_Brute_Entity drowned;
+        private final Deepling_Angler_Entity drowned;
 
-        public DeeplingGoToBeachGoal(Deepling_Brute_Entity p_32409_, double p_32410_) {
+        public DeeplingGoToBeachGoal(Deepling_Angler_Entity p_32409_, double p_32410_) {
             super(p_32409_, p_32410_, 8, 2);
             this.drowned = p_32409_;
         }
@@ -297,7 +247,6 @@ public class Deepling_Brute_Entity extends AbstractDeepling {
 
         public void start() {
             this.drowned.setSearchingForLand(false);
-           // this.drowned.switchNavigator(true);
             super.start();
         }
 
@@ -306,16 +255,43 @@ public class Deepling_Brute_Entity extends AbstractDeepling {
         }
     }
 
+    static class DeeplingLightGoal extends Goal {
+        private final Deepling_Angler_Entity angler;
+
+        public DeeplingLightGoal(Deepling_Angler_Entity angler) {
+            this.angler = angler;
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        }
+
+        public boolean canUse() {
+            LivingEntity target = this.angler.getTarget();
+            return this.angler.lightcooldown <= 0 && this.angler.getAnimation() == NO_ANIMATION && target != null && this.angler.distanceToSqr(target) <= 64.0D && target.isAlive() && this.angler.getRandom().nextFloat() * 100.0F < 12f;
+        }
+
+        public void start() {
+            super.start();
+            this.angler.setAnimation(DEEPLING_BLIND);
+            this.angler.lightcooldown = LIGHT_COOLDOWN;
+            this.angler.navigation.stop();
+        }
+
+        public void stop() {
+            super.stop();
+        }
+    }
+
+
     static class DeeplingSwimUpGoal extends Goal {
-        private final Deepling_Brute_Entity drowned;
+        private final Deepling_Angler_Entity drowned;
         private final double speedModifier;
         private final int seaLevel;
         private boolean stuck;
 
-        public DeeplingSwimUpGoal(Deepling_Brute_Entity p_32440_, double p_32441_, int p_32442_) {
+        public DeeplingSwimUpGoal(Deepling_Angler_Entity p_32440_, double p_32441_, int p_32442_) {
             this.drowned = p_32440_;
             this.speedModifier = p_32441_;
             this.seaLevel = p_32442_;
+
         }
 
         public boolean canUse() {
@@ -349,122 +325,11 @@ public class Deepling_Brute_Entity extends AbstractDeepling {
         }
     }
 
-    static class DeeplingBruteTridentShoot extends Goal {
-        private final Deepling_Brute_Entity mob;
-        private final double moveSpeedAmp;
-        private int attackCooldown;
-        private final float maxAttackDistance;
-        private int attackTime = -1;
-        private int seeTime;
-        private boolean strafingClockwise;
-        private boolean strafingBackwards;
-        private int strafingTime = -1;
-;
-
-        public DeeplingBruteTridentShoot(Deepling_Brute_Entity mob, double moveSpeedAmpIn, float maxAttackDistanceIn) {
-            this.mob = mob;
-            this.moveSpeedAmp = moveSpeedAmpIn;
-            this.maxAttackDistance = maxAttackDistanceIn * maxAttackDistanceIn;
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
-        }
-
-        public boolean canUse() {
-            LivingEntity livingentity = this.mob.getTarget();
-            return livingentity != null && livingentity.isAlive() && this.mob.getMainHandItem().is(Items.TRIDENT) && this.mob.distanceToSqr(livingentity) >= 36.0D;
-        }
-
-
-        public boolean canContinueToUse() {
-            return (this.canUse() || !this.mob.getNavigation().isDone()) ;
-        }
-
-        public void start() {
-            super.start();
-            this.mob.setAggressive(true);
-            this.mob.startUsingItem(InteractionHand.MAIN_HAND);
-        }
-
-
-        public void stop() {
-            super.stop();
-            this.mob.setAggressive(false);
-            this.seeTime = 0;
-            this.attackTime = -1;
-            this.mob.stopUsingItem();
-        }
-
-        /**
-         * Keep ticking a continuous task that has already been started
-         */
-        public void tick() {
-            LivingEntity livingentity = this.mob.getTarget();
-
-            if (livingentity != null) {
-                double d0 = this.mob.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ());
-                boolean flag = this.mob.hasLineOfSight(livingentity);
-                boolean flag1 = this.seeTime > 0;
-                if (flag != flag1) {
-                    this.seeTime = 0;
-                }
-
-                if (flag) {
-                    ++this.seeTime;
-                } else {
-                    --this.seeTime;
-                }
-
-                if (!(d0 > (double)this.maxAttackDistance) && this.seeTime >= 20) {
-                    this.mob.getNavigation().stop();
-                    ++this.strafingTime;
-                } else {
-                    this.mob.getNavigation().moveTo(livingentity, this.moveSpeedAmp);
-                    this.strafingTime = -1;
-                }
-
-                if (this.strafingTime >= 20) {
-                    if ((double)this.mob.getRandom().nextFloat() < 0.3D) {
-                        this.strafingClockwise = !this.strafingClockwise;
-                    }
-
-                    if ((double)this.mob.getRandom().nextFloat() < 0.3D) {
-                        this.strafingBackwards = !this.strafingBackwards;
-                    }
-
-                    this.strafingTime = 0;
-                }
-
-                if (this.strafingTime > -1) {
-                    if (d0 > (double)(this.maxAttackDistance * 0.75F)) {
-                        this.strafingBackwards = false;
-                    } else if (d0 < (double)(this.maxAttackDistance * 0.25F)) {
-                        this.strafingBackwards = true;
-                    }
-
-                    this.mob.getMoveControl().strafe(this.strafingBackwards ? -0.5F : 0.5F, this.strafingClockwise ? 0.5F : -0.5F);
-                    this.mob.lookAt(livingentity, 30.0F, 30.0F);
-                } else {
-                    this.mob.getLookControl().setLookAt(livingentity, 30.0F, 30.0F);
-                }
-                if (!flag && this.seeTime < -60) {
-                    this.mob.stopUsingItem();
-                } else if (flag) {
-                    if(mob.getAnimation() != DEEPLING_BRUTE_TRIDENT_THROW){
-                        mob.setAnimation(DEEPLING_BRUTE_TRIDENT_THROW);
-                        this.attackTime = this.attackCooldown;
-
-
-
-                    }
-                }
-            }
-        }
-    }
-
     static class AnimationMeleeAttackGoal extends MeleeAttackGoal {
-        protected final Deepling_Brute_Entity mob;
+        protected final Deepling_Angler_Entity mob;
 
 
-        public AnimationMeleeAttackGoal(Deepling_Brute_Entity p_25552_, double p_25553_, boolean p_25554_) {
+        public AnimationMeleeAttackGoal(Deepling_Angler_Entity p_25552_, double p_25553_, boolean p_25554_) {
             super(p_25552_,p_25553_,p_25554_);
             this.mob = p_25552_;
             this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
@@ -474,16 +339,16 @@ public class Deepling_Brute_Entity extends AbstractDeepling {
         protected void checkAndPerformAttack(LivingEntity p_25557_, double p_25558_) {
             double d0 = this.getAttackReachSqr(p_25557_);
             if (p_25558_ <= d0 && this.mob.getAnimation() == NO_ANIMATION) {
-                this.mob.setAnimation(DEEPLING_BRUTE_MELEE);
+                this.mob.setAnimation(DEEPLING_MELEE);
             }
 
         }
     }
 
     static class DeeplingMoveControl extends MoveControl {
-        private final Deepling_Brute_Entity drowned;
+        private final Deepling_Angler_Entity drowned;
 
-        public DeeplingMoveControl(Deepling_Brute_Entity p_32433_) {
+        public DeeplingMoveControl(Deepling_Angler_Entity p_32433_) {
             super(p_32433_);
             this.drowned = p_32433_;
         }

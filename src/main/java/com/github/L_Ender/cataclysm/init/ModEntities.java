@@ -3,6 +3,7 @@ package com.github.L_Ender.cataclysm.init;
 
 import com.github.L_Ender.cataclysm.cataclysm;
 import com.github.L_Ender.cataclysm.entity.*;
+import com.github.L_Ender.cataclysm.entity.Deepling.Deepling_Angler_Entity;
 import com.github.L_Ender.cataclysm.entity.Deepling.Deepling_Brute_Entity;
 import com.github.L_Ender.cataclysm.entity.Deepling.Deepling_Entity;
 import com.github.L_Ender.cataclysm.entity.The_Leviathan.*;
@@ -106,6 +107,11 @@ public class ModEntities {
             .fireImmune()
             .clientTrackingRange(8)
             .build(cataclysm.MODID + ":deepling_brute"));
+
+    public static final RegistryObject<EntityType<Deepling_Angler_Entity>> DEEPLING_ANGLER = ENTITY_TYPE.register("deepling_angler", () -> EntityType.Builder.of(Deepling_Angler_Entity::new, MobCategory.MONSTER)
+            .sized(0.6F, 2.2f)
+            .clientTrackingRange(8)
+            .build(cataclysm.MODID + ":deepling_angler"));
 
     public static final RegistryObject<EntityType<Ignited_Revenant_Entity>> IGNITED_REVENANT = ENTITY_TYPE.register("ignited_revenant", () -> EntityType.Builder.of(Ignited_Revenant_Entity::new, MobCategory.MONSTER)
             .sized(1.6F, 2.8f)
@@ -336,6 +342,7 @@ public class ModEntities {
         event.put(CUSTOM_GUARDIAN.get(), CustomGuardian.m_32853_().build());
         event.put(DEEPLING.get(), Deepling_Entity.deepling().build());
         event.put(DEEPLING_BRUTE.get(), Deepling_Brute_Entity.deeplingbrute().build());
+        event.put(DEEPLING_ANGLER.get(), Deepling_Angler_Entity.deepling().build());
     }
 }
 

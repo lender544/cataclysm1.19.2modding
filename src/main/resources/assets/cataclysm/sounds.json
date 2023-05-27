@@ -597,5 +597,13 @@
         "name": "cataclysm:entity/deepling_idle2"
       }
     ]
+  },
+  "deepling_light": {
+    "subtitle": "deepling_light.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/deepling_light"
+      }
+    ]
   }
 }

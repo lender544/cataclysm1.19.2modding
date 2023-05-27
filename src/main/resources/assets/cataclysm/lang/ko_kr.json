@@ -78,6 +78,8 @@
   "item.cataclysm.the_leviathan_spawn_egg": "레비아탄 생성 알",
   "item.cataclysm.deepling_spawn_egg": "심연꾼 생성 알",
   "item.cataclysm.deepling_brute_spawn_egg": "난폭한 심연꾼 생성 알",
+  "item.cataclysm.deepling_angler_spawn_egg": "심연낚시꾼 생성 알",
+
 
   "itemGroup.cataclysm": "대격변",
   "block.cataclysm.witherite_block": "위더라이트 블록",
@@ -153,6 +155,7 @@
   "entity.cataclysm.abyss_portal": "심연 포탈",
   "entity.cataclysm.coral_spear": "산호 창",
   "entity.cataclysm.deepling_brute": "난폭한 심연꾼",
+  "entity.cataclysm.deepling_angler": "심연낚시꾼",
 
   "effect.cataclysm.monstrous": "괴력",
   "effect.cataclysm.blazing_brand": "불타는 낙인",
