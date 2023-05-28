@@ -34,6 +34,8 @@ import java.util.UUID;
 public class Dimensional_Rift_Entity extends Entity {
 
     protected static final EntityDataAccessor<Integer> LIFESPAN = SynchedEntityData.defineId(Dimensional_Rift_Entity.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Integer> STAGE = SynchedEntityData.defineId(Dimensional_Rift_Entity.class, EntityDataSerializers.INT);
+
     private boolean madeOpenNoise = false;
     private boolean madeCloseNoise = false;
     @Nullable
@@ -46,11 +48,10 @@ public class Dimensional_Rift_Entity extends Entity {
         super(entityTypeIn, worldIn);
     }
 
-    public Dimensional_Rift_Entity(Level worldIn, double x, double y, double z, float p_i47276_8_, LivingEntity casterIn) {
+    public Dimensional_Rift_Entity(Level worldIn, double x, double y, double z, LivingEntity casterIn) {
         this(ModEntities.DIMENSIONAL_RIFT.get(), worldIn);
         this.setOwner(casterIn);
         this.setLifespan(300);
-        this.setYRot(p_i47276_8_ * (180F / (float)Math.PI));
         this.setPos(x, y, z);
     }
 
@@ -67,31 +68,30 @@ public class Dimensional_Rift_Entity extends Entity {
             madeOpenNoise = true;
         }
 
-        if(Math.min(tickCount, this.getLifespan()) >= 160){
-            for (Entity entity : this.level.getEntities(this, this.getBoundingBox().inflate(30), EntitySelector.NO_CREATIVE_OR_SPECTATOR)) {
-                if(entity != owner) {
-                    Vec3 diff = entity.position().subtract(this.position().add(0,0,0));
-                    if (entity instanceof LivingEntity) {
-                        diff = diff.normalize().scale(0.05);
-                        entity.setDeltaMovement(entity.getDeltaMovement().subtract(diff));
-                    }else{
-                        diff = diff.normalize().scale(0.15);
-                        entity.setDeltaMovement(entity.getDeltaMovement().subtract(diff));
-                    }
+
+        for (Entity entity : this.level.getEntities(this, this.getBoundingBox().inflate(30), EntitySelector.NO_CREATIVE_OR_SPECTATOR)) {
+            if (entity != owner) {
+                Vec3 diff = entity.position().subtract(this.position().add(0, 0, 0));
+                if (entity instanceof LivingEntity) {
+                    diff = diff.normalize().scale( getStage() * 0.015);
+                    entity.setDeltaMovement(entity.getDeltaMovement().subtract(diff));
+                } else {
+                    diff = diff.normalize().scale(getStage() * 0.045);
+                    entity.setDeltaMovement(entity.getDeltaMovement().subtract(diff));
                 }
             }
-            berserkBlockBreaking(15,15,15);
+        }
+            berserkBlockBreaking(15, 15, 15);
 
-            for(LivingEntity livingentity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.2D, 0.0D, 0.2D))) {
+            for (LivingEntity livingentity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.2D, 0.0D, 0.2D))) {
                 this.damage(livingentity);
             }
 
-            for (Entity entity : this.level.getEntities(this, this.getBoundingBox().inflate(0.5))){
-                if(entity instanceof Cm_Falling_Block_Entity){
+            for (Entity entity : this.level.getEntities(this, this.getBoundingBox().inflate(0.5))) {
+                if (entity instanceof Cm_Falling_Block_Entity) {
                     entity.remove(RemovalReason.DISCARDED);
                 }
             }
-
 
 
             if (this.random.nextInt(3000) < this.ambientSoundTime++) {
@@ -99,7 +99,7 @@ public class Dimensional_Rift_Entity extends Entity {
                 this.playSound(ModSounds.BLACK_HOLE_LOOP.get(), 0.7F, 1 + random.nextFloat() * 0.2F);
             }
 
-        }
+
 
         this.setLifespan(this.getLifespan() - 1);
         if(this.getLifespan() <= 100){
@@ -108,12 +108,14 @@ public class Dimensional_Rift_Entity extends Entity {
                 this.playSound(ModSounds.BLACK_HOLE_CLOSING.get(), 0.7F, 1 + random.nextFloat() * 0.2F);
                 madeCloseNoise = true;
             }
+            if(this.tickCount % 40 == 0){
+                this.setStage(this.getStage() - 1);
+            }
 
-
-        }
-        if (this.getLifespan() <= 0) {
-            this.level.explode(this.owner, this.getX(), this.getY(), this.getZ(), 2.0F, false, Explosion.BlockInteraction.NONE);
-            this.remove(RemovalReason.DISCARDED);
+            if (this.getStage() <= 0) {
+                this.level.explode(this.owner, this.getX(), this.getY(), this.getZ(), 2.0F, false, Explosion.BlockInteraction.NONE);
+                this.remove(RemovalReason.DISCARDED);
+            }
         }
     }
 
@@ -182,6 +184,15 @@ public class Dimensional_Rift_Entity extends Entity {
         this.entityData.set(LIFESPAN, i);
     }
 
+    public int getStage() {
+        return this.entityData.get(STAGE);
+    }
+
+    public void setStage(int i) {
+        this.entityData.set(STAGE, i);
+    }
+
+
     public void setOwner(@Nullable LivingEntity p_19719_) {
         this.owner = p_19719_;
         this.ownerUUID = p_19719_ == null ? null : p_19719_.getUUID();
@@ -202,11 +213,12 @@ public class Dimensional_Rift_Entity extends Entity {
     @Override
     protected void defineSynchedData() {
         this.entityData.define(LIFESPAN, 300);
-
+        this.entityData.define(STAGE, 0);
     }
 
     protected void readAdditionalSaveData(CompoundTag compound) {
         this.setLifespan(compound.getInt("Lifespan"));
+        this.setStage(compound.getInt("Stage"));
         if (compound.hasUUID("Owner")) {
             this.ownerUUID = compound.getUUID("Owner");
         }
@@ -225,6 +237,7 @@ public class Dimensional_Rift_Entity extends Entity {
 
     protected void addAdditionalSaveData(CompoundTag compound) {
         compound.putInt("Lifespan", getLifespan());
+        compound.putInt("Stage", getStage());
         if (this.ownerUUID != null) {
             compound.putUUID("Owner", this.ownerUUID);
         }

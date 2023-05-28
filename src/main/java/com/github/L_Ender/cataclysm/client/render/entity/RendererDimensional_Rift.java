@@ -18,33 +18,30 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class RendererDimensional_Rift extends EntityRenderer<Dimensional_Rift_Entity> {
-    private static final ResourceLocation TEXTURE_1 = new ResourceLocation("cataclysm:textures/entity/leviathan/dimensional_rift/dimensional_rift_idle1.png");
-    private static final ResourceLocation TEXTURE_2 = new ResourceLocation("cataclysm:textures/entity/leviathan/dimensional_rift/dimensional_rift_idle2.png");
-    private static final ResourceLocation TEXTURE_3 = new ResourceLocation("cataclysm:textures/entity/leviathan/dimensional_rift/dimensional_rift_idle3.png");
-    private static final ResourceLocation TEXTURE_4 = new ResourceLocation("cataclysm:textures/entity/leviathan/dimensional_rift/dimensional_rift_idle4.png");
-    private static final ResourceLocation[] TEXTURE_PROGRESS = new ResourceLocation[4];
+    private static final ResourceLocation TEXTURE_IDLE_1 = new ResourceLocation("cataclysm:textures/entity/leviathan/dimensional_rift/dimensional_rift_idle1.png");
+    private static final ResourceLocation TEXTURE_IDLE_2 = new ResourceLocation("cataclysm:textures/entity/leviathan/dimensional_rift/dimensional_rift_idle2.png");
+    private static final ResourceLocation TEXTURE_IDLE_3 = new ResourceLocation("cataclysm:textures/entity/leviathan/dimensional_rift/dimensional_rift_idle3.png");
+    private static final ResourceLocation TEXTURE_IDLE_4 = new ResourceLocation("cataclysm:textures/entity/leviathan/dimensional_rift/dimensional_rift_idle4.png");
+
+    private static final ResourceLocation TEXTURE_GROW_1 = new ResourceLocation("cataclysm:textures/entity/leviathan/dimensional_rift/dimensional_rift_grow_0.png");
+    private static final ResourceLocation TEXTURE_GROW_2 = new ResourceLocation("cataclysm:textures/entity/leviathan/dimensional_rift/dimensional_rift_grow_1.png");
+    private static final ResourceLocation TEXTURE_GROW_3 = new ResourceLocation("cataclysm:textures/entity/leviathan/dimensional_rift/dimensional_rift_grow_2.png");
+    private static final ResourceLocation TEXTURE_GROW_4 = new ResourceLocation("cataclysm:textures/entity/leviathan/dimensional_rift/dimensional_rift_grow_3.png");
+
 
 
     public RendererDimensional_Rift(EntityRendererProvider.Context mgr) {
         super(mgr);
-        for(int i = 0; i < 4; i++) {
-            TEXTURE_PROGRESS[i] = new ResourceLocation("cataclysm:textures/entity/leviathan/dimensional_rift/dimensional_rift_grow_" + i + ".png");
-        }
+
     }
 
     public void render(Dimensional_Rift_Entity entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
         matrixStackIn.pushPose();
-        ResourceLocation tex;
-        if(entityIn.getLifespan() < 160){
-            tex = getGrowingTexture((int) ((entityIn.getLifespan() * 0.05F) % 20));
-        }else if(entityIn.tickCount < 160){
-            tex = getGrowingTexture((int) ((entityIn.tickCount * 0.05F) % 20));
-        }else{
-            tex = getIdleTexture(entityIn.tickCount % 9);
-        }
+        ResourceLocation tex = entityIn.getStage() <1 ? TEXTURE_GROW_1 : entityIn.getStage() < 2 ? TEXTURE_GROW_2 : entityIn.getStage() < 3 ? TEXTURE_GROW_3 : entityIn.getStage() < 4 ? TEXTURE_GROW_4 : this.getIdleTexture(entityIn.tickCount % 9);
+
         matrixStackIn.mulPose(this.entityRenderDispatcher.cameraOrientation());
         matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(180.0F));
-        matrixStackIn.scale(4, 4, 4);
+        matrixStackIn.scale(7, 7, 7);
         PoseStack.Pose posestack$pose = matrixStackIn.last();
         Matrix4f matrix4f = posestack$pose.pose();
         Matrix3f matrix3f = posestack$pose.normal();
@@ -63,22 +60,18 @@ public class RendererDimensional_Rift extends EntityRenderer<Dimensional_Rift_En
 
     @Override
     public ResourceLocation getTextureLocation(Dimensional_Rift_Entity entity) {
-        return TEXTURE_1;
+        return TEXTURE_IDLE_1;
     }
 
     public ResourceLocation getIdleTexture(int age) {
         if (age < 3) {
-            return TEXTURE_1;
+            return TEXTURE_IDLE_1;
         } else if (age < 6) {
-            return TEXTURE_2;
+            return TEXTURE_IDLE_2;
         } else if (age < 10) {
-            return TEXTURE_3;
+            return TEXTURE_IDLE_3;
         } else {
-            return TEXTURE_4;
+            return TEXTURE_IDLE_4;
         }
-    }
-
-    public ResourceLocation getGrowingTexture(int age) {
-        return TEXTURE_PROGRESS[Mth.clamp(age/2, 0, 3)];
     }
 }

@@ -13,6 +13,7 @@ import com.github.L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import com.github.L_Ender.cataclysm.entity.etc.*;
 import com.github.L_Ender.cataclysm.entity.partentity.Cm_Part_Entity;
+import com.github.L_Ender.cataclysm.entity.projectile.Laser_Beam_Entity;
 import com.github.L_Ender.cataclysm.entity.util.LeviathanTongueUtil;
 import com.github.L_Ender.cataclysm.init.ModEffect;
 import com.github.L_Ender.cataclysm.init.ModEntities;
@@ -89,6 +90,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
     public static final Animation LEVIATHAN_TENTACLE_STRIKE_UPPER_L = Animation.create(44);
     public static final Animation LEVIATHAN_TENTACLE_STRIKE_LOWER_L = Animation.create(44);
     public static final Animation LEVIATHAN_TAIL_WHIPS = Animation.create(42);
+    public static final Animation LEVIATHAN_BREAK_DIMENSION = Animation.create(156);
     public final The_Leviathan_Part headPart;
     public final The_Leviathan_Part tailPart1;
     public final The_Leviathan_Part tailPart2;
@@ -102,6 +104,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
     public boolean CanRush = true;
     public boolean CanTailWhips = true;
     public boolean CanAbyss_Blast_Portal = true;
+    public boolean CanCrackDimension = true;
 
     public float NoSwimProgress = 0;
     public float prevNoSwimProgress = 0;
@@ -116,6 +119,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
     public static final int GRAB_HUNTING_COOLDOWN = 100;
     public static final int RUSH_HUNTING_COOLDOWN = 160;
     public static final int BLAST_HUNTING_COOLDOWN = 200;
+    public static final int CRACK_HUNTING_COOLDOWN = 250;
     public static final int BLAST_PORTAL_HUNTING_COOLDOWN = 180;
     public static final int TAIL_WHIPS_HUNTING_COOLDOWN = 80;
 
@@ -170,6 +174,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new LeviathanGrabAttackGoal(this,LEVIATHAN_GRAB));
+        this.goalSelector.addGoal(0, new LeviathanAbyssDimensionAttackGoal(this,LEVIATHAN_BREAK_DIMENSION));
         this.goalSelector.addGoal(0, new LeviathanStunGoal(this,LEVIATHAN_STUN));
         this.goalSelector.addGoal(0, new LeviathanGrabBiteAttackGoal(this,LEVIATHAN_GRAB_BITE));
         this.goalSelector.addGoal(0, new LeviathanTailWhipsAttackGoal(this,LEVIATHAN_TAIL_WHIPS));
@@ -197,7 +202,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
 
     @Override
     public Animation[] getAnimations() {
-        return new Animation[]{LEVIATHAN_GRAB,LEVIATHAN_TAIL_WHIPS, LEVIATHAN_ABYSS_BLAST_PORTAL,LEVIATHAN_GRAB_BITE,LEVIATHAN_ABYSS_BLAST,LEVIATHAN_RUSH,LEVIATHAN_TENTACLE_STRIKE_UPPER_R,LEVIATHAN_TENTACLE_STRIKE_UPPER_L,LEVIATHAN_TENTACLE_STRIKE_LOWER_L,LEVIATHAN_TENTACLE_STRIKE_LOWER_R,LEVIATHAN_STUN};
+        return new Animation[]{LEVIATHAN_BREAK_DIMENSION,LEVIATHAN_GRAB,LEVIATHAN_TAIL_WHIPS, LEVIATHAN_ABYSS_BLAST_PORTAL,LEVIATHAN_GRAB_BITE,LEVIATHAN_ABYSS_BLAST,LEVIATHAN_RUSH,LEVIATHAN_TENTACLE_STRIKE_UPPER_R,LEVIATHAN_TENTACLE_STRIKE_UPPER_L,LEVIATHAN_TENTACLE_STRIKE_LOWER_L,LEVIATHAN_TENTACLE_STRIKE_LOWER_R,LEVIATHAN_STUN};
     }
 
     public void travel(Vec3 travelVector) {
@@ -483,6 +488,48 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         if(this.getAnimation() == LEVIATHAN_TAIL_WHIPS){
             if (this.getAnimationTick() == 18) {
                 TailWhips();
+            }
+        }
+
+        if(this.getAnimation() == LEVIATHAN_BREAK_DIMENSION){
+            if (this.getAnimationTick() == 24) {
+                this.level.playSound((Player) null, this, SoundEvents.WITHER_BREAK_BLOCK, SoundSource.HOSTILE, 1.0f, 1.0f);
+                ScreenShake_Entity.ScreenShake(this.level, this.position(), 30, 0.05f, 10, 10);
+            }
+            if (this.getAnimationTick() == 62) {
+                this.level.playSound((Player) null, this, SoundEvents.WITHER_BREAK_BLOCK, SoundSource.HOSTILE, 2.0f, 1.1f);
+                ScreenShake_Entity.ScreenShake(this.level, this.position(), 30, 0.1f, 10, 10);
+                for (Entity entity : this.level.getEntities(this, this.getBoundingBox().inflate(15))) {
+                    if(entity instanceof Dimensional_Rift_Entity rift){
+                        if(rift.getStage() < 4) {
+                            rift.setStage(rift.getStage() + 1);
+                        }
+                    }
+                }
+            }
+
+            if (this.getAnimationTick() == 94) {
+                this.level.playSound((Player) null, this, SoundEvents.WITHER_BREAK_BLOCK, SoundSource.HOSTILE, 3.0f, 1.2f);
+                ScreenShake_Entity.ScreenShake(this.level, this.position(), 30, 0.15f, 10, 10);
+                for (Entity entity : this.level.getEntities(this, this.getBoundingBox().inflate(15))) {
+                    if(entity instanceof Dimensional_Rift_Entity rift){
+                        if(rift.getStage() < 4) {
+                            rift.setStage(rift.getStage() + 1);
+                        }
+                    }
+                }
+            }
+
+            if (this.getAnimationTick() == 126) {
+                this.level.playSound((Player) null, this, SoundEvents.WITHER_BREAK_BLOCK, SoundSource.HOSTILE, 3.0f, 1.3f);
+                ScreenShake_Entity.ScreenShake(this.level, this.position(), 30, 0.2f, 10, 10);
+                for (Entity entity : this.level.getEntities(this, this.getBoundingBox().inflate(15))) {
+                    if(entity instanceof Dimensional_Rift_Entity rift){
+                        if(rift.getStage() < 4) {
+                            rift.setStage(rift.getStage() + 1);
+                        }
+                    }
+                }
             }
         }
 
@@ -895,6 +942,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             entity.CanRush = true;
             entity.CanAbyss_Blast = true;
             entity.CanTailWhips = true;
+            entity.CanCrackDimension = true;
             if (target != null) {
                 entity.getLookControl().setLookAt(target, 30, 90);
             }
@@ -996,6 +1044,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             entity.CanRush = true;
             entity.CanAbyss_Blast = false;
             entity.CanTailWhips = true;
+            entity.CanCrackDimension = true;
             super.start();
         }
 
@@ -1037,6 +1086,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             entity.CanRush = true;
             entity.CanAbyss_Blast = true;
             entity.CanTailWhips = false;
+            entity.CanCrackDimension = true;
             LivingEntity target = entity.getTarget();
             if (target != null) {
                 entity.getLookControl().setLookAt(target, 30, 30);
@@ -1080,6 +1130,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             entity.CanRush = false;
             entity.CanAbyss_Blast = true;
             entity.CanTailWhips = true;
+            entity.CanCrackDimension = true;
         }
 
         public void stop() {
@@ -1191,6 +1242,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             entity.CanRush = true;
             entity.CanAbyss_Blast = true;
             entity.CanTailWhips = true;
+            entity.CanCrackDimension = true;
             super.start();
         }
 
@@ -1251,6 +1303,61 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             if (flag) {
                 entity.level.addFreshEntity(new Abyss_Blast_Portal_Entity(entity.level, x, (double) blockpos.getY() + d0, z, rotation, delay, entity));
             }
+        }
+    }
+
+
+    static class LeviathanAbyssDimensionAttackGoal extends SimpleAnimationGoal<The_Leviathan_Entity> {
+
+        public LeviathanAbyssDimensionAttackGoal(The_Leviathan_Entity entity, Animation animation) {
+            super(entity, animation);
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK, Flag.JUMP));
+        }
+
+        public void start() {
+            entity.getNavigation().stop();
+            entity.CanAbyss_Blast_Portal = true;
+            entity.CanCrackDimension = false;
+            entity.CanGrab = true;
+            entity.CanRush = true;
+            entity.CanAbyss_Blast = true;
+            entity.CanTailWhips = true;
+            LivingEntity target = entity.getTarget();
+            if (target != null) {
+                entity.getLookControl().setLookAt(target, 30, 0);
+            }
+            super.start();
+        }
+
+        public void stop() {
+            LivingEntity target = entity.getTarget();
+            if (target != null) {
+                entity.getLookControl().setLookAt(target, 30, 90);
+            }
+            super.stop();
+            entity.hunting_cooldown = CRACK_HUNTING_COOLDOWN;
+        }
+
+        public void tick() {
+            if (entity.getAnimationTick() == 24) {
+                if (!entity.level.isClientSide ) {
+                    double theta = (entity.yBodyRot) * (Math.PI / 180);
+                    theta += Math.PI / 2;
+                    double vecX = Math.cos(theta);
+                    double vecZ = Math.sin(theta);
+                    Dimensional_Rift_Entity portal = new Dimensional_Rift_Entity(entity.level,
+                            entity.getX() + vecX * 12F,
+                            entity.getEyeY(),
+                            entity.getZ() + vecZ * 12F, entity);
+                    portal.setStage(1);
+                    portal.setLifespan(600);
+                    if (!entity.level.isClientSide) {
+                        entity.level.addFreshEntity(portal);
+                    }
+                }
+
+            }
+
         }
     }
 
@@ -1397,11 +1504,13 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             LivingEntity target = this.mob.getTarget();
             if (target != null) {
                 double dist = this.mob.distanceTo(target );
-                if(circlingTime >= this.mob.hunting_cooldown){
+                if(circlingTime >= this.mob.hunting_cooldown) {
                     if(this.mob.getRandom().nextFloat() * 100.0F < 3f && this.mob.CanAbyss_Blast_Portal){
                         this.mob.setAnimation(LEVIATHAN_ABYSS_BLAST_PORTAL);
-                    }else if (this.mob.getRandom().nextFloat() * 100.0F < (2f * this.mob.getBlastChance()) && this.mob.CanAbyss_Blast){
+                    }else if (this.mob.getRandom().nextFloat() * 100.0F < (2f * this.mob.getBlastChance()) && this.mob.CanAbyss_Blast) {
                         this.mob.setAnimation(LEVIATHAN_ABYSS_BLAST);
+                    }else if(this.mob.getRandom().nextFloat() * 100.0F < 6f && this.mob.CanCrackDimension && this.mob.distanceToSqr(target) < 256 && this.mob.distanceToSqr(target) > 49.0D){
+                        this.mob.setAnimation(LEVIATHAN_BREAK_DIMENSION);
                     }else if(this.mob.getRandom().nextFloat() * 100.0F < 8f && this.mob.distanceToSqr(target) >= 700.0D && this.mob.CanGrab){
                         this.mob.setAnimation(LEVIATHAN_GRAB);
                     }else if (this.mob.getRandom().nextFloat() * 100.0F < 4f && this.mob.distanceToSqr(target) < 900. && this.mob.distanceToSqr(target) >= 49.0D && this.mob.CanRush){
