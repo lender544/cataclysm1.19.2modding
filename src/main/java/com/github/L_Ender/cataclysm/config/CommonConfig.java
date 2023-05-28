@@ -20,8 +20,6 @@ public class CommonConfig {
     public final ForgeConfigSpec.IntValue VASWCooldown;
     public final ForgeConfigSpec.IntValue VoidCoreCooldown;
 
-
-
     public final ForgeConfigSpec.DoubleValue Voidrunedamage;
     public final ForgeConfigSpec.IntValue Lavabombradius;
     public final ForgeConfigSpec.DoubleValue Ashenbreathdamage;
@@ -32,6 +30,7 @@ public class CommonConfig {
     public final ForgeConfigSpec.DoubleValue WitherMissiledamage;
     public final ForgeConfigSpec.DoubleValue WitherHowizterdamage;
     public final ForgeConfigSpec.DoubleValue WitherHomingMissiledamage;
+    public final ForgeConfigSpec.DoubleValue DimensionalRiftDamage;
 
     public final ForgeConfigSpec.BooleanValue ScreenShake;
     public final ForgeConfigSpec.BooleanValue BossMusic;
@@ -78,6 +77,7 @@ public class CommonConfig {
     public final ForgeConfigSpec.DoubleValue LeviathanLongRangelimit;
     public final ForgeConfigSpec.IntValue LeviathanDamageCap;
     public final ForgeConfigSpec.BooleanValue LeviathanBlockBreaking;
+    public final ForgeConfigSpec.BooleanValue LeviathanImmuneOutofWater;
 
     public final ForgeConfigSpec.DoubleValue MonstrositysHpdamage;
     public final ForgeConfigSpec.DoubleValue EnderguardianGravityPunchHpdamage;
@@ -119,6 +119,7 @@ public class CommonConfig {
         BlazingBonedamage = buildDouble(builder, "BlazingBonedamage", "all", 5, 0D, 1000000D, "Blazing Bone's Damage");
         WitherMissiledamage = buildDouble(builder, "WitherMissiledamage", "all", 8, 0D, 1000000D, "Wither Missile's Damage");
         WitherHowizterdamage = buildDouble(builder, "WitherHowizterdamage", "all", 8, 0D, 1000000D, "Wither Howizter's Damage");
+        DimensionalRiftDamage = buildDouble(builder, "DimensionalRiftdamage", "all", 10, 0D, 1000000D, "Dimensional Rift's Damage");
         WitherHomingMissiledamage = buildDouble(builder, "WitherHomingMissiledamage", "all", 3, 0, 1000000, "Wither Homing Missile's Damage");
         Lavabombradius = buildInt(builder, "Lavabombradius", "all", 2, 1, 7, "Lava bomb's Radius");
         builder.pop();
@@ -186,6 +187,7 @@ public class CommonConfig {
         LeviathanLongRangelimit = buildDouble(builder, "Leviathan's prevent attacks from far away Range", "all", 38.0D, 1D, 1000000D, "Leviathan's Immune to Long distance attack range.");
         LeviathanDamageCap = buildInt(builder, "LeviathanDamageCap", "all", 20, 0, 1000000, "Leviathan's DamageCap");
         LeviathanBlockBreaking = buildBoolean(builder, "LeviathanBlockBreaking", "all", true, "Leviathan's block breaking ignore the MobGriefing");
+        LeviathanImmuneOutofWater = buildBoolean(builder, "LeviathanImmuneOutofWater", "all", true, "Leviathan Immune Out of Water");
         builder.pop();
 
     }

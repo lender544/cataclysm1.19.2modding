@@ -254,7 +254,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
 
         boolean flag1 = this.canInFluidType(this.getEyeInFluidType());
         if (!flag1) {
-            if(!source.isBypassInvul()) {
+            if(!source.isBypassInvul() && CMConfig.LeviathanImmuneOutofWater) {
                 return false;
             }
 

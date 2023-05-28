@@ -20,6 +20,7 @@ public class CMConfig {
     public static int VoidCoreCooldown = 160;
 
     public static double Voidrunedamage = 7;
+    public static double DimensionalRiftdamage = 10;
     public static double Ashenbreathdamage = 4;
     public static double DeathLaserdamage = 5;
     public static double DeathLaserHpdamage = 0.05D;
@@ -51,6 +52,7 @@ public class CMConfig {
     public static boolean IgnisBlockBreaking = true;
     public static boolean LeviathanBlockBreaking = true;
     public static boolean HarbingerLightFire = true;
+    public static boolean LeviathanImmuneOutofWater = true;
 
     public static double MonstrosityHealthMultiplier = 1D;
     public static double MonstrosityDamageMultiplier = 1D;
@@ -118,6 +120,7 @@ public class CMConfig {
             WitherMissiledamage = ConfigHolder.COMMON.WitherMissiledamage.get();
             WitherHowizterdamage = ConfigHolder.COMMON.WitherHowizterdamage.get();
             WitherHomingMissiledamage = ConfigHolder.COMMON.WitherHomingMissiledamage.get();
+            DimensionalRiftdamage = ConfigHolder.COMMON.DimensionalRiftDamage.get();
 
             Lavabombradius = ConfigHolder.COMMON.Lavabombradius.get();
             ScreenShake = ConfigHolder.COMMON.ScreenShake.get();
@@ -175,6 +178,8 @@ public class CMConfig {
             LeviathanDamageMultiplier = ConfigHolder.COMMON.LeviathanDamageMultiplier.get();
             LeviathanBlockBreaking = ConfigHolder.COMMON.LeviathanBlockBreaking.get();
             LeviathanDamageCap = ConfigHolder.COMMON.LeviathanDamageCap.get();
+            LeviathanImmuneOutofWater = ConfigHolder.COMMON.LeviathanImmuneOutofWater.get();
+
 
             Armor_Infinity_Durability = ConfigHolder.COMMON.Armor_Infinity_Durability.get();
         } catch (Exception e) {

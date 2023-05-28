@@ -124,12 +124,12 @@ public class Dimensional_Rift_Entity extends Entity {
         if (Hitentity.isAlive() && !Hitentity.isInvulnerable() && Hitentity != livingentity) {
             if (this.tickCount % 5 == 0) {
                 if (livingentity == null) {
-                    Hitentity.hurt(DamageSource.MAGIC, (float) CMConfig.Voidrunedamage);
+                    Hitentity.hurt(DamageSource.MAGIC, (float) CMConfig.DimensionalRiftdamage);
                 } else {
                     if (livingentity.isAlliedTo(Hitentity)) {
                         return;
                     }
-                    Hitentity.hurt(DamageSource.indirectMagic(this, livingentity), (float) CMConfig.Voidrunedamage);
+                    Hitentity.hurt(DamageSource.indirectMagic(this, livingentity), (float) CMConfig.DimensionalRiftdamage);
                 }
             }
         }
