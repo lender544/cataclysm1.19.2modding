@@ -219,6 +219,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		Tail_Particle.setRotationPoint(0.0F, -14.475F, 77.0F);
 		Tail3.addChild(Tail_Particle);
 
+
 		UpperR_Tantacle = new AdvancedModelBox(this);
 		UpperR_Tantacle.setRotationPoint(-8.0F, -2.0F, 6.0F);
 		Main_belly.addChild(UpperR_Tantacle);
@@ -493,7 +494,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		setRotationAngle(Mouth4, 0.0436F, 0.0F, 0.0F);
 		Mouth4.setTextureOffset(122, 39).addBox(-4.0F, -4.0F, -16.0F, 8.0F, 8.0F, 16.0F, 0.0F, false);
 		Mouth4.setTextureOffset(181, 91).addBox(-6.0F, 4.0F, -16.0F, 2.0F, 0.0F, 14.0F, 0.0F, false);
-		Mouth4.setTextureOffset(170, 184).addBox(4.0F, -6.0F, -16.0F, 0.0F, 2.0F, 14.0F, 0.0F, false);
+		Mouth4.setTextureOffset(141, 183).addBox(4.0F, -6.0F, -16.0F, 0.0F, 2.0F, 14.0F, 0.0F, false);
 
 		Mouth4_e = new AdvancedModelBox(this);
 		Mouth4_e.setRotationPoint(-1.0F, -1.0F, -15.5F);
@@ -521,7 +522,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		setRotationAngle(Mouth2, -0.0436F, 0.0F, 0.0F);
 		Mouth2.setTextureOffset(74, 112).addBox(-4.0F, -4.0F, -16.0F, 8.0F, 8.0F, 16.0F, 0.0F, false);
 		Mouth2.setTextureOffset(73, 177).addBox(-6.0F, -4.0F, -16.0F, 2.0F, 0.0F, 14.0F, 0.0F, false);
-		Mouth2.setTextureOffset(182, 0).addBox(4.0F, 4.0F, -16.0F, 0.0F, 2.0F, 14.0F, 0.0F, false);
+		Mouth2.setTextureOffset(0, 182).addBox(4.0F, 4.0F, -16.0F, 0.0F, 2.0F, 14.0F, 0.0F, false);
 
 		Mouth2_e = new AdvancedModelBox(this);
 		Mouth2_e.setRotationPoint(-1.0F, 1.0F, -15.5F);

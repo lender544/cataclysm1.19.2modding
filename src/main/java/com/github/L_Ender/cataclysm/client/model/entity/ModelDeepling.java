@@ -262,29 +262,23 @@ public class ModelDeepling extends AdvancedEntityModel<Deepling_Entity> {
 		float swimProgress = entity.prevSwimProgress + (entity.SwimProgress - entity.prevSwimProgress) * partialTick;
 
 
-		progressRotationPrev(root,swimProgress,(float)Math.toRadians(12.5F), 0, 0, 10f);
+		progressRotationPrev(root,swimProgress,(float)Math.toRadians(22.5F), 0, 0, 10f);
 		progressRotationPrev(left_leg,swimProgress,(float)Math.toRadians(20F), 0, 0, 10f);
 		progressRotationPrev(right_leg,swimProgress,(float)Math.toRadians(5F), 0, 0, 10f);
 		progressRotationPrev(left_arm,swimProgress,0, 0, (float)Math.toRadians(-37.5F), 10f);
 		progressRotationPrev(right_arm,swimProgress,0, 0, (float)Math.toRadians(37.5F), 10f);
-
-
-		if(entity.isInWater()){
-			this.walk(left_leg, swimSpeed * 1.4F, swimDegree * 1.4F, true, 0F, 0F, limbSwing, limbSwingAmount);
-			this.walk(right_leg, swimSpeed * 1.4F, swimDegree * 1.4F, false, 0F, 0F, limbSwing, limbSwingAmount);
-			this.walk(left_arm, swimSpeed * 1.4F, swimDegree * 1.4F, false, 0F, 0F, limbSwing, limbSwingAmount);
-			this.walk(right_arm, swimSpeed * 1.4F, swimDegree * 1.4F, true, 0F, 0F, limbSwing, limbSwingAmount);
+		if (swimProgress > 0) {
+			this.walk(left_leg, swimSpeed * 1.7F, swimDegree * 1.74F, true, 0F, 0F, limbSwing, limbSwingAmount);
+			this.walk(right_leg, swimSpeed * 1.7F, swimDegree * 1.7F, false, 0F, 0F, limbSwing, limbSwingAmount);
+			this.walk(left_arm, swimSpeed * 1.7F, swimDegree * 1.4F, false, 0F, 0F, limbSwing, limbSwingAmount);
+			this.walk(right_arm, swimSpeed * 1.7F, swimDegree * 1.4F, true, 0F, 0F, limbSwing, limbSwingAmount);
+			this.walk(left_leg, 0.05f, swimDegree * 0.3F, false, 0F, 0F, ageInTicks, 1.0f);
+			this.walk(right_leg, 0.05f, swimDegree * 0.3F, true, 0F, 0F, ageInTicks, 1.0f);
 		}else{
 			this.walk(left_leg, walkSpeed, walkDegree * 1.2F, true, 0F, 0F, limbSwing, limbSwingAmount);
 			this.walk(right_leg, walkSpeed, walkDegree * 1.2F, false, 0F, 0F, limbSwing, limbSwingAmount);
 			this.walk(left_arm, walkSpeed, walkDegree * 1.2F, false, 0F, 0F, limbSwing, limbSwingAmount);
 			this.walk(right_arm, walkSpeed, walkDegree * 1.2F, true, 0F, 0F, limbSwing, limbSwingAmount);
-		}
-
-
-		if (swimProgress > 0) {
-			this.walk(left_leg, 0.25f, swimDegree * 0.05F, false, 0F, 0F, ageInTicks, 1.0f);
-			this.walk(right_leg, 0.25f, swimDegree * 0.05F, true, 0F, 0F, ageInTicks, 1.0f);
 		}
 
 	}

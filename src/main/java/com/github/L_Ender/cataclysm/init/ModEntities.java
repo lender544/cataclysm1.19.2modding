@@ -98,18 +98,18 @@ public class ModEntities {
             .build(cataclysm.MODID + ":endermaptera"));
 
     public static final RegistryObject<EntityType<Deepling_Entity>> DEEPLING = ENTITY_TYPE.register("deepling", () -> EntityType.Builder.<Deepling_Entity>of(Deepling_Entity::new, MobCategory.MONSTER)
-            .sized(0.6F, 2.2f)
+            .sized(0.6F, 2.3f)
             .clientTrackingRange(8)
             .build(cataclysm.MODID + ":deepling"));
 
     public static final RegistryObject<EntityType<Deepling_Brute_Entity>> DEEPLING_BRUTE = ENTITY_TYPE.register("deepling_brute", () -> EntityType.Builder.<Deepling_Brute_Entity>of(Deepling_Brute_Entity::new, MobCategory.MONSTER)
-            .sized(0.6F, 2.2f)
+            .sized(0.7F, 2.6f)
             .fireImmune()
             .clientTrackingRange(8)
             .build(cataclysm.MODID + ":deepling_brute"));
 
     public static final RegistryObject<EntityType<Deepling_Angler_Entity>> DEEPLING_ANGLER = ENTITY_TYPE.register("deepling_angler", () -> EntityType.Builder.of(Deepling_Angler_Entity::new, MobCategory.MONSTER)
-            .sized(0.6F, 2.2f)
+            .sized(0.6F, 2.3f)
             .clientTrackingRange(8)
             .build(cataclysm.MODID + ":deepling_angler"));
 

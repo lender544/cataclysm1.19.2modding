@@ -233,6 +233,9 @@ public class Deepling_Brute_Entity extends AbstractDeepling {
 
     }
 
+    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
+        return sizeIn.height * 0.9F;
+    }
 
     boolean wantsToSwim() {
         if (this.searchingForLand) {

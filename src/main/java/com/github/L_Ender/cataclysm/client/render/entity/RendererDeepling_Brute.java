@@ -33,7 +33,7 @@ public class RendererDeepling_Brute extends MobRenderer<Deepling_Brute_Entity, M
 
     @Override
     protected void scale(Deepling_Brute_Entity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
-        matrixStackIn.scale(1.0F, 1.0F, 1.0F);
+        matrixStackIn.scale(1.125F, 1.125F, 1.125F);
     }
     @Override
     protected void setupRotations(Deepling_Brute_Entity p_115317_, PoseStack p_115318_, float p_115319_, float p_115320_, float p_115321_) {
