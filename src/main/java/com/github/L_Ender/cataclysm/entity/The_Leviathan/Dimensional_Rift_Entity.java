@@ -113,7 +113,7 @@ public class Dimensional_Rift_Entity extends Entity {
             }
 
             if (this.getStage() <= 0) {
-                this.level.explode(this.owner, this.getX(), this.getY(), this.getZ(), 2.0F, false, Explosion.BlockInteraction.NONE);
+                this.level.explode(this.owner, this.getX(), this.getY(), this.getZ(), 4.0F, false, Explosion.BlockInteraction.NONE);
                 this.remove(RemovalReason.DISCARDED);
             }
         }
@@ -149,10 +149,15 @@ public class Dimensional_Rift_Entity extends Entity {
                             int k = MthY + j;
                             int l = MthZ + l2;
                             BlockPos blockpos = new BlockPos(i3, k, l);
+
+                            BlockPos blockonpos = new BlockPos(i3, k+ 1, l);
+
                             BlockState block = level.getBlockState(blockpos);
+
+                            BlockState blockon = level.getBlockState(blockonpos);
                             BlockEntity tileEntity = level.getBlockEntity(blockpos);
-                            if (block.getMaterial() != Material.AIR && !block.is(ModTag.LEVIATHAN_IMMUNE)) {
-                                if (tileEntity == null && random.nextInt(4000) == 0) {
+                            if (blockon.getMaterial() == Material.AIR && block.getMaterial() != Material.AIR && !block.is(ModTag.LEVIATHAN_IMMUNE)) {
+                                if (tileEntity == null && random.nextInt(2000) == 0) {
                                     this.level.removeBlock(blockpos, true);
                                     Cm_Falling_Block_Entity fallingBlockEntity = new Cm_Falling_Block_Entity(level, i3 + 0.5D, k + 0.5D, l + 0.5D, block, 5);
                                     level.setBlock(blockpos, block.getFluidState().createLegacyBlock(), 3);

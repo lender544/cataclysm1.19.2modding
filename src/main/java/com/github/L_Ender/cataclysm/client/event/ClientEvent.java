@@ -19,9 +19,11 @@ import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.LiquidBlockRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -132,13 +134,13 @@ public class ClientEvent {
     public void onPreRenderEntity(RenderLivingEvent.Pre event) {
         LivingEntity player = (LivingEntity) event.getEntity();
         boolean usingIncinerator = player.isUsingItem() && player.getUseItem().is(ModItems.THE_INCINERATOR.get());
-        if(usingIncinerator){
+        if (usingIncinerator) {
             int i = player.getTicksUsingItem();
             float f2 = (float) player.tickCount + event.getPartialTick();
             PoseStack matrixStackIn = event.getPoseStack();
             float f3 = Mth.clamp(i, 1, 60);
             matrixStackIn.pushPose();
-            VertexConsumer ivertexbuilder = ItemRenderer.getArmorFoilBuffer(event.getMultiBufferSource(), CMRenderTypes.getGlowingEffect(FLAME_STRIKE),false, true);
+            VertexConsumer ivertexbuilder = ItemRenderer.getArmorFoilBuffer(event.getMultiBufferSource(), CMRenderTypes.getGlowingEffect(FLAME_STRIKE), false, true);
             matrixStackIn.translate(0.0D, 0.001, 0.0D);
             matrixStackIn.scale(f3 * 0.05f, f3 * 0.05f, f3 * 0.05f);
             matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(180.0F));
