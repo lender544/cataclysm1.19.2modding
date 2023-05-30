@@ -209,9 +209,8 @@
   "advancements.cataclysm.kill_harbinger.title": "Coisas Fora do Lugar",
   "advancements.cataclysm.kill_harbinger.description": "Acorde e Destrua o Wither Robô-Mecânico",
 
-  "death.attack.laser": "%s foi exterminado(a) pelo laser de %s",
-  "death.attack.deathlaser": "%s foi exterminado(a) pelo laser de %s",
-  "death.attack.emp": "%s virou frango grelhado queimado",
-  "death.attack.emp.player": "%s virou frango grelhado queimado",
-  "entity.cataclysm.smoke_effect": "Cinza"
+  "death.attack.cataclysm.laser": "%s foi exterminado(a) pelo laser de %s",
+  "death.attack.cataclysm.deathlaser": "%s foi exterminado(a) pelo laser de %s",
+  "death.attack.cataclysm.emp": "%s virou frango grelhado queimado",
+  "death.attack.cataclysm.emp.player": "%s virou frango grelhado queimado",
 }

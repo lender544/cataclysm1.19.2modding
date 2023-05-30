@@ -17,4 +17,5 @@ public class CMDamageTypes {
 
     public static final DamageSource EMP = new DamageSource("cataclysm.emp").bypassArmor();
 
+    public static final DamageSource ABYSSAL_BURN = new DamageSource("cataclysm.abyssal_burn").bypassArmor();
 }

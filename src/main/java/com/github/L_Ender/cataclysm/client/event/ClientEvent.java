@@ -15,7 +15,10 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix3f;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.LiquidBlockRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -23,8 +26,12 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluids;
@@ -32,15 +39,26 @@ import net.minecraft.world.level.material.FogType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.*;
+import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+
+import java.util.Random;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientEvent {
     public static final ResourceLocation FLAME_STRIKE = new ResourceLocation("cataclysm:textures/entity/soul_flame_strike_sigil.png");
     private boolean previousLavaVision = false;
     private LiquidBlockRenderer previousFluidRenderer;
+
+    private static final ResourceLocation EFFECT_HEART = new ResourceLocation("cataclysm:textures/gui/effect_heart.png");
+    private final Random random = new Random();
+    private int lastHealth;
+    private int displayHealth;
+    private long lastHealthTime;
+    private long healthBlinkTime;
+
 
 
     @SubscribeEvent
@@ -88,13 +106,22 @@ public class ClientEvent {
     @SubscribeEvent
     public void onRenderHUD(RenderGuiOverlayEvent.Pre event) {
         Player player = Minecraft.getInstance().player;
-        if (player != null && player.isPassenger()) {
-            if (player.getVehicle() instanceof Ignis_Entity) {
-                if (event.getOverlay().id().equals(VanillaGuiOverlay.HELMET.id())) {
-                    Minecraft.getInstance().gui.setOverlayMessage(Component.translatable("you_cant_escape"), false);
+        if (player != null) {
+            if (player.isPassenger()) {
+                if (player.getVehicle() instanceof Ignis_Entity) {
+                    if (event.getOverlay().id().equals(VanillaGuiOverlay.HELMET.id())) {
+                        Minecraft.getInstance().gui.setOverlayMessage(Component.translatable("you_cant_escape"), false);
+                    }
+                    if (event.getOverlay().id().equals(VanillaGuiOverlay.MOUNT_HEALTH.id())) {
+                        event.setCanceled(true);
+                    }
                 }
-                if (event.getOverlay().id().equals(VanillaGuiOverlay.MOUNT_HEALTH.id())) {
-                    event.setCanceled(true);
+            }
+            Minecraft mc = Minecraft.getInstance();
+            ForgeGui gui = (ForgeGui)mc.gui;
+            if (event.getOverlay() == VanillaGuiOverlay.PLAYER_HEALTH.type() && !mc.options.hideGui && gui.shouldDrawSurvivalElements()) {
+                if (player.hasEffect(ModEffect.ABYSSAL_BURN.get())) {
+                    CustomHealth(event,25);
                 }
             }
         }
@@ -179,6 +206,100 @@ public class ClientEvent {
             event.setRenderType(RenderType.translucent());
             event.setResult(Event.Result.ALLOW);
         }
+    }
+
+
+    private void CustomHealth(RenderGuiOverlayEvent.Pre event,int back){
+        Player player = Minecraft.getInstance().player;
+        Minecraft mc = Minecraft.getInstance();
+        ForgeGui gui = (ForgeGui)mc.gui;
+        PoseStack stack = event.getPoseStack();
+        gui.setupOverlayRenderState(true, false);
+        int width = event.getWindow().getGuiScaledWidth();
+        int height = event.getWindow().getGuiScaledHeight();
+        event.setCanceled(true);
+        RenderSystem.setShaderTexture(0, EFFECT_HEART);
+        RenderSystem.enableBlend();
+        int health = Mth.ceil(player.getHealth());
+        int tickCount = gui.getGuiTicks();
+        boolean highlight = this.healthBlinkTime > (long) tickCount && (this.healthBlinkTime - (long) tickCount) / 3L % 2L == 1L;
+        if (health < this.lastHealth && player.invulnerableTime > 0) {
+            this.lastHealthTime = Util.getMillis();
+            this.healthBlinkTime = (long) (tickCount + 20);
+        } else if (health > this.lastHealth && player.invulnerableTime > 0) {
+            this.lastHealthTime = Util.getMillis();
+            this.healthBlinkTime = (long) (tickCount + 10);
+        }
+
+        if (Util.getMillis() - this.lastHealthTime > 1000L) {
+            this.lastHealth = health;
+            this.displayHealth = health;
+            this.lastHealthTime = Util.getMillis();
+        }
+
+        this.lastHealth = health;
+        int healthLast = this.displayHealth;
+        AttributeInstance maxHealth = player.getAttribute(Attributes.MAX_HEALTH);
+        float healthMax = (float) maxHealth.getValue();
+        int absorbtion = Mth.ceil(player.getAbsorptionAmount());
+        int healthRows = Mth.ceil((healthMax + (float) absorbtion) / 2.0F / 10.0F);
+        int rowHeight = Math.max(10 - (healthRows - 2), 3);
+        this.random.setSeed((long) (tickCount * 312871L));
+        int left = width / 2 - 91;
+        int top = height - gui.leftHeight;
+        gui.leftHeight += healthRows * rowHeight;
+        if (rowHeight != 10) {
+            gui.leftHeight += 10 - rowHeight;
+        }
+
+        int regen = -1;
+        if (player.hasEffect(MobEffects.REGENERATION)) {
+            regen = tickCount % Mth.ceil(healthMax + 5.0F);
+        }
+
+        int TOP = player.level.getLevelData().isHardcore() ? 9 : 0;
+        int BACKGROUND = highlight ? back : 16;
+        int margin = 34;
+        float absorbtionRemaining = (float) absorbtion;
+
+        for (int i = Mth.ceil((healthMax + (float) absorbtion) / 2.0F) - 1; i >= 0; --i) {
+            int row = Mth.ceil((float) (i + 1) / 10.0F) - 1;
+            int x = left + i % 10 * 8;
+            int y = top - row * rowHeight;
+            if (health <= 4) {
+                y += this.random.nextInt(2);
+            }
+
+            if (i == regen) {
+                y -= 2;
+            }
+
+            gui.blit(stack, x, y, BACKGROUND, TOP, 9, 9);
+            if (highlight) {
+                if (i * 2 + 1 < healthLast) {
+                    gui.blit(stack, x, y, margin, TOP, 9, 9);
+                } else if (i * 2 + 1 == healthLast) {
+                    gui.blit(stack, x, y, margin + 9, TOP, 9, 9);
+                }
+            }
+
+            if (absorbtionRemaining > 0.0F) {
+                if (absorbtionRemaining == (float) absorbtion && (float) absorbtion % 2.0F == 1.0F) {
+                    gui.blit(stack, x, y, margin + 9, TOP, 9, 9);
+                    --absorbtionRemaining;
+                } else {
+                    gui.blit(stack, x, y, margin, TOP, 9, 9);
+                    absorbtionRemaining -= 2.0F;
+                }
+            } else if (i * 2 + 1 < health) {
+                gui.blit(stack, x, y, margin, TOP, 9, 9);
+            } else if (i * 2 + 1 == health) {
+                gui.blit(stack, x, y, margin + 9, TOP, 9, 9);
+            }
+        }
+
+        RenderSystem.disableBlend();
+        RenderSystem.setShaderTexture(0, GuiComponent.GUI_ICONS_LOCATION);
     }
 
 }
