@@ -2,7 +2,6 @@ package com.github.L_Ender.cataclysm.event;
 
 import com.github.L_Ender.cataclysm.cataclysm;
 import com.github.L_Ender.cataclysm.entity.The_Harbinger_Entity;
-import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Entity;
 import com.github.L_Ender.cataclysm.init.ModBlocks;
 import com.github.L_Ender.cataclysm.init.ModEffect;
 import com.github.L_Ender.cataclysm.init.ModItems;
@@ -11,14 +10,12 @@ import com.github.L_Ender.cataclysm.items.zweiender;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
@@ -45,7 +42,7 @@ public class ServerEventHandler {
         final BlockPos p_45021_ = event.getEntity().blockPosition();
 
         if (!event.getEntity().getItemBySlot(EquipmentSlot.FEET).isEmpty() && event.getEntity().getItemBySlot(EquipmentSlot.FEET).getItem() == ModItems.IGNITIUM_BOOTS.get()) {
-            if(!event.getEntity().isShiftKeyDown()){
+            if (!event.getEntity().isShiftKeyDown()) {
                 if (event.getEntity().isOnGround()) {
                     BlockState blockstate = ModBlocks.MELTING_NETHERRACK.get().defaultBlockState();
                     float f = (float) Math.min(16, 2 + p_45022_);
@@ -67,7 +64,6 @@ public class ServerEventHandler {
                 }
             }
         }
-
     }
 
     @SubscribeEvent

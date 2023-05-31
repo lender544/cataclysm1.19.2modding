@@ -8,32 +8,27 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ChorusFruitItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 
 public class EffectAbyssal_Burn extends MobEffect {
+    private int lastDuration = -1;
 
     public EffectAbyssal_Burn() {
         super(MobEffectCategory.HARMFUL, 0x6500ff);
     }
 
     public void applyEffectTick(LivingEntity LivingEntityIn, int amplifier) {
-
        boolean flag = LivingEntityIn.hurt(CMDamageTypes.ABYSSAL_BURN, 1.0F);
-        
-        if(flag && LivingEntityIn.getRandom().nextFloat() < (1 - LivingEntityIn.getHealth() / LivingEntityIn.getMaxHealth())) {
+        if(flag && LivingEntityIn.getRandom().nextFloat() < (0.75f - LivingEntityIn.getHealth() / LivingEntityIn.getMaxHealth())) {
             if (!LivingEntityIn.level.isClientSide) {
                 double d0 = LivingEntityIn.getX();
                 double d1 = LivingEntityIn.getY();
@@ -109,12 +104,8 @@ public class EffectAbyssal_Burn extends MobEffect {
 
 
     public boolean isDurationEffectTick(int duration, int amplifier) {
-        int k = 50 >> amplifier;
-        if (k > 0) {
-            return duration % k == 0;
-        } else {
-            return true;
-        }
+        lastDuration = duration;
+        return duration > 0;
     }
 
 }

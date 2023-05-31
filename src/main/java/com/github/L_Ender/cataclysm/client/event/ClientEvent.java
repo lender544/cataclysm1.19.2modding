@@ -134,10 +134,10 @@ public class ClientEvent {
     public void onPreRenderEntity(RenderLivingEvent.Pre event) {
         LivingEntity player = (LivingEntity) event.getEntity();
         boolean usingIncinerator = player.isUsingItem() && player.getUseItem().is(ModItems.THE_INCINERATOR.get());
+        PoseStack matrixStackIn = event.getPoseStack();
         if (usingIncinerator) {
             int i = player.getTicksUsingItem();
             float f2 = (float) player.tickCount + event.getPartialTick();
-            PoseStack matrixStackIn = event.getPoseStack();
             float f3 = Mth.clamp(i, 1, 60);
             matrixStackIn.pushPose();
             VertexConsumer ivertexbuilder = ItemRenderer.getArmorFoilBuffer(event.getMultiBufferSource(), CMRenderTypes.getGlowingEffect(FLAME_STRIKE), false, true);
