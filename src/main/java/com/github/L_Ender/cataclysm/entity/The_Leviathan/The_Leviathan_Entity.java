@@ -589,15 +589,6 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         }
     }
 
-    public void shootOrb(double xMotion, double yMotion, double zMotion) {
-        if(this.getTarget() != null) {
-            Abyss_Orb_Entity orb = new Abyss_Orb_Entity(this, xMotion, yMotion, zMotion,level, this.getTarget());
-            orb.setPos(this.getX(), this.getEyeHeight(),this.getZ());
-            this.level.addFreshEntity(orb);
-        }
-    }
-
-
     private void roarDarkness(double x, double y,double z, double radius,int time) {
         List<LivingEntity> entities = getEntityLivingBaseNearby(x, y, z, radius);
         for (LivingEntity inRange : entities) {
@@ -610,7 +601,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
     private void TailWhips() {
         for (LivingEntity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(7.0D,7.0D,7.0D))) {
             if (!isAlliedTo(entity) && !(entity instanceof The_Leviathan_Entity) && entity != this) {
-                boolean flag = entity.hurt(DamageSource.mobAttack(this), (float) ((float) this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
+                boolean flag = entity.hurt(DamageSource.mobAttack(this), (float) ((float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) + Math.min(this.getAttributeValue(Attributes.ATTACK_DAMAGE), entity.getMaxHealth() * CMConfig.LeviathanTailSwingHpdamage)));
                 if (entity instanceof Player && entity.isBlocking()) {
                     disableShield(entity, 240);
                 }
@@ -723,7 +714,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         if (this.tickCount % 4 == 0) {
             for (LivingEntity Lentity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(3D))) {
                 if (!isAlliedTo(Lentity) && !(Lentity instanceof The_Leviathan_Entity) && Lentity != this) {
-                    boolean flag = Lentity.hurt(DamageSource.mobAttack(this),  (float) ((float) this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
+                    boolean flag = Lentity.hurt(DamageSource.mobAttack(this), (float) ((float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) + Math.min(this.getAttributeValue(Attributes.ATTACK_DAMAGE), Lentity.getMaxHealth() * CMConfig.LeviathanRushHpdamage)));
                     if (Lentity instanceof Player && Lentity.isBlocking()) {
                         disableShield(Lentity, 120);
                     }
@@ -781,7 +772,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
                 List<LivingEntity> hit = raytraceEntities(level, inflateX, inflateY,inflateZ, new Vec3(getX(), getY(), getZ()), new Vec3(endPosX, endPosY, endPosZ)).entities;
                 for (LivingEntity target : hit) {
                     if (!isAlliedTo(target) && !(target instanceof The_Leviathan_Entity) && target != this) {
-                        boolean flag = target.hurt(DamageSource.mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
+                        boolean flag = target.hurt(DamageSource.mobAttack(this), (float) ((float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) + Math.min(this.getAttributeValue(Attributes.ATTACK_DAMAGE), target.getMaxHealth() * CMConfig.LeviathanTentacleHpdamage)));
                         if (target instanceof Player && target.isBlocking()) {
                             disableShield(target, 90);
                         }
