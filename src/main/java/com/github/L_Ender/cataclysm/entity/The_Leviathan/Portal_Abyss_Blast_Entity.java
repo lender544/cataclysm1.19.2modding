@@ -3,6 +3,8 @@ package com.github.L_Ender.cataclysm.entity.The_Leviathan;
 
 import com.github.L_Ender.cataclysm.client.particle.LightningParticle;
 import com.github.L_Ender.cataclysm.client.tool.ControlledAnimation;
+import com.github.L_Ender.cataclysm.config.CMConfig;
+import com.github.L_Ender.cataclysm.init.ModEffect;
 import com.github.L_Ender.cataclysm.init.ModTag;
 import com.github.L_Ender.cataclysm.util.CMDamageTypes;
 import net.minecraft.core.BlockPos;
@@ -14,6 +16,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -137,7 +140,21 @@ public class Portal_Abyss_Blast_Entity extends Entity {
             if (!level.isClientSide) {
                 for (LivingEntity target : hit) {
                     if(target != caster) {
-                        boolean flag = target.hurt(CMDamageTypes.causeLaserDamage(this, caster).bypassArmor(), (float) 15);
+                        boolean flag = target.hurt(CMDamageTypes.causeLaserDamage(this, caster).bypassArmor(), (float) ((float) CMConfig.AbyssBlastdamage + Math.min(CMConfig.AbyssBlastdamage, target.getMaxHealth() * CMConfig.AbyssBlastHpdamage)));
+                        if(flag){
+                            MobEffectInstance effectinstance1 = target.getEffect(ModEffect.EFFECTABYSSAL_BURN.get());
+                            int i = 1;
+                            if (effectinstance1 != null) {
+                                i += effectinstance1.getAmplifier();
+                                target.removeEffectNoUpdate(ModEffect.EFFECTABYSSAL_BURN.get());
+                            } else {
+                                --i;
+                            }
+
+                            i = Mth.clamp(i, 0, 3);
+                            MobEffectInstance effectinstance = new MobEffectInstance(ModEffect.EFFECTABYSSAL_BURN.get(), 160, i, false, false, true);
+                            target.addEffect(effectinstance);
+                        }
                     }
 
                 }

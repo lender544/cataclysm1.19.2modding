@@ -19,7 +19,9 @@ public class ModEffect {
 
     public static final RegistryObject<MobEffect> EFFECTSTUN = EFFECTS.register("stun", EffectStun::new);
 
-    public static final RegistryObject<MobEffect> ABYSSAL_BURN = EFFECTS.register("abyssal_burn", EffectAbyssal_Burn::new);
+    public static final RegistryObject<MobEffect> EFFECTABYSSAL_BURN = EFFECTS.register("abyssal_burn", EffectAbyssal_Burn::new);
 
-    public static final RegistryObject<MobEffect> BONE_FRACTURE = EFFECTS.register("bone_fracture", EffectBone_Fracture::new);
+    public static final RegistryObject<MobEffect> EFFECTBONE_FRACTURE = EFFECTS.register("bone_fracture", EffectBone_Fracture::new);
+
+    public static final RegistryObject<MobEffect> EFFECTABYSSAL_FEAR = EFFECTS.register("abyssal_fear", EffectAbyssal_Fear::new);
 }

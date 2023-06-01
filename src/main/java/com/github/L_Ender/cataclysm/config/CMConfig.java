@@ -29,6 +29,9 @@ public class CMConfig {
     public static double WitherMissiledamage = 8;
     public static double WitherHowizterdamage = 8;
     public static double WitherHomingMissiledamage = 3;
+    public static double AbyssOrbdamage = 4;
+    public static double AbyssBlastdamage = 10;
+    public static double AbyssBlastHpdamage = 0.1D;
     public static int Lavabombradius = 2;
 
     public static boolean ScreenShake = true;
@@ -92,6 +95,11 @@ public class CMConfig {
     public static double EnderguardianRocketPunchHpdamage = 0.1D;
     public static double EnderguardianAreaAttackHpdamage = 0.08D;
     public static double HarbingerChargeHpDamage = 0.06D;
+    public static double LeviathanbiteHpdamage = 0.1D;
+    public static double LeviathanTailSwingHpdamage = 0.08D;
+    public static double LeviathanRushHpdamage = 0.05D;
+    public static double LeviathanTentacleHpdamage = 0.03D;
+
 
     public static boolean Armor_Infinity_Durability = true;
 
@@ -121,6 +129,9 @@ public class CMConfig {
             WitherHowizterdamage = ConfigHolder.COMMON.WitherHowizterdamage.get();
             WitherHomingMissiledamage = ConfigHolder.COMMON.WitherHomingMissiledamage.get();
             DimensionalRiftdamage = ConfigHolder.COMMON.DimensionalRiftDamage.get();
+            AbyssOrbdamage = ConfigHolder.COMMON.AbyssOrbdamage.get();
+            AbyssBlastdamage = ConfigHolder.COMMON.AbyssBlastdamage.get();
+            AbyssBlastHpdamage = ConfigHolder.COMMON.AbyssBlastHpdamage.get();
 
             Lavabombradius = ConfigHolder.COMMON.Lavabombradius.get();
             ScreenShake = ConfigHolder.COMMON.ScreenShake.get();
@@ -173,6 +184,10 @@ public class CMConfig {
             EnderguardianRocketPunchHpdamage = ConfigHolder.COMMON.EnderguardianRocketPunchHpdamage.get();
             EnderguardianAreaAttackHpdamage = ConfigHolder.COMMON.EnderguardianAreaAttackHpdamage.get();
             HarbingerChargeHpDamage = ConfigHolder.COMMON.HarbingerChargeHpDamage.get();
+            LeviathanbiteHpdamage = ConfigHolder.COMMON.LeviathanbiteHpdamage.get();
+            LeviathanTailSwingHpdamage = ConfigHolder.COMMON.LeviathanTailSwingHpdamage.get();
+            LeviathanRushHpdamage = ConfigHolder.COMMON.LeviathanRushHpdamage.get();
+            LeviathanTentacleHpdamage = ConfigHolder.COMMON.LeviathanTentacleHpdamage.get();
 
             LeviathanHealthMultiplier = ConfigHolder.COMMON.LeviathanHealthMultiplier.get();
             LeviathanDamageMultiplier = ConfigHolder.COMMON.LeviathanDamageMultiplier.get();

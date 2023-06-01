@@ -30,6 +30,9 @@ public class CommonConfig {
     public final ForgeConfigSpec.DoubleValue WitherMissiledamage;
     public final ForgeConfigSpec.DoubleValue WitherHowizterdamage;
     public final ForgeConfigSpec.DoubleValue WitherHomingMissiledamage;
+    public final ForgeConfigSpec.DoubleValue AbyssOrbdamage;
+    public final ForgeConfigSpec.DoubleValue AbyssBlastdamage;
+    public final ForgeConfigSpec.DoubleValue AbyssBlastHpdamage;
     public final ForgeConfigSpec.DoubleValue DimensionalRiftDamage;
 
     public final ForgeConfigSpec.BooleanValue ScreenShake;
@@ -87,6 +90,10 @@ public class CommonConfig {
     public final ForgeConfigSpec.DoubleValue EnderguardianAreaAttackHpdamage;
     public final ForgeConfigSpec.DoubleValue EnderguardianRocketPunchHpdamage;
     public final ForgeConfigSpec.DoubleValue HarbingerChargeHpDamage;
+    public final ForgeConfigSpec.DoubleValue LeviathanbiteHpdamage;
+    public final ForgeConfigSpec.DoubleValue LeviathanTailSwingHpdamage;
+    public final ForgeConfigSpec.DoubleValue LeviathanRushHpdamage;
+    public final ForgeConfigSpec.DoubleValue LeviathanTentacleHpdamage;
 
     public CommonConfig(final ForgeConfigSpec.Builder builder) {
         builder.push("Etc");
@@ -121,6 +128,9 @@ public class CommonConfig {
         WitherHowizterdamage = buildDouble(builder, "WitherHowizterdamage", "all", 8, 0D, 1000000D, "Wither Howizter's Damage");
         DimensionalRiftDamage = buildDouble(builder, "DimensionalRiftdamage", "all", 10, 0D, 1000000D, "Dimensional Rift's Damage");
         WitherHomingMissiledamage = buildDouble(builder, "WitherHomingMissiledamage", "all", 3, 0, 1000000, "Wither Homing Missile's Damage");
+        AbyssBlastdamage = buildDouble(builder, "AbyssBlastdamage", "all", 10, 0, 1000000, "Abyss Blast's Damage");
+        AbyssBlastHpdamage = buildDouble(builder, "AbyssBlastHpdamage", "all", 0.1, 0.0D, 1.0D, "Abyss Blast's Hp Damage");
+        AbyssOrbdamage = buildDouble(builder, "AbyssOrbdamage", "all", 4, 0, 1000000, "Abyss Orb's Damage");
         Lavabombradius = buildInt(builder, "Lavabombradius", "all", 2, 1, 7, "Lava bomb's Radius");
         builder.pop();
 
@@ -185,6 +195,10 @@ public class CommonConfig {
         LeviathanHealthMultiplier = buildDouble(builder, "LeviathanHealthMultiplier", "all", 1.0D, 0D, 1000000D, "Leviathan's Health Multiplier");
         LeviathanDamageMultiplier = buildDouble(builder, "LeviathanDamageMultiplier", "all", 1.0D, 0D, 1000000D, "Leviathan's Damage Multiplier");
         LeviathanLongRangelimit = buildDouble(builder, "Leviathan's prevent attacks from far away Range", "all", 38.0D, 1D, 1000000D, "Leviathan's Immune to Long distance attack range.");
+        LeviathanbiteHpdamage = buildDouble(builder, "Leviathan's Bite Hp Damage", "all", 0.1D, 0.0D, 1.0D, "Leviathan's Bite Hp Damage");
+        LeviathanRushHpdamage = buildDouble(builder, "Leviathan's Rush Hp Damage", "all", 0.05D, 0.0D, 1.0D, "Leviathan's Rush Hp Damage");
+        LeviathanTailSwingHpdamage = buildDouble(builder, "Leviathan's TailSwing Hp Damage", "all", 0.08D, 0.0D, 1.0D, "Leviathan's TailSwing Hp Damage");
+        LeviathanTentacleHpdamage = buildDouble(builder, "Leviathan's Tentacle Hp Damage", "all", 0.03D, 0.0D, 1.0D, "Leviathan's Tentacle Hp Damage");
         LeviathanDamageCap = buildInt(builder, "LeviathanDamageCap", "all", 20, 0, 1000000, "Leviathan's DamageCap");
         LeviathanBlockBreaking = buildBoolean(builder, "LeviathanBlockBreaking", "all", true, "Leviathan's block breaking ignore the MobGriefing");
         LeviathanImmuneOutofWater = buildBoolean(builder, "LeviathanImmuneOutofWater", "all", true, "Leviathan Immune Out of Water");

@@ -122,7 +122,7 @@ public class ClientEvent {
             Minecraft mc = Minecraft.getInstance();
             ForgeGui gui = (ForgeGui)mc.gui;
             if (event.getOverlay() == VanillaGuiOverlay.PLAYER_HEALTH.type() && !mc.options.hideGui && gui.shouldDrawSurvivalElements()) {
-                if (player.hasEffect(ModEffect.ABYSSAL_BURN.get())) {
+                if (player.hasEffect(ModEffect.EFFECTABYSSAL_BURN.get())) {
                     CustomHealth(event,25);
                 }
             }

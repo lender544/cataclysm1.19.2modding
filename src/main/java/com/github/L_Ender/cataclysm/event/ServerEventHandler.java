@@ -96,6 +96,16 @@ public class ServerEventHandler {
         }
     }
 
+
+    @SubscribeEvent
+    public void BlockHeal(LivingHealEvent event) {
+        if (event.getEntity().hasEffect(ModEffect.EFFECTABYSSAL_FEAR.get())) {
+            event.setCanceled(true);
+        }
+    }
+
+
+
   //  @SubscribeEvent
   //  public static void modifiyVisibility(LivingEvent.LivingVisibilityEvent event) {
    //     if (event.getLookingEntity() instanceof LivingEntity living) {

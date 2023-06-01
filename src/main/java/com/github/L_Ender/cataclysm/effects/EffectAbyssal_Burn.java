@@ -20,7 +20,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 
 public class EffectAbyssal_Burn extends MobEffect {
-    private int lastDuration = -1;
 
     public EffectAbyssal_Burn() {
         super(MobEffectCategory.HARMFUL, 0x6500ff);
@@ -104,7 +103,6 @@ public class EffectAbyssal_Burn extends MobEffect {
 
 
     public boolean isDurationEffectTick(int duration, int amplifier) {
-        lastDuration = duration;
         return duration > 0;
     }
 

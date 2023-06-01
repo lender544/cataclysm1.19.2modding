@@ -559,7 +559,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
                 }
                 if (flag) {
                     launch(entity, true);
-                    entity.addEffect(new MobEffectInstance(ModEffect.BONE_FRACTURE.get(), 200));
+                    entity.addEffect(new MobEffectInstance(ModEffect.EFFECTBONE_FRACTURE.get(), 200));
 
                 }
             }

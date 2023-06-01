@@ -2,6 +2,7 @@ package com.github.L_Ender.cataclysm.entity.The_Leviathan;
 
 import com.github.L_Ender.cataclysm.config.CMConfig;
 import com.github.L_Ender.cataclysm.entity.The_Harbinger_Entity;
+import com.github.L_Ender.cataclysm.init.ModEffect;
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -178,33 +179,19 @@ public class Abyss_Orb_Entity extends Projectile {
 
     protected void onHitEntity(EntityHitResult p_37626_) {
         super.onHitEntity(p_37626_);
-        if (!this.level.isClientSide && !(p_37626_.getEntity() instanceof The_Harbinger_Entity)) {
+        if (!this.level.isClientSide && !(p_37626_.getEntity() instanceof The_Leviathan_Entity ||!(p_37626_.getEntity() instanceof The_Leviathan_Part))) {
             Entity entity = p_37626_.getEntity();
             Entity entity1 = this.getOwner();
             boolean flag;
             if (entity1 instanceof LivingEntity) {
                 LivingEntity livingentity = (LivingEntity)entity1;
-                flag = entity.hurt(DamageSource.indirectMobAttack(this, livingentity).setProjectile(), (float) CMConfig.WitherHomingMissiledamage);
-                if (flag) {
-                    if (entity.isAlive()) {
-                        this.doEnchantDamageEffects(livingentity, entity);
-                    } else {
-                        livingentity.heal(5.0F);
-                    }
-                }
+                flag = entity.hurt(DamageSource.indirectMobAttack(this, livingentity).setProjectile(), (float) CMConfig.AbyssOrbdamage);
             } else {
-                flag = entity.hurt(DamageSource.MAGIC, 3.0F);
+                flag = entity.hurt(DamageSource.MAGIC, (float) CMConfig.AbyssOrbdamage);
             }
 
             if (flag && entity instanceof LivingEntity) {
-                int i = 5;
-                if (this.level.getDifficulty() == Difficulty.NORMAL) {
-                    i = 10;
-                } else if (this.level.getDifficulty() == Difficulty.HARD) {
-                    i = 15;
-                }
-
-                ((LivingEntity)entity).addEffect(new MobEffectInstance(MobEffects.WITHER, 5 * i, 0), this.getEffectSource());
+                ((LivingEntity)entity).addEffect(new MobEffectInstance(ModEffect.EFFECTABYSSAL_FEAR.get(), 100, 0), this.getEffectSource());
             }
             this.level.explode(this, this.getX(), this.getY(), this.getZ(), 1.0F, false, Explosion.BlockInteraction.NONE);
             this.discard();
