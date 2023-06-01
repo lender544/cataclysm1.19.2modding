@@ -59,7 +59,7 @@ public class RendererDeepling_Angler extends MobRenderer<Deepling_Angler_Entity,
             theta += Math.PI / 2;
             double vecX = Math.cos(theta);
             double vecZ = Math.sin(theta);
-            float w =  entity.isInWater() ? -0.2f : -0.8f;
+            float w =  entity.isInWater() ? 0.3f : -0.8f;
             float h =  entity.isInWater() ? 3.0f : 2.8f;
 
             matrixStackIn.translate(vecX * w, h, vecZ * w);

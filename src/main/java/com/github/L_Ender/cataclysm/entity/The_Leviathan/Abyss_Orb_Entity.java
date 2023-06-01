@@ -1,6 +1,8 @@
 package com.github.L_Ender.cataclysm.entity.The_Leviathan;
 
+import com.github.L_Ender.cataclysm.client.particle.LightningParticle;
 import com.github.L_Ender.cataclysm.config.CMConfig;
+import com.github.L_Ender.cataclysm.entity.Ignis_Entity;
 import com.github.L_Ender.cataclysm.entity.The_Harbinger_Entity;
 import com.github.L_Ender.cataclysm.init.ModEffect;
 import com.github.L_Ender.cataclysm.init.ModEntities;
@@ -139,8 +141,11 @@ public class Abyss_Orb_Entity extends Projectile {
                 }
                 f = 0.8F;
             }
-            this.level.addParticle(ParticleTypes.SMOKE, this.getX() - vec3.x, this.getY() - vec3.y + 0.15D, this.getZ() - vec3.z, 0.0D, 0.0D, 0.0D);
-          //  this.level.addParticle(ParticleTypes.FLAME, this.getX() - vec3.x, this.getY() - vec3.y + 0.15D, this.getZ() - vec3.z, 0.0D, 0.0D, 0.0D);
+            this.level.addParticle(ParticleTypes.REVERSE_PORTAL, this.getX() - vec3.x, this.getY() - vec3.y + 0.15D, this.getZ() - vec3.z, 0.0D, 0.0D, 0.0D);
+            for (int i = 0; i < 2; ++i) {
+                this.level.addParticle((new LightningParticle.OrbData(0.4f, 0.1f, 0.8f)), d0 - vec3.x * 0.5D + this.random.nextDouble() * 0.6D - 0.3D, d1 - vec3.y * 0.5D - 0.5D, d2 - vec3.z * 0.5D + this.random.nextDouble() * 0.6D - 0.3D, vec3.x, vec3.y, vec3.z);
+            }
+            //  this.level.addParticle(ParticleTypes.FLAME, this.getX() - vec3.x, this.getY() - vec3.y + 0.15D, this.getZ() - vec3.z, 0.0D, 0.0D, 0.0D);
             this.setDeltaMovement(vec3.add(this.xPower, this.yPower, this.zPower).scale((double)f));
             this.setPos(d0, d1, d2);
         } else {
@@ -179,9 +184,9 @@ public class Abyss_Orb_Entity extends Projectile {
 
     protected void onHitEntity(EntityHitResult p_37626_) {
         super.onHitEntity(p_37626_);
-        if (!this.level.isClientSide && !(p_37626_.getEntity() instanceof The_Leviathan_Entity ||!(p_37626_.getEntity() instanceof The_Leviathan_Part))) {
+        Entity entity1 = this.getOwner();
+        if (!this.level.isClientSide && entity1 instanceof The_Leviathan_Entity && !(p_37626_.getEntity() instanceof The_Leviathan_Entity) ||!(p_37626_.getEntity() instanceof The_Leviathan_Part)) {
             Entity entity = p_37626_.getEntity();
-            Entity entity1 = this.getOwner();
             boolean flag;
             if (entity1 instanceof LivingEntity) {
                 LivingEntity livingentity = (LivingEntity)entity1;
@@ -193,7 +198,7 @@ public class Abyss_Orb_Entity extends Projectile {
             if (flag && entity instanceof LivingEntity) {
                 ((LivingEntity)entity).addEffect(new MobEffectInstance(ModEffect.EFFECTABYSSAL_FEAR.get(), 100, 0), this.getEffectSource());
             }
-            this.level.explode(this, this.getX(), this.getY(), this.getZ(), 1.0F, false, Explosion.BlockInteraction.NONE);
+            this.level.explode(entity1, this.getX(), this.getY(), this.getZ(), 1.0F, false, Explosion.BlockInteraction.NONE);
             this.discard();
 
         }
@@ -201,8 +206,9 @@ public class Abyss_Orb_Entity extends Projectile {
 
     protected void onHitBlock(BlockHitResult result) {
         super.onHitBlock(result);
+        Entity entity1 = this.getOwner();
         if (!this.level.isClientSide) {
-            this.level.explode(this, this.getX(), this.getY(), this.getZ(), 1.0F, false, Explosion.BlockInteraction.NONE);
+            this.level.explode(entity1, this.getX(), this.getY(), this.getZ(), 1.0F, false, Explosion.BlockInteraction.NONE);
             this.discard();
         }
     }

@@ -182,6 +182,9 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> LEVIATHAN_STUN_ROAR = SOUNDS.register("leviathan_stun_roar",
             () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"leviathan_stun_roar")));
 
+    public static final RegistryObject<SoundEvent> LEVIATHAN_BITE = SOUNDS.register("leviathan_bite",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"leviathan_bite")));
+
     public static final RegistryObject<SoundEvent> DEEPLING_IDLE = SOUNDS.register("deepling_idle",
             () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"deepling_idle")));
 
@@ -205,5 +208,7 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> BLACK_HOLE_LOOP = SOUNDS.register("black_hole_loop",
             () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"black_hole_loop")));
+
+
 
 }

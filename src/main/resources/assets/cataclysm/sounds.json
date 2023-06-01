@@ -532,6 +532,14 @@
       }
     ]
   },
+  "leviathan_bite": {
+    "subtitle": "leviathan_bite.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/leviathan_bite"
+      }
+    ]
+  },
   "deepling_death": {
     "subtitle": "deepling_death.sub",
     "sounds": [

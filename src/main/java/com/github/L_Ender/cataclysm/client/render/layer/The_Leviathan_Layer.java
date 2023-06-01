@@ -26,7 +26,7 @@ public class The_Leviathan_Layer extends RenderLayer<The_Leviathan_Entity, Model
 
     @Override
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, The_Leviathan_Entity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        float alpha = entity.LayerBrightness;
+        float alpha = entity.getMeltDown() ? 1 :entity.LayerBrightness;
         ResourceLocation resourceLocation = entity.getMeltDown() ? BURNING_LEVIATHAN_LAYER : LEVIATHAN_LAYER;
         RenderType eyes = CMRenderTypes.CMEyes(resourceLocation);
         VertexConsumer VertexConsumer = bufferIn.getBuffer(eyes);

@@ -31,7 +31,7 @@ public class RendererAbyss_Orb extends EntityRenderer<Abyss_Orb_Entity> {
 
     public void render(Abyss_Orb_Entity p_114080_, float p_114081_, float p_114082_, PoseStack p_114083_, MultiBufferSource p_114084_, int p_114085_) {
         p_114083_.pushPose();
-        p_114083_.scale(2.0F, 2.0F, 2.0F);
+        p_114083_.scale(1.0F, 1.0F, 1.0F);
         p_114083_.mulPose(this.entityRenderDispatcher.cameraOrientation());
         p_114083_.mulPose(Vector3f.YP.rotationDegrees(180.0F));
         PoseStack.Pose posestack$pose = p_114083_.last();
