@@ -161,6 +161,8 @@
   "effect.cataclysm.blazing_brand": "불타는 낙인",
   "effect.cataclysm.stun": "기절",
   "effect.cataclysm.abyssal_burn": "심연의 화상",
+  "effect.cataclysm.bone_fracture": "골절",
+
 
   "golemhurt.sub": "엔더 골렘이 상처를 입음",
   "golemdeath.sub": "엔더 골렘이 죽음",
@@ -232,6 +234,7 @@
   "death.attack.cataclysm.deathlaser": "%s는 %s의 레이저에 의해 말살되었습니다.",
   "death.attack.cataclysm.emp": "%s는 전기구이 통닭이 되버렸습니다.",
   "death.attack.cataclysm.emp.player": "%s는 전기구이 통닭이 되버렸습니다.",
+
   "death.attack.cataclysm.abyssal_burn": "%s가 차원을 떠났습니다",
   "death.attack.cataclysm.abyssal_burn.player": "%s가 차원을 떠났습니다"
 }

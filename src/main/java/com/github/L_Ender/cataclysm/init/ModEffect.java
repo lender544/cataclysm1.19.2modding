@@ -2,10 +2,7 @@ package com.github.L_Ender.cataclysm.init;
 
 
 import com.github.L_Ender.cataclysm.cataclysm;
-import com.github.L_Ender.cataclysm.effects.EffectAbyssal_Burn;
-import com.github.L_Ender.cataclysm.effects.EffectBlazing_Brand;
-import com.github.L_Ender.cataclysm.effects.EffectMonstrous;
-import com.github.L_Ender.cataclysm.effects.EffectStun;
+import com.github.L_Ender.cataclysm.effects.*;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -23,4 +20,6 @@ public class ModEffect {
     public static final RegistryObject<MobEffect> EFFECTSTUN = EFFECTS.register("stun", EffectStun::new);
 
     public static final RegistryObject<MobEffect> ABYSSAL_BURN = EFFECTS.register("abyssal_burn", EffectAbyssal_Burn::new);
+
+    public static final RegistryObject<MobEffect> BONE_FRACTURE = EFFECTS.register("bone_fracture", EffectBone_Fracture::new);
 }

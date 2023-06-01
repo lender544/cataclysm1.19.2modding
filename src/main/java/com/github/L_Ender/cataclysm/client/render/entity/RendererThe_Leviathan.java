@@ -25,6 +25,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class RendererThe_Leviathan extends MobRenderer<The_Leviathan_Entity, ModelThe_Leviathan> {
 
     private static final ResourceLocation LEVIATHAN_TEXTURES = new ResourceLocation("cataclysm:textures/entity/leviathan/the_leviathan.png");
+    private static final ResourceLocation BURNING_LEVIATHAN_TEXTURES = new ResourceLocation("cataclysm:textures/entity/leviathan/the_burning_leviathan.png");
     private static final ResourceLocation LEVIATHAN_TEXTURE_EYES = new ResourceLocation("cataclysm:textures/entity/leviathan/the_leviathan_eye.png");
     private final RandomSource rnd = RandomSource.create();
 
@@ -36,9 +37,10 @@ public class RendererThe_Leviathan extends MobRenderer<The_Leviathan_Entity, Mod
 
     @Override
     public ResourceLocation getTextureLocation(The_Leviathan_Entity entity) {
-        return LEVIATHAN_TEXTURES;
+        return  entity.getMeltDown() ? BURNING_LEVIATHAN_TEXTURES : LEVIATHAN_TEXTURES;
     }
 
+    /*
     public boolean shouldRender(The_Leviathan_Entity livingEntityIn, Frustum camera, double camX, double camY, double camZ) {
         if (super.shouldRender(livingEntityIn, camera, camX, camY, camZ)) {
             return true;
@@ -51,6 +53,7 @@ public class RendererThe_Leviathan extends MobRenderer<The_Leviathan_Entity, Mod
             return false;
         }
     }
+     */
 
     public Vec3 getRenderOffset(The_Leviathan_Entity entityIn, float partialTicks) {
         if (entityIn.getAnimation() == The_Leviathan_Entity.LEVIATHAN_ABYSS_BLAST && entityIn.getAnimationTick() <= 66) {

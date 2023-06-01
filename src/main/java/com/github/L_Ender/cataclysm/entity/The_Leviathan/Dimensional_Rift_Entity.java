@@ -153,10 +153,9 @@ public class Dimensional_Rift_Entity extends Entity {
                             BlockPos blockonpos = new BlockPos(i3, k+ 1, l);
 
                             BlockState block = level.getBlockState(blockpos);
-
                             BlockState blockon = level.getBlockState(blockonpos);
                             BlockEntity tileEntity = level.getBlockEntity(blockpos);
-                            if (blockon.getMaterial() == Material.AIR && block.getMaterial() != Material.AIR && !block.is(ModTag.LEVIATHAN_IMMUNE)) {
+                            if ((blockon.getMaterial() == Material.AIR || blockon.getMaterial() == Material.WATER) && block.getMaterial() != Material.AIR && !block.is(ModTag.LEVIATHAN_IMMUNE)) {
                                 if (tileEntity == null && random.nextInt(2000) == 0) {
                                     this.level.removeBlock(blockpos, true);
                                     Cm_Falling_Block_Entity fallingBlockEntity = new Cm_Falling_Block_Entity(level, i3 + 0.5D, k + 0.5D, l + 0.5D, block, 5);

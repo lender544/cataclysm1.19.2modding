@@ -134,6 +134,10 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
 
     private static final EntityDataAccessor<Integer> BLAST_CHANCE = SynchedEntityData.defineId(The_Leviathan_Entity.class, EntityDataSerializers.INT);
 
+    private static final EntityDataAccessor<Boolean> MELT_DOWN = SynchedEntityData.defineId(The_Leviathan_Entity.class, EntityDataSerializers.BOOLEAN);
+
+    private static final EntityDataAccessor<Boolean> ENCHANT = SynchedEntityData.defineId(The_Leviathan_Entity.class, EntityDataSerializers.BOOLEAN);
+
     public The_Leviathan_Entity(EntityType type, Level worldIn) {
         super(type, worldIn);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
@@ -164,6 +168,8 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(BLAST_CHANCE, 0);
+        this.entityData.define(MELT_DOWN, false);
+        this.entityData.define(ENCHANT, false);
     }
 
     protected void registerGoals() {
@@ -353,7 +359,6 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             hunting_cooldown--;
         }
 
-
         AnimationHandler.INSTANCE.updateAnimations(this);
 
         if (!this.isNoAi()) {
@@ -480,7 +485,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             if (this.getAnimationTick() == 56) {
                 this.level.playSound((Player) null, this, ModSounds.LEVIATHAN_ROAR.get(), SoundSource.HOSTILE, 4.0f, 1.0f);
                 ScreenShake_Entity.ScreenShake(this.level, this.position(), 30, 0.1f, 60, 10);
-                roarDarkness(48,48,48,48,40);
+                roarDarkness(48,48,48,48,200);
             }
         }
         SwingParticles();
@@ -554,6 +559,8 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
                 }
                 if (flag) {
                     launch(entity, true);
+                    entity.addEffect(new MobEffectInstance(ModEffect.BONE_FRACTURE.get(), 200));
+
                 }
             }
         }
@@ -747,14 +754,35 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
+        compound.putInt("BlastChance", this.getBlastChance());
+        compound.putBoolean("MeltDown", this.getMeltDown());
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-
+        this.setBlastChance(compound.getInt("BlastChance"));
+        this.setMeltDown(compound.getBoolean("MeltDown"));
+     //   if (this.hasCustomName()) {
+        //    this.bossInfo.setName(this.getDisplayName());
+      //  }
+       // this.bossInfo.setId(this.getUUID());
     }
 
+    public boolean getMeltDown() {
+        return this.entityData.get(MELT_DOWN);
+    }
 
+    public void setMeltDown(boolean chance) {
+        this.entityData.set(MELT_DOWN, chance);
+    }
+
+    public boolean getEnchant() {
+        return this.entityData.get(ENCHANT);
+    }
+
+    public void setEnchant(boolean chance) {
+        this.entityData.set(ENCHANT, chance);
+    }
 
     public int getBlastChance() {
         return this.entityData.get(BLAST_CHANCE);
@@ -1259,11 +1287,10 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             LivingEntity target = entity.getTarget();
             if (target != null) {
                 entity.getLookControl().setLookAt(target, 30, 90);
-
+                double d0 = Math.min(target.getY(), entity.getY()) - 50;
+                double d1 = Math.max(target.getY(), entity.getY()) + 3D;
+                float f = (float) Mth.atan2(target.getZ() - entity.getZ(), target.getX() - entity.getX());
                 if (this.entity.getAnimationTick() == 56) {
-                    double d0 = Math.min(target.getY(), entity.getY()) - 50;
-                    double d1 = Math.max(target.getY(), entity.getY()) + 3D;
-                    float f = (float) Mth.atan2(target.getZ() - entity.getZ(), target.getX() - entity.getX());
                     for (int l = 0; l < 9; ++l) {
                         int j = (int) (5f * l);
                         double randomNearbyX = target.getX() + (entity.random.nextGaussian() * 12.0D);
@@ -1271,8 +1298,9 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
 
                         this.spawnFangs(randomNearbyX, randomNearbyZ, d0, d1, f, j);
                     }
+                }
+                if(this.entity.getAnimationTick() == 56 || this.entity.getAnimationTick() == 76 || this.entity.getAnimationTick() == 96) {
                     this.spawnFangs(target.getX(), target.getZ(), d0, d1, f, 0);
-
                 }
             }
         }
