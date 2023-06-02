@@ -265,6 +265,9 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             damage = Math.min(CMConfig.LeviathanDamageCap, damage);
         }
 
+        if ((this.getAnimation() == LEVIATHAN_PHASE2) && !source.isBypassInvul()) {
+            return false;
+        }
 
         boolean flag1 = this.canInFluidType(this.getEyeInFluidType());
         if (!flag1) {
