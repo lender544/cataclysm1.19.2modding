@@ -132,14 +132,6 @@ public class ModEntities {
             .setShouldReceiveVelocityUpdates(true)
             .build(cataclysm.MODID + ":the_leviathan"));
 
-
-    public static final RegistryObject<EntityType<CustomGuardian>> CUSTOM_GUARDIAN = ENTITY_TYPE.register("custom_guardian", () -> EntityType.Builder.of(CustomGuardian::new, MobCategory.MONSTER)
-            .sized(0.85F, 0.85F)
-            .fireImmune()
-            .clientTrackingRange(8)
-            .build(cataclysm.MODID + ":custom_guardian"));
-
-
     public static final RegistryObject<EntityType<Void_Scatter_Arrow_Entity>> VOID_SCATTER_ARROW = ENTITY_TYPE.register("void_scatter_arrow", () -> EntityType.Builder.<Void_Scatter_Arrow_Entity>of(Void_Scatter_Arrow_Entity::new, MobCategory.MISC)
             .sized(0.5f, 0.5f)
             .setCustomClientFactory(Void_Scatter_Arrow_Entity::new)
@@ -339,7 +331,6 @@ public class ModEntities {
         event.put(IGNITED_REVENANT.get(), Ignited_Revenant_Entity.ignited_revenant().build());
         event.put(THE_HARBINGER.get(), The_Harbinger_Entity.harbinger().build());
         event.put(THE_LEVIATHAN.get(), The_Leviathan_Entity.leviathan().build());
-        event.put(CUSTOM_GUARDIAN.get(), CustomGuardian.m_32853_().build());
         event.put(DEEPLING.get(), Deepling_Entity.deepling().build());
         event.put(DEEPLING_BRUTE.get(), Deepling_Brute_Entity.deeplingbrute().build());
         event.put(DEEPLING_ANGLER.get(), Deepling_Angler_Entity.deepling().build());

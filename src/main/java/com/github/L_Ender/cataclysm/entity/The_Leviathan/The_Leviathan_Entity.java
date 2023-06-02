@@ -14,6 +14,7 @@ import com.github.L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import com.github.L_Ender.cataclysm.entity.etc.*;
 import com.github.L_Ender.cataclysm.entity.partentity.Cm_Part_Entity;
 import com.github.L_Ender.cataclysm.entity.projectile.Laser_Beam_Entity;
+import com.github.L_Ender.cataclysm.entity.projectile.Wither_Missile_Entity;
 import com.github.L_Ender.cataclysm.entity.util.LeviathanTongueUtil;
 import com.github.L_Ender.cataclysm.init.ModEffect;
 import com.github.L_Ender.cataclysm.init.ModEntities;
@@ -579,6 +580,33 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
                 if(!this.getMeltDown()) {
                     setMeltDown(true);
                 }
+                Vec3 motion;
+                for(int i = 0; i < 3; ++i) {
+                    motion = new Vec3(0.5, -1.25, 0.5).yRot(-(float)(120 * i) * 0.01745329251F);
+
+                    this.shootAbyssOrb(motion.x, motion.y, motion.z);
+                }
+
+                for(int i = 0; i < 6; ++i) {
+                    motion = new Vec3(1.0, -0.75, 1.0).yRot(-(float)(60 * i) * 0.01745329251F);
+                    this.shootAbyssOrb(motion.x, motion.y, motion.z);
+                }
+
+                for(int i = 0; i < 6; ++i) {
+                    motion = new Vec3(1.0, 0.0, 1.0).yRot(-(float)(60 * i) * 0.01745329251F);
+                    this.shootAbyssOrb(motion.x, motion.y, motion.z);
+                }
+
+                for(int i = 0; i < 6; ++i) {
+                    motion = new Vec3(1.0, 0.75, 1.0).yRot(-(float)(60 * i) * 0.01745329251F);
+                    this.shootAbyssOrb(motion.x, motion.y, motion.z);
+                }
+
+                for(int i = 0; i < 3; ++i) {
+                    motion = new Vec3(0.5, 1.25, 0.5).yRot(-(float)(120 * i) * 0.01745329251F);
+                    this.shootAbyssOrb(motion.x, motion.y, motion.z);
+                }
+
                 this.level.playSound((Player) null, this, ModSounds.LEVIATHAN_STUN_ROAR.get(), SoundSource.HOSTILE, 3.0f, 0.8f);
                 ScreenShake_Entity.ScreenShake(this.level, this.position(), 30, 0.1f, 40, 10);
             }
@@ -646,6 +674,24 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
 
     public boolean isMeltDown() {
         return this.getHealth() <= this.getMaxHealth() / 2.0F;
+    }
+
+    public void shootAbyssOrb(double xMotion, double yMotion, double zMotion) {
+        if(getTarget() != null) {
+            Abyss_Orb_Entity fireball = new Abyss_Orb_Entity(this, xMotion, yMotion, zMotion, this.level, this.getTarget());
+            fireball.setPos(fireball.getX(), this.getEyeY(), fireball.getZ());
+            fireball.setUp(40);
+            if (!this.level.isClientSide) {
+                this.level.addFreshEntity(fireball);
+            }
+        }else{
+            Abyss_Orb_Entity fireball = new Abyss_Orb_Entity(this, xMotion, yMotion, zMotion, this.level, null);
+            fireball.setPos(fireball.getX(), this.getEyeY(), fireball.getZ());
+            fireball.setUp(40);
+            if (!this.level.isClientSide) {
+                this.level.addFreshEntity(fireball);
+            }
+        }
     }
 
     private void launch(Entity e, boolean huge) {

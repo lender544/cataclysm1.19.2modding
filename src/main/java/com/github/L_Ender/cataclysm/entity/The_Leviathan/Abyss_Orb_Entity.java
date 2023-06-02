@@ -4,6 +4,9 @@ import com.github.L_Ender.cataclysm.client.particle.LightningParticle;
 import com.github.L_Ender.cataclysm.config.CMConfig;
 import com.github.L_Ender.cataclysm.entity.Ignis_Entity;
 import com.github.L_Ender.cataclysm.entity.The_Harbinger_Entity;
+import com.github.L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
+import com.github.L_Ender.cataclysm.entity.projectile.Ignis_Abyss_Fireball_Entity;
+import com.github.L_Ender.cataclysm.entity.projectile.Ignis_Fireball_Entity;
 import com.github.L_Ender.cataclysm.init.ModEffect;
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import net.minecraft.core.particles.ParticleTypes;
@@ -11,6 +14,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
@@ -41,6 +47,9 @@ public class Abyss_Orb_Entity extends Projectile {
     private Entity finalTarget;
     @Nullable
     private UUID targetId;
+
+    private static final EntityDataAccessor<Boolean> TRACKING = SynchedEntityData.defineId(Abyss_Orb_Entity.class, EntityDataSerializers.BOOLEAN);
+    private int timer;
 
 
     public Abyss_Orb_Entity(EntityType<? extends Abyss_Orb_Entity> p_36833_, Level p_36834_) {
@@ -78,6 +87,7 @@ public class Abyss_Orb_Entity extends Projectile {
     }
 
     protected void defineSynchedData() {
+        this.entityData.define(TRACKING, false);
     }
 
     public boolean shouldRenderAtSqrDistance(double p_36837_) {
@@ -98,6 +108,8 @@ public class Abyss_Orb_Entity extends Projectile {
             p_37357_.putUUID("Target", this.finalTarget.getUUID());
         }
         p_37357_.put("power", this.newDoubleList(new double[]{this.xPower, this.yPower, this.zPower}));
+        p_37357_.putInt("timer", timer);
+        p_37357_.putBoolean("tracking", getTracking());
     }
 
     public void readAdditionalSaveData(CompoundTag p_37353_) {
@@ -113,9 +125,17 @@ public class Abyss_Orb_Entity extends Projectile {
                 this.zPower = listtag.getDouble(2);
             }
         }
-
+        timer = p_37353_.getInt("timer");
+        this.setTracking(p_37353_.getBoolean("fired"));
     }
 
+    public void setTracking(boolean tracking) {
+        this.entityData.set(TRACKING, tracking);
+    }
+
+    public boolean getTracking() {
+        return this.entityData.get(TRACKING);
+    }
 
     public void tick() {
         Entity entity = this.getOwner();
@@ -142,9 +162,9 @@ public class Abyss_Orb_Entity extends Projectile {
                 f = 0.8F;
             }
             this.level.addParticle(ParticleTypes.REVERSE_PORTAL, this.getX() - vec3.x, this.getY() - vec3.y + 0.15D, this.getZ() - vec3.z, 0.0D, 0.0D, 0.0D);
-            for (int i = 0; i < 2; ++i) {
-                this.level.addParticle((new LightningParticle.OrbData(0.4f, 0.1f, 0.8f)), d0 - vec3.x * 0.5D + this.random.nextDouble() * 0.6D - 0.3D, d1 - vec3.y * 0.5D - 0.5D, d2 - vec3.z * 0.5D + this.random.nextDouble() * 0.6D - 0.3D, vec3.x, vec3.y, vec3.z);
-            }
+
+            this.level.addParticle((new LightningParticle.OrbData(0.4f, 0.1f, 0.8f)), d0 - vec3.x * 0.5D + this.random.nextDouble() * 0.6D - 0.3D, d1 - vec3.y * 0.5D, d2 - vec3.z * 0.5D + this.random.nextDouble() * 0.6D - 0.3D, vec3.x, vec3.y, vec3.z);
+
             //  this.level.addParticle(ParticleTypes.FLAME, this.getX() - vec3.x, this.getY() - vec3.y + 0.15D, this.getZ() - vec3.z, 0.0D, 0.0D, 0.0D);
             this.setDeltaMovement(vec3.add(this.xPower, this.yPower, this.zPower).scale((double)f));
             this.setPos(d0, d1, d2);
@@ -152,6 +172,12 @@ public class Abyss_Orb_Entity extends Projectile {
             this.discard();
         }
         if (!this.level.isClientSide) {
+            timer--;
+            if (timer <= 0) {
+                if (!getTracking()) {
+                    setTracking(true);
+                }
+            }
             if (this.finalTarget == null && this.targetId != null) {
                 this.finalTarget = ((ServerLevel) this.level).getEntity(this.targetId);
                 if (this.finalTarget == null) {
@@ -159,34 +185,41 @@ public class Abyss_Orb_Entity extends Projectile {
                 }
             }
 
-            if (this.finalTarget == null || !this.finalTarget.isAlive() || (this.finalTarget instanceof Player && this.finalTarget.isSpectator())) {
-                this.yPower = -0.175;
-            } else {
-                double d = this.distanceToSqr(finalTarget);
-                double dx = finalTarget.getX() - this.getX();
-                double dy = finalTarget.getY() + finalTarget.getBbHeight() * 1.2F - this.getY();
-                double dz = finalTarget.getZ() - this.getZ();
-                double d13 = 3;
-                dx /= d;
-                dy /= d;
-                dz /= d;
-                this.xPower += dx * d13;
-                this.yPower += dy * d13;
-                this.zPower += dz * d13;
-                this.xPower = (double) Mth.clamp((float) this.xPower, -0.175, 0.175);
-                this.yPower = (double) Mth.clamp((float) this.yPower, -0.175, 0.175);
-                this.zPower = (double) Mth.clamp((float) this.zPower, -0.175, 0.175);
+            if (this.getTracking()) {
+                if (this.finalTarget == null || !this.finalTarget.isAlive() || (this.finalTarget instanceof Player && this.finalTarget.isSpectator())) {
+                    this.yPower = -0.15;
+                } else {
+                    double d = this.distanceToSqr(finalTarget);
+                    double dx = finalTarget.getX() - this.getX();
+                    double dy = finalTarget.getY() + finalTarget.getBbHeight() * 1.2F - this.getY();
+                    double dz = finalTarget.getZ() - this.getZ();
+                    double d13 = 2;
+                    dx /= d;
+                    dy /= d;
+                    dz /= d;
+                    this.xPower += dx * d13;
+                    this.yPower += dy * d13;
+                    this.zPower += dz * d13;
+                    this.xPower = (double) Mth.clamp((float) this.xPower, -0.15, 0.15);
+                    this.yPower = (double) Mth.clamp((float) this.yPower, -0.15, 0.15);
+                    this.zPower = (double) Mth.clamp((float) this.zPower, -0.15, 0.15);
+                }
             }
         }
 
     }
 
+    public void setUp(int delay) {
+        setTracking(false);
+        timer = delay;
+    }
 
-    protected void onHitEntity(EntityHitResult p_37626_) {
-        super.onHitEntity(p_37626_);
+
+    protected void onHitEntity(EntityHitResult result) {
+        super.onHitEntity(result);
         Entity entity1 = this.getOwner();
-        if (!this.level.isClientSide && entity1 instanceof The_Leviathan_Entity && !(p_37626_.getEntity() instanceof The_Leviathan_Entity) ||!(p_37626_.getEntity() instanceof The_Leviathan_Part)) {
-            Entity entity = p_37626_.getEntity();
+        if (!this.level.isClientSide && !((result.getEntity() instanceof The_Leviathan_Part ||result.getEntity() instanceof The_Leviathan_Entity)  && entity1 instanceof The_Leviathan_Entity)) {
+            Entity entity = result.getEntity();
             boolean flag;
             if (entity1 instanceof LivingEntity) {
                 LivingEntity livingentity = (LivingEntity)entity1;
@@ -265,9 +298,6 @@ public class Abyss_Orb_Entity extends Projectile {
             this.zPower = d2 / d3 * 0.1D;
         }
 
-    }
-    protected boolean shouldBurn() {
-        return false;
     }
 }
 
