@@ -7,6 +7,7 @@ import com.github.L_Ender.cataclysm.entity.Ender_Guardian_Entity;
 import com.github.L_Ender.cataclysm.entity.Ignis_Entity;
 import com.github.L_Ender.cataclysm.entity.Netherite_Monstrosity_Entity;
 import com.github.L_Ender.cataclysm.entity.The_Harbinger_Entity;
+import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Entity;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -101,12 +102,31 @@ public class BossBarEvent {
 
         if (pEntity instanceof The_Harbinger_Entity) {
             RenderSystem.setShaderTexture(0, GUI_BARS_LOCATION);
-            blit(pPoseStack, pX + 3, pY + 2, 0, 50, 182, 5, 256, 256);
+            blit(pPoseStack, pX + 3, pY + 2, 0, 20, 182, 5, 256, 256);
             if (i > 0) {
-                blit(pPoseStack, pX + 3, pY + 3, 0, 56, i, 5, 256, 256);
+                blit(pPoseStack, pX + 3, pY + 3, 0, 26, i, 5, 256, 256);
             }
             RenderSystem.setShaderTexture(0, TEXTURE);
             blit(pPoseStack, pX , pY, 0, 18, 188, 9, 256, 256);
+        }
+
+        if (pEntity instanceof The_Leviathan_Entity leviathan) {
+            RenderSystem.setShaderTexture(0, GUI_BARS_LOCATION);
+            if(leviathan.getMeltDown()){
+                blit(pPoseStack, pX + 3, pY + 6, 0, 50, 182, 5, 256, 256);
+                if (i > 0) {
+                    blit(pPoseStack, pX + 3, pY + 7, 0, 56, i, 5, 256, 256);
+                }
+                RenderSystem.setShaderTexture(0, TEXTURE);
+                blit(pPoseStack, pX , pY, 0, 62, 188, 16, 256, 256);
+            }else{
+                blit(pPoseStack, pX + 3, pY + 5, 0, 50, 182, 5, 256, 256);
+                if (i > 0) {
+                    blit(pPoseStack, pX + 3, pY + 6, 0, 56, i, 5, 256, 256);
+                }
+                RenderSystem.setShaderTexture(0, TEXTURE);
+                blit(pPoseStack, pX , pY, 0, 45, 188, 13, 256, 256);
+            }
         }
 
     }

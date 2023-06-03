@@ -50,7 +50,7 @@ public class Abyss_Orb_Entity extends Projectile {
 
     private static final EntityDataAccessor<Boolean> TRACKING = SynchedEntityData.defineId(Abyss_Orb_Entity.class, EntityDataSerializers.BOOLEAN);
     private int timer;
-
+    private int lifetick;
 
     public Abyss_Orb_Entity(EntityType<? extends Abyss_Orb_Entity> p_36833_, Level p_36834_) {
         super(p_36833_, p_36834_);
@@ -178,6 +178,7 @@ public class Abyss_Orb_Entity extends Projectile {
                     setTracking(true);
                 }
             }
+            lifetick++;
             if (this.finalTarget == null && this.targetId != null) {
                 this.finalTarget = ((ServerLevel) this.level).getEntity(this.targetId);
                 if (this.finalTarget == null) {
@@ -241,9 +242,11 @@ public class Abyss_Orb_Entity extends Projectile {
         super.onHitBlock(result);
         Entity entity1 = this.getOwner();
         if (this.getTracking()) {
-            if (!this.level.isClientSide) {
-                this.level.explode(entity1, this.getX(), this.getY(), this.getZ(), 1.0F, false, Explosion.BlockInteraction.NONE);
-                this.discard();
+            if (this.lifetick >= 100) {
+                if (!this.level.isClientSide) {
+                    this.level.explode(entity1, this.getX(), this.getY(), this.getZ(), 1.0F, false, Explosion.BlockInteraction.NONE);
+                    this.discard();
+                }
             }
         }
     }

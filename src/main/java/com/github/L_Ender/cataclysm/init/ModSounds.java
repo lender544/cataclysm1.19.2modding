@@ -185,6 +185,9 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> LEVIATHAN_BITE = SOUNDS.register("leviathan_bite",
             () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"leviathan_bite")));
 
+    public static final RegistryObject<SoundEvent> PORTAL_ABYSS_BLAST = SOUNDS.register("portal_abyss_blast",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"portal_abyss_blast")));
+
     public static final RegistryObject<SoundEvent> DEEPLING_IDLE = SOUNDS.register("deepling_idle",
             () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"deepling_idle")));
 

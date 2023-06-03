@@ -98,7 +98,7 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
     public float prevdeactivateProgress;
     private int destroyBlocksTick;
     private int blockBreakCounter;
-    private final CMBossInfoServer bossEvent = new CMBossInfoServer(this.getUUID(),this,BossEvent.BossBarColor.PURPLE,true);
+    private final CMBossInfoServer bossEvent = new CMBossInfoServer(this.getUUID(),this,BossEvent.BossBarColor.RED,true);
 
     private int mode_change_cooldown = 0;
     private int skill_cooldown = 160;

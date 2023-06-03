@@ -540,6 +540,14 @@
       }
     ]
   },
+  "portal_abyss_blast": {
+    "subtitle": "portal_abyss_blast.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/portal_abyss_blast"
+      }
+    ]
+  },
   "deepling_death": {
     "subtitle": "deepling_death.sub",
     "sounds": [

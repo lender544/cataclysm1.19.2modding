@@ -6,12 +6,32 @@ modId= "cataclysm" #mandatory
 version="1.0" #mandatory
  # A display name for the mod
 displayName="Cataclysm Mod" #mandatory
-credits="dogulkkun,0dyss2y,mango03034,HedwigOwls,Akogiri" #optional
+credits="0dyss2y,HedwigOwls,Akogiri,danimodder" #optional
 authors="L_Ender" #optional
 description='''
 Hello
 EnderGuardian Theme made by Ean Grimm
 https://www.tubersongs.com/
+Artist=dogulkkun,mango03034
+Patron
+[Adam,
+Angry Mutant Enderman,
+darkMind204,
+DENOBODY2,
+Hippo0824,
+printa,
+walker,
+참치,
+3T,
+danimodder,
+EternalOne,
+Karat Feng,
+lucy,
+nameed,
+PeopleMcNugget,
+qwerqweqq,
+Svmf2023,
+Th3P3dr3nder99]
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.cataclysm]] #optional
