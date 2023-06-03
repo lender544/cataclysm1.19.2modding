@@ -20,6 +20,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -69,8 +70,11 @@ public class Dimensional_Rift_Entity extends Entity {
         }
 
 
-        for (Entity entity : this.level.getEntities(this, this.getBoundingBox().inflate(30), EntitySelector.NO_CREATIVE_OR_SPECTATOR)) {
+        for (Entity entity : this.level.getEntities(this, this.getBoundingBox().inflate(30))) {
             if (entity != owner) {
+                if (entity instanceof Player && ((Player) entity).getAbilities().invulnerable) continue;
+                if (isAlliedTo(entity)) continue;
+
                 Vec3 diff = entity.position().subtract(this.position().add(0, 0, 0));
                 if (entity instanceof LivingEntity) {
                     diff = diff.normalize().scale( getStage() * 0.015);

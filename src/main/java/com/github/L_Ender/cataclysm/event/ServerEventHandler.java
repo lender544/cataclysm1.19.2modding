@@ -224,7 +224,7 @@ public class ServerEventHandler {
         if (!event.getEntity().getItemBySlot(EquipmentSlot.LEGS).isEmpty() && event.getSource() != null && event.getSource().getEntity() != null) {
             if(event.getEntity().getItemBySlot(EquipmentSlot.LEGS).getItem() == ModItems.IGNITIUM_LEGGINGS.get()){
                 Entity attacker = event.getSource().getEntity();
-                if (attacker instanceof LivingEntity) {
+                if (attacker instanceof LivingEntity && attacker != event.getEntity()) {
                     if (event.getEntity().getRandom().nextFloat() < 0.5F) {
                         MobEffectInstance effectinstance1 = ((LivingEntity) attacker).getEffect(ModEffect.EFFECTBLAZING_BRAND.get());
                         int i = 1;

@@ -42,9 +42,9 @@ public class The_Incinerator extends Item {
     public The_Incinerator(Properties group) {
         super(group);
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", 11.0D, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", 12.0D, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", -2.8F, AttributeModifier.Operation.ADDITION));
-        builder.put(ForgeMod.ATTACK_RANGE.get(), new AttributeModifier(UUID.fromString("0CB612AF-CE7C-4FD2-9647-4BFD75B8D8A0"), "Tool modifier", 1.0F, AttributeModifier.Operation.ADDITION));
+        builder.put(ForgeMod.ATTACK_RANGE.get(), new AttributeModifier(UUID.fromString("0CB612AF-CE7C-4FD2-9647-4BFD75B8D8A0"), "Tool modifier", 2.0F, AttributeModifier.Operation.ADDITION));
         this.incineratorAttributes = builder.build();
     }
 
