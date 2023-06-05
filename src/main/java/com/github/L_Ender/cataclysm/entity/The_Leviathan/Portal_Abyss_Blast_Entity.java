@@ -125,7 +125,7 @@ public class Portal_Abyss_Blast_Entity extends Entity {
         }
 
         if(tickCount ==20){
-            this.level.playSound((Player) null, this, ModSounds.PORTAL_ABYSS_BLAST.get(), SoundSource.HOSTILE, 2.0f, 1.0f);
+            this.level.playSound((Player) null, this, ModSounds.PORTAL_ABYSS_BLAST.get(), SoundSource.HOSTILE, 0.5f, 1.0f);
         }
 
         if (caster != null && !caster.isAlive()) discard();

@@ -73,6 +73,7 @@ public class Dimensional_Rift_Entity extends Entity {
         for (Entity entity : this.level.getEntities(this, this.getBoundingBox().inflate(30))) {
             if (entity != owner) {
                 if (entity instanceof Player && ((Player) entity).getAbilities().invulnerable) continue;
+                if (entity instanceof The_Leviathan_Entity) continue;
                 if (isAlliedTo(entity)) continue;
 
                 Vec3 diff = entity.position().subtract(this.position().add(0, 0, 0));
@@ -125,7 +126,7 @@ public class Dimensional_Rift_Entity extends Entity {
 
     private void damage(LivingEntity Hitentity) {
         LivingEntity livingentity = this.getOwner();
-        if (Hitentity.isAlive() && !Hitentity.isInvulnerable() && Hitentity != livingentity) {
+        if (Hitentity.isAlive() && !Hitentity.isInvulnerable() && Hitentity != livingentity && !(Hitentity instanceof The_Leviathan_Entity)) {
             if (this.tickCount % 5 == 0) {
                 if (livingentity == null) {
                     Hitentity.hurt(DamageSource.MAGIC, (float) CMConfig.DimensionalRiftdamage);

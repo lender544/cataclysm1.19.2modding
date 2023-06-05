@@ -7,6 +7,7 @@ import com.github.L_Ender.cataclysm.entity.AI.EntityAINearestTarget3D;
 import com.github.L_Ender.cataclysm.entity.AI.MobAIFindWater;
 import com.github.L_Ender.cataclysm.entity.AI.SimpleAnimationGoal;
 import com.github.L_Ender.cataclysm.entity.Boss_monster;
+import com.github.L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import com.github.L_Ender.cataclysm.entity.etc.CMBossInfoServer;
 import com.github.L_Ender.cataclysm.entity.etc.CMPathNavigateGround;
@@ -130,10 +131,11 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
     private int makePortalCooldown = 0;
     private int bite_cooldown = 0;
     private int melee_cooldown = 0;
-
+    private int waterstillTicks = 0;
     public double endPosX, endPosY, endPosZ;
     public double collidePosX, collidePosY, collidePosZ;
     private int destroyBlocksTick;
+    private int blockBreakCounter;
     public float LayerBrightness;
     private Vec3 prevTailPos = new Vec3(0, 0, 0);
     private final CMBossInfoServer bossInfo = new CMBossInfoServer(this.getUUID(),this, BossEvent.BossBarColor.PURPLE,false);
@@ -314,7 +316,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             switchNavigator(false);
         }
         if (!isInWater() && !this.isLandNavigator) {
-            switchNavigator(true);
+            switchNavigator(false);
         }
         final boolean groundAnimate = !this.isInWater();
         this.prevNoSwimProgress = NoSwimProgress;
@@ -385,6 +387,16 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             if (this.getAnimation() == NO_ANIMATION && !this.getMeltDown() && this.isMeltDown() && this.isAlive()) {
                 this.setAnimation(LEVIATHAN_PHASE2);
             }
+            if(this.getAnimation() == NO_ANIMATION &&  this.getTarget() !=null) {
+                if (Math.abs(xo - this.getX()) < 0.01F && Math.abs(yo - this.getY()) < 0.01F && Math.abs(zo - this.getZ()) < 0.01F) {
+                    waterstillTicks++;
+                } else {
+                    waterstillTicks = 0;
+                }
+                if (waterstillTicks > 40 && makePortalCooldown == 0) {
+                    createStuckPortal();
+                }
+            }
             if (!this.level.isClientSide) {
                 if (this.destroyBlocksTick > 0) {
                     --this.destroyBlocksTick;
@@ -398,6 +410,14 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
                         }
                     }
                 }
+              //  if(CMConfig.LeviathanBlockBreaking){
+                  //  blockbreak2();
+               // }else{
+                //    if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+                    //    blockbreak2();
+                //    }
+                //}
+
             }
             final float f17 = this.getYRot() * (float) Math.PI / 180.0F;
             final float pitch = this.getXRot() * (float) Math.PI / 180.0F;
@@ -424,6 +444,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
 
     public void aiStep() {
         super.aiStep();
+        Vec3 motion;
         if(this.getAnimation() == LEVIATHAN_ABYSS_BLAST){
             if(this.getAnimationTick() < 30){
                 if (this.level.isClientSide) {
@@ -439,6 +460,26 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             if (this.getAnimationTick() >= 67) {
                 this.setXRot(this.xRotO);
             }
+
+            if(this.getAnimationTick() == 84){
+                if(this.getMeltDown()){
+                    for(int i = 0; i < 3; ++i) {
+                        motion = new Vec3(0.5, -1.25, 0.5).yRot(-(float)(120 * i) * 0.01745329251F);
+
+                        this.shootAbyssOrb(motion.x, motion.y, motion.z);
+                    }
+                    for(int i = 0; i < 6; ++i) {
+                        motion = new Vec3(1.0, 0.0, 1.0).yRot(-(float)(60 * i) * 0.01745329251F);
+                        this.shootAbyssOrb(motion.x, motion.y, motion.z);
+                    }
+
+                    for(int i = 0; i < 3; ++i) {
+                        motion = new Vec3(0.5, 1.25, 0.5).yRot(-(float)(120 * i) * 0.01745329251F);
+                        this.shootAbyssOrb(motion.x, motion.y, motion.z);
+                    }
+                }
+            }
+
             for (int i = 44, j = 0; i <= 84; i++, j++) {
                 float l = j * 0.025f;
                 if (this.getAnimationTick() == i) {
@@ -501,6 +542,25 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             if (this.getAnimationTick() == 52) {
                 this.level.playSound((Player) null, this, ModSounds.LEVIATHAN_STUN_ROAR.get(), SoundSource.HOSTILE, 4.0f, 0.8f);
                 ScreenShake_Entity.ScreenShake(this.level, this.position(), 30, 0.1f, 40, 10);
+                if(this.getMeltDown()){
+                    for(int i = 0; i < 3; ++i) {
+                        motion = new Vec3(0.5, -1.25, 0.5).yRot(-(float)(120 * i) * 0.01745329251F);
+
+                        this.shootAbyssOrb(motion.x, motion.y, motion.z);
+                    }
+
+
+                    for(int i = 0; i < 6; ++i) {
+                        motion = new Vec3(1.0, 0.0, 1.0).yRot(-(float)(60 * i) * 0.01745329251F);
+                        this.shootAbyssOrb(motion.x, motion.y, motion.z);
+                    }
+
+
+                    for(int i = 0; i < 3; ++i) {
+                        motion = new Vec3(0.5, 1.25, 0.5).yRot(-(float)(120 * i) * 0.01745329251F);
+                        this.shootAbyssOrb(motion.x, motion.y, motion.z);
+                    }
+                }
             }
         }
 
@@ -588,7 +648,6 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
                 if(!this.getMeltDown()) {
                     setMeltDown(true);
                 }
-                Vec3 motion;
                 for(int i = 0; i < 3; ++i) {
                     motion = new Vec3(0.5, -1.25, 0.5).yRot(-(float)(120 * i) * 0.01745329251F);
 
@@ -744,12 +803,40 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         AABB aabb = this.getBoundingBox().inflate(x, y, z);
         for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(this.getY()), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
             BlockState blockstate = this.level.getBlockState(blockpos);
-            FluidState fluidState = level.getFluidState(blockpos);
             if (blockstate.getMaterial() != Material.AIR && blockstate.canEntityDestroy(this.level, blockpos, this) && !blockstate.is(ModTag.LEVIATHAN_IMMUNE) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(this, blockpos, blockstate)) {
                 flag = this.level.destroyBlock(blockpos, false, this) || flag;
             }
         }
     }
+
+    private void blockbreak2() {
+        if (this.blockBreakCounter > 0) {
+            --this.blockBreakCounter;
+            return;
+        }
+        boolean flag = false;
+        AABB aabb = this.getBoundingBox().inflate(0.2D);
+        for (BlockPos pos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(this.getY()), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
+            BlockState blockstate = level.getBlockState(pos);
+            if (blockstate.getMaterial() != Material.AIR && blockstate.canEntityDestroy(this.level, pos, this) && !blockstate.is(ModTag.LEVIATHAN_IMMUNE)) {
+                if (random.nextInt(5) == 0 && !blockstate.hasBlockEntity()) {
+                    Cm_Falling_Block_Entity fallingBlockEntity = new Cm_Falling_Block_Entity(level, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, blockstate, 20);
+                    flag = this.level.destroyBlock(pos, false, this) || flag;
+                    fallingBlockEntity.setDeltaMovement(fallingBlockEntity.getDeltaMovement().add(this.position().subtract(fallingBlockEntity.position()).multiply((-1.2D + random.nextDouble()) / 3, 0.2D + getRandom().nextGaussian() * 0.15D, (-1.2D + random.nextDouble()) / 3)));
+                    level.addFreshEntity(fallingBlockEntity);
+                } else {
+                    flag = this.level.destroyBlock(pos, false, this) || flag;
+                    this.setDeltaMovement(this.getDeltaMovement().multiply(0.6F, 1, 0.6F));
+                }
+
+            }
+        }
+        if (flag) {
+            blockBreakCounter = 20;
+        }
+    }
+
+
 
     private void chargeblockbreaking() {
         boolean flag = false;
@@ -757,7 +844,6 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         double yblockbreak = this.isInWater() ? aabb.minY : this.getY();
         for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(yblockbreak), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
             BlockState blockstate = this.level.getBlockState(blockpos);
-            FluidState fluidState = level.getFluidState(blockpos);
             if (blockstate.getMaterial() != Material.AIR && blockstate.canEntityDestroy(this.level, blockpos, this) && !blockstate.is(ModTag.LEVIATHAN_IMMUNE) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(this, blockpos, blockstate)) {
                 flag = this.level.destroyBlock(blockpos, false, this) || flag;
             }
@@ -944,59 +1030,8 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
 
     public void createStuckPortal() {
         if (this.getTarget() != null) {
-            createPortal(this.getTarget().position().add(random.nextInt(8) - 4, 2 + random.nextInt(3), random.nextInt(8) - 4));
-        } else {
-            Vec3 vec = Vec3.atCenterOf(level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, this.blockPosition().above(random.nextInt(10) + 10)));
-            createPortal(vec);
-        }
-    }
-
-    public void createPortal(Vec3 to) {
-        createPortal(this.position().add(this.getLookAngle().scale(20)), to, null);
-    }
-
-
-    public void createPortalRandomDestination() {
-        Vec3 vec = null;
-        for (int i = 0; i < 15; i++) {
-            BlockPos pos = new BlockPos(this.getX() + random.nextInt(60) - 30, 0, this.getZ() + random.nextInt(60) - 30);
-            BlockPos height = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, pos);
-            if(height.getY() < 10){
-                height = height.above(50 + random.nextInt(50));
-            }else{
-                height = height.above(random.nextInt(30));
-            }
-            if (level.isEmptyBlock(height)) {
-                vec = Vec3.atBottomCenterOf(height);
-            }
-        }
-        if (vec != null) {
-            createPortal(this.position().add(this.getLookAngle().scale(20)), vec, null);
-        }
-    }
-
-    public void createPortal(Vec3 from, Vec3 to, @Nullable Direction outDir) {
-        if (!level.isClientSide && portalTarget == null) {
-            Vec3 Vector3d = new Vec3(this.getX(), this.getEyeY(), this.getZ());
-            HitResult result = this.level.clip(new ClipContext(Vector3d, from, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
-            Vec3 vec = result.getLocation() != null ? result.getLocation() : this.position();
-            if (result instanceof BlockHitResult) {
-                BlockHitResult result1 = (BlockHitResult) result;
-                vec = vec.add(net.minecraft.world.phys.Vec3.atLowerCornerOf(result1.getDirection().getNormal()));
-            }
-            Abyss_Portal_Entity portal = ModEntities.ABYSS_PORTAL.get().create(level);
-            portal.setPos(vec.x, vec.y, vec.z);
-            Vec3 dirVec = vec.subtract(this.position());
-            Direction dir = Direction.getNearest(dirVec.x, dirVec.y, dirVec.z);
-            portal.setAttachmentFacing(dir);
-            portal.setEntrance(true);
-            portal.setLifespan(10000);
-            if (!level.isClientSide) {
-                level.addFreshEntity(portal);
-            }
-            portalTarget = portal;
-            portal.setDestination(new BlockPos(to.x, to.y, to.z), outDir);
-            makePortalCooldown = 300;
+            Vec3 to = new Vec3(this.getTarget().getX(), this.getTarget().getY(), this.getTarget().getZ());
+            this.createPortal2(this.getX() , this.getY() + 0.1,this.getZ(),Direction.UP, to, null);
         }
     }
 
@@ -1077,6 +1112,10 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
 
     protected SoundEvent getDeathSound() {
         return ModSounds.LEVIATHAN_DEFEAT.get();
+    }
+
+    protected float getSoundVolume() {
+        return isSilent() ? 0 : 2;
     }
 
     public boolean isTargetBlocked(Vec3 target) {
@@ -1657,7 +1696,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         }
 
         public boolean canUse() {
-            if (this.creature.isOnGround() && !this.creature.level.getFluidState(this.creature.blockPosition()).is(FluidTags.WATER)) {
+            if (this.creature.isOnGround() && !this.creature.level.getFluidState(this.creature.blockPosition()).is(FluidTags.WATER) && this.creature.makePortalCooldown <= 0) {
                 if (this.creature.shouldEnterWater()) {
                     targetPos = generateTarget();
                     return targetPos != null;

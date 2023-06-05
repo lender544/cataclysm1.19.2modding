@@ -242,7 +242,7 @@ public class Abyss_Orb_Entity extends Projectile {
         super.onHitBlock(result);
         Entity entity1 = this.getOwner();
         if (this.getTracking()) {
-            if (this.lifetick >= 100) {
+            if (this.lifetick >= 200) {
                 if (!this.level.isClientSide) {
                     this.level.explode(entity1, this.getX(), this.getY(), this.getZ(), 1.0F, false, Explosion.BlockInteraction.NONE);
                     this.discard();
