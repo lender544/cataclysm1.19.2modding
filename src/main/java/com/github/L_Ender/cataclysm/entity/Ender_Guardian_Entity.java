@@ -329,6 +329,7 @@ public class Ender_Guardian_Entity extends Boss_monster {
         if (!this.isSilent() && !level.isClientSide) {
             this.level.broadcastEntityEvent(this, (byte) 67);
         }
+        if (tickCount % 4 == 0) bossInfo.update();
         repelEntities(1.8F, 4.0f, 1.8F, 1.8F);
         this.bossInfo.setProgress(this.getHealth() / this.getMaxHealth());
         LivingEntity target = this.getTarget();

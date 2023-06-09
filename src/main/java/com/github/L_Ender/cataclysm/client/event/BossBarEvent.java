@@ -60,6 +60,7 @@ public class BossBarEvent {
 
     private static void drawBar(PoseStack pPoseStack, int pX, int pY, Mob pEntity) {
         float percent = pEntity.getHealth() / pEntity.getMaxHealth();
+        float f2 = (pEntity.getHealth() - ((pEntity.getMaxHealth()- pEntity.getHealth()))) / pEntity.getMaxHealth();
         int i = (int) (percent * 182.0F);
         if (pEntity instanceof Netherite_Monstrosity_Entity) {
             RenderSystem.setShaderTexture(0, GUI_BARS_LOCATION);
@@ -122,7 +123,7 @@ public class BossBarEvent {
             }else{
                 blit(pPoseStack, pX + 3, pY + 5, 0, 50, 182, 5, 256, 256);
                 if (i > 0) {
-                    blit(pPoseStack, pX + 3, pY + 6, 0, 56, i, 5, 256, 256);
+                    blit(pPoseStack, pX + 3, pY + 6, 0, 56, (int) (f2 * 182.0f), 5, 256, 256);
                 }
                 RenderSystem.setShaderTexture(0, TEXTURE);
                 blit(pPoseStack, pX , pY, 0, 45, 188, 13, 256, 256);

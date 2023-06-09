@@ -599,6 +599,8 @@ public class Ignis_Entity extends Boss_monster {
         if (!this.isSilent() && !level.isClientSide) {
             this.level.broadcastEntityEvent(this, (byte) 67);
         }
+
+        if (tickCount % 4 == 0) bossInfo.update();
         LivingEntity target = this.getTarget();
         SwingParticles();
         if (this.level.isClientSide) {

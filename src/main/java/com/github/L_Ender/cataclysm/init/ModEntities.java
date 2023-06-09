@@ -3,6 +3,7 @@ package com.github.L_Ender.cataclysm.init;
 
 import com.github.L_Ender.cataclysm.cataclysm;
 import com.github.L_Ender.cataclysm.entity.*;
+import com.github.L_Ender.cataclysm.entity.Deepling.Coralssus_Entity;
 import com.github.L_Ender.cataclysm.entity.Deepling.Deepling_Angler_Entity;
 import com.github.L_Ender.cataclysm.entity.Deepling.Deepling_Brute_Entity;
 import com.github.L_Ender.cataclysm.entity.Deepling.Deepling_Entity;
@@ -112,6 +113,11 @@ public class ModEntities {
             .sized(0.6F, 2.3f)
             .clientTrackingRange(8)
             .build(cataclysm.MODID + ":deepling_angler"));
+
+    public static final RegistryObject<EntityType<Coralssus_Entity>> CORALSSUS = ENTITY_TYPE.register("coralssus", () -> EntityType.Builder.of(Coralssus_Entity::new, MobCategory.MONSTER)
+            .sized(2.5F, 2.7F)
+            .clientTrackingRange(10)
+            .build(cataclysm.MODID + ":coralssus"));
 
     public static final RegistryObject<EntityType<Ignited_Revenant_Entity>> IGNITED_REVENANT = ENTITY_TYPE.register("ignited_revenant", () -> EntityType.Builder.of(Ignited_Revenant_Entity::new, MobCategory.MONSTER)
             .sized(1.6F, 2.8f)
@@ -334,6 +340,7 @@ public class ModEntities {
         event.put(DEEPLING.get(), Deepling_Entity.deepling().build());
         event.put(DEEPLING_BRUTE.get(), Deepling_Brute_Entity.deeplingbrute().build());
         event.put(DEEPLING_ANGLER.get(), Deepling_Angler_Entity.deepling().build());
+        event.put(CORALSSUS.get(), Coralssus_Entity.coralssus().build());
     }
 }
 
