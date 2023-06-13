@@ -6,8 +6,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureSet;
 
 
 public class ModTag {
@@ -52,6 +54,8 @@ public class ModTag {
 
     public static final TagKey<Item> EXPLOSION_IMMUNE_ITEM = registerItemTag("explosion_immune_item");
 
+    public static final TagKey<Biome> REQUIRED_SUNKEN_CITY_SURROUNDING = registerBiomeTag("required_sunken_city_surrounding");
+
     private static TagKey<EntityType<?>> registerEntityTag(String name) {
         return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(cataclysm.MODID, name));
     }
@@ -66,5 +70,13 @@ public class ModTag {
 
     private static TagKey<Structure> registerStructureTag(String name) {
         return TagKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(cataclysm.MODID, name));
+    }
+
+    private static TagKey<Biome> registerBiomeTag(String name) {
+        return TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(cataclysm.MODID, name));
+    }
+
+    private static TagKey<StructureSet> registerStructureSetTag(String name) {
+        return TagKey.create(Registry.STRUCTURE_SET_REGISTRY, new ResourceLocation(cataclysm.MODID, name));
     }
 }

@@ -3,10 +3,7 @@ package com.github.L_Ender.cataclysm.init;
 
 import com.github.L_Ender.cataclysm.cataclysm;
 import com.github.L_Ender.cataclysm.entity.*;
-import com.github.L_Ender.cataclysm.entity.Deepling.Coralssus_Entity;
-import com.github.L_Ender.cataclysm.entity.Deepling.Deepling_Angler_Entity;
-import com.github.L_Ender.cataclysm.entity.Deepling.Deepling_Brute_Entity;
-import com.github.L_Ender.cataclysm.entity.Deepling.Deepling_Entity;
+import com.github.L_Ender.cataclysm.entity.Deepling.*;
 import com.github.L_Ender.cataclysm.entity.The_Leviathan.*;
 import com.github.L_Ender.cataclysm.entity.effect.*;
 import com.github.L_Ender.cataclysm.entity.projectile.Ashen_Breath_Entity;
@@ -113,6 +110,11 @@ public class ModEntities {
             .sized(0.6F, 2.3f)
             .clientTrackingRange(8)
             .build(cataclysm.MODID + ":deepling_angler"));
+
+    public static final RegistryObject<EntityType<LionFish_Entity>> LIONFISH = ENTITY_TYPE.register("lionfish", () -> EntityType.Builder.of(LionFish_Entity::new, MobCategory.MONSTER)
+            .sized(0.6F, 0.55f)
+            .clientTrackingRange(6)
+            .build(cataclysm.MODID + ":lionfish"));
 
     public static final RegistryObject<EntityType<Coralssus_Entity>> CORALSSUS = ENTITY_TYPE.register("coralssus", () -> EntityType.Builder.of(Coralssus_Entity::new, MobCategory.MONSTER)
             .sized(2.5F, 2.7F)
@@ -328,6 +330,9 @@ public class ModEntities {
     @SubscribeEvent
     public static void initializeAttributes(EntityAttributeCreationEvent event) {
         SpawnPlacements.register(ENDERMAPTERA.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Endermaptera_Entity::canSpawn);
+        SpawnPlacements.register(DEEPLING_ANGLER.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Deepling_Angler_Entity::candeeplingSpawn);
+        SpawnPlacements.register(DEEPLING.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Deepling_Entity::candeeplingSpawn);
+        SpawnPlacements.register(DEEPLING_BRUTE.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Deepling_Brute_Entity::candeeplingSpawn);
         event.put(ENDER_GOLEM.get(), Ender_Golem_Entity.ender_golem().build());
         event.put(NETHERITE_MONSTROSITY.get(), Netherite_Monstrosity_Entity.netherite_monstrosity().build());
         event.put(NAMELESS_SORCERER.get(), Nameless_Sorcerer_Entity.nameless_sorcerer().build());
@@ -341,6 +346,7 @@ public class ModEntities {
         event.put(DEEPLING_BRUTE.get(), Deepling_Brute_Entity.deeplingbrute().build());
         event.put(DEEPLING_ANGLER.get(), Deepling_Angler_Entity.deepling().build());
         event.put(CORALSSUS.get(), Coralssus_Entity.coralssus().build());
+        event.put(LIONFISH.get(), LionFish_Entity.lionfish().build());
     }
 }
 

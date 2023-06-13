@@ -2,6 +2,7 @@ package com.github.L_Ender.cataclysm.entity.Deepling;
 
 import com.github.L_Ender.cataclysm.entity.AI.MobAIFindWater;
 import com.github.L_Ender.cataclysm.entity.AI.MobAILeaveWater;
+import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Entity;
 import com.github.L_Ender.cataclysm.entity.etc.GroundPathNavigatorWide;
 import com.github.L_Ender.cataclysm.entity.etc.ISemiAquatic;
 import com.github.L_Ender.cataclysm.entity.etc.SemiAquaticPathNavigator;
@@ -73,7 +74,7 @@ public class AbstractDeepling extends Monster implements IAnimatedEntity, ISemiA
             return true;
         } else if (super.isAlliedTo(entityIn)) {
             return true;
-        } else if (entityIn instanceof AbstractDeepling) {
+        } else if (entityIn instanceof Coralssus_Entity || entityIn instanceof AbstractDeepling || entityIn instanceof LionFish_Entity || entityIn instanceof The_Leviathan_Entity){
             return this.getTeam() == null && entityIn.getTeam() == null;
         } else {
             return false;

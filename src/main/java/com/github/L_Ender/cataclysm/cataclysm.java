@@ -15,6 +15,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -44,7 +45,6 @@ public class cataclysm {
     public static CreativeModeTab CATACLYSM_GROUP = new Cataclysm_Group();
     public static CommonProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
     private static int packetsRegistered;
-
 
     static {
         NetworkRegistry.ChannelBuilder channel = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(MODID, "main_channel"));
@@ -112,7 +112,6 @@ public class cataclysm {
     private void setupClient(FMLClientSetupEvent event) {
         PROXY.clientInit();
     }
-
 
     private void setup(final FMLCommonSetupEvent event) {
         event.enqueueWork(Modcompat::registerDispenserBehaviors);

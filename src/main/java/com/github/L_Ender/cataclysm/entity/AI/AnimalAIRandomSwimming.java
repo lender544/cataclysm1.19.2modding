@@ -1,4 +1,4 @@
-package com.github.L_Ender.cataclysm.entity.The_Leviathan;
+package com.github.L_Ender.cataclysm.entity.AI;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
@@ -10,17 +10,29 @@ import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 
-public class LeviathanAIRandomSwimming extends RandomStrollGoal {
+public class AnimalAIRandomSwimming extends RandomStrollGoal {
     private int xzSpread;
     private boolean submerged;
     private int ySpread = 3;
 
-    public LeviathanAIRandomSwimming(PathfinderMob creature, double speed, int chance, int xzSpread) {
+    public AnimalAIRandomSwimming(PathfinderMob creature, double speed, int chance, int xzSpread) {
         super(creature, speed, chance, false);
         this.xzSpread = xzSpread;
         this.submerged = false;
     }
 
+    public AnimalAIRandomSwimming(PathfinderMob creature, double speed, int chance, int xzSpread, boolean submerged) {
+        super(creature, speed, chance, false);
+        this.xzSpread = xzSpread;
+        this.submerged = submerged;
+    }
+
+    public AnimalAIRandomSwimming(PathfinderMob creature, double speed, int chance, int xzSpread, int ySpread, boolean submerged) {
+        super(creature, speed, chance, false);
+        this.xzSpread = xzSpread;
+        this.ySpread = ySpread;
+        this.submerged = submerged;
+    }
 
     public boolean canUse() {
         if (this.mob.isVehicle()|| mob.getTarget() != null || !this.mob.isInWater() && !this.mob.isInLava()) {
@@ -58,6 +70,13 @@ public class LeviathanAIRandomSwimming extends RandomStrollGoal {
         Vec3 vector3d = DefaultRandomPos.getPos(this.mob, xzSpread, ySpread);
 
         for(int i = 0; vector3d != null && !this.mob.level.getBlockState(new BlockPos(vector3d)).isPathfindable(this.mob.level, new BlockPos(vector3d), PathComputationType.WATER) && i++ < 15; vector3d = DefaultRandomPos.getPos(this.mob, 10, ySpread)) {
+        }
+        if(submerged && vector3d != null){
+            if(!this.mob.level.getFluidState(new BlockPos(vector3d).above()).is(FluidTags.WATER)){
+                vector3d = vector3d.add(0, -2, 0);
+            }else if(!this.mob.level.getFluidState(new BlockPos(vector3d).above(2)).is(FluidTags.WATER)){
+                vector3d = vector3d.add(0, -3, 0);
+            }
         }
         return vector3d;
     }

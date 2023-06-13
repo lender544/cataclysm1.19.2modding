@@ -10,9 +10,9 @@
     "spacing": 90,
     "separation": 70,
     "type": "minecraft:random_spread",
-    "super_exclusion_zone": {
+    "exclusion_zone": {
       "chunk_count": 30,
-      "other_set": "#cataclysm:soul_black_smith_avoid"
+      "other_set": "minecraft:nether_complexes"
     }
   }
 }

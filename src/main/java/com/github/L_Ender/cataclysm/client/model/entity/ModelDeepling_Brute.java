@@ -294,7 +294,17 @@ public class ModelDeepling_Brute extends AdvancedEntityModel<Deepling_Brute_Enti
 			this.walk(left_arm, walkSpeed, walkDegree * 1.2F, false, 0F, 0F, limbSwing, limbSwingAmount);
 			this.walk(right_arm, walkSpeed, walkDegree * 1.2F, true, 0F, 0F, limbSwing, limbSwingAmount);
 		}
-
+		if (this.riding) {
+			this.root.rotationPointY += 13;
+			this.right_arm.rotateAngleX += (-(float)Math.PI / 5F);
+			this.left_arm.rotateAngleX += (-(float)Math.PI / 5F);
+			this.right_leg.rotateAngleX = -1.4137167F;
+			this.right_leg.rotateAngleY = ((float)Math.PI / 10F);
+			this.right_leg.rotateAngleZ = 0.07853982F;
+			this.left_leg.rotateAngleX = -1.4137167F;
+			this.left_leg.rotateAngleY = (-(float)Math.PI / 10F);
+			this.left_leg.rotateAngleZ = -0.07853982F;
+		}
 	}
 
 	public void setRotationAngle(AdvancedModelBox AdvancedModelBox, float x, float y, float z) {

@@ -1,5 +1,6 @@
 package com.github.L_Ender.cataclysm.entity.Deepling;
 
+import com.github.L_Ender.cataclysm.entity.AI.AttackAnimationGoal1;
 import com.github.L_Ender.cataclysm.entity.AI.CmAttackGoal;
 import com.github.L_Ender.cataclysm.entity.AI.MobAIFindWater;
 import com.github.L_Ender.cataclysm.entity.AI.MobAILeaveWater;
@@ -7,6 +8,7 @@ import com.github.L_Ender.cataclysm.entity.Boss_monster;
 import com.github.L_Ender.cataclysm.entity.etc.GroundPathNavigatorWide;
 import com.github.L_Ender.cataclysm.entity.etc.ISemiAquatic;
 import com.github.L_Ender.cataclysm.entity.etc.SemiAquaticPathNavigator;
+import com.github.L_Ender.cataclysm.entity.etc.SmartBodyHelper2;
 import com.github.L_Ender.cataclysm.init.ModSounds;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
@@ -22,8 +24,10 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
@@ -44,7 +48,9 @@ public class Coralssus_Entity extends Boss_monster implements ISemiAquatic {
     private boolean isLandNavigator;
     public float SwimProgress = 0;
     public float prevSwimProgress = 0;
-
+    public static final Animation CORALSSUS_SMASH = Animation.create(80);
+    public static final Animation CORALSSUS_LEFT_SMASH = Animation.create(41);
+    public static final Animation CORALSSUS_RIGHT_SMASH = Animation.create(41);
     public static final int VOID_RUNE_ATTACK_COOLDOWN = 250;
     private int void_rune_attack_cooldown = 0;
 
@@ -63,17 +69,21 @@ public class Coralssus_Entity extends Boss_monster implements ISemiAquatic {
 
     @Override
     public Animation[] getAnimations() {
-        return new Animation[]{NO_ANIMATION};
+        return new Animation[]{NO_ANIMATION,CORALSSUS_SMASH,CORALSSUS_LEFT_SMASH,CORALSSUS_RIGHT_SMASH};
     }
 
     protected void registerGoals() {
         super.registerGoals();
+        this.goalSelector.addGoal(0, new AttackAnimationGoal1<>(this, CORALSSUS_LEFT_SMASH, 20, true));
+        this.goalSelector.addGoal(0, new AttackAnimationGoal1<>(this, CORALSSUS_RIGHT_SMASH, 20, true));
         this.goalSelector.addGoal(2, new CmAttackGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new MobAIFindWater(this,1.0D));
         this.goalSelector.addGoal(4, new MobAILeaveWater(this));
         this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(6, new CoralssusSwimUpGoal(this, 1.0D, this.level.getSeaLevel()));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers());
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
@@ -205,6 +215,11 @@ public class Coralssus_Entity extends Boss_monster implements ISemiAquatic {
                 }
             }
         }
+
+        if(this.getAnimation() == NO_ANIMATION){
+            setAnimation(CORALSSUS_RIGHT_SMASH);
+        }
+
     }
 
     private void launch(LivingEntity e, boolean huge) {
@@ -278,40 +293,13 @@ public class Coralssus_Entity extends Boss_monster implements ISemiAquatic {
     }
 
 
-    public void setSearchingForLand(boolean p_32399_) {
-        this.searchingForLand = p_32399_;
+    @Override
+    protected BodyRotationControl createBodyControl() {
+        return new SmartBodyHelper2(this);
     }
 
-    static class CoralssusGoToBeachGoal extends MoveToBlockGoal {
-        private final Coralssus_Entity drowned;
-
-        public CoralssusGoToBeachGoal(Coralssus_Entity p_32409_, double p_32410_) {
-            super(p_32409_, p_32410_, 8, 2);
-            this.drowned = p_32409_;
-        }
-
-        public boolean canUse() {
-            return super.canUse() && this.drowned.level.isRaining() && this.drowned.isInWater() && this.drowned.getY() >= (double)(this.drowned.level.getSeaLevel() - 3);
-        }
-
-        public boolean canContinueToUse() {
-            return super.canContinueToUse();
-        }
-
-        protected boolean isValidTarget(LevelReader p_32413_, BlockPos p_32414_) {
-            BlockPos blockpos = p_32414_.above();
-            return p_32413_.isEmptyBlock(blockpos) && p_32413_.isEmptyBlock(blockpos.above()) ? p_32413_.getBlockState(p_32414_).entityCanStandOn(p_32413_, p_32414_, this.drowned) : false;
-        }
-
-        public void start() {
-            this.drowned.setSearchingForLand(false);
-            // this.drowned.switchNavigator(true);
-            super.start();
-        }
-
-        public void stop() {
-            super.stop();
-        }
+    public void setSearchingForLand(boolean p_32399_) {
+        this.searchingForLand = p_32399_;
     }
 
     static class CoralssusSwimUpGoal extends Goal {

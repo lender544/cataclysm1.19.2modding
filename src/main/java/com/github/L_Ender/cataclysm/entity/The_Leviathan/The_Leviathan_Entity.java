@@ -2,10 +2,7 @@ package com.github.L_Ender.cataclysm.entity.The_Leviathan;
 
 import com.github.L_Ender.cataclysm.cataclysm;
 import com.github.L_Ender.cataclysm.config.CMConfig;
-import com.github.L_Ender.cataclysm.entity.AI.AnimationGoal;
-import com.github.L_Ender.cataclysm.entity.AI.EntityAINearestTarget3D;
-import com.github.L_Ender.cataclysm.entity.AI.MobAIFindWater;
-import com.github.L_Ender.cataclysm.entity.AI.SimpleAnimationGoal;
+import com.github.L_Ender.cataclysm.entity.AI.*;
 import com.github.L_Ender.cataclysm.entity.Boss_monster;
 import com.github.L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
@@ -185,7 +182,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         this.goalSelector.addGoal(1, new LeviathanAIFindWaterAndPortal(this));
         this.goalSelector.addGoal(2, new MobAIFindWater(this,1.0D));
         this.goalSelector.addGoal(3, new LeviathanAttackGoal(this));
-        this.goalSelector.addGoal(4, new LeviathanAIRandomSwimming(this, 1F, 3, 15));
+        this.goalSelector.addGoal(4, new AnimalAIRandomSwimming(this, 1F, 3, 15));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new LeviathanGrabAttackGoal(this,LEVIATHAN_GRAB));

@@ -4,6 +4,7 @@ package com.github.L_Ender.cataclysm.client.model.entity;// Made with Blockbench
 
 
 import com.github.L_Ender.cataclysm.entity.Deepling.Coralssus_Entity;
+import com.github.L_Ender.cataclysm.entity.Deepling.Deepling_Brute_Entity;
 import com.github.alexthe666.citadel.client.model.AdvancedEntityModel;
 import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
 import com.github.alexthe666.citadel.client.model.ModelAnimator;
@@ -149,6 +150,119 @@ public class ModelCoralssus extends AdvancedEntityModel<Coralssus_Entity> {
 
 	public void animate(Coralssus_Entity entity, float f, float f1, float f2, float f3, float f4) {
 		this.resetToDefaultPose();
+		animator.update(entity);
+		animator.setAnimation(Coralssus_Entity.CORALSSUS_SMASH);
+		animator.setStaticKeyframe(5);
+		animator.startKeyframe(15);
+		animator.move(lower_body,0, 2f, 0);
+		animator.rotate(upper_body, (float)Math.toRadians(7.5F),0, 0);
+		animator.rotate(helmet, (float)Math.toRadians(-12.5F),0, 0);
+		animator.rotate(right_arm, (float)Math.toRadians(-65F),(float)Math.toRadians(5F), (float)Math.toRadians(2.5F));
+		animator.rotate(right_fist, (float)Math.toRadians(12.5F),0, 0);
+		animator.rotate(left_arm, (float)Math.toRadians(-65F),(float)Math.toRadians(-5F), (float)Math.toRadians(-2F));
+		animator.rotate(left_fist, (float)Math.toRadians(15F),0, 0);
+		animator.move(right_leg, 0,0, 3);
+		animator.move(left_leg, 0,0, -3);
+		animator.endKeyframe();
+
+		animator.startKeyframe(10);
+		animator.rotate(lower_body, (float)Math.toRadians(-15F),0, 0);
+		animator.rotate(upper_body, (float)Math.toRadians(-52.5F),0, 0);
+		animator.rotate(helmet, (float)Math.toRadians(45F),0, 0);
+		animator.rotate(right_arm, (float)Math.toRadians(-187.5F),(float)Math.toRadians(-2.5F), (float)Math.toRadians(-5F));
+		animator.rotate(right_fist, (float)Math.toRadians(12.5F),0, 0);
+		animator.rotate(left_arm, (float)Math.toRadians(-185F),(float)Math.toRadians(5F), (float)Math.toRadians(5F));
+		animator.rotate(left_fist, (float)Math.toRadians(15F),0, 0);
+		animator.move(right_leg, 0,0, 1);
+		animator.move(left_leg, 0,-2, -5);
+		animator.endKeyframe();
+
+		animator.setStaticKeyframe(5);
+
+		animator.startKeyframe(2);
+		animator.rotate(lower_body, (float)Math.toRadians(7.5F),0, 0);
+		animator.rotate(helmet, (float)Math.toRadians(27.5F),0, 0);
+		animator.rotate(right_arm, (float)Math.toRadians(-55F),(float)Math.toRadians(-7.5F), 0);
+		animator.rotate(right_fist, (float)Math.toRadians(12.5F),0, 0);
+		animator.rotate(left_arm, (float)Math.toRadians(-55F),0, (float)Math.toRadians(7.5F));
+		animator.rotate(left_fist, (float)Math.toRadians(15F),0, 0);
+		animator.move(right_leg, 0,0, -4);
+		animator.endKeyframe();
+
+		animator.setStaticKeyframe(10);
+
+		animator.resetKeyframe(10);
+
+		animator.setAnimation(Coralssus_Entity.CORALSSUS_LEFT_SMASH);
+		animator.setStaticKeyframe(5);
+
+		animator.startKeyframe(10);
+		animator.rotate(lower_body,(float)Math.toRadians(-7.5F), 0, 0);
+		animator.rotate(upper_body, (float)Math.toRadians(-17.5F),(float)Math.toRadians(-10F), (float)Math.toRadians(-5F));
+		animator.rotate(helmet, (float)Math.toRadians(12.5F),(float)Math.toRadians(5F), (float)Math.toRadians(-2.5F));
+		animator.move(right_arm, -1,3,-2);
+		animator.rotate(right_arm, (float)Math.toRadians(10F),(float)Math.toRadians(7.5F), (float)Math.toRadians(5F));
+		animator.rotate(right_fist, (float)Math.toRadians(7.5F),0, 0);
+		animator.move(left_arm, -1,0,3);
+		animator.rotate(left_arm, (float)Math.toRadians(-142.5F),(float)Math.toRadians(-5F), (float)Math.toRadians(5F));
+		animator.rotate(left_fist, (float)Math.toRadians(-25F),0, 0);
+		animator.move(right_leg, 0,0, -4);
+		animator.move(left_leg, 0,0, 1);
+		animator.endKeyframe();
+		animator.setStaticKeyframe(5);
+
+		animator.startKeyframe(1);
+		animator.rotate(lower_body,(float)Math.toRadians(5F), (float)Math.toRadians(5F), 0);
+		animator.rotate(upper_body, (float)Math.toRadians(-15F),(float)Math.toRadians(10F), (float)Math.toRadians(2.5F));
+		animator.rotate(helmet, (float)Math.toRadians(2.5F),(float)Math.toRadians(5F), (float)Math.toRadians(-2.5F));
+		animator.move(right_arm, 0,3,0);
+		animator.rotate(right_arm, (float)Math.toRadians(25F),(float)Math.toRadians(-10F), (float)Math.toRadians(-2.5F));
+		animator.rotate(right_fist, (float)Math.toRadians(-15F),0, 0);
+		animator.move(left_arm, -2,2,-1);
+		animator.rotate(left_arm, (float)Math.toRadians(-10F),(float)Math.toRadians(2.5F), (float)Math.toRadians(12.5F));
+		animator.rotate(left_fist, (float)Math.toRadians(-25F),0, 0);
+		animator.move(left_leg, 0,0, -3);
+		animator.endKeyframe();
+		animator.setStaticKeyframe(10);
+
+		animator.resetKeyframe(10);
+
+		animator.setAnimation(Coralssus_Entity.CORALSSUS_RIGHT_SMASH);
+		animator.setStaticKeyframe(5);
+
+		animator.startKeyframe(10);
+		animator.rotate(lower_body,(float)Math.toRadians(-7.5F), 0, 0);
+		animator.rotate(upper_body, (float)Math.toRadians(-17.5F),(float)Math.toRadians(10F), (float)Math.toRadians(5F));
+		animator.rotate(helmet, (float)Math.toRadians(12.5F),(float)Math.toRadians(-5F), (float)Math.toRadians(2.5F));
+
+		animator.move(left_arm, 0,3,-2);
+		animator.rotate(left_arm, (float)Math.toRadians(10F),(float)Math.toRadians(-7.5F), (float)Math.toRadians(-5F));
+
+		animator.rotate(left_fist, (float)Math.toRadians(7.5F),0, 0);
+
+		animator.move(right_arm, 1,0,3);
+		animator.rotate(right_arm, (float)Math.toRadians(-142.5F),(float)Math.toRadians(5F), (float)Math.toRadians(-5F));
+		animator.rotate(right_fist, (float)Math.toRadians(-25F),0, 0);
+		animator.move(left_leg, 0,0, -4);
+		animator.move(right_leg, 0,0, 1);
+		animator.endKeyframe();
+		animator.setStaticKeyframe(5);
+
+		animator.startKeyframe(1);
+		animator.rotate(lower_body,(float)Math.toRadians(5F), (float)Math.toRadians(-5F), 0);
+		animator.rotate(upper_body, (float)Math.toRadians(-15F),(float)Math.toRadians(-10F), (float)Math.toRadians(-2.5F));
+		animator.rotate(helmet, (float)Math.toRadians(2.5F),(float)Math.toRadians(-5F), (float)Math.toRadians(2.5F));
+		animator.move(left_arm, 0,3,0);
+		animator.rotate(left_arm, (float)Math.toRadians(25F),(float)Math.toRadians(10F), (float)Math.toRadians(2.5F));
+		animator.rotate(left_fist, (float)Math.toRadians(-15F),0, 0);
+		animator.move(right_arm, 2,2,-1);
+		animator.rotate(right_arm, (float)Math.toRadians(-10F),(float)Math.toRadians(-2.5F), (float)Math.toRadians(-12.5F));
+		animator.rotate(right_fist, (float)Math.toRadians(-25F),0, 0);
+		animator.move(right_leg, 0,0, -3);
+		animator.endKeyframe();
+		animator.setStaticKeyframe(10);
+
+		animator.resetKeyframe(10);
 
 	}
 
