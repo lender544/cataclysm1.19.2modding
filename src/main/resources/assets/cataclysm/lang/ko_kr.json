@@ -116,6 +116,7 @@
   "block.cataclysm.void_lantern_block": "공허 랜턴 블록",
   "block.cataclysm.altar_of_fire": "불의 제단",
   "block.cataclysm.altar_of_void": "공허의 제단",
+  "block.cataclysm.altar_of_amethyst":"자수정 제단",
   "block.cataclysm.emp": "EMP",
   "block.cataclysm.mechanical_fusion_anvil": "기계식 융합 모루",
 
@@ -155,6 +156,8 @@
   "entity.cataclysm.coral_spear": "산호 창",
   "entity.cataclysm.deepling_brute": "난폭한 심연꾼",
   "entity.cataclysm.deepling_angler": "심연낚시꾼",
+  "entity.cataclysm.coralssus": "코랄서스",
+  "entity.cataclysm.lionfish": "쏠배감펭",
   "entity.cataclysm.dimensional_rift": "차원의 균열",
   "entity.cataclysm.abyss_orb": "심연 구체",
   "entity.cataclysm.portal_abyss_blast": "포탈의 심연 돌풍",

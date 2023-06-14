@@ -23,6 +23,9 @@ public class ModTileentites {
     public static final RegistryObject<BlockEntityType<TileEntityAltarOfVoid>> ALTAR_OF_VOID = TILE_ENTITY_TYPES.register("altar_of_void", () ->
             BlockEntityType.Builder.of(TileEntityAltarOfVoid::new, ModBlocks.ALTAR_OF_VOID.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<TileEntityAltarOfAmethyst>> ALTAR_OF_AMETHYST = TILE_ENTITY_TYPES.register("altar_of_amethyst", () ->
+            BlockEntityType.Builder.of(TileEntityAltarOfAmethyst::new, ModBlocks.ALTAR_OF_AMETHYST.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<TileEntityEMP>> EMP = TILE_ENTITY_TYPES.register("emp", () ->
             BlockEntityType.Builder.of(TileEntityEMP::new, ModBlocks.EMP.get()).build(null));
 

@@ -7,10 +7,7 @@ import com.github.L_Ender.cataclysm.client.particle.EM_PulseParticle;
 import com.github.L_Ender.cataclysm.client.particle.LightningParticle;
 import com.github.L_Ender.cataclysm.client.particle.SoulLavaParticle;
 import com.github.L_Ender.cataclysm.client.render.CMItemstackRenderer;
-import com.github.L_Ender.cataclysm.client.render.blockentity.RendererAltar_of_Fire;
-import com.github.L_Ender.cataclysm.client.render.blockentity.RendererAltar_of_Void;
-import com.github.L_Ender.cataclysm.client.render.blockentity.RendererEMP;
-import com.github.L_Ender.cataclysm.client.render.blockentity.RendererMechanical_fusion_anvil;
+import com.github.L_Ender.cataclysm.client.render.blockentity.*;
 import com.github.L_Ender.cataclysm.client.render.entity.*;
 import com.github.L_Ender.cataclysm.client.render.item.CMItemRenderProperties;
 import com.github.L_Ender.cataclysm.client.render.item.CustomArmorRenderProperties;
@@ -134,6 +131,7 @@ public class ClientProxy extends CommonProxy {
         }
         MinecraftForge.EVENT_BUS.addListener(BossBarEvent::renderBossBar);
         BlockEntityRenderers.register(ModTileentites.ALTAR_OF_FIRE.get(), RendererAltar_of_Fire::new);
+        BlockEntityRenderers.register(ModTileentites.ALTAR_OF_AMETHYST.get(), RendererAltar_of_Amethyst::new);
         BlockEntityRenderers.register(ModTileentites.ALTAR_OF_VOID.get(), RendererAltar_of_Void::new);
         BlockEntityRenderers.register(ModTileentites.EMP.get(), RendererEMP::new);
         BlockEntityRenderers.register(ModTileentites.MECHANICAL_FUSION_ANVIL.get(), RendererMechanical_fusion_anvil::new);

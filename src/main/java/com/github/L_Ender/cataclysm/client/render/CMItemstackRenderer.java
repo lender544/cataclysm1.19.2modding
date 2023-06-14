@@ -1,9 +1,6 @@
 package com.github.L_Ender.cataclysm.client.render;
 
-import com.github.L_Ender.cataclysm.client.model.block.Model_Altar_of_Fire;
-import com.github.L_Ender.cataclysm.client.model.block.Model_Altar_of_Void;
-import com.github.L_Ender.cataclysm.client.model.block.Model_EMP;
-import com.github.L_Ender.cataclysm.client.model.block.Model_Mechanical_Anvil;
+import com.github.L_Ender.cataclysm.client.model.block.*;
 import com.github.L_Ender.cataclysm.client.model.entity.ModelCoral_Spear;
 import com.github.L_Ender.cataclysm.client.model.item.*;
 import com.github.L_Ender.cataclysm.client.model.item.*;
@@ -37,6 +34,7 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
     private static final ModelIncinerator THE_INCINERATOR_MODEL = new ModelIncinerator();
     private static final Model_Altar_of_Fire ALTAR_OF_FIRE_MODEL = new Model_Altar_of_Fire();
     private static final Model_Altar_of_Void ALTAR_OF_VOID_MODEL = new Model_Altar_of_Void();
+    private static final Model_Altar_of_Amethyst ALTAR_OF_AMETHYST_MODEL = new Model_Altar_of_Amethyst();
     private static final ModelWither_Assault_SHoulder_Weapon WASW_MODEL = new ModelWither_Assault_SHoulder_Weapon();
     private static final ModelCoral_Spear CORAL_SPEAR_MODEL = new ModelCoral_Spear();
     private static final ModelVoid_Forge VOID_FORGE_MODEL = new ModelVoid_Forge();
@@ -47,6 +45,7 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
     private static final ResourceLocation VOID_FORGE_TEXTURE = new ResourceLocation("cataclysm:textures/items/void_forge.png");
     private static final ResourceLocation ALTAR_OF_FIRE_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altar_of_fire.png");
     private static final ResourceLocation ALTAR_OF_VOID_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/altar_of_void.png");
+    private static final ResourceLocation ALTAR_OF_AMETHYST_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/altar_of_amethyst.png");
     private static final ResourceLocation MIF_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/mechanical_fusion_anvil.png");
     private static final ResourceLocation WASW_TEXTURE = new ResourceLocation("cataclysm:textures/items/wither_assualt_shoulder_weapon.png");
     private static final ResourceLocation VASW_TEXTURE = new ResourceLocation("cataclysm:textures/items/void_assualt_shoulder_weapon.png");
@@ -152,6 +151,14 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
             matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(-180));
             ALTAR_OF_VOID_MODEL.resetToDefaultPose();
             ALTAR_OF_VOID_MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(RenderType.entityCutoutNoCull(ALTAR_OF_VOID_TEXTURE)), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
+            matrixStackIn.popPose();
+        }
+        if(itemStackIn.getItem() == ModBlocks.ALTAR_OF_AMETHYST.get().asItem()){
+            matrixStackIn.pushPose();
+            matrixStackIn.translate(0.5F, 1.5F, 0.5F);
+            matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(-180));
+            ALTAR_OF_AMETHYST_MODEL.resetToDefaultPose();
+            ALTAR_OF_AMETHYST_MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(RenderType.entityCutoutNoCull(ALTAR_OF_AMETHYST_TEXTURE)), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
             matrixStackIn.popPose();
         }
         if(itemStackIn.getItem() == ModBlocks.EMP.get().asItem()){

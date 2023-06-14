@@ -124,6 +124,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> ALTAR_OF_VOID = registerBlockAndItem("altar_of_void",
             BlockAltarOfVoid::new, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).rarity(Rarity.EPIC).fireResistant(), true);
 
+    public static final RegistryObject<Block> ALTAR_OF_AMETHYST = registerBlockAndItem("altar_of_amethyst",
+            BlockAltarOfAmethyst::new, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).rarity(Rarity.EPIC).fireResistant(), true);
+
     public static final RegistryObject<Block> EMP = registerBlockAndItem("emp",
             BlockEMP::new, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).rarity(Rarity.EPIC), true);
 
