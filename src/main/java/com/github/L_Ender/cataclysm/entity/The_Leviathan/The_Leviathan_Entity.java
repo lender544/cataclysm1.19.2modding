@@ -90,6 +90,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
     public static final Animation LEVIATHAN_TAIL_WHIPS = Animation.create(42);
     public static final Animation LEVIATHAN_BREAK_DIMENSION = Animation.create(156);
     public static final Animation LEVIATHAN_PHASE2 = Animation.create(130);
+    public static final Animation LEVIATHAN_DEATH = Animation.create(210);
     public final The_Leviathan_Part headPart;
     public final The_Leviathan_Part tailPart1;
     public final The_Leviathan_Part tailPart2;
@@ -216,7 +217,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
 
     @Override
     public Animation[] getAnimations() {
-        return new Animation[]{LEVIATHAN_PHASE2,LEVIATHAN_BITE,LEVIATHAN_BREAK_DIMENSION,LEVIATHAN_GRAB,LEVIATHAN_TAIL_WHIPS, LEVIATHAN_ABYSS_BLAST_PORTAL,LEVIATHAN_GRAB_BITE,LEVIATHAN_ABYSS_BLAST,LEVIATHAN_RUSH,LEVIATHAN_TENTACLE_STRIKE_UPPER_R,LEVIATHAN_TENTACLE_STRIKE_UPPER_L,LEVIATHAN_TENTACLE_STRIKE_LOWER_L,LEVIATHAN_TENTACLE_STRIKE_LOWER_R,LEVIATHAN_STUN};
+        return new Animation[]{LEVIATHAN_PHASE2,LEVIATHAN_BITE,LEVIATHAN_BREAK_DIMENSION,LEVIATHAN_GRAB,LEVIATHAN_TAIL_WHIPS, LEVIATHAN_ABYSS_BLAST_PORTAL,LEVIATHAN_GRAB_BITE,LEVIATHAN_ABYSS_BLAST,LEVIATHAN_RUSH,LEVIATHAN_TENTACLE_STRIKE_UPPER_R,LEVIATHAN_TENTACLE_STRIKE_UPPER_L,LEVIATHAN_TENTACLE_STRIKE_LOWER_L,LEVIATHAN_TENTACLE_STRIKE_LOWER_R,LEVIATHAN_STUN,LEVIATHAN_DEATH};
     }
 
     public void travel(Vec3 travelVector) {
@@ -833,7 +834,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             }
         }
         if (flag) {
-            blockBreakCounter = 20;
+            blockBreakCounter = 10;
         }
     }
 
@@ -1122,6 +1123,12 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
 
     protected SoundEvent getDeathSound() {
         return ModSounds.LEVIATHAN_DEFEAT.get();
+    }
+
+    @Nullable
+    public Animation getDeathAnimation()
+    {
+        return LEVIATHAN_DEATH;
     }
 
     protected float getSoundVolume() {
