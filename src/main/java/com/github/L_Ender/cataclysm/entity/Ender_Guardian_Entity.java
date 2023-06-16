@@ -774,8 +774,8 @@ public class Ender_Guardian_Entity extends Boss_monster {
                 double DeltaMovementY = getRandom().nextGaussian() * 0.07D;
                 double DeltaMovementZ = getRandom().nextGaussian() * 0.07D;
                 float angle = (0.01745329251F * this.yBodyRot) + i1;
-                float f = Mth.cos(this.getYRot() * ((float)Math.PI / 180F)) ;
-                float f1 = Mth.sin(this.getYRot() * ((float)Math.PI / 180F)) ;
+                float f = Mth.cos(this.yBodyRot * ((float)Math.PI / 180F)) ;
+                float f1 = Mth.sin(this.yBodyRot * ((float)Math.PI / 180F)) ;
                 double extraX = 1.2 * Mth.sin((float) (Math.PI + angle));
                 double extraY = 0.3F;
                 double extraZ = 1.2 * Mth.cos(angle);

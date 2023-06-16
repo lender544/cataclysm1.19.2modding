@@ -49,8 +49,8 @@ public class Coralssus_Entity extends Boss_monster implements ISemiAquatic {
     public float SwimProgress = 0;
     public float prevSwimProgress = 0;
     public static final Animation CORALSSUS_SMASH = Animation.create(80);
-    public static final Animation CORALSSUS_LEFT_SMASH = Animation.create(41);
-    public static final Animation CORALSSUS_RIGHT_SMASH = Animation.create(41);
+    public static final Animation CORALSSUS_LEFT_SMASH = Animation.create(36);
+    public static final Animation CORALSSUS_RIGHT_SMASH = Animation.create(36);
     public static final int VOID_RUNE_ATTACK_COOLDOWN = 250;
     private int void_rune_attack_cooldown = 0;
 
@@ -74,8 +74,8 @@ public class Coralssus_Entity extends Boss_monster implements ISemiAquatic {
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new AttackAnimationGoal1<>(this, CORALSSUS_LEFT_SMASH, 20, true));
-        this.goalSelector.addGoal(0, new AttackAnimationGoal1<>(this, CORALSSUS_RIGHT_SMASH, 20, true));
+        this.goalSelector.addGoal(0, new AttackAnimationGoal1<>(this, CORALSSUS_LEFT_SMASH, 16, true));
+        this.goalSelector.addGoal(0, new AttackAnimationGoal1<>(this, CORALSSUS_RIGHT_SMASH, 16, true));
         this.goalSelector.addGoal(2, new CmAttackGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new MobAIFindWater(this,1.0D));
         this.goalSelector.addGoal(4, new MobAILeaveWater(this));
@@ -217,7 +217,7 @@ public class Coralssus_Entity extends Boss_monster implements ISemiAquatic {
         }
 
         if(this.getAnimation() == NO_ANIMATION){
-            setAnimation(CORALSSUS_RIGHT_SMASH);
+            setAnimation(CORALSSUS_SMASH);
         }
 
     }

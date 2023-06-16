@@ -450,8 +450,8 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
                 double DeltaMovementX = getRandom().nextGaussian() * 0.07D;
                 double DeltaMovementY = getRandom().nextGaussian() * 0.07D;
                 double DeltaMovementZ = getRandom().nextGaussian() * 0.07D;
-                float f = Mth.cos(this.getYRot() * ((float)Math.PI / 180F)) ;
-                float f1 = Mth.sin(this.getYRot() * ((float)Math.PI / 180F)) ;
+                float f = Mth.cos(this.yBodyRot * ((float)Math.PI / 180F)) ;
+                float f1 = Mth.sin(this.yBodyRot * ((float)Math.PI / 180F)) ;
                 float angle = (0.01745329251F * this.yBodyRot) + i1;
                 double extraX = 2F * Mth.sin((float) (Math.PI + angle));
                 double extraY = 0.3F;

@@ -447,6 +447,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
     public void aiStep() {
         super.aiStep();
         Vec3 motion;
+        LivingEntity target = this.getTarget();
         if(this.getAnimation() == LEVIATHAN_ABYSS_BLAST){
             if(this.getAnimationTick() < 30){
                 if (this.level.isClientSide) {
@@ -459,7 +460,10 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
                 }
             }
 
-            if (this.getAnimationTick() >= 67) {
+            if (this.getAnimationTick() >= 82 && this.getAnimationTick() <= 87) {
+                this.setXRot(this.xRotO);
+            }
+            if(this.getAnimationTick() > 87 && target == null){
                 this.setXRot(this.xRotO);
             }
 
@@ -1375,6 +1379,9 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             if (target != null) {
                 if (this.entity.getAnimationTick() < 82) {
                     entity.getLookControl().setLookAt(target, 30, 90);
+                }
+                if (this.entity.getAnimationTick() > 87) {
+                    entity.getLookControl().setLookAt(target, 0.5f, 90);
                 }
             }
             float dir = 90.0f;

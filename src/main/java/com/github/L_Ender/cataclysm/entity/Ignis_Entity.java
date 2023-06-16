@@ -78,7 +78,7 @@ import java.util.stream.Stream;
 
 public class Ignis_Entity extends Boss_monster {
 
-    private final CMBossInfoServer bossInfo = new CMBossInfoServer(this.getUUID(),this,this.getBossPhase() > 0 ? BossEvent.BossBarColor.BLUE : BossEvent.BossBarColor.YELLOW , false);
+    private final CMBossInfoServer bossInfo = new CMBossInfoServer(this.getUUID(),this,BossEvent.BossBarColor.YELLOW , false);
     public static final Animation SWING_ATTACK = Animation.create(55);
     public static final Animation SWING_ATTACK_SOUL = Animation.create(46);
     public static final Animation SWING_ATTACK_BERSERK = Animation.create(37);
@@ -633,6 +633,9 @@ public class Ignis_Entity extends Boss_monster {
                 timeWithoutTarget = 0;
                 this.setIsSword(false);
                 this.setIsBlocking(false);
+            }
+            if (this.getBossPhase() > 0) {
+                this.bossInfo.setColor(BossEvent.BossBarColor.BLUE);
             }
             if (this.getBossPhase() > 1) {
                 bossInfo.setDarkenScreen(true);
@@ -1668,8 +1671,8 @@ public class Ignis_Entity extends Boss_monster {
                 double motionY = getRandom().nextGaussian() * 0.07D;
                 double motionZ = getRandom().nextGaussian() * 0.07D;
                 float angle = (0.01745329251F * this.yBodyRot) + i1;
-                float f = Mth.cos(this.getYRot() * ((float) Math.PI / 180F));
-                float f1 = Mth.sin(this.getYRot() * ((float) Math.PI / 180F));
+                float f = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
+                float f1 = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
                 double extraX = radius * Mth.sin((float) (Math.PI + angle));
                 double extraY = 0.3F;
                 double extraZ = radius * Mth.cos(angle);
@@ -1691,8 +1694,8 @@ public class Ignis_Entity extends Boss_monster {
     private void ShieldExplode(float radius, float math, float y) {
         if (!this.level.isClientSide) {
             float angle = (0.01745329251F * this.yBodyRot);
-            float f = Mth.cos(this.getYRot() * ((float) Math.PI / 180F));
-            float f1 = Mth.sin(this.getYRot() * ((float) Math.PI / 180F));
+            float f = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
+            float f1 = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
             double extraX = radius * Mth.sin((float) (Math.PI + angle));
             double extraZ = radius * Mth.cos(angle);
             this.level.explode(this, this.getX() + extraX + f * math, this.getY() + y, this.getZ() + extraZ + f1 * math, 2.0F, Explosion.BlockInteraction.NONE);
@@ -1770,8 +1773,8 @@ public class Ignis_Entity extends Boss_monster {
         double minY = this.getY() - 2;
         double maxY = this.getY() + mxy;
         float angle = (0.01745329251F * this.yBodyRot);
-        float f = Mth.cos(this.getYRot() * ((float) Math.PI / 180F));
-        float f1 = Mth.sin(this.getYRot() * ((float) Math.PI / 180F));
+        float f = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
+        float f1 = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
         double extraX = distance * Mth.sin((float) (Math.PI + angle));
         double extraZ = distance * Mth.cos(angle);
         double px = this.getX() + extraX + f * math;

@@ -194,8 +194,6 @@ public class ModelCoralssus extends AdvancedEntityModel<Coralssus_Entity> {
 		animator.resetKeyframe(10);
 
 		animator.setAnimation(Coralssus_Entity.CORALSSUS_LEFT_SMASH);
-		animator.setStaticKeyframe(5);
-
 		animator.startKeyframe(10);
 		animator.rotate(lower_body,(float)Math.toRadians(-7.5F), 0, 0);
 		animator.rotate(upper_body, (float)Math.toRadians(-17.5F),(float)Math.toRadians(-10F), (float)Math.toRadians(-5F));
@@ -228,8 +226,6 @@ public class ModelCoralssus extends AdvancedEntityModel<Coralssus_Entity> {
 		animator.resetKeyframe(10);
 
 		animator.setAnimation(Coralssus_Entity.CORALSSUS_RIGHT_SMASH);
-		animator.setStaticKeyframe(5);
-
 		animator.startKeyframe(10);
 		animator.rotate(lower_body,(float)Math.toRadians(-7.5F), 0, 0);
 		animator.rotate(upper_body, (float)Math.toRadians(-17.5F),(float)Math.toRadians(10F), (float)Math.toRadians(5F));
