@@ -166,7 +166,7 @@ public class Deepling_Brute_Entity extends AbstractDeepling {
             if (this.getAnimation() == DEEPLING_BRUTE_TRIDENT_THROW) {
                 if (target != null) {
                     if (this.getAnimationTick() == 11) {
-                        if(this.isInWaterOrRain()) {
+                        if(this.isInWaterOrRain() && !this.isPassenger()) {
                             double f1 = target.getX() - this.getX();
                             double f2 = target.getY() - this.getY();
                             double f3 = target.getZ() - this.getZ();

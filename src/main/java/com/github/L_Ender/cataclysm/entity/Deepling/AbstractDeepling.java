@@ -17,6 +17,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
@@ -25,6 +26,8 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+
+import java.util.List;
 
 public class AbstractDeepling extends Monster implements IAnimatedEntity, ISemiAquatic {
     private int animationTick;
@@ -48,6 +51,8 @@ public class AbstractDeepling extends Monster implements IAnimatedEntity, ISemiA
         super.registerGoals();
         this.goalSelector.addGoal(4, new MobAIFindWater(this,1.0D));
         this.goalSelector.addGoal(4, new MobAILeaveWater(this));
+        this.goalSelector.addGoal(5, new RidingCoralssus(this));
+        this.goalSelector.addGoal(3, new StopRiding(this));
         this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
@@ -211,4 +216,71 @@ public class AbstractDeepling extends Monster implements IAnimatedEntity, ISemiA
 
     }
 
+    static class RidingCoralssus extends Goal {
+        private final AbstractDeepling drowned;
+
+        public RidingCoralssus(AbstractDeepling p_32440_) {
+            this.drowned = p_32440_;
+
+        }
+
+        public boolean canUse() {
+            Coralssus_Entity sus = getClosestCoralssus_Entity();
+            return sus !=null && this.drowned.getMoistness() > 300 && sus.isAlive() && !sus.isVehicle();
+        }
+
+        public void start() {
+            Coralssus_Entity sus = getClosestCoralssus_Entity();
+            if(sus !=null) {
+                this.drowned.getNavigation().moveTo(sus, 1.0D);
+            }
+        }
+
+        public void tick() {
+            Coralssus_Entity sus = getClosestCoralssus_Entity();
+            if(sus !=null) {
+                this.drowned.getNavigation().moveTo(sus, 1.0D);
+                if(this.drowned.distanceTo(sus) < 2.0f){
+                    this.drowned.startRiding(sus, true);
+                }
+
+            }
+        }
+
+        public void stop() {
+            this.drowned.getNavigation().stop();
+        }
+
+        private Coralssus_Entity getClosestCoralssus_Entity(){
+            List<Coralssus_Entity> list = this.drowned.level.getEntitiesOfClass(Coralssus_Entity.class, this.drowned.getBoundingBox().inflate(15, 15, 15));
+            Coralssus_Entity closest = null;
+            if(!list.isEmpty()){
+                for(Coralssus_Entity entity : list){
+                    if((closest == null || closest.distanceTo(entity) > entity.distanceTo(entity))){
+                        closest = entity;
+                    }
+                }
+            }
+            return closest;
+        }
+    }
+
+
+    static class StopRiding extends Goal {
+        private final AbstractDeepling drowned;
+
+        public StopRiding(AbstractDeepling p_32440_) {
+            this.drowned = p_32440_;
+
+        }
+
+        public boolean canUse() {
+            return this.drowned.getMoistness() < 300 && drowned.isPassenger();
+        }
+
+        public void start() {
+            drowned.stopRiding();
+        }
+
+    }
 }
