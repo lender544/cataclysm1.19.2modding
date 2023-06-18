@@ -13,13 +13,13 @@
       "spawns": [
         {
           "type": "cataclysm:deepling",
-          "maxCount": 2,
+          "maxCount": 1,
           "minCount": 1,
           "weight": 1
         },
         {
           "type": "cataclysm:deepling_angler",
-          "maxCount": 2,
+          "maxCount": 1,
           "minCount": 1,
           "weight": 1
         },

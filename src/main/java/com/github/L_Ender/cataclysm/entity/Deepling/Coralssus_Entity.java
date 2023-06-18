@@ -15,12 +15,14 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
@@ -33,9 +35,12 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
 
 import java.util.EnumSet;
 
@@ -68,7 +73,7 @@ public class Coralssus_Entity extends Boss_monster {
         this.goalSelector.addGoal(0, new AttackAnimationGoal1<>(this, CORALSSUS_LEFT_SMASH, 16, true));
         this.goalSelector.addGoal(0, new AttackAnimationGoal1<>(this, CORALSSUS_RIGHT_SMASH, 16, true));
         this.goalSelector.addGoal(0, new Leap(this, CORALSSUS_LEAP));
-        this.goalSelector.addGoal(0, new Smash(this, CORALSSUS_SMASH));
+        this.goalSelector.addGoal(0, new SimpleAnimationGoal<>(this, CORALSSUS_SMASH));
         this.goalSelector.addGoal(2, new CmAttackGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new MobAIFindWater(this,1.0D));
         this.goalSelector.addGoal(4, new MobAILeaveWater(this));
@@ -132,10 +137,23 @@ public class Coralssus_Entity extends Boss_monster {
     }
 
 
+    private void floatStrider() {
+        if (this.isInWater()) {
+            CollisionContext lvt_1_1_ = CollisionContext.of(this);
+            if (lvt_1_1_.isAbove(LiquidBlock.STABLE_SHAPE, this.blockPosition().below(), true) && !this.level.getFluidState(this.blockPosition().above()).is(FluidTags.WATER)) {
+                this.onGround = true;
+            } else {
+                this.setDeltaMovement(this.getDeltaMovement().scale(0.5D).add(0.0D, random.nextFloat() * 0.5, 0.0D));
+            }
+        }
+
+    }
+
     public void tick() {
         super.tick();
         AnimationHandler.INSTANCE.updateAnimations(this);
         this.prevSwimProgress = SwimProgress;
+        floatStrider();
         if (this.isInWater()) {
             if (this.SwimProgress < 10F)
                 this.SwimProgress++;
@@ -282,6 +300,9 @@ public class Coralssus_Entity extends Boss_monster {
         return ModSounds.GOLEMDEATH.get();
     }
 
+    public boolean canStandOnFluid(FluidState p_230285_1_) {
+        return p_230285_1_.is(FluidTags.WATER);
+    }
 
     public void travel(Vec3 p_32394_) {
         if (this.getAnimation() !=NO_ANIMATION) {
@@ -289,10 +310,15 @@ public class Coralssus_Entity extends Boss_monster {
                 this.getNavigation().stop();
             }
             p_32394_ = Vec3.ZERO;
-            super.travel(p_32394_);
-            return;
+            this.setSpeed((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * (isInWater() ? 0.2F : 1F));
+            if (this.isEffectiveAi() && this.isInWater()) {
+                this.moveRelative(this.getSpeed(), p_32394_);
+                this.move(MoverType.SELF, this.getDeltaMovement());
+                this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+            } else {
+                super.travel(p_32394_);
+            }
         }
-        super.travel(p_32394_);
     }
 
 
@@ -334,12 +360,7 @@ public class Coralssus_Entity extends Boss_monster {
         }
     }
 
-    static class Smash extends SimpleAnimationGoal<Coralssus_Entity> {
-        public Smash(Coralssus_Entity entity, Animation animation) {
-            super(entity, animation);
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP, Flag.LOOK));
-        }
-    }
+
 
 }
 

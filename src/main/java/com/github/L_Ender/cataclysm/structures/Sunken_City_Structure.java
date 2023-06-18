@@ -59,21 +59,24 @@ public class Sunken_City_Structure extends Structure {
     private static final ResourceLocation CITY_LOWER_SOUTHEAST = new ResourceLocation(cataclysm.MODID, "sunken_city_lower_southeast");
     private static final ResourceLocation CITY_LOWER_SOUTHWEST = new ResourceLocation(cataclysm.MODID, "sunken_city_lower_southwest");
 
-    private static final ResourceLocation CITY_TREASURE1 = new ResourceLocation(cataclysm.MODID, "sunken_city_treasureroom1");
-    private static final ResourceLocation CITY_TREASURE2 = new ResourceLocation(cataclysm.MODID, "sunken_city_treasureroom2");
-    private static final ResourceLocation CITY_TREASURE3 = new ResourceLocation(cataclysm.MODID, "sunken_city_treasureroom3");
+    private static final ResourceLocation CITY_UPPER_TREASURE = new ResourceLocation(cataclysm.MODID, "sunken_city_upper_treasureroom");
+    private static final ResourceLocation CITY_LOWER_TREASURE = new ResourceLocation(cataclysm.MODID, "sunken_city_lower_treasureroom");
 
     private static final ResourceLocation CITY_ENTRANCE1 = new ResourceLocation(cataclysm.MODID, "sunken_city_entrance1");
     private static final ResourceLocation CITY_ENTRANCE2 = new ResourceLocation(cataclysm.MODID, "sunken_city_entrance2");
+    private static final ResourceLocation CITY_ENTRANCE3 = new ResourceLocation(cataclysm.MODID, "sunken_city_entrance3");
+    private static final ResourceLocation CITY_ENTRANCE4 = new ResourceLocation(cataclysm.MODID, "sunken_city_entrance4");
+
 
     private static final ResourceLocation CITY_TEMPLE1 = new ResourceLocation(cataclysm.MODID, "sunken_city_temple1");
     private static final ResourceLocation CITY_TEMPLE2 = new ResourceLocation(cataclysm.MODID, "sunken_city_temple2");
 
-    private static final ResourceLocation CITY_PRISON1 = new ResourceLocation(cataclysm.MODID, "sunken_city_prison1");
-    private static final ResourceLocation CITY_PRISON2 = new ResourceLocation(cataclysm.MODID, "sunken_city_prison2");
-    private static final ResourceLocation CITY_PRISON3 = new ResourceLocation(cataclysm.MODID, "sunken_city_prison3");
+    private static final ResourceLocation CITY_UPPER_PRISON = new ResourceLocation(cataclysm.MODID, "sunken_city_upper_prison");
+    private static final ResourceLocation CITY_UPPERSIDE_PRISON = new ResourceLocation(cataclysm.MODID, "sunken_city_upperside_prison");
+    private static final ResourceLocation CITY_LOWER_PRISON = new ResourceLocation(cataclysm.MODID, "sunken_city_lower_prison");
+    private static final ResourceLocation CITY_LOWERSIDE_PRISON = new ResourceLocation(cataclysm.MODID, "sunken_city_lowerside_prison");
 
-    private static final ResourceLocation CITY_ETC = new ResourceLocation(cataclysm.MODID, "sunken_city_etc");
+    private static final ResourceLocation CITY_MID_NORTH_SIDE = new ResourceLocation(cataclysm.MODID, "sunken_city_mid_north_side");
 
     private static final Map<ResourceLocation, BlockPos> OFFSET = ImmutableMap.<ResourceLocation, BlockPos>builder()
             .put(CITY_MID, new BlockPos(0, 1, 0))
@@ -99,21 +102,24 @@ public class Sunken_City_Structure extends Structure {
             .put(CITY_LOWER_SOUTHEAST, new BlockPos(0, 1, 0))
             .put(CITY_LOWER_SOUTHWEST, new BlockPos(0, 1, 0))
 
-            .put(CITY_TREASURE1, new BlockPos(0, 1, 0))
-            .put(CITY_TREASURE2, new BlockPos(0, 1, 0))
-            .put(CITY_TREASURE3, new BlockPos(0, 1, 0))
+            .put(CITY_UPPER_TREASURE, new BlockPos(0, 1, 0))
+            .put(CITY_LOWER_TREASURE, new BlockPos(0, 1, 0))
 
             .put(CITY_ENTRANCE1, new BlockPos(0, 1, 0))
             .put(CITY_ENTRANCE2, new BlockPos(0, 1, 0))
+            .put(CITY_ENTRANCE3, new BlockPos(0, 1, 0))
+            .put(CITY_ENTRANCE4, new BlockPos(0, 1, 0))
+
 
             .put(CITY_TEMPLE1, new BlockPos(0, 1, 0))
             .put(CITY_TEMPLE2, new BlockPos(0, 1, 0))
 
-            .put(CITY_PRISON1, new BlockPos(0, 1, 0))
-            .put(CITY_PRISON2, new BlockPos(0, 1, 0))
-            .put(CITY_PRISON3, new BlockPos(0, 1, 0))
+            .put(CITY_UPPER_PRISON, new BlockPos(0, 1, 0))
+            .put(CITY_UPPERSIDE_PRISON, new BlockPos(0, 1, 0))
+            .put(CITY_LOWER_PRISON, new BlockPos(0, 1, 0))
+            .put(CITY_LOWERSIDE_PRISON, new BlockPos(0, 1, 0))
 
-            .put(CITY_ETC, new BlockPos(0, 1, 0))
+            .put(CITY_MID_NORTH_SIDE, new BlockPos(0, 1, 0))
 
             .build();
 
@@ -190,23 +196,39 @@ public class Sunken_City_Structure extends Structure {
         pieceList.addPiece(new Piece(templateManager, CITY_LOWER_SOUTHWEST, blockpos, rotation));
 
 
-        rotationOffSet = new BlockPos(-57, -6, -41).rotate(rotation);
-        blockpos = rotationOffSet.offset(x, pos.getY(), z);
-        pieceList.addPiece(new Piece(templateManager, CITY_TREASURE1, blockpos, rotation));
-        rotationOffSet = new BlockPos(-57, -6, -10).rotate(rotation);
-        blockpos = rotationOffSet.offset(x, pos.getY(), z);
-        pieceList.addPiece(new Piece(templateManager, CITY_TREASURE2, blockpos, rotation));
-        rotationOffSet = new BlockPos(-57, 0, -41).rotate(rotation);
-        blockpos = rotationOffSet.offset(x, pos.getY(), z);
-        pieceList.addPiece(new Piece(templateManager, CITY_TREASURE3, blockpos, rotation));
-
-
         rotationOffSet = new BlockPos(-105, 0, 0).rotate(rotation);
         blockpos = rotationOffSet.offset(x, pos.getY(), z);
         pieceList.addPiece(new Piece(templateManager, CITY_ENTRANCE1, blockpos, rotation));
         rotationOffSet = new BlockPos(-94, 0, 0).rotate(rotation);
         blockpos = rotationOffSet.offset(x, pos.getY(), z);
         pieceList.addPiece(new Piece(templateManager, CITY_ENTRANCE2, blockpos, rotation));
+        rotationOffSet = new BlockPos(-105, -38, 0).rotate(rotation);
+        blockpos = rotationOffSet.offset(x, pos.getY(), z);
+        pieceList.addPiece(new Piece(templateManager, CITY_ENTRANCE3, blockpos, rotation));
+        rotationOffSet = new BlockPos(-94, -38, 0).rotate(rotation);
+        blockpos = rotationOffSet.offset(x, pos.getY(), z);
+        pieceList.addPiece(new Piece(templateManager, CITY_ENTRANCE4, blockpos, rotation));
+
+        rotationOffSet = new BlockPos(-94, 0, 47).rotate(rotation);
+        blockpos = rotationOffSet.offset(x, pos.getY(), z);
+        pieceList.addPiece(new Piece(templateManager, CITY_UPPER_PRISON, blockpos, rotation));
+        rotationOffSet = new BlockPos(-94, -38, 47).rotate(rotation);
+        blockpos = rotationOffSet.offset(x, pos.getY(), z);
+        pieceList.addPiece(new Piece(templateManager, CITY_LOWER_PRISON, blockpos, rotation));
+        rotationOffSet = new BlockPos(-52, 0, 94).rotate(rotation);
+        blockpos = rotationOffSet.offset(x, pos.getY(), z);
+        pieceList.addPiece(new Piece(templateManager, CITY_UPPERSIDE_PRISON, blockpos, rotation));
+        rotationOffSet = new BlockPos(-52, -38, 94).rotate(rotation);
+        blockpos = rotationOffSet.offset(x, pos.getY(), z);
+        pieceList.addPiece(new Piece(templateManager, CITY_LOWERSIDE_PRISON, blockpos, rotation));
+
+        rotationOffSet = new BlockPos(-94, 0, -47).rotate(rotation);
+        blockpos = rotationOffSet.offset(x, pos.getY(), z);
+        pieceList.addPiece(new Piece(templateManager, CITY_UPPER_TREASURE, blockpos, rotation));
+        rotationOffSet = new BlockPos(-94, -38, -47).rotate(rotation);
+        blockpos = rotationOffSet.offset(x, pos.getY(), z);
+        pieceList.addPiece(new Piece(templateManager, CITY_LOWER_TREASURE, blockpos, rotation));
+
 
         rotationOffSet = new BlockPos(94, -38, 0).rotate(rotation);
         blockpos = rotationOffSet.offset(x, pos.getY(), z);
@@ -215,19 +237,10 @@ public class Sunken_City_Structure extends Structure {
         blockpos = rotationOffSet.offset(x, pos.getY(), z);
         pieceList.addPiece(new Piece(templateManager, CITY_TEMPLE2, blockpos, rotation));
 
-        rotationOffSet = new BlockPos(-51, -6, 43).rotate(rotation);
-        blockpos = rotationOffSet.offset(x, pos.getY(), z);
-        pieceList.addPiece(new Piece(templateManager, CITY_PRISON1, blockpos, rotation));
-        rotationOffSet = new BlockPos(-51, -6, 47).rotate(rotation);
-        blockpos = rotationOffSet.offset(x, pos.getY(), z);
-        pieceList.addPiece(new Piece(templateManager, CITY_PRISON2, blockpos, rotation));
-        rotationOffSet = new BlockPos(-51, -6, 94).rotate(rotation);
-        blockpos = rotationOffSet.offset(x, pos.getY(), z);
-        pieceList.addPiece(new Piece(templateManager, CITY_PRISON3, blockpos, rotation));
 
-        rotationOffSet = new BlockPos(18, 18, 94).rotate(rotation);
+        rotationOffSet = new BlockPos(0, 0, -50).rotate(rotation);
         blockpos = rotationOffSet.offset(x, pos.getY(), z);
-        pieceList.addPiece(new Piece(templateManager, CITY_ETC, blockpos, rotation));
+        pieceList.addPiece(new Piece(templateManager, CITY_MID_NORTH_SIDE, blockpos, rotation));
 
     }
 
@@ -238,7 +251,7 @@ public class Sunken_City_Structure extends Structure {
     public Optional<GenerationStub> findGenerationPoint(GenerationContext p_228964_) {
         int i = p_228964_.chunkPos().getBlockX(9);
         int j = p_228964_.chunkPos().getBlockZ(9);
-        for(Holder<Biome> holder : p_228964_.biomeSource().getBiomesWithin(i, p_228964_.chunkGenerator().getSeaLevel(), j, 96, p_228964_.randomState().sampler())) {
+        for (Holder<Biome> holder : p_228964_.biomeSource().getBiomesWithin(i, p_228964_.chunkGenerator().getSeaLevel(), j, 96, p_228964_.randomState().sampler())) {
             if (!holder.is(ModTag.REQUIRED_SUNKEN_CITY_SURROUNDING)) {
                 return Optional.empty();
             }

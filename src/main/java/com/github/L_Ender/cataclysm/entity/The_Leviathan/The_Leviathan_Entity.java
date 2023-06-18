@@ -302,6 +302,10 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         return source == DamageSource.IN_WALL || source == DamageSource.FALLING_BLOCK || super.isInvulnerableTo(source);
     }
 
+    public boolean causeFallDamage(float p_148711_, float p_148712_, DamageSource p_148713_) {
+        return false;
+    }
+
     public boolean attackEntityFromPart(The_Leviathan_Part leviathan_part, DamageSource source, float amount) {
         return this.hurt(source, amount);
     }
@@ -447,7 +451,6 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
     public void aiStep() {
         super.aiStep();
         Vec3 motion;
-        LivingEntity target = this.getTarget();
         if(this.getAnimation() == LEVIATHAN_ABYSS_BLAST){
             if(this.getAnimationTick() < 30){
                 if (this.level.isClientSide) {
@@ -460,10 +463,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
                 }
             }
 
-            if (this.getAnimationTick() >= 82 && this.getAnimationTick() <= 87) {
-                this.setXRot(this.xRotO);
-            }
-            if(this.getAnimationTick() > 87 && target == null){
+            if (this.getAnimationTick() >= 64) {
                 this.setXRot(this.xRotO);
             }
 
@@ -1379,9 +1379,6 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             if (target != null) {
                 if (this.entity.getAnimationTick() < 82) {
                     entity.getLookControl().setLookAt(target, 30, 90);
-                }
-                if (this.entity.getAnimationTick() > 87) {
-                    entity.getLookControl().setLookAt(target, 0.5f, 90);
                 }
             }
             float dir = 90.0f;
