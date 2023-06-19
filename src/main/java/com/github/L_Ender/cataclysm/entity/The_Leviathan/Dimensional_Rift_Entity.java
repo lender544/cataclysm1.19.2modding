@@ -3,6 +3,7 @@ package com.github.L_Ender.cataclysm.entity.The_Leviathan;
 import com.github.L_Ender.cataclysm.config.CMConfig;
 import com.github.L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
 import com.github.L_Ender.cataclysm.init.ModEntities;
+import com.github.L_Ender.cataclysm.init.ModParticle;
 import com.github.L_Ender.cataclysm.init.ModSounds;
 import com.github.L_Ender.cataclysm.init.ModTag;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -39,6 +40,7 @@ public class Dimensional_Rift_Entity extends Entity {
 
     private boolean madeOpenNoise = false;
     private boolean madeCloseNoise = false;
+    private boolean madeParticle = false;
     @Nullable
     private LivingEntity owner;
     @Nullable
@@ -118,8 +120,16 @@ public class Dimensional_Rift_Entity extends Entity {
             }
 
             if (this.getStage() <= 0) {
-                this.level.explode(this.owner, this.getX(), this.getY(), this.getZ(), 4.0F, false, Explosion.BlockInteraction.NONE);
-                this.remove(RemovalReason.DISCARDED);
+                if(!madeParticle) {
+                    if (this.level.isClientSide) {
+                        this.level.addParticle(ModParticle.SHOCK_WAVE.get(), this.getX(), this.getY(), this.getZ(), 0, 0, 0);
+                    } else {
+                        this.level.explode(this.owner, this.getX(), this.getY(), this.getZ(), 4.0F, false, Explosion.BlockInteraction.NONE);
+                    }
+                    madeParticle = true;
+                }else{
+                    this.discard();
+                }
             }
         }
     }

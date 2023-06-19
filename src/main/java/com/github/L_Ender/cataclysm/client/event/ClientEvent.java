@@ -5,6 +5,7 @@ import com.github.L_Ender.cataclysm.client.render.CMRenderTypes;
 import com.github.L_Ender.cataclysm.client.render.etc.LavaVisionFluidRenderer;
 import com.github.L_Ender.cataclysm.config.CMConfig;
 import com.github.L_Ender.cataclysm.entity.Ignis_Entity;
+import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import com.github.L_Ender.cataclysm.init.ModEffect;
 import com.github.L_Ender.cataclysm.init.ModItems;
@@ -110,7 +111,7 @@ public class ClientEvent {
         Player player = Minecraft.getInstance().player;
         if (player != null) {
             if (player.isPassenger()) {
-                if (player.getVehicle() instanceof Ignis_Entity) {
+                if (player.getVehicle() instanceof Ignis_Entity || player.getVehicle() instanceof The_Leviathan_Entity) {
                     if (event.getOverlay().id().equals(VanillaGuiOverlay.HELMET.id())) {
                         Minecraft.getInstance().gui.setOverlayMessage(Component.translatable("you_cant_escape"), false);
                     }

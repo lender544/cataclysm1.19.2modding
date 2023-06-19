@@ -94,4 +94,20 @@ public class CMRenderTypes extends RenderType {
                 .createCompositeState(false);
         return create("em_pulse", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, renderState);
     }
+
+    public static RenderType getShockWave() {
+        CompositeState renderState = CompositeState.builder()
+                .setShaderState(RENDERTYPE_ENERGY_SWIRL_SHADER)
+                .setCullState(NO_CULL)
+                .setTextureState(new TextureStateShard(new ResourceLocation("cataclysm:textures/particle/shock_wave.png"), true, true))
+                .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+                .setLightmapState(LIGHTMAP)
+                .setOverlayState(OVERLAY)
+                .setWriteMaskState(COLOR_WRITE)
+                .setDepthTestState(LEQUAL_DEPTH_TEST)
+                .setLayeringState(VIEW_OFFSET_Z_LAYERING)
+                .createCompositeState(false);
+        return create("shock_wave", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, renderState);
+    }
+
 }

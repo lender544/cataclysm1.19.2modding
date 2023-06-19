@@ -8,7 +8,6 @@ import com.github.alexthe666.citadel.client.model.ModelAnimator;
 import com.github.alexthe666.citadel.client.model.basic.BasicModelPart;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 
 public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity> {
@@ -1798,6 +1797,46 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		animator.resetKeyframe(20);
 
+		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_BITE);
+		animator.startKeyframe(8);
+		animator.rotate(root,(float)Math.toRadians(-10F),0, 0);
+		animator.rotate(Belly,(float)Math.toRadians(-15F),0, 0);
+		animator.rotate(Tail,(float)Math.toRadians(-17.5F),0, 0);
+		animator.rotate(Tail2,(float)Math.toRadians(-15F),0, 0);
+		animator.rotate(Tail3,(float)Math.toRadians(-17.5F),0, 0);
+		animator.rotate(Maw,(float)Math.toRadians(20F),0, 0);
+		animator.rotate(Skul,(float)Math.toRadians(-30F),0, 0);
+		animator.rotate(Mouth,(float)Math.toRadians(-22.5F),(float)Math.toRadians(22.5F), (float)Math.toRadians(-2.5F));
+		animator.rotate(Mouth2,(float)Math.toRadians(-22.5F),(float)Math.toRadians(-22.5F), (float)Math.toRadians(2.5F));
+		animator.rotate(Mouth3,(float)Math.toRadians(22.5F),(float)Math.toRadians(15F), (float)Math.toRadians(10F));
+		animator.rotate(Mouth4,(float)Math.toRadians(22.5F),(float)Math.toRadians(-20F), (float)Math.toRadians(-12.5F));
+		animator.endKeyframe();
+
+		animator.startKeyframe(2);
+		animator.rotate(root,(float)Math.toRadians(-1.25F),0, 0);
+		animator.move(root,0,0,-2);
+		animator.rotate(Belly,(float)Math.toRadians(3.75F),0, 0);
+		animator.rotate(Tail,(float)Math.toRadians(-1.25F),0, 0);
+		animator.rotate(Tail3,(float)Math.toRadians(-1.25F),0, 0);
+		animator.rotate(Maw,(float)Math.toRadians(30F),0, 0);
+		animator.rotate(Skul,(float)Math.toRadians(-47.5F),0, 0);
+		animator.rotate(Mouth,(float)Math.toRadians(-35F),(float)Math.toRadians(35F), (float)Math.toRadians(-5F));
+		animator.rotate(Mouth2,(float)Math.toRadians(-37.5F),(float)Math.toRadians(-35F), (float)Math.toRadians(5F));
+		animator.rotate(Mouth3,(float)Math.toRadians(32.5F),(float)Math.toRadians(22.5F), (float)Math.toRadians(15F));
+		animator.rotate(Mouth4,(float)Math.toRadians(35F),(float)Math.toRadians(-30F), (float)Math.toRadians(-17.5F));
+		animator.endKeyframe();
+
+		animator.startKeyframe(4);
+		animator.rotate(root,(float)Math.toRadians(7.5F),0, 0);
+		animator.move(root,0,0,-4);
+		animator.rotate(Belly,(float)Math.toRadians(22.5F),0, 0);
+		animator.rotate(Tail,(float)Math.toRadians(15F),0, 0);
+		animator.rotate(Tail2,(float)Math.toRadians(12.5F),0, 0);
+		animator.rotate(Tail3,(float)Math.toRadians(15F),0, 0);
+		animator.endKeyframe();
+
+		animator.resetKeyframe(10);
+
 
 		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_BITE);
 		animator.startKeyframe(8);
@@ -2033,6 +2072,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		animator.resetKeyframe(15);
 
+
 		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_DEATH);
 		animator.startKeyframe(15);
 		animator.rotate(root,(float)Math.toRadians(-27.5F),(float)Math.toRadians(-2.5), (float)Math.toRadians(-7.5));
@@ -2189,6 +2229,218 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.endKeyframe();
 
 		animator.setStaticKeyframe(60);
+
+
+		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_TENTACLE_HOLD);
+		animator.startKeyframe(15);
+		animator.move(root,0,0,-3);
+		animator.rotate(Belly,(float)Math.toRadians(5f),0,0);
+		animator.rotate(Tail,(float)Math.toRadians(-7.5f),0,0);
+		animator.rotate(Tail2,(float)Math.toRadians(-7.5f),0,0);
+		animator.rotate(Tail3,(float)Math.toRadians(-12.5f),0,0);
+		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(17.5f),0);
+		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(-22.5f),0);
+		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(-17.5f),0);
+		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(-12.5f),0);
+
+		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-17.5f),0);
+		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(22.5f),0);
+		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(17.5f),0);
+		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(12.5f),0);
+
+		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(-40f),0);
+		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-20f),0);
+
+		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(40f),0);
+		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(20f),0);
+
+		animator.rotate(Maw,(float)Math.toRadians(30f),0,0);
+		animator.rotate(Skul,(float)Math.toRadians(-30f),0,0);
+
+		animator.rotate(Mouth4,(float)Math.toRadians(7.5f),(float)Math.toRadians(-7.5f),0);
+		animator.rotate(Mouth3,(float)Math.toRadians(7.5f),(float)Math.toRadians(7.5f),0);
+		animator.rotate(Mouth2,(float)Math.toRadians(-7.5f),(float)Math.toRadians(-7.5f),0);
+		animator.rotate(Mouth,(float)Math.toRadians(-7.5f),(float)Math.toRadians(7.5f),0);
+		animator.endKeyframe();
+
+		animator.setStaticKeyframe(15);
+
+		animator.resetKeyframe(15);
+
+		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_TENTACLE_HOLD_BLAST);
+		animator.startKeyframe(0);
+		animator.move(root,0,0,-3);
+		animator.rotate(Belly,(float)Math.toRadians(5f),0,0);
+		animator.rotate(Tail,(float)Math.toRadians(-7.5f),0,0);
+		animator.rotate(Tail2,(float)Math.toRadians(-7.5f),0,0);
+		animator.rotate(Tail3,(float)Math.toRadians(-12.5f),0,0);
+		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(17.5f),0);
+		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(-22.5f),0);
+		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(-17.5f),0);
+		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(-12.5f),0);
+
+		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-17.5f),0);
+		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(22.5f),0);
+		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(17.5f),0);
+		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(12.5f),0);
+
+		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(-40f),0);
+		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-20f),0);
+
+		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(40f),0);
+		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(20f),0);
+
+		animator.rotate(Maw,(float)Math.toRadians(30f),0,0);
+		animator.rotate(Skul,(float)Math.toRadians(-30f),0,0);
+
+		animator.rotate(Mouth4,(float)Math.toRadians(7.5f),(float)Math.toRadians(-7.5f),0);
+		animator.rotate(Mouth3,(float)Math.toRadians(7.5f),(float)Math.toRadians(7.5f),0);
+		animator.rotate(Mouth2,(float)Math.toRadians(-7.5f),(float)Math.toRadians(-7.5f),0);
+		animator.rotate(Mouth,(float)Math.toRadians(-7.5f),(float)Math.toRadians(7.5f),0);
+		animator.endKeyframe();
+
+		animator.startKeyframe(5);
+		animator.move(root,0,0,-2);
+		animator.rotate(Belly,(float)Math.toRadians(2.5f),0,0);
+		animator.rotate(Tail,(float)Math.toRadians(-7.5f),0,0);
+		animator.rotate(Tail2,(float)Math.toRadians(-10f),0,0);
+		animator.rotate(Tail3,(float)Math.toRadians(-12.5f),0,0);
+		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(25f),0);
+		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(-32.5f),0);
+		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(-25f),0);
+		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(-20f),0);
+
+		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-25f),0);
+		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(32.5f),0);
+		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(25f),0);
+		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(20f),0);
+
+		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(-40f),0);
+		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-20f),0);
+
+		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(40f),0);
+		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(20f),0);
+		animator.endKeyframe();
+
+		animator.setStaticKeyframe(9);
+
+		animator.startKeyframe(25);
+		animator.rotate(root,(float)Math.toRadians(2.5f),0,0);
+		animator.rotate(Belly,(float)Math.toRadians(-2.5f),0,0);
+		animator.rotate(Tail,(float)Math.toRadians(-7.5f),0,0);
+		animator.rotate(Tail2,(float)Math.toRadians(-15f),0,0);
+		animator.rotate(Tail3,(float)Math.toRadians(-12.5f),0,0);
+		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(25f),0);
+		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(-32.5f),0);
+		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(-25f),0);
+		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(-20f),0);
+
+		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-25f),0);
+		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(32.5f),0);
+		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(25f),0);
+		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(20f),0);
+
+		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(-40f),0);
+		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-20f),0);
+
+		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(40f),0);
+		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(20f),0);
+
+		animator.rotate(Maw,(float)Math.toRadians(12.5f),0,0);
+		animator.rotate(Skul,(float)Math.toRadians(-20f),0,0);
+
+		animator.rotate(Mouth4,(float)Math.toRadians(10f),(float)Math.toRadians(-10f),(float)Math.toRadians(-2.5f));
+		animator.rotate(Mouth3,(float)Math.toRadians(10f),(float)Math.toRadians(10f),0);
+		animator.rotate(Mouth2,(float)Math.toRadians(-10f),(float)Math.toRadians(-10f),0);
+		animator.rotate(Mouth,(float)Math.toRadians(-10f),(float)Math.toRadians(10f),(float)Math.toRadians(-2.5f));
+		animator.endKeyframe();
+
+		animator.setStaticKeyframe(9);
+
+		animator.startKeyframe(33);
+		animator.rotate(root,(float)Math.toRadians(5f),0,0);
+		animator.rotate(Belly,(float)Math.toRadians(-2.5f),0,0);
+		animator.rotate(Tail,(float)Math.toRadians(-7.5f),0,0);
+		animator.rotate(Tail2,(float)Math.toRadians(-15f),0,0);
+		animator.rotate(Tail3,(float)Math.toRadians(-12.5f),0,0);
+		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(25f),0);
+		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(-32.5f),0);
+		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(-25f),0);
+		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(-20f),0);
+
+		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-25f),0);
+		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(32.5f),0);
+		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(25f),0);
+		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(20f),0);
+
+		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(-40f),0);
+		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-20f),0);
+
+		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(40f),0);
+		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(20f),0);
+		animator.endKeyframe();
+
+		animator.startKeyframe(3);
+		animator.rotate(root,(float)Math.toRadians(5f),0,0);
+		animator.move(root,0,0,2);
+		animator.rotate(Belly,(float)Math.toRadians(7.5f),0,0);
+		animator.rotate(Tail,(float)Math.toRadians(12.5f),0,0);
+		animator.rotate(Tail2,(float)Math.toRadians(10f),0,0);
+		animator.rotate(Tail3,(float)Math.toRadians(12.5f),0,0);
+		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(60f),0);
+		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(-12.5f),0);
+		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(10f),0);
+
+		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-62.5f),0);
+		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(12.5f),0);
+		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-10f),0);
+
+		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(-30f),0);
+		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(-15f),0);
+		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-20f),0);
+
+		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(30f),0);
+		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(17.5f),0);
+		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(20f),0);
+
+		animator.rotate(Maw,(float)Math.toRadians(42.5f),0,0);
+		animator.rotate(Skul,(float)Math.toRadians(-47.5f),0,0);
+
+		animator.rotate(Mouth4,(float)Math.toRadians(37.5f),(float)Math.toRadians(-37.5f),0);
+		animator.rotate(Mouth3,(float)Math.toRadians(37.5f),(float)Math.toRadians(37.5f),0);
+		animator.rotate(Mouth2,(float)Math.toRadians(-37.5f),(float)Math.toRadians(-37.5f),0);
+		animator.rotate(Mouth,(float)Math.toRadians(-37.5f),(float)Math.toRadians(37.5f),0);
+		animator.endKeyframe();
+
+		animator.setStaticKeyframe(60);
+
+		animator.startKeyframe(25);
+		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(50f),0);
+		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(-32.5f),0);
+		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(10f),0);
+
+		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-47.5f),0);
+		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(32.5f),0);
+		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-10f),0);
+
+		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(-30f),0);
+		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(-15f),0);
+		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-20f),0);
+
+		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(30f),0);
+		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(17.5f),0);
+		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(20f),0);
+
+		animator.rotate(Maw,(float)Math.toRadians(42.5f),0,0);
+		animator.rotate(Skul,(float)Math.toRadians(-47.5f),0,0);
+
+		animator.rotate(Mouth4,(float)Math.toRadians(37.5f),(float)Math.toRadians(-37.5f),0);
+		animator.rotate(Mouth3,(float)Math.toRadians(37.5f),(float)Math.toRadians(37.5f),0);
+		animator.rotate(Mouth2,(float)Math.toRadians(-37.5f),(float)Math.toRadians(-37.5f),0);
+		animator.rotate(Mouth,(float)Math.toRadians(-37.5f),(float)Math.toRadians(37.5f),0);
+		animator.endKeyframe();
+
+		animator.resetKeyframe(20);
 	}
 
 	@Override

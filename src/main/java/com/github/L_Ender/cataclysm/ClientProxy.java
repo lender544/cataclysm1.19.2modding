@@ -5,6 +5,7 @@ import com.github.L_Ender.cataclysm.client.event.ClientEvent;
 import com.github.L_Ender.cataclysm.client.gui.GUIWeponfusion;
 import com.github.L_Ender.cataclysm.client.particle.EM_PulseParticle;
 import com.github.L_Ender.cataclysm.client.particle.LightningParticle;
+import com.github.L_Ender.cataclysm.client.particle.Shock_WaveParticle;
 import com.github.L_Ender.cataclysm.client.particle.SoulLavaParticle;
 import com.github.L_Ender.cataclysm.client.render.CMItemstackRenderer;
 import com.github.L_Ender.cataclysm.client.render.blockentity.*;
@@ -66,6 +67,7 @@ public class ClientProxy extends CommonProxy {
         registry.register(ModParticle.SOUL_LAVA.get(), SoulLavaParticle.Factory::new);
         registry.register(ModParticle.LIGHTNING.get(), new LightningParticle.OrbFactory());
         registry.register(ModParticle.EM_PULSE.get(), new EM_PulseParticle.Factory());
+        registry.register(ModParticle.SHOCK_WAVE.get(), new Shock_WaveParticle.Factory());
     }
 
     public void clientInit() {
