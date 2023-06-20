@@ -133,7 +133,7 @@ public class Gauntlet_of_Bulwark extends Item {
                 }
                 if (!level.isClientSide) {
                     Charge_Watcher_Entity initializer = new Charge_Watcher_Entity(entityLiving.level, entityLiving.blockPosition(), t * 2,
-                            t * 0.35F, 2.0F, 0.8F,
+                            t * 0.35F, 2.0F, 1.0F,
                             f1 * 0.5F, f3 * 0.5F,
                             entityLiving);
                     level.addFreshEntity(initializer);

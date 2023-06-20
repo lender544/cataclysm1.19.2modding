@@ -85,7 +85,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
     public static final Animation LEVIATHAN_TENTACLE_STRIKE_UPPER_L = Animation.create(44);
     public static final Animation LEVIATHAN_TENTACLE_STRIKE_LOWER_L = Animation.create(44);
 
-    public static final Animation LEVIATHAN_TENTACLE_HOLD = Animation.create(45);
+    public static final Animation LEVIATHAN_TENTACLE_HOLD = Animation.create(55);
     public static final Animation LEVIATHAN_TENTACLE_HOLD_BLAST = Animation.create(189);
 
     public static final Animation LEVIATHAN_TAIL_WHIPS = Animation.create(42);
@@ -691,7 +691,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             }
         }
         if(this.getAnimation() == LEVIATHAN_TENTACLE_HOLD){
-            if (this.getAnimationTick() == 14) {
+            if (this.getAnimationTick() == 24) {
                 TentacleHoldattack(7,2.5, 2.5,2.5,80);
             }
         }
@@ -1005,7 +1005,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             final float pitch = this.getXRot() * (float) Math.PI / 180.0F;
             final float f3 = Mth.sin(f17) * (1 - Math.abs(this.getXRot() / 90F));
             final float f18 = Mth.cos(f17) * (1 - Math.abs(this.getXRot() / 90F));
-            passenger.setPos(this.getX() + f3 * -10.0F, this.getY() + -pitch * 6F, this.getZ() + -f18 * -10.0F);
+            passenger.setPos(this.getX() + f3 * -8.25F, this.getY() + -pitch * 6F, this.getZ() + -f18 * -8.25F);
 
         }
     }

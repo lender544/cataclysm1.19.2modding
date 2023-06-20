@@ -141,7 +141,7 @@ public class Deepling_Brute_Entity extends AbstractDeepling {
     }
 
     public static boolean candeeplingSpawn(EntityType<Deepling_Brute_Entity> p_218991_, LevelAccessor p_218992_, MobSpawnType p_218993_, BlockPos p_218994_, RandomSource p_218995_) {
-        return p_218992_.getDifficulty() != Difficulty.PEACEFUL && (p_218993_ == MobSpawnType.SPAWNER || p_218992_.getFluidState(p_218994_).is(FluidTags.WATER));
+        return p_218995_.nextInt(50) == 0 && p_218992_.getDifficulty() != Difficulty.PEACEFUL && (p_218993_ == MobSpawnType.SPAWNER || p_218992_.getFluidState(p_218994_).is(FluidTags.WATER));
     }
 
     @Override

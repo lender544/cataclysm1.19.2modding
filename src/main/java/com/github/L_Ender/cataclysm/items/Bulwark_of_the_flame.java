@@ -66,7 +66,7 @@ public class Bulwark_of_the_flame extends Item {
                 }
                 if (!level.isClientSide) {
                     Charge_Watcher_Entity initializer = new Charge_Watcher_Entity(entityLiving.level, entityLiving.blockPosition(), t * 2,
-                            t * 0.25, 2, 0.5F,
+                            t * 0.25, 2, 0.6F,
                             f1 * 0.5F, f3 * 0.5F,
                             entityLiving);
                     level.addFreshEntity(initializer);

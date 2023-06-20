@@ -57,7 +57,7 @@ public class Charge_Watcher_Entity extends Entity {
             //Deal with rocket punch is valid
             if (temp > 0 && !stopTracking && source != null) {
                 //Slightly enlarge player's hitbox
-                AABB collideBox = source.getBoundingBox().inflate(0.5f, 0.5, 0.5f);
+                AABB collideBox = source.getBoundingBox().inflate(3.5f, 3.5f, 3.5f);
 
                 //Collision Detection
                 List<LivingEntity> checks = level.getEntitiesOfClass(LivingEntity.class, collideBox);

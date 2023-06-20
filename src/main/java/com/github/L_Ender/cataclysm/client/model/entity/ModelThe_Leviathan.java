@@ -2232,7 +2232,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 
 		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_TENTACLE_HOLD);
-		animator.startKeyframe(15);
+		animator.startKeyframe(25);
 		animator.move(root,0,0,-3);
 		animator.rotate(Belly,(float)Math.toRadians(5f),0,0);
 		animator.rotate(Tail,(float)Math.toRadians(-7.5f),0,0);
@@ -2249,9 +2249,13 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(12.5f),0);
 
 		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(-40f),0);
+		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(7.5f),0);
+		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(-5f),0);
 		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-20f),0);
 
 		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(40f),0);
+		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(-7.5f),0);
+		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(5f),0);
 		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(20f),0);
 
 		animator.rotate(Maw,(float)Math.toRadians(30f),0,0);
@@ -2282,12 +2286,16 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-17.5f),0);
 		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(22.5f),0);
 		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(17.5f),0);
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(12.5f),0);
+		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(20f),0);
 
 		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(-40f),0);
+		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(7.5f),0);
+		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(-5f),0);
 		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-20f),0);
 
 		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(40f),0);
+		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(-7.5f),0);
+		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(5f),0);
 		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(20f),0);
 
 		animator.rotate(Maw,(float)Math.toRadians(30f),0,0);
@@ -2316,10 +2324,14 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(20f),0);
 
 		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(-40f),0);
-		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-20f),0);
+		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(12.5f),0);
+		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(-7.5f),0);
+		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-70f),0);
 
 		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(40f),0);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(20f),0);
+		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(-12.5f),0);
+		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(7.5f),0);
+		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(70f),0);
 		animator.endKeyframe();
 
 		animator.setStaticKeyframe(9);
@@ -2341,10 +2353,14 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(20f),0);
 
 		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(-40f),0);
-		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-20f),0);
+		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(12.5f),0);
+		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(7.5f),0);
+		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-70f),0);
 
 		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(40f),0);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(20f),0);
+		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(-12.5f),0);
+		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(-7.5f),0);
+		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(70f),0);
 
 		animator.rotate(Maw,(float)Math.toRadians(12.5f),0,0);
 		animator.rotate(Skul,(float)Math.toRadians(-20f),0,0);
@@ -2374,10 +2390,14 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(20f),0);
 
 		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(-40f),0);
-		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-20f),0);
+		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(12.5f),0);
+		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(6.5f),0);
+		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-70f),0);
 
 		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(40f),0);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(20f),0);
+		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(-12.5f),0);
+		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(-6.5f),0);
+		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(70f),0);
 		animator.endKeyframe();
 
 		animator.startKeyframe(3);
@@ -2397,11 +2417,13 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(-30f),0);
 		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(-15f),0);
-		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-20f),0);
+		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(20f),0);
+		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-70f),0);
 
 		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(30f),0);
 		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(17.5f),0);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(20f),0);
+		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(-20f),0);
+		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(70f),0);
 
 		animator.rotate(Maw,(float)Math.toRadians(42.5f),0,0);
 		animator.rotate(Skul,(float)Math.toRadians(-47.5f),0,0);
@@ -2425,10 +2447,12 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(-30f),0);
 		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(-15f),0);
+		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(20f),0);
 		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-20f),0);
 
 		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(30f),0);
 		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(17.5f),0);
+		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(-20f),0);
 		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(20f),0);
 
 		animator.rotate(Maw,(float)Math.toRadians(42.5f),0,0);
