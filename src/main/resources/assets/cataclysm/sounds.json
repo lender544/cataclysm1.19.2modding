@@ -492,6 +492,22 @@
       }
     ]
   },
+  "abyss_blast_only_charge": {
+    "subtitle": "abyss_blast_charge.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/abyss_blast_only_charge"
+      }
+    ]
+  },
+  "abyss_blast_only_shoot": {
+    "subtitle": "abyss_blast_shoot.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/abyss_blast_only_shoot"
+      }
+    ]
+  },
   "leviathan_hurt": {
     "subtitle": "leviathan_hurt.sub",
     "sounds": [

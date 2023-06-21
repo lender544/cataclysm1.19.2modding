@@ -78,6 +78,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
     public static final Animation LEVIATHAN_ABYSS_BLAST = Animation.create(184);
     public static final Animation LEVIATHAN_RUSH = Animation.create(157);
     public static final Animation LEVIATHAN_STUN = Animation.create(90);
+    public static final Animation LEVIATHAN_ABYSS_BLAST_FIRE = Animation.create(216);
 
     public static final Animation LEVIATHAN_ABYSS_BLAST_PORTAL = Animation.create(142);
     public static final Animation LEVIATHAN_TENTACLE_STRIKE_UPPER_R = Animation.create(44);
@@ -195,6 +196,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         this.goalSelector.addGoal(0, new LeviathanTailWhipsAttackGoal(this,LEVIATHAN_TAIL_WHIPS));
         this.goalSelector.addGoal(0, new LeviathanTentacleAttackGoal(this));
         this.goalSelector.addGoal(0, new LeviathanBlastAttackGoal(this,LEVIATHAN_ABYSS_BLAST));
+        this.goalSelector.addGoal(0, new LeviathanBlastFireAttackGoal(this,LEVIATHAN_ABYSS_BLAST_FIRE));
         this.goalSelector.addGoal(0, new LeviathanAbyssBlastPortalAttackGoal(this,LEVIATHAN_ABYSS_BLAST_PORTAL));
         this.goalSelector.addGoal(0, new LeviathanRushAttackGoal(this,LEVIATHAN_RUSH));
         this.goalSelector.addGoal(0, new LeviathanTentacleHoldAttackGoal(this,LEVIATHAN_TENTACLE_HOLD));
@@ -221,7 +223,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
     @Override
     public Animation[] getAnimations() {
         return new Animation[]{LEVIATHAN_PHASE2,LEVIATHAN_BITE,LEVIATHAN_BREAK_DIMENSION,LEVIATHAN_GRAB,LEVIATHAN_TAIL_WHIPS, LEVIATHAN_ABYSS_BLAST_PORTAL,LEVIATHAN_GRAB_BITE,LEVIATHAN_ABYSS_BLAST,LEVIATHAN_RUSH,LEVIATHAN_TENTACLE_STRIKE_UPPER_R,LEVIATHAN_TENTACLE_STRIKE_UPPER_L,LEVIATHAN_TENTACLE_STRIKE_LOWER_L,LEVIATHAN_TENTACLE_STRIKE_LOWER_R,LEVIATHAN_STUN,LEVIATHAN_DEATH,
-                LEVIATHAN_TENTACLE_HOLD,LEVIATHAN_TENTACLE_HOLD_BLAST};
+                LEVIATHAN_TENTACLE_HOLD,LEVIATHAN_TENTACLE_HOLD_BLAST,LEVIATHAN_ABYSS_BLAST_FIRE};
     }
 
     public void travel(Vec3 travelVector) {
@@ -507,6 +509,45 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             }
             if(this.getAnimationTick() == 84 ) {
                 ScreenShake_Entity.ScreenShake(this.level, this.position(), 30, 0.1f, 90, 10);
+            }
+        }
+        if(this.getAnimation() == LEVIATHAN_ABYSS_BLAST_FIRE){
+            if(this.getAnimationTick() < 30){
+                if (this.level.isClientSide) {
+                    for (int i = 0; i < 20; ++i) {
+                        float f = -Mth.sin(this.getYRot() * ((float)Math.PI / 180F)) * Mth.cos(this.getXRot() * ((float)Math.PI / 180F));
+                        float f2 = -Mth.sin(this.getXRot() * ((float)Math.PI / 180F));
+                        float f3 = Mth.cos(this.getYRot() * ((float)Math.PI / 180F)) * Mth.cos(this.getXRot() * ((float)Math.PI / 180F));
+                        this.level.addParticle(ParticleTypes.PORTAL, this.getX() + f * 4.0,this.getY() + f2 * 3.5, this.getZ() + f3 * 4.0, (this.random.nextDouble() - 0.5D) * 2.0D, -this.random.nextDouble(), (this.random.nextDouble() - 0.5D) * 2.0D);
+                    }
+                }
+            }
+
+            if (this.getAnimationTick() == 84 || this.getAnimationTick() == 129 || this.getAnimationTick() == 174) {
+                this.level.playSound((Player) null, this, ModSounds.ABYSS_BLAST_ONLY_SHOOT.get(), SoundSource.HOSTILE, 4.0f, 1.0f);
+            }
+
+
+            if (this.getAnimationTick() >= 80 && this.getAnimationTick() <= 118
+                    || this.getAnimationTick() >= 125 && this.getAnimationTick() <= 161
+                    || this.getAnimationTick() >= 170 && this.getAnimationTick() <= 198) {
+                this.setXRot(this.xRotO);
+            }
+
+            for (int i = 44, j = 0; i <= 84; i++, j++) {
+                float l = j * 0.025f;
+                if (this.getAnimationTick() == i) {
+                    LayerBrightness = l;
+                }
+            }
+            for (int i = 176, j = 1; i <= 216; i++, j++) {
+                float l = j * -0.025f;
+                if (this.getAnimationTick() == i) {
+                    LayerBrightness = l;
+                }
+            }
+            if(this.getAnimationTick() == 84 || this.getAnimationTick() == 129 || this.getAnimationTick() == 174 ) {
+                ScreenShake_Entity.ScreenShake(this.level, this.position(), 30, 0.1f, 20, 10);
             }
         }
         if(this.getAnimation() == LEVIATHAN_RUSH){
@@ -1473,6 +1514,53 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         }
     }
 
+    static class LeviathanBlastFireAttackGoal extends SimpleAnimationGoal<The_Leviathan_Entity> {
+
+        public LeviathanBlastFireAttackGoal(The_Leviathan_Entity entity, Animation animation) {
+            super(entity, animation);
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK, Flag.JUMP));
+        }
+
+        public void start() {
+            entity.getNavigation().stop();
+            entity.level.playSound((Player) null, entity, ModSounds.ABYSS_BLAST.get(), SoundSource.HOSTILE, 4.0f, 1.0f);
+            entity.CanAbyss_Blast_Portal = true;
+            entity.CanGrab = true;
+            entity.CanRush = true;
+            entity.CanBite = true;
+            entity.CanAbyss_Blast = false;
+            entity.CanTailWhips = true;
+            entity.CanCrackDimension = true;
+            super.start();
+        }
+
+        public void stop() {
+            super.stop();
+            entity.hunting_cooldown = BLAST_HUNTING_COOLDOWN;
+            entity.setBlastChance(0);
+            entity.setModeChance(entity.getModeChance() +1);
+        }
+
+        public void tick() {
+            entity.getNavigation().stop();
+            LivingEntity target = entity.getTarget();
+            if (target != null) {
+                if (this.entity.getAnimationTick() < 80
+                        || this.entity.getAnimationTick() > 118 && this.entity.getAnimationTick() < 125
+                        || this.entity.getAnimationTick() > 161 &&  this.entity.getAnimationTick() < 170) {
+                    entity.getLookControl().setLookAt(target, 30, 90);
+                }
+            }
+            float dir = 90.0f;
+            if(this.entity.getAnimationTick() == 64 || this.entity.getAnimationTick() == 109 || this.entity.getAnimationTick() == 154) {
+                if(!entity.level.isClientSide) {
+                    Abyss_Blast_Entity DeathBeam = new Abyss_Blast_Entity(ModEntities.ABYSS_BLAST.get(), entity.level, entity, entity.getX(), entity.getY(), entity.getZ(), (float) ((entity.yHeadRot + dir) * Math.PI / 180), (float) (-entity.getXRot() * Math.PI / 180), 28, dir);
+                    entity.level.addFreshEntity(DeathBeam);
+                }
+            }
+        }
+    }
+
     static class LeviathanTailWhipsAttackGoal extends SimpleAnimationGoal<The_Leviathan_Entity> {
 
         public LeviathanTailWhipsAttackGoal(The_Leviathan_Entity entity, Animation animation) {
@@ -2046,7 +2134,11 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
                     if (this.mob.getRandom().nextFloat() * 100.0F < 3f && this.mob.CanAbyss_Blast_Portal) {
                         this.mob.setAnimation(LEVIATHAN_ABYSS_BLAST_PORTAL);
                     } else if (this.mob.getRandom().nextFloat() * 100.0F < (2f * this.mob.getBlastChance()) && this.mob.CanAbyss_Blast) {
-                        this.mob.setAnimation(LEVIATHAN_ABYSS_BLAST);
+                        if(this.mob.random.nextInt(2) == 0) {
+                            this.mob.setAnimation(LEVIATHAN_ABYSS_BLAST);
+                        }else{
+                            this.mob.setAnimation(LEVIATHAN_ABYSS_BLAST_FIRE);
+                        }
                     } else if (this.mob.getRandom().nextFloat() * 100.0F < 8f && this.mob.distanceToSqr(target) >= 700.0D && this.mob.CanGrab) {
                         this.mob.setAnimation(LEVIATHAN_GRAB);
                     } else if (this.mob.getRandom().nextFloat() * 100.0F < 4f && this.mob.distanceToSqr(target) < 900. && this.mob.distanceToSqr(target) >= 49.0D && this.mob.CanRush) {

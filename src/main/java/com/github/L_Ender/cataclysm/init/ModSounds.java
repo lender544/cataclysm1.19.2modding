@@ -167,6 +167,12 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> ABYSS_BLAST = SOUNDS.register("abyss_blast",
             () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"abyss_blast")));
 
+    public static final RegistryObject<SoundEvent> ABYSS_BLAST_ONLY_CHARGE = SOUNDS.register("abyss_blast_only_charge",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"abyss_blast_only_charge")));
+
+    public static final RegistryObject<SoundEvent> ABYSS_BLAST_ONLY_SHOOT = SOUNDS.register("abyss_blast_only_shoot",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"abyss_blast_only_shoot")));
+
     public static final RegistryObject<SoundEvent> LEVIATHAN_DEFEAT = SOUNDS.register("leviathan_defeat",
             () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"leviathan_defeat")));
 
