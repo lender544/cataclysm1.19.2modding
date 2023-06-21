@@ -6,7 +6,10 @@ import com.github.L_Ender.cataclysm.items.Dungeon_Eye.FlameEyeItem;
 import com.github.L_Ender.cataclysm.items.Dungeon_Eye.MechEyeItem;
 import com.github.L_Ender.cataclysm.items.Dungeon_Eye.MonstrousEyeItem;
 import com.github.L_Ender.cataclysm.items.Dungeon_Eye.VoidEyeItem;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
@@ -225,6 +228,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> MONSTROUS_EYE = ITEMS.register("monstrous_eye",
             () -> new MonstrousEyeItem(new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).fireResistant()));
+
+    public static final RegistryObject<Item> LIONFISH = ITEMS.register("lionfish",
+            () -> new Item(new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1F).effect(new MobEffectInstance(MobEffects.POISON, 300, 0), 1.0F).effect(new MobEffectInstance(MobEffects.CONFUSION, 300, 0), 1.0F).build())));
 
     public static final RegistryObject<SpawnEggItem> ENDER_GOLEM_SPAWN_EGG = ITEMS.register("ender_golem_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.ENDER_GOLEM, 0x2a1a42, 0xa153fe, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
