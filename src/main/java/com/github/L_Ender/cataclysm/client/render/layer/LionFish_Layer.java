@@ -1,9 +1,9 @@
 package com.github.L_Ender.cataclysm.client.render.layer;
 
-import com.github.L_Ender.cataclysm.client.model.entity.ModelLionFish;
+import com.github.L_Ender.cataclysm.client.model.entity.ModelLionfish;
 import com.github.L_Ender.cataclysm.client.render.CMRenderTypes;
-import com.github.L_Ender.cataclysm.client.render.entity.RendererLionFish;
-import com.github.L_Ender.cataclysm.entity.Deepling.LionFish_Entity;
+import com.github.L_Ender.cataclysm.client.render.entity.RendererLionfish;
+import com.github.L_Ender.cataclysm.entity.Deepling.Lionfish_Entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -16,16 +16,16 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class LionFish_Layer extends RenderLayer<LionFish_Entity, ModelLionFish> {
+public class LionFish_Layer extends RenderLayer<Lionfish_Entity, ModelLionfish> {
 	private static final ResourceLocation LION_LAYER_TEXTURES  = new ResourceLocation("cataclysm:textures/entity/deepling/lionfish_layer.png");
 
-    public LionFish_Layer(RendererLionFish renderIn) {
+    public LionFish_Layer(RendererLionfish renderIn) {
 		super(renderIn);
 
 	}
 
 	@Override
-	public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, LionFish_Entity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch)
+	public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, Lionfish_Entity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch)
 	{
 		RenderType eyes = CMRenderTypes.CMEyes(LION_LAYER_TEXTURES);
 		VertexConsumer VertexConsumer = bufferIn.getBuffer(eyes);

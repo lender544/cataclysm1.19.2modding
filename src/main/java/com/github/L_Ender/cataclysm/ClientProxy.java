@@ -114,7 +114,7 @@ public class ClientProxy extends CommonProxy {
         EntityRenderers.register(ModEntities.DIMENSIONAL_RIFT.get(), RendererDimensional_Rift::new);
         EntityRenderers.register(ModEntities.DEEPLING_ANGLER.get(), RendererDeepling_Angler::new);
         EntityRenderers.register(ModEntities.CORALSSUS.get(), RendererCoralssus::new);
-        EntityRenderers.register(ModEntities.LIONFISH.get(), RendererLionFish::new);
+        EntityRenderers.register(ModEntities.LIONFISH.get(), RendererLionfish::new);
         EntityRenderers.register(ModEntities.VOID_SHARD.get(), (render) -> {
             return new ThrownItemRenderer<>(render, 0.75F, true);
         });
@@ -122,6 +122,7 @@ public class ClientProxy extends CommonProxy {
             return new ThrownItemRenderer<>(render, 1.0F, true);
         });
         EntityRenderers.register(ModEntities.BLAZING_BONE.get(), RendererBlazing_Bone::new);
+        EntityRenderers.register(ModEntities.LIONFISH_SPIKE.get(), RendererLionfish_Spike::new);
         MinecraftForge.EVENT_BUS.register(new ClientEvent());
         try {
             ItemProperties.register(ModItems.BULWARK_OF_THE_FLAME.get(), new ResourceLocation("blocking"), (stack, p_239421_1_, p_239421_2_, j) -> p_239421_2_ != null && p_239421_2_.isUsingItem() && p_239421_2_.getUseItem() == stack ? 1.0F : 0.0F);

@@ -1,9 +1,6 @@
 package com.github.L_Ender.cataclysm.entity.Deepling;
 
-import com.github.L_Ender.cataclysm.config.CMConfig;
-import com.github.L_Ender.cataclysm.entity.Netherite_Monstrosity_Entity;
 import com.github.L_Ender.cataclysm.entity.projectile.ThrownCoral_Spear_Entity;
-import com.github.L_Ender.cataclysm.init.ModEffect;
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import com.github.L_Ender.cataclysm.init.ModItems;
 import com.github.L_Ender.cataclysm.init.ModSounds;
@@ -18,7 +15,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -32,10 +28,7 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
-import net.minecraft.world.entity.monster.Drowned;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.SpellcasterIllager;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -127,7 +120,7 @@ public class Deepling_Angler_Entity extends AbstractDeepling {
         SpawnGroupData spawngroupdata = super.finalizeSpawn(p_34088_, p_34089_, p_34090_, p_34091_, p_34092_);
         RandomSource randomsource = p_34088_.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, p_34089_);
-        LionFish_Entity drowned = ModEntities.LIONFISH.get().create(level);
+        Lionfish_Entity drowned = ModEntities.LIONFISH.get().create(level);
         drowned.finalizeSpawn(p_34088_, p_34089_, p_34090_, p_34091_, p_34092_);
         drowned.copyPosition(this);
         drowned.setLeashedTo(this, true);

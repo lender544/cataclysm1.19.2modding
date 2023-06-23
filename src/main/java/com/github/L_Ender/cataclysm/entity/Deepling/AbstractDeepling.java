@@ -21,7 +21,6 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -79,7 +78,7 @@ public class AbstractDeepling extends Monster implements IAnimatedEntity, ISemiA
             return true;
         } else if (super.isAlliedTo(entityIn)) {
             return true;
-        } else if (entityIn instanceof Coralssus_Entity || entityIn instanceof AbstractDeepling || entityIn instanceof LionFish_Entity || entityIn instanceof The_Leviathan_Entity){
+        } else if (entityIn instanceof Coralssus_Entity || entityIn instanceof AbstractDeepling || entityIn instanceof Lionfish_Entity || entityIn instanceof The_Leviathan_Entity){
             return this.getTeam() == null && entityIn.getTeam() == null;
         } else {
             return false;

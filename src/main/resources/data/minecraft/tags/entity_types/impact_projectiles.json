@@ -5,6 +5,11 @@
     "cataclysm:lava_bomb",
     "cataclysm:ignis_abyss_fireball",
     "cataclysm:ignis_fireball",
-    "cataclysm:wither_missile"
+    "cataclysm:wither_missile",
+    "cataclysm:wither_homing_missile",
+    "cataclysm:laser_beam",
+    "cataclysm:wither_howitzer",
+    "cataclysm:abyss_orb",
+    "cataclysm:lionfish_spike"
   ]
 }

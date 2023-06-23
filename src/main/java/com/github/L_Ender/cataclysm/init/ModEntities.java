@@ -111,7 +111,7 @@ public class ModEntities {
             .clientTrackingRange(8)
             .build(cataclysm.MODID + ":deepling_angler"));
 
-    public static final RegistryObject<EntityType<LionFish_Entity>> LIONFISH = ENTITY_TYPE.register("lionfish", () -> EntityType.Builder.of(LionFish_Entity::new, MobCategory.MONSTER)
+    public static final RegistryObject<EntityType<Lionfish_Entity>> LIONFISH = ENTITY_TYPE.register("lionfish", () -> EntityType.Builder.of(Lionfish_Entity::new, MobCategory.MONSTER)
             .sized(0.6F, 0.55f)
             .clientTrackingRange(6)
             .build(cataclysm.MODID + ":lionfish"));
@@ -159,6 +159,12 @@ public class ModEntities {
             .updateInterval(20)
             .clientTrackingRange(4)
             .build(cataclysm.MODID + ":blazing_bone"));
+
+    public static final RegistryObject<EntityType<Lionfish_Spike_Entity>> LIONFISH_SPIKE = ENTITY_TYPE.register("lionfish_spike", () -> EntityType.Builder.<Lionfish_Spike_Entity>of(Lionfish_Spike_Entity::new, MobCategory.MISC)
+            .sized(0.5f, 0.5f)
+            .updateInterval(20)
+            .clientTrackingRange(4)
+            .build(cataclysm.MODID + ":lionfish_spike"));
 
     public static final RegistryObject<EntityType<ScreenShake_Entity>> SCREEN_SHAKE = ENTITY_TYPE.register("screen_shake", () -> EntityType.Builder.<ScreenShake_Entity>of(ScreenShake_Entity::new, MobCategory.MISC)
             .noSummon()
@@ -346,7 +352,7 @@ public class ModEntities {
         event.put(DEEPLING_BRUTE.get(), Deepling_Brute_Entity.deeplingbrute().build());
         event.put(DEEPLING_ANGLER.get(), Deepling_Angler_Entity.deepling().build());
         event.put(CORALSSUS.get(), Coralssus_Entity.coralssus().build());
-        event.put(LIONFISH.get(), LionFish_Entity.lionfish().build());
+        event.put(LIONFISH.get(), Lionfish_Entity.lionfish().build());
     }
 }
 

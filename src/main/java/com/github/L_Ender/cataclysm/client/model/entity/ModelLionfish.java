@@ -3,15 +3,14 @@ package com.github.L_Ender.cataclysm.client.model.entity;// Made with Blockbench
 // Paste this class into your mod and generate all required imports
 
 
-import com.github.L_Ender.cataclysm.entity.Deepling.LionFish_Entity;
+import com.github.L_Ender.cataclysm.entity.Deepling.Lionfish_Entity;
 import com.github.alexthe666.citadel.client.model.AdvancedEntityModel;
 import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
 import com.github.alexthe666.citadel.client.model.ModelAnimator;
 import com.github.alexthe666.citadel.client.model.basic.BasicModelPart;
 import com.google.common.collect.ImmutableList;
-import net.minecraft.world.entity.Entity;
 
-public class ModelLionFish extends AdvancedEntityModel<LionFish_Entity> {
+public class ModelLionfish extends AdvancedEntityModel<Lionfish_Entity> {
 	private final AdvancedModelBox root;
 	private final AdvancedModelBox body;
 	private final AdvancedModelBox r_fin;
@@ -25,7 +24,7 @@ public class ModelLionFish extends AdvancedEntityModel<LionFish_Entity> {
 	private final AdvancedModelBox jaw;
 	private ModelAnimator animator;
 
-	public ModelLionFish() {
+	public ModelLionfish() {
 		texWidth = 64;
 		texHeight = 64;
 
@@ -99,10 +98,10 @@ public class ModelLionFish extends AdvancedEntityModel<LionFish_Entity> {
 		this.updateDefaultPose();
 	}
 
-	public void animate(LionFish_Entity entity, float f, float f1, float f2, float f3, float f4) {
+	public void animate(Lionfish_Entity entity, float f, float f1, float f2, float f3, float f4) {
 		this.resetToDefaultPose();
 		animator.update(entity);
-		animator.setAnimation(LionFish_Entity.LIONFISH_BITE);
+		animator.setAnimation(Lionfish_Entity.LIONFISH_BITE);
 		animator.startKeyframe(5);
 		animator.rotate(root, (float) Math.toRadians(-10F), 0, 0);
 		animator.rotate(r_fin, 0, (float) Math.toRadians(-22.5F), 0);
@@ -130,7 +129,7 @@ public class ModelLionFish extends AdvancedEntityModel<LionFish_Entity> {
 	}
 
 	@Override
-	public void setupAnim(LionFish_Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
+	public void setupAnim(Lionfish_Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
 		animate(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 		float idleSpeed = 0.2F;
 		float idleDegree = 0.3F;

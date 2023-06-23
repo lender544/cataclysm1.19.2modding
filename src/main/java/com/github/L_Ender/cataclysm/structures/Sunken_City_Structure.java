@@ -1,7 +1,6 @@
 package com.github.L_Ender.cataclysm.structures;
 
 import com.github.L_Ender.cataclysm.cataclysm;
-import com.github.L_Ender.cataclysm.entity.Ignited_Revenant_Entity;
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import com.github.L_Ender.cataclysm.init.ModStructures;
 import com.github.L_Ender.cataclysm.init.ModTag;
@@ -13,6 +12,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
@@ -28,6 +30,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.ProtectedBloc
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -319,12 +323,32 @@ public class Sunken_City_Structure extends Structure {
 
         @Override
         protected void handleDataMarker(String function, BlockPos pos, ServerLevelAccessor worldIn, RandomSource rand, BoundingBox sbb) {
-            if ("revenant".equals(function)) {
-                worldIn.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
-                Ignited_Revenant_Entity revenant = ModEntities.IGNITED_REVENANT.get().create(worldIn.getLevel());
-                revenant.moveTo(pos, 180.0F, 180.0F);
-                worldIn.addFreshEntity(revenant);
+            List<Mob> list = new ArrayList<>();
+            switch (function) {
+                case "deepling_brute":
+                    list.add(ModEntities.DEEPLING_BRUTE.get().create(worldIn.getLevel()));
+                    break;
+                case "deepling_angler":
+                    list.add(ModEntities.DEEPLING_ANGLER.get().create(worldIn.getLevel()));
+                    break;
+                case "deepling":
+                    list.add(ModEntities.DEEPLING.get().create(worldIn.getLevel()));
+                    break;
+                case "sus":
+                    list.add(ModEntities.CORALSSUS.get().create(worldIn.getLevel()));
+                    break;
+                default:
+                    return;
             }
+
+            for(Mob mob : list) {
+                mob.setPersistenceRequired();
+                mob.moveTo(pos, 0.0F, 0.0F);
+                mob.finalizeSpawn(worldIn, worldIn.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.STRUCTURE, (SpawnGroupData)null, (CompoundTag)null);
+                worldIn.addFreshEntityWithPassengers(mob);
+                worldIn.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
+            }
+            
         }
     }
 }

@@ -5,7 +5,7 @@ import com.github.L_Ender.cataclysm.entity.AI.EntityAINearestTarget3D;
 import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Entity;
 import com.github.L_Ender.cataclysm.entity.etc.AquaticMoveController;
 import com.github.L_Ender.cataclysm.entity.etc.SemiAquaticPathNavigator;
-import com.github.L_Ender.cataclysm.init.ModSounds;
+import com.github.L_Ender.cataclysm.entity.projectile.Lionfish_Spike_Entity;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
@@ -22,7 +22,6 @@ import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.animal.Pufferfish;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -32,7 +31,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 
-public class LionFish_Entity extends Monster implements IAnimatedEntity {
+public class Lionfish_Entity extends Monster implements IAnimatedEntity {
 
     public static final Animation LIONFISH_BITE = Animation.create(19);
     private int animationTick;
@@ -42,9 +41,9 @@ public class LionFish_Entity extends Monster implements IAnimatedEntity {
     public float LayerBrightness, oLayerBrightness;
     public int LayerTicks;
 
-    public LionFish_Entity(EntityType<? extends Monster> monster, Level level) {
+    public Lionfish_Entity(EntityType<? extends Monster> monster, Level level) {
         super(monster, level);
-        this.xpReward = 10;
+        this.xpReward = 5;
         this.moveControl = new AquaticMoveController(this, 1.0F, 15F);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
@@ -78,7 +77,7 @@ public class LionFish_Entity extends Monster implements IAnimatedEntity {
         this.goalSelector.addGoal(1, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(2, new AnimationMeleeAttackGoal(this, 1.0f, false));
         this.goalSelector.addGoal(3, new AnimalAIRandomSwimming(this, 1F, 12, 5));
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this, AbstractDeepling.class, LionFish_Entity.class));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this, AbstractDeepling.class, Lionfish_Entity.class));
         this.targetSelector.addGoal(2, new EntityAINearestTarget3D<>(this, Player.class, true));
 
     }
@@ -175,11 +174,26 @@ public class LionFish_Entity extends Monster implements IAnimatedEntity {
             return true;
         } else if (super.isAlliedTo(entityIn)) {
             return true;
-        } else if (entityIn instanceof Coralssus_Entity || entityIn instanceof AbstractDeepling || entityIn instanceof LionFish_Entity  || entityIn instanceof The_Leviathan_Entity) {
+        } else if (entityIn instanceof Coralssus_Entity || entityIn instanceof AbstractDeepling || entityIn instanceof Lionfish_Entity || entityIn instanceof The_Leviathan_Entity) {
             return this.getTeam() == null && entityIn.getTeam() == null;
         } else {
             return false;
         }
+    }
+
+    @Override
+    public void die(DamageSource cause) {
+        super.die(cause);
+        int shardCount = 6 + random.nextInt(2);
+        if (!this.level.isClientSide) {
+            for (int i = 0; i < shardCount; i++) {
+                float f = ((i + 1) / (float) shardCount) * 360F;
+                Lionfish_Spike_Entity shard = new Lionfish_Spike_Entity(this.level, this);
+                shard.shoot(this.random.nextFloat() * 0.4F * 2.0F - 0.4F, this.random.nextFloat() * 0.25F + 0.1F,this.random.nextFloat() * 0.4F * 2.0F - 0.4F, 0.35F, 1F);
+                level.addFreshEntity(shard);
+            }
+        }
+
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
@@ -241,9 +255,9 @@ public class LionFish_Entity extends Monster implements IAnimatedEntity {
     }
 
     static class AnimationMeleeAttackGoal extends MeleeAttackGoal {
-        protected final LionFish_Entity mob;
+        protected final Lionfish_Entity mob;
 
-        public AnimationMeleeAttackGoal(LionFish_Entity p_25552_, double p_25553_, boolean p_25554_) {
+        public AnimationMeleeAttackGoal(Lionfish_Entity p_25552_, double p_25553_, boolean p_25554_) {
             super(p_25552_,p_25553_,p_25554_);
             this.mob = p_25552_;
             this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));

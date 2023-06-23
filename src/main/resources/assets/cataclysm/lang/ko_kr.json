@@ -67,6 +67,7 @@
   "item.cataclysm.void_forge": "공허 용광로",
   "item.cataclysm.coral_spear": "산호 창",
   "item.cataclysm.lionfish": "쏠배감펭",
+  "item.cataclysm.lionfish_spike": "쏠배감펭의 가시",
 
   "item.cataclysm.endermaptera_spawn_egg": "엔더마프테라 생성 알",
   "item.cataclysm.ender_golem_spawn_egg": "엔더 골렘 생성 알",
@@ -80,6 +81,7 @@
   "item.cataclysm.deepling_spawn_egg": "심연꾼 생성 알",
   "item.cataclysm.deepling_brute_spawn_egg": "난폭한 심연꾼 생성 알",
   "item.cataclysm.deepling_angler_spawn_egg": "심연낚시꾼 생성 알",
+  "item.cataclysm.coralssus_spawn_egg": "코랄서스 생성 알",
 
   "itemGroup.cataclysm": "대격변",
   "block.cataclysm.witherite_block": "위더라이트 블록",
@@ -162,6 +164,7 @@
   "entity.cataclysm.dimensional_rift": "차원의 균열",
   "entity.cataclysm.abyss_orb": "심연 구체",
   "entity.cataclysm.portal_abyss_blast": "포탈의 심연 돌풍",
+  "entity.cataclysm.lionfish_spike": "쏠배감펭의 가시",
 
   "effect.cataclysm.monstrous": "괴력",
   "effect.cataclysm.blazing_brand": "불타는 낙인",

@@ -11,24 +11,6 @@
     "monster": {
       "bounding_box": "piece",
       "spawns": [
-        {
-          "type": "cataclysm:deepling",
-          "maxCount": 1,
-          "minCount": 1,
-          "weight": 1
-        },
-        {
-          "type": "cataclysm:deepling_angler",
-          "maxCount": 1,
-          "minCount": 1,
-          "weight": 1
-        },
-        {
-          "type": "cataclysm:deepling_brute",
-          "maxCount": 1,
-          "minCount": 1,
-          "weight": 1
-        }
       ]
     }
   }

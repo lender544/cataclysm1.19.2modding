@@ -232,6 +232,9 @@ public class ModItems {
     public static final RegistryObject<Item> LIONFISH = ITEMS.register("lionfish",
             () -> new Item(new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1F).effect(new MobEffectInstance(MobEffects.POISON, 300, 0), 1.0F).effect(new MobEffectInstance(MobEffects.CONFUSION, 300, 0), 1.0F).build())));
 
+    public static final RegistryObject<Item> LIONFISH_SPIKE = ITEMS.register("lionfish_spike",
+            () -> new Item(new Item.Properties()));
+
     public static final RegistryObject<SpawnEggItem> ENDER_GOLEM_SPAWN_EGG = ITEMS.register("ender_golem_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.ENDER_GOLEM, 0x2a1a42, 0xa153fe, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
 
@@ -271,6 +274,9 @@ public class ModItems {
 
     public static final RegistryObject<SpawnEggItem> LIONFISH_SPAWN_EGG = ITEMS.register("lionfish_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.LIONFISH, 0x98d8e2, 0x182a3c, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
+
+    public static final RegistryObject<SpawnEggItem> CORALSSUS_SPAWN_EGG = ITEMS.register("coralssus_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.CORALSSUS, 0x2143a4, 0xa4222f, new Item.Properties()));
 }
 
 

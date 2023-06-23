@@ -141,7 +141,7 @@ public class Coralssus_Entity extends Boss_monster {
         if (this.isInWater()) {
             CollisionContext lvt_1_1_ = CollisionContext.of(this);
             if (lvt_1_1_.isAbove(LiquidBlock.STABLE_SHAPE, this.blockPosition().below(), true) && !this.level.getFluidState(this.blockPosition().above()).is(FluidTags.WATER)) {
-                this.onGround = true;
+                this.setOnGround(true);
             } else {
                 this.setDeltaMovement(this.getDeltaMovement().scale(0.5D).add(0.0D, random.nextFloat() * 0.5, 0.0D));
             }
@@ -153,7 +153,6 @@ public class Coralssus_Entity extends Boss_monster {
         super.tick();
         AnimationHandler.INSTANCE.updateAnimations(this);
         this.prevSwimProgress = SwimProgress;
-        floatStrider();
         if (this.isInWater()) {
             if (this.SwimProgress < 10F)
                 this.SwimProgress++;
@@ -161,7 +160,7 @@ public class Coralssus_Entity extends Boss_monster {
             if (this.SwimProgress > 0F)
                 this.SwimProgress--;
         }
-
+        this.floatStrider();
 
         if (leap_attack_cooldown > 0) leap_attack_cooldown--;
         LivingEntity target = this.getTarget();
@@ -279,7 +278,7 @@ public class Coralssus_Entity extends Boss_monster {
             return true;
         } else if (super.isAlliedTo(entityIn)) {
             return true;
-        } else if (entityIn instanceof Coralssus_Entity || entityIn instanceof AbstractDeepling || entityIn instanceof LionFish_Entity  || entityIn instanceof The_Leviathan_Entity) {
+        } else if (entityIn instanceof Coralssus_Entity || entityIn instanceof AbstractDeepling || entityIn instanceof Lionfish_Entity || entityIn instanceof The_Leviathan_Entity) {
             return this.getTeam() == null && entityIn.getTeam() == null;
         } else {
             return false;
@@ -310,14 +309,16 @@ public class Coralssus_Entity extends Boss_monster {
                 this.getNavigation().stop();
             }
             p_32394_ = Vec3.ZERO;
-            this.setSpeed((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * (isInWater() ? 0.2F : 1F));
-            if (this.isEffectiveAi() && this.isInWater()) {
-                this.moveRelative(this.getSpeed(), p_32394_);
-                this.move(MoverType.SELF, this.getDeltaMovement());
-                this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
-            } else {
-                super.travel(p_32394_);
-            }
+            super.travel(p_32394_);
+            return;
+        }
+        this.setSpeed((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * (isInWater() ? 0.2F : 1F));
+        if (this.isEffectiveAi() && this.isInWater()) {
+            this.moveRelative(this.getSpeed(), p_32394_);
+            this.move(MoverType.SELF, this.getDeltaMovement());
+            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+        } else {
+            super.travel(p_32394_);
         }
     }
 
@@ -359,9 +360,6 @@ public class Coralssus_Entity extends Boss_monster {
 
         }
     }
-
-
-
 }
 
 
