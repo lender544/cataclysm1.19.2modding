@@ -1,7 +1,7 @@
 package com.github.L_Ender.cataclysm.client.sound;
 
 import com.github.L_Ender.cataclysm.ClientProxy;
-import com.github.L_Ender.cataclysm.entity.Ignis_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonster.Ignis_Entity;
 import com.github.L_Ender.cataclysm.init.ModSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;

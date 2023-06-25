@@ -1,8 +1,7 @@
 package com.github.L_Ender.cataclysm.client.render.entity;
 
 import com.github.L_Ender.cataclysm.client.model.entity.ModelAbyss_Blast_Portal;
-import com.github.L_Ender.cataclysm.client.model.entity.ModelWither_Missile;
-import com.github.L_Ender.cataclysm.entity.The_Leviathan.Abyss_Blast_Portal_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonster.The_Leviathan.Abyss_Blast_Portal_Entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
@@ -12,7 +11,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 
 public class RendererAbyss_Blast_Portal extends EntityRenderer<Abyss_Blast_Portal_Entity> {
 

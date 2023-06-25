@@ -24,6 +24,8 @@ public class ModTag {
 
     public static final TagKey<EntityType<?>> LEVIATHAN_TARGET = registerEntityTag("leviathan_target");
 
+    public static final TagKey<EntityType<?>> BABY_LEVIATHAN_TARGET = registerEntityTag("baby_leviathan_target");
+
     public static final TagKey<Block> ENDER_GOLEM_CAN_DESTROY = registerBlockTag("ender_golem_can_destroy");
 
     public static final TagKey<Block> CM_GLASS = registerBlockTag("cm_glass");

@@ -1,7 +1,7 @@
 package com.github.L_Ender.cataclysm.tileentities;
 
 import com.github.L_Ender.cataclysm.cataclysm;
-import com.github.L_Ender.cataclysm.entity.Ignis_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonster.Ignis_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import com.github.L_Ender.cataclysm.init.ModItems;

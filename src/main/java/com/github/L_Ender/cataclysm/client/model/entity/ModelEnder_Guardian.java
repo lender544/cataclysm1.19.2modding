@@ -1,7 +1,7 @@
 package com.github.L_Ender.cataclysm.client.model.entity;
 
 
-import com.github.L_Ender.cataclysm.entity.Ender_Guardian_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonster.Ender_Guardian_Entity;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.citadel.client.model.AdvancedEntityModel;
 import com.github.alexthe666.citadel.client.model.AdvancedModelBox;

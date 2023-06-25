@@ -1,0 +1,489 @@
+package com.github.L_Ender.cataclysm.entity.Pet;
+
+import com.github.L_Ender.cataclysm.entity.AI.*;
+
+import com.github.L_Ender.cataclysm.entity.BossMonster.The_Leviathan.Abyss_Blast_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonster.The_Leviathan.Portal_Abyss_Blast_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonster.The_Leviathan.The_Leviathan_Entity;
+import com.github.L_Ender.cataclysm.entity.Pet.AI.TameableAIFollowOwnerWater;
+import com.github.L_Ender.cataclysm.entity.etc.CMPathNavigateGround;
+import com.github.L_Ender.cataclysm.entity.etc.ISemiAquatic;
+import com.github.L_Ender.cataclysm.entity.etc.SemiAquaticPathNavigator;
+import com.github.L_Ender.cataclysm.init.ModEntities;
+import com.github.L_Ender.cataclysm.init.ModSounds;
+import com.github.L_Ender.cataclysm.init.ModTag;
+import com.github.alexthe666.citadel.animation.Animation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.MoveControl;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.Vec3;
+
+import javax.annotation.Nullable;
+import java.util.EnumSet;
+
+public class The_Baby_Leviathan_Entity extends PetMob implements ISemiAquatic {
+
+    public static final Animation BABY_LEVIATHAN_BITE = Animation.create(24);
+    public static final Animation BABY_LEVIATHAN_ABYSS_BLAST = Animation.create(184);
+    public float NoSwimProgress = 0;
+    public float prevNoSwimProgress = 0;
+    private int fishFeedings;
+    private boolean isLandNavigator;
+    private AttackMode mode = AttackMode.CIRCLE;
+    private int hunting_cooldown = 0;
+    private static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(The_Baby_Leviathan_Entity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(The_Baby_Leviathan_Entity.class, EntityDataSerializers.INT);
+
+
+    protected The_Baby_Leviathan_Entity(EntityType type, Level world) {
+        super(type, world);
+        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+        switchNavigator(false);
+        this.maxUpStep = 1;
+    }
+
+    protected SoundEvent getAmbientSound() {
+        return ModSounds.LEVIATHAN_IDLE.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return ModSounds.LEVIATHAN_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return ModSounds.LEVIATHAN_DEFEAT.get();
+    }
+
+    @Override
+    public float getVoicePitch()
+    {
+        return (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.5F;
+    }
+
+    public boolean hurt(DamageSource source, float amount) {
+        Entity entity = source.getDirectEntity();
+        if (entity instanceof Abyss_Blast_Entity || entity instanceof Portal_Abyss_Blast_Entity) {
+            return false;
+        }
+        return super.hurt(source, amount);
+    }
+
+
+    public static AttributeSupplier.Builder babyleviathan() {
+        return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 100.0D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.1D)
+                .add(Attributes.ARMOR, 5D)
+                .add(Attributes.FOLLOW_RANGE, 32.0D)
+                .add(Attributes.ATTACK_DAMAGE, 4.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.3F);
+    }
+
+    public boolean removeWhenFarAway(double distanceToClosestPlayer) {
+        return false;
+    }
+
+    public MobType getMobType() {
+        return MobType.WATER;
+    }
+
+    protected void registerGoals() {
+        this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(2, new TameableAIFollowOwnerWater(this, 1.3D, 4.0F, 2.0F, false));
+        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.2F, false));
+        this.goalSelector.addGoal(4, new MobAIFindWater(this,1.0f));
+        this.goalSelector.addGoal(4, new MobAILeaveWater(this));
+        this.goalSelector.addGoal(6, new TemptGoal(this, 1.0D, Ingredient.of(Items.TROPICAL_FISH), false));
+        this.goalSelector.addGoal(7, new SemiAquaticAIRandomSwimming(this, 1.0D, 30));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
+        this.targetSelector.addGoal(3, new EntityAINearestTarget3D(this, LivingEntity.class, 120, false, true, ModEntities.buildPredicateFromTag(ModTag.BABY_LEVIATHAN_TARGET)) {
+            public boolean canUse() {
+                return The_Baby_Leviathan_Entity.this.getCommand() != 2 && !The_Baby_Leviathan_Entity.this.isSitting() && super.canUse();
+            }
+        });
+        this.targetSelector.addGoal(4, new HurtByTargetGoal(this));
+    }
+
+    private void switchNavigator(boolean onLand) {
+        if (onLand) {
+            this.moveControl = new MoveControl(this);
+            this.navigation = new CMPathNavigateGround(this, level);
+            this.isLandNavigator = true;
+        } else {
+            this.moveControl = new BabyLeviathanMoveController(this, 10, 1, 10);
+            this.navigation = new SemiAquaticPathNavigator(this, level);
+            this.isLandNavigator = false;
+        }
+    }
+
+    public void travel(Vec3 travelVector) {
+        if (this.isSitting()) {
+            if (this.getNavigation().getPath() != null) {
+                this.getNavigation().stop();
+            }
+            travelVector = Vec3.ZERO;
+            super.travel(travelVector);
+            return;
+        }
+        if (this.isEffectiveAi() && this.isInWater()) {
+            this.moveRelative(this.getSpeed(), travelVector);
+            this.move(MoverType.SELF, this.getDeltaMovement());
+            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+        } else {
+            super.travel(travelVector);
+        }
+    }
+
+    @Override
+    public boolean isInvulnerableTo(DamageSource source) {
+        return source == DamageSource.IN_WALL || source == DamageSource.FALLING_BLOCK || super.isInvulnerableTo(source);
+    }
+
+    public boolean canBreatheUnderwater() {
+        return true;
+    }
+
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(COMMAND, Integer.valueOf(0));
+        this.entityData.define(SITTING, Boolean.valueOf(false));
+    }
+
+
+    public int getCommand() {
+        return this.entityData.get(COMMAND).intValue();
+    }
+
+    public void setCommand(int command) {
+        this.entityData.set(COMMAND, Integer.valueOf(command));
+    }
+
+    public boolean isSitting() {
+        return this.entityData.get(SITTING).booleanValue();
+    }
+
+    public void setOrderedToSit(boolean sit) {
+        this.entityData.set(SITTING, Boolean.valueOf(sit));
+    }
+
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        Item item = itemstack.getItem();
+        InteractionResult type = super.mobInteract(player, hand);
+        if (!isTame() && item == Items.TROPICAL_FISH) {
+            this.usePlayerItem(player, hand, itemstack);
+            this.gameEvent(GameEvent.EAT);
+            fishFeedings++;
+            if (fishFeedings > 10 && getRandom().nextInt(6) == 0 || fishFeedings > 30) {
+                this.tame(player);
+                this.level.broadcastEntityEvent(this, (byte) 7);
+            } else {
+                this.level.broadcastEntityEvent(this, (byte) 6);
+            }
+            return InteractionResult.SUCCESS;
+        }
+        if (isTame() && itemstack.is(ItemTags.FISHES)) {
+            if (this.getHealth() < this.getMaxHealth()) {
+                this.usePlayerItem(player, hand, itemstack);
+                this.gameEvent(GameEvent.EAT);
+                this.heal(5);
+                return InteractionResult.SUCCESS;
+            }
+            return InteractionResult.PASS;
+
+        }
+        InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
+        if (interactionresult != InteractionResult.SUCCESS && type != InteractionResult.SUCCESS && isTame() && isOwnedBy(player)) {
+            if (!player.isShiftKeyDown()) {
+                this.setCommand(this.getCommand() + 1);
+                if (this.getCommand() == 3) {
+                    this.setCommand(0);
+                }
+                player.displayClientMessage(Component.translatable("entity.cataclysm.all.command_" + this.getCommand(), this.getName()), true);
+                boolean sit = this.getCommand() == 2;
+                if (sit) {
+                    this.setOrderedToSit(true);
+                    return InteractionResult.SUCCESS;
+                } else {
+                    this.setOrderedToSit(false);
+                    return InteractionResult.SUCCESS;
+                }
+            }
+        }
+        return type;
+    }
+
+    public void aiStep() {
+        super.aiStep();
+        if (this.isSitting() && this.getNavigation().isDone()) {
+            this.getNavigation().stop();
+        }
+        final boolean groundAnimate = !this.isInWater();
+        this.prevNoSwimProgress = NoSwimProgress;
+        if (groundAnimate) {
+            if (this.NoSwimProgress < 10F)
+                this.NoSwimProgress++;
+        } else {
+            if (this.NoSwimProgress > 0F)
+                this.NoSwimProgress--;
+        }
+        if (this.isInWater() && this.isLandNavigator) {
+            switchNavigator(false);
+        }
+        if (!this.isInWater() && !this.isLandNavigator) {
+            switchNavigator(true);
+        }
+    }
+
+    public boolean isAlliedTo(Entity entityIn) {
+        if (this.isTame()) {
+            LivingEntity livingentity = this.getOwner();
+            if (entityIn == livingentity) {
+                return true;
+            }
+            if (entityIn instanceof TamableAnimal) {
+                return ((TamableAnimal) entityIn).isOwnedBy(livingentity);
+            }
+            if (livingentity != null) {
+                return livingentity.isAlliedTo(entityIn);
+            }
+        }
+
+        return super.isAlliedTo(entityIn);
+    }
+
+
+    public boolean isPushedByFluid() {
+        return false;
+    }
+
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel serverWorld, AgeableMob ageableEntity) {
+        return null;
+    }
+
+    @Override
+    public boolean shouldEnterWater() {
+        return !this.isSitting();
+    }
+
+    @Override
+    public boolean shouldLeaveWater() {
+        return false;
+    }
+
+    @Override
+    public boolean shouldStopMoving() {
+        return isSitting();
+    }
+
+    @Override
+    public int getWaterSearchRange() {
+        return 32;
+    }
+
+    @Override
+    public boolean shouldFollow() {
+        return this.getCommand() == 1;
+    }
+
+    @Override
+    public Animation[] getAnimations() {
+        return new Animation[]{NO_ANIMATION,BABY_LEVIATHAN_ABYSS_BLAST,BABY_LEVIATHAN_BITE};
+    }
+
+    private enum AttackMode {
+        CIRCLE,
+        MELEE,
+        RANGE
+    }
+
+    static class BabyLeviathanAttackGoal extends Goal {
+        private final The_Baby_Leviathan_Entity mob;
+        private LivingEntity target;
+        private float circlingTime = 0;
+        private float circleDistance = 18;
+        private boolean clockwise = false;
+
+        public BabyLeviathanAttackGoal(The_Baby_Leviathan_Entity mob) {
+            this.mob = mob;
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+        }
+
+        public boolean canUse() {
+            this.target = this.mob.getTarget();
+            return this.target != null && target.isAlive() && this.mob.getAnimation() == NO_ANIMATION;
+        }
+
+        public boolean canContinueToUse() {
+            this.target = this.mob.getTarget();
+            return this.target != null;
+        }
+
+        public void start(){
+            this.mob.mode = AttackMode.CIRCLE;
+            circlingTime = 0;
+            circleDistance = 18 + this.mob.random.nextInt(10);
+            clockwise = this.mob.random.nextBoolean();
+            this.mob.setAggressive(true);
+        }
+
+        public void stop() {
+            this.mob.mode = AttackMode.CIRCLE;
+            circlingTime = 0;
+            circleDistance = 18 + this.mob.random.nextInt(10);
+            clockwise = this.mob.random.nextBoolean();
+            this.target = this.mob.getTarget();
+            if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(target)) {
+                this.mob.setTarget((LivingEntity)null);
+            }
+
+            this.mob.getNavigation().stop();
+            if (this.mob.getTarget() == null) {
+                this.mob.setAggressive(false);
+                this.mob.getNavigation().stop();
+            }
+        }
+
+
+        public void tick() {
+            LivingEntity target = this.mob.getTarget();
+            if (target != null) {
+                if (this.mob.mode == AttackMode.CIRCLE) {
+                    BlockPos circlePos = getLeviathanCirclePos(target);
+                    if (circlePos != null) {
+                        this.mob.getNavigation().moveTo(circlePos.getX() + 0.5D, circlePos.getY(), circlePos.getZ() + 0.5D, 1.0D);
+                    }
+                    if (circlingTime >= this.mob.hunting_cooldown) {
+                        if (this.mob.random.nextInt(2) == 0) {
+                            this.mob.mode = AttackMode.RANGE;
+                        } else {
+                            this.mob.mode = AttackMode.MELEE;
+                        }
+                    }
+                }else if (this.mob.mode == AttackMode.RANGE) {
+                    if (this.mob.getRandom().nextFloat() * 100.0F < 3f) {
+                        this.mob.setAnimation(BABY_LEVIATHAN_ABYSS_BLAST);
+                    } else if (this.mob.mode == AttackMode.MELEE) {
+                        this.mob.getNavigation().moveTo(target, 1.0D);
+                        this.mob.getLookControl().setLookAt(target, 30, 90);
+                        if (this.mob.getRandom().nextFloat() * 100.0F < 20f && this.mob.distanceToSqr(target) <= 30.0D) {
+                            this.mob.setAnimation(BABY_LEVIATHAN_BITE);
+
+                        }
+                    }
+                }
+
+            }
+        }
+
+        public BlockPos getLeviathanCirclePos(LivingEntity target) {
+            float angle = (0.01745329251F * (clockwise ? -circlingTime : circlingTime));
+            double extraX = circleDistance * Mth.sin((angle));
+            double extraZ = circleDistance * Mth.cos(angle);
+
+            return new BlockPos(target.getX() + 0.5F + extraX, target.getY() + 4.0f, target.getZ() + 0.5F + extraZ);
+        }
+
+    }
+
+    static class BabyLeviathanMoveController extends MoveControl {
+        private final The_Baby_Leviathan_Entity entity;
+        private final float speedMulti;
+        private final float ySpeedMod;
+        private final float yawLimit;
+        private  int stillTicks = 0;
+        public BabyLeviathanMoveController(The_Baby_Leviathan_Entity entity, float speedMulti, float ySpeedMod, float yawLimit) {
+            super(entity);
+            this.entity = entity;
+            this.speedMulti = speedMulti;
+            this.ySpeedMod = ySpeedMod;
+            this.yawLimit = yawLimit;
+        }
+
+        public void tick() {
+            if (this.entity.isInWater() && this.entity.getAnimation() == NO_ANIMATION) {
+                if (Math.abs(this.entity.xo - this.entity.getX()) < 0.01F && Math.abs(this.entity.yo - this.entity.getY()) < 0.01F && Math.abs(this.entity.zo - this.entity.getZ()) < 0.01F) {
+                    stillTicks++;
+                } else {
+                    stillTicks = 0;
+                }
+                if (stillTicks > 40){
+                    this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
+                }
+            }
+            if (((ISemiAquatic) entity).shouldStopMoving()) {
+                this.entity.setSpeed(0.0F);
+                return;
+            }
+            if (this.operation == Operation.MOVE_TO && !this.entity.getNavigation().isDone()) {
+                double lvt_1_1_ = this.wantedX - this.entity.getX();
+                double lvt_3_1_ = this.wantedY - this.entity.getY();
+                double lvt_5_1_ = this.wantedZ - this.entity.getZ();
+                double lvt_7_1_ = lvt_1_1_ * lvt_1_1_ + lvt_3_1_ * lvt_3_1_ + lvt_5_1_ * lvt_5_1_;
+                if (lvt_7_1_ < 2.500000277905201E-7D) {
+                    this.mob.setZza(0.0F);
+                } else {
+                    float lvt_9_1_ = (float) (Mth.atan2(lvt_5_1_, lvt_1_1_) * 57.2957763671875D) - 90.0F;
+                    this.entity.setYRot(this.rotlerp(this.entity.getYRot(), lvt_9_1_, yawLimit));
+                    this.entity.yBodyRot = this.entity.getYRot();
+                    this.entity.yHeadRot = this.entity.getYRot();
+                    float lvt_10_1_ = (float) (this.speedModifier * speedMulti * 3 * this.entity.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                    if (this.entity.isInWater()) {
+                        if(lvt_3_1_ > 0 && entity.horizontalCollision){
+                            this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, 0.08F, 0.0D));
+                        }else{
+                            this.entity.setDeltaMovement(this.entity.getDeltaMovement().add(0.0D, (double) this.entity.getSpeed() * lvt_3_1_ * 0.6D * ySpeedMod, 0.0D));
+                        }
+                        this.entity.setSpeed(lvt_10_1_ * 0.02F);
+                        float lvt_11_1_ = -((float) (Mth.atan2(lvt_3_1_, Mth.sqrt((float) (lvt_1_1_ * lvt_1_1_ + lvt_5_1_ * lvt_5_1_))) * 57.2957763671875D));
+                        lvt_11_1_ = Mth.clamp(Mth.wrapDegrees(lvt_11_1_), -85.0F, 85.0F);
+                        this.entity.setXRot(this.rotlerp(this.entity.getXRot(), lvt_11_1_, 5.0F));
+                        float lvt_12_1_ = Mth.cos(this.entity.getXRot() * 0.017453292F);
+                        float lvt_13_1_ = Mth.sin(this.entity.getXRot() * 0.017453292F);
+                        this.entity.zza = lvt_12_1_ * lvt_10_1_;
+                        this.entity.yya = -lvt_13_1_ * lvt_10_1_;
+                    } else {
+                        this.entity.setSpeed(lvt_10_1_ * 0.1F);
+                    }
+
+                }
+            } else {
+                this.entity.setSpeed(0.0F);
+                this.entity.setXxa(0.0F);
+                this.entity.setYya(0.0F);
+                this.entity.setZza(0.0F);
+            }
+        }
+    }
+}

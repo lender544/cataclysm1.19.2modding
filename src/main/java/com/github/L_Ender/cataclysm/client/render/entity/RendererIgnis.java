@@ -5,7 +5,7 @@ import com.github.L_Ender.cataclysm.client.model.entity.ModelIgnis;
 import com.github.L_Ender.cataclysm.client.render.RenderUtils;
 import com.github.L_Ender.cataclysm.client.render.layer.Ignis_Armor_Crack_Layer;
 import com.github.L_Ender.cataclysm.client.render.layer.Ignis_Shield_Layer;
-import com.github.L_Ender.cataclysm.entity.Ignis_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonster.Ignis_Entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

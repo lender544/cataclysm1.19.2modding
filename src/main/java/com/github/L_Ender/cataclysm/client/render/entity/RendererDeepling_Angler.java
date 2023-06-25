@@ -1,14 +1,9 @@
 package com.github.L_Ender.cataclysm.client.render.entity;
 
-import com.github.L_Ender.cataclysm.client.model.entity.ModelDeepling;
 import com.github.L_Ender.cataclysm.client.model.entity.ModelDeepling_Angler;
 import com.github.L_Ender.cataclysm.client.render.layer.Deepling_Angler_Layer;
-import com.github.L_Ender.cataclysm.client.render.layer.Deepling_Layer;
-import com.github.L_Ender.cataclysm.client.render.layer.LayerDeeplingItem;
 import com.github.L_Ender.cataclysm.client.render.layer.LayerDeepling_AnglerItem;
 import com.github.L_Ender.cataclysm.entity.Deepling.Deepling_Angler_Entity;
-import com.github.L_Ender.cataclysm.entity.Deepling.Deepling_Entity;
-import com.github.L_Ender.cataclysm.entity.The_Harbinger_Entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;

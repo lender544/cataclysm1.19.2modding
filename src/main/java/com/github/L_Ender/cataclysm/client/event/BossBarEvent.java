@@ -3,11 +3,11 @@ package com.github.L_Ender.cataclysm.client.event;
 
 import com.github.L_Ender.cataclysm.cataclysm;
 import com.github.L_Ender.cataclysm.config.CMConfig;
-import com.github.L_Ender.cataclysm.entity.Ender_Guardian_Entity;
-import com.github.L_Ender.cataclysm.entity.Ignis_Entity;
-import com.github.L_Ender.cataclysm.entity.Netherite_Monstrosity_Entity;
-import com.github.L_Ender.cataclysm.entity.The_Harbinger_Entity;
-import com.github.L_Ender.cataclysm.entity.The_Leviathan.The_Leviathan_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonster.Ender_Guardian_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonster.Ignis_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonster.Netherite_Monstrosity_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonster.The_Harbinger_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonster.The_Leviathan.The_Leviathan_Entity;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;

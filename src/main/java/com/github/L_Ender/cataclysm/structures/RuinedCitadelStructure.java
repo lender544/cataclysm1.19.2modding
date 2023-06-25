@@ -1,7 +1,7 @@
 package com.github.L_Ender.cataclysm.structures;
 
 import com.github.L_Ender.cataclysm.cataclysm;
-import com.github.L_Ender.cataclysm.entity.Ender_Golem_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonster.Ender_Golem_Entity;
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import com.github.L_Ender.cataclysm.init.ModStructures;
 import com.google.common.collect.ImmutableMap;

@@ -3,7 +3,7 @@ package com.github.L_Ender.cataclysm.client.render.layer;
 import com.github.L_Ender.cataclysm.client.model.entity.ModelThe_Harbinger;
 import com.github.L_Ender.cataclysm.client.render.RenderUtils;
 import com.github.L_Ender.cataclysm.client.render.entity.RendererThe_Harbinger;
-import com.github.L_Ender.cataclysm.entity.The_Harbinger_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonster.The_Harbinger_Entity;
 import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
