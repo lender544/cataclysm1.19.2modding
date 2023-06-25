@@ -143,9 +143,10 @@ public class Portal_Abyss_Blast_Entity extends Entity {
             }
             if (!level.isClientSide) {
                 for (LivingEntity target : hit) {
-                    if(target != caster) {
+                    if (caster != null) {
+                    if (!this.caster.isAlliedTo(target) && target != caster) {
                         boolean flag = target.hurt(CMDamageTypes.causeLaserDamage(this, caster).bypassArmor(), (float) ((float) CMConfig.AbyssBlastdamage + Math.min(CMConfig.AbyssBlastdamage, target.getMaxHealth() * CMConfig.AbyssBlastHpdamage)));
-                        if(flag){
+                        if (flag) {
                             MobEffectInstance effectinstance1 = target.getEffect(ModEffect.EFFECTABYSSAL_BURN.get());
                             int i = 1;
                             if (effectinstance1 != null) {
@@ -159,6 +160,7 @@ public class Portal_Abyss_Blast_Entity extends Entity {
                             MobEffectInstance effectinstance = new MobEffectInstance(ModEffect.EFFECTABYSSAL_BURN.get(), 160, i, false, false, true);
                             target.addEffect(effectinstance);
                         }
+                    }
                     }
 
                 }

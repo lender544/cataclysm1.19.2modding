@@ -158,10 +158,14 @@ public class Death_Laser_Beam_Entity extends Entity {
             }
             if (!level.isClientSide) {
                 for (LivingEntity target : hit) {
-                    boolean flag = target.hurt(CMDamageTypes.causeLaserDamage(this, caster).bypassArmor(), (float) ((float) CMConfig.DeathLaserdamage + Math.min(CMConfig.DeathLaserdamage, target.getMaxHealth() * CMConfig.DeathLaserHpdamage)));
-                    if(this.getFire()) {
-                        if (flag) {
-                            target.setSecondsOnFire(5);
+                    if (caster != null) {
+                        if (!this.caster.isAlliedTo(target) && target != caster) {
+                            boolean flag = target.hurt(CMDamageTypes.causeLaserDamage(this, caster).bypassArmor(), (float) ((float) CMConfig.DeathLaserdamage + Math.min(CMConfig.DeathLaserdamage, target.getMaxHealth() * CMConfig.DeathLaserHpdamage)));
+                            if (this.getFire()) {
+                                if (flag) {
+                                    target.setSecondsOnFire(5);
+                                }
+                            }
                         }
                     }
                 }

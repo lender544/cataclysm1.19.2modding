@@ -6,7 +6,7 @@ import com.github.L_Ender.cataclysm.entity.*;
 import com.github.L_Ender.cataclysm.entity.BossMonster.*;
 import com.github.L_Ender.cataclysm.entity.BossMonster.The_Leviathan.*;
 import com.github.L_Ender.cataclysm.entity.Deepling.*;
-import com.github.L_Ender.cataclysm.entity.The_Leviathan.*;
+import com.github.L_Ender.cataclysm.entity.Pet.The_Baby_Leviathan_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.*;
 import com.github.L_Ender.cataclysm.entity.projectile.Ashen_Breath_Entity;
 import com.github.L_Ender.cataclysm.entity.projectile.*;
@@ -142,6 +142,12 @@ public class ModEntities {
             .setShouldReceiveVelocityUpdates(true)
             .build(cataclysm.MODID + ":the_leviathan"));
 
+    public static final RegistryObject<EntityType<The_Baby_Leviathan_Entity>> THE_BABY_LEVIATHAN = ENTITY_TYPE.register("the_baby_leviathan", () -> EntityType.Builder.of(The_Baby_Leviathan_Entity::new, MobCategory.CREATURE)
+            .sized(0.75F, 0.42F)
+            .clientTrackingRange(10)
+            .fireImmune()
+            .build(cataclysm.MODID + ":the_baby_leviathan"));
+
     public static final RegistryObject<EntityType<Void_Scatter_Arrow_Entity>> VOID_SCATTER_ARROW = ENTITY_TYPE.register("void_scatter_arrow", () -> EntityType.Builder.<Void_Scatter_Arrow_Entity>of(Void_Scatter_Arrow_Entity::new, MobCategory.MISC)
             .sized(0.5f, 0.5f)
             .setCustomClientFactory(Void_Scatter_Arrow_Entity::new)
@@ -233,6 +239,11 @@ public class ModEntities {
             .sized(0.1F, 0.1F)
             .fireImmune()
             .build(cataclysm.MODID + ":abyss_blast"));
+
+    public static final RegistryObject<EntityType<Mini_Abyss_Blast_Entity>> MINI_ABYSS_BLAST = ENTITY_TYPE.register("mini_abyss_blast", () -> EntityType.Builder.<Mini_Abyss_Blast_Entity>of(Mini_Abyss_Blast_Entity::new, MobCategory.MISC)
+            .sized(0.1F, 0.1F)
+            .fireImmune()
+            .build(cataclysm.MODID + ":mini_abyss_blast"));
 
     public static final RegistryObject<EntityType<Portal_Abyss_Blast_Entity>> PORTAL_ABYSS_BLAST = ENTITY_TYPE.register("portal_abyss_blast", () -> EntityType.Builder.<Portal_Abyss_Blast_Entity>of(Portal_Abyss_Blast_Entity::new, MobCategory.MISC)
             .sized(0.1F, 0.1F)
@@ -350,6 +361,7 @@ public class ModEntities {
         event.put(IGNITED_REVENANT.get(), Ignited_Revenant_Entity.ignited_revenant().build());
         event.put(THE_HARBINGER.get(), The_Harbinger_Entity.harbinger().build());
         event.put(THE_LEVIATHAN.get(), The_Leviathan_Entity.leviathan().build());
+        event.put(THE_BABY_LEVIATHAN.get(), The_Baby_Leviathan_Entity.babyleviathan().build());
         event.put(DEEPLING.get(), Deepling_Entity.deepling().build());
         event.put(DEEPLING_BRUTE.get(), Deepling_Brute_Entity.deeplingbrute().build());
         event.put(DEEPLING_ANGLER.get(), Deepling_Angler_Entity.deepling().build());

@@ -69,6 +69,7 @@
   "item.cataclysm.lionfish": "Lionfish",
   "item.cataclysm.lionfish_spike": "Lionfish's Spike",
 
+
   "item.cataclysm.endermaptera_spawn_egg": "Endermaptera Spawn Egg",
   "item.cataclysm.ender_golem_spawn_egg": "Ender Golem Spawn Egg",
   "item.cataclysm.ender_guardian_spawn_egg": "Ender Guardian Spawn Egg",
@@ -78,6 +79,7 @@
   "item.cataclysm.ignited_revenant_spawn_egg": "Ignited Revenant Spawn Egg",
   "item.cataclysm.the_harbinger_spawn_egg": "The Harbinger Spawn Egg",
   "item.cataclysm.the_leviathan_spawn_egg": "The Leviathan Spawn Egg",
+  "item.cataclysm.the_baby_leviathan_spawn_egg": "The Baby Leviathan Spawn Egg",
   "item.cataclysm.deepling_spawn_egg": "Deepling Spawn Egg",
   "item.cataclysm.deepling_brute_spawn_egg": "Deepling Brute Spawn Egg",
   "item.cataclysm.deepling_angler_spawn_egg": "Deepling Angler Spawn Egg",
@@ -151,8 +153,10 @@
   "entity.cataclysm.death_laser_beam": "Death Laser Beam",
   "entity.cataclysm.void_vortex": "Void Vortex",
   "entity.cataclysm.the_leviathan": "The Leviathan",
+  "entity.cataclysm.the_baby_leviathan": "The Baby Leviathan",
   "entity.cataclysm.deepling": "Deepling",
   "entity.cataclysm.abyss_blast": "Abyss Blast",
+  "entity.cataclysm.mini_abyss_blast": "Mini Abyss Blast",
   "entity.cataclysm.porta_abyss_blast": "Abyss Blast",
   "entity.cataclysm.abyss_blast_portal": "Abyss Blast Portal",
   "entity.cataclysm.abyss_mine": "Abyss Mine",
@@ -166,6 +170,9 @@
   "entity.cataclysm.abyss_orb": "Abyss Orb",
   "entity.cataclysm.portal_abyss_blast": "Portal's Abyss Blast",
   "entity.cataclysm.lionfish_spike": "Lionfish's Spike",
+  "entity.cataclysm.all.command_0": "%s is wandering",
+  "entity.cataclysm.all.command_1": "%s is following",
+  "entity.cataclysm.all.command_2": "%s is staying",
 
   "effect.cataclysm.monstrous": "Monstrous",
   "effect.cataclysm.blazing_brand": "Blazing Brand",

@@ -2466,6 +2466,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		animator.resetKeyframe(20);
 
+
 		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_ABYSS_BLAST_FIRE);
 		animator.startKeyframe(20);
 		animator.rotate(Maw, (float) Math.toRadians(20F), 0, 0);
@@ -2724,6 +2725,8 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.setStaticKeyframe(20);
 
 		animator.resetKeyframe(20);
+
+
 	}
 
 	@Override
@@ -2810,7 +2813,7 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		this.chainSwing(tailBoxes, swimSpeed * 0.4F, swimDegree * 0.45F, -1, ageInTicks , 1.0f);
 		this.chainSwing(tailBoxes, swimSpeed * 4F, swimDegree * 0.6F, -1, limbSwing,limbSwingAmount);
-		if(swimAnimate) {
+		if(NoswimProgress <= 0) {
 			this.flap(R_fin, finspeed * 0.8F, finDegree, false, 0F, -0.2F, ageInTicks, 1.0f);
 			this.flap(R_fin2, finspeed * 0.8F, finDegree, false, 1F, -0.2F, ageInTicks, 1.0f);
 			this.flap(L_fin, finspeed * 0.8F, finDegree, true, 0F, -0.2F, ageInTicks, 1.0f);
@@ -2832,7 +2835,6 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 			this.flap(R_down_fin, finspeed * 4.0F, finDegree * 1.5F, false, 0F, -0.3F, limbSwing, limbSwingAmount);
 			this.flap(L_down_fin, finspeed * 4.0F, finDegree * 1.5F, true, 0F, -0.3F, limbSwing, limbSwingAmount);
-			this.flap(L_down_fin, finspeed, finDegree * 1.5F, true, 0F, -0.3F, ageInTicks, 1.0f);
 		}else{
 			this.swing(R_fin, finspeed * 20.0F, finDegree * 1.5f, false, 0F, -0.1F, limbSwing, limbSwingAmount);
 			this.swing(L_fin, finspeed * 20.0F, finDegree * 1.5f, true, 0F, -0.1F, limbSwing, limbSwingAmount);

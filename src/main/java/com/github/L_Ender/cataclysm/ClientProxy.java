@@ -95,6 +95,7 @@ public class ClientProxy extends CommonProxy {
         EntityRenderers.register(ModEntities.IGNIS_ABYSS_FIREBALL.get(), RendererIgnis_Abyss_Fireball::new);
         EntityRenderers.register(ModEntities.DEATH_LASER_BEAM.get(), RendererDeath_Laser_beam::new);
         EntityRenderers.register(ModEntities.ABYSS_BLAST.get(), RendererAbyss_Blast::new);
+        EntityRenderers.register(ModEntities.MINI_ABYSS_BLAST.get(), RendererMini_Abyss_Blast::new);
         EntityRenderers.register(ModEntities.LASER_BEAM.get(), RendererLaser_Beam::new);
         EntityRenderers.register(ModEntities.WITHER_MISSILE.get(), RendererWither_Missile::new);
         EntityRenderers.register(ModEntities.WITHER_HOMING_MISSILE.get(), RendererWither_Homing_Missile::new);
@@ -102,6 +103,7 @@ public class ClientProxy extends CommonProxy {
         EntityRenderers.register(ModEntities.VOID_HOWITZER.get(), RendererVoid_Howitzer::new);
         EntityRenderers.register(ModEntities.VOID_VORTEX.get(), RendererVoid_Vortex::new);
         EntityRenderers.register(ModEntities.THE_LEVIATHAN.get(), RendererThe_Leviathan::new);
+        EntityRenderers.register(ModEntities.THE_BABY_LEVIATHAN.get(), RendererThe_Baby_Leviathan::new);
         EntityRenderers.register(ModEntities.THE_LEVIATHAN_TONGUE.get(), RendererThe_Leviathan_Tongue::new);
         EntityRenderers.register(ModEntities.ABYSS_PORTAL.get(), RendererAbyss_Portal::new);
         EntityRenderers.register(ModEntities.ABYSS_ORB.get(), RendererAbyss_Orb::new);

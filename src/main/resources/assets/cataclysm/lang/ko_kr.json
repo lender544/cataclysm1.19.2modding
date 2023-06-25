@@ -69,6 +69,7 @@
   "item.cataclysm.lionfish": "쏠배감펭",
   "item.cataclysm.lionfish_spike": "쏠배감펭의 가시",
 
+
   "item.cataclysm.endermaptera_spawn_egg": "엔더마프테라 생성 알",
   "item.cataclysm.ender_golem_spawn_egg": "엔더 골렘 생성 알",
   "item.cataclysm.ender_guardian_spawn_egg": "엔더 수호자 생성 알",
@@ -78,9 +79,11 @@
   "item.cataclysm.ignited_revenant_spawn_egg": "이그나이티드 레버넌트 생성 알",
   "item.cataclysm.the_harbinger_spawn_egg": "하빈저 생성 알",
   "item.cataclysm.the_leviathan_spawn_egg": "레비아탄 생성 알",
+  "item.cataclysm.the_baby_leviathan_spawn_egg": "아기 레비아탄 생성 알",
   "item.cataclysm.deepling_spawn_egg": "심연꾼 생성 알",
   "item.cataclysm.deepling_brute_spawn_egg": "난폭한 심연꾼 생성 알",
   "item.cataclysm.deepling_angler_spawn_egg": "심연낚시꾼 생성 알",
+  "item.cataclysm.lionfish_spawn_egg": "쏠배감펭 생성 알",
   "item.cataclysm.coralssus_spawn_egg": "코랄서스 생성 알",
 
   "itemGroup.cataclysm": "대격변",
@@ -119,7 +122,7 @@
   "block.cataclysm.void_lantern_block": "공허 랜턴 블록",
   "block.cataclysm.altar_of_fire": "불의 제단",
   "block.cataclysm.altar_of_void": "공허의 제단",
-  "block.cataclysm.altar_of_amethyst":"자수정 제단",
+  "block.cataclysm.altar_of_amethyst": "자수정 제단",
   "block.cataclysm.emp": "EMP",
   "block.cataclysm.mechanical_fusion_anvil": "기계식 융합 모루",
 
@@ -150,8 +153,10 @@
   "entity.cataclysm.death_laser_beam": "죽음의 레이저",
   "entity.cataclysm.void_vortex": "공허 소용돌이",
   "entity.cataclysm.the_leviathan": "레비아탄",
+  "entity.cataclysm.the_baby_leviathan": "아기 레비아탄",
   "entity.cataclysm.deepling": "심연꾼",
   "entity.cataclysm.abyss_blast": "심연 돌풍",
+  "entity.cataclysm.mini_abyss_blast": "소형 심연 돌풍",
   "entity.cataclysm.porta_abyss_blast": "심연 돌풍",
   "entity.cataclysm.abyss_blast_portal": "심연 돌풍 포탈",
   "entity.cataclysm.abyss_mine": "심연 지뢰",
@@ -165,6 +170,9 @@
   "entity.cataclysm.abyss_orb": "심연 구체",
   "entity.cataclysm.portal_abyss_blast": "포탈의 심연 돌풍",
   "entity.cataclysm.lionfish_spike": "쏠배감펭의 가시",
+  "entity.cataclysm.all.command_0": "%s 이(가) 돌아다니는 중",
+  "entity.cataclysm.all.command_1": "%s 이(가) 따라오는 중",
+  "entity.cataclysm.all.command_2": "%s 이(가) 대기중",
 
   "effect.cataclysm.monstrous": "괴력",
   "effect.cataclysm.blazing_brand": "불타는 낙인",

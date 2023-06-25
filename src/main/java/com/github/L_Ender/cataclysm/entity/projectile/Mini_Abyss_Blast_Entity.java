@@ -1,9 +1,11 @@
-package com.github.L_Ender.cataclysm.entity.BossMonster.The_Leviathan;
+package com.github.L_Ender.cataclysm.entity.projectile;
 
 
 import com.github.L_Ender.cataclysm.client.particle.LightningParticle;
 import com.github.L_Ender.cataclysm.client.tool.ControlledAnimation;
 import com.github.L_Ender.cataclysm.config.CMConfig;
+import com.github.L_Ender.cataclysm.entity.BossMonster.The_Leviathan.The_Leviathan_Entity;
+import com.github.L_Ender.cataclysm.entity.Pet.The_Baby_Leviathan_Entity;
 import com.github.L_Ender.cataclysm.init.ModEffect;
 import com.github.L_Ender.cataclysm.init.ModTag;
 import com.github.L_Ender.cataclysm.util.CMDamageTypes;
@@ -35,8 +37,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class Abyss_Blast_Entity extends Entity {
-    public static final double RADIUS = 50;
+public class Mini_Abyss_Blast_Entity extends Entity {
+    public static final double RADIUS = 15;
     public LivingEntity caster;
     public double endPosX, endPosY, endPosZ;
     public double collidePosX, collidePosY, collidePosZ;
@@ -48,18 +50,18 @@ public class Abyss_Blast_Entity extends Entity {
 
     public Direction blockSide = null;
 
-    private static final EntityDataAccessor<Float> YAW = SynchedEntityData.defineId(Abyss_Blast_Entity.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> PITCH = SynchedEntityData.defineId(Abyss_Blast_Entity.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Integer> DURATION = SynchedEntityData.defineId(Abyss_Blast_Entity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> CASTER = SynchedEntityData.defineId(Abyss_Blast_Entity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Float> BEAMDIRECTION = SynchedEntityData.defineId(Abyss_Blast_Entity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> YAW = SynchedEntityData.defineId(Mini_Abyss_Blast_Entity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> PITCH = SynchedEntityData.defineId(Mini_Abyss_Blast_Entity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Integer> DURATION = SynchedEntityData.defineId(Mini_Abyss_Blast_Entity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> CASTER = SynchedEntityData.defineId(Mini_Abyss_Blast_Entity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Float> BEAMDIRECTION = SynchedEntityData.defineId(Mini_Abyss_Blast_Entity.class, EntityDataSerializers.FLOAT);
     public float prevYaw;
     public float prevPitch;
 
     @OnlyIn(Dist.CLIENT)
     private Vec3[] attractorPos;
 
-    public Abyss_Blast_Entity(EntityType<? extends Abyss_Blast_Entity> type, Level world) {
+    public Mini_Abyss_Blast_Entity(EntityType<? extends Mini_Abyss_Blast_Entity> type, Level world) {
         super(type, world);
         noCulling = true;
         if (world.isClientSide) {
@@ -67,7 +69,7 @@ public class Abyss_Blast_Entity extends Entity {
         }
     }
 
-    public Abyss_Blast_Entity(EntityType<? extends Abyss_Blast_Entity> type, Level world, LivingEntity caster, double x, double y, double z, float yaw, float pitch, int duration, float direction) {
+    public Mini_Abyss_Blast_Entity(EntityType<? extends Mini_Abyss_Blast_Entity> type, Level world, LivingEntity caster, double x, double y, double z, float yaw, float pitch, int duration, float direction) {
         this(type, world);
         this.caster = caster;
         this.setYaw(yaw);
@@ -102,7 +104,7 @@ public class Abyss_Blast_Entity extends Entity {
         }
 
         if (!level.isClientSide) {
-            if (caster instanceof The_Leviathan_Entity) {
+            if (caster instanceof The_Baby_Leviathan_Entity) {
                 this.updateWithHarbinger();
             }
         }
@@ -128,35 +130,13 @@ public class Abyss_Blast_Entity extends Entity {
             List<LivingEntity> hit = raytraceEntities(level, new Vec3(getX(), getY(), getZ()), new Vec3(endPosX, endPosY, endPosZ)).entities;
             if (blockSide != null) {
                 spawnExplosionParticles(3);
-                if (!this.level.isClientSide) {
-                    for (BlockPos pos : BlockPos.betweenClosed(Mth.floor(collidePosX - 0.5F), Mth.floor(collidePosY - 0.5F), Mth.floor(collidePosZ - 0.5F), Mth.floor(collidePosX + 0.5F), Mth.floor(collidePosY + 0.5F), Mth.floor(collidePosZ + 0.5F))) {
-                        BlockState block = level.getBlockState(pos);
-                        if (!block.isAir() && !block.is(ModTag.LEVIATHAN_IMMUNE) && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
-                            level.destroyBlock(pos, false);
-                        }
-                    }
-                }
             }
             if (!level.isClientSide) {
                 for (LivingEntity target : hit) {
                     if (caster != null) {
-                    if (!this.caster.isAlliedTo(target) && target != caster) {
-                        boolean flag = target.hurt(CMDamageTypes.causeLaserDamage(this, caster).bypassArmor(), (float) ((float) CMConfig.AbyssBlastdamage + Math.min(CMConfig.AbyssBlastdamage, target.getMaxHealth() * CMConfig.AbyssBlastHpdamage)));
-                        if (flag) {
-                            MobEffectInstance effectinstance1 = target.getEffect(ModEffect.EFFECTABYSSAL_BURN.get());
-                            int i = 1;
-                            if (effectinstance1 != null) {
-                                i += effectinstance1.getAmplifier();
-                                target.removeEffectNoUpdate(ModEffect.EFFECTABYSSAL_BURN.get());
-                            } else {
-                                --i;
-                            }
-
-                            i = Mth.clamp(i, 0, 3);
-                            MobEffectInstance effectinstance = new MobEffectInstance(ModEffect.EFFECTABYSSAL_BURN.get(), 160, i, false, false, true);
-                            target.addEffect(effectinstance);
+                        if (!this.caster.isAlliedTo(target) && target != caster) {
+                            target.hurt(CMDamageTypes.causeLaserDamage(this, caster).bypassArmor(), 3);
                         }
-                    }
                     }
 
                 }
@@ -284,7 +264,7 @@ public class Abyss_Blast_Entity extends Entity {
             if (entity == caster) {
                 continue;
             }
-            float pad = entity.getPickRadius() + 0.5f;
+            float pad = entity.getPickRadius() + 0.15f;
             AABB aabb = entity.getBoundingBox().inflate(pad, pad, pad);
             Optional<Vec3> hit = aabb.clip(from, to);
             if (aabb.contains(from)) {
@@ -326,7 +306,7 @@ public class Abyss_Blast_Entity extends Entity {
 
         float f = -Mth.sin(caster.getYRot() * ((float)Math.PI / 180F)) * Mth.cos(caster.getXRot() * ((float)Math.PI / 180F));
         float f2 = Mth.cos(caster.getYRot() * ((float)Math.PI / 180F)) * Mth.cos(caster.getXRot() * ((float)Math.PI / 180F));
-        this.setPos(caster.getX(),caster.getY() +  1.15f , caster.getZ());
+        this.setPos(caster.getX(),caster.getY() + 0.125f, caster.getZ());
     }
 
     public static class LaserbeamHitResult {

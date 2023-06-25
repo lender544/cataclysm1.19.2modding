@@ -14,13 +14,13 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.level.Level;
 
-public class PetMob extends TamableAnimal implements IAnimatedEntity, IFollower {
+public class AnimationPet extends TamableAnimal implements IAnimatedEntity, IFollower {
     private int animationTick;
     private Animation currentAnimation;
-    private static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(PetMob.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(PetMob.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(AnimationPet.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(AnimationPet.class, EntityDataSerializers.INT);
 
-    public PetMob(EntityType entity, Level world) {
+    public AnimationPet(EntityType entity, Level world) {
         super(entity, world);
 
     }

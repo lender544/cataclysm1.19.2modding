@@ -4,15 +4,16 @@ import com.github.L_Ender.cataclysm.entity.AI.*;
 
 import com.github.L_Ender.cataclysm.entity.BossMonster.The_Leviathan.Abyss_Blast_Entity;
 import com.github.L_Ender.cataclysm.entity.BossMonster.The_Leviathan.Portal_Abyss_Blast_Entity;
-import com.github.L_Ender.cataclysm.entity.BossMonster.The_Leviathan.The_Leviathan_Entity;
+import com.github.L_Ender.cataclysm.entity.Pet.AI.PetSimpleAnimationGoal;
 import com.github.L_Ender.cataclysm.entity.Pet.AI.TameableAIFollowOwnerWater;
-import com.github.L_Ender.cataclysm.entity.etc.CMPathNavigateGround;
-import com.github.L_Ender.cataclysm.entity.etc.ISemiAquatic;
-import com.github.L_Ender.cataclysm.entity.etc.SemiAquaticPathNavigator;
+import com.github.L_Ender.cataclysm.entity.etc.*;
+import com.github.L_Ender.cataclysm.entity.projectile.Mini_Abyss_Blast_Entity;
+import com.github.L_Ender.cataclysm.init.ModEffect;
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import com.github.L_Ender.cataclysm.init.ModSounds;
 import com.github.L_Ender.cataclysm.init.ModTag;
 import com.github.alexthe666.citadel.animation.Animation;
+import com.github.alexthe666.citadel.animation.AnimationHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -20,14 +21,17 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
@@ -42,26 +46,33 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
+import java.util.Optional;
 
-public class The_Baby_Leviathan_Entity extends PetMob implements ISemiAquatic {
+public class The_Baby_Leviathan_Entity extends AnimationPet implements ISemiAquatic {
 
-    public static final Animation BABY_LEVIATHAN_BITE = Animation.create(24);
-    public static final Animation BABY_LEVIATHAN_ABYSS_BLAST = Animation.create(184);
+    public static final Animation BABY_LEVIATHAN_BITE = Animation.create(14);
+    public static final Animation BABY_LEVIATHAN_ABYSS_BLAST = Animation.create(157);
+    public float sitProgress;
+    public float prevSitProgress;
     public float NoSwimProgress = 0;
     public float prevNoSwimProgress = 0;
     private int fishFeedings;
     private boolean isLandNavigator;
     private AttackMode mode = AttackMode.CIRCLE;
-    private int hunting_cooldown = 0;
-    private static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(The_Baby_Leviathan_Entity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(The_Baby_Leviathan_Entity.class, EntityDataSerializers.INT);
+    private int blast_cooldown = 0;
+    public static final int BLAST_HUNTING_COOLDOWN = 150;
+    public double endPosX, endPosY, endPosZ;
+    public double collidePosX, collidePosY, collidePosZ;
 
 
-    protected The_Baby_Leviathan_Entity(EntityType type, Level world) {
+    public The_Baby_Leviathan_Entity(EntityType type, Level world) {
         super(type, world);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
@@ -102,7 +113,7 @@ public class The_Baby_Leviathan_Entity extends PetMob implements ISemiAquatic {
                 .add(Attributes.ARMOR, 5D)
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
                 .add(Attributes.ATTACK_DAMAGE, 4.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.3F);
+                .add(Attributes.MOVEMENT_SPEED, 0.2F);
     }
 
     public boolean removeWhenFarAway(double distanceToClosestPlayer) {
@@ -115,9 +126,11 @@ public class The_Baby_Leviathan_Entity extends PetMob implements ISemiAquatic {
 
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(2, new TameableAIFollowOwnerWater(this, 1.3D, 4.0F, 2.0F, false));
-        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.2F, false));
-        this.goalSelector.addGoal(4, new MobAIFindWater(this,1.0f));
+        this.goalSelector.addGoal(2, new TameableAIFollowOwnerWater(this, 1.3D, 4.0F, 2.0F, true));
+        this.goalSelector.addGoal(3, new BabyLeviathanAttackGoal(this));
+        this.goalSelector.addGoal(0, new BabyLeviathanBiteAttackGoal(this, BABY_LEVIATHAN_BITE));
+        this.goalSelector.addGoal(0, new BabyLeviathanBlastAttackGoal(this, BABY_LEVIATHAN_ABYSS_BLAST));
+        this.goalSelector.addGoal(4, new MobAIFindWater(this, 1.0f));
         this.goalSelector.addGoal(4, new MobAILeaveWater(this));
         this.goalSelector.addGoal(6, new TemptGoal(this, 1.0D, Ingredient.of(Items.TROPICAL_FISH), false));
         this.goalSelector.addGoal(7, new SemiAquaticAIRandomSwimming(this, 1.0D, 30));
@@ -136,10 +149,10 @@ public class The_Baby_Leviathan_Entity extends PetMob implements ISemiAquatic {
     private void switchNavigator(boolean onLand) {
         if (onLand) {
             this.moveControl = new MoveControl(this);
-            this.navigation = new CMPathNavigateGround(this, level);
+            this.navigation = new GroundPathNavigatorWide(this, level);
             this.isLandNavigator = true;
         } else {
-            this.moveControl = new BabyLeviathanMoveController(this, 10, 1, 10);
+            this.moveControl = new BabyLeviathanMoveController(this, 3F, 1F, 10f);
             this.navigation = new SemiAquaticPathNavigator(this, level);
             this.isLandNavigator = false;
         }
@@ -158,6 +171,9 @@ public class The_Baby_Leviathan_Entity extends PetMob implements ISemiAquatic {
             this.moveRelative(this.getSpeed(), travelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+            if (this.getTarget() == null && this.getAnimation() == NO_ANIMATION) {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
+            }
         } else {
             super.travel(travelVector);
         }
@@ -174,25 +190,6 @@ public class The_Baby_Leviathan_Entity extends PetMob implements ISemiAquatic {
 
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(COMMAND, Integer.valueOf(0));
-        this.entityData.define(SITTING, Boolean.valueOf(false));
-    }
-
-
-    public int getCommand() {
-        return this.entityData.get(COMMAND).intValue();
-    }
-
-    public void setCommand(int command) {
-        this.entityData.set(COMMAND, Integer.valueOf(command));
-    }
-
-    public boolean isSitting() {
-        return this.entityData.get(SITTING).booleanValue();
-    }
-
-    public void setOrderedToSit(boolean sit) {
-        this.entityData.set(SITTING, Boolean.valueOf(sit));
     }
 
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
@@ -249,6 +246,7 @@ public class The_Baby_Leviathan_Entity extends PetMob implements ISemiAquatic {
         }
         final boolean groundAnimate = !this.isInWater();
         this.prevNoSwimProgress = NoSwimProgress;
+        this.prevSitProgress = sitProgress;
         if (groundAnimate) {
             if (this.NoSwimProgress < 10F)
                 this.NoSwimProgress++;
@@ -256,12 +254,84 @@ public class The_Baby_Leviathan_Entity extends PetMob implements ISemiAquatic {
             if (this.NoSwimProgress > 0F)
                 this.NoSwimProgress--;
         }
+        if (this.isSitting() && sitProgress < 5) {
+            this.sitProgress ++;
+        }
+        if (!this.isSitting() && sitProgress > 0) {
+            this.sitProgress --;
+        }
+
         if (this.isInWater() && this.isLandNavigator) {
             switchNavigator(false);
         }
         if (!this.isInWater() && !this.isLandNavigator) {
             switchNavigator(true);
         }
+
+        if (blast_cooldown > 0) {
+            blast_cooldown--;
+        }
+
+        AnimationHandler.INSTANCE.updateAnimations(this);
+        if (this.getAnimation() == BABY_LEVIATHAN_BITE) {
+            if (this.getAnimationTick() == 7) {
+                this.playSound(ModSounds.LEVIATHAN_BITE.get(), 0.5f, 2.0f);
+            }
+            if (this.getAnimationTick() == 9) {
+                biteattack(1.5f, 0.5, 0.5, 0.5);
+            }
+        }
+    }
+
+    private void biteattack(float radius, double inflateX, double inflateY, double inflateZ) {
+        double renderYaw = (this.yHeadRot + 90) * Math.PI / 180.0d;
+        double renderPitch = (float) (-this.getXRot() * Math.PI / 180.0d);
+
+        endPosX = getX() + radius * Math.cos(renderYaw) * Math.cos(renderPitch);
+        endPosZ = getZ() + radius * Math.sin(renderYaw) * Math.cos(renderPitch);
+        endPosY = getY() + radius * Math.sin(renderPitch);
+        if (!level.isClientSide) {
+            List<LivingEntity> hit = raytraceEntities(level, inflateX, inflateY, inflateZ, new Vec3(getX(), getY(), getZ()), new Vec3(endPosX, endPosY, endPosZ)).entities;
+            for (LivingEntity target : hit) {
+                if (!isAlliedTo(target) && !(target instanceof The_Baby_Leviathan_Entity) && target != this) {
+                     target.hurt(DamageSource.mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
+                }
+            }
+        }
+    }
+
+    private BiteHitResult raytraceEntities(Level world, double inflateX, double inflateY, double inflateZ, Vec3 from, Vec3 to) {
+        BiteHitResult result = new BiteHitResult();
+        collidePosX = endPosX;
+        collidePosY = endPosY;
+        collidePosZ = endPosZ;
+
+        List<LivingEntity> entities = world.getEntitiesOfClass(LivingEntity.class, new AABB(Math.min(getX(), collidePosX), Math.min(getY(), collidePosY), Math.min(getZ(), collidePosZ), Math.max(getX(), collidePosX), Math.max(getY(), collidePosY), Math.max(getZ(), collidePosZ)).inflate(inflateX, inflateY, inflateZ));
+        for (LivingEntity entity : entities) {
+            float pad = 2.5f;
+            AABB aabb = entity.getBoundingBox().inflate(pad, pad, pad);
+            Optional<Vec3> hit = aabb.clip(from, to);
+            if (aabb.contains(from)) {
+                result.addEntityHit(entity);
+            } else if (hit.isPresent()) {
+                result.addEntityHit(entity);
+            }
+        }
+        return result;
+    }
+
+    public static class BiteHitResult {
+        private final List<LivingEntity> entities = new ArrayList<>();
+
+
+        public void addEntityHit(LivingEntity entity) {
+            entities.add(entity);
+        }
+    }
+
+    @Override
+    protected BodyRotationControl createBodyControl() {
+        return new SmartBodyHelper2(this);
     }
 
     public boolean isAlliedTo(Entity entityIn) {
@@ -328,11 +398,84 @@ public class The_Baby_Leviathan_Entity extends PetMob implements ISemiAquatic {
         RANGE
     }
 
+    static class BabyLeviathanBiteAttackGoal extends PetSimpleAnimationGoal<The_Baby_Leviathan_Entity> {
+
+        public BabyLeviathanBiteAttackGoal(The_Baby_Leviathan_Entity entity, Animation animation) {
+            super(entity, animation);
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK, Flag.JUMP));
+        }
+
+        public void start() {
+            entity.getNavigation().stop();
+            LivingEntity target = entity.getTarget();
+            if (target != null) {
+                entity.getLookControl().setLookAt(target, 30, 90);
+            }
+            super.start();
+        }
+
+        public void tick() {
+            LivingEntity target = entity.getTarget();
+            if (entity.getAnimationTick() < 9 && target != null) {
+                entity.getLookControl().setLookAt(target, 30, 90);
+            }
+        }
+
+        public void stop() {
+            super.stop();
+            LivingEntity target = entity.getTarget();
+            if (target != null) {
+                entity.getLookControl().setLookAt(target, 30, 30);
+            }
+
+        }
+    }
+
+    static class BabyLeviathanBlastAttackGoal extends PetSimpleAnimationGoal<The_Baby_Leviathan_Entity> {
+
+        public BabyLeviathanBlastAttackGoal(The_Baby_Leviathan_Entity entity, Animation animation) {
+            super(entity, animation);
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK, Flag.JUMP));
+        }
+
+        public void start() {
+            entity.getNavigation().stop();
+            entity.level.playSound((Player) null, entity, ModSounds.ABYSS_BLAST.get(), SoundSource.NEUTRAL, 1.0f, 2.0f);
+            LivingEntity target = entity.getTarget();
+            if (target != null) {
+                entity.getLookControl().setLookAt(target, 30, 90);
+                entity.lookAt(target, 30, 90);
+            }
+            super.start();
+        }
+
+        public void stop() {
+            super.stop();
+            entity.blast_cooldown = BLAST_HUNTING_COOLDOWN;
+        }
+
+        public void tick() {
+            entity.getNavigation().stop();
+            LivingEntity target = entity.getTarget();
+            if (target != null) {
+                entity.getLookControl().setLookAt(target, 30, 90);
+                entity.lookAt(target, 30, 90);
+            }
+            float dir = 90.0f;
+            if (this.entity.getAnimationTick() == 37) {
+                if (!entity.level.isClientSide) {
+                    Mini_Abyss_Blast_Entity DeathBeam = new Mini_Abyss_Blast_Entity(ModEntities.MINI_ABYSS_BLAST.get(), entity.level, entity, entity.getX(), entity.getY(), entity.getZ(), (float) ((entity.yHeadRot + dir) * Math.PI / 180), (float) (-entity.getXRot() * Math.PI / 180), 80, dir);
+                    entity.level.addFreshEntity(DeathBeam);
+                }
+            }
+        }
+    }
+
     static class BabyLeviathanAttackGoal extends Goal {
         private final The_Baby_Leviathan_Entity mob;
         private LivingEntity target;
         private float circlingTime = 0;
-        private float circleDistance = 18;
+        private float circleDistance = 4;
         private boolean clockwise = false;
 
         public BabyLeviathanAttackGoal(The_Baby_Leviathan_Entity mob) {
@@ -350,22 +493,22 @@ public class The_Baby_Leviathan_Entity extends PetMob implements ISemiAquatic {
             return this.target != null;
         }
 
-        public void start(){
-            this.mob.mode = AttackMode.CIRCLE;
+        public void start() {
+            this.mob.mode = The_Baby_Leviathan_Entity.AttackMode.CIRCLE;
             circlingTime = 0;
-            circleDistance = 18 + this.mob.random.nextInt(10);
+            circleDistance = 4 + this.mob.random.nextInt(1);
             clockwise = this.mob.random.nextBoolean();
             this.mob.setAggressive(true);
         }
 
         public void stop() {
-            this.mob.mode = AttackMode.CIRCLE;
+            this.mob.mode = The_Baby_Leviathan_Entity.AttackMode.CIRCLE;
             circlingTime = 0;
-            circleDistance = 18 + this.mob.random.nextInt(10);
+            circleDistance = 4 + this.mob.random.nextInt(1);
             clockwise = this.mob.random.nextBoolean();
             this.target = this.mob.getTarget();
             if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(target)) {
-                this.mob.setTarget((LivingEntity)null);
+                this.mob.setTarget((LivingEntity) null);
             }
 
             this.mob.getNavigation().stop();
@@ -379,28 +522,25 @@ public class The_Baby_Leviathan_Entity extends PetMob implements ISemiAquatic {
         public void tick() {
             LivingEntity target = this.mob.getTarget();
             if (target != null) {
-                if (this.mob.mode == AttackMode.CIRCLE) {
+                if (this.mob.mode == The_Baby_Leviathan_Entity.AttackMode.CIRCLE) {
                     BlockPos circlePos = getLeviathanCirclePos(target);
                     if (circlePos != null) {
                         this.mob.getNavigation().moveTo(circlePos.getX() + 0.5D, circlePos.getY(), circlePos.getZ() + 0.5D, 1.0D);
                     }
-                    if (circlingTime >= this.mob.hunting_cooldown) {
-                        if (this.mob.random.nextInt(2) == 0) {
-                            this.mob.mode = AttackMode.RANGE;
-                        } else {
-                            this.mob.mode = AttackMode.MELEE;
-                        }
+                    if (circlingTime >= this.mob.blast_cooldown) {
+                        this.mob.mode = The_Baby_Leviathan_Entity.AttackMode.RANGE;
+                    } else {
+                        this.mob.mode = The_Baby_Leviathan_Entity.AttackMode.MELEE;
                     }
-                }else if (this.mob.mode == AttackMode.RANGE) {
+                } else if (this.mob.mode == The_Baby_Leviathan_Entity.AttackMode.RANGE) {
                     if (this.mob.getRandom().nextFloat() * 100.0F < 3f) {
                         this.mob.setAnimation(BABY_LEVIATHAN_ABYSS_BLAST);
-                    } else if (this.mob.mode == AttackMode.MELEE) {
-                        this.mob.getNavigation().moveTo(target, 1.0D);
-                        this.mob.getLookControl().setLookAt(target, 30, 90);
-                        if (this.mob.getRandom().nextFloat() * 100.0F < 20f && this.mob.distanceToSqr(target) <= 30.0D) {
-                            this.mob.setAnimation(BABY_LEVIATHAN_BITE);
-
-                        }
+                    }
+                } else if (this.mob.mode == The_Baby_Leviathan_Entity.AttackMode.MELEE) {
+                    this.mob.getNavigation().moveTo(target, 1.0D);
+                    this.mob.getLookControl().setLookAt(target, 30, 90);
+                    if (this.mob.distanceToSqr(target) <= 4D) {
+                        this.mob.setAnimation(BABY_LEVIATHAN_BITE);
                     }
                 }
 
