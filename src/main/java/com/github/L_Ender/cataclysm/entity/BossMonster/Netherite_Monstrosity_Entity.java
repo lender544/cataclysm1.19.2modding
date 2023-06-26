@@ -395,6 +395,18 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
 
     }
 
+    public boolean isAlliedTo(Entity entityIn) {
+        if (entityIn == this) {
+            return true;
+        } else if (super.isAlliedTo(entityIn)) {
+            return true;
+        } else if (entityIn instanceof Netherite_Monstrosity_Entity) {
+            return this.getTeam() == null && entityIn.getTeam() == null;
+        } else {
+            return false;
+        }
+    }
+
     private void doAbsorptionEffects(int x, int y, int z) {
 
         int MthX = Mth.floor(this.getX());

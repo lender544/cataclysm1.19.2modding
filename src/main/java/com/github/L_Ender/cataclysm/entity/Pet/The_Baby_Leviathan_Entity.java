@@ -1,14 +1,18 @@
 package com.github.L_Ender.cataclysm.entity.Pet;
 
-import com.github.L_Ender.cataclysm.entity.AI.*;
-
+import com.github.L_Ender.cataclysm.entity.AI.EntityAINearestTarget3D;
+import com.github.L_Ender.cataclysm.entity.AI.MobAIFindWater;
+import com.github.L_Ender.cataclysm.entity.AI.MobAILeaveWater;
+import com.github.L_Ender.cataclysm.entity.AI.SemiAquaticAIRandomSwimming;
 import com.github.L_Ender.cataclysm.entity.BossMonster.The_Leviathan.Abyss_Blast_Entity;
 import com.github.L_Ender.cataclysm.entity.BossMonster.The_Leviathan.Portal_Abyss_Blast_Entity;
 import com.github.L_Ender.cataclysm.entity.Pet.AI.PetSimpleAnimationGoal;
 import com.github.L_Ender.cataclysm.entity.Pet.AI.TameableAIFollowOwnerWater;
-import com.github.L_Ender.cataclysm.entity.etc.*;
+import com.github.L_Ender.cataclysm.entity.etc.GroundPathNavigatorWide;
+import com.github.L_Ender.cataclysm.entity.etc.ISemiAquatic;
+import com.github.L_Ender.cataclysm.entity.etc.SemiAquaticPathNavigator;
+import com.github.L_Ender.cataclysm.entity.etc.SmartBodyHelper2;
 import com.github.L_Ender.cataclysm.entity.projectile.Mini_Abyss_Blast_Entity;
-import com.github.L_Ender.cataclysm.init.ModEffect;
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import com.github.L_Ender.cataclysm.init.ModSounds;
 import com.github.L_Ender.cataclysm.init.ModTag;
@@ -16,9 +20,6 @@ import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -27,7 +28,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -61,8 +61,8 @@ public class The_Baby_Leviathan_Entity extends AnimationPet implements ISemiAqua
     public static final Animation BABY_LEVIATHAN_ABYSS_BLAST = Animation.create(157);
     public float sitProgress;
     public float prevSitProgress;
-    public float NoSwimProgress = 0;
-    public float prevNoSwimProgress = 0;
+    public float SwimProgress;
+    public float prevSwimProgress;
     private int fishFeedings;
     private boolean isLandNavigator;
     private AttackMode mode = AttackMode.CIRCLE;
@@ -109,7 +109,7 @@ public class The_Baby_Leviathan_Entity extends AnimationPet implements ISemiAqua
 
     public static AttributeSupplier.Builder babyleviathan() {
         return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 100.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.1D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
                 .add(Attributes.ARMOR, 5D)
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
                 .add(Attributes.ATTACK_DAMAGE, 4.0D)
@@ -244,15 +244,14 @@ public class The_Baby_Leviathan_Entity extends AnimationPet implements ISemiAqua
         if (this.isSitting() && this.getNavigation().isDone()) {
             this.getNavigation().stop();
         }
-        final boolean groundAnimate = !this.isInWater();
-        this.prevNoSwimProgress = NoSwimProgress;
+        boolean swim = this.isInWater();
+        this.prevSwimProgress = SwimProgress;
         this.prevSitProgress = sitProgress;
-        if (groundAnimate) {
-            if (this.NoSwimProgress < 10F)
-                this.NoSwimProgress++;
-        } else {
-            if (this.NoSwimProgress > 0F)
-                this.NoSwimProgress--;
+        if(SwimProgress < 5F && swim){
+            SwimProgress++;
+        }
+        if(SwimProgress > 0 && !swim){
+            SwimProgress--;
         }
         if (this.isSitting() && sitProgress < 5) {
             this.sitProgress ++;

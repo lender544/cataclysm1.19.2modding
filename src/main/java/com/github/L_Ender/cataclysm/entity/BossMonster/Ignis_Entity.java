@@ -3,6 +3,7 @@ package com.github.L_Ender.cataclysm.entity.BossMonster;
 import com.github.L_Ender.cataclysm.cataclysm;
 import com.github.L_Ender.cataclysm.config.CMConfig;
 import com.github.L_Ender.cataclysm.entity.BossMonster.AI.*;
+import com.github.L_Ender.cataclysm.entity.Endermaptera_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.Flame_Strike_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
@@ -50,6 +51,7 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
@@ -1860,6 +1862,17 @@ public class Ignis_Entity extends Boss_monster {
         }
     }
 
+    public boolean isAlliedTo(Entity entityIn) {
+        if (entityIn == this) {
+            return true;
+        } else if (super.isAlliedTo(entityIn)) {
+            return true;
+        } else if (entityIn instanceof Ignis_Entity) {
+            return this.getTeam() == null && entityIn.getTeam() == null;
+        } else {
+            return false;
+        }
+    }
 
     private void Sphereparticle(float height, float vec, float size) {
         if (this.level.isClientSide) {

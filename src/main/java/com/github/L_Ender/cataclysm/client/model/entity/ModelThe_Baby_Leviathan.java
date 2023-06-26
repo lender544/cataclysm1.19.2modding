@@ -11,7 +11,7 @@ import com.github.alexthe666.citadel.client.model.basic.BasicModelPart;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.Minecraft;
 
-public class ModelBaby_Leviathan extends AdvancedEntityModel<The_Baby_Leviathan_Entity> {
+public class ModelThe_Baby_Leviathan extends AdvancedEntityModel<The_Baby_Leviathan_Entity> {
 	private final AdvancedModelBox root;
 	private final AdvancedModelBox body;
 	private final AdvancedModelBox main_belly;
@@ -52,7 +52,7 @@ public class ModelBaby_Leviathan extends AdvancedEntityModel<The_Baby_Leviathan_
 	private final AdvancedModelBox l_spike1;
 	private ModelAnimator animator;
 
-	public ModelBaby_Leviathan() {
+	public ModelThe_Baby_Leviathan() {
 		texWidth = 64;
 		texHeight = 64;
 
@@ -60,9 +60,79 @@ public class ModelBaby_Leviathan extends AdvancedEntityModel<The_Baby_Leviathan_
 		root.setRotationPoint(0.0F, 24.0F, 0.0F);
 
 
+		head = new AdvancedModelBox(this);
+		head.setRotationPoint(0.0F, -2.4F, -5.9F);
+		root.addChild(head);
+
+
+		maw = new AdvancedModelBox(this);
+		maw.setRotationPoint(0.0F, 0.75F, 0.0F);
+		head.addChild(maw);
+		maw.setTextureOffset(34, 20).addBox(-1.5F, -1.15F, -3.1F, 3.0F, 2.0F, 3.0F, 0.0F, false);
+		maw.setTextureOffset(10, 0).addBox(-1.5F, -0.15F, -3.1F, 3.0F, 0.0F, 3.0F, 0.0F, false);
+		maw.setTextureOffset(10, 4).addBox(-1.0F, -1.05F, -3.9F, 2.0F, 2.0F, 1.0F, 0.0F, false);
+		maw.setTextureOffset(0, 7).addBox(-1.0F, -0.05F, -3.9F, 2.0F, 0.0F, 1.0F, 0.0F, false);
+
+		skul = new AdvancedModelBox(this);
+		skul.setRotationPoint(0.0F, -1.1F, -0.1F);
+		head.addChild(skul);
+		skul.setTextureOffset(6, 28).addBox(-1.0F, -1.0F, -3.8F, 2.0F, 2.0F, 1.0F, -0.1F, false);
+		skul.setTextureOffset(34, 26).addBox(-1.5F, -1.0F, -3.0F, 3.0F, 2.0F, 3.0F, -0.1F, false);
+
+		main_mouth = new AdvancedModelBox(this);
+		main_mouth.setRotationPoint(0.0F, -0.1F, -0.1F);
+		head.addChild(main_mouth);
+
+
+		mouth1 = new AdvancedModelBox(this);
+		mouth1.setRotationPoint(-1.5F, 0.9064F, 0.0717F);
+		main_mouth.addChild(mouth1);
+		setRotationAngle(mouth1, 0.0F, 0.0F, 0.0F);
+		mouth1.setTextureOffset(11, 31).addBox(-1.5F, -0.9064F, -3.0717F, 3.0F, 2.0F, 3.0F, 0.0F, false);
+
+		mouth1_e = new AdvancedModelBox(this);
+		mouth1_e.setRotationPoint(0.0F, 1.0936F, -3.0717F);
+		mouth1.addChild(mouth1_e);
+		setRotationAngle(mouth1_e, -0.0873F, 0.0F, 0.0F);
+		mouth1_e.setTextureOffset(0, 17).addBox(-1.51F, -2.01F, -3.01F, 3.0F, 2.0F, 3.0F, 0.01F, false);
+
+		mouth2 = new AdvancedModelBox(this);
+		mouth2.setRotationPoint(1.5F, 0.9064F, 0.0717F);
+		main_mouth.addChild(mouth2);
+		setRotationAngle(mouth2, 0.0F, 0.0F, 0.0F);
+		mouth2.setTextureOffset(11, 31).addBox(-1.5F, -0.9064F, -3.0717F, 3.0F, 2.0F, 3.0F, 0.0F, true);
+
+		mouth2_e = new AdvancedModelBox(this);
+		mouth2_e.setRotationPoint(0.0F, 1.0936F, -3.0717F);
+		mouth2.addChild(mouth2_e);
+		setRotationAngle(mouth2_e, -0.0873F, 0.0F, 0.0F);
+		mouth2_e.setTextureOffset(0, 17).addBox(-1.49F, -2.01F, -3.01F, 3.0F, 2.0F, 3.0F, 0.01F, true);
+
+		mouth3 = new AdvancedModelBox(this);
+		mouth3.setRotationPoint(-1.5F, -0.9064F, 0.0717F);
+		main_mouth.addChild(mouth3);
+		mouth3.setTextureOffset(32, 10).addBox(-1.5F, -1.0936F, -3.0717F, 3.0F, 2.0F, 3.0F, 0.0F, false);
+
+		mouth3_e = new AdvancedModelBox(this);
+		mouth3_e.setRotationPoint(0.0F, -1.0936F, -3.0717F);
+		mouth3.addChild(mouth3_e);
+		setRotationAngle(mouth3_e, 0.0873F, 0.0F, 0.0F);
+		mouth3_e.setTextureOffset(24, 31).addBox(-1.515F, 0.015F, -3.015F, 3.0F, 2.0F, 3.0F, 0.015F, false);
+
+		mouth4 = new AdvancedModelBox(this);
+		mouth4.setRotationPoint(1.5F, -0.9064F, 0.0717F);
+		main_mouth.addChild(mouth4);
+		mouth4.setTextureOffset(32, 10).addBox(-1.5F, -1.0936F, -3.0717F, 3.0F, 2.0F, 3.0F, 0.0F, true);
+
+		mouth4_e = new AdvancedModelBox(this);
+		mouth4_e.setRotationPoint(0.0F, -1.0936F, -3.0717F);
+		mouth4.addChild(mouth4_e);
+		setRotationAngle(mouth4_e, 0.0873F, 0.0F, 0.0F);
+		mouth4_e.setTextureOffset(24, 31).addBox(-1.485F, 0.015F, -3.015F, 3.0F, 2.0F, 3.0F, 0.015F, true);
+
 		body = new AdvancedModelBox(this);
-		body.setRotationPoint(0.0F, -2.0F, 2.9F);
-		root.addChild(body);
+		body.setRotationPoint(0.0F, 0.4F, 8.8F);
+		head.addChild(body);
 		body.setTextureOffset(14, 12).addBox(-3.0F, -3.0F, -8.9F, 6.0F, 5.0F, 5.0F, 0.0F, false);
 		body.setTextureOffset(0, 28).addBox(0.0F, -6.0F, -8.9F, 0.0F, 3.0F, 5.0F, 0.0F, false);
 
@@ -153,11 +223,13 @@ public class ModelBaby_Leviathan extends AdvancedEntityModel<The_Baby_Leviathan_
 		r_down_fin = new AdvancedModelBox(this);
 		r_down_fin.setRotationPoint(-2.0F, 2.0F, 1.0F);
 		belly.addChild(r_down_fin);
+		setRotationAngle(r_down_fin, 0.0F, 0.0F, -0.5236F);
 		r_down_fin.setTextureOffset(37, 16).addBox(-2.0F, 0.0F, -1.0F, 2.0F, 0.0F, 3.0F, 0.0F, false);
 
 		l_down_fin = new AdvancedModelBox(this);
 		l_down_fin.setRotationPoint(2.0F, 2.0F, 1.0F);
 		belly.addChild(l_down_fin);
+		setRotationAngle(l_down_fin, 0.0F, 0.0F, 0.5236F);
 		l_down_fin.setTextureOffset(37, 16).addBox(0.0F, 0.0F, -1.0F, 2.0F, 0.0F, 3.0F, 0.0F, true);
 
 		tail = new AdvancedModelBox(this);
@@ -185,84 +257,16 @@ public class ModelBaby_Leviathan extends AdvancedEntityModel<The_Baby_Leviathan_
 		setRotationAngle(l_spike2, 0.0F, 0.0F, 0.7854F);
 		l_spike2.setTextureOffset(22, 37).addBox(0.0F, -1.0F, -2.0F, 0.0F, 1.0F, 4.0F, 0.0F, true);
 
-		head = new AdvancedModelBox(this);
-		head.setRotationPoint(0.0F, -0.4F, -8.8F);
-		body.addChild(head);
-
-
-		maw = new AdvancedModelBox(this);
-		maw.setRotationPoint(0.0F, 0.75F, 0.0F);
-		head.addChild(maw);
-		maw.setTextureOffset(34, 20).addBox(-1.5F, -1.15F, -3.1F, 3.0F, 2.0F, 3.0F, 0.0F, false);
-		maw.setTextureOffset(10, 0).addBox(-1.5F, -0.15F, -3.1F, 3.0F, 0.0F, 3.0F, 0.0F, false);
-		maw.setTextureOffset(10, 4).addBox(-1.0F, -1.05F, -3.9F, 2.0F, 2.0F, 1.0F, 0.0F, false);
-		maw.setTextureOffset(0, 7).addBox(-1.0F, -0.05F, -3.9F, 2.0F, 0.0F, 1.0F, 0.0F, false);
-
-		skul = new AdvancedModelBox(this);
-		skul.setRotationPoint(0.0F, -1.1F, -0.1F);
-		head.addChild(skul);
-		skul.setTextureOffset(6, 28).addBox(-1.0F, -1.0F, -3.8F, 2.0F, 2.0F, 1.0F, -0.1F, false);
-		skul.setTextureOffset(34, 26).addBox(-1.5F, -1.0F, -3.0F, 3.0F, 2.0F, 3.0F, -0.1F, false);
-
-		main_mouth = new AdvancedModelBox(this);
-		main_mouth.setRotationPoint(0.0F, -0.5F, -8.9F);
-		body.addChild(main_mouth);
-
-
-		mouth1 = new AdvancedModelBox(this);
-		mouth1.setRotationPoint(-1.5F, 0.9064F, 0.0717F);
-		main_mouth.addChild(mouth1);
-		setRotationAngle(mouth1, 0.0F, 0.0F, 0.0F);
-		mouth1.setTextureOffset(11, 31).addBox(-1.5F, -0.9064F, -3.0717F, 3.0F, 2.0F, 3.0F, 0.0F, false);
-
-		mouth1_e = new AdvancedModelBox(this);
-		mouth1_e.setRotationPoint(0.0F, 1.0936F, -3.0717F);
-		mouth1.addChild(mouth1_e);
-		setRotationAngle(mouth1_e, -0.0873F, 0.0F, 0.0F);
-		mouth1_e.setTextureOffset(0, 17).addBox(-1.51F, -2.01F, -3.01F, 3.0F, 2.0F, 3.0F, 0.01F, false);
-
-		mouth2 = new AdvancedModelBox(this);
-		mouth2.setRotationPoint(1.5F, 0.9064F, 0.0717F);
-		main_mouth.addChild(mouth2);
-		setRotationAngle(mouth2, 0.0F, 0.0F, 0.0F);
-		mouth2.setTextureOffset(11, 31).addBox(-1.5F, -0.9064F, -3.0717F, 3.0F, 2.0F, 3.0F, 0.0F, true);
-
-		mouth2_e = new AdvancedModelBox(this);
-		mouth2_e.setRotationPoint(0.0F, 1.0936F, -3.0717F);
-		mouth2.addChild(mouth2_e);
-		setRotationAngle(mouth2_e, -0.0873F, 0.0F, 0.0F);
-		mouth2_e.setTextureOffset(0, 17).addBox(-1.49F, -2.01F, -3.01F, 3.0F, 2.0F, 3.0F, 0.01F, true);
-
-		mouth3 = new AdvancedModelBox(this);
-		mouth3.setRotationPoint(-1.5F, -0.9064F, 0.0717F);
-		main_mouth.addChild(mouth3);
-		mouth3.setTextureOffset(32, 10).addBox(-1.5F, -1.0936F, -3.0717F, 3.0F, 2.0F, 3.0F, 0.0F, false);
-
-		mouth3_e = new AdvancedModelBox(this);
-		mouth3_e.setRotationPoint(0.0F, -1.0936F, -3.0717F);
-		mouth3.addChild(mouth3_e);
-		setRotationAngle(mouth3_e, 0.0873F, 0.0F, 0.0F);
-		mouth3_e.setTextureOffset(24, 31).addBox(-1.515F, 0.015F, -3.015F, 3.0F, 2.0F, 3.0F, 0.015F, false);
-
-		mouth4 = new AdvancedModelBox(this);
-		mouth4.setRotationPoint(1.5F, -0.9064F, 0.0717F);
-		main_mouth.addChild(mouth4);
-		mouth4.setTextureOffset(32, 10).addBox(-1.5F, -1.0936F, -3.0717F, 3.0F, 2.0F, 3.0F, 0.0F, true);
-
-		mouth4_e = new AdvancedModelBox(this);
-		mouth4_e.setRotationPoint(0.0F, -1.0936F, -3.0717F);
-		mouth4.addChild(mouth4_e);
-		setRotationAngle(mouth4_e, 0.0873F, 0.0F, 0.0F);
-		mouth4_e.setTextureOffset(24, 31).addBox(-1.485F, 0.015F, -3.015F, 3.0F, 2.0F, 3.0F, 0.015F, true);
-
 		r_fin = new AdvancedModelBox(this);
 		r_fin.setRotationPoint(-3.0F, 1.75F, -6.9F);
 		body.addChild(r_fin);
+		setRotationAngle(r_fin, 0.0F, 0.0F, -0.0436F);
 		r_fin.setTextureOffset(0, 23).addBox(-5.0F, 0.0F, -2.0F, 5.0F, 0.0F, 4.0F, 0.0F, false);
 
 		l_fin = new AdvancedModelBox(this);
 		l_fin.setRotationPoint(3.0F, 1.75F, -6.9F);
 		body.addChild(l_fin);
+		setRotationAngle(l_fin, 0.0F, 0.0F, 0.0436F);
 		l_fin.setTextureOffset(0, 23).addBox(0.0F, 0.0F, -2.0F, 5.0F, 0.0F, 4.0F, 0.0F, true);
 
 		r_spike1 = new AdvancedModelBox(this);
@@ -359,12 +363,12 @@ public class ModelBaby_Leviathan extends AdvancedEntityModel<The_Baby_Leviathan_
 		AdvancedModelBox[] lt = new AdvancedModelBox[]{l_tentacle, l_tentacle2};
 		float partialTick = Minecraft.getInstance().getFrameTime();
 		float sitProgress = entityIn.prevSitProgress + (entityIn.sitProgress - entityIn.prevSitProgress) * partialTick;
-		float NoswimProgress = entityIn.prevNoSwimProgress + (entityIn.NoSwimProgress - entityIn.prevNoSwimProgress) * partialTick;
+		float swimProgress = entityIn.prevSwimProgress + (entityIn.SwimProgress - entityIn.prevSwimProgress) * partialTick;
 
-		progressRotationPrev(r_fin,NoswimProgress,0, 0, (float)Math.toRadians(-2.5F), 10f);
-		progressRotationPrev(l_fin,NoswimProgress,0, 0, (float)Math.toRadians(2.5F), 10f);
-		progressRotationPrev(r_down_fin,NoswimProgress,0, 0, (float)Math.toRadians(-30F), 10f);
-		progressRotationPrev(l_down_fin,NoswimProgress,0, 0, (float)Math.toRadians(30F), 10f);
+		progressRotationPrev(r_fin,swimProgress,0, 0, (float)Math.toRadians(2.5F), 5f);
+		progressRotationPrev(l_fin,swimProgress,0, 0, (float)Math.toRadians(-2.5F), 5f);
+		progressRotationPrev(r_down_fin,swimProgress,0, 0, (float)Math.toRadians(30F), 5f);
+		progressRotationPrev(l_down_fin,swimProgress,0, 0, (float)Math.toRadians(-30F), 5f);
 
 		progressRotationPrev(main_belly,sitProgress,0, (float)Math.toRadians(20F), 0, 5f);
 		progressRotationPrev(r_tentacle,sitProgress,0, 0, (float)Math.toRadians(-35F), 5f);
@@ -372,7 +376,8 @@ public class ModelBaby_Leviathan extends AdvancedEntityModel<The_Baby_Leviathan_
 		progressRotationPrev(belly,sitProgress,0, (float)Math.toRadians(30F), 0, 5f);
 		progressRotationPrev(tail,sitProgress,0, (float)Math.toRadians(32.5F), 0, 5f);
 		progressRotationPrev(tail_back,sitProgress,0, (float)Math.toRadians(35F), 0, 5f);
-		progressRotationPrev(head,sitProgress, (float)Math.toRadians(7.5F), (float)Math.toRadians(-22.5F), 0, 5f);
+		progressRotationPrev(skul,sitProgress, (float)Math.toRadians(7.5F), (float)Math.toRadians(-22.5F), 0, 5f);
+		progressRotationPrev(maw,sitProgress, (float)Math.toRadians(7.5F), (float)Math.toRadians(-22.5F), 0, 5f);
 		progressRotationPrev(main_mouth,sitProgress, (float)Math.toRadians(7.5F), (float)Math.toRadians(-22.5F), 0, 5f);
 
 		this.flap(l_hook3, swimSpeed * 0.2F, 0.35F, true, 0F, -0.35F, ageInTicks, 1.0f);
@@ -384,21 +389,39 @@ public class ModelBaby_Leviathan extends AdvancedEntityModel<The_Baby_Leviathan_
 		this.swing(l_hook2, swimSpeed * 1.3F, 0.35F, false, 0F, -0.35F, limbSwing, limbSwingAmount);
 		this.flap(l_hook4, swimSpeed * 1.3F, 0.35F, false, 0F, -0.35F, limbSwing, limbSwingAmount);
 
-		if(NoswimProgress <= 0) {
-			this.flap(r_fin, finspeed * 0.8F, finDegree, false, 0F, -0.2F, ageInTicks, 1.0f);
-			this.flap(l_fin, finspeed * 0.8F, finDegree, true, 1F, -0.2F, ageInTicks, 1.0f);
-			this.flap(r_fin, finspeed * 4.0F, finDegree, false, 0F, -0.2F, limbSwing, limbSwingAmount);
-			this.flap(l_fin, finspeed * 4.0F, finDegree, true, 0F, -0.2F, limbSwing, limbSwingAmount);
 
-			this.flap(r_down_fin, finspeed * 0.8F, finDegree * 1.5F, false, 0F, -0.3F, ageInTicks, 1.0f);
-			this.flap(l_down_fin, finspeed * 0.8F, finDegree * 1.5F, true, 0F, -0.3F, ageInTicks, 1.0f);
+		float walkSwingAmount = limbSwingAmount * (1F - 0.2F * swimProgress);
+		float swimSwingAmount = limbSwingAmount * 0.2F * swimProgress;
 
-			this.flap(r_down_fin, finspeed * 4.0F, finDegree * 1.5F, false, 0F, -0.3F, limbSwing, limbSwingAmount);
-			this.flap(l_down_fin, finspeed * 4.0F, finDegree * 1.5F, true, 0F, -0.3F, limbSwing, limbSwingAmount);
-		}else{
-			this.swing(r_fin, finspeed * 20.0F, finDegree * 3f, false, 0F, -0.2F, limbSwing, limbSwingAmount);
-			this.swing(l_fin, finspeed * 20.0F, finDegree * 3f, true, 0F, -0.2F, limbSwing, limbSwingAmount);
-		}
+
+		this.flap(r_fin, finspeed * 4.0F, finDegree, false, 0F, -0.2F, limbSwing, swimSwingAmount);
+		this.flap(l_fin, finspeed * 4.0F, finDegree, true, 0F, -0.2F, limbSwing, swimSwingAmount);
+
+		this.flap(r_down_fin, finspeed * 4.0F, finDegree * 1.5F, false, 0F, -0.3F, limbSwing, swimSwingAmount);
+		this.flap(l_down_fin, finspeed * 4.0F, finDegree * 1.5F, true, 0F, -0.3F, limbSwing, swimSwingAmount);
+
+		float walkSpeed = 1f;
+		float walkDegree = 0.7f;
+		float f1 = walkDegree * 0.15F;
+		float headUp = 1.6F * Math.min(0, (float) (Math.sin(limbSwing * walkSpeed) * (double) walkSwingAmount * (double) f1 * 9D - (walkSwingAmount * f1 * 9D)));
+		this.head.rotationPointY += headUp;
+		this.head.rotationPointZ += (float) (Math.sin(limbSwing * walkSpeed - 1.5F) * (double) walkSwingAmount * (double) f1 * 9D - (walkSwingAmount * f1 * 9D));
+		this.r_fin.rotationPointY += headUp;
+		this.l_fin.rotationPointY += headUp;
+		this.r_down_fin.rotationPointY += headUp;
+		this.l_down_fin.rotationPointY += headUp;
+		this.walk(tail, walkSpeed, walkDegree * 0.5F, true, 1F, 0.04F, limbSwing, walkSwingAmount);
+		this.walk(tail_back, walkSpeed, walkDegree * 0.65F, false, 2F, -0.04F, limbSwing, walkSwingAmount);
+		this.walk(head, walkSpeed, walkDegree * 0.5F, false, 0F, 0.04F, limbSwing, walkSwingAmount);
+		this.flap(r_fin, walkSpeed, walkDegree, true, 3F, -0.3F, limbSwing, walkSwingAmount);
+		this.flap(l_fin, walkSpeed, walkDegree, false, 3F, -0.3F, limbSwing, walkSwingAmount);
+		this.swing(r_fin, walkSpeed, walkDegree, false, 2F, -0.3F, limbSwing, walkSwingAmount);
+		this.swing(l_fin, walkSpeed, walkDegree, true, 2F, -0.3F, limbSwing, walkSwingAmount);
+		this.flap(r_down_fin, walkSpeed, walkDegree  * 0.5F, true, 3F, -0.15F, limbSwing, walkSwingAmount);
+		this.flap(l_down_fin, walkSpeed, walkDegree  * 0.5F, false, 3F, -0.15F, limbSwing, walkSwingAmount);
+		this.swing(r_down_fin, walkSpeed, walkDegree, false, 2F, -0.3F, limbSwing, walkSwingAmount);
+		this.swing(l_down_fin, walkSpeed, walkDegree, true, 2F, -0.3F, limbSwing, walkSwingAmount);
+
 
 		this.chainSwing(tailBoxes, swimSpeed * 0.4F, swimDegree * 0.45F, -1, ageInTicks , 1.0f);
 		this.chainSwing(tailBoxes, swimSpeed * 4F, swimDegree * 0.6F, -1, limbSwing,limbSwingAmount);

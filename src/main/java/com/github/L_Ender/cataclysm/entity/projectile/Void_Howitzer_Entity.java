@@ -64,7 +64,7 @@ public class Void_Howitzer_Entity extends ThrowableProjectile {
         super.onHit(p_37628_);
         if (!this.level.isClientSide) {
             int standingOnY = Mth.floor(this.getY()) - 3;
-            this.level.explode(this, this.getX(), this.getY(), this.getZ(), 2.0F, false, Explosion.BlockInteraction.NONE);
+            this.level.explode(this, this.getX(), this.getY(), this.getZ(), 3.0F, false, Explosion.BlockInteraction.NONE);
             for (int k = 0; k < 6; ++k) {
                 float f2 = (float) k * (float) Math.PI * 2.0F / 6.0F + ((float) Math.PI * 2F / 5F);
                 this.spawnFangs(this.getX() + (double) Mth.cos(f2) * 2.5D, this.getZ() + (double) Mth.sin(f2) * 2.5D, standingOnY, this.getY() + 1, f2, 0);
@@ -80,6 +80,10 @@ public class Void_Howitzer_Entity extends ThrowableProjectile {
             for (int k = 0; k < 19; ++k) {
                 float f5 = (float) k * (float) Math.PI * 2.0F / 19.0F + ((float) Math.PI * 2F / 25F);
                 this.spawnFangs(this.getX() + (double) Mth.cos(f5) * 5.5D, this.getZ() + (double) Mth.sin(f5) * 5.5D, standingOnY, this.getY() + 1, f5, 6);
+            }
+            for (int k = 0; k < 26; ++k) {
+                float f5 = (float) k * (float) Math.PI * 2.0F / 26.0F + ((float) Math.PI * 2F / 35F);
+                this.spawnFangs(this.getX() + (double) Mth.cos(f5) * 6.5D, this.getZ() + (double) Mth.sin(f5) * 6.5D, standingOnY, this.getY() + 1, f5, 8);
             }
             ScreenShake_Entity.ScreenShake(level, this.position(), 40, 0.3f, 0, 20);
             this.discard();

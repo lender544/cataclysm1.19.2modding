@@ -63,9 +63,9 @@ public class void_forge extends PickaxeItem {
             for (Vec3 vector3d : all) {
                 float f = (float) Mth.atan2(vector3d.z, vector3d.x);
                 player.getCooldowns().addCooldown(this, CMConfig.VoidForgeCooldown);
-                for (int i = 0; i < 4; i++) {
+                for (int i = 0; i < 5; i++) {
                     double d2 = 1.75D * (double) (i + 1);
-                    int j = 2 * i;
+                    int j = 1 * i;
                     this.spawnFangs(player.getX() + (double) Mth.cos(f) * d2, headY, player.getZ() + (double) Mth.sin(f) * d2, standingOnY, f, j, world, player);
                 }
             }
