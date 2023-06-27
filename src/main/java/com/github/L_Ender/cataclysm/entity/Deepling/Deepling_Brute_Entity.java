@@ -199,8 +199,10 @@ public class Deepling_Brute_Entity extends AbstractDeepling {
                 if (this.getAnimationTick() == 5) {
                     this.playSound(ModSounds.DEEPLING_SWING.get(), 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
                     if (target != null) {
-                        float damage = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
-                        target.hurt(DamageSource.mobAttack(this), damage);
+                        if (this.distanceTo(target) < 3.0F) {
+                            float damage = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
+                            target.hurt(DamageSource.mobAttack(this), damage);
+                        }
                     }
                 }
             }

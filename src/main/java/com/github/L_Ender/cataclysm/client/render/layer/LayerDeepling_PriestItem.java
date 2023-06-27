@@ -1,7 +1,9 @@
 package com.github.L_Ender.cataclysm.client.render.layer;
 
 import com.github.L_Ender.cataclysm.client.model.entity.ModelDeepling_Angler;
+import com.github.L_Ender.cataclysm.client.model.entity.ModelDeepling_Priest;
 import com.github.L_Ender.cataclysm.entity.Deepling.Deepling_Angler_Entity;
+import com.github.L_Ender.cataclysm.entity.Deepling.Deepling_Priest_Entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
@@ -13,15 +15,15 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 
-public class LayerDeepling_AnglerItem extends RenderLayer<Deepling_Angler_Entity, ModelDeepling_Angler> {
+public class LayerDeepling_PriestItem extends RenderLayer<Deepling_Priest_Entity, ModelDeepling_Priest> {
     private final ItemInHandRenderer itemInHandRenderer;
 
-    public LayerDeepling_AnglerItem(RenderLayerParent p_234846_, ItemInHandRenderer p_234847_) {
+    public LayerDeepling_PriestItem(RenderLayerParent p_234846_, ItemInHandRenderer p_234847_) {
         super(p_234846_);
         this.itemInHandRenderer = p_234847_;
     }
 
-    public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, Deepling_Angler_Entity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, Deepling_Priest_Entity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         ItemStack itemstack = entitylivingbaseIn.getItemBySlot(EquipmentSlot.MAINHAND);
         matrixStackIn.pushPose();
         boolean left = entitylivingbaseIn.isLeftHanded();

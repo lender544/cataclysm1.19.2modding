@@ -1,6 +1,7 @@
 package com.github.L_Ender.cataclysm.entity.projectile;
 
 import com.github.L_Ender.cataclysm.init.ModEntities;
+import com.github.L_Ender.cataclysm.init.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -30,7 +31,7 @@ import javax.annotation.Nullable;
 public class ThrownCoral_Spear_Entity extends AbstractArrow {
     private static final EntityDataAccessor<Byte> ID_LOYALTY = SynchedEntityData.defineId(ThrownCoral_Spear_Entity.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Boolean> ID_FOIL = SynchedEntityData.defineId(ThrownCoral_Spear_Entity.class, EntityDataSerializers.BOOLEAN);
-    private ItemStack tridentItem = new ItemStack(Items.TRIDENT);
+    private ItemStack tridentItem = new ItemStack(ModItems.CORAL_SPEAR.get());
     private boolean dealtDamage;
     public int clientSideReturnTridentTickCount;
 

@@ -1,9 +1,12 @@
 package com.github.L_Ender.cataclysm.client.render.layer;
 
 import com.github.L_Ender.cataclysm.client.model.entity.ModelDeepling_Angler;
+import com.github.L_Ender.cataclysm.client.model.entity.ModelDeepling_Priest;
 import com.github.L_Ender.cataclysm.client.render.CMRenderTypes;
 import com.github.L_Ender.cataclysm.client.render.entity.RendererDeepling_Angler;
+import com.github.L_Ender.cataclysm.client.render.entity.RendererDeepling_Priest;
 import com.github.L_Ender.cataclysm.entity.Deepling.Deepling_Angler_Entity;
+import com.github.L_Ender.cataclysm.entity.Deepling.Deepling_Priest_Entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -16,17 +19,17 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class Deepling_Angler_Layer extends RenderLayer<Deepling_Angler_Entity, ModelDeepling_Angler> {
+public class Deepling_Priest_Layer extends RenderLayer<Deepling_Priest_Entity, ModelDeepling_Priest> {
 	private static final ResourceLocation DEEPLING_LAYER_TEXTURES  = new ResourceLocation("cataclysm:textures/entity/deepling/deepling_angler_layer.png");
 
-    public Deepling_Angler_Layer(RendererDeepling_Angler renderIn) {
+    public Deepling_Priest_Layer(RendererDeepling_Priest renderIn) {
 		super(renderIn);
 
 
 	}
 
 	@Override
-	public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, Deepling_Angler_Entity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch)
+	public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, Deepling_Priest_Entity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch)
 	{
 		RenderType eyes = CMRenderTypes.CMEyes(DEEPLING_LAYER_TEXTURES);
 		VertexConsumer VertexConsumer = bufferIn.getBuffer(eyes);

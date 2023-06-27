@@ -1,10 +1,7 @@
 package com.github.L_Ender.cataclysm.entity.Deepling;
 
-import com.github.L_Ender.cataclysm.entity.AI.MobAIFindWater;
-import com.github.L_Ender.cataclysm.entity.AI.MobAILeaveWater;
-import com.github.L_Ender.cataclysm.entity.etc.GroundPathNavigatorWide;
-import com.github.L_Ender.cataclysm.entity.etc.SemiAquaticPathNavigator;
 import com.github.L_Ender.cataclysm.entity.projectile.ThrownCoral_Spear_Entity;
+import com.github.L_Ender.cataclysm.init.ModEntities;
 import com.github.L_Ender.cataclysm.init.ModItems;
 import com.github.L_Ender.cataclysm.init.ModSounds;
 import com.github.alexthe666.citadel.animation.Animation;
@@ -17,21 +14,23 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -43,11 +42,17 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 
-public class Deepling_Entity extends AbstractDeepling {
+public class Deepling_Priest_Entity extends AbstractDeepling {
     boolean searchingForLand;
     public static final Animation DEEPLING_TRIDENT_THROW = Animation.create(40);
     public static final Animation DEEPLING_MELEE = Animation.create(20);
-    public Deepling_Entity(EntityType entity, Level world) {
+    public static final Animation DEEPLING_BLIND = Animation.create(57);
+
+    private int lightcooldown = 200;
+    public static final int LIGHT_COOLDOWN = 200;
+
+
+    public Deepling_Priest_Entity(EntityType entity, Level world) {
         super(entity, world);
         this.moveControl = new DeeplingMoveControl(this);
         switchNavigator(false);
@@ -57,7 +62,7 @@ public class Deepling_Entity extends AbstractDeepling {
 
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(2, new DeeplingTridentShoot(this, 0.8D, 10.0F));
+        this.goalSelector.addGoal(2, new DeeplingLightGoal(this));
         this.goalSelector.addGoal(5, new DeeplingGoToBeachGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new DeeplingSwimUpGoal(this, 1.0D, this.level.getSeaLevel()));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers());
@@ -91,7 +96,7 @@ public class Deepling_Entity extends AbstractDeepling {
         super.readAdditionalSaveData(compound);
     }
     protected void populateDefaultEquipmentSlots(RandomSource p_219154_, DifficultyInstance p_219155_) {
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.CORAL_SPEAR.get()));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.FISHING_ROD));
     }
 
     protected SoundEvent getAmbientSound() {
@@ -115,6 +120,11 @@ public class Deepling_Entity extends AbstractDeepling {
         SpawnGroupData spawngroupdata = super.finalizeSpawn(p_34088_, p_34089_, p_34090_, p_34091_, p_34092_);
         RandomSource randomsource = p_34088_.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, p_34089_);
+        Lionfish_Entity drowned = ModEntities.LIONFISH.get().create(level);
+        drowned.finalizeSpawn(p_34088_, p_34089_, p_34090_, p_34091_, p_34092_);
+        drowned.copyPosition(this);
+        drowned.setLeashedTo(this, true);
+        p_34088_.addFreshEntity(drowned);
         return spawngroupdata;
     }
 
@@ -122,13 +132,13 @@ public class Deepling_Entity extends AbstractDeepling {
         return p_32829_.isUnobstructed(this);
     }
 
-    public static boolean candeeplingSpawn(EntityType<Deepling_Entity> p_218991_, LevelAccessor p_218992_, MobSpawnType p_218993_, BlockPos p_218994_, RandomSource p_218995_) {
-        return p_218995_.nextInt(30) == 0 && p_218992_.getDifficulty() != Difficulty.PEACEFUL && (p_218993_ == MobSpawnType.SPAWNER || p_218992_.getFluidState(p_218994_).is(FluidTags.WATER));
+    public static boolean candeeplingSpawn(EntityType<Deepling_Priest_Entity> p_218991_, LevelAccessor p_218992_, MobSpawnType p_218993_, BlockPos p_218994_, RandomSource p_218995_) {
+        return p_218995_.nextInt(30) == 0 &&  p_218992_.getDifficulty() != Difficulty.PEACEFUL && (p_218993_ == MobSpawnType.SPAWNER || p_218992_.getFluidState(p_218994_).is(FluidTags.WATER));
     }
 
     @Override
     public Animation[] getAnimations() {
-        return new Animation[]{NO_ANIMATION, DEEPLING_TRIDENT_THROW, DEEPLING_MELEE};
+        return new Animation[]{NO_ANIMATION, DEEPLING_TRIDENT_THROW, DEEPLING_MELEE,DEEPLING_BLIND};
     }
 
 
@@ -136,6 +146,10 @@ public class Deepling_Entity extends AbstractDeepling {
     public void tick() {
         super.tick();
         LivingEntity target = this.getTarget();
+        if (lightcooldown > 0) {
+            lightcooldown--;
+        }
+
         if(this.isAlive()) {
             if (this.getAnimation() == DEEPLING_TRIDENT_THROW) {
                 if (target != null) {
@@ -162,6 +176,23 @@ public class Deepling_Entity extends AbstractDeepling {
                     }
                 }
             }
+            if (this.getAnimation() == DEEPLING_BLIND) {
+                if (this.getAnimationTick() == 18) {
+                    this.playSound(ModSounds.DEEPLING_LIGHT.get(), 0.2F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+                    for (LivingEntity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(7.0D))) {
+                        if (!isAlliedTo(entity) && entity != this) {
+                            boolean flag = entity.hurt(DamageSource.indirectMagic(this,this), (float) ((float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) * 2));
+
+                            if(flag){
+                                entity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 80));
+                            }
+                        }
+                    }
+
+
+                }
+            }
+
         }
     }
 
@@ -211,9 +242,9 @@ public class Deepling_Entity extends AbstractDeepling {
     }
 
     static class DeeplingGoToBeachGoal extends MoveToBlockGoal {
-        private final Deepling_Entity drowned;
+        private final Deepling_Priest_Entity drowned;
 
-        public DeeplingGoToBeachGoal(Deepling_Entity p_32409_, double p_32410_) {
+        public DeeplingGoToBeachGoal(Deepling_Priest_Entity p_32409_, double p_32410_) {
             super(p_32409_, p_32410_, 8, 2);
             this.drowned = p_32409_;
         }
@@ -241,16 +272,43 @@ public class Deepling_Entity extends AbstractDeepling {
         }
     }
 
+    static class DeeplingLightGoal extends Goal {
+        private final Deepling_Priest_Entity angler;
+
+        public DeeplingLightGoal(Deepling_Priest_Entity angler) {
+            this.angler = angler;
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+        }
+
+        public boolean canUse() {
+            LivingEntity target = this.angler.getTarget();
+            return this.angler.lightcooldown <= 0 && this.angler.getAnimation() == NO_ANIMATION && target != null && this.angler.distanceToSqr(target) <= 64.0D && target.isAlive() && this.angler.getRandom().nextFloat() * 100.0F < 12f;
+        }
+
+        public void start() {
+            super.start();
+            this.angler.setAnimation(DEEPLING_BLIND);
+            this.angler.lightcooldown = LIGHT_COOLDOWN;
+            this.angler.navigation.stop();
+        }
+
+        public void stop() {
+            super.stop();
+        }
+    }
+
+
     static class DeeplingSwimUpGoal extends Goal {
-        private final Deepling_Entity drowned;
+        private final Deepling_Priest_Entity drowned;
         private final double speedModifier;
         private final int seaLevel;
         private boolean stuck;
 
-        public DeeplingSwimUpGoal(Deepling_Entity p_32440_, double p_32441_, int p_32442_) {
+        public DeeplingSwimUpGoal(Deepling_Priest_Entity p_32440_, double p_32441_, int p_32442_) {
             this.drowned = p_32440_;
             this.speedModifier = p_32441_;
             this.seaLevel = p_32442_;
+
         }
 
         public boolean canUse() {
@@ -284,122 +342,11 @@ public class Deepling_Entity extends AbstractDeepling {
         }
     }
 
-    static class DeeplingTridentShoot extends Goal {
-        private final Deepling_Entity mob;
-        private final double moveSpeedAmp;
-        private int attackCooldown;
-        private final float maxAttackDistance;
-        private int attackTime = -1;
-        private int seeTime;
-        private boolean strafingClockwise;
-        private boolean strafingBackwards;
-        private int strafingTime = -1;
-;
-
-        public DeeplingTridentShoot(Deepling_Entity mob, double moveSpeedAmpIn, float maxAttackDistanceIn) {
-            this.mob = mob;
-            this.moveSpeedAmp = moveSpeedAmpIn;
-            this.maxAttackDistance = maxAttackDistanceIn * maxAttackDistanceIn;
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
-        }
-
-        public boolean canUse() {
-            LivingEntity livingentity = this.mob.getTarget();
-            return livingentity != null && livingentity.isAlive() && this.mob.getMainHandItem().is(ModItems.CORAL_SPEAR.get()) && this.mob.distanceToSqr(livingentity) >= 36.0D;
-        }
-
-
-        public boolean canContinueToUse() {
-            return (this.canUse() || !this.mob.getNavigation().isDone()) ;
-        }
-
-        public void start() {
-            super.start();
-            this.mob.setAggressive(true);
-            this.mob.startUsingItem(InteractionHand.MAIN_HAND);
-        }
-
-
-        public void stop() {
-            super.stop();
-            this.mob.setAggressive(false);
-            this.seeTime = 0;
-            this.attackTime = -1;
-            this.mob.stopUsingItem();
-        }
-
-        /**
-         * Keep ticking a continuous task that has already been started
-         */
-        public void tick() {
-            LivingEntity livingentity = this.mob.getTarget();
-
-            if (livingentity != null) {
-                double d0 = this.mob.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ());
-                boolean flag = this.mob.hasLineOfSight(livingentity);
-                boolean flag1 = this.seeTime > 0;
-                if (flag != flag1) {
-                    this.seeTime = 0;
-                }
-
-                if (flag) {
-                    ++this.seeTime;
-                } else {
-                    --this.seeTime;
-                }
-
-                if (!(d0 > (double)this.maxAttackDistance) && this.seeTime >= 20) {
-                    this.mob.getNavigation().stop();
-                    ++this.strafingTime;
-                } else {
-                    this.mob.getNavigation().moveTo(livingentity, this.moveSpeedAmp);
-                    this.strafingTime = -1;
-                }
-
-                if (this.strafingTime >= 20) {
-                    if ((double)this.mob.getRandom().nextFloat() < 0.3D) {
-                        this.strafingClockwise = !this.strafingClockwise;
-                    }
-
-                    if ((double)this.mob.getRandom().nextFloat() < 0.3D) {
-                        this.strafingBackwards = !this.strafingBackwards;
-                    }
-
-                    this.strafingTime = 0;
-                }
-
-                if (this.strafingTime > -1) {
-                    if (d0 > (double)(this.maxAttackDistance * 0.75F)) {
-                        this.strafingBackwards = false;
-                    } else if (d0 < (double)(this.maxAttackDistance * 0.25F)) {
-                        this.strafingBackwards = true;
-                    }
-
-                    this.mob.getMoveControl().strafe(this.strafingBackwards ? -0.5F : 0.5F, this.strafingClockwise ? 0.5F : -0.5F);
-                    this.mob.lookAt(livingentity, 30.0F, 30.0F);
-                } else {
-                    this.mob.getLookControl().setLookAt(livingentity, 30.0F, 30.0F);
-                }
-                if (!flag && this.seeTime < -60) {
-                    this.mob.stopUsingItem();
-                } else if (flag) {
-                    if(mob.getAnimation() != DEEPLING_TRIDENT_THROW){
-                        mob.setAnimation(DEEPLING_TRIDENT_THROW);
-                        this.attackTime = this.attackCooldown;
-
-
-
-                    }
-                }
-            }
-        }
-    }
-
     static class AnimationMeleeAttackGoal extends MeleeAttackGoal {
-        protected final Deepling_Entity mob;
+        protected final Deepling_Priest_Entity mob;
 
 
-        public AnimationMeleeAttackGoal(Deepling_Entity p_25552_, double p_25553_, boolean p_25554_) {
+        public AnimationMeleeAttackGoal(Deepling_Priest_Entity p_25552_, double p_25553_, boolean p_25554_) {
             super(p_25552_,p_25553_,p_25554_);
             this.mob = p_25552_;
             this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
@@ -416,9 +363,9 @@ public class Deepling_Entity extends AbstractDeepling {
     }
 
     static class DeeplingMoveControl extends MoveControl {
-        private final Deepling_Entity drowned;
+        private final Deepling_Priest_Entity drowned;
 
-        public DeeplingMoveControl(Deepling_Entity p_32433_) {
+        public DeeplingMoveControl(Deepling_Priest_Entity p_32433_) {
             super(p_32433_);
             this.drowned = p_32433_;
         }
