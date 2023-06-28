@@ -556,6 +556,14 @@
       }
     ]
   },
+  "leviathan_tentacle_strike": {
+    "subtitle": "leviathan_tentacle_strike.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/leviathan_tentacle_strike"
+      }
+    ]
+  },
   "portal_abyss_blast": {
     "subtitle": "portal_abyss_blast.sub",
     "sounds": [

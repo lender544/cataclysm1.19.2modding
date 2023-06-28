@@ -978,6 +978,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         endPosZ = getZ() + radius * Math.sin(renderYaw) * Math.cos(renderPitch);
         endPosY = getY() + radius * Math.sin(renderPitch);
         if(this.getAnimationTick() == anime){
+            this.playSound(ModSounds.LEVIATHAN_TENTACLE_STRIKE.get(), 1.0F, 1.0F);
             if (!level.isClientSide) {
                 List<LivingEntity> hit = raytraceEntities(level, inflateX, inflateY,inflateZ, new Vec3(getX(), getY(), getZ()), new Vec3(endPosX, endPosY, endPosZ)).entities;
                 for (LivingEntity target : hit) {
