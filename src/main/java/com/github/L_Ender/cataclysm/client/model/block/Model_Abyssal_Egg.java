@@ -3,6 +3,7 @@ package com.github.L_Ender.cataclysm.client.model.block;// Made with Blockbench 
 // Paste this class into your mod and generate all required imports
 
 
+import com.github.L_Ender.cataclysm.blockentities.TileEntityAbyssal_Egg;
 import com.github.alexthe666.citadel.client.model.AdvancedEntityModel;
 import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
 import com.github.alexthe666.citadel.client.model.basic.BasicModelPart;
@@ -42,6 +43,12 @@ public class Model_Abyssal_Egg extends AdvancedEntityModel<Entity> {
 		this.resetToDefaultPose();
 	}
 
+	public void animate(TileEntityAbyssal_Egg beak, float partialTick) {
+		this.resetToDefaultPose();
+		float ageInTicks = beak.tickCount + partialTick;
+		float spin = 0.01F;
+		fetus.rotateAngleY -= ageInTicks * spin;
+	}
 
 	public void setRotationAngle(AdvancedModelBox AdvancedModelBox, float x, float y, float z) {
 		AdvancedModelBox.rotateAngleX = x;

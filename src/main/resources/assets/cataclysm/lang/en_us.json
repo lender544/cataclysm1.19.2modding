@@ -68,7 +68,7 @@
   "item.cataclysm.coral_spear": "Coral Spear",
   "item.cataclysm.lionfish": "Lionfish",
   "item.cataclysm.lionfish_spike": "Lionfish's Spike",
-
+  "item.cataclysm.abyssal_egg": "Abyssal Egg",
 
   "item.cataclysm.endermaptera_spawn_egg": "Endermaptera Spawn Egg",
   "item.cataclysm.ender_golem_spawn_egg": "Ender Golem Spawn Egg",
@@ -125,6 +125,7 @@
   "block.cataclysm.altar_of_amethyst":"Altar Of Amethyst",
   "block.cataclysm.emp":"EMP",
   "block.cataclysm.mechanical_fusion_anvil":"Mechanical Fusion Anvil",
+  "block.cataclysm.abyssal_egg": "Abyssal Egg",
 
   "entity.cataclysm.ender_golem": "Ender Golem",
   "entity.cataclysm.ender_guardian": "Ender Guardian",

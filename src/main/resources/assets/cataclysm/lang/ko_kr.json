@@ -68,7 +68,7 @@
   "item.cataclysm.coral_spear": "산호 창",
   "item.cataclysm.lionfish": "쏠배감펭",
   "item.cataclysm.lionfish_spike": "쏠배감펭의 가시",
-
+  "item.cataclysm.abyssal_egg": "심연의 알",
 
   "item.cataclysm.endermaptera_spawn_egg": "엔더마프테라 생성 알",
   "item.cataclysm.ender_golem_spawn_egg": "엔더 골렘 생성 알",
@@ -125,6 +125,7 @@
   "block.cataclysm.altar_of_amethyst": "자수정 제단",
   "block.cataclysm.emp": "EMP",
   "block.cataclysm.mechanical_fusion_anvil": "기계식 융합 모루",
+  "block.cataclysm.abyssal_egg": "심연의 알",
 
   "entity.cataclysm.ender_golem": "엔더 골렘",
   "entity.cataclysm.ender_guardian": "엔더 수호자",
