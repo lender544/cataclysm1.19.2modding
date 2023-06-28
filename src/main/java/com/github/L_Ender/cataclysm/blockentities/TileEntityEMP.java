@@ -1,4 +1,4 @@
-package com.github.L_Ender.cataclysm.tileentities;
+package com.github.L_Ender.cataclysm.blockentities;
 
 import com.github.L_Ender.cataclysm.blocks.BlockEMP;
 import com.github.L_Ender.cataclysm.entity.effect.ScreenShake_Entity;

@@ -1,9 +1,8 @@
 package com.github.L_Ender.cataclysm.blocks;
 
 import com.github.L_Ender.cataclysm.client.particle.LightningParticle;
-import com.github.L_Ender.cataclysm.init.ModParticle;
 import com.github.L_Ender.cataclysm.init.ModTileentites;
-import com.github.L_Ender.cataclysm.tileentities.TileEntityEMP;
+import com.github.L_Ender.cataclysm.blockentities.TileEntityEMP;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustParticleOptions;

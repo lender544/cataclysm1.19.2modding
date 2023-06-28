@@ -2,7 +2,7 @@ package com.github.L_Ender.cataclysm.client.render.blockentity;
 
 import com.github.L_Ender.cataclysm.client.model.block.Model_Altar_of_Fire;
 import com.github.L_Ender.cataclysm.client.render.CMRenderTypes;
-import com.github.L_Ender.cataclysm.tileentities.TileEntityAltarOfFire;
+import com.github.L_Ender.cataclysm.blockentities.TileEntityAltarOfFire;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix3f;
@@ -38,7 +38,7 @@ public class RendererAltar_of_Fire<T extends TileEntityAltarOfFire> implements B
     public void render(T tileEntityIn, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
         matrixStackIn.pushPose();
         matrixStackIn.translate(0.5F, 1.5F, 0.5F);
-        matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(180.0F));
+        matrixStackIn.scale(1.0F, -1.0F, -1.0F);
         MODEL.animate(tileEntityIn, partialTicks);;
         MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(RenderType.entityCutoutNoCull(TEXTURE)), combinedLightIn, combinedOverlayIn, 1, 1F, 1, 1);
         MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(CMRenderTypes.getGlowingEffect(getIdleTexture(tileEntityIn.tickCount % 12))), 210, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);

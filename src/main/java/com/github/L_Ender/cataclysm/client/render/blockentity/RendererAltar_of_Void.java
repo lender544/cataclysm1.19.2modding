@@ -1,7 +1,7 @@
 package com.github.L_Ender.cataclysm.client.render.blockentity;
 
 import com.github.L_Ender.cataclysm.client.model.block.Model_Altar_of_Void;
-import com.github.L_Ender.cataclysm.tileentities.TileEntityAltarOfVoid;
+import com.github.L_Ender.cataclysm.blockentities.TileEntityAltarOfVoid;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -22,7 +22,7 @@ public class RendererAltar_of_Void<T extends TileEntityAltarOfVoid> implements B
     public void render(T tileEntityIn, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
         matrixStackIn.pushPose();
         matrixStackIn.translate(0.5F, 1.5F, 0.5F);
-        matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(180.0F));
+        matrixStackIn.scale(1.0F, -1.0F, -1.0F);
         MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(RenderType.entityCutoutNoCull(TEXTURE)), combinedLightIn, combinedOverlayIn, 1, 1F, 1, 1);
         matrixStackIn.popPose();
     }

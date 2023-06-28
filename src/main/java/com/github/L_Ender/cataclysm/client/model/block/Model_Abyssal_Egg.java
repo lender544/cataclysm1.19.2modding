@@ -10,16 +10,21 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.world.entity.Entity;
 
 public class Model_Abyssal_Egg extends AdvancedEntityModel<Entity> {
-	private final AdvancedModelBox root;
-
+	public final AdvancedModelBox root;
+	public final AdvancedModelBox fetus;
 	public Model_Abyssal_Egg() {
-		texWidth = 64;
-		texHeight = 64;
+		texWidth = 128;
+		texHeight = 128;
 
 		root = new AdvancedModelBox(this);
 		root.setRotationPoint(0.0F, 24.0F, 0.0F);
 		root.setTextureOffset(0, 0).addBox(-7.0F, -17.25F, -7.0F, 14.0F, 17.0F, 14.0F, 0.0F, false);
-		root.setTextureOffset(0, 31).addBox(-7.0F, -7.25F, -7.0F, 14.0F, 7.0F, 14.0F, 0.3F, false);
+		root.setTextureOffset(0, 32).addBox(-7.0F, -7.25F, -7.0F, 14.0F, 7.0F, 14.0F, 0.3F, false);
+
+		fetus = new AdvancedModelBox(this);
+		fetus.setRotationPoint(0.0F, -8.0F, 0.0F);
+		root.addChild(fetus);
+		fetus.setTextureOffset(43, 0).addBox(-6.0F, -6.0F, 0.0F, 12.0F, 12.0F, 0.0F, 0.0F, false);
 		this.updateDefaultPose();
 	}
 
@@ -29,7 +34,7 @@ public class Model_Abyssal_Egg extends AdvancedEntityModel<Entity> {
 
 	@Override
 	public Iterable<AdvancedModelBox> getAllParts() {
-		return ImmutableList.of(root);
+		return ImmutableList.of(root,fetus);
 	}
 
 	@Override

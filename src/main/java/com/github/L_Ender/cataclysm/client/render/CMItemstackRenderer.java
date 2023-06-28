@@ -35,6 +35,7 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
     private static final Model_Altar_of_Fire ALTAR_OF_FIRE_MODEL = new Model_Altar_of_Fire();
     private static final Model_Altar_of_Void ALTAR_OF_VOID_MODEL = new Model_Altar_of_Void();
     private static final Model_Altar_of_Amethyst ALTAR_OF_AMETHYST_MODEL = new Model_Altar_of_Amethyst();
+    private static final Model_Abyssal_Egg ABYSSAL_MODEL = new Model_Abyssal_Egg();
     private static final ModelWither_Assault_SHoulder_Weapon WASW_MODEL = new ModelWither_Assault_SHoulder_Weapon();
     private static final ModelCoral_Spear CORAL_SPEAR_MODEL = new ModelCoral_Spear();
     private static final ModelVoid_Forge VOID_FORGE_MODEL = new ModelVoid_Forge();
@@ -46,6 +47,8 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
     private static final ResourceLocation ALTAR_OF_FIRE_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altar_of_fire.png");
     private static final ResourceLocation ALTAR_OF_VOID_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/altar_of_void.png");
     private static final ResourceLocation ALTAR_OF_AMETHYST_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/altar_of_amethyst.png");
+    private static final ResourceLocation ABYSSAL_EGG_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/abyssal_egg.png");
+    private static final ResourceLocation ABYSSAL_EGG_LAYER_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/abyssal_egg_layer.png");
     private static final ResourceLocation MIF_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/mechanical_fusion_anvil.png");
     private static final ResourceLocation WASW_TEXTURE = new ResourceLocation("cataclysm:textures/items/wither_assualt_shoulder_weapon.png");
     private static final ResourceLocation VASW_TEXTURE = new ResourceLocation("cataclysm:textures/items/void_assualt_shoulder_weapon.png");
@@ -138,8 +141,8 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
         }
         if(itemStackIn.getItem() == ModBlocks.ALTAR_OF_FIRE.get().asItem()){
             matrixStackIn.pushPose();
-            matrixStackIn.translate(0.5F, 1.5F, 0.5F);
-            matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(-180));
+            matrixStackIn.translate(0.5F, 1.50F, 0.5F);
+            matrixStackIn.scale(1.0F, -1.0F, -1.0F);
             ALTAR_OF_FIRE_MODEL.resetToDefaultPose();
             ALTAR_OF_FIRE_MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(RenderType.entityCutoutNoCull(ALTAR_OF_FIRE_TEXTURE)), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
             ALTAR_OF_FIRE_MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(CMRenderTypes.getGlowingEffect(getIdleTexture(tick % 12))), 210, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
@@ -147,34 +150,43 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
         }
         if(itemStackIn.getItem() == ModBlocks.ALTAR_OF_VOID.get().asItem()){
             matrixStackIn.pushPose();
-            matrixStackIn.translate(0.5F, 1.5F, 0.5F);
-            matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(-180));
+            matrixStackIn.translate(0.5F, 1.50F, 0.5F);
+            matrixStackIn.scale(1.0F, -1.0F, -1.0F);;
             ALTAR_OF_VOID_MODEL.resetToDefaultPose();
             ALTAR_OF_VOID_MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(RenderType.entityCutoutNoCull(ALTAR_OF_VOID_TEXTURE)), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
             matrixStackIn.popPose();
         }
         if(itemStackIn.getItem() == ModBlocks.ALTAR_OF_AMETHYST.get().asItem()){
             matrixStackIn.pushPose();
-            matrixStackIn.translate(0.5F, 1.5F, 0.5F);
-            matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(-180));
+            matrixStackIn.translate(0.5F, 1.50F, 0.5F);
+            matrixStackIn.scale(1.0F, -1.0F, -1.0F);
             ALTAR_OF_AMETHYST_MODEL.resetToDefaultPose();
             ALTAR_OF_AMETHYST_MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(RenderType.entityCutoutNoCull(ALTAR_OF_AMETHYST_TEXTURE)), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
             matrixStackIn.popPose();
         }
         if(itemStackIn.getItem() == ModBlocks.EMP.get().asItem()){
             matrixStackIn.pushPose();
-            matrixStackIn.translate(0.5F, 1.5F, 0.5F);
-            matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(-180));
+            matrixStackIn.translate(0.5F, 1.50F, 0.5F);
+            matrixStackIn.scale(1.0F, -1.0F, -1.0F);
             EMP_MODEL.resetToDefaultPose();
             EMP_MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(RenderType.entityCutoutNoCull(EMP_TEXTURE)), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
             matrixStackIn.popPose();
         }
         if(itemStackIn.getItem() == ModBlocks.MECHANICAL_FUSION_ANVIL.get().asItem()){
             matrixStackIn.pushPose();
-            matrixStackIn.translate(0.5F, 1.5F, 0.5F);
-            matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(-180));
+            matrixStackIn.translate(0.5F, 1.50F, 0.5F);
+            matrixStackIn.scale(1.0F, -1.0F, -1.0F);
             MF_MODEL.resetToDefaultPose();
             MF_MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(RenderType.entityCutoutNoCull(MIF_TEXTURE)), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
+            matrixStackIn.popPose();
+        }
+        if(itemStackIn.getItem() == ModBlocks.ABYSSAL_EGG.get().asItem()){
+            matrixStackIn.pushPose();
+            matrixStackIn.translate(0.5F, 1.50F, 0.5F);
+            matrixStackIn.scale(1.0F, -1.0F, -1.0F);
+            ABYSSAL_MODEL.resetToDefaultPose();
+            ABYSSAL_MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(RenderType.entityCutoutNoCull(ABYSSAL_EGG_TEXTURE)), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
+            ABYSSAL_MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(CMRenderTypes.getghost(ABYSSAL_EGG_LAYER_TEXTURE)), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
             matrixStackIn.popPose();
         }
     }

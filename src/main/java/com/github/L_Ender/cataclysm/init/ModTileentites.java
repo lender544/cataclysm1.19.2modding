@@ -1,8 +1,7 @@
 package com.github.L_Ender.cataclysm.init;
 
 import com.github.L_Ender.cataclysm.cataclysm;
-import com.github.L_Ender.cataclysm.tileentities.*;
-import com.github.L_Ender.cataclysm.tileentities.*;
+import com.github.L_Ender.cataclysm.blockentities.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -25,6 +24,9 @@ public class ModTileentites {
 
     public static final RegistryObject<BlockEntityType<TileEntityAltarOfAmethyst>> ALTAR_OF_AMETHYST = TILE_ENTITY_TYPES.register("altar_of_amethyst", () ->
             BlockEntityType.Builder.of(TileEntityAltarOfAmethyst::new, ModBlocks.ALTAR_OF_AMETHYST.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<TileEntityAbyssal_Egg>> ABYSSAL_EGG = TILE_ENTITY_TYPES.register("abyssal_egg", () ->
+            BlockEntityType.Builder.of(TileEntityAbyssal_Egg::new, ModBlocks.ABYSSAL_EGG.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<TileEntityEMP>> EMP = TILE_ENTITY_TYPES.register("emp", () ->
             BlockEntityType.Builder.of(TileEntityEMP::new, ModBlocks.EMP.get()).build(null));

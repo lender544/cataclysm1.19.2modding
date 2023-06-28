@@ -1,8 +1,8 @@
 package com.github.L_Ender.cataclysm.message;
 
 import com.github.L_Ender.cataclysm.cataclysm;
-import com.github.L_Ender.cataclysm.tileentities.TileEntityAltarOfAmethyst;
-import com.github.L_Ender.cataclysm.tileentities.TileEntityAltarOfFire;
+import com.github.L_Ender.cataclysm.blockentities.TileEntityAltarOfAmethyst;
+import com.github.L_Ender.cataclysm.blockentities.TileEntityAltarOfFire;
 import com.github.alexthe666.citadel.server.message.PacketBufferUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;

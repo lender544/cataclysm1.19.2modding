@@ -2,7 +2,7 @@ package com.github.L_Ender.cataclysm.blocks;
 
 import com.github.L_Ender.cataclysm.init.ModTag;
 import com.github.L_Ender.cataclysm.init.ModTileentites;
-import com.github.L_Ender.cataclysm.tileentities.TileEntityObsidianExplosionTrapBricks;
+import com.github.L_Ender.cataclysm.blockentities.TileEntityObsidianExplosionTrapBricks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;

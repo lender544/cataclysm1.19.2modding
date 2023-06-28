@@ -1,4 +1,4 @@
-package com.github.L_Ender.cataclysm.tileentities;
+package com.github.L_Ender.cataclysm.blockentities;
 
 import com.github.L_Ender.cataclysm.init.ModTileentites;
 import net.minecraft.core.BlockPos;

@@ -2,7 +2,7 @@ package com.github.L_Ender.cataclysm.client.render.blockentity;
 
 import com.github.L_Ender.cataclysm.blocks.BlockEMP;
 import com.github.L_Ender.cataclysm.client.model.block.Model_EMP;
-import com.github.L_Ender.cataclysm.tileentities.TileEntityEMP;
+import com.github.L_Ender.cataclysm.blockentities.TileEntityEMP;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;

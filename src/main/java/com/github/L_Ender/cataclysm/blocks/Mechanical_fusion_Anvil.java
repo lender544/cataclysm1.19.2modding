@@ -2,7 +2,7 @@ package com.github.L_Ender.cataclysm.blocks;
 
 import com.github.L_Ender.cataclysm.init.ModTileentites;
 import com.github.L_Ender.cataclysm.inventory.WeaponfusionMenu;
-import com.github.L_Ender.cataclysm.tileentities.TileEntityMechanical_fusion_Anvil;
+import com.github.L_Ender.cataclysm.blockentities.TileEntityMechanical_fusion_Anvil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;

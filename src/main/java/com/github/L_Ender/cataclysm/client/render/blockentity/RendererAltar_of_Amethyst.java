@@ -2,11 +2,8 @@ package com.github.L_Ender.cataclysm.client.render.blockentity;
 
 
 import com.github.L_Ender.cataclysm.blocks.BlockAltarOfAmethyst;
-import com.github.L_Ender.cataclysm.blocks.Mechanical_fusion_Anvil;
 import com.github.L_Ender.cataclysm.client.model.block.Model_Altar_of_Amethyst;
-import com.github.L_Ender.cataclysm.client.model.block.Model_Mechanical_Anvil;
-import com.github.L_Ender.cataclysm.tileentities.TileEntityAltarOfAmethyst;
-import com.github.L_Ender.cataclysm.tileentities.TileEntityMechanical_fusion_Anvil;
+import com.github.L_Ender.cataclysm.blockentities.TileEntityAltarOfAmethyst;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
