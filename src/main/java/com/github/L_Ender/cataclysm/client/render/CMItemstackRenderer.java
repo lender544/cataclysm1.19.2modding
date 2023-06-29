@@ -35,6 +35,7 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
     private static final Model_Altar_of_Fire ALTAR_OF_FIRE_MODEL = new Model_Altar_of_Fire();
     private static final Model_Altar_of_Void ALTAR_OF_VOID_MODEL = new Model_Altar_of_Void();
     private static final Model_Altar_of_Amethyst ALTAR_OF_AMETHYST_MODEL = new Model_Altar_of_Amethyst();
+    private static final Model_Altar_of_Abyss ALTAR_OF_ABYSS_MODEL = new Model_Altar_of_Abyss();
     private static final Model_Abyssal_Egg ABYSSAL_MODEL = new Model_Abyssal_Egg();
     private static final ModelWither_Assault_SHoulder_Weapon WASW_MODEL = new ModelWither_Assault_SHoulder_Weapon();
     private static final ModelCoral_Spear CORAL_SPEAR_MODEL = new ModelCoral_Spear();
@@ -47,6 +48,7 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
     private static final ResourceLocation ALTAR_OF_FIRE_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altar_of_fire.png");
     private static final ResourceLocation ALTAR_OF_VOID_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/altar_of_void.png");
     private static final ResourceLocation ALTAR_OF_AMETHYST_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/altar_of_amethyst.png");
+    private static final ResourceLocation ALTAR_OF_ABYSS_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/altar_of_abyss.png");
     private static final ResourceLocation ABYSSAL_EGG_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/abyssal_egg.png");
     private static final ResourceLocation ABYSSAL_EGG_LAYER_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/abyssal_egg_layer.png");
     private static final ResourceLocation MIF_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/mechanical_fusion_anvil.png");
@@ -162,6 +164,14 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
             matrixStackIn.scale(1.0F, -1.0F, -1.0F);
             ALTAR_OF_AMETHYST_MODEL.resetToDefaultPose();
             ALTAR_OF_AMETHYST_MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(RenderType.entityCutoutNoCull(ALTAR_OF_AMETHYST_TEXTURE)), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
+            matrixStackIn.popPose();
+        }
+        if(itemStackIn.getItem() == ModBlocks.ALTAR_OF_ABYSS.get().asItem()){
+            matrixStackIn.pushPose();
+            matrixStackIn.translate(0.5F, 1.50F, 0.5F);
+            matrixStackIn.scale(1.0F, -1.0F, -1.0F);
+            ALTAR_OF_ABYSS_MODEL.resetToDefaultPose();
+            ALTAR_OF_ABYSS_MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(RenderType.entityCutoutNoCull(ALTAR_OF_ABYSS_TEXTURE)), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
             matrixStackIn.popPose();
         }
         if(itemStackIn.getItem() == ModBlocks.EMP.get().asItem()){

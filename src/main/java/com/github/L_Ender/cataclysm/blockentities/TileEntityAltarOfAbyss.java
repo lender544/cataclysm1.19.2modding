@@ -27,10 +27,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.Vec3;
 
-public class TileEntityAltarOfFire extends BaseContainerBlockEntity {
+public class TileEntityAltarOfAbyss extends BaseContainerBlockEntity {
 
     public int tickCount;
     private static final int NUM_SLOTS = 1;
@@ -38,12 +37,13 @@ public class TileEntityAltarOfFire extends BaseContainerBlockEntity {
     public boolean summoningthis = false;
     public int summoningticks = 0;
     private final RandomSource rnd = RandomSource.create();
-
-    public TileEntityAltarOfFire(BlockPos pos, BlockState state) {
-        super(ModTileentites.ALTAR_OF_FIRE.get(), pos, state);
+    private float chompProgress;
+    private float prevChompProgress;
+    public TileEntityAltarOfAbyss(BlockPos pos, BlockState state) {
+        super(ModTileentites.ALTAR_OF_ABYSS.get(), pos, state);
     }
 
-    public static void commonTick(Level level, BlockPos pos, BlockState state, TileEntityAltarOfFire entity) {
+    public static void commonTick(Level level, BlockPos pos, BlockState state, TileEntityAltarOfAbyss entity) {
         entity.tick();
 
     }
@@ -51,36 +51,38 @@ public class TileEntityAltarOfFire extends BaseContainerBlockEntity {
     public void tick() {
         tickCount++;
         summoningthis = false;
+        prevChompProgress = chompProgress;
         if (!this.getItem(0).isEmpty()) {
             if(this.getItem(0).getItem() == ModItems.BURNING_ASHES.get()){
                 summoningthis = true;
                 if(summoningticks == 1) {
-                    ScreenShake_Entity.ScreenShake(this.level, Vec3.atCenterOf(this.getBlockPos()), 20, 0.05f, 0, 150);
-                 //   this.level.addFreshEntity(new Flame_Strike_Entity(this.level, this.getBlockPos().getX() + 0.5F, this.getBlockPos().getY(), this.getBlockPos().getZ() + 0.5F, 0, 0, 100, 0, 2.5F, false, null));
+                    //  ScreenShake_Entity.ScreenShake(this.level, Vec3.atCenterOf(this.getBlockPos()), 20, 0.05f, 0, 150);
+                    //   this.level.addFreshEntity(new Flame_Strike_Entity(this.level, this.getBlockPos().getX() + 0.5F, this.getBlockPos().getY(), this.getBlockPos().getZ() + 0.5F, 0, 0, 100, 0, 2.5F, false, null));
                 }
                 if(summoningticks > 118 && summoningticks < 121) {
                     Sphereparticle(3,3);
                 }
                 if(summoningticks > 121) {
-                    this.setItem(0, ItemStack.EMPTY);
-                    BlockBreaking(3, 3, 3);
-                    BasaltBreaking(16,8,16);
-                    Ignis_Entity ignis = ModEntities.IGNIS.get().create(level);
-                    if (ignis != null) {
-                        ignis.setPos(this.getBlockPos().getX() + 0.5F, this.getBlockPos().getY() + 3, this.getBlockPos().getZ() + 0.5F);
-                        if (!level.isClientSide) {
-                            level.addFreshEntity(ignis);
-                        }
-                    }
                 }
-
             }
         }
+
+        if(summoningthis && chompProgress < 30F){
+            chompProgress++;
+        }
+        if(!summoningthis && chompProgress > 0F){
+            chompProgress--;
+        }
+
         if(!summoningthis){
             summoningticks = 0;
         }else{
             summoningticks++;
         }
+    }
+
+    public float getChompProgress(float partialTick){
+        return prevChompProgress + (chompProgress - prevChompProgress) * partialTick;
     }
 
     private void BlockBreaking(int x, int y, int z) {
@@ -96,30 +98,7 @@ public class TileEntityAltarOfFire extends BaseContainerBlockEntity {
                     int l = MthZ + l2;
                     BlockPos blockpos = new BlockPos(i3, k, l);
                     BlockState block = this.level.getBlockState(blockpos);
-                    if (block.getMaterial() != Material.AIR && !block.is(ModTag.ALTAR_DESTROY_IMMUNE)) {
-                        this.level.destroyBlock(blockpos, false);
-                    }
-
-                }
-            }
-        }
-    }
-
-    private void BasaltBreaking(int x, int y, int z) {
-        //this.level.destroyBlock(this.getBlockPos(), false);
-        int MthX = Mth.floor(this.getBlockPos().getX());
-        int MthY = Mth.floor(this.getBlockPos().getY());
-        int MthZ = Mth.floor(this.getBlockPos().getZ());
-        for (int k2 = -x; k2 <= x; ++k2) {
-            for (int l2 = -z; l2 <= z; ++l2) {
-                for (int j = -1; j <= y; ++j) {
-                    int i3 = MthX + k2;
-                    int k = MthY + j;
-                    int l = MthZ + l2;
-                    BlockPos blockpos = new BlockPos(i3, k, l);
-                    BlockState blockstate = this.level.getBlockState(blockpos);
-                    Block block = blockstate.getBlock();
-                    if (block != Blocks.AIR && block == Blocks.BASALT) {
+                    if (block != Blocks.AIR.defaultBlockState() && !block.is(ModTag.ALTAR_DESTROY_IMMUNE)) {
                         this.level.destroyBlock(blockpos, false);
                     }
 
@@ -185,7 +164,7 @@ public class TileEntityAltarOfFire extends BaseContainerBlockEntity {
 
     @Override
     public void setItem(int index, ItemStack stack) {
-        boolean flag = !stack.isEmpty() && stack.sameItem(this.stacks.get(index)) && ItemStack.tagMatches(stack, this.stacks.get(index));
+        boolean flag = !stack.isEmpty() && ItemStack.isSameItemSameTags(stack, this.stacks.get(index));
         this.stacks.set(index, stack);
         if (!stack.isEmpty() && stack.getCount() > this.getMaxStackSize()) {
             stack.setCount(this.getMaxStackSize());
@@ -281,7 +260,7 @@ public class TileEntityAltarOfFire extends BaseContainerBlockEntity {
 
     @Override
     protected Component getDefaultName() {
-        return Component.translatable("block.cataclysm.altar_of_fire");
+        return Component.translatable("block.cataclysm.altar_of_abyss");
     }
 
     @Override

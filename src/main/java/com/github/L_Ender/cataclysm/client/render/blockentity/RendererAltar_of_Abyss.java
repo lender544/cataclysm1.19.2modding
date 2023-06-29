@@ -1,9 +1,12 @@
 package com.github.L_Ender.cataclysm.client.render.blockentity;
 
 
-import com.github.L_Ender.cataclysm.blocks.BlockAltarOfAmethyst;
-import com.github.L_Ender.cataclysm.client.model.block.Model_Altar_of_Amethyst;
+import com.github.L_Ender.cataclysm.blockentities.TileEntityAltarOfAbyss;
 import com.github.L_Ender.cataclysm.blockentities.TileEntityAltarOfAmethyst;
+import com.github.L_Ender.cataclysm.blocks.BlockAltarOfAbyss;
+import com.github.L_Ender.cataclysm.blocks.BlockAltarOfAmethyst;
+import com.github.L_Ender.cataclysm.client.model.block.Model_Altar_of_Abyss;
+import com.github.L_Ender.cataclysm.client.model.block.Model_Altar_of_Amethyst;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
@@ -19,18 +22,18 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
-public class RendererAltar_of_Amethyst<T extends TileEntityAltarOfAmethyst> implements BlockEntityRenderer<T> {
+public class RendererAltar_of_Abyss<T extends TileEntityAltarOfAbyss> implements BlockEntityRenderer<T> {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation("cataclysm:textures/blocks/altar_of_amethyst.png");
-    private static final Model_Altar_of_Amethyst MODEL = new Model_Altar_of_Amethyst();
+    private static final ResourceLocation TEXTURE = new ResourceLocation("cataclysm:textures/blocks/altar_of_abyss.png");
+    private static final Model_Altar_of_Abyss MODEL = new Model_Altar_of_Abyss();
 
-    public RendererAltar_of_Amethyst(Context rendererDispatcherIn) {
+    public RendererAltar_of_Abyss(Context rendererDispatcherIn) {
     }
 
     @Override
     public void render(T tileEntityIn, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
         matrixStackIn.pushPose();
-        Direction dir = tileEntityIn.getBlockState().getValue(BlockAltarOfAmethyst.FACING);
+        Direction dir = tileEntityIn.getBlockState().getValue(BlockAltarOfAbyss.FACING);
         if(dir == Direction.NORTH){
             matrixStackIn.translate(0.5, 1.5F, 0.5F);
         }else if(dir == Direction.EAST){
@@ -43,6 +46,7 @@ public class RendererAltar_of_Amethyst<T extends TileEntityAltarOfAmethyst> impl
         matrixStackIn.mulPose(dir.getOpposite().getRotation());
         matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(90.0F));
         matrixStackIn.pushPose();
+        MODEL.animate(tileEntityIn, partialTicks);
         MODEL.renderToBuffer(matrixStackIn, bufferIn.getBuffer(RenderType.entityCutoutNoCull(TEXTURE)), combinedLightIn, combinedOverlayIn, 1, 1F, 1, 1);
         matrixStackIn.popPose();
         matrixStackIn.popPose();
@@ -54,7 +58,7 @@ public class RendererAltar_of_Amethyst<T extends TileEntityAltarOfAmethyst> impl
         float f2 = (float) tileEntityIn.tickCount + partialTicks;
         if (!stack.isEmpty()) {
             matrixStackIn.pushPose();
-            matrixStackIn.translate(0.5F, 1.1F, 0.5F);
+            matrixStackIn.translate(0.5F, 0.9F, 0.5F);
 
             matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(f2));
             BakedModel ibakedmodel = Minecraft.getInstance().getItemRenderer().getModel(stack, tileEntityIn.getLevel(), (LivingEntity) null, 0);

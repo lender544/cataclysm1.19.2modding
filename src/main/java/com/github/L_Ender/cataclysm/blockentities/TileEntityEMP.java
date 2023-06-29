@@ -42,7 +42,7 @@ public class TileEntityEMP extends BlockEntity {
             overload = getBlockState().getValue(BlockEMP.OVERLOAD);
         }
 
-        if(powered && chompProgress < 20F){
+        if(powered && chompProgress < 15F){
             chompProgress++;
         }
         if(!powered && chompProgress > 0F){

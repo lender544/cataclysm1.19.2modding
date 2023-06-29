@@ -6,14 +6,17 @@ import com.github.L_Ender.cataclysm.entity.Pet.The_Baby_Leviathan_Entity;
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import com.github.L_Ender.cataclysm.init.ModTileentites;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -21,8 +24,11 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -31,7 +37,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-public class BlockAbyssal_Egg extends BaseEntityBlock {
+public class BlockAbyssal_Egg extends BaseEntityBlock implements SimpleWaterloggedBlock {
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final int MAX_HATCH_LEVEL = 2;
     public static final IntegerProperty HATCH = BlockStateProperties.HATCH;
     private static final int REGULAR_HATCH_TIME_TICKS = 12000;
@@ -44,15 +51,31 @@ public class BlockAbyssal_Egg extends BaseEntityBlock {
                 .emissiveRendering((block, world, pos) -> true)
                 .strength(3.0F, 9.0F)
                 .sound(SoundType.METAL));
-        this.registerDefaultState(this.stateDefinition.any().setValue(HATCH, Integer.valueOf(0)));
+        this.registerDefaultState(this.stateDefinition.any().setValue(HATCH, Integer.valueOf(0)).setValue(WATERLOGGED, Boolean.FALSE));
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_277441_) {
-        p_277441_.add(HATCH);
+        p_277441_.add(HATCH,WATERLOGGED);
     }
 
     public VoxelShape getShape(BlockState p_277872_, BlockGetter p_278090_, BlockPos p_277364_, CollisionContext p_278016_) {
         return SHAPE;
+    }
+
+    public FluidState getFluidState(BlockState p_51581_) {
+        return p_51581_.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(p_51581_);
+    }
+
+    public BlockState getStateForPlacement(BlockPlaceContext p_48781_) {
+        FluidState fluidstate = p_48781_.getLevel().getFluidState(p_48781_.getClickedPos());
+        return this.defaultBlockState().setValue(WATERLOGGED, Boolean.valueOf(fluidstate.getType() == Fluids.WATER));
+    }
+
+    public BlockState updateShape(BlockState p_51555_, Direction p_51556_, BlockState p_51557_, LevelAccessor p_51558_, BlockPos p_51559_, BlockPos p_51560_) {
+        if (p_51555_.getValue(WATERLOGGED)) {
+            p_51558_.scheduleTick(p_51559_, Fluids.WATER, Fluids.WATER.getTickDelay(p_51558_));
+        }
+        return super.updateShape(p_51555_, p_51556_, p_51557_, p_51558_, p_51559_, p_51560_);
     }
 
     public int getHatchLevel(BlockState p_279125_) {

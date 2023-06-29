@@ -25,6 +25,9 @@ public class ModTileentites {
     public static final RegistryObject<BlockEntityType<TileEntityAltarOfAmethyst>> ALTAR_OF_AMETHYST = TILE_ENTITY_TYPES.register("altar_of_amethyst", () ->
             BlockEntityType.Builder.of(TileEntityAltarOfAmethyst::new, ModBlocks.ALTAR_OF_AMETHYST.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<TileEntityAltarOfAbyss>> ALTAR_OF_ABYSS = TILE_ENTITY_TYPES.register("altar_of_abyss", () ->
+            BlockEntityType.Builder.of(TileEntityAltarOfAbyss::new, ModBlocks.ALTAR_OF_ABYSS.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<TileEntityAbyssal_Egg>> ABYSSAL_EGG = TILE_ENTITY_TYPES.register("abyssal_egg", () ->
             BlockEntityType.Builder.of(TileEntityAbyssal_Egg::new, ModBlocks.ABYSSAL_EGG.get()).build(null));
 
