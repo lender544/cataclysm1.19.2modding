@@ -81,8 +81,8 @@ public class Model_Altar_of_Abyss extends AdvancedEntityModel<Entity> {
 	public void animate(TileEntityAltarOfAbyss beak, float partialTick) {
 		this.resetToDefaultPose();
 		float amount = beak.getChompProgress(partialTick);
-		progressRotationPrev(skul, amount,(float)Math.toRadians(30F), 0f, 0, 15f);
-		progressRotationPrev(maw, amount,(float)Math.toRadians(-30F), 0f, 0, 15f);
+		progressRotationPrev(skul, amount,(float)Math.toRadians(30F), 0f, 0, 30f);
+		progressRotationPrev(maw, amount,(float)Math.toRadians(-30F), 0f, 0, 30f);
 	}
 
 	public void setRotationAngle(AdvancedModelBox AdvancedModelBox, float x, float y, float z) {

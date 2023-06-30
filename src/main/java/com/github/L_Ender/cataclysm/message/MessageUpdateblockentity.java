@@ -1,5 +1,6 @@
 package com.github.L_Ender.cataclysm.message;
 
+import com.github.L_Ender.cataclysm.blockentities.TileEntityAltarOfAbyss;
 import com.github.L_Ender.cataclysm.cataclysm;
 import com.github.L_Ender.cataclysm.blockentities.TileEntityAltarOfAmethyst;
 import com.github.L_Ender.cataclysm.blockentities.TileEntityAltarOfFire;
@@ -56,6 +57,10 @@ public class MessageUpdateblockentity {
                         }
                         if (player.level.getBlockEntity(pos) instanceof TileEntityAltarOfAmethyst) {
                             TileEntityAltarOfAmethyst podium = (TileEntityAltarOfAmethyst) player.level.getBlockEntity(pos);
+                            podium.setItem(0, message.heldStack);
+                        }
+                        if (player.level.getBlockEntity(pos) instanceof TileEntityAltarOfAbyss) {
+                            TileEntityAltarOfAbyss podium = (TileEntityAltarOfAbyss) player.level.getBlockEntity(pos);
                             podium.setItem(0, message.heldStack);
                         }
                     }

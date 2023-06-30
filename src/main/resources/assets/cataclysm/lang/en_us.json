@@ -83,6 +83,7 @@
   "item.cataclysm.deepling_spawn_egg": "Deepling Spawn Egg",
   "item.cataclysm.deepling_brute_spawn_egg": "Deepling Brute Spawn Egg",
   "item.cataclysm.deepling_angler_spawn_egg": "Deepling Angler Spawn Egg",
+  "item.cataclysm.deepling_priest_spawn_egg": "Deepling Priest Spawn Egg",
   "item.cataclysm.lionfish_spawn_egg": "Lionfish Spawn Egg",
   "item.cataclysm.coralssus_spawn_egg": "Coralssus Spawn Egg",
 
@@ -123,6 +124,7 @@
   "block.cataclysm.altar_of_fire":"Altar Of Fire",
   "block.cataclysm.altar_of_void":"Altar Of Void",
   "block.cataclysm.altar_of_amethyst":"Altar Of Amethyst",
+  "block.cataclysm.altar_of_abyss":"Altar Of Abyss",
   "block.cataclysm.emp":"EMP",
   "block.cataclysm.mechanical_fusion_anvil":"Mechanical Fusion Anvil",
   "block.cataclysm.abyssal_egg": "Abyssal Egg",
@@ -165,6 +167,7 @@
   "entity.cataclysm.coral_spear": "Coral Spear",
   "entity.cataclysm.deepling_brute": "Deepling Brute",
   "entity.cataclysm.deepling_angler": "Deepling Angler",
+  "entity.cataclysm.deepling_priest": "Deepling Priest",
   "entity.cataclysm.coralssus": "Coralssus",
   "entity.cataclysm.lionfish": "Lionfish",
   "entity.cataclysm.dimensional_rift": "Dimensional Rift",

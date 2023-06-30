@@ -44,7 +44,6 @@ import java.util.EnumSet;
 
 public class Deepling_Priest_Entity extends AbstractDeepling {
     boolean searchingForLand;
-    public static final Animation DEEPLING_TRIDENT_THROW = Animation.create(40);
     public static final Animation DEEPLING_MELEE = Animation.create(20);
     public static final Animation DEEPLING_BLIND = Animation.create(57);
 
@@ -56,7 +55,7 @@ public class Deepling_Priest_Entity extends AbstractDeepling {
         super(entity, world);
         this.moveControl = new DeeplingMoveControl(this);
         switchNavigator(false);
-        this.xpReward = 8;
+        this.xpReward = 10;
       
     }
 
@@ -69,11 +68,11 @@ public class Deepling_Priest_Entity extends AbstractDeepling {
         this.goalSelector.addGoal(3, new AnimationMeleeAttackGoal(this, 1.0f, false));
     }
 
-    public static AttributeSupplier.Builder deepling() {
+    public static AttributeSupplier.Builder deeplingpriest() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.27F)
                 .add(Attributes.ATTACK_DAMAGE, 4.0D)
-                .add(Attributes.MAX_HEALTH, 30)
+                .add(Attributes.MAX_HEALTH, 45)
                 .add(Attributes.FOLLOW_RANGE, 20)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.25);
     }
@@ -120,11 +119,6 @@ public class Deepling_Priest_Entity extends AbstractDeepling {
         SpawnGroupData spawngroupdata = super.finalizeSpawn(p_34088_, p_34089_, p_34090_, p_34091_, p_34092_);
         RandomSource randomsource = p_34088_.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, p_34089_);
-        Lionfish_Entity drowned = ModEntities.LIONFISH.get().create(level);
-        drowned.finalizeSpawn(p_34088_, p_34089_, p_34090_, p_34091_, p_34092_);
-        drowned.copyPosition(this);
-        drowned.setLeashedTo(this, true);
-        p_34088_.addFreshEntity(drowned);
         return spawngroupdata;
     }
 
@@ -132,13 +126,10 @@ public class Deepling_Priest_Entity extends AbstractDeepling {
         return p_32829_.isUnobstructed(this);
     }
 
-    public static boolean candeeplingSpawn(EntityType<Deepling_Priest_Entity> p_218991_, LevelAccessor p_218992_, MobSpawnType p_218993_, BlockPos p_218994_, RandomSource p_218995_) {
-        return p_218995_.nextInt(30) == 0 &&  p_218992_.getDifficulty() != Difficulty.PEACEFUL && (p_218993_ == MobSpawnType.SPAWNER || p_218992_.getFluidState(p_218994_).is(FluidTags.WATER));
-    }
 
     @Override
     public Animation[] getAnimations() {
-        return new Animation[]{NO_ANIMATION, DEEPLING_TRIDENT_THROW, DEEPLING_MELEE,DEEPLING_BLIND};
+        return new Animation[]{NO_ANIMATION, DEEPLING_MELEE,DEEPLING_BLIND};
     }
 
 
@@ -151,20 +142,6 @@ public class Deepling_Priest_Entity extends AbstractDeepling {
         }
 
         if(this.isAlive()) {
-            if (this.getAnimation() == DEEPLING_TRIDENT_THROW) {
-                if (target != null) {
-                    if (this.getAnimationTick() == 11) {
-                        ThrownCoral_Spear_Entity throwntrident = new ThrownCoral_Spear_Entity(this.level, this, new ItemStack(ModItems.CORAL_SPEAR.get()));
-                        double p0 = target.getX() - this.getX();
-                        double p1 = target.getY(0.3333333333333333D) - throwntrident.getY();
-                        double p2 = target.getZ() - this.getZ();
-                        double p3 = Math.sqrt(p0 * p0 + p2 * p2);
-                        throwntrident.shoot(p0, p1 + p3 * (double) 0.2F, p2, 1.6F, (float) (14 - this.level.getDifficulty().getId() * 4));
-                        this.playSound(SoundEvents.DROWNED_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-                        this.level.addFreshEntity(throwntrident);
-                    }
-                }
-            }
             if (this.getAnimation() == DEEPLING_MELEE) {
                 if (this.getAnimationTick() == 5) {
                     this.playSound(ModSounds.DEEPLING_SWING.get(), 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));

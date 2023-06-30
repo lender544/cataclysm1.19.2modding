@@ -1,7 +1,7 @@
 package com.github.L_Ender.cataclysm.client.render.entity;
 
 import com.github.L_Ender.cataclysm.client.model.entity.ModelDeepling_Brute;
-import com.github.L_Ender.cataclysm.client.render.layer.Deepling_Brute_Layer;
+import com.github.L_Ender.cataclysm.client.render.layer.AbstractDeepling_Layer;
 import com.github.L_Ender.cataclysm.client.render.layer.LayerDeeplingBruteItem;
 import com.github.L_Ender.cataclysm.entity.Deepling.Deepling_Brute_Entity;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -19,10 +19,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class RendererDeepling_Brute extends MobRenderer<Deepling_Brute_Entity, ModelDeepling_Brute> {
 
     private static final ResourceLocation SSAPBUG_TEXTURES = new ResourceLocation("cataclysm:textures/entity/deepling/deepling_brute.png");
+    private static final ResourceLocation DEEPLING_LAYER_TEXTURES  = new ResourceLocation("cataclysm:textures/entity/deepling/deepling_brute_layer.png");
 
     public RendererDeepling_Brute(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new ModelDeepling_Brute(), 0.7F);
-        this.addLayer(new Deepling_Brute_Layer(this));
+        this.addLayer(new AbstractDeepling_Layer(this,DEEPLING_LAYER_TEXTURES));
         this.addLayer(new LayerDeeplingBruteItem(this, renderManagerIn.getItemInHandRenderer()));
 
     }

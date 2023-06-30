@@ -69,12 +69,17 @@ public class Charge_Watcher_Entity extends Entity {
                     Wall_Watcher_Entity watchEntity = new Wall_Watcher_Entity(level, source.blockPosition(), temp, effectiveChargeTime,
                             knockbackSpeedIndex, damagePerEffectiveCharge, dx, dz,
                             source);
-                    for (LivingEntity target : checks) {
+                    List<LivingEntity> impact = level.getEntitiesOfClass(LivingEntity.class, source.getBoundingBox().inflate(3.5f, 0.75f, 3.5f));
+                    impact.remove(source);
+
+                    for (LivingEntity target : impact) {
                         // Deal damage
-                        boolean flag = target.hurt(DamageSource.indirectMobAttack(this,source), damagePerEffectiveCharge * effectiveChargeTime);
-                        watchEntity.watch(target);
-                        if(flag){
-                            target.playSound(SoundEvents.ANVIL_LAND, 1.5f, 0.8F);
+                        if (!target.isAlliedTo(source)) {
+                            boolean flag = target.hurt(DamageSource.indirectMobAttack(this, source), damagePerEffectiveCharge * effectiveChargeTime);
+                            watchEntity.watch(target);
+                            if (flag) {
+                                target.playSound(SoundEvents.ANVIL_LAND, 1.5f, 0.8F);
+                            }
                         }
 
                     }

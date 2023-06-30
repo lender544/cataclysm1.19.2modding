@@ -1,11 +1,8 @@
 package com.github.L_Ender.cataclysm.client.render.entity;
 
 import com.github.L_Ender.cataclysm.client.model.entity.ModelDeepling_Priest;
-import com.github.L_Ender.cataclysm.client.render.layer.Deepling_Angler_Layer;
-import com.github.L_Ender.cataclysm.client.render.layer.Deepling_Priest_Layer;
-import com.github.L_Ender.cataclysm.client.render.layer.LayerDeepling_AnglerItem;
+import com.github.L_Ender.cataclysm.client.render.layer.AbstractDeepling_Layer;
 import com.github.L_Ender.cataclysm.client.render.layer.LayerDeepling_PriestItem;
-import com.github.L_Ender.cataclysm.entity.Deepling.Deepling_Angler_Entity;
 import com.github.L_Ender.cataclysm.entity.Deepling.Deepling_Priest_Entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -23,12 +20,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class RendererDeepling_Priest extends MobRenderer<Deepling_Priest_Entity, ModelDeepling_Priest> {
 
-    private static final ResourceLocation SSAPBUG_TEXTURES = new ResourceLocation("cataclysm:textures/entity/deepling/deepling_angler.png");
+    private static final ResourceLocation SSAPBUG_TEXTURES = new ResourceLocation("cataclysm:textures/entity/deepling/deepling_priest.png");
     private static final float HALF_SQRT_3 = (float)(Math.sqrt(3.0D) / 2.0D);
+    private static final ResourceLocation DEEPLING_LAYER_TEXTURES  = new ResourceLocation("cataclysm:textures/entity/deepling/deepling_priest_layer.png");
 
     public RendererDeepling_Priest(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new ModelDeepling_Priest(), 0.7F);
-        this.addLayer(new Deepling_Priest_Layer(this));
+        this.addLayer(new AbstractDeepling_Layer(this,DEEPLING_LAYER_TEXTURES));
         this.addLayer(new LayerDeepling_PriestItem(this, renderManagerIn.getItemInHandRenderer()));
 
     }

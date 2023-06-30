@@ -53,18 +53,18 @@ public class TileEntityAltarOfAbyss extends BaseContainerBlockEntity {
         summoningthis = false;
         prevChompProgress = chompProgress;
         if (!this.getItem(0).isEmpty()) {
-            if(this.getItem(0).getItem() == ModItems.BURNING_ASHES.get()){
-                summoningthis = true;
-                if(summoningticks == 1) {
-                    //  ScreenShake_Entity.ScreenShake(this.level, Vec3.atCenterOf(this.getBlockPos()), 20, 0.05f, 0, 150);
+          //  if(this.getItem(0).getItem() == ModItems.BURNING_ASHES.get()){
+          //      summoningthis = true;
+          //      if(summoningticks == 1) {
+           //         //  ScreenShake_Entity.ScreenShake(this.level, Vec3.atCenterOf(this.getBlockPos()), 20, 0.05f, 0, 150);
                     //   this.level.addFreshEntity(new Flame_Strike_Entity(this.level, this.getBlockPos().getX() + 0.5F, this.getBlockPos().getY(), this.getBlockPos().getZ() + 0.5F, 0, 0, 100, 0, 2.5F, false, null));
-                }
-                if(summoningticks > 118 && summoningticks < 121) {
-                    Sphereparticle(3,3);
-                }
-                if(summoningticks > 121) {
-                }
-            }
+           //     }
+           //     if(summoningticks > 118 && summoningticks < 121) {
+           //         Sphereparticle(3,3);
+           //     }
+            //    if(summoningticks > 121) {
+          //      }
+           // }
         }
 
         if(summoningthis && chompProgress < 30F){

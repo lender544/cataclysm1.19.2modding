@@ -109,9 +109,14 @@ public class ModEntities {
             .build(cataclysm.MODID + ":deepling_brute"));
 
     public static final RegistryObject<EntityType<Deepling_Angler_Entity>> DEEPLING_ANGLER = ENTITY_TYPE.register("deepling_angler", () -> EntityType.Builder.of(Deepling_Angler_Entity::new, MobCategory.MONSTER)
-            .sized(0.6F, 2.3f)
+            .sized(0.65F, 2.45f)
             .clientTrackingRange(8)
             .build(cataclysm.MODID + ":deepling_angler"));
+
+    public static final RegistryObject<EntityType<Deepling_Priest_Entity>> DEEPLING_PRIEST = ENTITY_TYPE.register("deepling_priest", () -> EntityType.Builder.of(Deepling_Priest_Entity::new, MobCategory.MONSTER)
+            .sized(0.6F, 2.3f)
+            .clientTrackingRange(8)
+            .build(cataclysm.MODID + ":deepling_priest"));
 
     public static final RegistryObject<EntityType<Lionfish_Entity>> LIONFISH = ENTITY_TYPE.register("lionfish", () -> EntityType.Builder.of(Lionfish_Entity::new, MobCategory.MONSTER)
             .sized(0.6F, 0.55f)
@@ -365,6 +370,7 @@ public class ModEntities {
         event.put(DEEPLING.get(), Deepling_Entity.deepling().build());
         event.put(DEEPLING_BRUTE.get(), Deepling_Brute_Entity.deeplingbrute().build());
         event.put(DEEPLING_ANGLER.get(), Deepling_Angler_Entity.deepling().build());
+        event.put(DEEPLING_PRIEST.get(), Deepling_Priest_Entity.deeplingpriest().build());
         event.put(CORALSSUS.get(), Coralssus_Entity.coralssus().build());
         event.put(LIONFISH.get(), Lionfish_Entity.lionfish().build());
     }

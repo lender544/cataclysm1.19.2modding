@@ -16,8 +16,11 @@ public class ModelDeepling_Priest extends AdvancedEntityModel<Deepling_Priest_En
 	public final AdvancedModelBox left_leg;
 	public final AdvancedModelBox right_leg;
 	public final AdvancedModelBox body;
+	public final AdvancedModelBox body_r1;
+	public final AdvancedModelBox body_r2;
 	public final AdvancedModelBox head;
 	public final AdvancedModelBox head2;
+	public final AdvancedModelBox head_r1;
 	public final AdvancedModelBox fin;
 	public final AdvancedModelBox r_fin;
 	public final AdvancedModelBox l_fin;
@@ -49,7 +52,21 @@ public class ModelDeepling_Priest extends AdvancedEntityModel<Deepling_Priest_En
 		body.setRotationPoint(0.0F, -20.0F, 0.0F);
 		root.addChild(body);
 		body.setTextureOffset(0, 32).addBox(-5.0F, -11.0F, -2.0F, 10.0F, 11.0F, 4.0F, 0.0F, false);
+		body.setTextureOffset(96, 0).addBox(-6.0F, -11.0F, -2.0F, 12.0F, 27.0F, 4.0F, 0.3F, false);
+		body.setTextureOffset(92, 43).addBox(-6.5F, -11.0F, -2.5F, 13.0F, 17.0F, 5.0F, 0.0F, false);
 		body.setTextureOffset(52, 29).addBox(0.0F, -11.0F, 2.0F, 0.0F, 11.0F, 4.0F, 0.0F, false);
+
+		body_r1 = new AdvancedModelBox(this);
+		body_r1.setRotationPoint(-6.3F, 3.6F, -2.3F);
+		body.addChild(body_r1);
+		setRotationAngle(body_r1, 0.0F, -0.1745F, 0.0F);
+		body_r1.setTextureOffset(89, 7).addBox(-5.0F, -3.5F, 0.0F, 5.0F, 7.0F, 0.0F, 0.0F, false);
+
+		body_r2 = new AdvancedModelBox(this);
+		body_r2.setRotationPoint(6.3F, -3.5F, -2.3F);
+		body.addChild(body_r2);
+		setRotationAngle(body_r2, 0.0F, 0.48F, 0.0F);
+		body_r2.setTextureOffset(89, 0).addBox(0.0F, -3.6F, 0.0F, 5.0F, 7.0F, 0.0F, 0.0F, false);
 
 		head = new AdvancedModelBox(this);
 		head.setRotationPoint(0.0F, -11.0F, 0.0F);
@@ -60,7 +77,14 @@ public class ModelDeepling_Priest extends AdvancedEntityModel<Deepling_Priest_En
 		head2.setRotationPoint(0.0F, -3.0F, 0.0F);
 		head.addChild(head2);
 		head2.setTextureOffset(0, 16).addBox(-6.0F, -4.0F, -4.0F, 12.0F, 8.0F, 8.0F, 0.0F, false);
+		head2.setTextureOffset(80, 14).addBox(-6.0F, -9.0F, 0.0F, 7.0F, 5.0F, 0.0F, 0.0F, false);
 		head2.setTextureOffset(34, 87).addBox(-6.0F, -4.0F, -4.0F, 12.0F, 8.0F, 8.0F, -0.1F, false);
+
+		head_r1 = new AdvancedModelBox(this);
+		head_r1.setRotationPoint(6.0F, 0.0F, -4.0F);
+		head2.addChild(head_r1);
+		setRotationAngle(head_r1, 0.0F, 0.2618F, 0.0F);
+		head_r1.setTextureOffset(80, 19).addBox(0.0F, -4.0F, 0.0F, 5.0F, 8.0F, 0.0F, 0.0F, false);
 
 		fin = new AdvancedModelBox(this);
 		fin.setRotationPoint(0.0F, -4.0F, 0.0F);
@@ -112,80 +136,6 @@ public class ModelDeepling_Priest extends AdvancedEntityModel<Deepling_Priest_En
 	public void animate(Deepling_Priest_Entity entity, float f, float f1, float f2, float f3, float f4) {
 		this.resetToDefaultPose();
 		animator.update(entity);
-		animator.setAnimation(Deepling_Priest_Entity.DEEPLING_TRIDENT_THROW);
-		if(!entity.isInWater()) {
-			if(entity.isLeftHanded()){
-				animator.startKeyframe(10);
-				animator.rotate(right_arm, (float) Math.toRadians(-55F), (float) Math.toRadians(10F), (float) Math.toRadians(7.5F));
-				animator.rotate(left_arm, (float) Math.toRadians(-200F), (float) Math.toRadians(-15F), (float) Math.toRadians(35f));
-				animator.rotate(head, (float) Math.toRadians(-7.5F), (float) Math.toRadians(10.5F), (float) Math.toRadians(7.5F));
-				animator.rotate(body, (float) Math.toRadians(-10F), (float) Math.toRadians(-15F), (float) Math.toRadians(-7.5F));
-				animator.endKeyframe();
-
-				animator.startKeyframe(2);
-				animator.rotate(left_arm, (float) Math.toRadians(-55.5F), (float) Math.toRadians(5F), (float) Math.toRadians(50f));
-				animator.rotate(right_arm, (float) Math.toRadians(-7.5F), (float) Math.toRadians(12.5F), (float) Math.toRadians(22.5F));
-
-				animator.rotate(head, (float) Math.toRadians(5F), (float) Math.toRadians(10F), (float) Math.toRadians(5F));
-				animator.rotate(body, (float) Math.toRadians(22.5F), (float) Math.toRadians(30F), (float) Math.toRadians(-7.5F));
-				animator.endKeyframe();
-
-				animator.resetKeyframe(28);
-			}else {
-				animator.startKeyframe(10);
-				animator.rotate(left_arm, (float) Math.toRadians(-55F), (float) Math.toRadians(-10F), (float) Math.toRadians(-7.5F));
-				animator.rotate(right_arm, (float) Math.toRadians(-200F), (float) Math.toRadians(15F), (float) Math.toRadians(-35f));
-				animator.rotate(head, (float) Math.toRadians(-7.5F), (float) Math.toRadians(-10.5F), (float) Math.toRadians(-7.5F));
-				animator.rotate(body, (float) Math.toRadians(-10F), (float) Math.toRadians(15F), (float) Math.toRadians(7.5F));
-				animator.endKeyframe();
-
-				animator.startKeyframe(2);
-				animator.rotate(left_arm, (float) Math.toRadians(-7.5F), (float) Math.toRadians(-12.5F), (float) Math.toRadians(-22.5F));
-				animator.rotate(right_arm, (float) Math.toRadians(-55.5F), (float) Math.toRadians(-5F), (float) Math.toRadians(-50f));
-				animator.rotate(head, (float) Math.toRadians(5F), (float) Math.toRadians(-10F), (float) Math.toRadians(-5F));
-				animator.rotate(body, (float) Math.toRadians(22.5F), (float) Math.toRadians(-30F), (float) Math.toRadians(7.5F));
-				animator.endKeyframe();
-
-				animator.resetKeyframe(28);
-			}
-		}else{
-			if(entity.isLeftHanded()){
-				animator.startKeyframe(10);
-				animator.rotate(left_arm, (float) Math.toRadians(-200f), (float) Math.toRadians(-17.5f), (float) Math.toRadians(72.5f));
-				animator.rotate(right_arm, 0, 0, (float) Math.toRadians(-10f));
-
-				animator.rotate(head, (float) Math.toRadians(-7.5F), (float) Math.toRadians(10.5F), (float) Math.toRadians(7.5F));
-				animator.rotate(body, (float) Math.toRadians(2.5F), (float) Math.toRadians(-15F), (float) Math.toRadians(-7.5F));
-				animator.endKeyframe();
-
-				animator.startKeyframe(2);
-				animator.rotate(left_arm, (float) Math.toRadians(-55.5F), (float) Math.toRadians(5F), (float) Math.toRadians(50f));
-				animator.rotate(right_arm, 0, 0, (float) Math.toRadians(7.5F));
-
-				animator.rotate(head, (float) Math.toRadians(-5F), (float) Math.toRadians(10F), (float) Math.toRadians(7.5F));
-				animator.rotate(body, (float) Math.toRadians(22.5F), (float) Math.toRadians(30F), (float) Math.toRadians(-7.5F));
-				animator.endKeyframe();
-
-				animator.resetKeyframe(28);
-			}else {
-				animator.startKeyframe(10);
-				animator.rotate(left_arm, 0, 0, (float) Math.toRadians(-10f));
-				animator.rotate(right_arm, (float) Math.toRadians(-200f), (float) Math.toRadians(17.5f), (float) Math.toRadians(-72.5f));
-				animator.rotate(head, (float) Math.toRadians(-7.5F), (float) Math.toRadians(-10.5F), (float) Math.toRadians(-7.5F));
-				animator.rotate(body, (float) Math.toRadians(2.5F), (float) Math.toRadians(15F), (float) Math.toRadians(7.5F));
-				animator.endKeyframe();
-
-				animator.startKeyframe(2);
-				animator.rotate(left_arm, 0, 0, (float) Math.toRadians(-7.5F));
-				animator.rotate(right_arm, (float) Math.toRadians(-55.5F), (float) Math.toRadians(-5F), (float) Math.toRadians(-50f));
-				animator.rotate(head, (float) Math.toRadians(-5F), (float) Math.toRadians(-10F), (float) Math.toRadians(-7.5F));
-				animator.rotate(body, (float) Math.toRadians(22.5F), (float) Math.toRadians(-30F), (float) Math.toRadians(7.5F));
-				animator.endKeyframe();
-
-				animator.resetKeyframe(28);
-			}
-		}
-
 		animator.setAnimation(Deepling_Priest_Entity.DEEPLING_MELEE);
 		if(!entity.isInWater()) {
 			if(entity.isLeftHanded()){
@@ -297,8 +247,6 @@ public class ModelDeepling_Priest extends AdvancedEntityModel<Deepling_Priest_En
 
 			animator.resetKeyframe(10);
 		}
-
-
 	}
 
 	@Override

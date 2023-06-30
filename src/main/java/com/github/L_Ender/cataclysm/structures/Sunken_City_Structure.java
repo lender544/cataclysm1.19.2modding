@@ -337,6 +337,9 @@ public class Sunken_City_Structure extends Structure {
                 case "sus":
                     list.add(ModEntities.CORALSSUS.get().create(worldIn.getLevel()));
                     break;
+                case "deepling_priest":
+                    list.add(ModEntities.DEEPLING_PRIEST.get().create(worldIn.getLevel()));
+                    break;
                 default:
                     return;
             }
