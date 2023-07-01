@@ -95,7 +95,7 @@ public class Deepling_Priest_Entity extends AbstractDeepling {
         super.readAdditionalSaveData(compound);
     }
     protected void populateDefaultEquipmentSlots(RandomSource p_219154_, DifficultyInstance p_219155_) {
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.FISHING_ROD));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.ATHAME.get()));
     }
 
     protected SoundEvent getAmbientSound() {

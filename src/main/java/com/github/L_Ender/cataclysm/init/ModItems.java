@@ -136,6 +136,9 @@ public class ModItems {
     public static final RegistryObject<Item> CORAL_SPEAR = ITEMS.register("coral_spear",
             () -> new Coral_Spear((new Item.Properties()).durability(110).tab(cataclysm.CATACLYSM_GROUP)));
 
+    public static final RegistryObject<Item> ATHAME = ITEMS.register("athame",
+            () -> new Athame((new Item.Properties()).durability(250).tab(cataclysm.CATACLYSM_GROUP)));
+
     public static final RegistryObject<Item> BULWARK_OF_THE_FLAME = ITEMS.register("bulwark_of_the_flame",
             () -> new Bulwark_of_the_flame(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant().tab(cataclysm.CATACLYSM_GROUP)));
 

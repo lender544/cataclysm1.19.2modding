@@ -27,8 +27,8 @@ public class ModelGauntlet_of_Guard extends AdvancedEntityModel<Entity> {
 		texHeight = 64;
 
 		root = new AdvancedModelBox(this);
-		root.setRotationPoint(0.0F, 9.0F, 0.0F);
-		
+		root.setRotationPoint(0.0F, 19.0F, 0.0F);
+
 
 		gauntlet_fist = new AdvancedModelBox(this);
 		gauntlet_fist.setRotationPoint(0.0F, 0.0F, -3.5F);

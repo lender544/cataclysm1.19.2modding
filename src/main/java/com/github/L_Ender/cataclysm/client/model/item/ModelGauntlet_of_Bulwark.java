@@ -1,4 +1,7 @@
-package com.github.L_Ender.cataclysm.client.model.item;
+package com.github.L_Ender.cataclysm.client.model.item;// Made with Blockbench 4.6.4
+// Exported for Minecraft version 1.15 - 1.16 with MCP mappings
+// Paste this class into your mod and generate all required imports
+
 
 import com.github.alexthe666.citadel.client.model.AdvancedEntityModel;
 import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
@@ -26,8 +29,8 @@ public class ModelGauntlet_of_Bulwark extends AdvancedEntityModel<Entity> {
 		texHeight = 64;
 
 		root = new AdvancedModelBox(this);
-		root.setRotationPoint(0.0F, 9.0F, -3.5F);
-		
+		root.setRotationPoint(0.0F, 19.0F, -3.5F);
+
 
 		gauntlet_fist = new AdvancedModelBox(this);
 		gauntlet_fist.setRotationPoint(0.0F, 0.0F, 0.0F);
