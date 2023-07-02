@@ -70,6 +70,7 @@
   "item.cataclysm.lionfish_spike": "쏠배감펭의 가시",
   "item.cataclysm.abyssal_egg": "심연의 알",
   "item.cataclysm.athame": "의식용 단검",
+  "item.cataclysm.tidal_claws": "타이달 클로",
 
   "item.cataclysm.endermaptera_spawn_egg": "엔더마프테라 생성 알",
   "item.cataclysm.ender_golem_spawn_egg": "엔더 골렘 생성 알",
@@ -185,6 +186,7 @@
   "effect.cataclysm.abyssal_burn": "심연의 화상",
   "effect.cataclysm.bone_fracture": "골절",
   "effect.cataclysm.abyssal_fear": "심연의 공포",
+  "effect.cataclysm.abyssal_curse": "심연의 저주",
 
   "golemhurt.sub": "엔더 골렘이 상처를 입음",
   "golemdeath.sub": "엔더 골렘이 죽음",

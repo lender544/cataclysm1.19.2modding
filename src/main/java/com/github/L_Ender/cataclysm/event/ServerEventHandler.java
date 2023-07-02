@@ -5,8 +5,10 @@ import com.github.L_Ender.cataclysm.entity.BossMonster.The_Harbinger_Entity;
 import com.github.L_Ender.cataclysm.init.ModBlocks;
 import com.github.L_Ender.cataclysm.init.ModEffect;
 import com.github.L_Ender.cataclysm.init.ModItems;
+import com.github.L_Ender.cataclysm.items.ILeftClick;
 import com.github.L_Ender.cataclysm.items.final_fractal;
 import com.github.L_Ender.cataclysm.items.zweiender;
+import com.github.L_Ender.cataclysm.message.MessageSwingArm;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -191,6 +193,20 @@ public class ServerEventHandler {
     public void onPlayerInteract(PlayerInteractEvent.LeftClickEmpty event) {
         if (event.isCancelable() && event.getEntity().hasEffect(ModEffect.EFFECTSTUN.get())) {
             event.setCanceled(true);
+        }
+        boolean flag = false;
+        ItemStack leftItem = event.getEntity().getOffhandItem();
+        ItemStack rightItem = event.getEntity().getMainHandItem();
+        if(leftItem.getItem() instanceof ILeftClick){
+            ((ILeftClick)leftItem.getItem()).onLeftClick(leftItem, event.getEntity());
+            flag = true;
+        }
+        if(rightItem.getItem() instanceof ILeftClick){
+            ((ILeftClick)rightItem.getItem()).onLeftClick(rightItem, event.getEntity());
+            flag = true;
+        }
+        if (event.getLevel().isClientSide && flag) {
+            cataclysm.sendMSGToServer(MessageSwingArm.INSTANCE);
         }
     }
 

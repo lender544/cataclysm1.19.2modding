@@ -153,7 +153,7 @@ public class Abyss_Blast_Entity extends Entity {
                             }
 
                             i = Mth.clamp(i, 0, 3);
-                            MobEffectInstance effectinstance = new MobEffectInstance(ModEffect.EFFECTABYSSAL_BURN.get(), 160, i, false, false, true);
+                            MobEffectInstance effectinstance = new MobEffectInstance(ModEffect.EFFECTABYSSAL_BURN.get(), 160, i, false, true, true);
                             target.addEffect(effectinstance);
                         }
                     }

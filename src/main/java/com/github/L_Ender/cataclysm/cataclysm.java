@@ -7,6 +7,7 @@ import com.github.L_Ender.cataclysm.config.ConfigHolder;
 import com.github.L_Ender.cataclysm.event.ServerEventHandler;
 import com.github.L_Ender.cataclysm.init.*;
 import com.github.L_Ender.cataclysm.message.MessageCMMultipart;
+import com.github.L_Ender.cataclysm.message.MessageSwingArm;
 import com.github.L_Ender.cataclysm.message.MessageUpdateblockentity;
 import com.github.L_Ender.cataclysm.util.Cataclysm_Group;
 import com.github.L_Ender.cataclysm.util.Modcompat;
@@ -117,6 +118,7 @@ public class cataclysm {
         event.enqueueWork(Modcompat::registerDispenserBehaviors);
         NETWORK_WRAPPER.registerMessage(packetsRegistered++, MessageCMMultipart.class, MessageCMMultipart::encode, MessageCMMultipart::new, MessageCMMultipart.Handler::onMessage);
         NETWORK_WRAPPER.registerMessage(packetsRegistered++, MessageUpdateblockentity.class, MessageUpdateblockentity::write, MessageUpdateblockentity::read, MessageUpdateblockentity.Handler::handle);
+        NETWORK_WRAPPER.registerMessage(packetsRegistered++, MessageSwingArm.class, MessageSwingArm::write, MessageSwingArm::read, MessageSwingArm.Handler::handle);
     }
 
 }

@@ -316,6 +316,10 @@ public class ModEntities {
             .sized(0.1F, 0.1F)
             .build(cataclysm.MODID + ":the_leviathan_tongue"));
 
+    public static final RegistryObject<EntityType<Tidal_Tentacle_Entity>> TIDAL_TENTACLE = ENTITY_TYPE.register("tidal_tentacle", () -> EntityType.Builder.<Tidal_Tentacle_Entity>of(Tidal_Tentacle_Entity::new, MobCategory.MISC)
+            .sized(0.1F, 0.1F)
+            .build(cataclysm.MODID + ":tidal_tentacle"));
+
     public static final RegistryObject<EntityType<Abyss_Portal_Entity>> ABYSS_PORTAL = ENTITY_TYPE.register("abyss_portal", () -> EntityType.Builder.<Abyss_Portal_Entity>of(Abyss_Portal_Entity::new, MobCategory.MISC)
             .fireImmune()
             .sized(0.5F, 0.5F)

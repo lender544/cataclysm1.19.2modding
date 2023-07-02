@@ -70,6 +70,7 @@
   "item.cataclysm.lionfish_spike": "Lionfish's Spike",
   "item.cataclysm.abyssal_egg": "Abyssal Egg",
   "item.cataclysm.athame": "Athame",
+  "item.cataclysm.tidal_claws": "Tidal Claws",
 
   "item.cataclysm.endermaptera_spawn_egg": "Endermaptera Spawn Egg",
   "item.cataclysm.ender_golem_spawn_egg": "Ender Golem Spawn Egg",
@@ -185,6 +186,7 @@
   "effect.cataclysm.abyssal_burn": "Abyssal Burn",
   "effect.cataclysm.bone_fracture": "Bone Fracture",
   "effect.cataclysm.abyssal_fear": "Abyssal Fear",
+  "effect.cataclysm.abyssal_curse": "Abyssal Curse",
 
   "golemhurt.sub": "Ender Golem hurts",
   "golemdeath.sub": "Ender Golem dies",

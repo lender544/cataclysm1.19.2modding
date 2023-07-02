@@ -24,4 +24,6 @@ public class ModEffect {
     public static final RegistryObject<MobEffect> EFFECTBONE_FRACTURE = EFFECTS.register("bone_fracture", EffectBone_Fracture::new);
 
     public static final RegistryObject<MobEffect> EFFECTABYSSAL_FEAR = EFFECTS.register("abyssal_fear", EffectAbyssal_Fear::new);
+
+    public static final RegistryObject<MobEffect> EFFECTABYSSAL_CURSE = EFFECTS.register("abyssal_curse", EffectAbyssal_Curse::new);
 }

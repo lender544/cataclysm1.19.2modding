@@ -1462,7 +1462,7 @@ public class Ignis_Entity extends Boss_monster {
                             }
 
                             i = Mth.clamp(i, 0, 4);
-                            MobEffectInstance effectinstance = new MobEffectInstance(ModEffect.EFFECTBLAZING_BRAND.get(), brandticks, i, false, false, true);
+                            MobEffectInstance effectinstance = new MobEffectInstance(ModEffect.EFFECTBLAZING_BRAND.get(), brandticks, i, false, true, true);
                             entityHit.addEffect(effectinstance);
                             this.heal(heal * (i + 1));
                         }
@@ -1956,7 +1956,7 @@ public class Ignis_Entity extends Boss_monster {
                             }
 
                             i = Mth.clamp(i, 0, 4);
-                            MobEffectInstance effectinstance = new MobEffectInstance(ModEffect.EFFECTBLAZING_BRAND.get(), brandticks, i, false, false, true);
+                            MobEffectInstance effectinstance = new MobEffectInstance(ModEffect.EFFECTBLAZING_BRAND.get(), brandticks, i, false, true, true);
                             entityHit.addEffect(effectinstance);
                         }
                     }
@@ -2004,7 +2004,7 @@ public class Ignis_Entity extends Boss_monster {
                             }
 
                             i = Mth.clamp(i, 0, 4);
-                            MobEffectInstance effectinstance = new MobEffectInstance(ModEffect.EFFECTBLAZING_BRAND.get(), 240, i, false, false, true);
+                            MobEffectInstance effectinstance = new MobEffectInstance(ModEffect.EFFECTBLAZING_BRAND.get(), 240, i, false, true, true);
                             target.addEffect(effectinstance);
                             this.heal(2f * (i + 1));
                         }

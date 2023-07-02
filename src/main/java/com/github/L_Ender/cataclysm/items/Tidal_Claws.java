@@ -1,16 +1,19 @@
 package com.github.L_Ender.cataclysm.items;
 
 import com.github.L_Ender.cataclysm.cataclysm;
+import com.github.L_Ender.cataclysm.entity.projectile.Tidal_Tentacle_Entity;
+import com.github.L_Ender.cataclysm.entity.util.TidalTentacleUtil;
+import com.github.L_Ender.cataclysm.init.ModEntities;
+import com.github.L_Ender.cataclysm.init.ModItems;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -22,23 +25,26 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class Tidal_Claws extends Item {
+public class Tidal_Claws extends Item implements ILeftClick {
     private final Multimap<Attribute, AttributeModifier> ClawsAttributes;
 
 
     public Tidal_Claws(Properties group) {
         super(group);
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", 10.0D, AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", -2.7F, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", 7.0D, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", -2.4F, AttributeModifier.Operation.ADDITION));
         this.ClawsAttributes = builder.build();
     }
 
@@ -52,41 +58,65 @@ public class Tidal_Claws extends Item {
     }
 
 
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
-        if (hand == InteractionHand.MAIN_HAND) {
-            player.startUsingItem(hand);
-            return InteractionResultHolder.consume(player.getItemInHand(hand));
-        } else {
-            return InteractionResultHolder.fail(player.getItemInHand(hand));
-        }
+    public boolean hurtEnemy(ItemStack stack, LivingEntity entity, LivingEntity player) {
+        launchTendonsAt(stack, player, entity);
+        return super.hurtEnemy(stack, entity, player);
     }
 
-    public void onUseTick(Level worldIn, LivingEntity livingEntityIn, ItemStack stack, int count) {
-        double radius = 11.0D;
-        Level world = livingEntityIn.level;
-        List<LivingEntity> list = world.getEntitiesOfClass(LivingEntity.class, livingEntityIn.getBoundingBox().inflate(radius));
-        for (LivingEntity entity : list) {
-            if (entity instanceof Player && ((Player) entity).getAbilities().invulnerable) continue;
-            Vec3 diff = entity.position().subtract(livingEntityIn.position().add(0,0,0));
-            diff = diff.normalize().scale(0.1);
-            entity.setDeltaMovement(entity.getDeltaMovement().subtract(diff));
+    private boolean isCharged(Player player, ItemStack stack){
+        return player.getAttackStrengthScale(0.5F) > 0.9F;
+    }
 
+    public boolean onLeftClick(ItemStack stack, LivingEntity playerIn){
+        if(stack.is(ModItems.TIDAL_CLAWS.get()) && (!(playerIn instanceof Player) || isCharged((Player)playerIn, stack))){
+            Level worldIn = playerIn.level;
+            Entity closestValid = null;
+            Vec3 playerEyes = playerIn.getEyePosition(1.0F);
+            HitResult hitresult = worldIn.clip(new ClipContext(playerEyes, playerEyes.add(playerIn.getLookAngle().scale(16.0D)), ClipContext.Block.VISUAL, ClipContext.Fluid.NONE, playerIn));
+            if (hitresult instanceof EntityHitResult) {
+                Entity entity = ((EntityHitResult) hitresult).getEntity();
+                if (!entity.equals(playerIn) && !playerIn.isAlliedTo(entity) && !entity.isAlliedTo(playerIn) && entity instanceof Mob && playerIn.hasLineOfSight(entity)) {
+                    closestValid = entity;
+                }
+            } else {
+                for (Entity entity : worldIn.getEntitiesOfClass(LivingEntity.class, playerIn.getBoundingBox().inflate(16.0D))) {
+                    if (!entity.equals(playerIn) && !playerIn.isAlliedTo(entity) && !entity.isAlliedTo(playerIn) && entity instanceof Mob && playerIn.hasLineOfSight(entity)) {
+                        if (closestValid == null || playerIn.distanceTo(entity) < playerIn.distanceTo(closestValid)) {
+                            closestValid = entity;
+                        }
+                    }
+                }
+            }
+            if(closestValid != null){
+                stack.hurtAndBreak(1, playerIn, (player) -> {
+                    player.broadcastBreakEvent(playerIn.getUsedItemHand());
+                });
+            }
+            return launchTendonsAt(stack, playerIn, closestValid);
         }
+        return false;
+    }
 
-        if (world.isClientSide) {
-            for (int i = 0; i < 3; ++i) {
-                int j = world.random.nextInt(2) * 2 - 1;
-                int k = world.random.nextInt(2) * 2 - 1;
-                double d0 = livingEntityIn.getX() + 0.25D * (double) j;
-                double d1 = (float) livingEntityIn.getY() + world.random.nextFloat();
-                double d2 = livingEntityIn.getZ() + 0.25D * (double) k;
-                double d3 = world.random.nextFloat() * (float) j;
-                double d4 = ((double) world.random.nextFloat() - 0.5D) * 0.125D;
-                double d5 = world.random.nextFloat() * (float) k;
-                world.addParticle(ParticleTypes.PORTAL, d0, d1, d2, d3, d4, d5);
+    public boolean launchTendonsAt(ItemStack stack, LivingEntity playerIn, Entity closestValid) {
+        Level worldIn = playerIn.level;
+        if (TidalTentacleUtil.canLaunchTentacles(worldIn, playerIn)) {
+            TidalTentacleUtil.retractFarTentacles(worldIn, playerIn);
+            if (!worldIn.isClientSide) {
+                if (closestValid != null) {
+                    Tidal_Tentacle_Entity segment = ModEntities.TIDAL_TENTACLE.get().create(worldIn);
+                    segment.copyPosition(playerIn);
+                    worldIn.addFreshEntity(segment);
+                    segment.setCreatorEntityUUID(playerIn.getUUID());
+                    segment.setFromEntityID(playerIn.getId());
+                    segment.setToEntityID(closestValid.getId());
+                    segment.copyPosition(playerIn);
+                    segment.setProgress(0.0F);
+                    TidalTentacleUtil.setLastTentacle(playerIn, segment);
+                    return true;
+                }
             }
         }
+        return false;
     }
 
     @Override
