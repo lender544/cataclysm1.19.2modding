@@ -40,11 +40,13 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
     private static final ModelWither_Assault_SHoulder_Weapon WASW_MODEL = new ModelWither_Assault_SHoulder_Weapon();
     private static final ModelCoral_Spear CORAL_SPEAR_MODEL = new ModelCoral_Spear();
     private static final ModelVoid_Forge VOID_FORGE_MODEL = new ModelVoid_Forge();
+    private static final ModelTidal_Claws TIDAL_CLAWS_MODEL = new ModelTidal_Claws();
     private static final ResourceLocation BULWARK_OF_THE_FLAME_TEXTURE = new ResourceLocation("cataclysm:textures/items/bulwark_of_the_flame.png");
     private static final ResourceLocation GAUNTLET_OF_GUARD_TEXTURE = new ResourceLocation("cataclysm:textures/items/gauntlet_of_guard.png");
     private static final ResourceLocation GAUNTLET_OF_BULWARK_TEXTURE = new ResourceLocation("cataclysm:textures/items/gauntlet_of_bulwark.png");
     private static final ResourceLocation THE_INCINERATOR_TEXTURE = new ResourceLocation("cataclysm:textures/items/the_incinerator.png");
     private static final ResourceLocation VOID_FORGE_TEXTURE = new ResourceLocation("cataclysm:textures/items/void_forge.png");
+    private static final ResourceLocation TIDAL_CLAWS_TEXTURE = new ResourceLocation("cataclysm:textures/items/tidal_claws.png");
     private static final ResourceLocation ALTAR_OF_FIRE_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altar_of_fire.png");
     private static final ResourceLocation ALTAR_OF_VOID_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/altar_of_void.png");
     private static final ResourceLocation ALTAR_OF_AMETHYST_TEXTURE = new ResourceLocation("cataclysm:textures/blocks/altar_of_amethyst.png");
@@ -89,6 +91,7 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
         if (itemStackIn.getItem() == ModItems.GAUNTLET_OF_GUARD.get()) {
             matrixStackIn.pushPose();
             matrixStackIn.translate(0.5F, 0.5F, 0.5F);
+            matrixStackIn.scale(1.0F, -1.0F, -1.0F);
             VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(bufferIn, RenderType.armorCutoutNoCull(GAUNTLET_OF_GUARD_TEXTURE), false, itemStackIn.hasFoil());
             GAUNTLET_OF_GUARD_MODEL.renderToBuffer(matrixStackIn, vertexconsumer, combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
             matrixStackIn.popPose();
@@ -96,6 +99,7 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
         if (itemStackIn.getItem() == ModItems.GAUNTLET_OF_BULWARK.get()) {
             matrixStackIn.pushPose();
             matrixStackIn.translate(0.5F, 0.5F, 0.5F);
+            matrixStackIn.scale(1.0F, -1.0F, -1.0F);
             VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(bufferIn, RenderType.armorCutoutNoCull(GAUNTLET_OF_BULWARK_TEXTURE), false, itemStackIn.hasFoil());
             GAUNTLET_OF_BULWARK_MODEL.renderToBuffer(matrixStackIn, vertexconsumer, combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
             matrixStackIn.popPose();
@@ -139,6 +143,14 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
             matrixStackIn.scale(1.0F, -1.0F, -1.0F);
             VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(bufferIn, RenderType.armorCutoutNoCull(VOID_FORGE_TEXTURE), false, itemStackIn.hasFoil());
             VOID_FORGE_MODEL.renderToBuffer(matrixStackIn, vertexconsumer, combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
+            matrixStackIn.popPose();
+        }
+        if (itemStackIn.getItem() == ModItems.TIDAL_CLAWS.get()) {
+            matrixStackIn.pushPose();
+            matrixStackIn.translate(0.5F, 0.5F, 0.5F);
+            matrixStackIn.scale(1.0F, -1.0F, -1.0F);
+            VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(bufferIn, RenderType.armorCutoutNoCull(TIDAL_CLAWS_TEXTURE), false, itemStackIn.hasFoil());
+            TIDAL_CLAWS_MODEL.renderToBuffer(matrixStackIn, vertexconsumer, combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
             matrixStackIn.popPose();
         }
         if(itemStackIn.getItem() == ModBlocks.ALTAR_OF_FIRE.get().asItem()){

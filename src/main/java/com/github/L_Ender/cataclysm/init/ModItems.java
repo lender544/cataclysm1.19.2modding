@@ -160,6 +160,9 @@ public class ModItems {
     public static final RegistryObject<Item> VOID_FORGE = ITEMS.register("void_forge",
             () -> new void_forge(Tiers.NETHERITE, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).fireResistant().rarity(Rarity.EPIC)));
 
+    public static final RegistryObject<Item> TIDAL_CLAWS = ITEMS.register("tidal_claws",
+            () -> new Tidal_Claws(new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
+
     public static final RegistryObject<Item> FINAL_FRACTAL = ITEMS.register("final_fractal",
             () -> new final_fractal(ModItemTier.TOOL_WITHERITE, new Item.Properties().fireResistant().rarity(Rarity.EPIC)));
 
