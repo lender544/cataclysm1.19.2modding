@@ -124,7 +124,6 @@ public class Tidal_Claws extends Item implements ILeftClick {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player user, InteractionHand hand) {
         ItemStack stack = user.getItemInHand(hand);
-
         if(!level.isClientSide) {
             if(!((PlayerProperties) user).hasHook()) {
                 double maxRange = 24;
@@ -182,6 +181,7 @@ public class Tidal_Claws extends Item implements ILeftClick {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add(Component.translatable("item.cataclysm.gauntlet_of_guard.desc").withStyle(ChatFormatting.DARK_GREEN));
+        tooltip.add(Component.translatable("item.cataclysm.tidal_claws.desc").withStyle(ChatFormatting.DARK_GREEN));
+        tooltip.add(Component.translatable("item.cataclysm.tidal_claws2.desc").withStyle(ChatFormatting.DARK_GREEN));
     }
 }

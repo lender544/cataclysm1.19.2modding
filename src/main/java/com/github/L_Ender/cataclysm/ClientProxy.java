@@ -12,15 +12,13 @@ import com.github.L_Ender.cataclysm.client.render.blockentity.*;
 import com.github.L_Ender.cataclysm.client.render.entity.*;
 import com.github.L_Ender.cataclysm.client.render.item.CMItemRenderProperties;
 import com.github.L_Ender.cataclysm.client.render.item.CustomArmorRenderProperties;
-import com.github.L_Ender.cataclysm.client.sound.SoundEnderGuardianMusic;
-import com.github.L_Ender.cataclysm.client.sound.SoundHarbingerMusic;
-import com.github.L_Ender.cataclysm.client.sound.SoundIgnisMusic;
-import com.github.L_Ender.cataclysm.client.sound.SoundMonstrosityMusic;
+import com.github.L_Ender.cataclysm.client.sound.*;
 import com.github.L_Ender.cataclysm.config.CMConfig;
 import com.github.L_Ender.cataclysm.entity.BossMonster.Ender_Guardian_Entity;
 import com.github.L_Ender.cataclysm.entity.BossMonster.Ignis_Entity;
 import com.github.L_Ender.cataclysm.entity.BossMonster.Netherite_Monstrosity_Entity;
 import com.github.L_Ender.cataclysm.entity.BossMonster.The_Harbinger_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonster.The_Leviathan.The_Leviathan_Entity;
 import com.github.L_Ender.cataclysm.init.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -56,6 +54,7 @@ public class ClientProxy extends CommonProxy {
     public static final Map<Integer, SoundEnderGuardianMusic> GUARDIAN_SOUND_MAP = new HashMap<>();
     public static final Map<Integer, SoundIgnisMusic> IGNIS_SOUND_MAP = new HashMap<>();
     public static final Map<Integer, SoundHarbingerMusic> HARBINGER_SOUND_MAP = new HashMap<>();
+    public static final Map<Integer, SoundLeviathanMusic> LEVIATHAN_SOUND_MAP = new HashMap<>();
 
     public void init() {
        // FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientLayerEvent::onAddLayers);
@@ -224,6 +223,23 @@ public class ClientProxy extends CommonProxy {
                         HARBINGER_SOUND_MAP.put(entity.getId(), sound);
                     } else {
                         sound = HARBINGER_SOUND_MAP.get(entity.getId());
+                    }
+                    if (!Minecraft.getInstance().getSoundManager().isActive(sound) && sound.isNearest()) {
+                        Minecraft.getInstance().getSoundManager().play(sound);
+                    }
+                }
+
+            }
+            if (entity instanceof The_Leviathan_Entity && entity.isAlive() && updateKind == 67) {
+                if (f2 <= 0) {
+                    LEVIATHAN_SOUND_MAP.clear();
+                } else {
+                    SoundLeviathanMusic sound;
+                    if (LEVIATHAN_SOUND_MAP.get(entity.getId()) == null) {
+                        sound = new SoundLeviathanMusic((The_Leviathan_Entity) entity);
+                        LEVIATHAN_SOUND_MAP.put(entity.getId(), sound);
+                    } else {
+                        sound = LEVIATHAN_SOUND_MAP.get(entity.getId());
                     }
                     if (!Minecraft.getInstance().getSoundManager().isActive(sound) && sound.isNearest()) {
                         Minecraft.getInstance().getSoundManager().play(sound);

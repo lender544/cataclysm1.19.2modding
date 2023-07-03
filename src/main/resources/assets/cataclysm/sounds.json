@@ -332,6 +332,14 @@
       }
     ]
   },
+  "leviathan_music": {
+    "subtitle": "leviathan_music.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:music_disc/leviathan_theme"
+      }
+    ]
+  },
   "revenant_breath": {
     "subtitle": "revenant_breath.sub",
     "sounds": [

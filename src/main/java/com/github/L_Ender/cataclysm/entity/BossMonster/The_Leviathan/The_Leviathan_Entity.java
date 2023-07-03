@@ -63,6 +63,8 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.fluids.FluidType;
 
@@ -338,6 +340,9 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         } else {
             if (this.NoSwimProgress > 0F)
                 this.NoSwimProgress--;
+        }
+        if (!this.isSilent() && !level.isClientSide) {
+            this.level.broadcastEntityEvent(this, (byte) 67);
         }
         this.prevLeftTentacleProgress = LeftTentacleProgress;
         this.prevRightTentacleProgress = RightTentacleProgress;
@@ -1291,6 +1296,15 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
     public void recreateFromPacket(ClientboundAddEntityPacket packet) {
         super.recreateFromPacket(packet);
         Cm_Part_Entity.assignPartIDs(this);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public void handleEntityEvent(byte id) {
+        if (id == 67) {
+            cataclysm.PROXY.onEntityStatus(this, id);
+        } else {
+            super.handleEntityEvent(id);
+        }
     }
 
     private enum AttackMode {

@@ -221,6 +221,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> BLACK_HOLE_LOOP = SOUNDS.register("black_hole_loop",
             () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"black_hole_loop")));
 
-
+    public static final RegistryObject<SoundEvent> LEVIATHAN_MUSIC = SOUNDS.register("leviathan_music",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"leviathan_music")));
 
 }
