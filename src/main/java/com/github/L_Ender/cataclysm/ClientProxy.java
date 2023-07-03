@@ -127,6 +127,7 @@ public class ClientProxy extends CommonProxy {
         EntityRenderers.register(ModEntities.BLAZING_BONE.get(), RendererBlazing_Bone::new);
         EntityRenderers.register(ModEntities.LIONFISH_SPIKE.get(), RendererLionfish_Spike::new);
         EntityRenderers.register(ModEntities.TIDAL_TENTACLE.get(), RendererTidal_Tentacle::new);
+        EntityRenderers.register(ModEntities.TIDAL_HOOK.get(), RendererTidal_Hook::new);
         MinecraftForge.EVENT_BUS.register(new ClientEvent());
         try {
             ItemProperties.register(ModItems.BULWARK_OF_THE_FLAME.get(), new ResourceLocation("blocking"), (stack, p_239421_1_, p_239421_2_, j) -> p_239421_2_ != null && p_239421_2_.isUsingItem() && p_239421_2_.getUseItem() == stack ? 1.0F : 0.0F);

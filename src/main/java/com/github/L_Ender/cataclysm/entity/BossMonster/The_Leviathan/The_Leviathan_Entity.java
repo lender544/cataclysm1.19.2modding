@@ -2068,6 +2068,8 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         private final The_Leviathan_Entity mob;
         private LivingEntity target;
         private float circlingTime = 0;
+        private float MeleeModeTime = 0;
+        private static final int MELEE_MODE_TIME = 160;
         private float circleDistance = 18;
         private boolean clockwise = false;
 
@@ -2089,6 +2091,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         public void start(){
             this.mob.mode = AttackMode.CIRCLE;
             circlingTime = 0;
+            MeleeModeTime = 0;
             circleDistance = 18 + this.mob.random.nextInt(10);
             clockwise = this.mob.random.nextBoolean();
             this.mob.setAggressive(true);
@@ -2097,6 +2100,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         public void stop() {
             this.mob.mode = AttackMode.CIRCLE;
             circlingTime = 0;
+            MeleeModeTime = 0;
             circleDistance = 18 + this.mob.random.nextInt(10);
             clockwise = this.mob.random.nextBoolean();
             this.target = this.mob.getTarget();
@@ -2148,9 +2152,12 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
                         this.mob.setAnimation(LEVIATHAN_RUSH);
                     }
                 }else if (this.mob.mode == AttackMode.MELEE) {
+                    MeleeModeTime++;
                     this.mob.getNavigation().moveTo(target, 1.0D);
                     this.mob.getLookControl().setLookAt(target, 30, 90);
-                    if (this.mob.getRandom().nextFloat() * 100.0F < 15f && this.mob.distanceToSqr(target) < 49.0D && this.mob.CanTailWhips) {
+                    if(MeleeModeTime >= MELEE_MODE_TIME) {
+                        this.mob.mode = AttackMode.RANGE;
+                    } else if (this.mob.getRandom().nextFloat() * 100.0F < 15f && this.mob.distanceToSqr(target) < 49.0D && this.mob.CanTailWhips) {
                         this.mob.setAnimation(LEVIATHAN_TAIL_WHIPS);
                     } else if (this.mob.getRandom().nextFloat() * 100.0F < 8f && this.mob.distanceToSqr(target) < 36.0D && this.mob.CanGrab) {
                         this.mob.setAnimation(LEVIATHAN_TENTACLE_HOLD);

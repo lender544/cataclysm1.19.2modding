@@ -5,7 +5,8 @@
   "target": "@env(DEFAULT)",
   "refmap": "cataclysm.refmap.json",
   "mixins": [
-    "ItemMixin"
+    "ItemMixin",
+    "PlayerMixin"
   ],
   "client": [
   ],

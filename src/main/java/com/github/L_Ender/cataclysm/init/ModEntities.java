@@ -320,6 +320,10 @@ public class ModEntities {
             .sized(0.1F, 0.1F)
             .build(cataclysm.MODID + ":tidal_tentacle"));
 
+    public static final RegistryObject<EntityType<Tidal_Hook_Entity>> TIDAL_HOOK = ENTITY_TYPE.register("tidal_hook", () -> EntityType.Builder.<Tidal_Hook_Entity>of(Tidal_Hook_Entity::new, MobCategory.MISC)
+            .sized(0.5F, 0.5F)
+            .build(cataclysm.MODID + ":tidal_hook"));
+
     public static final RegistryObject<EntityType<Abyss_Portal_Entity>> ABYSS_PORTAL = ENTITY_TYPE.register("abyss_portal", () -> EntityType.Builder.<Abyss_Portal_Entity>of(Abyss_Portal_Entity::new, MobCategory.MISC)
             .fireImmune()
             .sized(0.5F, 0.5F)

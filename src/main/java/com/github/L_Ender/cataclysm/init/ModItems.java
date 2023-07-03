@@ -187,6 +187,15 @@ public class ModItems {
     public static final RegistryObject<Item> VOID_CORE = ITEMS.register("void_core",
             () -> new void_core(new Item.Properties().stacksTo(1).tab(cataclysm.CATACLYSM_GROUP).fireResistant().fireResistant().rarity(Rarity.EPIC)));
 
+    public static final RegistryObject<Item> CRYSTALLIZED_CORAL_FRAGMENTS = ITEMS.register("crystallized_coral_fragments",
+            () -> new Item(new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
+
+    public static final RegistryObject<Item> CRYSTALLIZED_CORAL = ITEMS.register("crystallized_coral",
+            () -> new Item(new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
+
+    public static final RegistryObject<Item> ABYSSAL_SACRIFICE = ITEMS.register("abyssal_sacrifice",
+            () -> new Item(new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).fireResistant().rarity(Rarity.EPIC)));
+
     public static final RegistryObject<Item> IGNITIUM_HELMET = ITEMS.register("ignitium_helmet",
             () -> new Ignitium_Armor(Armortier.IGNITIUM, EquipmentSlot.HEAD, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).fireResistant().rarity(Rarity.EPIC)));
 

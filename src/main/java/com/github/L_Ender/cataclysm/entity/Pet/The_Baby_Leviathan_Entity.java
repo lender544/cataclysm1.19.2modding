@@ -6,6 +6,7 @@ import com.github.L_Ender.cataclysm.entity.AI.MobAILeaveWater;
 import com.github.L_Ender.cataclysm.entity.AI.SemiAquaticAIRandomSwimming;
 import com.github.L_Ender.cataclysm.entity.BossMonster.The_Leviathan.Abyss_Blast_Entity;
 import com.github.L_Ender.cataclysm.entity.BossMonster.The_Leviathan.Portal_Abyss_Blast_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonster.The_Leviathan.The_Leviathan_Entity;
 import com.github.L_Ender.cataclysm.entity.Pet.AI.PetSimpleAnimationGoal;
 import com.github.L_Ender.cataclysm.entity.Pet.AI.TameableAIFollowOwnerWater;
 import com.github.L_Ender.cataclysm.entity.etc.GroundPathNavigatorWide;
@@ -67,7 +68,7 @@ public class The_Baby_Leviathan_Entity extends AnimationPet implements ISemiAqua
     private boolean isLandNavigator;
     private AttackMode mode = AttackMode.CIRCLE;
     private int blast_cooldown = 0;
-    public static final int BLAST_HUNTING_COOLDOWN = 150;
+    public static final int BLAST_HUNTING_COOLDOWN = 100;
     public double endPosX, endPosY, endPosZ;
     public double collidePosX, collidePosY, collidePosZ;
 
@@ -476,6 +477,9 @@ public class The_Baby_Leviathan_Entity extends AnimationPet implements ISemiAqua
         private float circlingTime = 0;
         private float circleDistance = 4;
         private boolean clockwise = false;
+        private float MeleeModeTime = 0;
+        private static final int MELEE_MODE_TIME = 100;
+
 
         public BabyLeviathanAttackGoal(The_Baby_Leviathan_Entity mob) {
             this.mob = mob;
@@ -495,6 +499,7 @@ public class The_Baby_Leviathan_Entity extends AnimationPet implements ISemiAqua
         public void start() {
             this.mob.mode = The_Baby_Leviathan_Entity.AttackMode.CIRCLE;
             circlingTime = 0;
+            MeleeModeTime = 0;
             circleDistance = 4 + this.mob.random.nextInt(1);
             clockwise = this.mob.random.nextBoolean();
             this.mob.setAggressive(true);
@@ -503,6 +508,7 @@ public class The_Baby_Leviathan_Entity extends AnimationPet implements ISemiAqua
         public void stop() {
             this.mob.mode = The_Baby_Leviathan_Entity.AttackMode.CIRCLE;
             circlingTime = 0;
+            MeleeModeTime = 0;
             circleDistance = 4 + this.mob.random.nextInt(1);
             clockwise = this.mob.random.nextBoolean();
             this.target = this.mob.getTarget();
@@ -536,9 +542,12 @@ public class The_Baby_Leviathan_Entity extends AnimationPet implements ISemiAqua
                         this.mob.setAnimation(BABY_LEVIATHAN_ABYSS_BLAST);
                     }
                 } else if (this.mob.mode == The_Baby_Leviathan_Entity.AttackMode.MELEE) {
+                    MeleeModeTime++;
                     this.mob.getNavigation().moveTo(target, 1.0D);
                     this.mob.getLookControl().setLookAt(target, 30, 90);
-                    if (this.mob.distanceToSqr(target) <= 4D) {
+                    if(MeleeModeTime >= MELEE_MODE_TIME) {
+                        this.mob.mode = The_Baby_Leviathan_Entity.AttackMode.RANGE;
+                    }else if (this.mob.distanceToSqr(target) <= 4D) {
                         this.mob.setAnimation(BABY_LEVIATHAN_BITE);
                     }
                 }

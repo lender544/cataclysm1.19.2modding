@@ -80,9 +80,6 @@ public class Tidal_Tentacle_Entity extends Entity {
     public void tick() {
         float progress = this.getProgress();
         this.prevProgress = progress;
-        if(tickCount < 1){
-            onJoinWorld();
-        }
         super.tick();
         Entity creator = getCreatorEntity();
         Entity current = getToEntity();
@@ -222,25 +219,6 @@ public class Tidal_Tentacle_Entity extends Entity {
         child.setTargetsHit(this.getTargetsHit() + 1);
         updateLastTendon(child);
         this.level.addFreshEntity(child);
-    }
-
-    private void onJoinWorld(){
-        Entity creator = getCreatorEntity();
-        if(creator == null){
-            creator = level.getPlayerByUUID(this.getCreatorEntityUUID());
-        }
-        Entity prior = getFromEntity();
-        if(creator instanceof Player){
-            Player player = (Player)creator;
-            ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.TIDAL_CLAWS.get()) ? player.getItemInHand(InteractionHand.MAIN_HAND) : player.getItemInHand(InteractionHand.OFF_HAND);
-            float dmg = 2;
-            if(prior instanceof Tidal_Tentacle_Entity){
-                dmg = Math.max(((Tidal_Tentacle_Entity)prior).getBaseDamage() - 1, 2);
-            }else{
-                dmg = (float)getDamageForItem(stack);
-            }
-            this.entityData.set(DAMAGE, dmg);
-        }
     }
 
     private float getBaseDamage() {

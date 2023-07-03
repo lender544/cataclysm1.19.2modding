@@ -71,6 +71,9 @@
   "item.cataclysm.abyssal_egg": "심연의 알",
   "item.cataclysm.athame": "의식용 단검",
   "item.cataclysm.tidal_claws": "타이달 클로",
+  "item.cataclysm.crystallized_coral_fragments": "결정화된 산호 파편",
+  "item.cataclysm.crystallized_coral": "결정화된 산호",
+  "item.cataclysm.abyssal_sacrifice": "심연의 제물",
 
   "item.cataclysm.endermaptera_spawn_egg": "엔더마프테라 생성 알",
   "item.cataclysm.ender_golem_spawn_egg": "엔더 골렘 생성 알",
@@ -176,6 +179,9 @@
   "entity.cataclysm.abyss_orb": "심연 구체",
   "entity.cataclysm.portal_abyss_blast": "포탈의 심연 돌풍",
   "entity.cataclysm.lionfish_spike": "쏠배감펭의 가시",
+  "entity.cataclysm.tidal_tentacle": "타이달 촉수",
+  "entity.cataclysm.tidal_hook": "타이달 갈고리",
+
   "entity.cataclysm.all.command_0": "%s 이(가) 돌아다니는 중",
   "entity.cataclysm.all.command_1": "%s 이(가) 따라오는 중",
   "entity.cataclysm.all.command_2": "%s 이(가) 대기중",

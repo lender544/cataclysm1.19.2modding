@@ -71,6 +71,9 @@
   "item.cataclysm.abyssal_egg": "Abyssal Egg",
   "item.cataclysm.athame": "Athame",
   "item.cataclysm.tidal_claws": "Tidal Claws",
+  "item.cataclysm.crystallized_coral_fragments": "Crystallized Coral Fragments",
+  "item.cataclysm.crystallized_coral": "Crystallized Coral",
+  "item.cataclysm.abyssal_sacrifice": "Abyssal Sacrifice",
 
   "item.cataclysm.endermaptera_spawn_egg": "Endermaptera Spawn Egg",
   "item.cataclysm.ender_golem_spawn_egg": "Ender Golem Spawn Egg",
@@ -176,6 +179,9 @@
   "entity.cataclysm.abyss_orb": "Abyss Orb",
   "entity.cataclysm.portal_abyss_blast": "Portal's Abyss Blast",
   "entity.cataclysm.lionfish_spike": "Lionfish's Spike",
+  "entity.cataclysm.tidal_tentacle": "Tidal Tentacle",
+  "entity.cataclysm.tidal_hook": "Tidal Hook",
+
   "entity.cataclysm.all.command_0": "%s is wandering",
   "entity.cataclysm.all.command_1": "%s is following",
   "entity.cataclysm.all.command_2": "%s is staying",
