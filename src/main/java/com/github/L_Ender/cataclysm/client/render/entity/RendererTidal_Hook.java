@@ -2,6 +2,7 @@ package com.github.L_Ender.cataclysm.client.render.entity;
 
 import com.github.L_Ender.cataclysm.client.model.entity.ModelTidal_Hook;
 import com.github.L_Ender.cataclysm.entity.projectile.Tidal_Hook_Entity;
+import com.github.L_Ender.cataclysm.init.ModItems;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix3f;
@@ -15,8 +16,9 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
-
+import net.minecraft.world.item.ItemStack;
 
 
 public class RendererTidal_Hook extends EntityRenderer<Tidal_Hook_Entity> {
@@ -42,12 +44,20 @@ public class RendererTidal_Hook extends EntityRenderer<Tidal_Hook_Entity> {
 		matrices.pushPose();
 		Entity fromEntity = entity.getOwner();
 		if(fromEntity instanceof Player player) {
-			double startX = player.getX();
-			double startY = player.getY() + (player.getBbHeight() / 2D);
-			double startZ = player.getZ();
-			float distanceX = (float) (startX - entity.getX());
+			double startY = player.getY() + (player.getBbHeight() / 2.0D);
+			float f2 = player.yBodyRot * Mth.DEG_TO_RAD;
+			int i = player.getMainArm() == HumanoidArm.RIGHT ? 1 : -1;
+			float d0 =  Mth.sin(f2);
+			float d1 =  Mth.cos(f2);
+			ItemStack itemstack = player.getMainHandItem();
+			if (!itemstack.is(ModItems.TIDAL_CLAWS.get())) {
+				i = -i;
+			}
+			float d2 = (float) (i * 0.25D);
+
+			float distanceX = (float) ((float) (player.getX()) - d1 * d2 - d0 * 0.2D - entity.getX());
 			float distanceY = (float) (startY - entity.getY());
-			float distanceZ = (float) (startZ - entity.getZ());
+			float distanceZ = (float) ((float) (player.getZ()) - d0 * d2 + d1 * 0.2D - entity.getZ());
 			renderChain(distanceX, distanceY, distanceZ, tickDelta, entity.tickCount, matrices, provider, light);
 		}
 		matrices.popPose();

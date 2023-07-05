@@ -73,7 +73,8 @@ public class Tidal_Claws extends Item implements ILeftClick {
     }
 
     public boolean onLeftClick(ItemStack stack, LivingEntity playerIn){
-        if(stack.is(ModItems.TIDAL_CLAWS.get()) && (!(playerIn instanceof Player) || isCharged((Player)playerIn, stack))){
+        ItemStack itemstack = playerIn.getMainHandItem();
+        if(itemstack.is(ModItems.TIDAL_CLAWS.get()) && (!(playerIn instanceof Player) || isCharged((Player)playerIn, stack))){
             Level worldIn = playerIn.level;
             Entity closestValid = null;
             Vec3 playerEyes = playerIn.getEyePosition(1.0F);

@@ -28,6 +28,8 @@
   "item.cataclysm.wither_assault_shoulder_weapon.desc2": "While sneaking, right click to shoot Wither Howitzers.",
   "item.cataclysm.gauntlet_of_bulwark.desc": "Hold right click for 1 second to push nearby entities and inflict Blazing Brand",
   "item.cataclysm.gauntlet_of_bulwark.desc2": "Release to charge forward and damage entities in front.",
+  "item.cataclysm.tidal_claws.desc": "Right click: can be used as grappling hook",
+  "item.cataclysm.tidal_claws.desc2": "Left click: shoot tidal tentacle to enemy which can attack multiple entity",
   "you_cant_escape": "You can't escape",
   "cataclysm.container.weapon_fusion": "§cWeapon Fusion",
 

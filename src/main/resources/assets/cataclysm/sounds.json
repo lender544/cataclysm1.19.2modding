@@ -15,6 +15,22 @@
       }
     ]
   },
+  "coralssus_hurt": {
+    "subtitle": "coralssus_hurt.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/golemhurt"
+      }
+    ]
+  },
+  "coralssus_death": {
+    "subtitle": "coralssus_death.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/golemdeath"
+      }
+    ]
+  },
   "enderguardianhurt": {
     "subtitle": "enderguardianhurt.sub",
     "sounds": [
@@ -651,6 +667,30 @@
     "sounds": [
       {
         "name": "cataclysm:entity/deepling_light"
+      }
+    ]
+  },
+  "tidal_tentacle": {
+    "subtitle": "tidal_tentacle.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/tidal_tentacle"
+      }
+    ]
+  },
+  "tidal_hook_hit": {
+    "subtitle": "tidal_hook_hit.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/tidal_hook_hit"
+      }
+    ]
+  },
+  "tidal_hook_loop": {
+    "subtitle": "tidal_hook_loop.sub",
+    "sounds": [
+      {
+        "name": "cataclysm:entity/tidal_hook_loop"
       }
     ]
   }

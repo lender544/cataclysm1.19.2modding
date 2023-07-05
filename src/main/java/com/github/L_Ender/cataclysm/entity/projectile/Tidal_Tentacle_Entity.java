@@ -4,6 +4,7 @@ import com.github.L_Ender.cataclysm.entity.util.TidalTentacleUtil;
 import com.github.L_Ender.cataclysm.init.ModEffect;
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import com.github.L_Ender.cataclysm.init.ModItems;
+import com.github.L_Ender.cataclysm.init.ModSounds;
 import com.google.common.collect.Multimap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -83,6 +84,11 @@ public class Tidal_Tentacle_Entity extends Entity {
         super.tick();
         Entity creator = getCreatorEntity();
         Entity current = getToEntity();
+        if(tickCount == 1){
+            if(!this.level.isClientSide){
+                this.playSound(ModSounds.TIDAL_TENTACLE.get(),1.0F, 0.8F + this.random.nextFloat() * 0.4F);
+            }
+        }
         if(!this.isRetracting() && progress < MAX_EXTEND_TIME){
             this.setProgress(progress + 1);
         }

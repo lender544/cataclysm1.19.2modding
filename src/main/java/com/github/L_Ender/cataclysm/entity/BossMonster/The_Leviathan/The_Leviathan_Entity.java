@@ -1059,6 +1059,18 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         }
     }
 
+
+    @Nullable
+    public LivingEntity getControllingPassenger() {
+
+        return null;
+    }
+
+    @Override
+    public boolean rideableUnderWater() {
+        return true;
+    }
+
     @Override
     public boolean canRiderInteract() {
         return true;

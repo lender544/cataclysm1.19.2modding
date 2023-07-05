@@ -28,6 +28,8 @@
   "item.cataclysm.wither_assault_shoulder_weapon.desc2": "웅크린채로 사용시 위더 곡사포를 쏠 수 있다",
   "item.cataclysm.gauntlet_of_bulwark.desc": "1초간 충전뒤, 주변의 엔티티를 밀쳐내고 불타는 낙인을 건다.",
   "item.cataclysm.gauntlet_of_bulwark.desc2": "사용을 멈추면 돌진을 하며 적들에게 피해를 준다.",
+  "item.cataclysm.tidal_claws.desc": "우클릭:그래플링 훅을 사용할 수 있다.",
+  "item.cataclysm.tidal_claws.desc2": "좌클릭:타이달 촉수를 소환해 여러대상을 공격 할 수 있다.",
   "you_cant_escape": "넌 벗어날 수 없다.",
   "cataclysm.container.weapon_fusion": "§c무기 융합",
 

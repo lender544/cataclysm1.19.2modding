@@ -1,12 +1,15 @@
 package com.github.L_Ender.cataclysm.entity.projectile;
 
 import com.github.L_Ender.cataclysm.init.ModEntities;
+import com.github.L_Ender.cataclysm.init.ModSounds;
 import com.github.L_Ender.cataclysm.items.Tidal_Claws;
 import com.github.L_Ender.cataclysm.util.PlayerProperties;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -57,6 +60,9 @@ public class Tidal_Hook_Entity extends AbstractArrow {
 	public void tick() {
 		super.tick();
 		if(getOwner() instanceof Player owner) {
+			if (isPulling && tickCount % 3 == 0){
+				level.playSound(null, getOwner().blockPosition(), ModSounds.TIDAL_HOOK_LOOP.get(), SoundSource.PLAYERS, 1F, 1F);
+			}
 			if(!level.isClientSide) {
 				if(owner.isDeadOrDying() || !((PlayerProperties) owner).hasHook() || !((PlayerProperties) owner).hasHook() || owner.distanceTo(this) > maxRange || !(owner.getMainHandItem().getItem() instanceof Tidal_Claws || owner.getOffhandItem().getItem() instanceof Tidal_Claws) || !((PlayerProperties) owner).hasHook())
 					kill();
@@ -140,6 +146,10 @@ public class Tidal_Hook_Entity extends AbstractArrow {
 			owner.setNoGravity(true);
 
 		}
+	}
+
+	protected SoundEvent getDefaultHitGroundSoundEvent() {
+		return ModSounds.TIDAL_HOOK_HIT.get();
 	}
 
 	@Override

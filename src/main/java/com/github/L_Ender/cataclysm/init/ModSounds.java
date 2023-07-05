@@ -224,4 +224,18 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> LEVIATHAN_MUSIC = SOUNDS.register("leviathan_music",
             () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"leviathan_music")));
 
+    public static final RegistryObject<SoundEvent> TIDAL_TENTACLE = SOUNDS.register("tidal_tentacle",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"tidal_tentacle")));
+
+    public static final RegistryObject<SoundEvent> TIDAL_HOOK_HIT = SOUNDS.register("tidal_hook_hit",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"tidal_hook_hit")));
+
+    public static final RegistryObject<SoundEvent> TIDAL_HOOK_LOOP = SOUNDS.register("tidal_hook_loop",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"tidal_hook_loop")));
+
+    public static final RegistryObject<SoundEvent> CORALSSUS_HURT = SOUNDS.register("coralssus_hurt",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"coralssus_hurt")));
+
+    public static final RegistryObject<SoundEvent> CORALSSUS_DEATH = SOUNDS.register("coralssus_death",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"coralssus_death")));
 }

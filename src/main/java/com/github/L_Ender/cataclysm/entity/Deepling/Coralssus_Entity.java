@@ -44,6 +44,7 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 
+import javax.annotation.Nullable;
 import java.util.EnumSet;
 
 
@@ -168,7 +169,7 @@ public class Coralssus_Entity extends Boss_monster {
         LivingEntity target = this.getTarget();
         if (this.isAlive()) {
             if (target != null && target.isAlive()) {
-                if (!this.isInWater() &&leap_attack_cooldown <= 0 && !this.isVehicle() && !isNoAi() && this.getAnimation() == NO_ANIMATION && target.isOnGround() && (this.random.nextInt(25) == 0 && this.distanceTo(target) <= 15)) {
+                if (!this.isInWater() &&leap_attack_cooldown <= 0 && !isNoAi() && this.getAnimation() == NO_ANIMATION && target.isOnGround() && (this.random.nextInt(25) == 0 && this.distanceTo(target) <= 15)) {
                     leap_attack_cooldown = LEAP_ATTACK_COOLDOWN;
                     this.setAnimation(CORALSSUS_LEAP);
                 }else if (this.distanceTo(target) < 3.75f && !isNoAi() && this.getAnimation() == NO_ANIMATION) {
@@ -241,6 +242,17 @@ public class Coralssus_Entity extends Boss_monster {
 
     }
 
+    @Nullable
+    public LivingEntity getControllingPassenger() {
+
+        return null;
+    }
+
+    @Override
+    public boolean rideableUnderWater() {
+        return true;
+    }
+
     private void EarthQuake(float grow, int damage) {
         ScreenShake_Entity.ScreenShake(level, this.position(), 10, 0.15f, 0, 20);
         this.playSound(SoundEvents.GENERIC_EXPLODE, 0.5f, 1F + this.getRandom().nextFloat() * 0.1F);
@@ -294,11 +306,11 @@ public class Coralssus_Entity extends Boss_monster {
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return ModSounds.GOLEMHURT.get();
+        return ModSounds.CORALSSUS_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return ModSounds.GOLEMDEATH.get();
+        return ModSounds.CORALSSUS_DEATH.get();
     }
 
     public boolean canStandOnFluid(FluidState p_230285_1_) {
