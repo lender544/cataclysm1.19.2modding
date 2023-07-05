@@ -1,6 +1,7 @@
 package com.github.L_Ender.cataclysm.client.render;
 
 import com.github.L_Ender.cataclysm.client.model.block.*;
+import com.github.L_Ender.cataclysm.client.model.entity.ModelCoral_Bardiche;
 import com.github.L_Ender.cataclysm.client.model.entity.ModelCoral_Spear;
 import com.github.L_Ender.cataclysm.client.model.item.*;
 import com.github.L_Ender.cataclysm.client.model.item.*;
@@ -39,6 +40,7 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
     private static final Model_Abyssal_Egg ABYSSAL_MODEL = new Model_Abyssal_Egg();
     private static final ModelWither_Assault_SHoulder_Weapon WASW_MODEL = new ModelWither_Assault_SHoulder_Weapon();
     private static final ModelCoral_Spear CORAL_SPEAR_MODEL = new ModelCoral_Spear();
+    private static final ModelCoral_Bardiche CORAL_BARDICHE_MODEL = new ModelCoral_Bardiche();
     private static final ModelVoid_Forge VOID_FORGE_MODEL = new ModelVoid_Forge();
     private static final ModelTidal_Claws TIDAL_CLAWS_MODEL = new ModelTidal_Claws();
     private static final ResourceLocation BULWARK_OF_THE_FLAME_TEXTURE = new ResourceLocation("cataclysm:textures/items/bulwark_of_the_flame.png");
@@ -63,6 +65,7 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
     private static final ResourceLocation TEXTURE_4 = new ResourceLocation("cataclysm:textures/blocks/altar_of_fire/altarfire4.png");
 
     private static final ResourceLocation CORAL_SPEAR_TEXTURE = new ResourceLocation("cataclysm:textures/entity/coral_spear.png");
+    private static final ResourceLocation CORAL_BARDICHE_TEXTURE = new ResourceLocation("cataclysm:textures/entity/coral_bardiche.png");
 
     public CMItemstackRenderer() {
         super(null, null);
@@ -134,6 +137,14 @@ public class CMItemstackRenderer extends BlockEntityWithoutLevelRenderer {
             matrixStackIn.scale(1.0F, -1.0F, -1.0F);
             VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(bufferIn, RenderType.armorCutoutNoCull(CORAL_SPEAR_TEXTURE), false, itemStackIn.hasFoil());
             CORAL_SPEAR_MODEL.renderToBuffer(matrixStackIn, vertexconsumer, combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
+            matrixStackIn.popPose();
+        }
+
+        if (itemStackIn.getItem() == ModItems.CORAL_BARDICHE.get()) {
+            matrixStackIn.pushPose();
+            matrixStackIn.scale(1.0F, -1.0F, -1.0F);
+            VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(bufferIn, RenderType.armorCutoutNoCull(CORAL_BARDICHE_TEXTURE), false, itemStackIn.hasFoil());
+            CORAL_BARDICHE_MODEL.renderToBuffer(matrixStackIn, vertexconsumer, combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
             matrixStackIn.popPose();
         }
 

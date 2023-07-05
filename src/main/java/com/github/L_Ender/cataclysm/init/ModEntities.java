@@ -320,6 +320,12 @@ public class ModEntities {
             .sized(0.1F, 0.1F)
             .build(cataclysm.MODID + ":tidal_tentacle"));
 
+    public static final RegistryObject<EntityType<ThrownCoral_Bardiche_Entity>> CORAL_BARDICHE = ENTITY_TYPE.register("coral_bardiche", () -> EntityType.Builder.<ThrownCoral_Bardiche_Entity>of(ThrownCoral_Bardiche_Entity::new, MobCategory.MISC)
+            .sized(0.5F, 0.5F)
+            .clientTrackingRange(4)
+            .updateInterval(20)
+            .build(cataclysm.MODID + ":coral_bardiche"));
+
     public static final RegistryObject<EntityType<Tidal_Hook_Entity>> TIDAL_HOOK = ENTITY_TYPE.register("tidal_hook", () -> EntityType.Builder.<Tidal_Hook_Entity>of(Tidal_Hook_Entity::new, MobCategory.MISC)
             .sized(0.5F, 0.5F)
             .build(cataclysm.MODID + ":tidal_hook"));

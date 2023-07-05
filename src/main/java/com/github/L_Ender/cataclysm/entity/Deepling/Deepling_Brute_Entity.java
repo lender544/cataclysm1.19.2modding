@@ -5,6 +5,9 @@ import com.github.L_Ender.cataclysm.entity.AI.MobAILeaveWater;
 import com.github.L_Ender.cataclysm.entity.etc.GroundPathNavigatorWide;
 import com.github.L_Ender.cataclysm.entity.etc.ISemiAquatic;
 import com.github.L_Ender.cataclysm.entity.etc.SemiAquaticPathNavigator;
+import com.github.L_Ender.cataclysm.entity.projectile.ThrownCoral_Bardiche_Entity;
+import com.github.L_Ender.cataclysm.entity.projectile.ThrownCoral_Spear_Entity;
+import com.github.L_Ender.cataclysm.init.ModItems;
 import com.github.L_Ender.cataclysm.init.ModSounds;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
@@ -108,7 +111,7 @@ public class Deepling_Brute_Entity extends AbstractDeepling {
     }
 
     protected void populateDefaultEquipmentSlots(RandomSource p_219154_, DifficultyInstance p_219155_) {
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.TRIDENT));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.CORAL_BARDICHE.get()));
     }
 
 
@@ -183,7 +186,7 @@ public class Deepling_Brute_Entity extends AbstractDeepling {
                             this.playSound( SoundEvents.TRIDENT_RIPTIDE_3,1.0F, 1.0F);
 
                         }else{
-                            ThrownTrident throwntrident = new ThrownTrident(this.level, this, new ItemStack(Items.TRIDENT));
+                            ThrownCoral_Bardiche_Entity throwntrident = new ThrownCoral_Bardiche_Entity(this.level, this, new ItemStack(ModItems.CORAL_BARDICHE.get()));
                             double p0 = target.getX() - this.getX();
                             double p1 = target.getY(0.3333333333333333D) - throwntrident.getY();
                             double p2 = target.getZ() - this.getZ();
@@ -386,7 +389,7 @@ public class Deepling_Brute_Entity extends AbstractDeepling {
 
         public boolean canUse() {
             LivingEntity livingentity = this.mob.getTarget();
-            return livingentity != null && livingentity.isAlive() && this.mob.getMainHandItem().is(Items.TRIDENT) && this.mob.distanceToSqr(livingentity) >= 36.0D;
+            return livingentity != null && livingentity.isAlive() && this.mob.getMainHandItem().is(ModItems.CORAL_BARDICHE.get()) && this.mob.distanceToSqr(livingentity) >= 36.0D;
         }
 
 

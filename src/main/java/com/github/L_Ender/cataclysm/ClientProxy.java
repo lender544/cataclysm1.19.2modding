@@ -112,6 +112,7 @@ public class ClientProxy extends CommonProxy {
         EntityRenderers.register(ModEntities.ABYSS_MINE.get(), RendererAbyss_Mine::new);
         EntityRenderers.register(ModEntities.DEEPLING_BRUTE.get(), RendererDeepling_Brute::new);
         EntityRenderers.register(ModEntities.CORAL_SPEAR.get(), RendererThrown_Coral_Spear::new);
+        EntityRenderers.register(ModEntities.CORAL_BARDICHE.get(), RendererThrown_Coral_Bardiche::new);
         EntityRenderers.register(ModEntities.DIMENSIONAL_RIFT.get(), RendererDimensional_Rift::new);
         EntityRenderers.register(ModEntities.DEEPLING_ANGLER.get(), RendererDeepling_Angler::new);
         EntityRenderers.register(ModEntities.DEEPLING_PRIEST.get(), RendererDeepling_Priest::new);
@@ -131,6 +132,7 @@ public class ClientProxy extends CommonProxy {
         try {
             ItemProperties.register(ModItems.BULWARK_OF_THE_FLAME.get(), new ResourceLocation("blocking"), (stack, p_239421_1_, p_239421_2_, j) -> p_239421_2_ != null && p_239421_2_.isUsingItem() && p_239421_2_.getUseItem() == stack ? 1.0F : 0.0F);
             ItemProperties.register(ModItems.CORAL_SPEAR.get(), new ResourceLocation("throwing"), (stack, p_239421_1_, p_239421_2_, j) -> p_239421_2_ != null && p_239421_2_.isUsingItem() && p_239421_2_.getUseItem() == stack ? 1.0F : 0.0F);
+            ItemProperties.register(ModItems.CORAL_BARDICHE.get(), new ResourceLocation("throwing"), (stack, p_239421_1_, p_239421_2_, j) -> p_239421_2_ != null && p_239421_2_.isUsingItem() && p_239421_2_.getUseItem() == stack ? 1.0F : 0.0F);
             ItemProperties.register(Items.CROSSBOW, new ResourceLocation(cataclysm.MODID, "void_scatter_arrow"), (stack, world, entity, j) -> entity != null && CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, ModItems.VOID_SCATTER_ARROW.get()) ? 1.0F : 0.0F);
         } catch (Exception e) {
             cataclysm.LOGGER.warn("Could not load item models for weapons");

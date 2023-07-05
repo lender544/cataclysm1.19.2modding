@@ -136,6 +136,9 @@ public class ModItems {
     public static final RegistryObject<Item> CORAL_SPEAR = ITEMS.register("coral_spear",
             () -> new Coral_Spear((new Item.Properties()).durability(110).tab(cataclysm.CATACLYSM_GROUP)));
 
+    public static final RegistryObject<Item> CORAL_BARDICHE = ITEMS.register("coral_bardiche",
+            () -> new Coral_Bardiche((new Item.Properties()).durability(160).tab(cataclysm.CATACLYSM_GROUP)));
+
     public static final RegistryObject<Item> ATHAME = ITEMS.register("athame",
             () -> new Athame((new Item.Properties()).durability(250).tab(cataclysm.CATACLYSM_GROUP)));
 
