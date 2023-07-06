@@ -73,8 +73,7 @@ public class Tidal_Claws extends Item implements ILeftClick {
     }
 
     public boolean onLeftClick(ItemStack stack, LivingEntity playerIn){
-        ItemStack itemstack = playerIn.getMainHandItem();
-        if(itemstack.is(ModItems.TIDAL_CLAWS.get()) && (!(playerIn instanceof Player) || isCharged((Player)playerIn, stack))){
+        if(stack.is(ModItems.TIDAL_CLAWS.get()) && (!(playerIn instanceof Player) || isCharged((Player)playerIn, stack))){
             Level worldIn = playerIn.level;
             Entity closestValid = null;
             Vec3 playerEyes = playerIn.getEyePosition(1.0F);
@@ -183,6 +182,6 @@ public class Tidal_Claws extends Item implements ILeftClick {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
         tooltip.add(Component.translatable("item.cataclysm.tidal_claws.desc").withStyle(ChatFormatting.DARK_GREEN));
-        tooltip.add(Component.translatable("item.cataclysm.tidal_claws2.desc").withStyle(ChatFormatting.DARK_GREEN));
+        tooltip.add(Component.translatable("item.cataclysm.tidal_claws.desc2").withStyle(ChatFormatting.DARK_GREEN));
     }
 }

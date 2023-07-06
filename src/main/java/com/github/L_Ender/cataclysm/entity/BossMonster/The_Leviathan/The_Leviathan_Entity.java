@@ -1080,6 +1080,12 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         return false;
     }
 
+
+    public boolean canBeAffected(MobEffectInstance p_31495_) {
+        return p_31495_.getEffect() != ModEffect.EFFECTABYSSAL_BURN.get()
+                && super.canBeAffected(p_31495_);
+    }
+
     private BiteHitResult raytraceEntities(Level world, double inflateX, double inflateY, double inflateZ,Vec3 from, Vec3 to) {
         BiteHitResult result = new BiteHitResult();
         collidePosX = endPosX;

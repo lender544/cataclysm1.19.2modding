@@ -253,6 +253,8 @@
   "advancements.cataclysm.burning_arena.description": "Find the Burning Arena",
   "advancements.cataclysm.ancient_factory.title": "Ancient Civilization",
   "advancements.cataclysm.ancient_factory.description": "Find the Ancient Factory",
+  "advancements.cataclysm.sunken_city.title": "Sunken City",
+  "advancements.cataclysm.sunken_city.description": "Find the Sunken City",
   "advancements.cataclysm.kill_ender_golem.title": "Palette Swap",
   "advancements.cataclysm.kill_ender_golem.description": "Kill the Ender Golem",
   "advancements.cataclysm.kill_ender_guardian.title": "Was that a Shulker?",
@@ -265,6 +267,8 @@
   "advancements.cataclysm.kill_ignis.description": "Summon and Defeat the Ignis",
   "advancements.cataclysm.kill_harbinger.title": "The Thing of Ancient Civilization",
   "advancements.cataclysm.kill_harbinger.description": "Wake and Defeat the Harbinger",
+  "advancements.cataclysm.kill_leviathan.title": "A Multidimensional Predator",
+  "advancements.cataclysm.kill_leviathan.description": "Summon and Defeat the Leviathan",
 
   "death.attack.cataclysm.laser": "%s was exterminated by %s 's laser",
   "death.attack.cataclysm.deathlaser": "%s was exterminated by %s 's laser",

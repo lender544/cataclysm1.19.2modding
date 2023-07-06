@@ -8,6 +8,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix3f;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -19,6 +20,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 
 
 public class RendererTidal_Hook extends EntityRenderer<Tidal_Hook_Entity> {
@@ -43,35 +45,68 @@ public class RendererTidal_Hook extends EntityRenderer<Tidal_Hook_Entity> {
 
 		matrices.pushPose();
 		Entity fromEntity = entity.getOwner();
-		if(fromEntity instanceof Player player) {
-			double startY = player.getY() + (player.getBbHeight() / 2.0D);
-			float f2 = player.yBodyRot * Mth.DEG_TO_RAD;
-			int i = player.getMainArm() == HumanoidArm.RIGHT ? 1 : -1;
-			float d0 =  Mth.sin(f2);
-			float d1 =  Mth.cos(f2);
-			ItemStack itemstack = player.getMainHandItem();
-			if (!itemstack.is(ModItems.TIDAL_CLAWS.get())) {
-				i = -i;
-			}
-			float d2 = (float) (i * 0.25D);
-
-			float distanceX = (float) ((float) (player.getX()) - d1 * d2 - d0 * 0.2D - entity.getX());
-			float distanceY = (float) (startY - entity.getY());
-			float distanceZ = (float) ((float) (player.getZ()) - d0 * d2 + d1 * 0.2D - entity.getZ());
-			renderChain(distanceX, distanceY, distanceZ, tickDelta, entity.tickCount, matrices, provider, light);
+		float x = (float)Mth.lerp(tickDelta, entity.xo, entity.getX());
+		float y = (float)Mth.lerp(tickDelta, entity.yo, entity.getY());
+		float z = (float)Mth.lerp(tickDelta, entity.zo, entity.getZ());
+		if(fromEntity != null) {
+			Vec3 distVec = getPositionOfPriorMob(fromEntity, tickDelta).subtract(x, y, z);
+			Vec3 from = distVec;
+			renderChainCube(from, tickDelta, entity.tickCount, matrices, provider, light);
 		}
+
 		matrices.popPose();
 
 	}
 
-	public void renderChain(float x, float y, float z, float tickDelta, int age, PoseStack stack, MultiBufferSource provider, int light) {
-		float lengthXY = Mth.sqrt(x * x + z * z);
-		float squaredLength = x * x + y * y + z * z;
+
+
+	private Vec3 getPositionOfPriorMob(Entity mob, float partialTicks){
+		double d4 = Mth.lerp(partialTicks, mob.xo, mob.getX());
+		double d5 = Mth.lerp(partialTicks, mob.yo, mob.getY());
+		double d6 = Mth.lerp(partialTicks, mob.zo, mob.getZ());
+		float f3 = 0;
+		if(mob instanceof Player){
+			Player player = (Player) mob;
+			float f = player.getAttackAnim(partialTicks);
+			float f1 = Mth.sin(Mth.sqrt(f) * (float) Math.PI);
+			float f2 = Mth.lerp(partialTicks, player.yBodyRotO, player.yBodyRot) * ((float) Math.PI / 180F);
+			int i = player.getMainArm() == HumanoidArm.RIGHT ? 1 : -1;
+			ItemStack itemstack = player.getMainHandItem();
+			if (!itemstack.is(ModItems.TIDAL_CLAWS.get())) {
+				i = -i;
+			}
+			double d0 = (double) Mth.sin(f2);
+			double d1 = (double) Mth.cos(f2);
+			double d2 = (double) i * 0.35D;
+			if ((this.entityRenderDispatcher.options == null || this.entityRenderDispatcher.options.getCameraType().isFirstPerson()) && player == Minecraft.getInstance().player) {
+				double d7 = 960.0D / (double)this.entityRenderDispatcher.options.fov().get().intValue();
+				Vec3 vec3 = this.entityRenderDispatcher.camera.getNearPlane().getPointOnPlane((float) i * 0.6F, -1);
+				vec3 = vec3.scale(d7);
+				vec3 = vec3.yRot(f1 * 0.25F);
+				vec3 = vec3.xRot(-f1 * 0.35F);
+				d4 = Mth.lerp((double) partialTicks, player.xo, player.getX()) + vec3.x;
+				d5 = Mth.lerp((double) partialTicks, player.yo, player.getY()) + vec3.y;
+				d6 = Mth.lerp((double) partialTicks, player.zo, player.getZ()) + vec3.z;
+				f3 = player.getEyeHeight() * 0.5F;
+			} else {
+				d4 = Mth.lerp((double) partialTicks, player.xo, player.getX()) - d1 * d2 - d0 * 0.2D;
+				d5 = player.yo + (double) player.getEyeHeight() + (player.getY() - player.yo) * (double) partialTicks - 0.45D;
+				d6 = Mth.lerp((double) partialTicks, player.zo, player.getZ()) - d0 * d2 + d1 * 0.2D;
+				f3 = (player.isCrouching() ? -0.1875F : 0.0F);
+			}
+		}
+
+		return new Vec3(d4, d5 + f3, d6);
+	}
+
+	public static void renderChainCube(Vec3 from, float tickDelta, int age, PoseStack stack, MultiBufferSource provider, int light) {
+		float lengthXY = Mth.sqrt((float) (from.x * from.x + from.z * from.z));
+		float squaredLength = (float) (from.x * from.x + from.y * from.y + from.z * from.z);
 		float length = Mth.sqrt(squaredLength);
 
 		stack.pushPose();
-		stack.mulPose(Vector3f.YP.rotation((float) (-Math.atan2(z, x)) - 1.5707964F));
-		stack.mulPose(Vector3f.XP.rotation((float) (-Math.atan2(lengthXY, y)) - 1.5707964F));
+		stack.mulPose(Vector3f.YP.rotation((float) (-Math.atan2(from.z, from.x)) - 1.5707964F));
+		stack.mulPose(Vector3f.XP.rotation((float) (-Math.atan2(lengthXY, from.y)) - 1.5707964F));
 		stack.mulPose(Vector3f.ZP.rotationDegrees(25));
 		stack.pushPose();
 		stack.translate(0.015, -0.2, 0);

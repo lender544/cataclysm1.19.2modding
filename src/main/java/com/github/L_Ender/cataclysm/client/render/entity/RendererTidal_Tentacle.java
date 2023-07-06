@@ -108,13 +108,13 @@ public class RendererTidal_Tentacle extends EntityRenderer<Tidal_Tentacle_Entity
             float f1 = Mth.sin(Mth.sqrt(f) * (float) Math.PI);
             float f2 = Mth.lerp(partialTicks, player.yBodyRotO, player.yBodyRot) * ((float) Math.PI / 180F);
             int i = player.getMainArm() == HumanoidArm.RIGHT ? 1 : -1;
-            double d0 = (double) Mth.sin(f2);
-            double d1 = (double) Mth.cos(f2);
-            double d2 = (double) i * 0.35D;
             ItemStack itemstack = player.getMainHandItem();
             if (!itemstack.is(ModItems.TIDAL_CLAWS.get())) {
                 i = -i;
             }
+            double d0 = (double) Mth.sin(f2);
+            double d1 = (double) Mth.cos(f2);
+            double d2 = (double) i * 0.35D;
             if ((this.entityRenderDispatcher.options == null || this.entityRenderDispatcher.options.getCameraType().isFirstPerson()) && player == Minecraft.getInstance().player) {
                 double d7 = 960.0D / (double)this.entityRenderDispatcher.options.fov().get().intValue();
                 Vec3 vec3 = this.entityRenderDispatcher.camera.getNearPlane().getPointOnPlane((float) i * 0.6F, -1);

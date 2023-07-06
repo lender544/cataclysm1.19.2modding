@@ -159,7 +159,7 @@ public class Deepling_Priest_Entity extends AbstractDeepling {
                     this.playSound(ModSounds.DEEPLING_LIGHT.get(), 0.2F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
                     for (LivingEntity entity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(7.0D))) {
                         if (!isAlliedTo(entity) && entity != this) {
-                            boolean flag = entity.hurt(DamageSource.indirectMagic(this,this), (float) ((float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) * 2));
+                            boolean flag = entity.hurt(DamageSource.indirectMagic(this,this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
 
                             if(flag){
                                 entity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 80));
