@@ -15,10 +15,13 @@
     "minecraft:soul_fire",
     "minecraft:fire",
     "minecraft:light",
+    "minecraft:lava",
+    "minecraft:water",
     "minecraft:reinforced_deepslate",
     "minecraft:structure_block",
     "cataclysm:altar_of_fire",
     "cataclysm:altar_of_void",
+    "cataclysm:altar_of_abyss",
     "cataclysm:altar_of_amethyst",
     "cataclysm:emp",
     "cataclysm:dungeon_block"

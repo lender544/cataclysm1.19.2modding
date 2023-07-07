@@ -2,6 +2,7 @@ package com.github.L_Ender.cataclysm.blockentities;
 
 import com.github.L_Ender.cataclysm.cataclysm;
 import com.github.L_Ender.cataclysm.entity.BossMonster.Ignis_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonster.The_Leviathan.The_Leviathan_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import com.github.L_Ender.cataclysm.init.ModItems;
@@ -53,18 +54,28 @@ public class TileEntityAltarOfAbyss extends BaseContainerBlockEntity {
         summoningthis = false;
         prevChompProgress = chompProgress;
         if (!this.getItem(0).isEmpty()) {
-          //  if(this.getItem(0).getItem() == ModItems.BURNING_ASHES.get()){
-          //      summoningthis = true;
-          //      if(summoningticks == 1) {
-           //         //  ScreenShake_Entity.ScreenShake(this.level, Vec3.atCenterOf(this.getBlockPos()), 20, 0.05f, 0, 150);
+            if(this.getItem(0).getItem() == ModItems.ABYSSAL_SACRIFICE.get()){
+                summoningthis = true;
+                if(summoningticks == 1) {
+                    ScreenShake_Entity.ScreenShake(this.level, Vec3.atCenterOf(this.getBlockPos()), 20, 0.03f, 0, 150);
                     //   this.level.addFreshEntity(new Flame_Strike_Entity(this.level, this.getBlockPos().getX() + 0.5F, this.getBlockPos().getY(), this.getBlockPos().getZ() + 0.5F, 0, 0, 100, 0, 2.5F, false, null));
-           //     }
-           //     if(summoningticks > 118 && summoningticks < 121) {
-           //         Sphereparticle(3,3);
-           //     }
-            //    if(summoningticks > 121) {
-          //      }
-           // }
+                }
+                if(summoningticks > 118 && summoningticks < 121) {
+                    Sphereparticle(3,3);
+                }
+                if(summoningticks > 121) {
+                    this.setItem(0, ItemStack.EMPTY);
+                    BlockBreaking(3, 6, 3);
+                    The_Leviathan_Entity leviathan = ModEntities.THE_LEVIATHAN.get().create(level);
+                    if (leviathan != null) {
+                        leviathan.setPos(this.getBlockPos().getX() + 0.5F, this.getBlockPos().getY() + 3, this.getBlockPos().getZ() + 0.5F);
+                        if (!level.isClientSide) {
+                            level.addFreshEntity(leviathan);
+                        }
+                    }
+                }
+
+            }
         }
 
         if(summoningthis && chompProgress < 30F){
@@ -119,7 +130,7 @@ public class TileEntityAltarOfAbyss extends BaseContainerBlockEntity {
                     double d5 = (double) k + (this.rnd.nextDouble() - this.rnd.nextDouble()) * 0.5D;
                     double d6 = (double) Mth.sqrt((float) (d3 * d3 + d4 * d4 + d5 * d5)) / 0.5 + this.rnd.nextGaussian() * 0.05D;
 
-                    this.level.addParticle(ParticleTypes.FLAME, d0, d1, d2, d3 / d6, d4 / d6, d5 / d6);
+                    this.level.addParticle(ParticleTypes.REVERSE_PORTAL, d0, d1, d2, d3 / d6, d4 / d6, d5 / d6);
 
                     if (i != -size && i != size && j != -size && j != size) {
                         k += size * 2 - 1;

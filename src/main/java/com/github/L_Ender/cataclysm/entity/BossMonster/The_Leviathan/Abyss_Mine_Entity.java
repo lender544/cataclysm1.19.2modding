@@ -1,6 +1,7 @@
 package com.github.L_Ender.cataclysm.entity.BossMonster.The_Leviathan;
 
 import com.github.L_Ender.cataclysm.client.particle.LightningParticle;
+import com.github.L_Ender.cataclysm.init.ModEffect;
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -8,6 +9,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -23,7 +25,7 @@ import java.util.UUID;
 public class Abyss_Mine_Entity extends Entity {
     private int warmupDelayTicks;
     private boolean sentSpikeEvent;
-    private int lifeTicks= 200;
+    private int lifeTicks= 800;
     private boolean clientSideAttackStarted;
     private LivingEntity caster;
     private UUID casterUuid;
@@ -125,7 +127,9 @@ public class Abyss_Mine_Entity extends Entity {
             }
             if (this.warmupDelayTicks < -20) {
                 for(LivingEntity livingentity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.2D, 0.0D, 0.2D))) {
-                    this.explode(livingentity);
+                    if(!livingentity.isAlliedTo(livingentity) && livingentity != caster && livingentity.isAlive() && !livingentity.isInvulnerable()) {
+                        this.explode(livingentity);
+                    }
                 }
             }
 
@@ -154,18 +158,17 @@ public class Abyss_Mine_Entity extends Entity {
     private void explode(LivingEntity livingentity) {
         LivingEntity Caster = this.getCaster();
 
-        if (livingentity.isAlive() && !livingentity.isInvulnerable()) {
             if (Caster != null) {
-                if (!Caster.isAlliedTo(livingentity) || livingentity != Caster) {
-                    this.level.explode(Caster, this.getX(), this.getY(0.0625D), this.getZ(), 1.0f, Explosion.BlockInteraction.NONE);
-                    this.remove(RemovalReason.DISCARDED);
-                }
+                this.level.explode(Caster, this.getX(), this.getY(0.0625D), this.getZ(), 1.0f, Explosion.BlockInteraction.NONE);
+                livingentity.addEffect(new MobEffectInstance(ModEffect.EFFECTABYSSAL_FEAR.get(), 200, 0));
+                this.remove(RemovalReason.DISCARDED);
             } else {
                 this.level.explode(this, this.getX(), this.getY(0.0625D), this.getZ(), 1.0f, Explosion.BlockInteraction.NONE);
+                livingentity.addEffect(new MobEffectInstance(ModEffect.EFFECTABYSSAL_FEAR.get(), 200, 0));
                 this.remove(RemovalReason.DISCARDED);
             }
 
-        }
+
     }
 
 

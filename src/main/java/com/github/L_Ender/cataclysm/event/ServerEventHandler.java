@@ -197,16 +197,18 @@ public class ServerEventHandler {
         boolean flag = false;
         ItemStack leftItem = event.getEntity().getOffhandItem();
         ItemStack rightItem = event.getEntity().getMainHandItem();
-        if(leftItem.getItem() instanceof ILeftClick){
-            ((ILeftClick)leftItem.getItem()).onLeftClick(leftItem, event.getEntity());
-            flag = true;
-        }
-        if(rightItem.getItem() instanceof ILeftClick){
-            ((ILeftClick)rightItem.getItem()).onLeftClick(rightItem, event.getEntity());
-            flag = true;
-        }
-        if (event.getLevel().isClientSide && flag) {
-            cataclysm.sendMSGToServer(MessageSwingArm.INSTANCE);
+        if(!event.getEntity().hasEffect(ModEffect.EFFECTSTUN.get())){
+            if (leftItem.getItem() instanceof ILeftClick) {
+                ((ILeftClick) leftItem.getItem()).onLeftClick(leftItem, event.getEntity());
+                flag = true;
+            }
+            if (rightItem.getItem() instanceof ILeftClick) {
+                ((ILeftClick) rightItem.getItem()).onLeftClick(rightItem, event.getEntity());
+                flag = true;
+            }
+            if (event.getLevel().isClientSide && flag) {
+                cataclysm.sendMSGToServer(MessageSwingArm.INSTANCE);
+            }
         }
     }
 

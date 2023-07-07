@@ -33,34 +33,34 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 	private final AdvancedModelBox L_Spike4;
 	private final AdvancedModelBox Tail3;
 	public final AdvancedModelBox Tail_Particle;
-	private final AdvancedModelBox UpperR_Tantacle;
-	private final AdvancedModelBox UpperR_Tantacle2;
-	private final AdvancedModelBox UpperR_Tantacle3;
-	private final AdvancedModelBox UpperR_Tantacle4;
+	private final AdvancedModelBox UpperR_Tentacle;
+	private final AdvancedModelBox UpperR_Tentacle2;
+	private final AdvancedModelBox UpperR_Tentacle3;
+	private final AdvancedModelBox UpperR_Tentacle4;
 	private final AdvancedModelBox UpperR_Hook;
 	private final AdvancedModelBox UpperR_Hook2;
 	private final AdvancedModelBox UpperR_Hook3;
 	private final AdvancedModelBox UpperR_Hook4;
-	private final AdvancedModelBox UpperL_Tantacle;
-	private final AdvancedModelBox UpperL_Tantacle2;
-	private final AdvancedModelBox UpperL_Tantacle3;
-	private final AdvancedModelBox UpperL_Tantacle4;
+	private final AdvancedModelBox UpperL_Tentacle;
+	private final AdvancedModelBox UpperL_Tentacle2;
+	private final AdvancedModelBox UpperL_Tentacle3;
+	private final AdvancedModelBox UpperL_Tentacle4;
 	private final AdvancedModelBox UpperL_Hook;
 	private final AdvancedModelBox UpperL_Hook2;
 	private final AdvancedModelBox UpperL_Hook3;
 	private final AdvancedModelBox UpperL_Hook4;
-	private final AdvancedModelBox LowerR_Tantacle;
-	private final AdvancedModelBox LowerR_Tantacle2;
-	private final AdvancedModelBox LowerR_Tantacle3;
-	private final AdvancedModelBox LowerR_Tantacle4;
+	private final AdvancedModelBox LowerR_Tentacle;
+	private final AdvancedModelBox LowerR_Tentacle2;
+	private final AdvancedModelBox LowerR_Tentacle3;
+	private final AdvancedModelBox LowerR_Tentacle4;
 	private final AdvancedModelBox LowerR_Hook;
 	private final AdvancedModelBox LowerR_Hook2;
 	private final AdvancedModelBox LowerR_Hook3;
 	private final AdvancedModelBox LowerR_Hook4;
-	private final AdvancedModelBox LowerL_Tantacle;
-	private final AdvancedModelBox LowerL_Tantacle2;
-	private final AdvancedModelBox LowerL_Tantacle3;
-	private final AdvancedModelBox LowerL_Tantacle4;
+	private final AdvancedModelBox LowerL_Tentacle;
+	private final AdvancedModelBox LowerL_Tentacle2;
+	private final AdvancedModelBox LowerL_Tentacle3;
+	private final AdvancedModelBox LowerL_Tentacle4;
 	private final AdvancedModelBox LowerL_Hook;
 	private final AdvancedModelBox LowerL_Hook2;
 	private final AdvancedModelBox LowerL_Hook3;
@@ -219,195 +219,195 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		Tail3.addChild(Tail_Particle);
 
 
-		UpperR_Tantacle = new AdvancedModelBox(this);
-		UpperR_Tantacle.setRotationPoint(-8.0F, -2.0F, 6.0F);
-		Main_belly.addChild(UpperR_Tantacle);
-		setRotationAngle(UpperR_Tantacle, 0.0F, -0.1745F, 0.6109F);
-		UpperR_Tantacle.setTextureOffset(139, 0).addBox(-24.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, false);
+		UpperR_Tentacle = new AdvancedModelBox(this);
+		UpperR_Tentacle.setRotationPoint(-8.0F, -2.0F, 6.0F);
+		Main_belly.addChild(UpperR_Tentacle);
+		setRotationAngle(UpperR_Tentacle, 0.0F, -0.1745F, 0.6109F);
+		UpperR_Tentacle.setTextureOffset(139, 0).addBox(-24.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, false);
 
-		UpperR_Tantacle2 = new AdvancedModelBox(this);
-		UpperR_Tantacle2.setRotationPoint(-24.0F, 0.0F, 0.0F);
-		UpperR_Tantacle.addChild(UpperR_Tantacle2);
-		setRotationAngle(UpperR_Tantacle2, 0.0F, -0.4363F, 0.0F);
-		UpperR_Tantacle2.setTextureOffset(133, 20).addBox(-24.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, false);
+		UpperR_Tentacle2 = new AdvancedModelBox(this);
+		UpperR_Tentacle2.setRotationPoint(-24.0F, 0.0F, 0.0F);
+		UpperR_Tentacle.addChild(UpperR_Tentacle2);
+		setRotationAngle(UpperR_Tentacle2, 0.0F, -0.4363F, 0.0F);
+		UpperR_Tentacle2.setTextureOffset(133, 20).addBox(-24.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, false);
 
-		UpperR_Tantacle3 = new AdvancedModelBox(this);
-		UpperR_Tantacle3.setRotationPoint(-24.0F, 0.0F, 0.0F);
-		UpperR_Tantacle2.addChild(UpperR_Tantacle3);
-		setRotationAngle(UpperR_Tantacle3, 0.0F, -0.4363F, 0.0F);
-		UpperR_Tantacle3.setTextureOffset(133, 20).addBox(-24.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, false);
+		UpperR_Tentacle3 = new AdvancedModelBox(this);
+		UpperR_Tentacle3.setRotationPoint(-24.0F, 0.0F, 0.0F);
+		UpperR_Tentacle2.addChild(UpperR_Tentacle3);
+		setRotationAngle(UpperR_Tentacle3, 0.0F, -0.4363F, 0.0F);
+		UpperR_Tentacle3.setTextureOffset(133, 20).addBox(-24.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, false);
 
-		UpperR_Tantacle4 = new AdvancedModelBox(this);
-		UpperR_Tantacle4.setRotationPoint(-24.0F, 0.0F, 0.0F);
-		UpperR_Tantacle3.addChild(UpperR_Tantacle4);
-		setRotationAngle(UpperR_Tantacle4, 0.0F, -0.6109F, 0.0F);
-		UpperR_Tantacle4.setTextureOffset(0, 100).addBox(-24.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, false);
+		UpperR_Tentacle4 = new AdvancedModelBox(this);
+		UpperR_Tentacle4.setRotationPoint(-24.0F, 0.0F, 0.0F);
+		UpperR_Tentacle3.addChild(UpperR_Tentacle4);
+		setRotationAngle(UpperR_Tentacle4, 0.0F, -0.6109F, 0.0F);
+		UpperR_Tentacle4.setTextureOffset(0, 100).addBox(-24.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, false);
 
 		UpperR_Hook = new AdvancedModelBox(this);
 		UpperR_Hook.setRotationPoint(-24.0F, 2.0F, 0.0F);
-		UpperR_Tantacle4.addChild(UpperR_Hook);
+		UpperR_Tentacle4.addChild(UpperR_Hook);
 		setRotationAngle(UpperR_Hook, 0.0F, 0.0F, 0.7854F);
 		UpperR_Hook.setTextureOffset(111, 0).addBox(-2.0F, 0.0F, -1.5F, 2.0F, 8.0F, 3.0F, 0.0F, false);
 
 		UpperR_Hook2 = new AdvancedModelBox(this);
 		UpperR_Hook2.setRotationPoint(-24.0F, 0.0F, -2.0F);
-		UpperR_Tantacle4.addChild(UpperR_Hook2);
+		UpperR_Tentacle4.addChild(UpperR_Hook2);
 		setRotationAngle(UpperR_Hook2, 0.0F, 0.7854F, 0.0F);
 		UpperR_Hook2.setTextureOffset(184, 157).addBox(-2.0F, -1.5F, -8.0F, 2.0F, 3.0F, 8.0F, 0.0F, false);
 
 		UpperR_Hook3 = new AdvancedModelBox(this);
 		UpperR_Hook3.setRotationPoint(-24.0F, 0.0F, 2.0F);
-		UpperR_Tantacle4.addChild(UpperR_Hook3);
+		UpperR_Tentacle4.addChild(UpperR_Hook3);
 		setRotationAngle(UpperR_Hook3, 0.0F, -0.7854F, 0.0F);
 		UpperR_Hook3.setTextureOffset(156, 183).addBox(-2.0F, -1.5F, 0.0F, 2.0F, 3.0F, 8.0F, 0.0F, false);
 
 		UpperR_Hook4 = new AdvancedModelBox(this);
 		UpperR_Hook4.setRotationPoint(-24.0F, -2.0F, 0.0F);
-		UpperR_Tantacle4.addChild(UpperR_Hook4);
+		UpperR_Tentacle4.addChild(UpperR_Hook4);
 		setRotationAngle(UpperR_Hook4, 0.0F, 0.0F, -0.7854F);
 		UpperR_Hook4.setTextureOffset(92, 0).addBox(-2.0F, -8.0F, -1.5F, 2.0F, 8.0F, 3.0F, 0.0F, false);
 
-		UpperL_Tantacle = new AdvancedModelBox(this);
-		UpperL_Tantacle.setRotationPoint(8.0F, -2.0F, 6.0F);
-		Main_belly.addChild(UpperL_Tantacle);
-		setRotationAngle(UpperL_Tantacle, 0.0F, 0.1745F, -0.6109F);
-		UpperL_Tantacle.setTextureOffset(139, 0).addBox(0.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, true);
+		UpperL_Tentacle = new AdvancedModelBox(this);
+		UpperL_Tentacle.setRotationPoint(8.0F, -2.0F, 6.0F);
+		Main_belly.addChild(UpperL_Tentacle);
+		setRotationAngle(UpperL_Tentacle, 0.0F, 0.1745F, -0.6109F);
+		UpperL_Tentacle.setTextureOffset(139, 0).addBox(0.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, true);
 
-		UpperL_Tantacle2 = new AdvancedModelBox(this);
-		UpperL_Tantacle2.setRotationPoint(24.0F, 0.0F, 0.0F);
-		UpperL_Tantacle.addChild(UpperL_Tantacle2);
-		setRotationAngle(UpperL_Tantacle2, 0.0F, 0.4363F, 0.0F);
-		UpperL_Tantacle2.setTextureOffset(133, 20).addBox(0.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, true);
+		UpperL_Tentacle2 = new AdvancedModelBox(this);
+		UpperL_Tentacle2.setRotationPoint(24.0F, 0.0F, 0.0F);
+		UpperL_Tentacle.addChild(UpperL_Tentacle2);
+		setRotationAngle(UpperL_Tentacle2, 0.0F, 0.4363F, 0.0F);
+		UpperL_Tentacle2.setTextureOffset(133, 20).addBox(0.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, true);
 
-		UpperL_Tantacle3 = new AdvancedModelBox(this);
-		UpperL_Tantacle3.setRotationPoint(24.0F, 0.0F, 0.0F);
-		UpperL_Tantacle2.addChild(UpperL_Tantacle3);
-		setRotationAngle(UpperL_Tantacle3, 0.0F, 0.4363F, 0.0F);
-		UpperL_Tantacle3.setTextureOffset(133, 20).addBox(0.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, true);
+		UpperL_Tentacle3 = new AdvancedModelBox(this);
+		UpperL_Tentacle3.setRotationPoint(24.0F, 0.0F, 0.0F);
+		UpperL_Tentacle2.addChild(UpperL_Tentacle3);
+		setRotationAngle(UpperL_Tentacle3, 0.0F, 0.4363F, 0.0F);
+		UpperL_Tentacle3.setTextureOffset(133, 20).addBox(0.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, true);
 
-		UpperL_Tantacle4 = new AdvancedModelBox(this);
-		UpperL_Tantacle4.setRotationPoint(24.0F, 0.0F, 0.0F);
-		UpperL_Tantacle3.addChild(UpperL_Tantacle4);
-		setRotationAngle(UpperL_Tantacle4, 0.0F, 0.6109F, 0.0F);
-		UpperL_Tantacle4.setTextureOffset(0, 100).addBox(0.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, true);
+		UpperL_Tentacle4 = new AdvancedModelBox(this);
+		UpperL_Tentacle4.setRotationPoint(24.0F, 0.0F, 0.0F);
+		UpperL_Tentacle3.addChild(UpperL_Tentacle4);
+		setRotationAngle(UpperL_Tentacle4, 0.0F, 0.6109F, 0.0F);
+		UpperL_Tentacle4.setTextureOffset(0, 100).addBox(0.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, true);
 
 		UpperL_Hook = new AdvancedModelBox(this);
 		UpperL_Hook.setRotationPoint(24.0F, 2.0F, 0.0F);
-		UpperL_Tantacle4.addChild(UpperL_Hook);
+		UpperL_Tentacle4.addChild(UpperL_Hook);
 		setRotationAngle(UpperL_Hook, 0.0F, 0.0F, -0.7854F);
 		UpperL_Hook.setTextureOffset(111, 0).addBox(0.0F, 0.0F, -1.5F, 2.0F, 8.0F, 3.0F, 0.0F, true);
 
 		UpperL_Hook2 = new AdvancedModelBox(this);
 		UpperL_Hook2.setRotationPoint(24.0F, 0.0F, -2.0F);
-		UpperL_Tantacle4.addChild(UpperL_Hook2);
+		UpperL_Tentacle4.addChild(UpperL_Hook2);
 		setRotationAngle(UpperL_Hook2, 0.0F, -0.7854F, 0.0F);
 		UpperL_Hook2.setTextureOffset(184, 157).addBox(0.0F, -1.5F, -8.0F, 2.0F, 3.0F, 8.0F, 0.0F, true);
 
 		UpperL_Hook3 = new AdvancedModelBox(this);
 		UpperL_Hook3.setRotationPoint(24.0F, 0.0F, 2.0F);
-		UpperL_Tantacle4.addChild(UpperL_Hook3);
+		UpperL_Tentacle4.addChild(UpperL_Hook3);
 		setRotationAngle(UpperL_Hook3, 0.0F, 0.7854F, 0.0F);
 		UpperL_Hook3.setTextureOffset(156, 183).addBox(0.0F, -1.5F, 0.0F, 2.0F, 3.0F, 8.0F, 0.0F, true);
 
 		UpperL_Hook4 = new AdvancedModelBox(this);
 		UpperL_Hook4.setRotationPoint(24.0F, -2.0F, 0.0F);
-		UpperL_Tantacle4.addChild(UpperL_Hook4);
+		UpperL_Tentacle4.addChild(UpperL_Hook4);
 		setRotationAngle(UpperL_Hook4, 0.0F, 0.0F, 0.7854F);
 		UpperL_Hook4.setTextureOffset(92, 0).addBox(0.0F, -8.0F, -1.5F, 2.0F, 8.0F, 3.0F, 0.0F, true);
 
-		LowerR_Tantacle = new AdvancedModelBox(this);
-		LowerR_Tantacle.setRotationPoint(-8.0F, 6.0F, 6.0F);
-		Main_belly.addChild(LowerR_Tantacle);
-		setRotationAngle(LowerR_Tantacle, 0.0F, -0.1745F, -0.6109F);
-		LowerR_Tantacle.setTextureOffset(139, 0).addBox(-24.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, false);
+		LowerR_Tentacle = new AdvancedModelBox(this);
+		LowerR_Tentacle.setRotationPoint(-8.0F, 6.0F, 6.0F);
+		Main_belly.addChild(LowerR_Tentacle);
+		setRotationAngle(LowerR_Tentacle, 0.0F, -0.1745F, -0.6109F);
+		LowerR_Tentacle.setTextureOffset(139, 0).addBox(-24.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, false);
 
-		LowerR_Tantacle2 = new AdvancedModelBox(this);
-		LowerR_Tantacle2.setRotationPoint(-24.0F, 0.0F, 0.0F);
-		LowerR_Tantacle.addChild(LowerR_Tantacle2);
-		setRotationAngle(LowerR_Tantacle2, 0.0F, -0.4363F, 0.0F);
-		LowerR_Tantacle2.setTextureOffset(133, 20).addBox(-24.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, false);
+		LowerR_Tentacle2 = new AdvancedModelBox(this);
+		LowerR_Tentacle2.setRotationPoint(-24.0F, 0.0F, 0.0F);
+		LowerR_Tentacle.addChild(LowerR_Tentacle2);
+		setRotationAngle(LowerR_Tentacle2, 0.0F, -0.4363F, 0.0F);
+		LowerR_Tentacle2.setTextureOffset(133, 20).addBox(-24.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, false);
 
-		LowerR_Tantacle3 = new AdvancedModelBox(this);
-		LowerR_Tantacle3.setRotationPoint(-24.0F, 0.0F, 0.0F);
-		LowerR_Tantacle2.addChild(LowerR_Tantacle3);
-		setRotationAngle(LowerR_Tantacle3, 0.0F, -0.48F, 0.0F);
-		LowerR_Tantacle3.setTextureOffset(133, 20).addBox(-24.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, false);
+		LowerR_Tentacle3 = new AdvancedModelBox(this);
+		LowerR_Tentacle3.setRotationPoint(-24.0F, 0.0F, 0.0F);
+		LowerR_Tentacle2.addChild(LowerR_Tentacle3);
+		setRotationAngle(LowerR_Tentacle3, 0.0F, -0.48F, 0.0F);
+		LowerR_Tentacle3.setTextureOffset(133, 20).addBox(-24.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, false);
 
-		LowerR_Tantacle4 = new AdvancedModelBox(this);
-		LowerR_Tantacle4.setRotationPoint(-24.0F, 0.0F, 0.0F);
-		LowerR_Tantacle3.addChild(LowerR_Tantacle4);
-		setRotationAngle(LowerR_Tantacle4, 0.0F, -0.4363F, 0.0F);
-		LowerR_Tantacle4.setTextureOffset(0, 100).addBox(-24.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, false);
+		LowerR_Tentacle4 = new AdvancedModelBox(this);
+		LowerR_Tentacle4.setRotationPoint(-24.0F, 0.0F, 0.0F);
+		LowerR_Tentacle3.addChild(LowerR_Tentacle4);
+		setRotationAngle(LowerR_Tentacle4, 0.0F, -0.4363F, 0.0F);
+		LowerR_Tentacle4.setTextureOffset(0, 100).addBox(-24.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, false);
 
 		LowerR_Hook = new AdvancedModelBox(this);
 		LowerR_Hook.setRotationPoint(-24.0F, 2.0F, 0.0F);
-		LowerR_Tantacle4.addChild(LowerR_Hook);
+		LowerR_Tentacle4.addChild(LowerR_Hook);
 		setRotationAngle(LowerR_Hook, 0.0F, 0.0F, 0.7854F);
 		LowerR_Hook.setTextureOffset(0, 68).addBox(-2.0F, 0.0F, -1.5F, 2.0F, 8.0F, 3.0F, 0.0F, false);
 
 		LowerR_Hook2 = new AdvancedModelBox(this);
 		LowerR_Hook2.setRotationPoint(-24.0F, 0.0F, -2.0F);
-		LowerR_Tantacle4.addChild(LowerR_Hook2);
+		LowerR_Tentacle4.addChild(LowerR_Hook2);
 		setRotationAngle(LowerR_Hook2, 0.0F, 0.7854F, 0.0F);
 		LowerR_Hook2.setTextureOffset(183, 62).addBox(-2.0F, -1.5F, -8.0F, 2.0F, 3.0F, 8.0F, 0.0F, false);
 
 		LowerR_Hook3 = new AdvancedModelBox(this);
 		LowerR_Hook3.setRotationPoint(-24.0F, 0.0F, 2.0F);
-		LowerR_Tantacle4.addChild(LowerR_Hook3);
+		LowerR_Tentacle4.addChild(LowerR_Hook3);
 		setRotationAngle(LowerR_Hook3, 0.0F, -0.7854F, 0.0F);
 		LowerR_Hook3.setTextureOffset(43, 68).addBox(-2.0F, -1.5F, 0.0F, 2.0F, 3.0F, 8.0F, 0.0F, false);
 
 		LowerR_Hook4 = new AdvancedModelBox(this);
 		LowerR_Hook4.setRotationPoint(-24.0F, -2.0F, 0.0F);
-		LowerR_Tantacle4.addChild(LowerR_Hook4);
+		LowerR_Tentacle4.addChild(LowerR_Hook4);
 		setRotationAngle(LowerR_Hook4, 0.0F, 0.0F, -0.7854F);
 		LowerR_Hook4.setTextureOffset(0, 27).addBox(-2.0F, -8.0F, -1.5F, 2.0F, 8.0F, 3.0F, 0.0F, false);
 
-		LowerL_Tantacle = new AdvancedModelBox(this);
-		LowerL_Tantacle.setRotationPoint(8.0F, 6.0F, 6.0F);
-		Main_belly.addChild(LowerL_Tantacle);
-		setRotationAngle(LowerL_Tantacle, 0.0F, 0.1745F, 0.6109F);
-		LowerL_Tantacle.setTextureOffset(139, 0).addBox(0.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, true);
+		LowerL_Tentacle = new AdvancedModelBox(this);
+		LowerL_Tentacle.setRotationPoint(8.0F, 6.0F, 6.0F);
+		Main_belly.addChild(LowerL_Tentacle);
+		setRotationAngle(LowerL_Tentacle, 0.0F, 0.1745F, 0.6109F);
+		LowerL_Tentacle.setTextureOffset(139, 0).addBox(0.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, true);
 
-		LowerL_Tantacle2 = new AdvancedModelBox(this);
-		LowerL_Tantacle2.setRotationPoint(24.0F, 0.0F, 0.0F);
-		LowerL_Tantacle.addChild(LowerL_Tantacle2);
-		setRotationAngle(LowerL_Tantacle2, 0.0F, 0.4363F, 0.0F);
-		LowerL_Tantacle2.setTextureOffset(133, 20).addBox(0.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, true);
+		LowerL_Tentacle2 = new AdvancedModelBox(this);
+		LowerL_Tentacle2.setRotationPoint(24.0F, 0.0F, 0.0F);
+		LowerL_Tentacle.addChild(LowerL_Tentacle2);
+		setRotationAngle(LowerL_Tentacle2, 0.0F, 0.4363F, 0.0F);
+		LowerL_Tentacle2.setTextureOffset(133, 20).addBox(0.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, true);
 
-		LowerL_Tantacle3 = new AdvancedModelBox(this);
-		LowerL_Tantacle3.setRotationPoint(24.0F, 0.0F, 0.0F);
-		LowerL_Tantacle2.addChild(LowerL_Tantacle3);
-		setRotationAngle(LowerL_Tantacle3, 0.0F, 0.48F, 0.0F);
-		LowerL_Tantacle3.setTextureOffset(133, 20).addBox(0.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, true);
+		LowerL_Tentacle3 = new AdvancedModelBox(this);
+		LowerL_Tentacle3.setRotationPoint(24.0F, 0.0F, 0.0F);
+		LowerL_Tentacle2.addChild(LowerL_Tentacle3);
+		setRotationAngle(LowerL_Tentacle3, 0.0F, 0.48F, 0.0F);
+		LowerL_Tentacle3.setTextureOffset(133, 20).addBox(0.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, true);
 
-		LowerL_Tantacle4 = new AdvancedModelBox(this);
-		LowerL_Tantacle4.setRotationPoint(24.0F, 0.0F, 0.0F);
-		LowerL_Tantacle3.addChild(LowerL_Tantacle4);
-		setRotationAngle(LowerL_Tantacle4, 0.0F, 0.4363F, 0.0F);
-		LowerL_Tantacle4.setTextureOffset(0, 100).addBox(0.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, true);
+		LowerL_Tentacle4 = new AdvancedModelBox(this);
+		LowerL_Tentacle4.setRotationPoint(24.0F, 0.0F, 0.0F);
+		LowerL_Tentacle3.addChild(LowerL_Tentacle4);
+		setRotationAngle(LowerL_Tentacle4, 0.0F, 0.4363F, 0.0F);
+		LowerL_Tentacle4.setTextureOffset(0, 100).addBox(0.0F, -2.0F, -2.0F, 24.0F, 4.0F, 4.0F, 0.0F, true);
 
 		LowerL_Hook = new AdvancedModelBox(this);
 		LowerL_Hook.setRotationPoint(24.0F, 2.0F, 0.0F);
-		LowerL_Tantacle4.addChild(LowerL_Hook);
+		LowerL_Tentacle4.addChild(LowerL_Hook);
 		setRotationAngle(LowerL_Hook, 0.0F, 0.0F, -0.7854F);
 		LowerL_Hook.setTextureOffset(0, 68).addBox(0.0F, 0.0F, -1.5F, 2.0F, 8.0F, 3.0F, 0.0F, true);
 
 		LowerL_Hook2 = new AdvancedModelBox(this);
 		LowerL_Hook2.setRotationPoint(24.0F, 0.0F, -2.0F);
-		LowerL_Tantacle4.addChild(LowerL_Hook2);
+		LowerL_Tentacle4.addChild(LowerL_Hook2);
 		setRotationAngle(LowerL_Hook2, 0.0F, -0.7854F, 0.0F);
 		LowerL_Hook2.setTextureOffset(183, 62).addBox(0.0F, -1.5F, -8.0F, 2.0F, 3.0F, 8.0F, 0.0F, true);
 
 		LowerL_Hook3 = new AdvancedModelBox(this);
 		LowerL_Hook3.setRotationPoint(24.0F, 0.0F, 2.0F);
-		LowerL_Tantacle4.addChild(LowerL_Hook3);
+		LowerL_Tentacle4.addChild(LowerL_Hook3);
 		setRotationAngle(LowerL_Hook3, 0.0F, 0.7854F, 0.0F);
 		LowerL_Hook3.setTextureOffset(43, 68).addBox(0.0F, -1.5F, 0.0F, 2.0F, 3.0F, 8.0F, 0.0F, true);
 
 		LowerL_Hook4 = new AdvancedModelBox(this);
 		LowerL_Hook4.setRotationPoint(24.0F, -2.0F, 0.0F);
-		LowerL_Tantacle4.addChild(LowerL_Hook4);
+		LowerL_Tentacle4.addChild(LowerL_Hook4);
 		setRotationAngle(LowerL_Hook4, 0.0F, 0.0F, 0.7854F);
 		LowerL_Hook4.setTextureOffset(0, 27).addBox(0.0F, -8.0F, -1.5F, 2.0F, 8.0F, 3.0F, 0.0F, true);
 
@@ -595,25 +595,25 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2, (float) Math.toRadians(12.5F), 0, 0);
 		animator.rotate(Tail3, (float) Math.toRadians(12.5F), 0, 0);
 
-		animator.rotate(LowerL_Tantacle4, 0, (float) Math.toRadians(-50F), 0);
-		animator.rotate(LowerL_Tantacle3, 0, (float) Math.toRadians(25F), 0);
-		animator.rotate(LowerL_Tantacle2, 0, (float) Math.toRadians(25F), 0);
-		animator.rotate(LowerL_Tantacle, 0, (float) Math.toRadians(25F), 0);
+		animator.rotate(LowerL_Tentacle4, 0, (float) Math.toRadians(-50F), 0);
+		animator.rotate(LowerL_Tentacle3, 0, (float) Math.toRadians(25F), 0);
+		animator.rotate(LowerL_Tentacle2, 0, (float) Math.toRadians(25F), 0);
+		animator.rotate(LowerL_Tentacle, 0, (float) Math.toRadians(25F), 0);
 
-		animator.rotate(LowerR_Tantacle4, 0, (float) Math.toRadians(47.5F), 0);
-		animator.rotate(LowerR_Tantacle3, 0, (float) Math.toRadians(-25F), 0);
-		animator.rotate(LowerR_Tantacle2, 0, (float) Math.toRadians(-25F), 0);
-		animator.rotate(LowerR_Tantacle, 0, (float) Math.toRadians(-25F), 0);
+		animator.rotate(LowerR_Tentacle4, 0, (float) Math.toRadians(47.5F), 0);
+		animator.rotate(LowerR_Tentacle3, 0, (float) Math.toRadians(-25F), 0);
+		animator.rotate(LowerR_Tentacle2, 0, (float) Math.toRadians(-25F), 0);
+		animator.rotate(LowerR_Tentacle, 0, (float) Math.toRadians(-25F), 0);
 
-		animator.rotate(UpperL_Tantacle4, 0, (float) Math.toRadians(-50F), 0);
-		animator.rotate(UpperL_Tantacle3, 0, (float) Math.toRadians(25F), 0);
-		animator.rotate(UpperL_Tantacle2, 0, (float) Math.toRadians(25F), 0);
-		animator.rotate(UpperL_Tantacle, 0, (float) Math.toRadians(25F), 0);
+		animator.rotate(UpperL_Tentacle4, 0, (float) Math.toRadians(-50F), 0);
+		animator.rotate(UpperL_Tentacle3, 0, (float) Math.toRadians(25F), 0);
+		animator.rotate(UpperL_Tentacle2, 0, (float) Math.toRadians(25F), 0);
+		animator.rotate(UpperL_Tentacle, 0, (float) Math.toRadians(25F), 0);
 
-		animator.rotate(UpperR_Tantacle4, 0, (float) Math.toRadians(50F), 0);
-		animator.rotate(UpperR_Tantacle3, 0, (float) Math.toRadians(-25F), 0);
-		animator.rotate(UpperR_Tantacle2, 0, (float) Math.toRadians(-25F), 0);
-		animator.rotate(UpperR_Tantacle, 0, (float) Math.toRadians(-25F), 0);
+		animator.rotate(UpperR_Tentacle4, 0, (float) Math.toRadians(50F), 0);
+		animator.rotate(UpperR_Tentacle3, 0, (float) Math.toRadians(-25F), 0);
+		animator.rotate(UpperR_Tentacle2, 0, (float) Math.toRadians(-25F), 0);
+		animator.rotate(UpperR_Tentacle, 0, (float) Math.toRadians(-25F), 0);
 
 
 		animator.endKeyframe();
@@ -625,21 +625,21 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2, (float) Math.toRadians(15F), 0, 0);
 		animator.rotate(Tail3, (float) Math.toRadians(15F), 0, 0);
 
-		animator.rotate(LowerL_Tantacle3, 0, (float) Math.toRadians(17.5F), 0);
-		animator.rotate(LowerL_Tantacle2, 0, (float) Math.toRadians(15F), 0);
-		animator.rotate(LowerL_Tantacle, 0, (float) Math.toRadians(15F), 0);
+		animator.rotate(LowerL_Tentacle3, 0, (float) Math.toRadians(17.5F), 0);
+		animator.rotate(LowerL_Tentacle2, 0, (float) Math.toRadians(15F), 0);
+		animator.rotate(LowerL_Tentacle, 0, (float) Math.toRadians(15F), 0);
 
-		animator.rotate(LowerR_Tantacle3, 0, (float) Math.toRadians(-17.5F), 0);
-		animator.rotate(LowerR_Tantacle2, 0, (float) Math.toRadians(-15F), 0);
-		animator.rotate(LowerR_Tantacle, 0, (float) Math.toRadians(-15F), 0);
+		animator.rotate(LowerR_Tentacle3, 0, (float) Math.toRadians(-17.5F), 0);
+		animator.rotate(LowerR_Tentacle2, 0, (float) Math.toRadians(-15F), 0);
+		animator.rotate(LowerR_Tentacle, 0, (float) Math.toRadians(-15F), 0);
 
-		animator.rotate(UpperL_Tantacle3, 0, (float) Math.toRadians(17.5F), 0);
-		animator.rotate(UpperL_Tantacle2, 0, (float) Math.toRadians(15F), 0);
-		animator.rotate(UpperL_Tantacle, 0, (float) Math.toRadians(15F), 0);
+		animator.rotate(UpperL_Tentacle3, 0, (float) Math.toRadians(17.5F), 0);
+		animator.rotate(UpperL_Tentacle2, 0, (float) Math.toRadians(15F), 0);
+		animator.rotate(UpperL_Tentacle, 0, (float) Math.toRadians(15F), 0);
 
-		animator.rotate(UpperR_Tantacle3, 0, (float) Math.toRadians(-17.5F), 0);
-		animator.rotate(UpperR_Tantacle2, 0, (float) Math.toRadians(-15F), 0);
-		animator.rotate(UpperR_Tantacle, 0, (float) Math.toRadians(-15F), 0);
+		animator.rotate(UpperR_Tentacle3, 0, (float) Math.toRadians(-17.5F), 0);
+		animator.rotate(UpperR_Tentacle2, 0, (float) Math.toRadians(-15F), 0);
+		animator.rotate(UpperR_Tentacle, 0, (float) Math.toRadians(-15F), 0);
 		animator.endKeyframe();
 
 		animator.setStaticKeyframe(26);
@@ -655,25 +655,25 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2, (float) Math.toRadians(27.5F), 0, (float) Math.toRadians(-2.5F));
 		animator.rotate(Tail3, (float) Math.toRadians(50F), 0, (float) Math.toRadians(-2.5F));
 
-		animator.rotate(LowerL_Tantacle4, 0, (float) Math.toRadians(-55F), 0);
-		animator.rotate(LowerL_Tantacle3, 0, (float) Math.toRadians(-20F), 0);
-		animator.rotate(LowerL_Tantacle2, 0, (float) Math.toRadians(27.5F), 0);
-		animator.rotate(LowerL_Tantacle, 0, (float) Math.toRadians(22.5F), 0);
+		animator.rotate(LowerL_Tentacle4, 0, (float) Math.toRadians(-55F), 0);
+		animator.rotate(LowerL_Tentacle3, 0, (float) Math.toRadians(-20F), 0);
+		animator.rotate(LowerL_Tentacle2, 0, (float) Math.toRadians(27.5F), 0);
+		animator.rotate(LowerL_Tentacle, 0, (float) Math.toRadians(22.5F), 0);
 
-		animator.rotate(LowerR_Tantacle4, 0, (float) Math.toRadians(55F), 0);
-		animator.rotate(LowerR_Tantacle3, 0, (float) Math.toRadians(20F), 0);
-		animator.rotate(LowerR_Tantacle2, 0, (float) Math.toRadians(-27.5F), 0);
-		animator.rotate(LowerR_Tantacle, 0, (float) Math.toRadians(-22.5F), 0);
+		animator.rotate(LowerR_Tentacle4, 0, (float) Math.toRadians(55F), 0);
+		animator.rotate(LowerR_Tentacle3, 0, (float) Math.toRadians(20F), 0);
+		animator.rotate(LowerR_Tentacle2, 0, (float) Math.toRadians(-27.5F), 0);
+		animator.rotate(LowerR_Tentacle, 0, (float) Math.toRadians(-22.5F), 0);
 
-		animator.rotate(UpperL_Tantacle4, 0, (float) Math.toRadians(-55F), 0);
-		animator.rotate(UpperL_Tantacle3, 0, (float) Math.toRadians(-20F), 0);
-		animator.rotate(UpperL_Tantacle2, 0, (float) Math.toRadians(27.5F), 0);
-		animator.rotate(UpperL_Tantacle, 0, (float) Math.toRadians(22.5F), 0);
+		animator.rotate(UpperL_Tentacle4, 0, (float) Math.toRadians(-55F), 0);
+		animator.rotate(UpperL_Tentacle3, 0, (float) Math.toRadians(-20F), 0);
+		animator.rotate(UpperL_Tentacle2, 0, (float) Math.toRadians(27.5F), 0);
+		animator.rotate(UpperL_Tentacle, 0, (float) Math.toRadians(22.5F), 0);
 
-		animator.rotate(UpperR_Tantacle4, 0, (float) Math.toRadians(55F), 0);
-		animator.rotate(UpperR_Tantacle3, 0, (float) Math.toRadians(20F), 0);
-		animator.rotate(UpperR_Tantacle2, 0, (float) Math.toRadians(-27.5F), 0);
-		animator.rotate(UpperR_Tantacle, 0, (float) Math.toRadians(-22.5F), 0);
+		animator.rotate(UpperR_Tentacle4, 0, (float) Math.toRadians(55F), 0);
+		animator.rotate(UpperR_Tentacle3, 0, (float) Math.toRadians(20F), 0);
+		animator.rotate(UpperR_Tentacle2, 0, (float) Math.toRadians(-27.5F), 0);
+		animator.rotate(UpperR_Tentacle, 0, (float) Math.toRadians(-22.5F), 0);
 
 		animator.endKeyframe();
 
@@ -688,25 +688,25 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2, (float) Math.toRadians(27.5F), 0, (float) Math.toRadians(-2.5F));
 		animator.rotate(Tail3, (float) Math.toRadians(50F), 0, (float) Math.toRadians(-2.5F));
 
-		animator.rotate(LowerL_Tantacle4, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(LowerL_Tantacle3, 0, (float) Math.toRadians(7.5F), 0);
-		animator.rotate(LowerL_Tantacle2, 0, (float) Math.toRadians(42.5F), 0);
-		animator.rotate(LowerL_Tantacle, 0, (float) Math.toRadians(-70F), 0);
+		animator.rotate(LowerL_Tentacle4, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(LowerL_Tentacle3, 0, (float) Math.toRadians(7.5F), 0);
+		animator.rotate(LowerL_Tentacle2, 0, (float) Math.toRadians(42.5F), 0);
+		animator.rotate(LowerL_Tentacle, 0, (float) Math.toRadians(-70F), 0);
 
-		animator.rotate(LowerR_Tantacle4, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(LowerR_Tantacle3, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(LowerR_Tantacle2, 0, (float) Math.toRadians(-42.5F), 0);
-		animator.rotate(LowerR_Tantacle, 0, (float) Math.toRadians(70F), 0);
+		animator.rotate(LowerR_Tentacle4, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(LowerR_Tentacle3, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(LowerR_Tentacle2, 0, (float) Math.toRadians(-42.5F), 0);
+		animator.rotate(LowerR_Tentacle, 0, (float) Math.toRadians(70F), 0);
 
-		animator.rotate(UpperL_Tantacle4, 0, (float) Math.toRadians(7.5F), 0);
-		animator.rotate(UpperL_Tantacle3, 0, (float) Math.toRadians(7.5F), 0);
-		animator.rotate(UpperL_Tantacle2, 0, (float) Math.toRadians(42.5F), 0);
-		animator.rotate(UpperL_Tantacle, 0, (float) Math.toRadians(-70F), 0);
+		animator.rotate(UpperL_Tentacle4, 0, (float) Math.toRadians(7.5F), 0);
+		animator.rotate(UpperL_Tentacle3, 0, (float) Math.toRadians(7.5F), 0);
+		animator.rotate(UpperL_Tentacle2, 0, (float) Math.toRadians(42.5F), 0);
+		animator.rotate(UpperL_Tentacle, 0, (float) Math.toRadians(-70F), 0);
 
-		animator.rotate(UpperR_Tantacle4, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(UpperR_Tantacle3, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(UpperR_Tantacle2, 0, (float) Math.toRadians(-42.5F), 0);
-		animator.rotate(UpperR_Tantacle, 0, (float) Math.toRadians(70F), 0);
+		animator.rotate(UpperR_Tentacle4, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(UpperR_Tentacle3, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(UpperR_Tentacle2, 0, (float) Math.toRadians(-42.5F), 0);
+		animator.rotate(UpperR_Tentacle, 0, (float) Math.toRadians(70F), 0);
 
 		animator.endKeyframe();
 
@@ -716,25 +716,25 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_RUSH);
 		animator.startKeyframe(25);
-		animator.rotate(UpperR_Tantacle, 0, (float) Math.toRadians(20F), 0);
-		animator.rotate(UpperR_Tantacle2, 0, (float) Math.toRadians(50F), 0);
-		animator.rotate(UpperR_Tantacle3, 0, (float) Math.toRadians(50F), 0);
-		animator.rotate(UpperR_Tantacle4, 0, (float) Math.toRadians(70F), 0);
+		animator.rotate(UpperR_Tentacle, 0, (float) Math.toRadians(20F), 0);
+		animator.rotate(UpperR_Tentacle2, 0, (float) Math.toRadians(50F), 0);
+		animator.rotate(UpperR_Tentacle3, 0, (float) Math.toRadians(50F), 0);
+		animator.rotate(UpperR_Tentacle4, 0, (float) Math.toRadians(70F), 0);
 
-		animator.rotate(UpperL_Tantacle, 0, (float) Math.toRadians(-20F), 0);
-		animator.rotate(UpperL_Tantacle2, 0, (float) Math.toRadians(-50F), 0);
-		animator.rotate(UpperL_Tantacle3, 0, (float) Math.toRadians(-50F), 0);
-		animator.rotate(UpperL_Tantacle4, 0, (float) Math.toRadians(-70F), 0);
+		animator.rotate(UpperL_Tentacle, 0, (float) Math.toRadians(-20F), 0);
+		animator.rotate(UpperL_Tentacle2, 0, (float) Math.toRadians(-50F), 0);
+		animator.rotate(UpperL_Tentacle3, 0, (float) Math.toRadians(-50F), 0);
+		animator.rotate(UpperL_Tentacle4, 0, (float) Math.toRadians(-70F), 0);
 
-		animator.rotate(LowerR_Tantacle, 0, (float) Math.toRadians(20F), 0);
-		animator.rotate(LowerR_Tantacle2, 0, (float) Math.toRadians(50F), 0);
-		animator.rotate(LowerR_Tantacle3, 0, (float) Math.toRadians(52.5F), 0);
-		animator.rotate(LowerR_Tantacle4, 0, (float) Math.toRadians(55F), 0);
+		animator.rotate(LowerR_Tentacle, 0, (float) Math.toRadians(20F), 0);
+		animator.rotate(LowerR_Tentacle2, 0, (float) Math.toRadians(50F), 0);
+		animator.rotate(LowerR_Tentacle3, 0, (float) Math.toRadians(52.5F), 0);
+		animator.rotate(LowerR_Tentacle4, 0, (float) Math.toRadians(55F), 0);
 
-		animator.rotate(LowerL_Tantacle, 0, (float) Math.toRadians(-20F), 0);
-		animator.rotate(LowerL_Tantacle2, 0, (float) Math.toRadians(-50F), 0);
-		animator.rotate(LowerL_Tantacle3, 0, (float) Math.toRadians(-52.5F), 0);
-		animator.rotate(LowerL_Tantacle4, 0, (float) Math.toRadians(-55F), 0);
+		animator.rotate(LowerL_Tentacle, 0, (float) Math.toRadians(-20F), 0);
+		animator.rotate(LowerL_Tentacle2, 0, (float) Math.toRadians(-50F), 0);
+		animator.rotate(LowerL_Tentacle3, 0, (float) Math.toRadians(-52.5F), 0);
+		animator.rotate(LowerL_Tentacle4, 0, (float) Math.toRadians(-55F), 0);
 
 		animator.rotate(Mouth, (float) Math.toRadians(-2.5F), 0, 0);
 		animator.rotate(Mouth2, (float) Math.toRadians(-2.5F), 0, 0);
@@ -746,37 +746,37 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.setStaticKeyframe(10);
 
 		animator.startKeyframe(3);
-		animator.rotate(UpperR_Tantacle, 0, (float) Math.toRadians(37.5F), 0);
-		animator.rotate(UpperR_Tantacle2, 0, (float) Math.toRadians(45F), 0);
-		animator.rotate(UpperR_Tantacle3, 0, (float) Math.toRadians(50F), 0);
-		animator.rotate(UpperR_Tantacle4, 0, (float) Math.toRadians(40F), 0);
+		animator.rotate(UpperR_Tentacle, 0, (float) Math.toRadians(37.5F), 0);
+		animator.rotate(UpperR_Tentacle2, 0, (float) Math.toRadians(45F), 0);
+		animator.rotate(UpperR_Tentacle3, 0, (float) Math.toRadians(50F), 0);
+		animator.rotate(UpperR_Tentacle4, 0, (float) Math.toRadians(40F), 0);
 		animator.rotate(UpperR_Hook, 0, 0, (float) Math.toRadians(25F));
 		animator.rotate(UpperR_Hook2, 0, (float) Math.toRadians(25F), 0);
 		animator.rotate(UpperR_Hook3, 0, (float) Math.toRadians(-25F), 0);
 		animator.rotate(UpperR_Hook4, 0, 0, (float) Math.toRadians(-25F));
 
-		animator.rotate(UpperL_Tantacle, 0, (float) Math.toRadians(-37.5F), 0);
-		animator.rotate(UpperL_Tantacle2, 0, (float) Math.toRadians(-45F), 0);
-		animator.rotate(UpperL_Tantacle3, 0, (float) Math.toRadians(-50F), 0);
-		animator.rotate(UpperL_Tantacle4, 0, (float) Math.toRadians(-40F), 0);
+		animator.rotate(UpperL_Tentacle, 0, (float) Math.toRadians(-37.5F), 0);
+		animator.rotate(UpperL_Tentacle2, 0, (float) Math.toRadians(-45F), 0);
+		animator.rotate(UpperL_Tentacle3, 0, (float) Math.toRadians(-50F), 0);
+		animator.rotate(UpperL_Tentacle4, 0, (float) Math.toRadians(-40F), 0);
 		animator.rotate(UpperL_Hook, 0, 0, (float) Math.toRadians(-25F));
 		animator.rotate(UpperL_Hook2, 0, (float) Math.toRadians(-25F), 0);
 		animator.rotate(UpperL_Hook3, 0, (float) Math.toRadians(25F), 0);
 		animator.rotate(UpperL_Hook4, 0, 0, (float) Math.toRadians(25F));
 
-		animator.rotate(LowerR_Tantacle, 0, (float) Math.toRadians(37.5F), 0);
-		animator.rotate(LowerR_Tantacle2, 0, (float) Math.toRadians(45F), 0);
-		animator.rotate(LowerR_Tantacle3, 0, (float) Math.toRadians(52.5F), 0);
-		animator.rotate(LowerR_Tantacle4, 0, (float) Math.toRadians(30F), 0);
+		animator.rotate(LowerR_Tentacle, 0, (float) Math.toRadians(37.5F), 0);
+		animator.rotate(LowerR_Tentacle2, 0, (float) Math.toRadians(45F), 0);
+		animator.rotate(LowerR_Tentacle3, 0, (float) Math.toRadians(52.5F), 0);
+		animator.rotate(LowerR_Tentacle4, 0, (float) Math.toRadians(30F), 0);
 		animator.rotate(LowerR_Hook, 0, 0, (float) Math.toRadians(25F));
 		animator.rotate(LowerR_Hook2, 0, (float) Math.toRadians(25F), 0);
 		animator.rotate(LowerR_Hook3, 0, (float) Math.toRadians(-25F), 0);
 		animator.rotate(LowerR_Hook4, 0, 0, (float) Math.toRadians(-25F));
 
-		animator.rotate(LowerL_Tantacle, 0, (float) Math.toRadians(-37.5F), 0);
-		animator.rotate(LowerL_Tantacle2, 0, (float) Math.toRadians(-45F), 0);
-		animator.rotate(LowerL_Tantacle3, 0, (float) Math.toRadians(-52.5F), 0);
-		animator.rotate(LowerL_Tantacle4, 0, (float) Math.toRadians(-30F), 0);
+		animator.rotate(LowerL_Tentacle, 0, (float) Math.toRadians(-37.5F), 0);
+		animator.rotate(LowerL_Tentacle2, 0, (float) Math.toRadians(-45F), 0);
+		animator.rotate(LowerL_Tentacle3, 0, (float) Math.toRadians(-52.5F), 0);
+		animator.rotate(LowerL_Tentacle4, 0, (float) Math.toRadians(-30F), 0);
 		animator.rotate(LowerL_Hook, 0, 0, (float) Math.toRadians(-25F));
 		animator.rotate(LowerL_Hook2, 0, (float) Math.toRadians(-25F), 0);
 		animator.rotate(LowerL_Hook3, 0, (float) Math.toRadians(25F), 0);
@@ -794,37 +794,37 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.setStaticKeyframe(16);
 
 		animator.startKeyframe(3);
-		animator.rotate(UpperR_Tantacle, 0, (float) Math.toRadians(55F), 0);
-		animator.rotate(UpperR_Tantacle2, 0, (float) Math.toRadians(45F), 0);
-		animator.rotate(UpperR_Tantacle3, 0, (float) Math.toRadians(50F), 0);
-		animator.rotate(UpperR_Tantacle4, 0, (float) Math.toRadians(40F), 0);
+		animator.rotate(UpperR_Tentacle, 0, (float) Math.toRadians(55F), 0);
+		animator.rotate(UpperR_Tentacle2, 0, (float) Math.toRadians(45F), 0);
+		animator.rotate(UpperR_Tentacle3, 0, (float) Math.toRadians(50F), 0);
+		animator.rotate(UpperR_Tentacle4, 0, (float) Math.toRadians(40F), 0);
 		animator.rotate(UpperR_Hook, 0, 0, (float) Math.toRadians(25F));
 		animator.rotate(UpperR_Hook2, 0, (float) Math.toRadians(25F), 0);
 		animator.rotate(UpperR_Hook3, 0, (float) Math.toRadians(-25F), 0);
 		animator.rotate(UpperR_Hook4, 0, 0, (float) Math.toRadians(-25F));
 
-		animator.rotate(UpperL_Tantacle, 0, (float) Math.toRadians(-55F), 0);
-		animator.rotate(UpperL_Tantacle2, 0, (float) Math.toRadians(-45F), 0);
-		animator.rotate(UpperL_Tantacle3, 0, (float) Math.toRadians(-50F), 0);
-		animator.rotate(UpperL_Tantacle4, 0, (float) Math.toRadians(-40F), 0);
+		animator.rotate(UpperL_Tentacle, 0, (float) Math.toRadians(-55F), 0);
+		animator.rotate(UpperL_Tentacle2, 0, (float) Math.toRadians(-45F), 0);
+		animator.rotate(UpperL_Tentacle3, 0, (float) Math.toRadians(-50F), 0);
+		animator.rotate(UpperL_Tentacle4, 0, (float) Math.toRadians(-40F), 0);
 		animator.rotate(UpperL_Hook, 0, 0, (float) Math.toRadians(-25F));
 		animator.rotate(UpperL_Hook2, 0, (float) Math.toRadians(-25F), 0);
 		animator.rotate(UpperL_Hook3, 0, (float) Math.toRadians(25F), 0);
 		animator.rotate(UpperL_Hook4, 0, 0, (float) Math.toRadians(25F));
 
-		animator.rotate(LowerR_Tantacle, 0, (float) Math.toRadians(55F), 0);
-		animator.rotate(LowerR_Tantacle2, 0, (float) Math.toRadians(45F), 0);
-		animator.rotate(LowerR_Tantacle3, 0, (float) Math.toRadians(52.5F), 0);
-		animator.rotate(LowerR_Tantacle4, 0, (float) Math.toRadians(30F), 0);
+		animator.rotate(LowerR_Tentacle, 0, (float) Math.toRadians(55F), 0);
+		animator.rotate(LowerR_Tentacle2, 0, (float) Math.toRadians(45F), 0);
+		animator.rotate(LowerR_Tentacle3, 0, (float) Math.toRadians(52.5F), 0);
+		animator.rotate(LowerR_Tentacle4, 0, (float) Math.toRadians(30F), 0);
 		animator.rotate(LowerR_Hook, 0, 0, (float) Math.toRadians(25F));
 		animator.rotate(LowerR_Hook2, 0, (float) Math.toRadians(25F), 0);
 		animator.rotate(LowerR_Hook3, 0, (float) Math.toRadians(-25F), 0);
 		animator.rotate(LowerR_Hook4, 0, 0, (float) Math.toRadians(-25F));
 
-		animator.rotate(LowerL_Tantacle, 0, (float) Math.toRadians(-55F), 0);
-		animator.rotate(LowerL_Tantacle2, 0, (float) Math.toRadians(-45F), 0);
-		animator.rotate(LowerL_Tantacle3, 0, (float) Math.toRadians(-52.5F), 0);
-		animator.rotate(LowerL_Tantacle4, 0, (float) Math.toRadians(-30F), 0);
+		animator.rotate(LowerL_Tentacle, 0, (float) Math.toRadians(-55F), 0);
+		animator.rotate(LowerL_Tentacle2, 0, (float) Math.toRadians(-45F), 0);
+		animator.rotate(LowerL_Tentacle3, 0, (float) Math.toRadians(-52.5F), 0);
+		animator.rotate(LowerL_Tentacle4, 0, (float) Math.toRadians(-30F), 0);
 		animator.rotate(LowerL_Hook, 0, 0, (float) Math.toRadians(-25F));
 		animator.rotate(LowerL_Hook2, 0, (float) Math.toRadians(-25F), 0);
 		animator.rotate(LowerL_Hook3, 0, (float) Math.toRadians(25F), 0);
@@ -851,30 +851,30 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Mouth3, (float) Math.toRadians(30F), (float) Math.toRadians(27.5F), 0);
 		animator.rotate(Mouth4, (float) Math.toRadians(30F), (float) Math.toRadians(-27.5F), 0);
 		animator.rotate(Maw, (float) Math.toRadians(42.5F), 0, 0);
-		animator.rotate(UpperR_Tantacle, (float) Math.toRadians(27.5F), (float) Math.toRadians(10F), (float) Math.toRadians(20F));
-		animator.rotate(UpperR_Tantacle2, 0, (float) Math.toRadians(-22.5F), 0);
-		animator.rotate(UpperR_Tantacle3, 0, (float) Math.toRadians(-35F), 0);
-		animator.rotate(UpperR_Tantacle3, 0, (float) Math.toRadians(17.5F), 0);
+		animator.rotate(UpperR_Tentacle, (float) Math.toRadians(27.5F), (float) Math.toRadians(10F), (float) Math.toRadians(20F));
+		animator.rotate(UpperR_Tentacle2, 0, (float) Math.toRadians(-22.5F), 0);
+		animator.rotate(UpperR_Tentacle3, 0, (float) Math.toRadians(-35F), 0);
+		animator.rotate(UpperR_Tentacle3, 0, (float) Math.toRadians(17.5F), 0);
 
-		animator.rotate(UpperL_Tantacle, (float) Math.toRadians(27.5F), (float) Math.toRadians(-5F), (float) Math.toRadians(-15F));
-		animator.rotate(UpperL_Tantacle2, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(UpperL_Tantacle4, 0, (float) Math.toRadians(20F), 0);
+		animator.rotate(UpperL_Tentacle, (float) Math.toRadians(27.5F), (float) Math.toRadians(-5F), (float) Math.toRadians(-15F));
+		animator.rotate(UpperL_Tentacle2, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(UpperL_Tentacle4, 0, (float) Math.toRadians(20F), 0);
 		if(!entity.blocksByrighttentacle) {
-			animator.rotate(LowerR_Tantacle, (float) Math.toRadians(15F), (float) Math.toRadians(35F), (float) Math.toRadians(80F));
+			animator.rotate(LowerR_Tentacle, (float) Math.toRadians(15F), (float) Math.toRadians(35F), (float) Math.toRadians(80F));
 		}else{
-			animator.rotate(LowerR_Tantacle, (float) Math.toRadians(15F), (float) Math.toRadians(35F), (float) Math.toRadians(47.5F));
+			animator.rotate(LowerR_Tentacle, (float) Math.toRadians(15F), (float) Math.toRadians(35F), (float) Math.toRadians(47.5F));
 		}
 		if(!entity.blocksByrighttentacle){
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(57.5F), (float) Math.toRadians(-22.5F), (float) Math.toRadians(-82.5F));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(57.5F), (float) Math.toRadians(-22.5F), (float) Math.toRadians(-82.5F));
 		}else{
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(57.5F), (float) Math.toRadians(-22.5F), (float) Math.toRadians(-50F));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(57.5F), (float) Math.toRadians(-22.5F), (float) Math.toRadians(-50F));
 		}
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(57.5F), 0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(7.5F), 0);
-		animator.rotate(LowerR_Tantacle4,(float)Math.toRadians(67.5F),(float)Math.toRadians(-30F), (float)Math.toRadians(-65F));
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(-5F), 0);
-		animator.rotate(LowerR_Tantacle2,(float)Math.toRadians(2.5F),0, 0);
-		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(45F), 0);
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(57.5F), 0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(7.5F), 0);
+		animator.rotate(LowerR_Tentacle4,(float)Math.toRadians(67.5F),(float)Math.toRadians(-30F), (float)Math.toRadians(-65F));
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(-5F), 0);
+		animator.rotate(LowerR_Tentacle2,(float)Math.toRadians(2.5F),0, 0);
+		animator.rotate(UpperL_Tentacle3,0,(float)Math.toRadians(45F), 0);
 
 		animator.rotate(Tail3,(float)Math.toRadians(15F),0, 0);
 		animator.rotate(Tail2,(float)Math.toRadians(-32.5F),0, 0);
@@ -888,12 +888,12 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.setStaticKeyframe(10);
 
 		animator.startKeyframe(3);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(40F), 0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(7.5F), 0);
-		animator.rotate(LowerR_Tantacle4,(float)Math.toRadians(32.5F),(float)Math.toRadians(-25F), (float)Math.toRadians(-20F));
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(-5F), 0);
-		animator.rotate(LowerR_Tantacle2,(float)Math.toRadians(5F),(float)Math.toRadians(-32.5F), (float)Math.toRadians(-2.5F));
-		animator.rotate(UpperL_Tantacle3,(float)Math.toRadians(52.5F),(float)Math.toRadians(32.5F), (float)Math.toRadians(57.5F));
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(40F), 0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(7.5F), 0);
+		animator.rotate(LowerR_Tentacle4,(float)Math.toRadians(32.5F),(float)Math.toRadians(-25F), (float)Math.toRadians(-20F));
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(-5F), 0);
+		animator.rotate(LowerR_Tentacle2,(float)Math.toRadians(5F),(float)Math.toRadians(-32.5F), (float)Math.toRadians(-2.5F));
+		animator.rotate(UpperL_Tentacle3,(float)Math.toRadians(52.5F),(float)Math.toRadians(32.5F), (float)Math.toRadians(57.5F));
 		animator.rotate(Tail3,(float)Math.toRadians(15F),0, 0);
 		animator.rotate(Tail2,(float)Math.toRadians(-7.5F),0, 0);
 		animator.rotate(Tail,(float)Math.toRadians(-17.5F),0, 0);
@@ -901,35 +901,35 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(body,(float)Math.toRadians(25F),0, 0);
 		animator.move(root,0,-23, 0);
 		animator.rotate(Skul,(float)Math.toRadians(-12.5F),0, 0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(25F), 0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(25F), 0);
 		if(!entity.blocksBylefttentacle) {
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-70F));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-70F));
 		}else{
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-37.5F));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-37.5F));
 		}
 		if(!entity.blocksByrighttentacle) {
-			animator.rotate(LowerR_Tantacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(72.5F));
+			animator.rotate(LowerR_Tentacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(72.5F));
 		}else{
-			animator.rotate(LowerR_Tantacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(37.5F));
+			animator.rotate(LowerR_Tentacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(37.5F));
 		}
 
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-30F), 0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(10F), 0);
-		animator.rotate(UpperL_Tantacle,(float)Math.toRadians(35F),(float)Math.toRadians(25F), (float)Math.toRadians(5F));
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(22.5F),0);
-		animator.rotate(UpperR_Tantacle3,(float)Math.toRadians(-30F),(float)Math.toRadians(-30F),(float)Math.toRadians(35F));
-		animator.rotate(UpperR_Tantacle2,(float)Math.toRadians(-7.5F),(float)Math.toRadians(-17.5F),(float)Math.toRadians(10F));
-		animator.rotate(UpperR_Tantacle,(float)Math.toRadians(72.5F),(float)Math.toRadians(-22.5F),0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(-30F), 0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(10F), 0);
+		animator.rotate(UpperL_Tentacle,(float)Math.toRadians(35F),(float)Math.toRadians(25F), (float)Math.toRadians(5F));
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(22.5F),0);
+		animator.rotate(UpperR_Tentacle3,(float)Math.toRadians(-30F),(float)Math.toRadians(-30F),(float)Math.toRadians(35F));
+		animator.rotate(UpperR_Tentacle2,(float)Math.toRadians(-7.5F),(float)Math.toRadians(-17.5F),(float)Math.toRadians(10F));
+		animator.rotate(UpperR_Tentacle,(float)Math.toRadians(72.5F),(float)Math.toRadians(-22.5F),0);
 		animator.endKeyframe();
 		animator.setStaticKeyframe(15);
 
 		animator.startKeyframe(3);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(40F), 0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(7.5F), 0);
-		animator.rotate(LowerR_Tantacle4,(float)Math.toRadians(32.5F),(float)Math.toRadians(-25F), (float)Math.toRadians(-20F));
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(-5F), 0);
-		animator.rotate(LowerR_Tantacle2,(float)Math.toRadians(5F),(float)Math.toRadians(-32.5F), (float)Math.toRadians(-2.5F));
-		animator.rotate(UpperL_Tantacle3,(float)Math.toRadians(52.5F),(float)Math.toRadians(32.5F), (float)Math.toRadians(57.5F));
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(40F), 0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(7.5F), 0);
+		animator.rotate(LowerR_Tentacle4,(float)Math.toRadians(32.5F),(float)Math.toRadians(-25F), (float)Math.toRadians(-20F));
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(-5F), 0);
+		animator.rotate(LowerR_Tentacle2,(float)Math.toRadians(5F),(float)Math.toRadians(-32.5F), (float)Math.toRadians(-2.5F));
+		animator.rotate(UpperL_Tentacle3,(float)Math.toRadians(52.5F),(float)Math.toRadians(32.5F), (float)Math.toRadians(57.5F));
 		animator.rotate(Tail3,(float)Math.toRadians(15F),0, 0);
 		animator.rotate(Tail2,(float)Math.toRadians(-7.5F),0, 0);
 		animator.rotate(Tail,(float)Math.toRadians(-17.5F),0, 0);
@@ -937,25 +937,25 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(body,(float)Math.toRadians(25F),0, 0);
 		animator.move(root,0,-23, 0);
 		animator.rotate(Skul,(float)Math.toRadians(-12.5F),0, 0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(25F), 0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(25F), 0);
 		if(!entity.blocksBylefttentacle) {
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-70F));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-70F));
 		}else{
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-37.5F));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-37.5F));
 		}
 		if(!entity.blocksByrighttentacle) {
-			animator.rotate(LowerR_Tantacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(72.5F));
+			animator.rotate(LowerR_Tentacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(72.5F));
 		}else{
-			animator.rotate(LowerR_Tantacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(37.5F));
+			animator.rotate(LowerR_Tentacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(37.5F));
 		}
 
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-30F), 0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(10F), 0);
-		animator.rotate(UpperL_Tantacle,(float)Math.toRadians(35F),(float)Math.toRadians(25F), (float)Math.toRadians(5F));
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(22.5F),0);
-		animator.rotate(UpperR_Tantacle3,(float)Math.toRadians(-30F),(float)Math.toRadians(-30F),(float)Math.toRadians(35F));
-		animator.rotate(UpperR_Tantacle2,(float)Math.toRadians(-7.5F),(float)Math.toRadians(-17.5F),(float)Math.toRadians(10F));
-		animator.rotate(UpperR_Tantacle,(float)Math.toRadians(72.5F),(float)Math.toRadians(-22.5F),0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(-30F), 0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(10F), 0);
+		animator.rotate(UpperL_Tentacle,(float)Math.toRadians(35F),(float)Math.toRadians(25F), (float)Math.toRadians(5F));
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(22.5F),0);
+		animator.rotate(UpperR_Tentacle3,(float)Math.toRadians(-30F),(float)Math.toRadians(-30F),(float)Math.toRadians(35F));
+		animator.rotate(UpperR_Tentacle2,(float)Math.toRadians(-7.5F),(float)Math.toRadians(-17.5F),(float)Math.toRadians(10F));
+		animator.rotate(UpperR_Tentacle,(float)Math.toRadians(72.5F),(float)Math.toRadians(-22.5F),0);
 
 		animator.rotate(Mouth, (float) Math.toRadians(-30F), (float) Math.toRadians(27.5F), 0);
 		animator.rotate(Mouth2, (float) Math.toRadians(-30F), (float) Math.toRadians(-27.5F), 0);
@@ -968,12 +968,12 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.setStaticKeyframe(3);
 
 		animator.startKeyframe(12);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(40F), 0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(7.5F), 0);
-		animator.rotate(LowerR_Tantacle4,(float)Math.toRadians(32.5F),(float)Math.toRadians(-25F), (float)Math.toRadians(-20F));
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(-5F), 0);
-		animator.rotate(LowerR_Tantacle2,(float)Math.toRadians(5F),(float)Math.toRadians(-32.5F), (float)Math.toRadians(-2.5F));
-		animator.rotate(UpperL_Tantacle3,(float)Math.toRadians(52.5F),(float)Math.toRadians(32.5F), (float)Math.toRadians(57.5F));
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(40F), 0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(7.5F), 0);
+		animator.rotate(LowerR_Tentacle4,(float)Math.toRadians(32.5F),(float)Math.toRadians(-25F), (float)Math.toRadians(-20F));
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(-5F), 0);
+		animator.rotate(LowerR_Tentacle2,(float)Math.toRadians(5F),(float)Math.toRadians(-32.5F), (float)Math.toRadians(-2.5F));
+		animator.rotate(UpperL_Tentacle3,(float)Math.toRadians(52.5F),(float)Math.toRadians(32.5F), (float)Math.toRadians(57.5F));
 		animator.rotate(Tail3,(float)Math.toRadians(15F),0, 0);
 		animator.rotate(Tail2,(float)Math.toRadians(-7.5F),0, 0);
 		animator.rotate(Tail,(float)Math.toRadians(-17.5F),0, 0);
@@ -981,25 +981,25 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(body,(float)Math.toRadians(25F),0, 0);
 		animator.move(root,0,-23, 0);
 		animator.rotate(Skul,(float)Math.toRadians(-12.5F),0, 0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(25F), 0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(25F), 0);
 		if(!entity.blocksBylefttentacle) {
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-70F));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-70F));
 		}else{
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-37.5F));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-37.5F));
 		}
 		if(!entity.blocksByrighttentacle) {
-			animator.rotate(LowerR_Tantacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(72.5F));
+			animator.rotate(LowerR_Tentacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(72.5F));
 		}else{
-			animator.rotate(LowerR_Tantacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(37.5F));
+			animator.rotate(LowerR_Tentacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(37.5F));
 		}
 
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-30F), 0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(10F), 0);
-		animator.rotate(UpperL_Tantacle,(float)Math.toRadians(35F),(float)Math.toRadians(25F), (float)Math.toRadians(5F));
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(22.5F),0);
-		animator.rotate(UpperR_Tantacle3,(float)Math.toRadians(-30F),(float)Math.toRadians(-30F),(float)Math.toRadians(35F));
-		animator.rotate(UpperR_Tantacle2,(float)Math.toRadians(-7.5F),(float)Math.toRadians(-17.5F),(float)Math.toRadians(10F));
-		animator.rotate(UpperR_Tantacle,(float)Math.toRadians(72.5F),(float)Math.toRadians(-22.5F),0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(-30F), 0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(10F), 0);
+		animator.rotate(UpperL_Tentacle,(float)Math.toRadians(35F),(float)Math.toRadians(25F), (float)Math.toRadians(5F));
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(22.5F),0);
+		animator.rotate(UpperR_Tentacle3,(float)Math.toRadians(-30F),(float)Math.toRadians(-30F),(float)Math.toRadians(35F));
+		animator.rotate(UpperR_Tentacle2,(float)Math.toRadians(-7.5F),(float)Math.toRadians(-17.5F),(float)Math.toRadians(10F));
+		animator.rotate(UpperR_Tentacle,(float)Math.toRadians(72.5F),(float)Math.toRadians(-22.5F),0);
 
 		animator.rotate(Mouth, (float) Math.toRadians(-30F), (float) Math.toRadians(27.5F), 0);
 		animator.rotate(Mouth2, (float) Math.toRadians(-30F), (float) Math.toRadians(-27.5F), 0);
@@ -1012,12 +1012,12 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.endKeyframe();
 
 		animator.startKeyframe(11);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(40F), 0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(7.5F), 0);
-		animator.rotate(LowerR_Tantacle4,(float)Math.toRadians(32.5F),(float)Math.toRadians(-25F), (float)Math.toRadians(-20F));
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(-5F), 0);
-		animator.rotate(LowerR_Tantacle2,(float)Math.toRadians(5F),(float)Math.toRadians(-32.5F), (float)Math.toRadians(-2.5F));
-		animator.rotate(UpperL_Tantacle3,(float)Math.toRadians(52.5F),(float)Math.toRadians(32.5F), (float)Math.toRadians(57.5F));
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(40F), 0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(7.5F), 0);
+		animator.rotate(LowerR_Tentacle4,(float)Math.toRadians(32.5F),(float)Math.toRadians(-25F), (float)Math.toRadians(-20F));
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(-5F), 0);
+		animator.rotate(LowerR_Tentacle2,(float)Math.toRadians(5F),(float)Math.toRadians(-32.5F), (float)Math.toRadians(-2.5F));
+		animator.rotate(UpperL_Tentacle3,(float)Math.toRadians(52.5F),(float)Math.toRadians(32.5F), (float)Math.toRadians(57.5F));
 		animator.rotate(Tail3,(float)Math.toRadians(15F),0, 0);
 		animator.rotate(Tail2,(float)Math.toRadians(-7.5F),0, 0);
 		animator.rotate(Tail,(float)Math.toRadians(-17.5F),0, 0);
@@ -1025,24 +1025,24 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(body,(float)Math.toRadians(25F),0, 0);
 		animator.move(root,0,-23, 0);
 		animator.rotate(Skul,(float)Math.toRadians(-12.5F),0, 0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(25F), 0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(25F), 0);
 		if(!entity.blocksBylefttentacle) {
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-70F));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-70F));
 		}else{
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-37.5F));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-37.5F));
 		}
 		if(!entity.blocksByrighttentacle) {
-			animator.rotate(LowerR_Tantacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(72.5F));
+			animator.rotate(LowerR_Tentacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(72.5F));
 		}else{
-			animator.rotate(LowerR_Tantacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(37.5F));
+			animator.rotate(LowerR_Tentacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(37.5F));
 		}
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-30F), 0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(10F), 0);
-		animator.rotate(UpperL_Tantacle,(float)Math.toRadians(35F),(float)Math.toRadians(25F), (float)Math.toRadians(5F));
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(22.5F),0);
-		animator.rotate(UpperR_Tantacle3,(float)Math.toRadians(-30F),(float)Math.toRadians(-30F),(float)Math.toRadians(35F));
-		animator.rotate(UpperR_Tantacle2,(float)Math.toRadians(-7.5F),(float)Math.toRadians(-17.5F),(float)Math.toRadians(10F));
-		animator.rotate(UpperR_Tantacle,(float)Math.toRadians(72.5F),(float)Math.toRadians(-22.5F),0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(-30F), 0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(10F), 0);
+		animator.rotate(UpperL_Tentacle,(float)Math.toRadians(35F),(float)Math.toRadians(25F), (float)Math.toRadians(5F));
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(22.5F),0);
+		animator.rotate(UpperR_Tentacle3,(float)Math.toRadians(-30F),(float)Math.toRadians(-30F),(float)Math.toRadians(35F));
+		animator.rotate(UpperR_Tentacle2,(float)Math.toRadians(-7.5F),(float)Math.toRadians(-17.5F),(float)Math.toRadians(10F));
+		animator.rotate(UpperR_Tentacle,(float)Math.toRadians(72.5F),(float)Math.toRadians(-22.5F),0);
 		animator.rotate(Mouth, (float) Math.toRadians(-30F), (float) Math.toRadians(27.5F), 0);
 		animator.rotate(Mouth2, (float) Math.toRadians(-30F), (float) Math.toRadians(-27.5F), 0);
 		animator.rotate(Mouth3, (float) Math.toRadians(15F), (float) Math.toRadians(27.5F), 0);
@@ -1054,12 +1054,12 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.endKeyframe();
 
 		animator.startKeyframe(10);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(40F), 0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(7.5F), 0);
-		animator.rotate(LowerR_Tantacle4,(float)Math.toRadians(32.5F),(float)Math.toRadians(-25F), (float)Math.toRadians(-20F));
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(-5F), 0);
-		animator.rotate(LowerR_Tantacle2,(float)Math.toRadians(5F),(float)Math.toRadians(-32.5F), (float)Math.toRadians(-2.5F));
-		animator.rotate(UpperL_Tantacle3,(float)Math.toRadians(52.5F),(float)Math.toRadians(32.5F), (float)Math.toRadians(57.5F));
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(40F), 0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(7.5F), 0);
+		animator.rotate(LowerR_Tentacle4,(float)Math.toRadians(32.5F),(float)Math.toRadians(-25F), (float)Math.toRadians(-20F));
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(-5F), 0);
+		animator.rotate(LowerR_Tentacle2,(float)Math.toRadians(5F),(float)Math.toRadians(-32.5F), (float)Math.toRadians(-2.5F));
+		animator.rotate(UpperL_Tentacle3,(float)Math.toRadians(52.5F),(float)Math.toRadians(32.5F), (float)Math.toRadians(57.5F));
 		animator.rotate(Tail3,(float)Math.toRadians(15F),0, 0);
 		animator.rotate(Tail2,(float)Math.toRadians(-7.5F),0, 0);
 		animator.rotate(Tail,(float)Math.toRadians(-17.5F),0, 0);
@@ -1067,24 +1067,24 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(body,(float)Math.toRadians(25F),0, 0);
 		animator.move(root,0,-23, 0);
 		animator.rotate(Skul,(float)Math.toRadians(-12.5F),0, 0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(25F), 0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(25F), 0);
 		if(!entity.blocksBylefttentacle) {
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-70F));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-70F));
 		}else{
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-37.5F));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-37.5F));
 		}
 		if(!entity.blocksByrighttentacle) {
-			animator.rotate(LowerR_Tantacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(72.5F));
+			animator.rotate(LowerR_Tentacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(72.5F));
 		}else{
-			animator.rotate(LowerR_Tantacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(37.5F));
+			animator.rotate(LowerR_Tentacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(37.5F));
 		}
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-30F), 0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(10F), 0);
-		animator.rotate(UpperL_Tantacle,(float)Math.toRadians(35F),(float)Math.toRadians(25F), (float)Math.toRadians(5F));
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(22.5F),0);
-		animator.rotate(UpperR_Tantacle3,(float)Math.toRadians(-30F),(float)Math.toRadians(-30F),(float)Math.toRadians(35F));
-		animator.rotate(UpperR_Tantacle2,(float)Math.toRadians(-7.5F),(float)Math.toRadians(-17.5F),(float)Math.toRadians(10F));
-		animator.rotate(UpperR_Tantacle,(float)Math.toRadians(72.5F),(float)Math.toRadians(-22.5F),0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(-30F), 0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(10F), 0);
+		animator.rotate(UpperL_Tentacle,(float)Math.toRadians(35F),(float)Math.toRadians(25F), (float)Math.toRadians(5F));
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(22.5F),0);
+		animator.rotate(UpperR_Tentacle3,(float)Math.toRadians(-30F),(float)Math.toRadians(-30F),(float)Math.toRadians(35F));
+		animator.rotate(UpperR_Tentacle2,(float)Math.toRadians(-7.5F),(float)Math.toRadians(-17.5F),(float)Math.toRadians(10F));
+		animator.rotate(UpperR_Tentacle,(float)Math.toRadians(72.5F),(float)Math.toRadians(-22.5F),0);
 
 		animator.rotate(Mouth, (float) Math.toRadians(-30F), (float) Math.toRadians(27.5F), 0);
 		animator.rotate(Mouth2, (float) Math.toRadians(-30F), (float) Math.toRadians(-27.5F), 0);
@@ -1097,12 +1097,12 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.endKeyframe();
 
 		animator.startKeyframe(9);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(40F), 0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(7.5F), 0);
-		animator.rotate(LowerR_Tantacle4,(float)Math.toRadians(32.5F),(float)Math.toRadians(-25F), (float)Math.toRadians(-20F));
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(-5F), 0);
-		animator.rotate(LowerR_Tantacle2,(float)Math.toRadians(5F),(float)Math.toRadians(-32.5F), (float)Math.toRadians(-2.5F));
-		animator.rotate(UpperL_Tantacle3,(float)Math.toRadians(52.5F),(float)Math.toRadians(32.5F), (float)Math.toRadians(57.5F));
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(40F), 0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(7.5F), 0);
+		animator.rotate(LowerR_Tentacle4,(float)Math.toRadians(32.5F),(float)Math.toRadians(-25F), (float)Math.toRadians(-20F));
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(-5F), 0);
+		animator.rotate(LowerR_Tentacle2,(float)Math.toRadians(5F),(float)Math.toRadians(-32.5F), (float)Math.toRadians(-2.5F));
+		animator.rotate(UpperL_Tentacle3,(float)Math.toRadians(52.5F),(float)Math.toRadians(32.5F), (float)Math.toRadians(57.5F));
 		animator.rotate(Tail3,(float)Math.toRadians(15F),0, 0);
 		animator.rotate(Tail2,(float)Math.toRadians(-7.5F),0, 0);
 		animator.rotate(Tail,(float)Math.toRadians(-17.5F),0, 0);
@@ -1110,24 +1110,24 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(body,(float)Math.toRadians(25F),0, 0);
 		animator.move(root,0,-23, 0);
 		animator.rotate(Skul,(float)Math.toRadians(-12.5F),0, 0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(25F), 0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(25F), 0);
 		if(!entity.blocksBylefttentacle) {
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-70F));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-70F));
 		}else{
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-37.5F));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-37.5F));
 		}
 		if(!entity.blocksByrighttentacle) {
-			animator.rotate(LowerR_Tantacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(72.5F));
+			animator.rotate(LowerR_Tentacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(72.5F));
 		}else{
-			animator.rotate(LowerR_Tantacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(37.5F));
+			animator.rotate(LowerR_Tentacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(37.5F));
 		}
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-30F), 0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(10F), 0);
-		animator.rotate(UpperL_Tantacle,(float)Math.toRadians(35F),(float)Math.toRadians(25F), (float)Math.toRadians(5F));
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(22.5F),0);
-		animator.rotate(UpperR_Tantacle3,(float)Math.toRadians(-30F),(float)Math.toRadians(-30F),(float)Math.toRadians(35F));
-		animator.rotate(UpperR_Tantacle2,(float)Math.toRadians(-7.5F),(float)Math.toRadians(-17.5F),(float)Math.toRadians(10F));
-		animator.rotate(UpperR_Tantacle,(float)Math.toRadians(72.5F),(float)Math.toRadians(-22.5F),0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(-30F), 0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(10F), 0);
+		animator.rotate(UpperL_Tentacle,(float)Math.toRadians(35F),(float)Math.toRadians(25F), (float)Math.toRadians(5F));
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(22.5F),0);
+		animator.rotate(UpperR_Tentacle3,(float)Math.toRadians(-30F),(float)Math.toRadians(-30F),(float)Math.toRadians(35F));
+		animator.rotate(UpperR_Tentacle2,(float)Math.toRadians(-7.5F),(float)Math.toRadians(-17.5F),(float)Math.toRadians(10F));
+		animator.rotate(UpperR_Tentacle,(float)Math.toRadians(72.5F),(float)Math.toRadians(-22.5F),0);
 		animator.rotate(Mouth, (float) Math.toRadians(-30F), (float) Math.toRadians(27.5F), 0);
 		animator.rotate(Mouth2, (float) Math.toRadians(-30F), (float) Math.toRadians(-27.5F), 0);
 		animator.rotate(Mouth3, (float) Math.toRadians(15F), (float) Math.toRadians(27.5F), 0);
@@ -1139,12 +1139,12 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.endKeyframe();
 
 		animator.startKeyframe(8);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(40F), 0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(7.5F), 0);
-		animator.rotate(LowerR_Tantacle4,(float)Math.toRadians(32.5F),(float)Math.toRadians(-25F), (float)Math.toRadians(-20F));
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(-5F), 0);
-		animator.rotate(LowerR_Tantacle2,(float)Math.toRadians(5F),(float)Math.toRadians(-32.5F), (float)Math.toRadians(-2.5F));
-		animator.rotate(UpperL_Tantacle3,(float)Math.toRadians(52.5F),(float)Math.toRadians(32.5F), (float)Math.toRadians(57.5F));
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(40F), 0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(7.5F), 0);
+		animator.rotate(LowerR_Tentacle4,(float)Math.toRadians(32.5F),(float)Math.toRadians(-25F), (float)Math.toRadians(-20F));
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(-5F), 0);
+		animator.rotate(LowerR_Tentacle2,(float)Math.toRadians(5F),(float)Math.toRadians(-32.5F), (float)Math.toRadians(-2.5F));
+		animator.rotate(UpperL_Tentacle3,(float)Math.toRadians(52.5F),(float)Math.toRadians(32.5F), (float)Math.toRadians(57.5F));
 		animator.rotate(Tail3,(float)Math.toRadians(15F),0, 0);
 		animator.rotate(Tail2,(float)Math.toRadians(-7.5F),0, 0);
 		animator.rotate(Tail,(float)Math.toRadians(-17.5F),0, 0);
@@ -1152,24 +1152,24 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(body,(float)Math.toRadians(25F),0, 0);
 		animator.move(root,0,-23, 0);
 		animator.rotate(Skul,(float)Math.toRadians(-12.5F),0, 0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(25F), 0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(25F), 0);
 		if(!entity.blocksBylefttentacle) {
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-70F));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-70F));
 		}else{
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-37.5F));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-37.5F));
 		}
 		if(!entity.blocksByrighttentacle) {
-			animator.rotate(LowerR_Tantacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(72.5F));
+			animator.rotate(LowerR_Tentacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(72.5F));
 		}else{
-			animator.rotate(LowerR_Tantacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(37.5F));
+			animator.rotate(LowerR_Tentacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(37.5F));
 		}
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-30F), 0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(10F), 0);
-		animator.rotate(UpperL_Tantacle,(float)Math.toRadians(35F),(float)Math.toRadians(25F), (float)Math.toRadians(5F));
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(22.5F),0);
-		animator.rotate(UpperR_Tantacle3,(float)Math.toRadians(-30F),(float)Math.toRadians(-30F),(float)Math.toRadians(35F));
-		animator.rotate(UpperR_Tantacle2,(float)Math.toRadians(-7.5F),(float)Math.toRadians(-17.5F),(float)Math.toRadians(10F));
-		animator.rotate(UpperR_Tantacle,(float)Math.toRadians(72.5F),(float)Math.toRadians(-22.5F),0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(-30F), 0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(10F), 0);
+		animator.rotate(UpperL_Tentacle,(float)Math.toRadians(35F),(float)Math.toRadians(25F), (float)Math.toRadians(5F));
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(22.5F),0);
+		animator.rotate(UpperR_Tentacle3,(float)Math.toRadians(-30F),(float)Math.toRadians(-30F),(float)Math.toRadians(35F));
+		animator.rotate(UpperR_Tentacle2,(float)Math.toRadians(-7.5F),(float)Math.toRadians(-17.5F),(float)Math.toRadians(10F));
+		animator.rotate(UpperR_Tentacle,(float)Math.toRadians(72.5F),(float)Math.toRadians(-22.5F),0);
 
 		animator.rotate(Mouth, (float) Math.toRadians(-30F), (float) Math.toRadians(27.5F), 0);
 		animator.rotate(Mouth2, (float) Math.toRadians(-30F), (float) Math.toRadians(-27.5F), 0);
@@ -1182,12 +1182,12 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.endKeyframe();
 
 		animator.startKeyframe(7);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(40F), 0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(7.5F), 0);
-		animator.rotate(LowerR_Tantacle4,(float)Math.toRadians(32.5F),(float)Math.toRadians(-25F), (float)Math.toRadians(-20F));
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(-5F), 0);
-		animator.rotate(LowerR_Tantacle2,(float)Math.toRadians(5F),(float)Math.toRadians(-32.5F), (float)Math.toRadians(-2.5F));
-		animator.rotate(UpperL_Tantacle3,(float)Math.toRadians(52.5F),(float)Math.toRadians(32.5F), (float)Math.toRadians(57.5F));
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(40F), 0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(7.5F), 0);
+		animator.rotate(LowerR_Tentacle4,(float)Math.toRadians(32.5F),(float)Math.toRadians(-25F), (float)Math.toRadians(-20F));
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(-5F), 0);
+		animator.rotate(LowerR_Tentacle2,(float)Math.toRadians(5F),(float)Math.toRadians(-32.5F), (float)Math.toRadians(-2.5F));
+		animator.rotate(UpperL_Tentacle3,(float)Math.toRadians(52.5F),(float)Math.toRadians(32.5F), (float)Math.toRadians(57.5F));
 		animator.rotate(Tail3,(float)Math.toRadians(15F),0, 0);
 		animator.rotate(Tail2,(float)Math.toRadians(-7.5F),0, 0);
 		animator.rotate(Tail,(float)Math.toRadians(-17.5F),0, 0);
@@ -1195,24 +1195,24 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(body,(float)Math.toRadians(25F),0, 0);
 		animator.move(root,0,-23, 0);
 		animator.rotate(Skul,(float)Math.toRadians(-12.5F),0, 0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(25F), 0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(25F), 0);
 		if(!entity.blocksBylefttentacle) {
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-70F));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-70F));
 		}else{
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-37.5F));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-37.5F));
 		}
 		if(!entity.blocksByrighttentacle) {
-			animator.rotate(LowerR_Tantacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(72.5F));
+			animator.rotate(LowerR_Tentacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(72.5F));
 		}else{
-			animator.rotate(LowerR_Tantacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(37.5F));
+			animator.rotate(LowerR_Tentacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(37.5F));
 		}
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-30F), 0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(10F), 0);
-		animator.rotate(UpperL_Tantacle,(float)Math.toRadians(35F),(float)Math.toRadians(25F), (float)Math.toRadians(5F));
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(22.5F),0);
-		animator.rotate(UpperR_Tantacle3,(float)Math.toRadians(-30F),(float)Math.toRadians(-30F),(float)Math.toRadians(35F));
-		animator.rotate(UpperR_Tantacle2,(float)Math.toRadians(-7.5F),(float)Math.toRadians(-17.5F),(float)Math.toRadians(10F));
-		animator.rotate(UpperR_Tantacle,(float)Math.toRadians(72.5F),(float)Math.toRadians(-22.5F),0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(-30F), 0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(10F), 0);
+		animator.rotate(UpperL_Tentacle,(float)Math.toRadians(35F),(float)Math.toRadians(25F), (float)Math.toRadians(5F));
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(22.5F),0);
+		animator.rotate(UpperR_Tentacle3,(float)Math.toRadians(-30F),(float)Math.toRadians(-30F),(float)Math.toRadians(35F));
+		animator.rotate(UpperR_Tentacle2,(float)Math.toRadians(-7.5F),(float)Math.toRadians(-17.5F),(float)Math.toRadians(10F));
+		animator.rotate(UpperR_Tentacle,(float)Math.toRadians(72.5F),(float)Math.toRadians(-22.5F),0);
 		animator.rotate(Mouth, (float) Math.toRadians(-30F), (float) Math.toRadians(27.5F), 0);
 		animator.rotate(Mouth2, (float) Math.toRadians(-30F), (float) Math.toRadians(-27.5F), 0);
 		animator.rotate(Mouth3, (float) Math.toRadians(15F), (float) Math.toRadians(27.5F), 0);
@@ -1224,12 +1224,12 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.endKeyframe();
 
 		animator.startKeyframe(3);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(40F), 0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(7.5F), 0);
-		animator.rotate(LowerR_Tantacle4,(float)Math.toRadians(32.5F),(float)Math.toRadians(-25F), (float)Math.toRadians(-20F));
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(-5F), 0);
-		animator.rotate(LowerR_Tantacle2,(float)Math.toRadians(5F),(float)Math.toRadians(-32.5F), (float)Math.toRadians(-2.5F));
-		animator.rotate(UpperL_Tantacle3,(float)Math.toRadians(52.5F),(float)Math.toRadians(32.5F), (float)Math.toRadians(57.5F));
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(40F), 0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(7.5F), 0);
+		animator.rotate(LowerR_Tentacle4,(float)Math.toRadians(32.5F),(float)Math.toRadians(-25F), (float)Math.toRadians(-20F));
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(-5F), 0);
+		animator.rotate(LowerR_Tentacle2,(float)Math.toRadians(5F),(float)Math.toRadians(-32.5F), (float)Math.toRadians(-2.5F));
+		animator.rotate(UpperL_Tentacle3,(float)Math.toRadians(52.5F),(float)Math.toRadians(32.5F), (float)Math.toRadians(57.5F));
 		animator.rotate(Tail3,(float)Math.toRadians(15F),0, 0);
 		animator.rotate(Tail2,(float)Math.toRadians(-7.5F),0, 0);
 		animator.rotate(Tail,(float)Math.toRadians(-17.5F),0, 0);
@@ -1237,25 +1237,25 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(body,(float)Math.toRadians(25F),0, 0);
 		animator.move(root,0,-23, 0);
 		animator.rotate(Skul,(float)Math.toRadians(-12.5F),0, 0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(25F), 0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(25F), 0);
 		if(!entity.blocksBylefttentacle) {
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-70F));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-70F));
 		}else{
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-37.5F));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(85F), (float) Math.toRadians(2.5F), (float) Math.toRadians(-37.5F));
 		}
 		if(!entity.blocksByrighttentacle) {
-			animator.rotate(LowerR_Tantacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(72.5F));
+			animator.rotate(LowerR_Tentacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(72.5F));
 		}else{
-			animator.rotate(LowerR_Tantacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(37.5F));
+			animator.rotate(LowerR_Tentacle, (float) Math.toRadians(80F), (float) Math.toRadians(15F), (float) Math.toRadians(37.5F));
 		}
 
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-30F), 0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(10F), 0);
-		animator.rotate(UpperL_Tantacle,(float)Math.toRadians(35F),(float)Math.toRadians(25F), (float)Math.toRadians(5F));
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(22.5F),0);
-		animator.rotate(UpperR_Tantacle3,(float)Math.toRadians(-30F),(float)Math.toRadians(-30F),(float)Math.toRadians(35F));
-		animator.rotate(UpperR_Tantacle2,(float)Math.toRadians(-7.5F),(float)Math.toRadians(-17.5F),(float)Math.toRadians(10F));
-		animator.rotate(UpperR_Tantacle,(float)Math.toRadians(72.5F),(float)Math.toRadians(-22.5F),0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(-30F), 0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(10F), 0);
+		animator.rotate(UpperL_Tentacle,(float)Math.toRadians(35F),(float)Math.toRadians(25F), (float)Math.toRadians(5F));
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(22.5F),0);
+		animator.rotate(UpperR_Tentacle3,(float)Math.toRadians(-30F),(float)Math.toRadians(-30F),(float)Math.toRadians(35F));
+		animator.rotate(UpperR_Tentacle2,(float)Math.toRadians(-7.5F),(float)Math.toRadians(-17.5F),(float)Math.toRadians(10F));
+		animator.rotate(UpperR_Tentacle,(float)Math.toRadians(72.5F),(float)Math.toRadians(-22.5F),0);
 
 		animator.rotate(Mouth, (float) Math.toRadians(-30F), (float) Math.toRadians(27.5F), 0);
 		animator.rotate(Mouth2, (float) Math.toRadians(-30F), (float) Math.toRadians(-27.5F), 0);
@@ -1272,18 +1272,18 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_TENTACLE_STRIKE_UPPER_R);
 		animator.startKeyframe(23);
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(45F), 0);
-		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(37.5F), 0);
-		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(37.5F), 0);
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(47.5F), 0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(45F), 0);
+		animator.rotate(UpperR_Tentacle2,0,(float)Math.toRadians(37.5F), 0);
+		animator.rotate(UpperR_Tentacle3,0,(float)Math.toRadians(37.5F), 0);
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(47.5F), 0);
 		animator.endKeyframe();
 
 
 		animator.startKeyframe(1);
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(-55F), 0);
-		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(5F), 0);
-		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(-2.5F), 0);
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(2.5F), 0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(-55F), 0);
+		animator.rotate(UpperR_Tentacle2,0,(float)Math.toRadians(5F), 0);
+		animator.rotate(UpperR_Tentacle3,0,(float)Math.toRadians(-2.5F), 0);
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(2.5F), 0);
 
 		animator.rotate(UpperR_Hook,0,0, (float)Math.toRadians(22.5F));
 		animator.rotate(UpperR_Hook2,0,(float)Math.toRadians(22.5F), 0);
@@ -1299,18 +1299,18 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_TENTACLE_STRIKE_LOWER_R);
 		animator.startKeyframe(27);
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(45F), 0);
-		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(37.5F), 0);
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(37.5F), 0);
-		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(47.5F), 0);
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(45F), 0);
+		animator.rotate(LowerR_Tentacle2,0,(float)Math.toRadians(37.5F), 0);
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(37.5F), 0);
+		animator.rotate(LowerR_Tentacle4,0,(float)Math.toRadians(47.5F), 0);
 		animator.endKeyframe();
 
 
 		animator.startKeyframe(1);
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(-55F), 0);
-		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(5F), 0);
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(-2.5F), 0);
-		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(2.5F), 0);
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(-55F), 0);
+		animator.rotate(LowerR_Tentacle2,0,(float)Math.toRadians(5F), 0);
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(-2.5F), 0);
+		animator.rotate(LowerR_Tentacle4,0,(float)Math.toRadians(2.5F), 0);
 
 		animator.rotate(LowerR_Hook,0,0, (float)Math.toRadians(22.5F));
 		animator.rotate(LowerR_Hook2,0,(float)Math.toRadians(22.5F), 0);
@@ -1326,18 +1326,18 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_TENTACLE_STRIKE_UPPER_L);
 		animator.startKeyframe(25);
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-47.5F), 0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(-37.5F), 0);
-		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(-37.5F), 0);
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-47.5F), 0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(-47.5F), 0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(-37.5F), 0);
+		animator.rotate(UpperL_Tentacle3,0,(float)Math.toRadians(-37.5F), 0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(-47.5F), 0);
 		animator.endKeyframe();
 
 
 		animator.startKeyframe(1);
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(55F), 0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(5F), 0);
-		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(-2.5F), 0);
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-2.5F), 0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(55F), 0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(5F), 0);
+		animator.rotate(UpperL_Tentacle3,0,(float)Math.toRadians(-2.5F), 0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(-2.5F), 0);
 
 		animator.rotate(UpperL_Hook,0,0, (float)Math.toRadians(-22.5F));
 		animator.rotate(UpperL_Hook2,0,(float)Math.toRadians(-22.5F), 0);
@@ -1352,18 +1352,18 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_TENTACLE_STRIKE_LOWER_L);
 		animator.startKeyframe(20);
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(-47.5F), 0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(-37.5F), 0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(-37.5F), 0);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(-47.5F), 0);
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(-47.5F), 0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(-37.5F), 0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(-37.5F), 0);
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(-47.5F), 0);
 		animator.endKeyframe();
 
 
 		animator.startKeyframe(1);
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(55F), 0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(5F), 0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(-2.5F), 0);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(-2.5F), 0);
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(55F), 0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(5F), 0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(-2.5F), 0);
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(-2.5F), 0);
 
 		animator.rotate(LowerL_Hook,0,0, (float)Math.toRadians(-22.5F));
 		animator.rotate(LowerL_Hook2,0,(float)Math.toRadians(-22.5F), 0);
@@ -1379,34 +1379,34 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_STUN);
 		animator.startKeyframe(0);
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(37.5F), 0);
-		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(45F), 0);
-		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(50F), 0);
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(40F), 0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(37.5F), 0);
+		animator.rotate(UpperR_Tentacle2,0,(float)Math.toRadians(45F), 0);
+		animator.rotate(UpperR_Tentacle3,0,(float)Math.toRadians(50F), 0);
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(40F), 0);
 		animator.rotate(UpperR_Hook,0,0, (float)Math.toRadians(25F));
 		animator.rotate(UpperR_Hook2,0,(float)Math.toRadians(25F), 0);
 		animator.rotate(UpperR_Hook3,0,(float)Math.toRadians(-25F), 0);
 		animator.rotate(UpperR_Hook4,0,0, (float)Math.toRadians(-25F));
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-37.5F), 0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(-45F), 0);
-		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(-50F), 0);
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-40F), 0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(-37.5F), 0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(-45F), 0);
+		animator.rotate(UpperL_Tentacle3,0,(float)Math.toRadians(-50F), 0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(-40F), 0);
 		animator.rotate(UpperL_Hook,0,0, (float)Math.toRadians(-25F));
 		animator.rotate(UpperL_Hook2,0,(float)Math.toRadians(-25F), 0);
 		animator.rotate(UpperL_Hook3,0,(float)Math.toRadians(25F), 0);
 		animator.rotate(UpperL_Hook4,0,0, (float)Math.toRadians(25F));
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(37.5F), 0);
-		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(45F), 0);
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(52.5F), 0);
-		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(30F), 0);
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(37.5F), 0);
+		animator.rotate(LowerR_Tentacle2,0,(float)Math.toRadians(45F), 0);
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(52.5F), 0);
+		animator.rotate(LowerR_Tentacle4,0,(float)Math.toRadians(30F), 0);
 		animator.rotate(LowerR_Hook,0,0, (float)Math.toRadians(25F));
 		animator.rotate(LowerR_Hook2,0,(float)Math.toRadians(25F), 0);
 		animator.rotate(LowerR_Hook3,0,(float)Math.toRadians(-25F), 0);
 		animator.rotate(LowerR_Hook4,0,0, (float)Math.toRadians(-25F));
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(-37.5F), 0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(-45F), 0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(-52.5F), 0);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(-30F), 0);
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(-37.5F), 0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(-45F), 0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(-52.5F), 0);
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(-30F), 0);
 		animator.rotate(LowerL_Hook,0,0, (float)Math.toRadians(-25F));
 		animator.rotate(LowerL_Hook2,0,(float)Math.toRadians(-25F), 0);
 		animator.rotate(LowerL_Hook3,0,(float)Math.toRadians(25F), 0);
@@ -1447,25 +1447,25 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_TAIL_WHIPS);
 		animator.startKeyframe(12);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(32.5f), 0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(27.5f), 0);
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(32.5f), 0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(27.5f), 0);
 		if(!entity.blocksBylefttentacle) {
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(12.5f), (float) Math.toRadians(10f), (float) Math.toRadians(-10f));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(12.5f), (float) Math.toRadians(10f), (float) Math.toRadians(-10f));
 		}else{
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(12.5f), (float) Math.toRadians(10f), (float) Math.toRadians(22.5f));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(12.5f), (float) Math.toRadians(10f), (float) Math.toRadians(22.5f));
 		}
-		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(47.5F), 0);
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(52.5F), 0);
-		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(37.5F), (float)Math.toRadians(5F));
+		animator.rotate(LowerR_Tentacle4,0,(float)Math.toRadians(47.5F), 0);
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(52.5F), 0);
+		animator.rotate(LowerR_Tentacle2,0,(float)Math.toRadians(37.5F), (float)Math.toRadians(5F));
 		if(entity.blocksByrighttentacle) {
-			animator.rotate(LowerR_Tantacle, 0, 0, (float) Math.toRadians(-32.5f));
+			animator.rotate(LowerR_Tentacle, 0, 0, (float) Math.toRadians(-32.5f));
 		}
-		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(30F), 0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(25F), 0);
+		animator.rotate(UpperL_Tentacle3,0,(float)Math.toRadians(30F), 0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(25F), 0);
 
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(62.5F), 0);
-		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(40F), 0);
-		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(42.5F), 0);
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(62.5F), 0);
+		animator.rotate(UpperR_Tentacle3,0,(float)Math.toRadians(40F), 0);
+		animator.rotate(UpperR_Tentacle2,0,(float)Math.toRadians(42.5F), 0);
 
 		animator.rotate(Tail3,0,(float)Math.toRadians(45f), 0);
 		animator.rotate(Tail2,0,(float)Math.toRadians(30f), 0);
@@ -1478,20 +1478,20 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		animator.startKeyframe(20);
 
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(10f), 0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(2.5f), 0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(-7.5f), 0);
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(10f), 0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(2.5f), 0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(-7.5f), 0);
 
 		if(!entity.blocksBylefttentacle) {
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(12.5f), (float) Math.toRadians(37.5f), (float) Math.toRadians(-22.5f));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(12.5f), (float) Math.toRadians(37.5f), (float) Math.toRadians(-22.5f));
 		}else{
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(12.5f), (float) Math.toRadians(37.5f), (float) Math.toRadians(10f));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(12.5f), (float) Math.toRadians(37.5f), (float) Math.toRadians(10f));
 		}
 
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-12.5F), 0);
-		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(5F), 0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(12.5F), 0);
-		animator.rotate(UpperL_Tantacle,(float)Math.toRadians(-32.5F),(float)Math.toRadians(37.5F), (float)Math.toRadians(12.5F));
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(-12.5F), 0);
+		animator.rotate(UpperL_Tentacle3,0,(float)Math.toRadians(5F), 0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(12.5F), 0);
+		animator.rotate(UpperL_Tentacle,(float)Math.toRadians(-32.5F),(float)Math.toRadians(37.5F), (float)Math.toRadians(12.5F));
 
 		animator.rotate(Belly,0,(float)Math.toRadians(2.5f), 0);
 		animator.rotate(root,0,(float)Math.toRadians(-360f), 0);
@@ -1499,20 +1499,20 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		animator.startKeyframe(0);
 
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(10f), 0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(2.5f), 0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(-7.5f), 0);
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(10f), 0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(2.5f), 0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(-7.5f), 0);
 
 		if(!entity.blocksBylefttentacle) {
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(12.5f), (float) Math.toRadians(37.5f), (float) Math.toRadians(-22.5f));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(12.5f), (float) Math.toRadians(37.5f), (float) Math.toRadians(-22.5f));
 		}else{
-			animator.rotate(LowerL_Tantacle, (float) Math.toRadians(12.5f), (float) Math.toRadians(37.5f), (float) Math.toRadians(10f));
+			animator.rotate(LowerL_Tentacle, (float) Math.toRadians(12.5f), (float) Math.toRadians(37.5f), (float) Math.toRadians(10f));
 		}
 
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-12.5F), 0);
-		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(5F), 0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(12.5F), 0);
-		animator.rotate(UpperL_Tantacle,(float)Math.toRadians(-32.5F),(float)Math.toRadians(37.5F), (float)Math.toRadians(12.5F));
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(-12.5F), 0);
+		animator.rotate(UpperL_Tentacle3,0,(float)Math.toRadians(5F), 0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(12.5F), 0);
+		animator.rotate(UpperL_Tentacle,(float)Math.toRadians(-32.5F),(float)Math.toRadians(37.5F), (float)Math.toRadians(12.5F));
 		animator.rotate(Belly,0,(float)Math.toRadians(2.5f), 0);
 		animator.endKeyframe();
 
@@ -1528,30 +1528,30 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2,(float)Math.toRadians(-20F),0, 0);
 		animator.rotate(Tail3,(float)Math.toRadians(-22.5F),0, 0);
 
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(57.5F), 0);
-		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(-27.5F), 0);
-		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(-20F), 0);
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(-35F), 0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(57.5F), 0);
+		animator.rotate(UpperR_Tentacle2,0,(float)Math.toRadians(-27.5F), 0);
+		animator.rotate(UpperR_Tentacle3,0,(float)Math.toRadians(-20F), 0);
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(-35F), 0);
 
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-57.5F), 0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(27.5F), 0);
-		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(20F), 0);
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(35F), 0);
-
-
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(57.5F), 0);
-
-		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(-27.5F), 0);
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(-20F), 0);
-		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-35F), 0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(-57.5F), 0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(27.5F), 0);
+		animator.rotate(UpperL_Tentacle3,0,(float)Math.toRadians(20F), 0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(35F), 0);
 
 
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(57.5F), 0);
 
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(-57.5F), 0);
+		animator.rotate(LowerR_Tentacle2,0,(float)Math.toRadians(-27.5F), 0);
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(-20F), 0);
+		animator.rotate(LowerR_Tentacle4,0,(float)Math.toRadians(-35F), 0);
 
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(27.5F), 0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(20F), 0);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(35F), 0);
+
+
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(-57.5F), 0);
+
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(27.5F), 0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(20F), 0);
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(35F), 0);
 		animator.endKeyframe();
 
 		animator.setStaticKeyframe(10);
@@ -1565,29 +1565,29 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2,(float)Math.toRadians(-17.5F),0, 0);
 		animator.rotate(Tail3,(float)Math.toRadians(30F),0, 0);
 
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(-47.5F), 0);
-		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(-15F), 0);
-		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(25F), 0);
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(12.5F), 0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(-47.5F), 0);
+		animator.rotate(UpperR_Tentacle2,0,(float)Math.toRadians(-15F), 0);
+		animator.rotate(UpperR_Tentacle3,0,(float)Math.toRadians(25F), 0);
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(12.5F), 0);
 
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(47.5F), 0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(15F), 0);
-		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(-25F), 0);
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-12.5F), 0);
-
-
-
-		animator.rotate(LowerR_Tantacle, 0, (float) Math.toRadians(-47.5F), 0);
-		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(-15F), 0);
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(25F), 0);
-		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(12.5F), 0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(47.5F), 0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(15F), 0);
+		animator.rotate(UpperL_Tentacle3,0,(float)Math.toRadians(-25F), 0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(-12.5F), 0);
 
 
 
-		animator.rotate(LowerL_Tantacle, 0, (float) Math.toRadians(47.5F), 0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(15F), 0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(-25F), 0);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(-12.5F), 0);
+		animator.rotate(LowerR_Tentacle, 0, (float) Math.toRadians(-47.5F), 0);
+		animator.rotate(LowerR_Tentacle2,0,(float)Math.toRadians(-15F), 0);
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(25F), 0);
+		animator.rotate(LowerR_Tentacle4,0,(float)Math.toRadians(12.5F), 0);
+
+
+
+		animator.rotate(LowerL_Tentacle, 0, (float) Math.toRadians(47.5F), 0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(15F), 0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(-25F), 0);
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(-12.5F), 0);
 		animator.endKeyframe();
 
 		animator.setStaticKeyframe(10);
@@ -1601,28 +1601,28 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2,(float)Math.toRadians(-20F),0, 0);
 		animator.rotate(Tail3,(float)Math.toRadians(-22.5F),0, 0);
 
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(57.5F), 0);
-		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(-27.5F), 0);
-		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(-20F), 0);
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(-35F), 0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(57.5F), 0);
+		animator.rotate(UpperR_Tentacle2,0,(float)Math.toRadians(-27.5F), 0);
+		animator.rotate(UpperR_Tentacle3,0,(float)Math.toRadians(-20F), 0);
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(-35F), 0);
 
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-57.5F), 0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(27.5F), 0);
-		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(20F), 0);
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(35F), 0);
-
-
-		animator.rotate(LowerR_Tantacle, 0, (float) Math.toRadians(57.5F), 0);
-		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(-27.5F), 0);
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(-20F), 0);
-		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-35F), 0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(-57.5F), 0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(27.5F), 0);
+		animator.rotate(UpperL_Tentacle3,0,(float)Math.toRadians(20F), 0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(35F), 0);
 
 
+		animator.rotate(LowerR_Tentacle, 0, (float) Math.toRadians(57.5F), 0);
+		animator.rotate(LowerR_Tentacle2,0,(float)Math.toRadians(-27.5F), 0);
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(-20F), 0);
+		animator.rotate(LowerR_Tentacle4,0,(float)Math.toRadians(-35F), 0);
 
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(-57.5F), 0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(27.5F), 0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(20F), 0);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(35F), 0);
+
+
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(-57.5F), 0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(27.5F), 0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(20F), 0);
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(35F), 0);
 		animator.endKeyframe();
 
 		animator.setStaticKeyframe(10);
@@ -1636,27 +1636,27 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2,(float)Math.toRadians(-17.5F),0, 0);
 		animator.rotate(Tail3,(float)Math.toRadians(30F),0, 0);
 
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(-47.5F), 0);
-		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(-15F), 0);
-		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(25F), 0);
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(12.5F), 0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(-47.5F), 0);
+		animator.rotate(UpperR_Tentacle2,0,(float)Math.toRadians(-15F), 0);
+		animator.rotate(UpperR_Tentacle3,0,(float)Math.toRadians(25F), 0);
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(12.5F), 0);
 
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(47.5F), 0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(15F), 0);
-		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(-25F), 0);
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-12.5F), 0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(47.5F), 0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(15F), 0);
+		animator.rotate(UpperL_Tentacle3,0,(float)Math.toRadians(-25F), 0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(-12.5F), 0);
 
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(-47.5F), 0);
-		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(-15F), 0);
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(25F), 0);
-		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(12.5F), 0);
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(-47.5F), 0);
+		animator.rotate(LowerR_Tentacle2,0,(float)Math.toRadians(-15F), 0);
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(25F), 0);
+		animator.rotate(LowerR_Tentacle4,0,(float)Math.toRadians(12.5F), 0);
 
 
 
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(47.5F), 0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(15F), 0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(-25F), 0);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(-12.5F), 0);
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(47.5F), 0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(15F), 0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(-25F), 0);
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(-12.5F), 0);
 		animator.endKeyframe();
 
 		animator.setStaticKeyframe(10);
@@ -1670,29 +1670,29 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2,(float)Math.toRadians(-20F),0, 0);
 		animator.rotate(Tail3,(float)Math.toRadians(-22.5F),0, 0);
 
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(57.5F), 0);
-		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(-27.5F), 0);
-		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(-20F), 0);
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(-35F), 0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(57.5F), 0);
+		animator.rotate(UpperR_Tentacle2,0,(float)Math.toRadians(-27.5F), 0);
+		animator.rotate(UpperR_Tentacle3,0,(float)Math.toRadians(-20F), 0);
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(-35F), 0);
 
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-57.5F), 0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(27.5F), 0);
-		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(20F), 0);
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(35F), 0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(-57.5F), 0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(27.5F), 0);
+		animator.rotate(UpperL_Tentacle3,0,(float)Math.toRadians(20F), 0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(35F), 0);
 
 
 
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(57.5F), 0);
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(57.5F), 0);
 
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(57.5F), 0);
-		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(-27.5F), 0);
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(-20F), 0);
-		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-35F), 0);
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(57.5F), 0);
+		animator.rotate(LowerR_Tentacle2,0,(float)Math.toRadians(-27.5F), 0);
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(-20F), 0);
+		animator.rotate(LowerR_Tentacle4,0,(float)Math.toRadians(-35F), 0);
 
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(-57.5F), 0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(27.5F), 0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(20F), 0);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(35F), 0);
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(-57.5F), 0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(27.5F), 0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(20F), 0);
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(35F), 0);
 
 		animator.endKeyframe();
 
@@ -1707,25 +1707,25 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2,(float)Math.toRadians(-17.5F),0, 0);
 		animator.rotate(Tail3,(float)Math.toRadians(30F),0, 0);
 
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(-47.5F), 0);
-		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(-15F), 0);
-		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(25F), 0);
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(12.5F), 0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(-47.5F), 0);
+		animator.rotate(UpperR_Tentacle2,0,(float)Math.toRadians(-15F), 0);
+		animator.rotate(UpperR_Tentacle3,0,(float)Math.toRadians(25F), 0);
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(12.5F), 0);
 
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(47.5F), 0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(15F), 0);
-		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(-25F), 0);
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-12.5F), 0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(47.5F), 0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(15F), 0);
+		animator.rotate(UpperL_Tentacle3,0,(float)Math.toRadians(-25F), 0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(-12.5F), 0);
 
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(-47.5F), 0);
-		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(-15F), 0);
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(25F), 0);
-		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(12.5F), 0);
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(-47.5F), 0);
+		animator.rotate(LowerR_Tentacle2,0,(float)Math.toRadians(-15F), 0);
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(25F), 0);
+		animator.rotate(LowerR_Tentacle4,0,(float)Math.toRadians(12.5F), 0);
 
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(47.5F), 0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(15F), 0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(-25F), 0);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(-12.5F), 0);
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(47.5F), 0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(15F), 0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(-25F), 0);
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(-12.5F), 0);
 		animator.endKeyframe();
 
 		animator.setStaticKeyframe(10);
@@ -1739,25 +1739,25 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2,(float)Math.toRadians(-20F),0, 0);
 		animator.rotate(Tail3,(float)Math.toRadians(-22.5F),0, 0);
 
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(57.5F), 0);
-		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(-27.5F), 0);
-		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(-20F), 0);
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(-35F), 0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(57.5F), 0);
+		animator.rotate(UpperR_Tentacle2,0,(float)Math.toRadians(-27.5F), 0);
+		animator.rotate(UpperR_Tentacle3,0,(float)Math.toRadians(-20F), 0);
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(-35F), 0);
 
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-57.5F), 0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(27.5F), 0);
-		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(20F), 0);
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(35F), 0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(-57.5F), 0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(27.5F), 0);
+		animator.rotate(UpperL_Tentacle3,0,(float)Math.toRadians(20F), 0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(35F), 0);
 
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(57.5F), 0);
-		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(-27.5F), 0);
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(-20F), 0);
-		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-35F), 0);
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(57.5F), 0);
+		animator.rotate(LowerR_Tentacle2,0,(float)Math.toRadians(-27.5F), 0);
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(-20F), 0);
+		animator.rotate(LowerR_Tentacle4,0,(float)Math.toRadians(-35F), 0);
 
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(-57.5F), 0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(27.5F), 0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(20F), 0);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(35F), 0);
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(-57.5F), 0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(27.5F), 0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(20F), 0);
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(35F), 0);
 		animator.endKeyframe();
 
 		animator.setStaticKeyframe(10);
@@ -1771,25 +1771,25 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2,(float)Math.toRadians(-17.5F),0, 0);
 		animator.rotate(Tail3,(float)Math.toRadians(30F),0, 0);
 
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(-47.5F), 0);
-		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(-15F), 0);
-		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(25F), 0);
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(12.5F), 0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(-47.5F), 0);
+		animator.rotate(UpperR_Tentacle2,0,(float)Math.toRadians(-15F), 0);
+		animator.rotate(UpperR_Tentacle3,0,(float)Math.toRadians(25F), 0);
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(12.5F), 0);
 
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(47.5F), 0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(15F), 0);
-		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(-25F), 0);
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-12.5F), 0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(47.5F), 0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(15F), 0);
+		animator.rotate(UpperL_Tentacle3,0,(float)Math.toRadians(-25F), 0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(-12.5F), 0);
 
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(-47.5F), 0);
-		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(-15F), 0);
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(25F), 0);
-		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(12.5F), 0);
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(-47.5F), 0);
+		animator.rotate(LowerR_Tentacle2,0,(float)Math.toRadians(-15F), 0);
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(25F), 0);
+		animator.rotate(LowerR_Tentacle4,0,(float)Math.toRadians(12.5F), 0);
 
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(47.5F), 0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(15F), 0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(-25F), 0);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(-12.5F), 0);
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(47.5F), 0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(15F), 0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(-25F), 0);
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(-12.5F), 0);
 		animator.endKeyframe();
 
 		animator.setStaticKeyframe(10);
@@ -1888,24 +1888,24 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2,(float)Math.toRadians(5F),(float)Math.toRadians(2.5F), (float)Math.toRadians(10F));
 		animator.rotate(Tail3,(float)Math.toRadians(-5F),(float)Math.toRadians(2.5F), 0);
 
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(-10F), (float)Math.toRadians(-17.5F));
-		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(10F), (float)Math.toRadians(7.5F));
-		animator.rotate(UpperR_Tantacle3,(float)Math.toRadians(2.5F),(float)Math.toRadians(15F), (float)Math.toRadians(2.5F));
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(27.5F), 0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(-10F), (float)Math.toRadians(-17.5F));
+		animator.rotate(UpperR_Tentacle2,0,(float)Math.toRadians(10F), (float)Math.toRadians(7.5F));
+		animator.rotate(UpperR_Tentacle3,(float)Math.toRadians(2.5F),(float)Math.toRadians(15F), (float)Math.toRadians(2.5F));
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(27.5F), 0);
 
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(5F), (float)Math.toRadians(20F));
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(-5F), 0);
-		animator.rotate(UpperL_Tantacle3,0,0, (float)Math.toRadians(-5F));
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-5F),0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(5F), (float)Math.toRadians(20F));
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(-5F), 0);
+		animator.rotate(UpperL_Tentacle3,0,0, (float)Math.toRadians(-5F));
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(-5F),0);
 
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(22.5F), (float)Math.toRadians(7.5F));
-		animator.rotate(LowerR_Tantacle2,0,0, (float)Math.toRadians(7.5F));
-		animator.rotate(LowerR_Tantacle3,(float)Math.toRadians(2.5F),0, (float)Math.toRadians(1.5F));
-		animator.rotate(LowerR_Tantacle4,(float)Math.toRadians(-10F),0,(float)Math.toRadians(5F));
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(22.5F), (float)Math.toRadians(7.5F));
+		animator.rotate(LowerR_Tentacle2,0,0, (float)Math.toRadians(7.5F));
+		animator.rotate(LowerR_Tentacle3,(float)Math.toRadians(2.5F),0, (float)Math.toRadians(1.5F));
+		animator.rotate(LowerR_Tentacle4,(float)Math.toRadians(-10F),0,(float)Math.toRadians(5F));
 
-		animator.rotate(LowerL_Tantacle,(float)Math.toRadians(2.5F),(float)Math.toRadians(-10F), (float)Math.toRadians(-5F));
-		animator.rotate(LowerL_Tantacle2,0,0, (float)Math.toRadians(-2.5F));
-		animator.rotate(LowerL_Tantacle3,(float)Math.toRadians(-2.5F),(float)Math.toRadians(-2.5F), (float)Math.toRadians(-2.5F));
+		animator.rotate(LowerL_Tentacle,(float)Math.toRadians(2.5F),(float)Math.toRadians(-10F), (float)Math.toRadians(-5F));
+		animator.rotate(LowerL_Tentacle2,0,0, (float)Math.toRadians(-2.5F));
+		animator.rotate(LowerL_Tentacle3,(float)Math.toRadians(-2.5F),(float)Math.toRadians(-2.5F), (float)Math.toRadians(-2.5F));
 
 
 		animator.rotate(Head,(float)Math.toRadians(-10F),0,(float)Math.toRadians(-20F));
@@ -1921,24 +1921,24 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2,(float)Math.toRadians(-15F),(float)Math.toRadians(2.5F), (float)Math.toRadians(-27.5F));
 		animator.rotate(Tail3,(float)Math.toRadians(-15F),(float)Math.toRadians(10F), (float)Math.toRadians(-2.5F));
 
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(-35F), (float)Math.toRadians(-50F));
-		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(27.5F), (float)Math.toRadians(22.5F));
-		animator.rotate(UpperR_Tantacle3,(float)Math.toRadians(10F),(float)Math.toRadians(45F), (float)Math.toRadians(10F));
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(82.5F), 0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(-35F), (float)Math.toRadians(-50F));
+		animator.rotate(UpperR_Tentacle2,0,(float)Math.toRadians(27.5F), (float)Math.toRadians(22.5F));
+		animator.rotate(UpperR_Tentacle3,(float)Math.toRadians(10F),(float)Math.toRadians(45F), (float)Math.toRadians(10F));
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(82.5F), 0);
 
-		animator.rotate(UpperL_Tantacle,(float)Math.toRadians(2.5F),(float)Math.toRadians(15F), (float)Math.toRadians(62.5F));
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(-12.5F), 0);
-		animator.rotate(UpperL_Tantacle3,0,0, (float)Math.toRadians(-17.5F));
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-15F),0);
+		animator.rotate(UpperL_Tentacle,(float)Math.toRadians(2.5F),(float)Math.toRadians(15F), (float)Math.toRadians(62.5F));
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(-12.5F), 0);
+		animator.rotate(UpperL_Tentacle3,0,0, (float)Math.toRadians(-17.5F));
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(-15F),0);
 
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(70F), (float)Math.toRadians(25F));
-		animator.rotate(LowerR_Tantacle2,0,0, (float)Math.toRadians(22.5F));
-		animator.rotate(LowerR_Tantacle3,(float)Math.toRadians(5F),(float)Math.toRadians(2.5F), (float)Math.toRadians(5F));
-		animator.rotate(LowerR_Tantacle4,(float)Math.toRadians(-27.5F),0,(float)Math.toRadians(17.5F));
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(70F), (float)Math.toRadians(25F));
+		animator.rotate(LowerR_Tentacle2,0,0, (float)Math.toRadians(22.5F));
+		animator.rotate(LowerR_Tentacle3,(float)Math.toRadians(5F),(float)Math.toRadians(2.5F), (float)Math.toRadians(5F));
+		animator.rotate(LowerR_Tentacle4,(float)Math.toRadians(-27.5F),0,(float)Math.toRadians(17.5F));
 
-		animator.rotate(LowerL_Tantacle,(float)Math.toRadians(5F),(float)Math.toRadians(-27.5F), (float)Math.toRadians(-17.5F));
-		animator.rotate(LowerL_Tantacle2,0,0, (float)Math.toRadians(-5F));
-		animator.rotate(LowerL_Tantacle3,(float)Math.toRadians(-10F),(float)Math.toRadians(-5F), (float)Math.toRadians(-10F));
+		animator.rotate(LowerL_Tentacle,(float)Math.toRadians(5F),(float)Math.toRadians(-27.5F), (float)Math.toRadians(-17.5F));
+		animator.rotate(LowerL_Tentacle2,0,0, (float)Math.toRadians(-5F));
+		animator.rotate(LowerL_Tentacle3,(float)Math.toRadians(-10F),(float)Math.toRadians(-5F), (float)Math.toRadians(-10F));
 
 		animator.rotate(Head,(float)Math.toRadians(-30F),0,(float)Math.toRadians(-62.5F));
 		animator.rotate(Maw,(float)Math.toRadians(75F),(float)Math.toRadians(5F),(float)Math.toRadians(22.5F));
@@ -1959,13 +1959,13 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2,0,(float)Math.toRadians(17.5F),0);
 		animator.rotate(Tail3,0,(float)Math.toRadians(30F), 0);
 
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(50F), 0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(50F), 0);
 
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-50F),0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(-50F),0);
 
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(50F),0);
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(50F),0);
 
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(-50F), 0);
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(-50F), 0);
 
 		animator.rotate(Maw,(float)Math.toRadians(60F),0,0);
 		animator.rotate(Skul,(float)Math.toRadians(-40F),0,0);
@@ -1983,13 +1983,13 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2,0,(float)Math.toRadians(-40F),0);
 		animator.rotate(Tail3,0,(float)Math.toRadians(-27.5F), 0);
 
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(35F), 0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(35F), 0);
 
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-35F),0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(-35F),0);
 
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(35F),0);
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(35F),0);
 
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(-35F), 0);
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(-35F), 0);
 
 		animator.rotate(Maw,(float)Math.toRadians(35F),0,0);
 
@@ -2006,13 +2006,13 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2,0,(float)Math.toRadians(17.5F),0);
 		animator.rotate(Tail3,0,(float)Math.toRadians(30F), 0);
 
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(50F), 0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(50F), 0);
 
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-50F),0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(-50F),0);
 
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(50F),0);
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(50F),0);
 
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(-50F), 0);
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(-50F), 0);
 
 		animator.rotate(Maw,(float)Math.toRadians(60F),0,0);
 		animator.rotate(Skul,(float)Math.toRadians(-40F),0,0);
@@ -2030,13 +2030,13 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2,0,(float)Math.toRadians(-40F),0);
 		animator.rotate(Tail3,0,(float)Math.toRadians(-27.5F), 0);
 
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(35F), 0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(35F), 0);
 
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-35F),0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(-35F),0);
 
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(35F),0);
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(35F),0);
 
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(-35F), 0);
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(-35F), 0);
 
 		animator.rotate(Maw,(float)Math.toRadians(35F),0,0);
 
@@ -2053,13 +2053,13 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2,0,(float)Math.toRadians(17.5F),0);
 		animator.rotate(Tail3,0,(float)Math.toRadians(30F), 0);
 
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(50F), 0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(50F), 0);
 
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-50F),0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(-50F),0);
 
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(50F),0);
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(50F),0);
 
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(-50F), 0);
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(-50F), 0);
 
 		animator.rotate(Maw,(float)Math.toRadians(60F),0,0);
 		animator.rotate(Skul,(float)Math.toRadians(-40F),0,0);
@@ -2085,14 +2085,14 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail,(float)Math.toRadians(-12.5f),(float)Math.toRadians(5f),0);
 		animator.rotate(Tail2,(float)Math.toRadians(-10f),(float)Math.toRadians(17.5f),0);
 		animator.rotate(Tail3,(float)Math.toRadians(-12.5f),0,0);
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(40f),0);
-		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(10f),0);
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-40f),0);
-		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(-10f),0);
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(40f),0);
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(10f),0);
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(-40f),0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(-10f),0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(40f),0);
+		animator.rotate(UpperR_Tentacle3,0,(float)Math.toRadians(10f),0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(-40f),0);
+		animator.rotate(UpperL_Tentacle3,0,(float)Math.toRadians(-10f),0);
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(40f),0);
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(10f),0);
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(-40f),0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(-10f),0);
 		animator.rotate(Maw,(float)Math.toRadians(47.5f),0,0);
 		animator.rotate(Skul,(float)Math.toRadians(-52.5f),0,0);
 		animator.rotate(R_fin,0,0,(float)Math.toRadians(-27.5f));
@@ -2114,14 +2114,14 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail,(float)Math.toRadians(-12.5f),(float)Math.toRadians(2.5f),0);
 		animator.rotate(Tail2,(float)Math.toRadians(-10f),(float)Math.toRadians(2.5f),(float)Math.toRadians(2.5f));
 		animator.rotate(Tail3,(float)Math.toRadians(-12.5f),(float)Math.toRadians(-5f),(float)Math.toRadians(2.5f));
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(30f),0);
-		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(7.5f),0);
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-30f),0);
-		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(-7.5f),0);
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(30f),0);
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(7.5f),0);
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(-30f),0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(-7.5f),0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(30f),0);
+		animator.rotate(UpperR_Tentacle3,0,(float)Math.toRadians(7.5f),0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(-30f),0);
+		animator.rotate(UpperL_Tentacle3,0,(float)Math.toRadians(-7.5f),0);
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(30f),0);
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(7.5f),0);
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(-30f),0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(-7.5f),0);
 		animator.rotate(Maw,(float)Math.toRadians(37.5f),0,0);
 		animator.rotate(Skul,(float)Math.toRadians(-40f),0,0);
 		animator.rotate(R_fin,0,0,(float)Math.toRadians(-17.5f));
@@ -2147,14 +2147,14 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail,(float)Math.toRadians(-12.5f),(float)Math.toRadians(-15f),(float)Math.toRadians(2.5f));
 		animator.rotate(Tail2,(float)Math.toRadians(-10f),(float)Math.toRadians(-2.5f),(float)Math.toRadians(2.5f));
 		animator.rotate(Tail3,(float)Math.toRadians(-12.5f),(float)Math.toRadians(-12.5f),(float)Math.toRadians(2.5f));
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(20f),0);
-		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(5f),0);
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-20f),0);
-		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(-5f),0);
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(20f),0);
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(5f),0);
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(-20f),0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(-5f),0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(20f),0);
+		animator.rotate(UpperR_Tentacle3,0,(float)Math.toRadians(5f),0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(-20f),0);
+		animator.rotate(UpperL_Tentacle3,0,(float)Math.toRadians(-5f),0);
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(20f),0);
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(5f),0);
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(-20f),0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(-5f),0);
 		animator.rotate(Maw,(float)Math.toRadians(27.5f),0,0);
 		animator.rotate(Skul,(float)Math.toRadians(-27.5f),0,0);
 		animator.rotate(R_fin,0,0,(float)Math.toRadians(-5f));
@@ -2200,20 +2200,20 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail,(float)Math.toRadians(15f),0,0);
 		animator.rotate(Tail2,(float)Math.toRadians(7.5f),0,0);
 		animator.rotate(Tail3,(float)Math.toRadians(-15f),0,0);
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(20f),(float)Math.toRadians(25f));
-		animator.rotate(UpperR_Tantacle3,(float)Math.toRadians(2.5f),(float)Math.toRadians(17.5f),(float)Math.toRadians(-12.5f));
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(-17.5f),0);
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-15f),(float)Math.toRadians(-22.5f));
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(7.5f),0);
-		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(-25f),(float)Math.toRadians(37.5f));
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(47.5f),(float)Math.toRadians(72.5f));
-		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(25f),(float)Math.toRadians(30f));
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(25f),(float)Math.toRadians(-15f));
-		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(25f),(float)Math.toRadians(-17.5f));
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(-42.5f),(float)Math.toRadians(-72.5f));
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(-25f),(float)Math.toRadians(-22.5f));
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(-25f),(float)Math.toRadians(30f));
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(-25f),(float)Math.toRadians(17.5f));
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(20f),(float)Math.toRadians(25f));
+		animator.rotate(UpperR_Tentacle3,(float)Math.toRadians(2.5f),(float)Math.toRadians(17.5f),(float)Math.toRadians(-12.5f));
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(-17.5f),0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(-15f),(float)Math.toRadians(-22.5f));
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(7.5f),0);
+		animator.rotate(UpperL_Tentacle3,0,(float)Math.toRadians(-25f),(float)Math.toRadians(37.5f));
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(47.5f),(float)Math.toRadians(72.5f));
+		animator.rotate(LowerR_Tentacle2,0,(float)Math.toRadians(25f),(float)Math.toRadians(30f));
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(25f),(float)Math.toRadians(-15f));
+		animator.rotate(LowerR_Tentacle4,0,(float)Math.toRadians(25f),(float)Math.toRadians(-17.5f));
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(-42.5f),(float)Math.toRadians(-72.5f));
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(-25f),(float)Math.toRadians(-22.5f));
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(-25f),(float)Math.toRadians(30f));
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(-25f),(float)Math.toRadians(17.5f));
 		animator.rotate(Maw,(float)Math.toRadians(-45f),0,0);
 		animator.rotate(Skul,(float)Math.toRadians(-72.5f),0,0);
 		animator.rotate(R_fin,0,0,(float)Math.toRadians(20f));
@@ -2238,25 +2238,25 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail,(float)Math.toRadians(-7.5f),0,0);
 		animator.rotate(Tail2,(float)Math.toRadians(-7.5f),0,0);
 		animator.rotate(Tail3,(float)Math.toRadians(-12.5f),0,0);
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(17.5f),0);
-		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(-22.5f),0);
-		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(-17.5f),0);
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(-12.5f),0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(17.5f),0);
+		animator.rotate(UpperR_Tentacle2,0,(float)Math.toRadians(-22.5f),0);
+		animator.rotate(UpperR_Tentacle3,0,(float)Math.toRadians(-17.5f),0);
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(-12.5f),0);
 
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-17.5f),0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(22.5f),0);
-		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(17.5f),0);
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(12.5f),0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(-17.5f),0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(22.5f),0);
+		animator.rotate(UpperL_Tentacle3,0,(float)Math.toRadians(17.5f),0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(12.5f),0);
 
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(-40f),0);
-		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(7.5f),0);
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(-5f),0);
-		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-20f),0);
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(-40f),0);
+		animator.rotate(LowerR_Tentacle2,0,(float)Math.toRadians(7.5f),0);
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(-5f),0);
+		animator.rotate(LowerR_Tentacle4,0,(float)Math.toRadians(-20f),0);
 
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(40f),0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(-7.5f),0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(5f),0);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(20f),0);
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(40f),0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(-7.5f),0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(5f),0);
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(20f),0);
 
 		animator.rotate(Maw,(float)Math.toRadians(30f),0,0);
 		animator.rotate(Skul,(float)Math.toRadians(-30f),0,0);
@@ -2278,25 +2278,25 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail,(float)Math.toRadians(-7.5f),0,0);
 		animator.rotate(Tail2,(float)Math.toRadians(-7.5f),0,0);
 		animator.rotate(Tail3,(float)Math.toRadians(-12.5f),0,0);
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(17.5f),0);
-		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(-22.5f),0);
-		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(-17.5f),0);
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(-12.5f),0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(17.5f),0);
+		animator.rotate(UpperR_Tentacle2,0,(float)Math.toRadians(-22.5f),0);
+		animator.rotate(UpperR_Tentacle3,0,(float)Math.toRadians(-17.5f),0);
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(-12.5f),0);
 
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-17.5f),0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(22.5f),0);
-		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(17.5f),0);
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(20f),0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(-17.5f),0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(22.5f),0);
+		animator.rotate(UpperL_Tentacle3,0,(float)Math.toRadians(17.5f),0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(20f),0);
 
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(-40f),0);
-		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(7.5f),0);
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(-5f),0);
-		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-20f),0);
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(-40f),0);
+		animator.rotate(LowerR_Tentacle2,0,(float)Math.toRadians(7.5f),0);
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(-5f),0);
+		animator.rotate(LowerR_Tentacle4,0,(float)Math.toRadians(-20f),0);
 
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(40f),0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(-7.5f),0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(5f),0);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(20f),0);
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(40f),0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(-7.5f),0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(5f),0);
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(20f),0);
 
 		animator.rotate(Maw,(float)Math.toRadians(30f),0,0);
 		animator.rotate(Skul,(float)Math.toRadians(-30f),0,0);
@@ -2313,25 +2313,25 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail,(float)Math.toRadians(-7.5f),0,0);
 		animator.rotate(Tail2,(float)Math.toRadians(-10f),0,0);
 		animator.rotate(Tail3,(float)Math.toRadians(-12.5f),0,0);
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(25f),0);
-		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(-32.5f),0);
-		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(-25f),0);
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(-20f),0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(25f),0);
+		animator.rotate(UpperR_Tentacle2,0,(float)Math.toRadians(-32.5f),0);
+		animator.rotate(UpperR_Tentacle3,0,(float)Math.toRadians(-25f),0);
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(-20f),0);
 
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-25f),0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(32.5f),0);
-		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(25f),0);
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(20f),0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(-25f),0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(32.5f),0);
+		animator.rotate(UpperL_Tentacle3,0,(float)Math.toRadians(25f),0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(20f),0);
 
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(-40f),0);
-		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(12.5f),0);
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(-7.5f),0);
-		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-70f),0);
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(-40f),0);
+		animator.rotate(LowerR_Tentacle2,0,(float)Math.toRadians(12.5f),0);
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(-7.5f),0);
+		animator.rotate(LowerR_Tentacle4,0,(float)Math.toRadians(-70f),0);
 
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(40f),0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(-12.5f),0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(7.5f),0);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(70f),0);
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(40f),0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(-12.5f),0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(7.5f),0);
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(70f),0);
 		animator.endKeyframe();
 
 		animator.setStaticKeyframe(9);
@@ -2342,25 +2342,25 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail,(float)Math.toRadians(-7.5f),0,0);
 		animator.rotate(Tail2,(float)Math.toRadians(-15f),0,0);
 		animator.rotate(Tail3,(float)Math.toRadians(-12.5f),0,0);
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(25f),0);
-		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(-32.5f),0);
-		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(-25f),0);
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(-20f),0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(25f),0);
+		animator.rotate(UpperR_Tentacle2,0,(float)Math.toRadians(-32.5f),0);
+		animator.rotate(UpperR_Tentacle3,0,(float)Math.toRadians(-25f),0);
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(-20f),0);
 
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-25f),0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(32.5f),0);
-		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(25f),0);
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(20f),0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(-25f),0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(32.5f),0);
+		animator.rotate(UpperL_Tentacle3,0,(float)Math.toRadians(25f),0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(20f),0);
 
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(-40f),0);
-		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(12.5f),0);
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(7.5f),0);
-		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-70f),0);
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(-40f),0);
+		animator.rotate(LowerR_Tentacle2,0,(float)Math.toRadians(12.5f),0);
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(7.5f),0);
+		animator.rotate(LowerR_Tentacle4,0,(float)Math.toRadians(-70f),0);
 
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(40f),0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(-12.5f),0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(-7.5f),0);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(70f),0);
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(40f),0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(-12.5f),0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(-7.5f),0);
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(70f),0);
 
 		animator.rotate(Maw,(float)Math.toRadians(12.5f),0,0);
 		animator.rotate(Skul,(float)Math.toRadians(-20f),0,0);
@@ -2379,25 +2379,25 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail,(float)Math.toRadians(-7.5f),0,0);
 		animator.rotate(Tail2,(float)Math.toRadians(-15f),0,0);
 		animator.rotate(Tail3,(float)Math.toRadians(-12.5f),0,0);
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(25f),0);
-		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(-32.5f),0);
-		animator.rotate(UpperR_Tantacle3,0,(float)Math.toRadians(-25f),0);
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(-20f),0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(25f),0);
+		animator.rotate(UpperR_Tentacle2,0,(float)Math.toRadians(-32.5f),0);
+		animator.rotate(UpperR_Tentacle3,0,(float)Math.toRadians(-25f),0);
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(-20f),0);
 
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-25f),0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(32.5f),0);
-		animator.rotate(UpperL_Tantacle3,0,(float)Math.toRadians(25f),0);
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(20f),0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(-25f),0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(32.5f),0);
+		animator.rotate(UpperL_Tentacle3,0,(float)Math.toRadians(25f),0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(20f),0);
 
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(-40f),0);
-		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(12.5f),0);
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(6.5f),0);
-		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-70f),0);
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(-40f),0);
+		animator.rotate(LowerR_Tentacle2,0,(float)Math.toRadians(12.5f),0);
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(6.5f),0);
+		animator.rotate(LowerR_Tentacle4,0,(float)Math.toRadians(-70f),0);
 
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(40f),0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(-12.5f),0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(-6.5f),0);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(70f),0);
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(40f),0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(-12.5f),0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(-6.5f),0);
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(70f),0);
 		animator.endKeyframe();
 
 		animator.startKeyframe(3);
@@ -2407,23 +2407,23 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail,(float)Math.toRadians(12.5f),0,0);
 		animator.rotate(Tail2,(float)Math.toRadians(10f),0,0);
 		animator.rotate(Tail3,(float)Math.toRadians(12.5f),0,0);
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(60f),0);
-		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(-12.5f),0);
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(10f),0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(60f),0);
+		animator.rotate(UpperR_Tentacle2,0,(float)Math.toRadians(-12.5f),0);
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(10f),0);
 
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-62.5f),0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(12.5f),0);
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-10f),0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(-62.5f),0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(12.5f),0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(-10f),0);
 
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(-30f),0);
-		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(-15f),0);
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(20f),0);
-		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-70f),0);
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(-30f),0);
+		animator.rotate(LowerR_Tentacle2,0,(float)Math.toRadians(-15f),0);
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(20f),0);
+		animator.rotate(LowerR_Tentacle4,0,(float)Math.toRadians(-70f),0);
 
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(30f),0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(17.5f),0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(-20f),0);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(70f),0);
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(30f),0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(17.5f),0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(-20f),0);
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(70f),0);
 
 		animator.rotate(Maw,(float)Math.toRadians(42.5f),0,0);
 		animator.rotate(Skul,(float)Math.toRadians(-47.5f),0,0);
@@ -2437,23 +2437,23 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.setStaticKeyframe(60);
 
 		animator.startKeyframe(25);
-		animator.rotate(UpperR_Tantacle,0,(float)Math.toRadians(50f),0);
-		animator.rotate(UpperR_Tantacle2,0,(float)Math.toRadians(-32.5f),0);
-		animator.rotate(UpperR_Tantacle4,0,(float)Math.toRadians(10f),0);
+		animator.rotate(UpperR_Tentacle,0,(float)Math.toRadians(50f),0);
+		animator.rotate(UpperR_Tentacle2,0,(float)Math.toRadians(-32.5f),0);
+		animator.rotate(UpperR_Tentacle4,0,(float)Math.toRadians(10f),0);
 
-		animator.rotate(UpperL_Tantacle,0,(float)Math.toRadians(-47.5f),0);
-		animator.rotate(UpperL_Tantacle2,0,(float)Math.toRadians(32.5f),0);
-		animator.rotate(UpperL_Tantacle4,0,(float)Math.toRadians(-10f),0);
+		animator.rotate(UpperL_Tentacle,0,(float)Math.toRadians(-47.5f),0);
+		animator.rotate(UpperL_Tentacle2,0,(float)Math.toRadians(32.5f),0);
+		animator.rotate(UpperL_Tentacle4,0,(float)Math.toRadians(-10f),0);
 
-		animator.rotate(LowerR_Tantacle,0,(float)Math.toRadians(-30f),0);
-		animator.rotate(LowerR_Tantacle2,0,(float)Math.toRadians(-15f),0);
-		animator.rotate(LowerR_Tantacle3,0,(float)Math.toRadians(20f),0);
-		animator.rotate(LowerR_Tantacle4,0,(float)Math.toRadians(-20f),0);
+		animator.rotate(LowerR_Tentacle,0,(float)Math.toRadians(-30f),0);
+		animator.rotate(LowerR_Tentacle2,0,(float)Math.toRadians(-15f),0);
+		animator.rotate(LowerR_Tentacle3,0,(float)Math.toRadians(20f),0);
+		animator.rotate(LowerR_Tentacle4,0,(float)Math.toRadians(-20f),0);
 
-		animator.rotate(LowerL_Tantacle,0,(float)Math.toRadians(30f),0);
-		animator.rotate(LowerL_Tantacle2,0,(float)Math.toRadians(17.5f),0);
-		animator.rotate(LowerL_Tantacle3,0,(float)Math.toRadians(-20f),0);
-		animator.rotate(LowerL_Tantacle4,0,(float)Math.toRadians(20f),0);
+		animator.rotate(LowerL_Tentacle,0,(float)Math.toRadians(30f),0);
+		animator.rotate(LowerL_Tentacle2,0,(float)Math.toRadians(17.5f),0);
+		animator.rotate(LowerL_Tentacle3,0,(float)Math.toRadians(-20f),0);
+		animator.rotate(LowerL_Tentacle4,0,(float)Math.toRadians(20f),0);
 
 		animator.rotate(Maw,(float)Math.toRadians(42.5f),0,0);
 		animator.rotate(Skul,(float)Math.toRadians(-47.5f),0,0);
@@ -2479,25 +2479,25 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2, (float) Math.toRadians(12.5F), 0, 0);
 		animator.rotate(Tail3, (float) Math.toRadians(12.5F), 0, 0);
 
-		animator.rotate(LowerL_Tantacle4, 0, (float) Math.toRadians(-50F), 0);
-		animator.rotate(LowerL_Tantacle3, 0, (float) Math.toRadians(25F), 0);
-		animator.rotate(LowerL_Tantacle2, 0, (float) Math.toRadians(25F), 0);
-		animator.rotate(LowerL_Tantacle, 0, (float) Math.toRadians(25F), 0);
+		animator.rotate(LowerL_Tentacle4, 0, (float) Math.toRadians(-50F), 0);
+		animator.rotate(LowerL_Tentacle3, 0, (float) Math.toRadians(25F), 0);
+		animator.rotate(LowerL_Tentacle2, 0, (float) Math.toRadians(25F), 0);
+		animator.rotate(LowerL_Tentacle, 0, (float) Math.toRadians(25F), 0);
 
-		animator.rotate(LowerR_Tantacle4, 0, (float) Math.toRadians(47.5F), 0);
-		animator.rotate(LowerR_Tantacle3, 0, (float) Math.toRadians(-25F), 0);
-		animator.rotate(LowerR_Tantacle2, 0, (float) Math.toRadians(-25F), 0);
-		animator.rotate(LowerR_Tantacle, 0, (float) Math.toRadians(-25F), 0);
+		animator.rotate(LowerR_Tentacle4, 0, (float) Math.toRadians(47.5F), 0);
+		animator.rotate(LowerR_Tentacle3, 0, (float) Math.toRadians(-25F), 0);
+		animator.rotate(LowerR_Tentacle2, 0, (float) Math.toRadians(-25F), 0);
+		animator.rotate(LowerR_Tentacle, 0, (float) Math.toRadians(-25F), 0);
 
-		animator.rotate(UpperL_Tantacle4, 0, (float) Math.toRadians(-50F), 0);
-		animator.rotate(UpperL_Tantacle3, 0, (float) Math.toRadians(25F), 0);
-		animator.rotate(UpperL_Tantacle2, 0, (float) Math.toRadians(25F), 0);
-		animator.rotate(UpperL_Tantacle, 0, (float) Math.toRadians(25F), 0);
+		animator.rotate(UpperL_Tentacle4, 0, (float) Math.toRadians(-50F), 0);
+		animator.rotate(UpperL_Tentacle3, 0, (float) Math.toRadians(25F), 0);
+		animator.rotate(UpperL_Tentacle2, 0, (float) Math.toRadians(25F), 0);
+		animator.rotate(UpperL_Tentacle, 0, (float) Math.toRadians(25F), 0);
 
-		animator.rotate(UpperR_Tantacle4, 0, (float) Math.toRadians(50F), 0);
-		animator.rotate(UpperR_Tantacle3, 0, (float) Math.toRadians(-25F), 0);
-		animator.rotate(UpperR_Tantacle2, 0, (float) Math.toRadians(-25F), 0);
-		animator.rotate(UpperR_Tantacle, 0, (float) Math.toRadians(-25F), 0);
+		animator.rotate(UpperR_Tentacle4, 0, (float) Math.toRadians(50F), 0);
+		animator.rotate(UpperR_Tentacle3, 0, (float) Math.toRadians(-25F), 0);
+		animator.rotate(UpperR_Tentacle2, 0, (float) Math.toRadians(-25F), 0);
+		animator.rotate(UpperR_Tentacle, 0, (float) Math.toRadians(-25F), 0);
 
 
 		animator.endKeyframe();
@@ -2509,21 +2509,21 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2, (float) Math.toRadians(15F), 0, 0);
 		animator.rotate(Tail3, (float) Math.toRadians(15F), 0, 0);
 
-		animator.rotate(LowerL_Tantacle3, 0, (float) Math.toRadians(17.5F), 0);
-		animator.rotate(LowerL_Tantacle2, 0, (float) Math.toRadians(15F), 0);
-		animator.rotate(LowerL_Tantacle, 0, (float) Math.toRadians(15F), 0);
+		animator.rotate(LowerL_Tentacle3, 0, (float) Math.toRadians(17.5F), 0);
+		animator.rotate(LowerL_Tentacle2, 0, (float) Math.toRadians(15F), 0);
+		animator.rotate(LowerL_Tentacle, 0, (float) Math.toRadians(15F), 0);
 
-		animator.rotate(LowerR_Tantacle3, 0, (float) Math.toRadians(-17.5F), 0);
-		animator.rotate(LowerR_Tantacle2, 0, (float) Math.toRadians(-15F), 0);
-		animator.rotate(LowerR_Tantacle, 0, (float) Math.toRadians(-15F), 0);
+		animator.rotate(LowerR_Tentacle3, 0, (float) Math.toRadians(-17.5F), 0);
+		animator.rotate(LowerR_Tentacle2, 0, (float) Math.toRadians(-15F), 0);
+		animator.rotate(LowerR_Tentacle, 0, (float) Math.toRadians(-15F), 0);
 
-		animator.rotate(UpperL_Tantacle3, 0, (float) Math.toRadians(17.5F), 0);
-		animator.rotate(UpperL_Tantacle2, 0, (float) Math.toRadians(15F), 0);
-		animator.rotate(UpperL_Tantacle, 0, (float) Math.toRadians(15F), 0);
+		animator.rotate(UpperL_Tentacle3, 0, (float) Math.toRadians(17.5F), 0);
+		animator.rotate(UpperL_Tentacle2, 0, (float) Math.toRadians(15F), 0);
+		animator.rotate(UpperL_Tentacle, 0, (float) Math.toRadians(15F), 0);
 
-		animator.rotate(UpperR_Tantacle3, 0, (float) Math.toRadians(-17.5F), 0);
-		animator.rotate(UpperR_Tantacle2, 0, (float) Math.toRadians(-15F), 0);
-		animator.rotate(UpperR_Tantacle, 0, (float) Math.toRadians(-15F), 0);
+		animator.rotate(UpperR_Tentacle3, 0, (float) Math.toRadians(-17.5F), 0);
+		animator.rotate(UpperR_Tentacle2, 0, (float) Math.toRadians(-15F), 0);
+		animator.rotate(UpperR_Tentacle, 0, (float) Math.toRadians(-15F), 0);
 		animator.endKeyframe();
 
 		animator.setStaticKeyframe(26);
@@ -2539,25 +2539,25 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2, (float) Math.toRadians(27.5F), 0, (float) Math.toRadians(-2.5F));
 		animator.rotate(Tail3, (float) Math.toRadians(50F), 0, (float) Math.toRadians(-2.5F));
 
-		animator.rotate(LowerL_Tantacle4, 0, (float) Math.toRadians(-55F), 0);
-		animator.rotate(LowerL_Tantacle3, 0, (float) Math.toRadians(-20F), 0);
-		animator.rotate(LowerL_Tantacle2, 0, (float) Math.toRadians(27.5F), 0);
-		animator.rotate(LowerL_Tantacle, 0, (float) Math.toRadians(22.5F), 0);
+		animator.rotate(LowerL_Tentacle4, 0, (float) Math.toRadians(-55F), 0);
+		animator.rotate(LowerL_Tentacle3, 0, (float) Math.toRadians(-20F), 0);
+		animator.rotate(LowerL_Tentacle2, 0, (float) Math.toRadians(27.5F), 0);
+		animator.rotate(LowerL_Tentacle, 0, (float) Math.toRadians(22.5F), 0);
 
-		animator.rotate(LowerR_Tantacle4, 0, (float) Math.toRadians(55F), 0);
-		animator.rotate(LowerR_Tantacle3, 0, (float) Math.toRadians(20F), 0);
-		animator.rotate(LowerR_Tantacle2, 0, (float) Math.toRadians(-27.5F), 0);
-		animator.rotate(LowerR_Tantacle, 0, (float) Math.toRadians(-22.5F), 0);
+		animator.rotate(LowerR_Tentacle4, 0, (float) Math.toRadians(55F), 0);
+		animator.rotate(LowerR_Tentacle3, 0, (float) Math.toRadians(20F), 0);
+		animator.rotate(LowerR_Tentacle2, 0, (float) Math.toRadians(-27.5F), 0);
+		animator.rotate(LowerR_Tentacle, 0, (float) Math.toRadians(-22.5F), 0);
 
-		animator.rotate(UpperL_Tantacle4, 0, (float) Math.toRadians(-55F), 0);
-		animator.rotate(UpperL_Tantacle3, 0, (float) Math.toRadians(-20F), 0);
-		animator.rotate(UpperL_Tantacle2, 0, (float) Math.toRadians(27.5F), 0);
-		animator.rotate(UpperL_Tantacle, 0, (float) Math.toRadians(22.5F), 0);
+		animator.rotate(UpperL_Tentacle4, 0, (float) Math.toRadians(-55F), 0);
+		animator.rotate(UpperL_Tentacle3, 0, (float) Math.toRadians(-20F), 0);
+		animator.rotate(UpperL_Tentacle2, 0, (float) Math.toRadians(27.5F), 0);
+		animator.rotate(UpperL_Tentacle, 0, (float) Math.toRadians(22.5F), 0);
 
-		animator.rotate(UpperR_Tantacle4, 0, (float) Math.toRadians(55F), 0);
-		animator.rotate(UpperR_Tantacle3, 0, (float) Math.toRadians(20F), 0);
-		animator.rotate(UpperR_Tantacle2, 0, (float) Math.toRadians(-27.5F), 0);
-		animator.rotate(UpperR_Tantacle, 0, (float) Math.toRadians(-22.5F), 0);
+		animator.rotate(UpperR_Tentacle4, 0, (float) Math.toRadians(55F), 0);
+		animator.rotate(UpperR_Tentacle3, 0, (float) Math.toRadians(20F), 0);
+		animator.rotate(UpperR_Tentacle2, 0, (float) Math.toRadians(-27.5F), 0);
+		animator.rotate(UpperR_Tentacle, 0, (float) Math.toRadians(-22.5F), 0);
 
 		animator.endKeyframe();
 
@@ -2572,25 +2572,25 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2, (float) Math.toRadians(27.5F), 0, (float) Math.toRadians(-2.5F));
 		animator.rotate(Tail3, (float) Math.toRadians(50F), 0, (float) Math.toRadians(-2.5F));
 
-		animator.rotate(LowerL_Tantacle4, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(LowerL_Tantacle3, 0, (float) Math.toRadians(7.5F), 0);
-		animator.rotate(LowerL_Tantacle2, 0, (float) Math.toRadians(42.5F), 0);
-		animator.rotate(LowerL_Tantacle, 0, (float) Math.toRadians(-70F), 0);
+		animator.rotate(LowerL_Tentacle4, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(LowerL_Tentacle3, 0, (float) Math.toRadians(7.5F), 0);
+		animator.rotate(LowerL_Tentacle2, 0, (float) Math.toRadians(42.5F), 0);
+		animator.rotate(LowerL_Tentacle, 0, (float) Math.toRadians(-70F), 0);
 
-		animator.rotate(LowerR_Tantacle4, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(LowerR_Tantacle3, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(LowerR_Tantacle2, 0, (float) Math.toRadians(-42.5F), 0);
-		animator.rotate(LowerR_Tantacle, 0, (float) Math.toRadians(70F), 0);
+		animator.rotate(LowerR_Tentacle4, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(LowerR_Tentacle3, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(LowerR_Tentacle2, 0, (float) Math.toRadians(-42.5F), 0);
+		animator.rotate(LowerR_Tentacle, 0, (float) Math.toRadians(70F), 0);
 
-		animator.rotate(UpperL_Tantacle4, 0, (float) Math.toRadians(7.5F), 0);
-		animator.rotate(UpperL_Tantacle3, 0, (float) Math.toRadians(7.5F), 0);
-		animator.rotate(UpperL_Tantacle2, 0, (float) Math.toRadians(42.5F), 0);
-		animator.rotate(UpperL_Tantacle, 0, (float) Math.toRadians(-70F), 0);
+		animator.rotate(UpperL_Tentacle4, 0, (float) Math.toRadians(7.5F), 0);
+		animator.rotate(UpperL_Tentacle3, 0, (float) Math.toRadians(7.5F), 0);
+		animator.rotate(UpperL_Tentacle2, 0, (float) Math.toRadians(42.5F), 0);
+		animator.rotate(UpperL_Tentacle, 0, (float) Math.toRadians(-70F), 0);
 
-		animator.rotate(UpperR_Tantacle4, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(UpperR_Tantacle3, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(UpperR_Tantacle2, 0, (float) Math.toRadians(-42.5F), 0);
-		animator.rotate(UpperR_Tantacle, 0, (float) Math.toRadians(70F), 0);
+		animator.rotate(UpperR_Tentacle4, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(UpperR_Tentacle3, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(UpperR_Tentacle2, 0, (float) Math.toRadians(-42.5F), 0);
+		animator.rotate(UpperR_Tentacle, 0, (float) Math.toRadians(70F), 0);
 
 		animator.endKeyframe();
 
@@ -2601,25 +2601,25 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2, (float) Math.toRadians(27.5F), 0, (float) Math.toRadians(-2.5F));
 		animator.rotate(Tail3, (float) Math.toRadians(50F), 0, (float) Math.toRadians(-2.5F));
 
-		animator.rotate(LowerL_Tantacle4, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(LowerL_Tantacle3, 0, (float) Math.toRadians(7.5F), 0);
-		animator.rotate(LowerL_Tantacle2, 0, (float) Math.toRadians(42.5F), 0);
-		animator.rotate(LowerL_Tantacle, 0, (float) Math.toRadians(-70F), 0);
+		animator.rotate(LowerL_Tentacle4, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(LowerL_Tentacle3, 0, (float) Math.toRadians(7.5F), 0);
+		animator.rotate(LowerL_Tentacle2, 0, (float) Math.toRadians(42.5F), 0);
+		animator.rotate(LowerL_Tentacle, 0, (float) Math.toRadians(-70F), 0);
 
-		animator.rotate(LowerR_Tantacle4, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(LowerR_Tantacle3, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(LowerR_Tantacle2, 0, (float) Math.toRadians(-42.5F), 0);
-		animator.rotate(LowerR_Tantacle, 0, (float) Math.toRadians(70F), 0);
+		animator.rotate(LowerR_Tentacle4, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(LowerR_Tentacle3, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(LowerR_Tentacle2, 0, (float) Math.toRadians(-42.5F), 0);
+		animator.rotate(LowerR_Tentacle, 0, (float) Math.toRadians(70F), 0);
 
-		animator.rotate(UpperL_Tantacle4, 0, (float) Math.toRadians(7.5F), 0);
-		animator.rotate(UpperL_Tantacle3, 0, (float) Math.toRadians(7.5F), 0);
-		animator.rotate(UpperL_Tantacle2, 0, (float) Math.toRadians(42.5F), 0);
-		animator.rotate(UpperL_Tantacle, 0, (float) Math.toRadians(-70F), 0);
+		animator.rotate(UpperL_Tentacle4, 0, (float) Math.toRadians(7.5F), 0);
+		animator.rotate(UpperL_Tentacle3, 0, (float) Math.toRadians(7.5F), 0);
+		animator.rotate(UpperL_Tentacle2, 0, (float) Math.toRadians(42.5F), 0);
+		animator.rotate(UpperL_Tentacle, 0, (float) Math.toRadians(-70F), 0);
 
-		animator.rotate(UpperR_Tantacle4, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(UpperR_Tantacle3, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(UpperR_Tantacle2, 0, (float) Math.toRadians(-42.5F), 0);
-		animator.rotate(UpperR_Tantacle, 0, (float) Math.toRadians(70F), 0);
+		animator.rotate(UpperR_Tentacle4, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(UpperR_Tentacle3, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(UpperR_Tentacle2, 0, (float) Math.toRadians(-42.5F), 0);
+		animator.rotate(UpperR_Tentacle, 0, (float) Math.toRadians(70F), 0);
 
 		animator.endKeyframe();
 
@@ -2636,25 +2636,25 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2, (float) Math.toRadians(27.5F), 0, (float) Math.toRadians(-2.5F));
 		animator.rotate(Tail3, (float) Math.toRadians(50F), 0, (float) Math.toRadians(-2.5F));
 
-		animator.rotate(LowerL_Tantacle4, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(LowerL_Tantacle3, 0, (float) Math.toRadians(7.5F), 0);
-		animator.rotate(LowerL_Tantacle2, 0, (float) Math.toRadians(42.5F), 0);
-		animator.rotate(LowerL_Tantacle, 0, (float) Math.toRadians(-70F), 0);
+		animator.rotate(LowerL_Tentacle4, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(LowerL_Tentacle3, 0, (float) Math.toRadians(7.5F), 0);
+		animator.rotate(LowerL_Tentacle2, 0, (float) Math.toRadians(42.5F), 0);
+		animator.rotate(LowerL_Tentacle, 0, (float) Math.toRadians(-70F), 0);
 
-		animator.rotate(LowerR_Tantacle4, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(LowerR_Tantacle3, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(LowerR_Tantacle2, 0, (float) Math.toRadians(-42.5F), 0);
-		animator.rotate(LowerR_Tantacle, 0, (float) Math.toRadians(70F), 0);
+		animator.rotate(LowerR_Tentacle4, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(LowerR_Tentacle3, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(LowerR_Tentacle2, 0, (float) Math.toRadians(-42.5F), 0);
+		animator.rotate(LowerR_Tentacle, 0, (float) Math.toRadians(70F), 0);
 
-		animator.rotate(UpperL_Tantacle4, 0, (float) Math.toRadians(7.5F), 0);
-		animator.rotate(UpperL_Tantacle3, 0, (float) Math.toRadians(7.5F), 0);
-		animator.rotate(UpperL_Tantacle2, 0, (float) Math.toRadians(42.5F), 0);
-		animator.rotate(UpperL_Tantacle, 0, (float) Math.toRadians(-70F), 0);
+		animator.rotate(UpperL_Tentacle4, 0, (float) Math.toRadians(7.5F), 0);
+		animator.rotate(UpperL_Tentacle3, 0, (float) Math.toRadians(7.5F), 0);
+		animator.rotate(UpperL_Tentacle2, 0, (float) Math.toRadians(42.5F), 0);
+		animator.rotate(UpperL_Tentacle, 0, (float) Math.toRadians(-70F), 0);
 
-		animator.rotate(UpperR_Tantacle4, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(UpperR_Tantacle3, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(UpperR_Tantacle2, 0, (float) Math.toRadians(-42.5F), 0);
-		animator.rotate(UpperR_Tantacle, 0, (float) Math.toRadians(70F), 0);
+		animator.rotate(UpperR_Tentacle4, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(UpperR_Tentacle3, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(UpperR_Tentacle2, 0, (float) Math.toRadians(-42.5F), 0);
+		animator.rotate(UpperR_Tentacle, 0, (float) Math.toRadians(70F), 0);
 
 		animator.endKeyframe();
 
@@ -2665,25 +2665,25 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2, (float) Math.toRadians(27.5F), 0, (float) Math.toRadians(-2.5F));
 		animator.rotate(Tail3, (float) Math.toRadians(50F), 0, (float) Math.toRadians(-2.5F));
 
-		animator.rotate(LowerL_Tantacle4, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(LowerL_Tantacle3, 0, (float) Math.toRadians(7.5F), 0);
-		animator.rotate(LowerL_Tantacle2, 0, (float) Math.toRadians(42.5F), 0);
-		animator.rotate(LowerL_Tantacle, 0, (float) Math.toRadians(-70F), 0);
+		animator.rotate(LowerL_Tentacle4, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(LowerL_Tentacle3, 0, (float) Math.toRadians(7.5F), 0);
+		animator.rotate(LowerL_Tentacle2, 0, (float) Math.toRadians(42.5F), 0);
+		animator.rotate(LowerL_Tentacle, 0, (float) Math.toRadians(-70F), 0);
 
-		animator.rotate(LowerR_Tantacle4, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(LowerR_Tantacle3, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(LowerR_Tantacle2, 0, (float) Math.toRadians(-42.5F), 0);
-		animator.rotate(LowerR_Tantacle, 0, (float) Math.toRadians(70F), 0);
+		animator.rotate(LowerR_Tentacle4, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(LowerR_Tentacle3, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(LowerR_Tentacle2, 0, (float) Math.toRadians(-42.5F), 0);
+		animator.rotate(LowerR_Tentacle, 0, (float) Math.toRadians(70F), 0);
 
-		animator.rotate(UpperL_Tantacle4, 0, (float) Math.toRadians(7.5F), 0);
-		animator.rotate(UpperL_Tantacle3, 0, (float) Math.toRadians(7.5F), 0);
-		animator.rotate(UpperL_Tantacle2, 0, (float) Math.toRadians(42.5F), 0);
-		animator.rotate(UpperL_Tantacle, 0, (float) Math.toRadians(-70F), 0);
+		animator.rotate(UpperL_Tentacle4, 0, (float) Math.toRadians(7.5F), 0);
+		animator.rotate(UpperL_Tentacle3, 0, (float) Math.toRadians(7.5F), 0);
+		animator.rotate(UpperL_Tentacle2, 0, (float) Math.toRadians(42.5F), 0);
+		animator.rotate(UpperL_Tentacle, 0, (float) Math.toRadians(-70F), 0);
 
-		animator.rotate(UpperR_Tantacle4, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(UpperR_Tantacle3, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(UpperR_Tantacle2, 0, (float) Math.toRadians(-42.5F), 0);
-		animator.rotate(UpperR_Tantacle, 0, (float) Math.toRadians(70F), 0);
+		animator.rotate(UpperR_Tentacle4, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(UpperR_Tentacle3, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(UpperR_Tentacle2, 0, (float) Math.toRadians(-42.5F), 0);
+		animator.rotate(UpperR_Tentacle, 0, (float) Math.toRadians(70F), 0);
 
 		animator.endKeyframe();
 
@@ -2700,25 +2700,25 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		animator.rotate(Tail2, (float) Math.toRadians(27.5F), 0, (float) Math.toRadians(-2.5F));
 		animator.rotate(Tail3, (float) Math.toRadians(50F), 0, (float) Math.toRadians(-2.5F));
 
-		animator.rotate(LowerL_Tantacle4, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(LowerL_Tantacle3, 0, (float) Math.toRadians(7.5F), 0);
-		animator.rotate(LowerL_Tantacle2, 0, (float) Math.toRadians(42.5F), 0);
-		animator.rotate(LowerL_Tantacle, 0, (float) Math.toRadians(-70F), 0);
+		animator.rotate(LowerL_Tentacle4, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(LowerL_Tentacle3, 0, (float) Math.toRadians(7.5F), 0);
+		animator.rotate(LowerL_Tentacle2, 0, (float) Math.toRadians(42.5F), 0);
+		animator.rotate(LowerL_Tentacle, 0, (float) Math.toRadians(-70F), 0);
 
-		animator.rotate(LowerR_Tantacle4, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(LowerR_Tantacle3, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(LowerR_Tantacle2, 0, (float) Math.toRadians(-42.5F), 0);
-		animator.rotate(LowerR_Tantacle, 0, (float) Math.toRadians(70F), 0);
+		animator.rotate(LowerR_Tentacle4, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(LowerR_Tentacle3, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(LowerR_Tentacle2, 0, (float) Math.toRadians(-42.5F), 0);
+		animator.rotate(LowerR_Tentacle, 0, (float) Math.toRadians(70F), 0);
 
-		animator.rotate(UpperL_Tantacle4, 0, (float) Math.toRadians(7.5F), 0);
-		animator.rotate(UpperL_Tantacle3, 0, (float) Math.toRadians(7.5F), 0);
-		animator.rotate(UpperL_Tantacle2, 0, (float) Math.toRadians(42.5F), 0);
-		animator.rotate(UpperL_Tantacle, 0, (float) Math.toRadians(-70F), 0);
+		animator.rotate(UpperL_Tentacle4, 0, (float) Math.toRadians(7.5F), 0);
+		animator.rotate(UpperL_Tentacle3, 0, (float) Math.toRadians(7.5F), 0);
+		animator.rotate(UpperL_Tentacle2, 0, (float) Math.toRadians(42.5F), 0);
+		animator.rotate(UpperL_Tentacle, 0, (float) Math.toRadians(-70F), 0);
 
-		animator.rotate(UpperR_Tantacle4, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(UpperR_Tantacle3, 0, (float) Math.toRadians(-7.5F), 0);
-		animator.rotate(UpperR_Tantacle2, 0, (float) Math.toRadians(-42.5F), 0);
-		animator.rotate(UpperR_Tantacle, 0, (float) Math.toRadians(70F), 0);
+		animator.rotate(UpperR_Tentacle4, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(UpperR_Tentacle3, 0, (float) Math.toRadians(-7.5F), 0);
+		animator.rotate(UpperR_Tentacle2, 0, (float) Math.toRadians(-42.5F), 0);
+		animator.rotate(UpperR_Tentacle, 0, (float) Math.toRadians(70F), 0);
 
 		animator.endKeyframe();
 
@@ -2726,6 +2726,124 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 		animator.resetKeyframe(20);
 
+
+
+		animator.setAnimation(The_Leviathan_Entity.LEVIATHAN_MINE);
+		animator.startKeyframe(15);
+		animator.rotate(root, (float) Math.toRadians(5F), 0, 0);
+		animator.rotate(Belly, (float) Math.toRadians(-2.5F), 0, 0);
+		animator.rotate(Tail, (float) Math.toRadians(-2.5F), 0, 0);
+		animator.rotate(Tail2, (float) Math.toRadians(-2.5F), 0, 0);
+		animator.rotate(Tail3, (float) Math.toRadians(-2.5F), 0, 0);
+		animator.rotate(UpperR_Tentacle, 0, (float) Math.toRadians(-30F), 0);
+		animator.rotate(UpperL_Tentacle, 0, (float) Math.toRadians(30F), 0);
+		animator.rotate(LowerR_Tentacle, 0, (float) Math.toRadians(-30F), 0);
+		animator.rotate(LowerL_Tentacle, 0, (float) Math.toRadians(30F), 0);
+		animator.rotate(Head,(float) Math.toRadians(20F),0,0);
+		animator.endKeyframe();
+
+		animator.setStaticKeyframe(10);
+
+		animator.startKeyframe(6);
+		animator.rotate(root, (float) Math.toRadians(-17.5F), (float) Math.toRadians(25F), (float) Math.toRadians(-7.5F));
+		animator.rotate(Belly, (float) Math.toRadians(22.5F), (float) Math.toRadians(-17.5F), 0);
+		animator.rotate(Tail, (float) Math.toRadians(10F), (float) Math.toRadians(-12.5F), 0);
+		animator.rotate(Tail2, (float) Math.toRadians(12.5F), (float) Math.toRadians(-12.5F), 0);
+		animator.rotate(Tail3, (float) Math.toRadians(15F), (float) Math.toRadians(-15F), 0);
+		animator.rotate(UpperR_Tentacle, 0, (float) Math.toRadians(30F), 0);
+		animator.rotate(UpperL_Tentacle, 0, (float) Math.toRadians(-30F), 0);
+		animator.rotate(LowerR_Tentacle, 0, (float) Math.toRadians(30F), 0);
+		animator.rotate(LowerL_Tentacle, 0, (float) Math.toRadians(-30F), 0);
+		animator.rotate(Head,0,(float) Math.toRadians(17.5F),0);
+		animator.rotate(Maw,(float) Math.toRadians(47.5F),(float) Math.toRadians(-15F),(float) Math.toRadians(-15F));
+		animator.rotate(Skul,(float) Math.toRadians(-52.5F),0,0);
+		animator.rotate(Mouth,(float) Math.toRadians(-30F),(float) Math.toRadians(30F),0);
+		animator.rotate(Mouth2,(float) Math.toRadians(-30F),(float) Math.toRadians(-30F),0);
+		animator.rotate(Mouth3,(float) Math.toRadians(30F),(float) Math.toRadians(30F),0);
+		animator.rotate(Mouth4,(float) Math.toRadians(30F),(float) Math.toRadians(-30F),0);
+		animator.endKeyframe();
+
+
+		animator.startKeyframe(6);
+		animator.rotate(root, (float) Math.toRadians(-15F), (float) Math.toRadians(-20F), (float) Math.toRadians(5F));
+		animator.rotate(Belly, (float) Math.toRadians(-2.5F), (float) Math.toRadians(12.5F), 0);
+		animator.rotate(Tail, (float) Math.toRadians(-2.5F), (float) Math.toRadians(12.5F), 0);
+		animator.rotate(Tail2, (float) Math.toRadians(5F), (float) Math.toRadians(17.5F), (float) Math.toRadians(-10F));
+		animator.rotate(Tail3, (float) Math.toRadians(-2.5F), (float) Math.toRadians(25F), 0);
+		animator.rotate(UpperR_Tentacle, 0, (float) Math.toRadians(5F), 0);
+		animator.rotate(UpperL_Tentacle, 0, (float) Math.toRadians(-5F), 0);
+		animator.rotate(LowerR_Tentacle, 0, (float) Math.toRadians(5F), 0);
+		animator.rotate(LowerL_Tentacle, 0, (float) Math.toRadians(-5F), 0);
+		animator.rotate(Head,0,(float) Math.toRadians(-42.5F),0);
+		animator.rotate(Maw,(float) Math.toRadians(47.5F),(float) Math.toRadians(12.5F),(float) Math.toRadians(12.5F));
+		animator.rotate(Skul,(float) Math.toRadians(-55F),(float) Math.toRadians(12.5F),(float) Math.toRadians(-15F));
+		animator.rotate(Mouth,(float) Math.toRadians(-30F),(float) Math.toRadians(30F),0);
+		animator.rotate(Mouth2,(float) Math.toRadians(-30F),(float) Math.toRadians(-30F),0);
+		animator.rotate(Mouth3,(float) Math.toRadians(30F),(float) Math.toRadians(30F),0);
+		animator.rotate(Mouth4,(float) Math.toRadians(30F),(float) Math.toRadians(-30F),0);
+		animator.endKeyframe();
+
+		animator.startKeyframe(6);
+		animator.rotate(root, (float) Math.toRadians(-15F), (float) Math.toRadians(25F), (float) Math.toRadians(-7.5F));
+		animator.rotate(Belly, (float) Math.toRadians(17.5F), (float) Math.toRadians(-17.5F), 0);
+		animator.rotate(Tail, (float) Math.toRadians(22.5F), (float) Math.toRadians(-12.5F), 0);
+		animator.rotate(Tail2, (float) Math.toRadians(17.5F), (float) Math.toRadians(-12.5F), 0);
+		animator.rotate(Tail3, (float) Math.toRadians(17.5F), (float) Math.toRadians(-15F), 0);
+		animator.rotate(UpperR_Tentacle, 0, (float) Math.toRadians(30F), 0);
+		animator.rotate(UpperL_Tentacle, 0, (float) Math.toRadians(-30F), 0);
+		animator.rotate(LowerR_Tentacle, 0, (float) Math.toRadians(30F), 0);
+		animator.rotate(LowerL_Tentacle, 0, (float) Math.toRadians(-30F), 0);
+		animator.rotate(Head,(float) Math.toRadians(42.5F),(float) Math.toRadians(27.5F),0);
+		animator.rotate(Maw,(float) Math.toRadians(45F),(float) Math.toRadians(-2.5F),(float) Math.toRadians(-2.5f));
+		animator.rotate(Skul,(float) Math.toRadians(-55F),(float) Math.toRadians(-12.5F),(float) Math.toRadians(15F));
+		animator.rotate(Mouth,(float) Math.toRadians(-25F),(float) Math.toRadians(12.5F),(float) Math.toRadians(10F));
+		animator.rotate(Mouth2,(float) Math.toRadians(-37.5F),(float) Math.toRadians(-42.5F),(float) Math.toRadians(10F));
+		animator.rotate(Mouth3,(float) Math.toRadians(25F),(float) Math.toRadians(12.5F),(float) Math.toRadians(-10F));
+		animator.rotate(Mouth4,(float) Math.toRadians(40F),(float) Math.toRadians(-45F),(float) Math.toRadians(-15F));
+		animator.endKeyframe();
+
+
+		animator.startKeyframe(6);
+		animator.rotate(root, (float) Math.toRadians(-17.5F), (float) Math.toRadians(-17.5F), (float) Math.toRadians(7.5F));
+		animator.rotate(Belly, (float) Math.toRadians(-2.5F), (float) Math.toRadians(12.5F), 0);
+		animator.rotate(Tail, (float) Math.toRadians(-2.5F), (float) Math.toRadians(12.5F), 0);
+		animator.rotate(Tail2, (float) Math.toRadians(-5F), (float) Math.toRadians(17.5F), (float) Math.toRadians(-10F));
+		animator.rotate(Tail3, (float) Math.toRadians(-2.5F), (float) Math.toRadians(25F), 0);
+		animator.rotate(UpperR_Tentacle, 0, (float) Math.toRadians(5F), 0);
+		animator.rotate(UpperL_Tentacle, 0, (float) Math.toRadians(-5F), 0);
+		animator.rotate(LowerR_Tentacle, 0, (float) Math.toRadians(5F), 0);
+		animator.rotate(LowerL_Tentacle, 0, (float) Math.toRadians(-5F), 0);
+		animator.rotate(Head,(float) Math.toRadians(20F),(float) Math.toRadians(-5F),(float) Math.toRadians(-15F));
+		animator.rotate(Maw,(float) Math.toRadians(47.5F),(float) Math.toRadians(12.5F),(float) Math.toRadians(12.5f));
+		animator.rotate(Skul,(float) Math.toRadians(-42.5F),(float) Math.toRadians(-10F),(float) Math.toRadians(12.5F));
+		animator.rotate(Mouth,(float) Math.toRadians(-30F),(float) Math.toRadians(30F),0);
+		animator.rotate(Mouth2,(float) Math.toRadians(-27.5F),(float) Math.toRadians(-25F),(float) Math.toRadians(-2.5F));
+		animator.rotate(Mouth3,(float) Math.toRadians(30F),(float) Math.toRadians(30F),0);
+		animator.rotate(Mouth4,(float) Math.toRadians(30F),(float) Math.toRadians(-30F),0);
+		animator.endKeyframe();
+
+
+		animator.startKeyframe(6);
+		animator.rotate(root, (float) Math.toRadians(-17.5F), (float) Math.toRadians(25F), (float) Math.toRadians(-7.5F));
+		animator.rotate(Belly, (float) Math.toRadians(22.5F), (float) Math.toRadians(-17.5F), 0);
+		animator.rotate(Tail, (float) Math.toRadians(22.5F), (float) Math.toRadians(-12.5F), 0);
+		animator.rotate(Tail2, (float) Math.toRadians(27.5F), (float) Math.toRadians(-12.5F), 0);
+		animator.rotate(Tail3, (float) Math.toRadians(17.5F), (float) Math.toRadians(-15F), 0);
+		animator.rotate(UpperR_Tentacle, 0, (float) Math.toRadians(30F), 0);
+		animator.rotate(UpperL_Tentacle, 0, (float) Math.toRadians(-30F), 0);
+		animator.rotate(LowerR_Tentacle, 0, (float) Math.toRadians(30F), 0);
+		animator.rotate(LowerL_Tentacle, 0, (float) Math.toRadians(-30F), 0);
+		animator.rotate(Head,0,(float) Math.toRadians(35F),0);
+		animator.rotate(Maw,(float) Math.toRadians(47.5F),(float) Math.toRadians(-15F),(float) Math.toRadians(-17.5f));
+		animator.rotate(Skul,(float) Math.toRadians(-32.5F),(float) Math.toRadians(-7.5F),(float) Math.toRadians(10F));
+		animator.rotate(Mouth,(float) Math.toRadians(-22.5F),(float) Math.toRadians(22.5F),0);
+		animator.rotate(Mouth2,(float) Math.toRadians(-22.5F),(float) Math.toRadians(-20F),(float) Math.toRadians(-2.5F));
+		animator.rotate(Mouth3,(float) Math.toRadians(22.5F),(float) Math.toRadians(22.5F),0);
+		animator.rotate(Mouth4,(float) Math.toRadians(22.5F),(float) Math.toRadians(-22.5F),0);
+		animator.endKeyframe();
+
+
+		animator.resetKeyframe(13);
 
 	}
 
@@ -2756,11 +2874,11 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		progressRotationPrev(R_mini_fin,NoswimProgress,0, 0, (float)Math.toRadians(-32.5F), 10f);
 		progressRotationPrev(L_mini_fin,NoswimProgress,0, 0, (float)Math.toRadians(32.5F), 10f);
 
-		progressRotationPrev(LowerL_Tantacle,LeftTentacleProgress,0, 0, (float)Math.toRadians(-32.5F), 10F);
-		progressRotationPrev(LowerR_Tantacle,RightTentacleProgress,0, 0, (float)Math.toRadians(32.5F), 10F);
+		progressRotationPrev(LowerL_Tentacle,LeftTentacleProgress,0, 0, (float)Math.toRadians(-32.5F), 10F);
+		progressRotationPrev(LowerR_Tentacle,RightTentacleProgress,0, 0, (float)Math.toRadians(32.5F), 10F);
 
-		//this.swing(UpperR_Tantacle, swimSpeed * 0.4F, 0.1F, false, 0F, -0.1F, ageInTicks, 1.0f);
-		//this.swing(UpperR_Tantacle3, swimSpeed * 0.4F, 0.1F, false, 2F, -0.1F, ageInTicks, 1.0f);
+		//this.swing(UpperR_Tentacle, swimSpeed * 0.4F, 0.1F, false, 0F, -0.1F, ageInTicks, 1.0f);
+		//this.swing(UpperR_Tentacle3, swimSpeed * 0.4F, 0.1F, false, 2F, -0.1F, ageInTicks, 1.0f);
 
 
 		this.flap(UpperR_Hook, swimSpeed * 0.2F, 0.35F, true, 0F, -0.35F, ageInTicks, 1.0f);
@@ -2772,8 +2890,8 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		this.swing(UpperR_Hook3, swimSpeed * 1.3F, 0.35F, false, 0F, -0.35F, limbSwing, limbSwingAmount);
 		this.flap(UpperR_Hook4, swimSpeed * 1.3F, 0.35F, false, 0F, -0.35F, limbSwing, limbSwingAmount);
 
-		//this.swing(UpperL_Tantacle, swimSpeed * 0.4F, 0.1F, true, 0F, -0.1F, ageInTicks, 1.0f);
-	//	this.swing(UpperL_Tantacle3, swimSpeed * 0.4F, 0.1F, true, 2f, -0.1F, ageInTicks, 1.0f);
+		//this.swing(UpperL_Tentacle, swimSpeed * 0.4F, 0.1F, true, 0F, -0.1F, ageInTicks, 1.0f);
+	//	this.swing(UpperL_Tentacle3, swimSpeed * 0.4F, 0.1F, true, 2f, -0.1F, ageInTicks, 1.0f);
 
 
 		this.flap(UpperL_Hook, swimSpeed * 0.2F, 0.35F, false, 0F, -0.35F, ageInTicks, 1.0f);
@@ -2785,8 +2903,8 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		this.swing(UpperL_Hook3, swimSpeed * 1.3F, 0.35F, true, 0F, -0.35F, limbSwing, limbSwingAmount);
 		this.flap(UpperL_Hook4, swimSpeed * 1.3F, 0.35F, true, 0F, -0.35F, limbSwing, limbSwingAmount);
 
-		//this.swing(LowerR_Tantacle, swimSpeed * 0.4F, 0.1F, false, 0F, -0.1F, ageInTicks, 1.0f);
-		//this.swing(LowerR_Tantacle3, swimSpeed * 0.4F, 0.1F, false, 2f, -0.1F, ageInTicks, 1.0f);
+		//this.swing(LowerR_Tentacle, swimSpeed * 0.4F, 0.1F, false, 0F, -0.1F, ageInTicks, 1.0f);
+		//this.swing(LowerR_Tentacle3, swimSpeed * 0.4F, 0.1F, false, 2f, -0.1F, ageInTicks, 1.0f);
 
 
 		this.flap(LowerR_Hook, swimSpeed * 0.2F, 0.35F, true, 0F, -0.35F, ageInTicks, 1.0f);
@@ -2798,9 +2916,9 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 		this.swing(LowerR_Hook3, swimSpeed * 1.3F, 0.35F, false, 0F, -0.35F, limbSwing, limbSwingAmount);
 		this.flap(LowerR_Hook4, swimSpeed * 1.3F, 0.35F, false, 0F, -0.35F, limbSwing, limbSwingAmount);
 
-		//this.swing(LowerL_Tantacle, swimSpeed * 0.4F, 0.1F, true, 0F, -0.1F, ageInTicks, 1.0f);
+		//this.swing(LowerL_Tentacle, swimSpeed * 0.4F, 0.1F, true, 0F, -0.1F, ageInTicks, 1.0f);
 
-		//this.swing(LowerL_Tantacle3, swimSpeed * 0.4F, 0.1F, true, 2f, -0.1F, ageInTicks, 1.0f);
+		//this.swing(LowerL_Tentacle3, swimSpeed * 0.4F, 0.1F, true, 2f, -0.1F, ageInTicks, 1.0f);
 
 		this.flap(LowerL_Hook, swimSpeed * 0.2F, 0.35F, false, 0F, -0.35F, ageInTicks, 1.0f);
 		this.swing(LowerL_Hook2, swimSpeed * 0.2F, 0.35F, false, 0F, -0.35F, ageInTicks, 1.0f);
@@ -2849,13 +2967,13 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 
 
 
-		AdvancedModelBox[] URT = new AdvancedModelBox[]{UpperR_Tantacle, UpperR_Tantacle2, UpperR_Tantacle3};
+		AdvancedModelBox[] URT = new AdvancedModelBox[]{UpperR_Tentacle, UpperR_Tentacle2, UpperR_Tentacle3};
 
-		AdvancedModelBox[] ULT = new AdvancedModelBox[]{UpperL_Tantacle, UpperL_Tantacle2, UpperL_Tantacle3};
+		AdvancedModelBox[] ULT = new AdvancedModelBox[]{UpperL_Tentacle, UpperL_Tentacle2, UpperL_Tentacle3};
 
-		AdvancedModelBox[] LRT = new AdvancedModelBox[]{LowerR_Tantacle, LowerR_Tantacle2, LowerR_Tantacle3};
+		AdvancedModelBox[] LRT = new AdvancedModelBox[]{LowerR_Tentacle, LowerR_Tentacle2, LowerR_Tentacle3};
 
-		AdvancedModelBox[] LLT = new AdvancedModelBox[]{LowerL_Tantacle, LowerL_Tantacle2, LowerL_Tantacle3};
+		AdvancedModelBox[] LLT = new AdvancedModelBox[]{LowerL_Tentacle, LowerL_Tentacle2, LowerL_Tentacle3};
 
 
 
@@ -2927,34 +3045,34 @@ public class ModelThe_Leviathan extends AdvancedEntityModel<The_Leviathan_Entity
 				L_Spike4,
 				Tail3,
 				Tail_Particle,
-				UpperL_Tantacle,
-				UpperL_Tantacle2,
-				UpperL_Tantacle3,
-				UpperL_Tantacle4,
+				UpperL_Tentacle,
+				UpperL_Tentacle2,
+				UpperL_Tentacle3,
+				UpperL_Tentacle4,
 				UpperL_Hook,
 				UpperL_Hook2,
 				UpperL_Hook3,
 				UpperL_Hook4,
-				UpperR_Tantacle,
-				UpperR_Tantacle2,
-				UpperR_Tantacle3,
-				UpperR_Tantacle4,
+				UpperR_Tentacle,
+				UpperR_Tentacle2,
+				UpperR_Tentacle3,
+				UpperR_Tentacle4,
 				UpperR_Hook,
 				UpperR_Hook2,
 				UpperR_Hook3,
 				UpperR_Hook4,
-				LowerL_Tantacle,
-				LowerL_Tantacle2,
-				LowerL_Tantacle3,
-				LowerL_Tantacle4,
+				LowerL_Tentacle,
+				LowerL_Tentacle2,
+				LowerL_Tentacle3,
+				LowerL_Tentacle4,
 				LowerL_Hook,
 				LowerL_Hook2,
 				LowerL_Hook3,
 				LowerL_Hook4,
-				LowerR_Tantacle,
-				LowerR_Tantacle2,
-				LowerR_Tantacle3,
-				LowerR_Tantacle4,
+				LowerR_Tentacle,
+				LowerR_Tentacle2,
+				LowerR_Tentacle3,
+				LowerR_Tentacle4,
 				LowerR_Hook,
 				LowerR_Hook2,
 				LowerR_Hook3,
