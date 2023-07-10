@@ -133,7 +133,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
     public static final int TAIL_WHIPS_HUNTING_COOLDOWN = 100;
     public static final int BITE_COOLDOWN = 100;
     public static final int MELEE_COOLDOWN = 50;
-    public static final int MINE_COOLDOWN = 200;
+    public static final int MINE_COOLDOWN = 100;
     private AttackMode mode = AttackMode.CIRCLE;
     private int hunting_cooldown = 160;
     private int makePortalCooldown = 0;

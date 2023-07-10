@@ -2,10 +2,7 @@ package com.github.L_Ender.cataclysm.init;
 
 import com.github.L_Ender.cataclysm.cataclysm;
 import com.github.L_Ender.cataclysm.items.*;
-import com.github.L_Ender.cataclysm.items.Dungeon_Eye.FlameEyeItem;
-import com.github.L_Ender.cataclysm.items.Dungeon_Eye.MechEyeItem;
-import com.github.L_Ender.cataclysm.items.Dungeon_Eye.MonstrousEyeItem;
-import com.github.L_Ender.cataclysm.items.Dungeon_Eye.VoidEyeItem;
+import com.github.L_Ender.cataclysm.items.Dungeon_Eye.*;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -251,6 +248,9 @@ public class ModItems {
     public static final RegistryObject<Item> MONSTROUS_EYE = ITEMS.register("monstrous_eye",
             () -> new MonstrousEyeItem(new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).fireResistant()));
 
+    public static final RegistryObject<Item> ABYSS_EYE = ITEMS.register("abyss_eye",
+            () -> new AbyssEyeItem(new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).fireResistant()));
+
     public static final RegistryObject<Item> LIONFISH = ITEMS.register("lionfish",
             () -> new Item(new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1F).effect(new MobEffectInstance(MobEffects.POISON, 300, 0), 1.0F).effect(new MobEffectInstance(MobEffects.CONFUSION, 300, 0), 1.0F).build())));
 
@@ -298,7 +298,7 @@ public class ModItems {
             () -> new ForgeSpawnEggItem(ModEntities.DEEPLING_ANGLER, 0x182a3c, 0x98d8e2, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
 
     public static final RegistryObject<SpawnEggItem> DEEPLING_PRIEST_SPAWN_EGG = ITEMS.register("deepling_priest_spawn_egg",
-            () -> new ForgeSpawnEggItem(ModEntities.DEEPLING_PRIEST, 0x182a3c, 0x082054, new Item.Properties()));
+            () -> new ForgeSpawnEggItem(ModEntities.DEEPLING_PRIEST, 0x182a3c, 0x082054, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
 
     public static final RegistryObject<SpawnEggItem> LIONFISH_SPAWN_EGG = ITEMS.register("lionfish_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.LIONFISH, 0x98d8e2, 0x182a3c, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));

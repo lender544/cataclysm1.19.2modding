@@ -143,8 +143,13 @@ public class Coral_Bardiche extends Item implements Vanishable {
     }
 
     @Override
+    public boolean isEnchantable(ItemStack stack) {
+        return true;
+    }
+
+    @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return enchantment.category == EnchantmentCategory.TRIDENT;
+        return enchantment.category == EnchantmentCategory.BREAKABLE || enchantment.category == EnchantmentCategory.TRIDENT;
     }
 
     public boolean mineBlock(ItemStack p_43399_, Level p_43400_, BlockState p_43401_, BlockPos p_43402_, LivingEntity p_43403_) {
