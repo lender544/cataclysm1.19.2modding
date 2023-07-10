@@ -262,6 +262,18 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         return LEVIATHAN_TENTACLE_STRIKE_UPPER_R;
     }
 
+    public boolean isAlliedTo(Entity entityIn) {
+        if (entityIn == this) {
+            return true;
+        } else if (super.isAlliedTo(entityIn)) {
+            return true;
+        } else if (entityIn instanceof The_Leviathan_Entity) {
+            return this.getTeam() == null && entityIn.getTeam() == null;
+        } else {
+            return false;
+        }
+    }
+
     public boolean hurt(DamageSource source, float damage) {
         Entity entity = source.getDirectEntity();
         if (entity instanceof Abyss_Blast_Entity || entity instanceof Portal_Abyss_Blast_Entity) {
@@ -1206,23 +1218,22 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
     public void createStuckPortal() {
         if (this.getTarget() != null) {
             Vec3 to = new Vec3(this.getTarget().getX(), this.getTarget().getY(), this.getTarget().getZ());
-            this.createPortal2(this.getX() , this.getY() + 0.1,this.getZ(),Direction.UP, to, null);
+            this.createPortal2(this.getX() , this.getY() + 0.1,this.getZ(), to);
         }
     }
 
 
-    public void createPortal2(double x,double y,double z,@Nullable Direction outDir, Vec3 to, @Nullable Direction outDir2) {
+    public void createPortal2(double x, double y, double z, Vec3 to) {
         if (!level.isClientSide && portalTarget == null) {
             Abyss_Portal_Entity portal = ModEntities.ABYSS_PORTAL.get().create(level);
             portal.setPos(x, y, z);
-            portal.setAttachmentFacing(outDir);
             portal.setLifespan(10000);
             portal.setEntrance(true);
             if (!level.isClientSide) {
                 level.addFreshEntity(portal);
             }
             portalTarget = portal;
-            portal.setDestination(new BlockPos(to.x, to.y, to.z), outDir2);
+            portal.setDestination(new BlockPos(to.x, to.y, to.z));
             makePortalCooldown = 300;
         }
     }
@@ -2144,7 +2155,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
         public void start() {
             if (targetPos != null) {
                 Vec3 to = new Vec3(targetPos.getX(), targetPos.getY(), targetPos.getZ());
-                this.creature.createPortal2(this.creature.getX() , this.creature.getY() + 0.1,this.creature.getZ(),Direction.UP, to, null);
+                this.creature.createPortal2(this.creature.getX() , this.creature.getY() + 0.1,this.creature.getZ(), to);
             }
         }
 

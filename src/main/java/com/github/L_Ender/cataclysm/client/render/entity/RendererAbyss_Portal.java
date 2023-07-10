@@ -6,6 +6,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix3f;
 import com.mojang.math.Matrix4f;
+import com.mojang.math.Vector3f;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -15,20 +16,19 @@ import net.minecraft.util.Mth;
 
 public class RendererAbyss_Portal extends EntityRenderer<Abyss_Portal_Entity> {
     private static final ResourceLocation TEXTURE_0 = new ResourceLocation("cataclysm:textures/entity/leviathan/portal/abyss_portal_idle_0.png");
-    private static final ResourceLocation TEXTURE_1 = new ResourceLocation("cataclysm:textures/entity/leviathan/portal/abyss_portal_idle_1.png");
-    private static final ResourceLocation TEXTURE_2 = new ResourceLocation("cataclysm:textures/entity/leviathan/portal/abyss_portal_idle_2.png");
-    private static final ResourceLocation[] TEXTURE_PROGRESS = new ResourceLocation[5];
+    private static final ResourceLocation[] TEXTURE_PROGRESS = new ResourceLocation[7];
     public RendererAbyss_Portal(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn);
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < 7; i++){
             TEXTURE_PROGRESS[i] = new ResourceLocation("cataclysm:textures/entity/leviathan/portal/abyss_portal_grow_" + i + ".png");
         }
     }
 
     public void render(Abyss_Portal_Entity entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
         matrixStackIn.pushPose();
-        matrixStackIn.mulPose(entityIn.getAttachmentFacing().getOpposite().getRotation());
         // matrixStackIn.translate(0.5D, 0, 0.5D);
+        float f2 = (float) entityIn.tickCount + partialTicks;
+        matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(f2));
         matrixStackIn.translate(0f, 0.01f, 0f);
         matrixStackIn.scale(4F, 4F, 4F);
         renderPortal(entityIn, matrixStackIn, bufferIn, false);
@@ -43,7 +43,7 @@ public class RendererAbyss_Portal extends EntityRenderer<Abyss_Portal_Entity> {
         }else if(entityIn.tickCount < 20){
             tex = getGrowingTexture((int) ((entityIn.tickCount * 0.5F) % 20));
         }else{
-            tex = getIdleTexture(entityIn.tickCount % 9);
+            tex = getIdleTexture();
         }
         VertexConsumer ivertexbuilder =  bufferIn.getBuffer(CMRenderTypes.getfullBright(tex));
         renderArc(matrixStackIn, ivertexbuilder);
@@ -71,19 +71,11 @@ public class RendererAbyss_Portal extends EntityRenderer<Abyss_Portal_Entity> {
     }
 
 
-    public ResourceLocation getIdleTexture(int age) {
-        if (age < 3) {
-            return TEXTURE_0;
-        } else if (age < 6) {
-            return TEXTURE_0;
-        } else if (age < 10) {
-            return TEXTURE_0;
-        } else {
-            return TEXTURE_0;
-        }
+    public ResourceLocation getIdleTexture() {
+        return TEXTURE_0;
     }
 
     public ResourceLocation getGrowingTexture(int age) {
-        return TEXTURE_PROGRESS[Mth.clamp(age, 0, 4)];
+        return TEXTURE_PROGRESS[Mth.clamp(age, 0, 6)];
     }
 }

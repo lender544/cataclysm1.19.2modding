@@ -24,6 +24,10 @@ import net.minecraft.world.phys.Vec3;
 
 public class Eye_Of_Dungeon_Entity extends Entity implements ItemSupplier {
     private static final EntityDataAccessor<ItemStack> DATA_ITEM_STACK = SynchedEntityData.defineId(Eye_Of_Dungeon_Entity.class, EntityDataSerializers.ITEM_STACK);
+    private static final EntityDataAccessor<Float> R = SynchedEntityData.defineId(Eye_Of_Dungeon_Entity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> G = SynchedEntityData.defineId(Eye_Of_Dungeon_Entity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> B = SynchedEntityData.defineId(Eye_Of_Dungeon_Entity.class, EntityDataSerializers.FLOAT);
+
     private double tx;
     private double ty;
     private double tz;
@@ -55,8 +59,43 @@ public class Eye_Of_Dungeon_Entity extends Entity implements ItemSupplier {
     }
 
 
+    public float getR()
+    {
+        return this.entityData.get(R);
+    }
+
+    public void setR(float r)
+    {
+        this.entityData.set(R, r);
+    }
+
+    public float getG()
+    {
+        return this.entityData.get(G);
+    }
+
+    public void setG(float g)
+    {
+        this.entityData.set(G, g);
+    }
+
+
+    public float getB()
+    {
+        return this.entityData.get(B);
+    }
+
+    public void setB(float b)
+    {
+        this.entityData.set(B, b);
+    }
+
+
     protected void defineSynchedData() {
         this.getEntityData().define(DATA_ITEM_STACK, ItemStack.EMPTY);
+        this.getEntityData().define(R, 0f);
+        this.getEntityData().define(G, 0f);
+        this.getEntityData().define(B, 0f);
     }
 
 
@@ -127,7 +166,7 @@ public class Eye_Of_Dungeon_Entity extends Entity implements ItemSupplier {
                     this.level.addParticle(ParticleTypes.BUBBLE, d0 - vec3.x * 0.25D, d1 - vec3.y * 0.25D, d2 - vec3.z * 0.25D, vec3.x, vec3.y, vec3.z);
                 }
             } else {
-                this.level.addParticle((new LightningParticle.OrbData(1.0f, 0.2f,  0.0f)), d0 - vec3.x * 0.25D + this.random.nextDouble() * 0.6D - 0.3D, d1 - vec3.y * 0.25D - 0.5D, d2 - vec3.z * 0.25D + this.random.nextDouble() * 0.6D - 0.3D, vec3.x, vec3.y, vec3.z);
+                this.level.addParticle((new LightningParticle.OrbData(this.getR(), this.getG(),  this.getB())), d0 - vec3.x * 0.25D + this.random.nextDouble() * 0.6D - 0.3D, d1 - vec3.y * 0.25D - 0.5D, d2 - vec3.z * 0.25D + this.random.nextDouble() * 0.6D - 0.3D, vec3.x, vec3.y, vec3.z);
             }
 
             if (!this.level.isClientSide) {
@@ -162,12 +201,17 @@ public class Eye_Of_Dungeon_Entity extends Entity implements ItemSupplier {
         if (!itemstack.isEmpty()) {
             p_36975_.put("Item", itemstack.save(new CompoundTag()));
         }
-
+        p_36975_.putFloat("R", this.getR());
+        p_36975_.putFloat("G", this.getG());
+        p_36975_.putFloat("B", this.getB());
     }
 
     public void readAdditionalSaveData(CompoundTag p_36970_) {
         ItemStack itemstack = ItemStack.of(p_36970_.getCompound("Item"));
         this.setItem(itemstack);
+        this.setR(p_36970_.getFloat("R"));
+        this.setG(p_36970_.getFloat("G"));
+        this.setB(p_36970_.getFloat("B"));
     }
 
     public float getLightLevelDependentMagicValue() {

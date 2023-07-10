@@ -332,7 +332,7 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<Abyss_Portal_Entity>> ABYSS_PORTAL = ENTITY_TYPE.register("abyss_portal", () -> EntityType.Builder.<Abyss_Portal_Entity>of(Abyss_Portal_Entity::new, MobCategory.MISC)
             .fireImmune()
-            .sized(0.5F, 0.5F)
+            .sized(3F, 0.15f)
             .setCustomClientFactory(Abyss_Portal_Entity::new)
             .build(cataclysm.MODID + ":abyss_portal"));
 

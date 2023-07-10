@@ -28,7 +28,6 @@ import java.util.UUID;
 
 public class Abyss_Portal_Entity extends Entity {
 
-    protected static final EntityDataAccessor<Direction> ATTACHED_FACE = SynchedEntityData.defineId(Abyss_Portal_Entity.class, EntityDataSerializers.DIRECTION);
     protected static final EntityDataAccessor<Integer> LIFESPAN = SynchedEntityData.defineId(Abyss_Portal_Entity.class, EntityDataSerializers.INT);
 
     protected static final EntityDataAccessor<Boolean> ENTRANCE = SynchedEntityData.defineId(Abyss_Portal_Entity.class, EntityDataSerializers.BOOLEAN);
@@ -68,38 +67,6 @@ public class Abyss_Portal_Entity extends Entity {
             this.playSound(SoundEvents.END_PORTAL_SPAWN, 1.0F, 1 + random.nextFloat() * 0.2F);
             madeOpenNoise = true;
         }
-        Direction direction2 = this.getAttachmentFacing().getOpposite();
-        float minX = -0.15f;
-        float minY = -0.15f;
-        float minZ = -0.15f;
-        float maxX = 0.15f;
-        float maxY = 0.15f;
-        float maxZ = 0.15f;
-        switch (direction2) {
-            case NORTH:
-            case SOUTH:
-                minX = -3;
-                maxX = 3;
-                minY = -3;
-                maxY = 3;
-                break;
-            case EAST:
-            case WEST:
-                minZ = -3;
-                maxZ = 3;
-                minY = -3;
-                maxY = 3;
-                break;
-            case UP:
-            case DOWN:
-                minX = -3;
-                maxX = 3;
-                minZ = -3;
-                maxZ = 3;
-                break;
-        }
-        AABB bb = new AABB(this.getX() + minX, this.getY() + minY, this.getZ() + minZ, this.getX() + maxX, this.getY() + maxY, this.getZ() + maxZ);
-        this.setBoundingBox(bb);
         if(random.nextFloat() < 0.5F && level.isClientSide && Math.min(tickCount, this.getLifespan()) >= 20){
             double particleX = this.getBoundingBox().minX + random.nextFloat() * (this.getBoundingBox().maxX - this.getBoundingBox().minX);
             double particleY = this.getBoundingBox().minY + random.nextFloat() * (this.getBoundingBox().maxY - this.getBoundingBox().minY);
@@ -107,23 +74,22 @@ public class Abyss_Portal_Entity extends Entity {
             level.addParticle(ParticleTypes.PORTAL, particleX, particleY, particleZ, 0.1 * random.nextGaussian(), 0.1 * random.nextGaussian(), 0.1 * random.nextGaussian());
         }
         List<Entity> entities = new ArrayList<>();
-        entities.addAll(this.level.getEntities(this, bb.deflate(0.2F)));
-        entities.addAll(this.level.getEntitiesOfClass(The_Leviathan_Entity.class, bb.inflate(3)));
+        entities.addAll(this.level.getEntities(this, this.getBoundingBox().deflate(0.2F)));
+        entities.addAll(this.level.getEntitiesOfClass(The_Leviathan_Entity.class, this.getBoundingBox().inflate(3)));
         if (!level.isClientSide) {
             if (this.getDestination() != null && this.getLifespan() > 20 && tickCount > 20 && this.getEntrance()) {
-                BlockPos offsetPos = this.getDestination().relative(this.getAttachmentFacing().getOpposite(), 2);
                 for (Entity e : entities) {
                     if(e.isOnPortalCooldown() || e.isShiftKeyDown() || e instanceof Abyss_Portal_Entity ){
                         continue;
                     }
-                     if (e instanceof The_Leviathan_Entity) {
+                    if (e instanceof The_Leviathan_Entity) {
                         ((The_Leviathan_Entity) e).teleportTo(Vec3.atCenterOf(this.getDestination()));
                         e.setPortalCooldown();
                         ((The_Leviathan_Entity) e).resetPortalLogic();
                     }else {
-                        e.teleportToWithTicket(offsetPos.getX() + 0.5f, offsetPos.getY() + 0.5f, offsetPos.getZ() + 0.5f);
+                        e.teleportToWithTicket(this.getDestination().getX() + 0.5f, this.getDestination().getY() + 0.5f, this.getDestination().getZ() + 0.5f);
                         e.setPortalCooldown();
-                     }
+                    }
                 }
             }
         }
@@ -131,7 +97,7 @@ public class Abyss_Portal_Entity extends Entity {
         if(this.getLifespan() <= 20){
             if(!madeCloseNoise){
                 this.gameEvent(GameEvent.ENTITY_PLACE);
-              //  this.playSound(AMSoundRegistry.VOID_PORTAL_CLOSE.get(), 1.0F, 1 + random.nextFloat() * 0.2F);
+                //  this.playSound(AMSoundRegistry.VOID_PORTAL_CLOSE.get(), 1.0F, 1 + random.nextFloat() * 0.2F);
                 madeCloseNoise = true;
             }
         }
@@ -141,15 +107,6 @@ public class Abyss_Portal_Entity extends Entity {
     }
 
 
-
-
-    public Direction getAttachmentFacing() {
-        return this.entityData.get(ATTACHED_FACE);
-    }
-
-    public void setAttachmentFacing(Direction facing) {
-        this.entityData.set(ATTACHED_FACE, facing);
-    }
 
     public int getLifespan() {
         return this.entityData.get(LIFESPAN);
@@ -181,7 +138,6 @@ public class Abyss_Portal_Entity extends Entity {
 
     public void createAndSetSister(Level world, Direction dir){
         Abyss_Portal_Entity portal = ModEntities.ABYSS_PORTAL.get().create(world);
-        portal.setAttachmentFacing(dir != null ? dir : this.getAttachmentFacing().getOpposite());
         BlockPos safeDestination = this.getDestination();
         portal.teleportToWithTicket(safeDestination.getX() + 0.5f, safeDestination.getY() + 0.5f, safeDestination.getZ() + 0.5f);
         portal.link(this);
@@ -206,7 +162,6 @@ public class Abyss_Portal_Entity extends Entity {
 
     @Override
     protected void defineSynchedData() {
-        this.entityData.define(ATTACHED_FACE, Direction.DOWN);
         this.entityData.define(LIFESPAN, 300);
         this.entityData.define(SISTER_UUID, Optional.empty());
         this.entityData.define(DESTINATION, Optional.empty());
@@ -215,7 +170,6 @@ public class Abyss_Portal_Entity extends Entity {
 
     @Override
     protected void readAdditionalSaveData(CompoundTag compound) {
-        this.entityData.set(ATTACHED_FACE, Direction.from3DDataValue(compound.getByte("AttachFace")));
         this.setLifespan(compound.getInt("Lifespan"));
         if (compound.contains("DX")) {
             int i = compound.getInt("DX");
@@ -232,7 +186,6 @@ public class Abyss_Portal_Entity extends Entity {
 
     @Override
     protected void addAdditionalSaveData(CompoundTag compound) {
-        compound.putByte("AttachFace", (byte) this.entityData.get(ATTACHED_FACE).get3DDataValue());
         compound.putInt("Lifespan", getLifespan());
         BlockPos blockpos = this.getDestination();
         if (blockpos != null) {

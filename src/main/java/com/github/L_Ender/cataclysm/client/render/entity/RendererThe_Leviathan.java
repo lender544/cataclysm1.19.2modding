@@ -73,5 +73,10 @@ public class RendererThe_Leviathan extends MobRenderer<The_Leviathan_Entity, Mod
         matrixStackIn.scale(1.75F, 1.75F, 1.75F);
     }
 
+
+    @Override
+    protected float getFlipDegrees(The_Leviathan_Entity entity) {
+        return 0;
+    }
 }
 
