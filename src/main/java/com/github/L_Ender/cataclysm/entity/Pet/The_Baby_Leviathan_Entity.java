@@ -75,6 +75,7 @@ public class The_Baby_Leviathan_Entity extends AnimationPet implements ISemiAqua
 
     public The_Baby_Leviathan_Entity(EntityType type, Level world) {
         super(type, world);
+        this.xpReward = 0;
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
         switchNavigator(false);

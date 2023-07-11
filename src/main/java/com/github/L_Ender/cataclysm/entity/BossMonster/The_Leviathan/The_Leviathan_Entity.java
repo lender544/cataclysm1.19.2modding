@@ -153,6 +153,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
     public The_Leviathan_Entity(EntityType type, Level worldIn) {
         super(type, worldIn);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+        this.xpReward = 500;
         if (worldIn.isClientSide)
             socketPosArray = new Vec3[]{new Vec3(0, 0, 0)
         };

@@ -225,6 +225,14 @@ public class Lionfish_Entity extends Monster implements IAnimatedEntity {
         }
     }
 
+    public boolean removeWhenFarAway(double p_219457_) {
+        return !this.isLeashedToAngler();
+    }
+
+    private boolean isLeashedToAngler() {
+        return this.getLeashHolder() instanceof Deepling_Angler_Entity;
+    }
+
     public boolean canBreatheUnderwater() {
         return true;
     }

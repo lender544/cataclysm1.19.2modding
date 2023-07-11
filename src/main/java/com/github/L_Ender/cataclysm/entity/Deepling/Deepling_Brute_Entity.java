@@ -80,7 +80,7 @@ public class Deepling_Brute_Entity extends AbstractDeepling {
     public static AttributeSupplier.Builder deeplingbrute() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.29F)
-                .add(Attributes.ATTACK_DAMAGE, 6.0D)
+                .add(Attributes.ATTACK_DAMAGE, 5.0D)
                 .add(Attributes.MAX_HEALTH, 65)
                 .add(Attributes.FOLLOW_RANGE, 20)
                 .add(Attributes.ARMOR, 8)
@@ -489,6 +489,9 @@ public class Deepling_Brute_Entity extends AbstractDeepling {
             this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
+        protected double getAttackReachSqr(LivingEntity p_25556_) {
+            return (double)(this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 2.5F + p_25556_.getBbWidth());
+        }
 
         protected void checkAndPerformAttack(LivingEntity p_25557_, double p_25558_) {
             double d0 = this.getAttackReachSqr(p_25557_);

@@ -309,6 +309,9 @@ public class Deepling_Angler_Entity extends AbstractDeepling {
             this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
+        protected double getAttackReachSqr(LivingEntity p_25556_) {
+            return (double)(this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 2.5F + p_25556_.getBbWidth());
+        }
 
         protected void checkAndPerformAttack(LivingEntity p_25557_, double p_25558_) {
             double d0 = this.getAttackReachSqr(p_25557_);
