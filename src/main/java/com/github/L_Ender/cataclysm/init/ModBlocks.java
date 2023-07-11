@@ -178,7 +178,7 @@ public class ModBlocks {
             () -> new StairBlock(STONE_TILES.get().defaultBlockState(),BlockBehaviour.Properties.copy(STONE_TILES.get())));
 
     public static final RegistryObject<Block> STONE_TILE_WALL = BLOCKS.register("stone_tile_wall",
-            () -> new WallBlock(BlockBehaviour.Properties.copy(OBSIDIAN_BRICKS.get())));
+            () -> new WallBlock(BlockBehaviour.Properties.copy(STONE_TILES.get())));
 
     private static ToIntFunction<BlockState> getLightValueLit(int lightValue) {
         return (state) -> {
