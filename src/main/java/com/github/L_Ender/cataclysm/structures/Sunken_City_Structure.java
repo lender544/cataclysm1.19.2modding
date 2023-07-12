@@ -255,7 +255,7 @@ public class Sunken_City_Structure extends Structure {
     public Optional<GenerationStub> findGenerationPoint(GenerationContext p_228964_) {
         int i = p_228964_.chunkPos().getBlockX(9);
         int j = p_228964_.chunkPos().getBlockZ(9);
-        for (Holder<Biome> holder : p_228964_.biomeSource().getBiomesWithin(i, p_228964_.chunkGenerator().getSeaLevel(), j, 96, p_228964_.randomState().sampler())) {
+        for (Holder<Biome> holder : p_228964_.biomeSource().getBiomesWithin(i, p_228964_.chunkGenerator().getSeaLevel(), j, 29, p_228964_.randomState().sampler())) {
             if (!holder.is(ModTag.REQUIRED_SUNKEN_CITY_SURROUNDING)) {
                 return Optional.empty();
             }
