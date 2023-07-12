@@ -26,6 +26,7 @@ public class CMConfig {
     public static double DeathLaserHpdamage = 0.05D;
     public static double Laserdamage = 4;
     public static double BlazingBonedamage = 5;
+    public static double LionFishSpikedamage = 4;
     public static double WitherMissiledamage = 8;
     public static double WitherHowizterdamage = 8;
     public static double WitherHomingMissiledamage = 3;
@@ -125,6 +126,7 @@ public class CMConfig {
             DeathLaserHpdamage = ConfigHolder.COMMON.DeathLaserHpdamage.get();
             Laserdamage =  ConfigHolder.COMMON.Laserdamage.get();
             BlazingBonedamage = ConfigHolder.COMMON.BlazingBonedamage.get();
+            LionFishSpikedamage = ConfigHolder.COMMON.BlazingBonedamage.get();
             WitherMissiledamage = ConfigHolder.COMMON.WitherMissiledamage.get();
             WitherHowizterdamage = ConfigHolder.COMMON.WitherHowizterdamage.get();
             WitherHomingMissiledamage = ConfigHolder.COMMON.WitherHomingMissiledamage.get();

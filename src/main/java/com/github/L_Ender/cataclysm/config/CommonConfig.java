@@ -27,6 +27,7 @@ public class CommonConfig {
     public final ForgeConfigSpec.DoubleValue DeathLaserHpdamage;
     public final ForgeConfigSpec.DoubleValue Laserdamage;
     public final ForgeConfigSpec.DoubleValue BlazingBonedamage;
+    public final ForgeConfigSpec.DoubleValue Lionfishspikedamage;
     public final ForgeConfigSpec.DoubleValue WitherMissiledamage;
     public final ForgeConfigSpec.DoubleValue WitherHowizterdamage;
     public final ForgeConfigSpec.DoubleValue WitherHomingMissiledamage;
@@ -124,6 +125,7 @@ public class CommonConfig {
         DeathLaserHpdamage = buildDouble(builder, "DeathLaserHpdamage", "all", 0.05, 0.0D, 1.0D, "Death Laser's Hp Damage");
         Laserdamage = buildDouble(builder, "Laserdamage", "all", 4, 0D, 1000000D, "Laser's Damage");
         BlazingBonedamage = buildDouble(builder, "BlazingBonedamage", "all", 5, 0D, 1000000D, "Blazing Bone's Damage");
+        Lionfishspikedamage = buildDouble(builder, "LionfishSpikedamage", "all", 4, 0D, 1000000D, "Lionfish Spike's Damage");
         WitherMissiledamage = buildDouble(builder, "WitherMissiledamage", "all", 8, 0D, 1000000D, "Wither Missile's Damage");
         WitherHowizterdamage = buildDouble(builder, "WitherHowizterdamage", "all", 8, 0D, 1000000D, "Wither Howizter's Damage");
         DimensionalRiftDamage = buildDouble(builder, "DimensionalRiftdamage", "all", 10, 0D, 1000000D, "Dimensional Rift's Damage");

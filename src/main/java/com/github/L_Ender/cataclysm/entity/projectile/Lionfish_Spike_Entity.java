@@ -65,7 +65,9 @@ public class Lionfish_Spike_Entity extends ThrowableItemProjectile {
         if (shooter instanceof LivingEntity) {
             if (!((entity == shooter) || (shooter.isAlliedTo(entity)))) {
                 if(entity.hurt(DamageSource.indirectMobAttack(this, (LivingEntity) shooter), i)){
-                    ((LivingEntity)entity).addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0), this);
+                    if (entity instanceof LivingEntity) {
+                       ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0), this);
+                    }
                 }
             }
         }else{

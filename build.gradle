@@ -37,7 +37,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 
-version = '1.15-1.19.2'
+version = '1.16-1.19.2'
 group = 'com.github.L_Ender' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'L_Enders_Cataclysm'
 
@@ -108,7 +108,7 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.19.2-43.2.8'
+    minecraft 'net.minecraftforge:forge:1.19.2-43.2.17'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     compileOnly fg.deobf("curse.maven:citadel-331936:4053064")
     runtimeOnly fg.deobf("curse.maven:citadel-331936:4053064")
