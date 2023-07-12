@@ -131,7 +131,7 @@ public class Tidal_Tentacle_Entity extends Entity {
                                     MobEffectInstance effectinstance = new MobEffectInstance(ModEffect.EFFECTABYSSAL_CURSE.get(), 60, i, false, true, true);
                                     ((LivingEntity)current).addEffect(effectinstance);
 
-                                    this.doEnchantDamageEffects((LivingEntity) creator, entity);
+                                    this.doEnchantDamageEffects((LivingEntity) creator, current);
                                 }
                             }
                         }
