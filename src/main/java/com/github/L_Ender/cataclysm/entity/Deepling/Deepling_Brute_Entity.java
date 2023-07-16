@@ -470,9 +470,6 @@ public class Deepling_Brute_Entity extends AbstractDeepling {
                     if(mob.getAnimation() != DEEPLING_BRUTE_TRIDENT_THROW){
                         mob.setAnimation(DEEPLING_BRUTE_TRIDENT_THROW);
                         this.attackTime = this.attackCooldown;
-
-
-
                     }
                 }
             }
