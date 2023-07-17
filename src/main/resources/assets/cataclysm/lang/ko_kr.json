@@ -261,10 +261,11 @@
   "abyss_blast.sub": "레비아탄이 열선을 준비함",
   "abyss_blast_shoot.sub": "심연 열선이 작렬함",
   "leviathan_roar.sub": "레비아탄이 포효함",
-  "portal_abyss_blast": "포탈에서 열선이 솟구침",
+  "portal_abyss_blast.sub": "포탈에서 열선이 솟구침",
   "leviathan_tentacle_strike.sub": "레비아탄이 촉수로 때림",
   "leviathan_defeat.sub": "레비아탄이 죽음",
-  "tidal_tectacle.sub": "타이달 클로에서 촉수가 발사됨",
+  "leviathan_bite.sub": "레비아탄이 물어뜯음",
+  "tidal_tentacle.sub": "타이달 클로에서 촉수가 발사됨",
   "tidal_hook_hit.sub": "타이달 갈고리가 명중함",
   "tidal_hook_loop.sub": "타이달 갈고리가 철컹거림",
 

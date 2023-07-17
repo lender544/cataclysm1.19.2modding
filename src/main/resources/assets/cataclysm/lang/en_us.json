@@ -261,10 +261,11 @@
   "abyss_blast.sub": "Leviathan prepares Abyss Blast",
   "abyss_blast_shoot.sub": "Abyss Blast fired",
   "leviathan_roar.sub": "Leviathan Roars",
-  "portal_abyss_blast": "Abyss Blast erupts from the portal",
+  "portal_abyss_blast.sub": "Abyss Blast erupts from the portal",
   "leviathan_tentacle_strike.sub": "Leviathan hits with tentacles",
   "leviathan_defeat.sub": "Leviathan dies",
-  "tidal_tectacle.sub": "Tentacles fire from Tidal Claws",
+  "leviathan_bite.sub": "Leviathan bite",
+  "tidal_tentacle.sub": "Tentacles fire from Tidal Claws",
   "tidal_hook_hit.sub": "Tidal Hook hits",
   "tidal_hook_loop.sub": "Tidal Hook makes a sound",
 

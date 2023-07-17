@@ -62,7 +62,7 @@ public class Deepling_Brute_Entity extends AbstractDeepling {
     private static final EntityDataAccessor<Boolean> SPINATTACK = SynchedEntityData.defineId(Deepling_Brute_Entity.class, EntityDataSerializers.BOOLEAN);
     public Deepling_Brute_Entity(EntityType entity, Level world) {
         super(entity, world);
-        this.moveControl = new DeeplingMoveControl(this);
+        this.moveControl = new DeeplingMoveControl(this,2.0f);
         switchNavigator(false);
         this.xpReward = 15;
       
@@ -501,10 +501,12 @@ public class Deepling_Brute_Entity extends AbstractDeepling {
 
     static class DeeplingMoveControl extends MoveControl {
         private final Deepling_Brute_Entity drowned;
+        private final float speedMulti;
 
-        public DeeplingMoveControl(Deepling_Brute_Entity p_32433_) {
+        public DeeplingMoveControl(Deepling_Brute_Entity p_32433_, float speedMulti) {
             super(p_32433_);
             this.drowned = p_32433_;
+            this.speedMulti = speedMulti;
         }
 
         public void tick() {
@@ -527,7 +529,7 @@ public class Deepling_Brute_Entity extends AbstractDeepling {
                 float f = (float)(Mth.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F;
                 this.drowned.setYRot(this.rotlerp(this.drowned.getYRot(), f, 90.0F));
                 this.drowned.yBodyRot = this.drowned.getYRot();
-                float f1 = (float)(this.speedModifier * this.drowned.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                float f1 = (float)(this.speedModifier * speedMulti * this.drowned.getAttributeValue(Attributes.MOVEMENT_SPEED));
                 float f2 = Mth.lerp(0.125F, this.drowned.getSpeed(), f1);
                 this.drowned.setSpeed(f2);
                 this.drowned.setDeltaMovement(this.drowned.getDeltaMovement().add((double)f2 * d0 * 0.005D, (double)f2 * d1 * 0.1D, (double)f2 * d2 * 0.005D));

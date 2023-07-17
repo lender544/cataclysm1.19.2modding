@@ -126,7 +126,7 @@ public class Tidal_Claws extends Item implements ILeftClick {
         ItemStack stack = user.getItemInHand(hand);
         if(!level.isClientSide) {
             if(!((PlayerProperties) user).hasHook()) {
-                double maxRange = 24;
+                double maxRange = 30;
                 double maxSpeed = 12;
 
                 Tidal_Hook_Entity hookshot = new Tidal_Hook_Entity(ModEntities.TIDAL_HOOK.get(), user, level);
