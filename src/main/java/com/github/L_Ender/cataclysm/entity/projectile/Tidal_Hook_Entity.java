@@ -61,7 +61,7 @@ public class Tidal_Hook_Entity extends AbstractArrow {
 		super.tick();
 		if(getOwner() instanceof Player owner) {
 			if (isPulling && tickCount % 3 == 0){
-				level.playSound(null, getOwner().blockPosition(), ModSounds.TIDAL_HOOK_LOOP.get(), SoundSource.PLAYERS, 0.5F, 1F);
+				level.playSound(null, getOwner().blockPosition(), ModSounds.TIDAL_HOOK_LOOP.get(), SoundSource.PLAYERS, 0.4F, 1F);
 			}
 			if(!level.isClientSide) {
 				if(owner.isDeadOrDying() || !((PlayerProperties) owner).hasHook() || !((PlayerProperties) owner).hasHook() || owner.distanceTo(this) > maxRange || !(owner.getMainHandItem().getItem() instanceof Tidal_Claws || owner.getOffhandItem().getItem() instanceof Tidal_Claws) || !((PlayerProperties) owner).hasHook())
