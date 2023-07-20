@@ -181,7 +181,7 @@ public class Abyss_Orb_Entity extends Projectile {
 
             if (this.getTracking()) {
                 if (this.finalTarget == null || !this.finalTarget.isAlive() || (this.finalTarget instanceof Player && this.finalTarget.isSpectator())) {
-                    this.yPower = -0.15;
+                    this.yPower = -0.05;
                 } else {
                     double d = this.distanceToSqr(finalTarget);
                     double dx = finalTarget.getX() - this.getX();
@@ -194,9 +194,9 @@ public class Abyss_Orb_Entity extends Projectile {
                     this.xPower += dx * d13;
                     this.yPower += dy * d13;
                     this.zPower += dz * d13;
-                    this.xPower = (double) Mth.clamp((float) this.xPower, -0.15, 0.15);
-                    this.yPower = (double) Mth.clamp((float) this.yPower, -0.15, 0.15);
-                    this.zPower = (double) Mth.clamp((float) this.zPower, -0.15, 0.15);
+                    this.xPower = (double) Mth.clamp((float) this.xPower, -0.05, 0.05);
+                    this.yPower = (double) Mth.clamp((float) this.yPower, -0.05, 0.05);
+                    this.zPower = (double) Mth.clamp((float) this.zPower, -0.05, 0.05);
                 }
             }
         }
