@@ -552,7 +552,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
 
 
             if (this.getAnimationTick() >= 80 && this.getAnimationTick() <= 118
-                    || this.getAnimationTick() >= 125 && this.getAnimationTick() <= 161
+                    || this.getAnimationTick() >= 125 && this.getAnimationTick() <= 163
                     || this.getAnimationTick() >= 170 && this.getAnimationTick() <= 198) {
                 this.setXRot(this.xRotO);
             }
@@ -1608,7 +1608,7 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
             if (target != null) {
                 if (this.entity.getAnimationTick() < 80
                         || this.entity.getAnimationTick() > 118 && this.entity.getAnimationTick() < 125
-                        || this.entity.getAnimationTick() > 161 &&  this.entity.getAnimationTick() < 170) {
+                        || this.entity.getAnimationTick() > 163 &&  this.entity.getAnimationTick() < 170) {
                     entity.getLookControl().setLookAt(target, 30, 90);
                 }
             }

@@ -29,7 +29,7 @@ import javax.annotation.Nullable;
 public class ThrownCoral_Bardiche_Entity extends AbstractArrow {
     private static final EntityDataAccessor<Byte> ID_LOYALTY = SynchedEntityData.defineId(ThrownCoral_Bardiche_Entity.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Boolean> ID_FOIL = SynchedEntityData.defineId(ThrownCoral_Bardiche_Entity.class, EntityDataSerializers.BOOLEAN);
-    private ItemStack tridentItem = new ItemStack(ModItems.CORAL_SPEAR.get());
+    private ItemStack tridentItem = new ItemStack(ModItems.CORAL_BARDICHE.get());
     private boolean dealtDamage;
     public int clientSideReturnTridentTickCount;
 
@@ -172,8 +172,8 @@ public class ThrownCoral_Bardiche_Entity extends AbstractArrow {
 
     public void readAdditionalSaveData(CompoundTag p_37578_) {
         super.readAdditionalSaveData(p_37578_);
-        if (p_37578_.contains("CoralSpear", 10)) {
-            this.tridentItem = ItemStack.of(p_37578_.getCompound("Trident"));
+        if (p_37578_.contains("CoralBardiche", 10)) {
+            this.tridentItem = ItemStack.of(p_37578_.getCompound("CoralBardiche"));
         }
 
         this.dealtDamage = p_37578_.getBoolean("DealtDamage");
@@ -182,7 +182,7 @@ public class ThrownCoral_Bardiche_Entity extends AbstractArrow {
 
     public void addAdditionalSaveData(CompoundTag p_37582_) {
         super.addAdditionalSaveData(p_37582_);
-        p_37582_.put("CoralSpear", this.tridentItem.save(new CompoundTag()));
+        p_37582_.put("CoralBardiche", this.tridentItem.save(new CompoundTag()));
         p_37582_.putBoolean("DealtDamage", this.dealtDamage);
     }
 

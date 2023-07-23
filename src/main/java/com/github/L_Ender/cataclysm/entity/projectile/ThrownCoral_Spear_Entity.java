@@ -175,7 +175,7 @@ public class ThrownCoral_Spear_Entity extends AbstractArrow {
     public void readAdditionalSaveData(CompoundTag p_37578_) {
         super.readAdditionalSaveData(p_37578_);
         if (p_37578_.contains("CoralSpear", 10)) {
-            this.tridentItem = ItemStack.of(p_37578_.getCompound("Trident"));
+            this.tridentItem = ItemStack.of(p_37578_.getCompound("CoralSpear"));
         }
 
         this.dealtDamage = p_37578_.getBoolean("DealtDamage");
@@ -197,7 +197,7 @@ public class ThrownCoral_Spear_Entity extends AbstractArrow {
     }
 
     protected float getWaterInertia() {
-        return 1.2F;
+        return 1.0F;
     }
 
     public boolean shouldRender(double p_37588_, double p_37589_, double p_37590_) {
