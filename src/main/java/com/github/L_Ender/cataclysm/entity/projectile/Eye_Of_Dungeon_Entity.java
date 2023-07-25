@@ -175,7 +175,9 @@ public class Eye_Of_Dungeon_Entity extends Entity implements ItemSupplier {
                 if (this.life > 80 && !this.level.isClientSide) {
                     this.playSound(SoundEvents.ENDER_EYE_DEATH, 1.0F, 1.0F);
                     this.discard();
-                    this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), this.getItem()));
+                    ItemEntity itemEntity = new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), this.getItem());
+                    itemEntity.setGlowingTag(true);
+                    this.level.addFreshEntity(itemEntity);
                 }
             } else {
                 this.setPosRaw(d0, d1, d2);

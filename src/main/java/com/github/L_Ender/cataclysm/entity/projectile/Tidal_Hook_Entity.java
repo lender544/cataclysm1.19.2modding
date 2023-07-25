@@ -1,9 +1,10 @@
 package com.github.L_Ender.cataclysm.entity.projectile;
 
+import com.github.L_Ender.cataclysm.capabilities.HookCapability;
+import com.github.L_Ender.cataclysm.init.ModCapabilities;
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import com.github.L_Ender.cataclysm.init.ModSounds;
 import com.github.L_Ender.cataclysm.items.Tidal_Claws;
-import com.github.L_Ender.cataclysm.util.PlayerProperties;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -59,65 +60,68 @@ public class Tidal_Hook_Entity extends AbstractArrow {
 	@Override
 	public void tick() {
 		super.tick();
-		if(getOwner() instanceof Player owner) {
-			if (isPulling && tickCount % 3 == 0){
-				level.playSound(null, getOwner().blockPosition(), ModSounds.TIDAL_HOOK_LOOP.get(), SoundSource.PLAYERS, 0.4F, 1F);
-			}
-			if(!level.isClientSide) {
-				if(owner.isDeadOrDying() || !((PlayerProperties) owner).hasHook() || !((PlayerProperties) owner).hasHook() || owner.distanceTo(this) > maxRange || !(owner.getMainHandItem().getItem() instanceof Tidal_Claws || owner.getOffhandItem().getItem() instanceof Tidal_Claws) || !((PlayerProperties) owner).hasHook())
-					kill();
-				if(this.hookedEntity != null) {
-					if(this.hookedEntity.isRemoved()) {
-						this.hookedEntity = null;
-						discard();
-					}
-					else {
-						this.moveTo(this.hookedEntity.getX(), this.hookedEntity.getY(0.8D), this.hookedEntity.getZ());
-					}
+		HookCapability.IHookCapability hookCapability = ModCapabilities.getCapability(getOwner(), ModCapabilities.HOOK_CAPABILITY);
+		if(getOwner() instanceof LivingEntity owner) {
+			if (hookCapability != null) {
+				if (isPulling && tickCount % 3 == 0) {
+					level.playSound(null, getOwner().blockPosition(), ModSounds.TIDAL_HOOK_LOOP.get(), SoundSource.PLAYERS, 0.4F, 1F);
 				}
-
-				if(owner.getMainHandItem() == stack || owner.getOffhandItem() == stack) {
-					if(isPulling) {
-						Entity target = owner;
-						Entity origin = this;
-
-						if(owner.isShiftKeyDown() && hookedEntity != null) {
-							target = hookedEntity;
-							origin = owner;
+				if (!level.isClientSide) {
+					if (owner.isDeadOrDying() || !hookCapability.hasHook() || owner.distanceTo(this) > maxRange || !(owner.getMainHandItem().getItem() instanceof Tidal_Claws || owner.getOffhandItem().getItem() instanceof Tidal_Claws))
+						kill();
+					if (this.hookedEntity != null) {
+						if (this.hookedEntity.isRemoved()) {
+							this.hookedEntity = null;
+							discard();
+						} else {
+							this.moveTo(this.hookedEntity.getX(), this.hookedEntity.getY(0.8D), this.hookedEntity.getZ());
 						}
+					}
 
-						double brakeZone = (6D * (maxSpeed / 10));
-						double pullSpeed = maxSpeed / 6D;
-						Vec3 distance = origin.position().subtract(target.position().add(0, target.getBbHeight() / 2, 0));
-						Vec3 motion = distance.normalize().scale(distance.length() < brakeZone ? (pullSpeed * distance.length()) / brakeZone : pullSpeed);
+					if (owner.getMainHandItem() == stack || owner.getOffhandItem() == stack) {
+						if (isPulling) {
+							Entity target = owner;
+							Entity origin = this;
 
-						if(Math.abs(distance.y) < 0.1D)
-							motion = new Vec3(motion.x, 0, motion.z);
-						if(new Vec3(distance.x, 0, distance.z).length() < new Vec3(target.getBbWidth() / 2, 0, target.getBbWidth() / 2).length() / 1.4)
-							motion = new Vec3(0, motion.y, 0);
+							if (owner.isShiftKeyDown() && hookedEntity != null) {
+								target = hookedEntity;
+								origin = owner;
+							}
 
-						target.fallDistance = 0;
+							double brakeZone = (6D * (maxSpeed / 10));
+							double pullSpeed = maxSpeed / 6D;
+							Vec3 distance = origin.position().subtract(target.position().add(0, target.getBbHeight() / 2, 0));
+							Vec3 motion = distance.normalize().scale(distance.length() < brakeZone ? (pullSpeed * distance.length()) / brakeZone : pullSpeed);
 
-						target.setDeltaMovement(motion);
-						target.hurtMarked = true;
+							if (Math.abs(distance.y) < 0.1D)
+								motion = new Vec3(motion.x, 0, motion.z);
+							if (new Vec3(distance.x, 0, distance.z).length() < new Vec3(target.getBbWidth() / 2, 0, target.getBbWidth() / 2).length() / 1.4)
+								motion = new Vec3(0, motion.y, 0);
 
+							target.fallDistance = 0;
+
+							target.setDeltaMovement(motion);
+							target.hurtMarked = true;
+
+						}
+					} else {
+						kill();
 					}
 				}
-				else {
-					kill();
-				}
+			} else {
+				kill();
 			}
-		}
-		else {
-			kill();
 		}
 	}
 
 	@Override
 	public void kill() {
-		if(!level.isClientSide && getOwner() instanceof Player owner) {
-			((PlayerProperties) owner).setHasHook(false);
-			owner.setNoGravity(false);
+		HookCapability.IHookCapability hookCapability = ModCapabilities.getCapability(getOwner(), ModCapabilities.HOOK_CAPABILITY);
+		if(!level.isClientSide && getOwner() instanceof LivingEntity owner) {
+			if (hookCapability != null) {
+				hookCapability.setHasHook(false);
+				owner.setNoGravity(false);
+			}
 		}
 
 		super.kill();

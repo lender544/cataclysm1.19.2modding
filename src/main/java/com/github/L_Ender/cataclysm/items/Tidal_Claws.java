@@ -1,13 +1,13 @@
 package com.github.L_Ender.cataclysm.items;
 
+import com.github.L_Ender.cataclysm.capabilities.HookCapability;
 import com.github.L_Ender.cataclysm.cataclysm;
 import com.github.L_Ender.cataclysm.entity.projectile.Tidal_Hook_Entity;
 import com.github.L_Ender.cataclysm.entity.projectile.Tidal_Tentacle_Entity;
 import com.github.L_Ender.cataclysm.entity.util.TidalTentacleUtil;
+import com.github.L_Ender.cataclysm.init.ModCapabilities;
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import com.github.L_Ender.cataclysm.init.ModItems;
-import com.github.L_Ender.cataclysm.init.ModSounds;
-import com.github.L_Ender.cataclysm.util.PlayerProperties;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.ChatFormatting;
@@ -124,31 +124,41 @@ public class Tidal_Claws extends Item implements ILeftClick {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player user, InteractionHand hand) {
         ItemStack stack = user.getItemInHand(hand);
-        if(!level.isClientSide) {
-            if(!((PlayerProperties) user).hasHook()) {
-                double maxRange = 30;
-                double maxSpeed = 12;
+        HookCapability.IHookCapability hookCapability = ModCapabilities.getCapability(user, ModCapabilities.HOOK_CAPABILITY);
+        if (hookCapability != null) {
+            if(!level.isClientSide) {
+                if(!hookCapability.hasHook()) {
 
-                Tidal_Hook_Entity hookshot = new Tidal_Hook_Entity(ModEntities.TIDAL_HOOK.get(), user, level);
-                hookshot.setProperties(stack, maxRange, maxSpeed, user.getXRot(), user.getYRot(), 0f, 1.5f * (float) (maxSpeed / 10));
-                level.addFreshEntity(hookshot);
+
+                    double maxRange = 30;
+                    double maxSpeed = 12;
+
+                    Tidal_Hook_Entity hookshot = new Tidal_Hook_Entity(ModEntities.TIDAL_HOOK.get(), user, level);
+                    hookshot.setProperties(stack, maxRange, maxSpeed, user.getXRot(), user.getYRot(), 0f, 1.5f * (float) (maxSpeed / 10));
+                    level.addFreshEntity(hookshot);
+                }
             }
             user.startUsingItem(hand);
-            ((PlayerProperties) user).setHasHook(true);
+            hookCapability.setHasHook(true);
         }
 
         return super.use(level, user, hand);
     }
 
     public ItemStack finishUsingItem(ItemStack p_40712_, Level p_40713_, LivingEntity p_40714_) {
-        ((PlayerProperties) p_40714_).setHasHook(false);
-
+        HookCapability.IHookCapability hookCapability = ModCapabilities.getCapability(p_40714_, ModCapabilities.HOOK_CAPABILITY);
+        if (hookCapability != null) {
+            hookCapability.setHasHook(false);
+        }
         return super.finishUsingItem(p_40712_, p_40713_, p_40714_);
     }
 
     @Override
     public void releaseUsing(ItemStack stack, Level world, LivingEntity user, int remainingUseTicks) {
-        ((PlayerProperties) user).setHasHook(false);
+        HookCapability.IHookCapability hookCapability = ModCapabilities.getCapability(user, ModCapabilities.HOOK_CAPABILITY);
+        if (hookCapability != null) {
+            hookCapability.setHasHook(false);
+        }
     }
 
     @Override

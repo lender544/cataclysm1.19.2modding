@@ -32,7 +32,7 @@ import java.util.UUID;
 public class Boss_monster extends Monster implements IAnimatedEntity {
     private int animationTick;
     private Animation currentAnimation;
-    protected boolean dropAfterDeathAnim = true;
+    protected boolean dropAfterDeathAnim = false;
     private int killDataRecentlyHit;
     private DamageSource killDataCause;
     private Player killDataAttackingPlayer;

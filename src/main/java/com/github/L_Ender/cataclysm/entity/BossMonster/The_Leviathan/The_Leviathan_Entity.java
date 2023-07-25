@@ -52,8 +52,10 @@ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -316,6 +318,16 @@ public class The_Leviathan_Entity extends Boss_monster implements ISemiAquatic {
 
 
         return attack;
+    }
+
+    @Override
+    public ItemEntity spawnAtLocation(ItemStack stack) {
+        ItemEntity itementity = this.spawnAtLocation(stack, 0.0f);
+        if (itementity != null) {
+            itementity.setGlowingTag(true);
+            itementity.setExtendedLifetime();
+        }
+        return itementity;
     }
 
     private boolean canInFluidType(FluidType type) {
