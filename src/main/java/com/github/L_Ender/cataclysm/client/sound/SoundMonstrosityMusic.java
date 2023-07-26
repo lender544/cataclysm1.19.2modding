@@ -1,6 +1,7 @@
 package com.github.L_Ender.cataclysm.client.sound;
 
 import com.github.L_Ender.cataclysm.ClientProxy;
+import com.github.L_Ender.cataclysm.config.CMConfig;
 import com.github.L_Ender.cataclysm.entity.BossMonster.Netherite_Monstrosity_Entity;
 import com.github.L_Ender.cataclysm.init.ModSounds;
 import net.minecraft.client.Minecraft;
@@ -53,7 +54,7 @@ public class SoundMonstrosityMusic extends AbstractTickableSoundInstance {
 
         }
         if (!this.Monstrosity.isRemoved() && this.Monstrosity.isAlive()) {
-            this.volume = 1;
+            this.volume = (float) CMConfig.MonstrosityMusicVolume;
             this.pitch = 1;
             this.x = this.Monstrosity.getX();
             this.y = this.Monstrosity.getY();

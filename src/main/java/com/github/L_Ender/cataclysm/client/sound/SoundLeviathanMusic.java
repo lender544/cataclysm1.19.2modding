@@ -1,6 +1,7 @@
 package com.github.L_Ender.cataclysm.client.sound;
 
 import com.github.L_Ender.cataclysm.ClientProxy;
+import com.github.L_Ender.cataclysm.config.CMConfig;
 import com.github.L_Ender.cataclysm.entity.BossMonster.The_Leviathan.The_Leviathan_Entity;
 import com.github.L_Ender.cataclysm.init.ModSounds;
 import net.minecraft.client.Minecraft;
@@ -52,7 +53,7 @@ public class SoundLeviathanMusic extends AbstractTickableSoundInstance {
 
         }
         if (!this.Guardian.isRemoved() && this.Guardian.isAlive()) {
-            this.volume = 1;
+            this.volume = (float) CMConfig.LeviathanMusicVolume;
             this.pitch = 1;
             this.x = this.Guardian.getX();
             this.y = this.Guardian.getY();

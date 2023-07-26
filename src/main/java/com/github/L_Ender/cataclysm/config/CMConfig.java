@@ -80,13 +80,18 @@ public class CMConfig {
     public static double LeviathanHealthMultiplier = 1D;
     public static double LeviathanDamageMultiplier = 1D;
 
-
     public static double MonstrosityLongRangelimit = 18D;
     public static double EnderguardianLongRangelimit = 12D;
     public static double EndergolemLongRangelimit = 6D;
     public static double IgnisLongRangelimit = 15D;
     public static double HarbingerLongRangelimit = 35D;
     public static double LeviathanLongRangelimit = 38D;
+
+    public static double MonstrosityMusicVolume = 0.5D;
+    public static double EnderguardianMusicVolume = 0.5D;
+    public static double HarbingerMusicVolume = 0.5D;
+    public static double IgnisMusicVolume = 0.5D;
+    public static double LeviathanMusicVolume = 0.5D;
 
     public static double MonstrositysHpdamage = 0.08D;
     public static double EnderguardianGravityPunchHpdamage = 0.05D;
@@ -197,8 +202,15 @@ public class CMConfig {
             LeviathanDamageCap = ConfigHolder.COMMON.LeviathanDamageCap.get();
             LeviathanImmuneOutofWater = ConfigHolder.COMMON.LeviathanImmuneOutofWater.get();
 
-
             Armor_Infinity_Durability = ConfigHolder.COMMON.Armor_Infinity_Durability.get();
+
+            MonstrosityMusicVolume = ConfigHolder.COMMON.MonstrosityMusicVolume.get();
+            EnderguardianMusicVolume = ConfigHolder.COMMON.EnderguardianMusicVolume.get();
+            IgnisMusicVolume = ConfigHolder.COMMON.IgnisMusicVolume.get();
+            HarbingerMusicVolume = ConfigHolder.COMMON.HarbingerMusicVolume.get();
+            LeviathanMusicVolume = ConfigHolder.COMMON.LeviathanMusicVolume.get();
+
+
         } catch (Exception e) {
             cataclysm.LOGGER.warn("An exception was caused trying to load the config for CM");
             e.printStackTrace();

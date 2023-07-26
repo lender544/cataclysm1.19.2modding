@@ -47,6 +47,7 @@ public class CommonConfig {
     public final ForgeConfigSpec.IntValue EnderguardianBlockBreakingX;
     public final ForgeConfigSpec.IntValue EnderguardianBlockBreakingY;
     public final ForgeConfigSpec.IntValue EnderguardianBlockBreakingZ;
+    public final ForgeConfigSpec.DoubleValue EnderguardianMusicVolume;
 
     public final ForgeConfigSpec.IntValue Lavabombmagazine;
     public final ForgeConfigSpec.IntValue Lavabombamount;
@@ -55,6 +56,7 @@ public class CommonConfig {
     public final ForgeConfigSpec.IntValue MonstrosityDamageCap;
     public final ForgeConfigSpec.DoubleValue MonstrosityLongRangelimit;
     public final ForgeConfigSpec.BooleanValue NetheritemonstrosityBodyBloking;
+    public final ForgeConfigSpec.DoubleValue MonstrosityMusicVolume;
 
     public final ForgeConfigSpec.BooleanValue EndergolemBlockBreaking;
     public final ForgeConfigSpec.DoubleValue EndergolemLongRangelimit;
@@ -66,6 +68,7 @@ public class CommonConfig {
     public final ForgeConfigSpec.IntValue IgnisDamageCap;
     public final ForgeConfigSpec.DoubleValue IgnisLongRangelimit;
     public final ForgeConfigSpec.BooleanValue IgnisBlockBreaking;
+    public final ForgeConfigSpec.DoubleValue IgnisMusicVolume;
 
     public final ForgeConfigSpec.DoubleValue RevenantHealthMultiplier;
     public final ForgeConfigSpec.DoubleValue RevenantDamageMultiplier;
@@ -75,6 +78,7 @@ public class CommonConfig {
     public final ForgeConfigSpec.DoubleValue HarbingerLongRangelimit;
     public final ForgeConfigSpec.IntValue HarbingerDamageCap;
     public final ForgeConfigSpec.BooleanValue HarbingerLightFire;
+    public final ForgeConfigSpec.DoubleValue HarbingerMusicVolume;
 
     public final ForgeConfigSpec.DoubleValue LeviathanHealthMultiplier;
     public final ForgeConfigSpec.DoubleValue LeviathanDamageMultiplier;
@@ -82,6 +86,7 @@ public class CommonConfig {
     public final ForgeConfigSpec.IntValue LeviathanDamageCap;
     public final ForgeConfigSpec.BooleanValue LeviathanBlockBreaking;
     public final ForgeConfigSpec.BooleanValue LeviathanImmuneOutofWater;
+    public final ForgeConfigSpec.DoubleValue LeviathanMusicVolume;
 
     public final ForgeConfigSpec.DoubleValue MonstrositysHpdamage;
     public final ForgeConfigSpec.DoubleValue EnderguardianGravityPunchHpdamage;
@@ -151,6 +156,7 @@ public class CommonConfig {
         EnderguardianBlockBreakingX = buildInt(builder, "EnderGuardianBlockBreaking X", "all", 15, 0, 20, "EnderGuardianBlockBreaking radius");
         EnderguardianBlockBreakingY = buildInt(builder, "EnderGuardianBlockBreaking Y", "all", 2, 0, 10, "EnderGuardianBlockBreaking radius");
         EnderguardianBlockBreakingZ = buildInt(builder, "EnderGuardianBlockBreaking Z", "all", 15, 0, 20, "EnderGuardianBlockBreaking radius");
+        EnderguardianMusicVolume = buildDouble(builder, "Guardian's Music Volume", "all", 0.5D, 0.0D, 1.0D, "Guardian's music volume");
         builder.pop();
 
         builder.push("Netherite Monstrosity");
@@ -162,6 +168,7 @@ public class CommonConfig {
         NetheritemonstrosityBodyBloking = buildBoolean(builder, "NetheritemonstrosityBodyBloking", "all", true, "Monstrosity's bodyBlocking verdict");
         MonstrositysHpdamage = buildDouble(builder, "Monstrosity's attack Hp Damage", "all", 0.08D, 0.0D, 1.0D, "Monstrosity's attack Hp Damage");
         MonstrosityLongRangelimit = buildDouble(builder, "Monstrosity's prevent attacks from far away Range", "all", 18.0D, 1D, 1000000D, "Monstrosity's Immune to Long distance attack range.");
+        MonstrosityMusicVolume = buildDouble(builder, "Monstrosity's Music Volume", "all", 0.5D, 0.0D, 1.0D, "Monstrosity's music volume");
         builder.pop();
 
         builder.push("Ender Golem");
@@ -177,6 +184,7 @@ public class CommonConfig {
         IgnisLongRangelimit = buildDouble(builder, "Ignis's prevent attacks from far away Range", "all", 15.0D, 1D, 1000000D, "Ignis's Immune to Long distance attack range.");
         IgnisDamageCap = buildInt(builder, "IgnisDamageCap", "all", 20, 0, 1000000, "Ignis's DamageCap");
         IgnisBlockBreaking = buildBoolean(builder, "IgnisBlockBreaking", "all", true, "Ignis's cracked block breaking ignore the MobGriefing");
+        IgnisMusicVolume = buildDouble(builder, "Ignis's Music Volume", "all", 0.5D, 0.0D, 1.0D, "Ignis's music volume");
         builder.pop();
 
         builder.push("revenant");
@@ -191,6 +199,7 @@ public class CommonConfig {
         HarbingerDamageCap = buildInt(builder, "The Harbinger DamageCap", "all", 22, 0, 1000000, "Harbinger's DamageCap");
         HarbingerLightFire = buildBoolean(builder, "The Harbinger Light A Fire", "all", true, "Harbinger's lasers can light a fire in MobGriefing");
         HarbingerChargeHpDamage = buildDouble(builder, "The Harbinger's charge attack Hp Damage", "all", 0.06D, 0.0D, 1.0D, "The Harbinger's charge attack Hp Damage");
+        HarbingerMusicVolume = buildDouble(builder, "The Harbinger's Music Volume", "all", 0.5D, 0.0D, 1.0D, "The Harbinger's music volume");
         builder.pop();
 
         builder.push("The Leviathan");
@@ -204,6 +213,7 @@ public class CommonConfig {
         LeviathanDamageCap = buildInt(builder, "LeviathanDamageCap", "all", 20, 0, 1000000, "Leviathan's DamageCap");
         LeviathanBlockBreaking = buildBoolean(builder, "LeviathanBlockBreaking", "all", true, "Leviathan's block breaking ignore the MobGriefing");
         LeviathanImmuneOutofWater = buildBoolean(builder, "LeviathanImmuneOutofWater", "all", true, "Leviathan Immune Out of Water");
+        LeviathanMusicVolume = buildDouble(builder, "The Leviathan's Music Volume", "all", 0.5D, 0.0D, 1.0D, "The Leviathan's music volume");
         builder.pop();
 
     }

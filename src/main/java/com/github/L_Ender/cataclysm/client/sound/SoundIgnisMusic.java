@@ -1,6 +1,7 @@
 package com.github.L_Ender.cataclysm.client.sound;
 
 import com.github.L_Ender.cataclysm.ClientProxy;
+import com.github.L_Ender.cataclysm.config.CMConfig;
 import com.github.L_Ender.cataclysm.entity.BossMonster.Ignis_Entity;
 import com.github.L_Ender.cataclysm.init.ModSounds;
 import net.minecraft.client.Minecraft;
@@ -53,7 +54,7 @@ public class SoundIgnisMusic extends AbstractTickableSoundInstance {
 
         }
         if (!this.Ignis.isRemoved() && this.Ignis.isAlive()) {
-            this.volume = 1;
+            this.volume = (float) CMConfig.IgnisMusicVolume;
             this.pitch = 1;
             this.x = this.Ignis.getX();
             this.y = this.Ignis.getY();

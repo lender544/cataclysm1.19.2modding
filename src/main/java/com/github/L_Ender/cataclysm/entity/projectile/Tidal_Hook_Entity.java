@@ -170,14 +170,10 @@ public class Tidal_Hook_Entity extends AbstractArrow {
 	@Override
 	public void readAdditionalSaveData(CompoundTag tag) {
 		super.readAdditionalSaveData(tag);
-
 		maxRange = tag.getDouble("maxRange");
 		maxSpeed = tag.getDouble("maxSpeed");
 		isPulling = tag.getBoolean("isPulling");
 		stack = ItemStack.of(tag.getCompound("hookshotItem"));
-
-		if(level.getEntity(tag.getInt("owner")) instanceof Player owner)
-			setOwner(owner);
 	}
 
 	@Override
@@ -187,9 +183,6 @@ public class Tidal_Hook_Entity extends AbstractArrow {
 		tag.putDouble("maxSpeed", maxSpeed);
 		tag.putBoolean("isPulling", isPulling);
 		tag.put("hookshotItem", stack.save(new CompoundTag()));
-
-		if(getOwner() instanceof Player owner)
-			tag.putInt("owner", owner.getId());
 	}
 
 	public void setProperties(ItemStack stack, double maxRange, double maxVelocity, float pitch, float yaw, float roll, float modifierZ) {
