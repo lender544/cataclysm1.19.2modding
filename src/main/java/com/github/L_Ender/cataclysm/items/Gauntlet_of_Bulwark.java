@@ -1,8 +1,9 @@
 package com.github.L_Ender.cataclysm.items;
 
+import com.github.L_Ender.cataclysm.capabilities.ChargeCapability;
 import com.github.L_Ender.cataclysm.cataclysm;
 import com.github.L_Ender.cataclysm.config.CMConfig;
-import com.github.L_Ender.cataclysm.entity.effect.Charge_Watcher_Entity;
+import com.github.L_Ender.cataclysm.init.ModCapabilities;
 import com.github.L_Ender.cataclysm.init.ModEffect;
 import com.github.L_Ender.cataclysm.init.ModSounds;
 import com.google.common.collect.ImmutableMultimap;
@@ -131,12 +132,18 @@ public class Gauntlet_of_Bulwark extends Item {
                     float f6 = 1.1999999F;
                     entityLiving.move(MoverType.SELF, new Vec3(0.0D, (double) f6 / 2, 0.0D));
                 }
+                ChargeCapability.IChargeCapability ChargeCapability = ModCapabilities.getCapability(entityLiving, ModCapabilities.CHARGE_CAPABILITY);
+                if (ChargeCapability != null) {
+                    ChargeCapability.setCharge(true);
+                    ChargeCapability.setTimer(t * 2);
+                    ChargeCapability.seteffectiveChargeTime(t * 2);
+                    ChargeCapability.setknockbackSpeedIndex(t * 0.35F);
+                    ChargeCapability.setdamagePerEffectiveCharge(1.2F);
+                    ChargeCapability.setstopTracking(false);
+                    ChargeCapability.setdx(f1 * 0.5F);
+                    ChargeCapability.setdZ(f3 * 0.5F);
+                }
                 if (!level.isClientSide) {
-                    Charge_Watcher_Entity initializer = new Charge_Watcher_Entity(entityLiving.level, entityLiving.blockPosition(), t * 2,
-                            t * 0.35F, 2.0F, 1.2F,
-                            f1 * 0.5F, f3 * 0.5F,
-                            entityLiving);
-                    level.addFreshEntity(initializer);
                     ((Player) entityLiving).getCooldowns().addCooldown(this, CMConfig.GauntletOfBulwarkCooldown);
                 }
             }

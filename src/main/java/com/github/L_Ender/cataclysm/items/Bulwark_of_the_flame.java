@@ -1,9 +1,10 @@
 package com.github.L_Ender.cataclysm.items;
 
 
+import com.github.L_Ender.cataclysm.capabilities.ChargeCapability;
 import com.github.L_Ender.cataclysm.cataclysm;
 import com.github.L_Ender.cataclysm.config.CMConfig;
-import com.github.L_Ender.cataclysm.entity.effect.Charge_Watcher_Entity;
+import com.github.L_Ender.cataclysm.init.ModCapabilities;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
@@ -64,12 +65,18 @@ public class Bulwark_of_the_flame extends Item {
                     float f6 = 1.1999999F;
                     entityLiving.move(MoverType.SELF, new Vec3(0.0D, (double) f6 / 2, 0.0D));
                 }
+                ChargeCapability.IChargeCapability ChargeCapability = ModCapabilities.getCapability(entityLiving, ModCapabilities.CHARGE_CAPABILITY);
+                if (ChargeCapability != null) {
+                    ChargeCapability.setCharge(true);
+                    ChargeCapability.setTimer(t * 2);
+                    ChargeCapability.seteffectiveChargeTime(t * 2);
+                    ChargeCapability.setknockbackSpeedIndex(t * 0.25f);
+                    ChargeCapability.setdamagePerEffectiveCharge(0.6F);
+                    ChargeCapability.setstopTracking(false);
+                    ChargeCapability.setdx(f1 * 0.5F);
+                    ChargeCapability.setdZ(f3 * 0.5F);
+                }
                 if (!level.isClientSide) {
-                    Charge_Watcher_Entity initializer = new Charge_Watcher_Entity(entityLiving.level, entityLiving.blockPosition(), t * 2,
-                            t * 0.25, 2, 0.6F,
-                            f1 * 0.5F, f3 * 0.5F,
-                            entityLiving);
-                    level.addFreshEntity(initializer);
                     ((Player) entityLiving).getCooldowns().addCooldown(this, CMConfig.BulwarkOfTheFlameCooldown);
                 }
             }

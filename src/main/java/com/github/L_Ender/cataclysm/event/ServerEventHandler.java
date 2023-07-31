@@ -1,8 +1,11 @@
 package com.github.L_Ender.cataclysm.event;
 
+import com.github.L_Ender.cataclysm.capabilities.ChargeCapability;
+import com.github.L_Ender.cataclysm.capabilities.HookCapability;
 import com.github.L_Ender.cataclysm.cataclysm;
 import com.github.L_Ender.cataclysm.entity.BossMonster.The_Harbinger_Entity;
 import com.github.L_Ender.cataclysm.init.ModBlocks;
+import com.github.L_Ender.cataclysm.init.ModCapabilities;
 import com.github.L_Ender.cataclysm.init.ModEffect;
 import com.github.L_Ender.cataclysm.init.ModItems;
 import com.github.L_Ender.cataclysm.items.ILeftClick;
@@ -65,6 +68,14 @@ public class ServerEventHandler {
                     }
                 }
             }
+        }
+        HookCapability.IHookCapability hookCapability = ModCapabilities.getCapability(event.getEntity(), ModCapabilities.HOOK_CAPABILITY);
+        if (hookCapability != null) {
+            hookCapability.tick(event.getEntity());
+        }
+        ChargeCapability.IChargeCapability chargeCapability = ModCapabilities.getCapability(event.getEntity(), ModCapabilities.CHARGE_CAPABILITY);
+        if (chargeCapability != null) {
+            chargeCapability.tick(event.getEntity());
         }
     }
 

@@ -98,8 +98,6 @@ public class Tidal_Hook_Entity extends AbstractArrow {
 							if (new Vec3(distance.x, 0, distance.z).length() < new Vec3(target.getBbWidth() / 2, 0, target.getBbWidth() / 2).length() / 1.4)
 								motion = new Vec3(0, motion.y, 0);
 
-							target.fallDistance = 0;
-
 							target.setDeltaMovement(motion);
 							target.hurtMarked = true;
 

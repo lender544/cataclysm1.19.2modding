@@ -20,7 +20,7 @@ public class HookCapability {
     public interface IHookCapability extends INBTSerializable<CompoundTag> {
 
 
-        void setEntity(LivingEntity entity);
+        void tick(LivingEntity entity);
 
         void setHasHook(boolean hasHook);
 
@@ -34,8 +34,13 @@ public class HookCapability {
         private boolean hook;
 
         @Override
-        public void setEntity(LivingEntity entity) {
+        public void tick(LivingEntity entity) {
             this.host = entity;
+            if (this.hasHook()) {
+                if (!this.host.isOnGround()) {
+                    this.host.resetFallDistance();
+                }
+            }
         }
 
 

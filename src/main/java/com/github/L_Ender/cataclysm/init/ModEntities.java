@@ -223,12 +223,6 @@ public class ModEntities {
             .setUpdateInterval(1)
             .build(cataclysm.MODID + ":ashen_breath"));
 
-    public static final RegistryObject<EntityType<Charge_Watcher_Entity>> CHARGE_WATCHER = ENTITY_TYPE.register("charge_watcher", () -> EntityType.Builder.<Charge_Watcher_Entity>of(Charge_Watcher_Entity::new, MobCategory.MISC)
-            .sized(0.0F, 0.0F)
-            .noSummon()
-            .fireImmune()
-            .build(cataclysm.MODID + ":charge_watcher"));
-
     public static final RegistryObject<EntityType<Wall_Watcher_Entity>> WALL_WATCHER = ENTITY_TYPE.register("wall_watcher", () -> EntityType.Builder.<Wall_Watcher_Entity>of(Wall_Watcher_Entity::new, MobCategory.MISC)
             .sized(0.0F, 0.0F)
             .noSummon()

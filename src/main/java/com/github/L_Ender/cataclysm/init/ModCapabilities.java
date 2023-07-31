@@ -1,5 +1,6 @@
 package com.github.L_Ender.cataclysm.init;
 
+import com.github.L_Ender.cataclysm.capabilities.ChargeCapability;
 import com.github.L_Ender.cataclysm.capabilities.HookCapability;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -15,14 +16,17 @@ import javax.annotation.Nullable;
 public final class ModCapabilities {
 
     public static final Capability<HookCapability.IHookCapability> HOOK_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {});
+    public static final Capability<ChargeCapability.IChargeCapability> CHARGE_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {});
 
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.register(HookCapability.HookCapabilityImp.class);
+        event.register(ChargeCapability.ChargeCapabilityImp.class);
     }
 
     public static void attachEntityCapability(AttachCapabilitiesEvent<Entity> e) {
         if (e.getObject() instanceof LivingEntity) {
             e.addCapability(HookCapability.ID, new HookCapability.HookCapabilityImp.HookProvider());
+            e.addCapability(ChargeCapability.ID, new ChargeCapability.ChargeCapabilityImp.ChargeProvider());
             if (e.getObject() instanceof Player) {
 
             }

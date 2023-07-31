@@ -86,7 +86,6 @@ public class ClientProxy extends CommonProxy {
         EntityRenderers.register(ModEntities.SCREEN_SHAKE.get(), RendererNull::new);
         EntityRenderers.register(ModEntities.WITHER_SMOKE_EFFECT.get(), RendererNull::new);
         EntityRenderers.register(ModEntities.ASHEN_BREATH.get(), RendererNull::new);
-        EntityRenderers.register(ModEntities.CHARGE_WATCHER.get(), RendererNull::new);
         EntityRenderers.register(ModEntities.WALL_WATCHER.get(), RendererNull::new);
         EntityRenderers.register(ModEntities.FLAME_STRIKE.get(), RendererFlame_Strike::new);
         EntityRenderers.register(ModEntities.CM_FALLING_BLOCK.get(), RendererCm_Falling_Block::new);
