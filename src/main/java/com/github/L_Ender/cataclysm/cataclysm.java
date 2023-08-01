@@ -2,19 +2,22 @@ package com.github.L_Ender.cataclysm;
 
 
 import com.github.L_Ender.cataclysm.client.model.armor.CMModelLayers;
+import com.github.L_Ender.cataclysm.config.BiomeConfig;
 import com.github.L_Ender.cataclysm.config.CMConfig;
 import com.github.L_Ender.cataclysm.config.ConfigHolder;
 import com.github.L_Ender.cataclysm.event.ServerEventHandler;
 import com.github.L_Ender.cataclysm.init.*;
 import com.github.L_Ender.cataclysm.message.*;
 import com.github.L_Ender.cataclysm.util.Cataclysm_Group;
-import com.github.L_Ender.cataclysm.util.Modcompat;
+import com.github.L_Ender.cataclysm.world.CMMobSpawnBiomeModifier;
+import com.mojang.serialization.Codec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -28,6 +31,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.server.ServerLifecycleHooks;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -82,6 +87,10 @@ public class cataclysm {
 
         MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, ModCapabilities::attachEntityCapability);
         bus.addListener(ModCapabilities::registerCapabilities);
+
+        final DeferredRegister<Codec<? extends BiomeModifier>> biomeModifiers = DeferredRegister.create(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, cataclysm.MODID);
+        biomeModifiers.register(bus);
+        biomeModifiers.register("cataclysm_mob_spawns", CMMobSpawnBiomeModifier::makeCodec);
     }
 
     private void setupEntityModelLayers(final EntityRenderersEvent.RegisterLayerDefinitions event) {
@@ -95,6 +104,7 @@ public class cataclysm {
         if (config.getSpec() == ConfigHolder.COMMON_SPEC) {
             CMConfig.bake(config);
         }
+        BiomeConfig.init();
     }
 
     public static <MSG> void sendMSGToServer(MSG message) {
@@ -116,12 +126,12 @@ public class cataclysm {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-        event.enqueueWork(Modcompat::registerDispenserBehaviors);
         NETWORK_WRAPPER.registerMessage(packetsRegistered++, MessageCMMultipart.class, MessageCMMultipart::encode, MessageCMMultipart::new, MessageCMMultipart.Handler::onMessage);
         NETWORK_WRAPPER.registerMessage(packetsRegistered++, MessageUpdateblockentity.class, MessageUpdateblockentity::write, MessageUpdateblockentity::read, MessageUpdateblockentity.Handler::handle);
         NETWORK_WRAPPER.registerMessage(packetsRegistered++, MessageSwingArm.class, MessageSwingArm::write, MessageSwingArm::read, MessageSwingArm.Handler::handle);
         NETWORK_WRAPPER.registerMessage(packetsRegistered++, MessageHookFalling.class, MessageHookFalling::encode, MessageHookFalling::new, MessageHookFalling.Handler::onMessage);
         NETWORK_WRAPPER.registerMessage(packetsRegistered++, MessageCharge.class, MessageCharge::encode, MessageCharge::new, MessageCharge.Handler::onMessage);
+        event.enqueueWork(ModItems::initDispenser);
     }
 
 }

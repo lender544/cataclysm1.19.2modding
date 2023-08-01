@@ -101,6 +101,14 @@ public class CommonConfig {
     public final ForgeConfigSpec.DoubleValue LeviathanRushHpdamage;
     public final ForgeConfigSpec.DoubleValue LeviathanTentacleHpdamage;
 
+
+    public final ForgeConfigSpec.IntValue DeeplingSpawnWeight;
+    public final ForgeConfigSpec.IntValue DeeplingSpawnRolls;
+    public final ForgeConfigSpec.IntValue DeeplingBruteSpawnWeight;
+    public final ForgeConfigSpec.IntValue DeeplingBruteSpawnRolls;
+    public final ForgeConfigSpec.IntValue DeeplingAnglerSpawnWeight;
+    public final ForgeConfigSpec.IntValue DeeplingAnglerSpawnRolls;
+
     public CommonConfig(final ForgeConfigSpec.Builder builder) {
         builder.push("Etc");
         LavaVisionOpacity = buildDouble(builder, "lavaVisionOpacity", "all", 0.5D, 0.01D, 1D, "Lava Opacity for the Ignitium Helemt.");
@@ -216,6 +224,19 @@ public class CommonConfig {
         LeviathanMusicVolume = buildDouble(builder, "The Leviathan's Music Volume", "all", 0.5D, 0.0D, 1.0D, "The Leviathan's music volume");
         builder.pop();
 
+
+        builder.push("spawning");
+        DeeplingSpawnWeight = buildInt(builder, "DeeplingSpawnWeight", "spawns", CMConfig.DeeplingSpawnWeight, 0, 1000, "Spawn Weight, added to a pool of other mobs for each biome. Higher number = higher chance of spawning. 0 = disable spawn");
+        DeeplingSpawnRolls = buildInt(builder, "DeeplingSpawnRolls", "spawns", CMConfig.DeeplingSpawnRolls, 0, Integer.MAX_VALUE, "Random roll chance to enable mob spawning. Higher number = lower chance of spawning");
+
+        DeeplingBruteSpawnWeight = buildInt(builder, "DeeplingBruteSpawnWeight", "spawns", CMConfig.DeeplingBruteSpawnWeight, 0, 1000, "Spawn Weight, added to a pool of other mobs for each biome. Higher number = higher chance of spawning. 0 = disable spawn");
+        DeeplingBruteSpawnRolls = buildInt(builder, "DeeplingBruteSpawnRolls", "spawns", CMConfig.DeeplingBruteSpawnRolls, 0, Integer.MAX_VALUE, "Random roll chance to enable mob spawning. Higher number = lower chance of spawning");
+
+        DeeplingAnglerSpawnWeight = buildInt(builder, "DeeplingAnglerSpawnWeight", "spawns", CMConfig.DeeplingAnglerSpawnWeight, 0, 1000, "Spawn Weight, added to a pool of other mobs for each biome. Higher number = higher chance of spawning. 0 = disable spawn");
+        DeeplingAnglerSpawnRolls = buildInt(builder, "DeeplingAnglerSpawnRolls", "spawns", CMConfig.DeeplingAnglerSpawnRolls, 0, Integer.MAX_VALUE, "Random roll chance to enable mob spawning. Higher number = lower chance of spawning");
+
+
+        builder.pop();
     }
 
     private static ForgeConfigSpec.BooleanValue buildBoolean(ForgeConfigSpec.Builder builder, String name, String catagory, boolean defaultValue, String comment) {

@@ -1,13 +1,26 @@
 package com.github.L_Ender.cataclysm.init;
 
 import com.github.L_Ender.cataclysm.cataclysm;
+import com.github.L_Ender.cataclysm.entity.projectile.Void_Scatter_Arrow_Entity;
 import com.github.L_Ender.cataclysm.items.*;
 import com.github.L_Ender.cataclysm.items.Dungeon_Eye.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockSource;
+import net.minecraft.core.Position;
+import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
+import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -257,6 +270,9 @@ public class ModItems {
     public static final RegistryObject<Item> LIONFISH_SPIKE = ITEMS.register("lionfish_spike",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> THE_BABY_LEVIATHAN_BUCKET = ITEMS.register("the_baby_leviathan_bucket",
+            () -> new ModFishBucket(ModEntities.THE_BABY_LEVIATHAN, Fluids.WATER, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
+
     public static final RegistryObject<SpawnEggItem> ENDER_GOLEM_SPAWN_EGG = ITEMS.register("ender_golem_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.ENDER_GOLEM, 0x2a1a42, 0xa153fe, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
 
@@ -305,6 +321,35 @@ public class ModItems {
 
     public static final RegistryObject<SpawnEggItem> CORALSSUS_SPAWN_EGG = ITEMS.register("coralssus_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.CORALSSUS, 0x2143a4, 0xa4222f, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
+
+    public static void initDispenser(){
+        DispenserBlock.registerBehavior(VOID_SCATTER_ARROW.get(), new AbstractProjectileDispenseBehavior() {
+            /**
+             * Return the projectile entity spawned by this dispense behavior.
+             */
+            protected Projectile getProjectile(Level worldIn, Position position, ItemStack stackIn) {
+                Void_Scatter_Arrow_Entity entityarrow = new Void_Scatter_Arrow_Entity(ModEntities.VOID_SCATTER_ARROW.get(), position.x(), position.y(), position.z(), worldIn);
+                return entityarrow;
+            }
+        });
+        DispenseItemBehavior bucketDispenseBehavior = new DefaultDispenseItemBehavior() {
+            private final DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
+
+            public ItemStack execute(BlockSource blockSource, ItemStack stack) {
+                DispensibleContainerItem dispensiblecontaineritem = (DispensibleContainerItem)stack.getItem();
+                BlockPos blockpos = blockSource.getPos().relative(blockSource.getBlockState().getValue(DispenserBlock.FACING));
+                Level level = blockSource.getLevel();
+                if (dispensiblecontaineritem.emptyContents((Player)null, level, blockpos, (BlockHitResult)null)) {
+                    dispensiblecontaineritem.checkExtraContent((Player)null, level, stack, blockpos);
+                    return new ItemStack(Items.BUCKET);
+                } else {
+                    return this.defaultDispenseItemBehavior.dispense(blockSource, stack);
+                }
+            }
+        };
+        DispenserBlock.registerBehavior(THE_BABY_LEVIATHAN_BUCKET.get(), bucketDispenseBehavior);
+    }
+
 }
 
 

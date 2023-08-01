@@ -109,6 +109,15 @@ public class CMConfig {
 
     public static boolean Armor_Infinity_Durability = true;
 
+    public static int DeeplingSpawnWeight = 2;
+    public static int DeeplingSpawnRolls = 30;
+
+    public static int DeeplingBruteSpawnWeight = 1;
+    public static int DeeplingBruteSpawnRolls = 50;
+
+    public static int DeeplingAnglerSpawnWeight = 2;
+    public static int DeeplingAnglerSpawnRolls = 30;
+
     public static void bake(ModConfig config) {
         try {
             LavaVisionOpacity = ConfigHolder.COMMON.LavaVisionOpacity.get();
@@ -210,6 +219,14 @@ public class CMConfig {
             HarbingerMusicVolume = ConfigHolder.COMMON.HarbingerMusicVolume.get();
             LeviathanMusicVolume = ConfigHolder.COMMON.LeviathanMusicVolume.get();
 
+            DeeplingSpawnWeight = ConfigHolder.COMMON.DeeplingSpawnWeight.get();
+            DeeplingSpawnRolls = ConfigHolder.COMMON.DeeplingSpawnRolls.get();
+
+            DeeplingBruteSpawnWeight = ConfigHolder.COMMON.DeeplingBruteSpawnWeight.get();
+            DeeplingBruteSpawnRolls = ConfigHolder.COMMON.DeeplingBruteSpawnRolls.get();
+
+            DeeplingAnglerSpawnWeight = ConfigHolder.COMMON.DeeplingAnglerSpawnWeight.get();
+            DeeplingAnglerSpawnRolls = ConfigHolder.COMMON.DeeplingAnglerSpawnRolls.get();
 
         } catch (Exception e) {
             cataclysm.LOGGER.warn("An exception was caused trying to load the config for CM");

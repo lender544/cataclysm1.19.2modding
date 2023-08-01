@@ -15,14 +15,20 @@ import com.github.L_Ender.cataclysm.entity.etc.SemiAquaticPathNavigator;
 import com.github.L_Ender.cataclysm.entity.etc.SmartBodyHelper2;
 import com.github.L_Ender.cataclysm.entity.projectile.Mini_Abyss_Blast_Entity;
 import com.github.L_Ender.cataclysm.init.ModEntities;
+import com.github.L_Ender.cataclysm.init.ModItems;
 import com.github.L_Ender.cataclysm.init.ModSounds;
 import com.github.L_Ender.cataclysm.init.ModTag;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
@@ -38,6 +44,7 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
+import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -50,13 +57,15 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 
-public class The_Baby_Leviathan_Entity extends AnimationPet implements ISemiAquatic {
+public class The_Baby_Leviathan_Entity extends AnimationPet implements ISemiAquatic,Bucketable {
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(The_Baby_Leviathan_Entity.class, EntityDataSerializers.BOOLEAN);
 
     public static final Animation BABY_LEVIATHAN_BITE = Animation.create(14);
     public static final Animation BABY_LEVIATHAN_ABYSS_BLAST = Animation.create(157);
@@ -190,8 +199,63 @@ public class The_Baby_Leviathan_Entity extends AnimationPet implements ISemiAqua
         return true;
     }
 
+
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(FROM_BUCKET, false);
+    }
+
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putBoolean("FromBucket", this.fromBucket());
+    }
+
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setFromBucket(compound.getBoolean("FromBucket"));
+    }
+
+    @Override
+    public boolean fromBucket() {
+        return this.entityData.get(FROM_BUCKET);
+    }
+
+    @Override
+    public void setFromBucket(boolean sit) {
+        this.entityData.set(FROM_BUCKET, sit);
+    }
+
+    @Override
+    public void saveToBucketTag(@Nonnull ItemStack bucket) {
+        if (this.hasCustomName()) {
+            bucket.setHoverName(this.getCustomName());
+        }
+        CompoundTag platTag = new CompoundTag();
+        this.addAdditionalSaveData(platTag);
+        CompoundTag compound = bucket.getOrCreateTag();
+        compound.put("BabyLeviathanData", platTag);
+    }
+
+    @Override
+    public void loadFromBucketTag(CompoundTag p_148832_) {
+        if (p_148832_.contains("BabyLeviathanData")) {
+            this.readAdditionalSaveData(p_148832_.getCompound("BabyLeviathanData"));
+        }
+    }
+
+    @Override
+    @Nonnull
+    public ItemStack getBucketItemStack() {
+        ItemStack stack = new ItemStack(ModItems.THE_BABY_LEVIATHAN_BUCKET.get());
+        if (this.hasCustomName()) {
+            stack.setHoverName(this.getCustomName());
+        }
+        return stack;
+    }
+
+    @Override
+    public SoundEvent getPickupSound() {
+        return SoundEvents.BUCKET_FILL_FISH;
     }
 
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
@@ -219,6 +283,12 @@ public class The_Baby_Leviathan_Entity extends AnimationPet implements ISemiAqua
             }
             return InteractionResult.PASS;
 
+        }
+        if (isTame()) {
+            Optional<InteractionResult> result = Bucketable.bucketMobPickup(player, hand, this);
+            if (result.isPresent()) {
+                return result.get();
+            }
         }
         InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
         if (interactionresult != InteractionResult.SUCCESS && type != InteractionResult.SUCCESS && isTame() && isOwnedBy(player)) {

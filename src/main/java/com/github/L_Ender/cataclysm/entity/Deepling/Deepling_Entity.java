@@ -1,10 +1,12 @@
 package com.github.L_Ender.cataclysm.entity.Deepling;
 
+import com.github.L_Ender.cataclysm.config.CMConfig;
 import com.github.L_Ender.cataclysm.entity.AI.MobAIFindWater;
 import com.github.L_Ender.cataclysm.entity.AI.MobAILeaveWater;
 import com.github.L_Ender.cataclysm.entity.etc.GroundPathNavigatorWide;
 import com.github.L_Ender.cataclysm.entity.etc.SemiAquaticPathNavigator;
 import com.github.L_Ender.cataclysm.entity.projectile.ThrownCoral_Spear_Entity;
+import com.github.L_Ender.cataclysm.init.ModEntities;
 import com.github.L_Ender.cataclysm.init.ModItems;
 import com.github.L_Ender.cataclysm.init.ModSounds;
 import com.github.alexthe666.citadel.animation.Animation;
@@ -110,6 +112,10 @@ public class Deepling_Entity extends AbstractDeepling {
         this.playSound(ModSounds.DEEPLING_IDLE.get(), 0.15F, 0.6F);
     }
 
+    public boolean checkSpawnRules(LevelAccessor worldIn, MobSpawnType spawnReasonIn) {
+        return ModEntities.rollSpawn(CMConfig.DeeplingSpawnRolls, this.getRandom(), spawnReasonIn);
+    }
+
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_34088_, DifficultyInstance p_34089_, MobSpawnType p_34090_, @Nullable SpawnGroupData p_34091_, @Nullable CompoundTag p_34092_) {
         SpawnGroupData spawngroupdata = super.finalizeSpawn(p_34088_, p_34089_, p_34090_, p_34091_, p_34092_);
@@ -123,7 +129,7 @@ public class Deepling_Entity extends AbstractDeepling {
     }
 
     public static boolean candeeplingSpawn(EntityType<Deepling_Entity> p_218991_, LevelAccessor p_218992_, MobSpawnType p_218993_, BlockPos p_218994_, RandomSource p_218995_) {
-        return p_218995_.nextInt(30) == 0 && p_218992_.getDifficulty() != Difficulty.PEACEFUL && (p_218993_ == MobSpawnType.SPAWNER || p_218992_.getFluidState(p_218994_).is(FluidTags.WATER));
+        return p_218992_.getDifficulty() != Difficulty.PEACEFUL && (p_218993_ == MobSpawnType.SPAWNER || p_218992_.getFluidState(p_218994_).is(FluidTags.WATER));
     }
 
     @Override

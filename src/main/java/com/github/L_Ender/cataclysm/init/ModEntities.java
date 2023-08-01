@@ -13,10 +13,8 @@ import com.github.L_Ender.cataclysm.entity.projectile.*;
 
 import com.google.common.base.Predicates;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -356,6 +354,14 @@ public class ModEntities {
             return Predicates.alwaysFalse();
         }else{
             return (com.google.common.base.Predicate<LivingEntity>) e -> e.isAlive() && e.getType().is(entityTag);
+        }
+    }
+
+    public static boolean rollSpawn(int rolls, RandomSource random, MobSpawnType reason){
+        if(reason == MobSpawnType.SPAWNER){
+            return true;
+        }else{
+            return rolls <= 0 || random.nextInt(rolls) == 0;
         }
     }
 
