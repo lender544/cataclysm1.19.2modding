@@ -60,12 +60,14 @@ public class CMConfig {
 
     public static double MonstrosityHealthMultiplier = 1D;
     public static double MonstrosityDamageMultiplier = 1D;
+    public static double MonstrosityHealingMultiplier = 1D;
     public static boolean NetheritemonstrosityBodyBloking = true;
 
     public static double EnderguardianHealthMultiplier = 1D;
     public static double EnderguardianDamageMultiplier = 1D;
 
     public static double IgnisHealthMultiplier = 1D;
+    public static double IgnisHealingMultiplier = 1D;
     public static double IgnisDamageMultiplier = 1D;
 
     public static double EnderGolemHealthMultiplier = 1D;
@@ -75,6 +77,7 @@ public class CMConfig {
     public static double RevenantDamageMultiplier = 1D;
 
     public static double HarbingerHealthMultiplier = 1D;
+    public static double HarbingerHealingMultiplier = 1D;
     public static double HarbingerDamageMultiplier = 1D;
 
     public static double LeviathanHealthMultiplier = 1D;

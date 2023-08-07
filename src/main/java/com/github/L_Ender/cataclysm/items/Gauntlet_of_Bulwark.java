@@ -139,7 +139,6 @@ public class Gauntlet_of_Bulwark extends Item {
                     ChargeCapability.seteffectiveChargeTime(t * 2);
                     ChargeCapability.setknockbackSpeedIndex(t * 0.35F);
                     ChargeCapability.setdamagePerEffectiveCharge(1.2F);
-                    ChargeCapability.setstopTracking(false);
                     ChargeCapability.setdx(f1 * 0.5F);
                     ChargeCapability.setdZ(f3 * 0.5F);
                 }

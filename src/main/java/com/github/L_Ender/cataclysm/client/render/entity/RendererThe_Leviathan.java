@@ -6,8 +6,10 @@ import com.github.L_Ender.cataclysm.client.render.RenderUtils;
 import com.github.L_Ender.cataclysm.client.render.layer.LayerBasicGlow;
 import com.github.L_Ender.cataclysm.client.render.layer.The_Leviathan_Layer;
 import com.github.L_Ender.cataclysm.entity.BossMonster.The_Leviathan.The_Leviathan_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonster.The_Leviathan.The_Leviathan_Part;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -35,7 +37,7 @@ public class RendererThe_Leviathan extends MobRenderer<The_Leviathan_Entity, Mod
         return  entity.getMeltDown() ? BURNING_LEVIATHAN_TEXTURES : LEVIATHAN_TEXTURES;
     }
 
-    /*
+
     public boolean shouldRender(The_Leviathan_Entity livingEntityIn, Frustum camera, double camX, double camY, double camZ) {
         if (super.shouldRender(livingEntityIn, camera, camX, camY, camZ)) {
             return true;
@@ -48,7 +50,7 @@ public class RendererThe_Leviathan extends MobRenderer<The_Leviathan_Entity, Mod
             return false;
         }
     }
-     */
+
 
     public Vec3 getRenderOffset(The_Leviathan_Entity entityIn, float partialTicks) {
         if (entityIn.getAnimation() == The_Leviathan_Entity.LEVIATHAN_ABYSS_BLAST && entityIn.getAnimationTick() <= 66) {

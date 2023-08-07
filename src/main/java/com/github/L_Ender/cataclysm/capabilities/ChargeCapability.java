@@ -55,9 +55,6 @@ public class ChargeCapability {
 
         float getdZ();
 
-        void setstopTracking(boolean stop);
-
-        boolean getstopTracking();
     }
 
     public static class ChargeCapabilityImp implements IChargeCapability {
@@ -69,72 +66,57 @@ public class ChargeCapability {
         public float dz;
         public float damagePerEffectiveCharge;
         public float knockbackSpeedIndex;
-        public boolean stopTracking = false;
 
 
         @Override
         public void tick(LivingEntity entity) {
+            if(isCharge()) {
+                if (!entity.level.isClientSide()) {
+                    int temp = getTimer();
+                    setTimer(temp - 1);
+                    //Deal with rocket punch is valid
+                    if (temp > 0) {
+                        //Slightly enlarge player's hitbox
+                        AABB collideBox = entity.getBoundingBox().inflate(0.75f, 0.75f, 0.75f);
 
-                    if (!entity.level.isClientSide()) {
-                        int temp = getTimer();
-                        //Deal with rocket punch is valid
-                        if (temp > 0 && !stopTracking) {
-                            //Slightly enlarge player's hitbox
-                            AABB collideBox = entity.getBoundingBox().inflate(0.75f, 0.75f, 0.75f);
+                        //Collision Detection
+                        List<LivingEntity> checks = entity.level.getEntitiesOfClass(LivingEntity.class, collideBox);
+                        checks.remove(entity);
 
-                            //Collision Detection
-                            List<LivingEntity> checks = entity.level.getEntitiesOfClass(LivingEntity.class, collideBox);
-                            checks.remove(entity);
+                        //If any mob is detected
+                        if (!checks.isEmpty()) {
+                            // spawn an watchEntity to simulate rocket punch effect
+                            Wall_Watcher_Entity watchEntity = new Wall_Watcher_Entity(entity.level, entity.blockPosition(), temp, effectiveChargeTime,
+                                    knockbackSpeedIndex, damagePerEffectiveCharge, dx, dz,
+                                    entity);
 
-                            //If any mob is detected
-                            if (!checks.isEmpty()) {
-                                // spawn an watchEntity to simulate rocket punch effect
-                                Wall_Watcher_Entity watchEntity = new Wall_Watcher_Entity(entity.level, entity.blockPosition(), temp, effectiveChargeTime,
-                                        knockbackSpeedIndex, damagePerEffectiveCharge, dx, dz,
-                                        entity);
+                            List<LivingEntity> impact = entity.level.getEntitiesOfClass(LivingEntity.class, entity.getBoundingBox().inflate(3.5f, 0.75f, 3.5f));
+                            impact.remove(entity);
 
-                                List<LivingEntity> impact = entity.level.getEntitiesOfClass(LivingEntity.class, entity.getBoundingBox().inflate(3.5f, 0.75f, 3.5f));
-                                impact.remove(entity);
-
-                                for (LivingEntity target : impact) {
-                                    // Deal damage
-                                    if (!target.isAlliedTo(entity)) {
-                                        boolean flag = target.hurt(DamageSource.indirectMobAttack(entity, entity), damagePerEffectiveCharge * effectiveChargeTime);
-                                        watchEntity.watch(target);
-                                        if (flag) {
-                                            target.playSound(SoundEvents.ANVIL_LAND, 1.5f, 0.8F);
-                                        }
-
+                            for (LivingEntity target : impact) {
+                                // Deal damage
+                                if (!target.isAlliedTo(entity)) {
+                                    boolean flag = target.hurt(DamageSource.indirectMobAttack(entity, entity), damagePerEffectiveCharge * effectiveChargeTime);
+                                    watchEntity.watch(target);
+                                    if (flag) {
+                                        target.playSound(SoundEvents.ANVIL_LAND, 1.5f, 0.8F);
                                     }
+
                                 }
-                                entity.level.addFreshEntity(watchEntity);
-
-                                // Player stop moving and clear pocket punch status
-                                entity.setDeltaMovement(0, 0, 0);
-                                entity.hurtMarked = true;
-                                stopTracking = true;
                             }
+                            entity.level.addFreshEntity(watchEntity);
 
-                            // If rocket punch is active and player hit a wall
-                            // stop player and clear rocket punch status
-                            if (entity.horizontalCollision) {
-                                stopTracking = true;
-                            }
-
-                            // Deal with player rocket punch movement
-                            if (!stopTracking) {
-                                setTimer(temp - 1);
-
-                            }
-                        }
-
-                        if (stopTracking || temp == 0) {
+                            // Player stop moving and clear pocket punch status
+                            entity.setDeltaMovement(0, 0, 0);
+                            entity.hurtMarked = true;
                             setCharge(false);
                         }
-
                     }
-
-
+                    if (entity.horizontalCollision || temp == 0) {
+                        setCharge(false);
+                    }
+                }
+            }
         }
 
 
@@ -200,16 +182,6 @@ public class ChargeCapability {
         }
 
         @Override
-        public void setstopTracking(boolean stop) {
-            this.stopTracking = stop;
-        }
-
-        @Override
-        public boolean getstopTracking() {
-            return stopTracking;
-        }
-
-        @Override
         public void setTimer(int timer) {
             this.Timer = timer;
         }
@@ -228,7 +200,6 @@ public class ChargeCapability {
             tag.putFloat("KnockbackSpeed", this.getknockbackSpeedIndex());
             tag.putFloat("dx", this.getdx());
             tag.putFloat("dz", this.getdZ());
-            tag.putBoolean("StopTracking", this.getstopTracking());
             tag.putInt("timer", this.getTimer());
             return tag;
         }
@@ -241,7 +212,6 @@ public class ChargeCapability {
             this.setknockbackSpeedIndex(nbt.getFloat("KnockbackSpeed"));
             this.setdx(nbt.getFloat("dx"));
             this.setdZ(nbt.getFloat("dz"));
-            this.setstopTracking(nbt.getBoolean("StopTracking"));
             this.setTimer(nbt.getInt("timer"));
 
         }

@@ -72,7 +72,6 @@ public class Bulwark_of_the_flame extends Item {
                     ChargeCapability.seteffectiveChargeTime(t * 2);
                     ChargeCapability.setknockbackSpeedIndex(t * 0.25f);
                     ChargeCapability.setdamagePerEffectiveCharge(0.6F);
-                    ChargeCapability.setstopTracking(false);
                     ChargeCapability.setdx(f1 * 0.5F);
                     ChargeCapability.setdZ(f3 * 0.5F);
                 }
