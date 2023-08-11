@@ -14,11 +14,11 @@ import com.github.L_Ender.cataclysm.client.render.item.CMItemRenderProperties;
 import com.github.L_Ender.cataclysm.client.render.item.CustomArmorRenderProperties;
 import com.github.L_Ender.cataclysm.client.sound.*;
 import com.github.L_Ender.cataclysm.config.CMConfig;
-import com.github.L_Ender.cataclysm.entity.BossMonster.Ender_Guardian_Entity;
-import com.github.L_Ender.cataclysm.entity.BossMonster.Ignis_Entity;
-import com.github.L_Ender.cataclysm.entity.BossMonster.Netherite_Monstrosity_Entity;
-import com.github.L_Ender.cataclysm.entity.BossMonster.The_Harbinger_Entity;
-import com.github.L_Ender.cataclysm.entity.BossMonster.The_Leviathan.The_Leviathan_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonsters.Ender_Guardian_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonsters.Ignis_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonsters.Netherite_Monstrosity_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonsters.The_Harbinger_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonsters.The_Leviathan.The_Leviathan_Entity;
 import com.github.L_Ender.cataclysm.init.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -117,6 +117,8 @@ public class ClientProxy extends CommonProxy {
         EntityRenderers.register(ModEntities.DEEPLING_PRIEST.get(), RendererDeepling_Priest::new);
         EntityRenderers.register(ModEntities.CORALSSUS.get(), RendererCoralssus::new);
         EntityRenderers.register(ModEntities.LIONFISH.get(), RendererLionfish::new);
+        EntityRenderers.register(ModEntities.AMETHYST_CRAB.get(), RendererAmethyst_Crab::new);
+        EntityRenderers.register(ModEntities.EARTHQUAKE.get(), RendererNull::new);
         EntityRenderers.register(ModEntities.VOID_SHARD.get(), (render) -> {
             return new ThrownItemRenderer<>(render, 0.75F, true);
         });

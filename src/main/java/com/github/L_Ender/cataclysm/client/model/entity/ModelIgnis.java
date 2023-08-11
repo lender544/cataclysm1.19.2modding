@@ -1,6 +1,6 @@
 package com.github.L_Ender.cataclysm.client.model.entity;
 
-import com.github.L_Ender.cataclysm.entity.BossMonster.Ignis_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonsters.Ignis_Entity;
 import com.github.alexthe666.citadel.client.model.AdvancedEntityModel;
 import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
 import com.github.alexthe666.citadel.client.model.ModelAnimator;
@@ -8,7 +8,7 @@ import com.github.alexthe666.citadel.client.model.basic.BasicModelPart;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.Minecraft;
 
-import static com.github.L_Ender.cataclysm.entity.BossMonster.Ignis_Entity.*;
+import static com.github.L_Ender.cataclysm.entity.BossMonsters.Ignis_Entity.*;
 
 
 public class ModelIgnis extends AdvancedEntityModel<Ignis_Entity> {

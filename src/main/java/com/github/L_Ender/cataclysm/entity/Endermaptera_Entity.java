@@ -1,7 +1,7 @@
 package com.github.L_Ender.cataclysm.entity;
 
-import com.github.L_Ender.cataclysm.entity.BossMonster.Ender_Golem_Entity;
-import com.github.L_Ender.cataclysm.entity.BossMonster.Ender_Guardian_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonsters.Ender_Golem_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonsters.Ender_Guardian_Entity;
 import com.github.L_Ender.cataclysm.entity.etc.DirectPathNavigator;
 import com.github.L_Ender.cataclysm.entity.etc.FlightMoveController;
 import com.github.L_Ender.cataclysm.entity.projectile.Void_Shard_Entity;

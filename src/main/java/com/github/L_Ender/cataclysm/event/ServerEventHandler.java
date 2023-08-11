@@ -3,19 +3,16 @@ package com.github.L_Ender.cataclysm.event;
 import com.github.L_Ender.cataclysm.capabilities.ChargeCapability;
 import com.github.L_Ender.cataclysm.capabilities.HookCapability;
 import com.github.L_Ender.cataclysm.cataclysm;
-import com.github.L_Ender.cataclysm.entity.BossMonster.The_Harbinger_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonsters.The_Harbinger_Entity;
 import com.github.L_Ender.cataclysm.init.ModBlocks;
 import com.github.L_Ender.cataclysm.init.ModCapabilities;
 import com.github.L_Ender.cataclysm.init.ModEffect;
 import com.github.L_Ender.cataclysm.init.ModItems;
 import com.github.L_Ender.cataclysm.items.ILeftClick;
-import com.github.L_Ender.cataclysm.items.final_fractal;
-import com.github.L_Ender.cataclysm.items.zweiender;
 import com.github.L_Ender.cataclysm.message.MessageSwingArm;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -81,25 +78,29 @@ public class ServerEventHandler {
 
     @SubscribeEvent
     public void onLivingDamage(LivingHurtEvent event) {
-        if (event.getSource() instanceof EntityDamageSource) {
-            if (event.getSource().getEntity() instanceof LivingEntity) {
-                LivingEntity attacker = (LivingEntity) event.getSource().getEntity();
-                LivingEntity target = event.getEntity();
-                ItemStack weapon = attacker.getMainHandItem();
-                if (weapon != null && weapon.getItem() instanceof zweiender) {
+        LivingEntity target = event.getEntity();
+        if (!target.level.isClientSide() && event.getSource().getDirectEntity() instanceof LivingEntity living) {
+            ItemStack weapon = living.getMainHandItem();
+
+            if (!weapon.isEmpty()) {
+                if ((weapon.is(ModItems.ZWEIENDER.get()))) {
                     Vec3 lookDir = new Vec3(target.getLookAngle().x, 0, target.getLookAngle().z).normalize();
-                    Vec3 vecBetween = new Vec3(target.getX() - attacker.getX(), 0, target.getZ() - attacker.getZ()).normalize();
+                    Vec3 vecBetween = new Vec3(target.getX() - living.getX(), 0, target.getZ() - living.getZ()).normalize();
                     double dot = lookDir.dot(vecBetween);
                     if (dot > 0.05) {
                         event.setAmount(event.getAmount() * 2);
                         target.playSound(SoundEvents.ENDERMAN_TELEPORT, 0.75F, 0.5F);
                     }
+                    // enchantment attack sparkles
                 }
-                if (weapon != null && weapon.getItem() instanceof final_fractal) {
+
+                if ((weapon.is(ModItems.FINAL_FRACTAL.get()))) {
                     event.setAmount(event.getAmount() + target.getMaxHealth() * 0.03f);
                 }
+
             }
         }
+
     }
 
     @SubscribeEvent

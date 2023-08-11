@@ -3,8 +3,8 @@ package com.github.L_Ender.cataclysm.init;
 
 import com.github.L_Ender.cataclysm.cataclysm;
 import com.github.L_Ender.cataclysm.entity.*;
-import com.github.L_Ender.cataclysm.entity.BossMonster.*;
-import com.github.L_Ender.cataclysm.entity.BossMonster.The_Leviathan.*;
+import com.github.L_Ender.cataclysm.entity.BossMonsters.*;
+import com.github.L_Ender.cataclysm.entity.BossMonsters.The_Leviathan.*;
 import com.github.L_Ender.cataclysm.entity.Deepling.*;
 import com.github.L_Ender.cataclysm.entity.Pet.The_Baby_Leviathan_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.*;
@@ -349,6 +349,17 @@ public class ModEntities {
             updateInterval(Integer.MAX_VALUE)
             .build(cataclysm.MODID + ":dimensional_rift"));
 
+    public static final RegistryObject<EntityType<Amethyst_Crab_Entity>> AMETHYST_CRAB = ENTITY_TYPE.register("amethyst_crab", () -> EntityType.Builder.of(Amethyst_Crab_Entity::new, MobCategory.MONSTER)
+            .sized(2.5F, 3.5F)
+            .build(cataclysm.MODID + ":amethyst_crab"));
+
+    public static final RegistryObject<EntityType<EarthQuake_Entity>> EARTHQUAKE = ENTITY_TYPE.register("earthquake", () -> EntityType.Builder.<EarthQuake_Entity>of(EarthQuake_Entity::new, MobCategory.MISC).
+            setShouldReceiveVelocityUpdates(true)
+            .setTrackingRange(20)
+            .setUpdateInterval(1)
+            .sized(0.5f, 0.5f)
+            .build(cataclysm.MODID + ":earthquake"));
+
     public static Predicate<LivingEntity> buildPredicateFromTag(TagKey<EntityType<?>> entityTag){
         if(entityTag == null){
             return Predicates.alwaysFalse();
@@ -387,6 +398,7 @@ public class ModEntities {
         event.put(DEEPLING_PRIEST.get(), Deepling_Priest_Entity.deeplingpriest().build());
         event.put(CORALSSUS.get(), Coralssus_Entity.coralssus().build());
         event.put(LIONFISH.get(), Lionfish_Entity.lionfish().build());
+        event.put(AMETHYST_CRAB.get(), Amethyst_Crab_Entity.amethyst_crab().build());
     }
 }
 

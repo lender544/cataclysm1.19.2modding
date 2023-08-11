@@ -1,7 +1,7 @@
 package com.github.L_Ender.cataclysm.entity.projectile;
 
 import com.github.L_Ender.cataclysm.config.CMConfig;
-import com.github.L_Ender.cataclysm.entity.BossMonster.Ignited_Revenant_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonsters.Ignited_Revenant_Entity;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;

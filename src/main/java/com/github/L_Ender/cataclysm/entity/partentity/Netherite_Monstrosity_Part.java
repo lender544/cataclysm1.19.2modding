@@ -1,6 +1,6 @@
 package com.github.L_Ender.cataclysm.entity.partentity;
 
-import com.github.L_Ender.cataclysm.entity.BossMonster.Netherite_Monstrosity_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonsters.Netherite_Monstrosity_Entity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;

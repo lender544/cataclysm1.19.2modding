@@ -98,6 +98,7 @@
   "item.cataclysm.deepling_priest_spawn_egg": "심연꾼 사제 생성 알",
   "item.cataclysm.lionfish_spawn_egg": "쏠배감펭 생성 알",
   "item.cataclysm.coralssus_spawn_egg": "코랄서스 생성 알",
+  "item.cataclysm.amethyst_crab_spawn_egg": "자수정 게 생성 알",
 
   "itemGroup.cataclysm": "대격변",
   "block.cataclysm.witherite_block": "위더라이트 블록",
@@ -189,6 +190,8 @@
   "entity.cataclysm.lionfish_spike": "쏠배감펭의 가시",
   "entity.cataclysm.tidal_tentacle": "타이달 촉수",
   "entity.cataclysm.tidal_hook": "타이달 갈고리",
+  "entity.cataclysm.amethyst_crab": "자수정 게",
+  "entity.cataclysm.earthquake": "지진",
 
   "entity.cataclysm.all.command_0": "%s 이(가) 돌아다니는 중",
   "entity.cataclysm.all.command_1": "%s 이(가) 따라오는 중",

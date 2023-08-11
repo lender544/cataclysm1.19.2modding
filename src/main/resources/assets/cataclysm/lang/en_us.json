@@ -98,6 +98,7 @@
   "item.cataclysm.deepling_priest_spawn_egg": "Deepling Priest Spawn Egg",
   "item.cataclysm.lionfish_spawn_egg": "Lionfish Spawn Egg",
   "item.cataclysm.coralssus_spawn_egg": "Coralssus Spawn Egg",
+  "item.cataclysm.amethyst_crab_spawn_egg": "Amethyst Crab Spawn Egg",
 
   "itemGroup.cataclysm": "Cataclysm",
   "block.cataclysm.witherite_block": "Witherite Block",
@@ -189,6 +190,8 @@
   "entity.cataclysm.lionfish_spike": "Lionfish's Spike",
   "entity.cataclysm.tidal_tentacle": "Tidal Tentacle",
   "entity.cataclysm.tidal_hook": "Tidal Hook",
+  "entity.cataclysm.amethyst_crab": "Amethyst Crab",
+  "entity.cataclysm.earthquake": "Earthquake",
 
   "entity.cataclysm.all.command_0": "%s is wandering",
   "entity.cataclysm.all.command_1": "%s is following",

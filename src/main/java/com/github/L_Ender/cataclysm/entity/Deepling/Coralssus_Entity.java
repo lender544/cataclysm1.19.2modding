@@ -1,10 +1,10 @@
 package com.github.L_Ender.cataclysm.entity.Deepling;
 
 import com.github.L_Ender.cataclysm.entity.AI.*;
-import com.github.L_Ender.cataclysm.entity.BossMonster.AI.AttackAnimationGoal1;
-import com.github.L_Ender.cataclysm.entity.BossMonster.AI.SimpleAnimationGoal;
-import com.github.L_Ender.cataclysm.entity.BossMonster.Boss_monster;
-import com.github.L_Ender.cataclysm.entity.BossMonster.The_Leviathan.The_Leviathan_Entity;
+import com.github.L_Ender.cataclysm.entity.BossMonsters.AI.AttackAnimationGoal1;
+import com.github.L_Ender.cataclysm.entity.BossMonsters.AI.SimpleAnimationGoal;
+import com.github.L_Ender.cataclysm.entity.BossMonsters.Boss_monster;
+import com.github.L_Ender.cataclysm.entity.BossMonsters.The_Leviathan.The_Leviathan_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import com.github.L_Ender.cataclysm.entity.etc.CMPathNavigateGround;
 import com.github.L_Ender.cataclysm.entity.etc.SmartBodyHelper2;
