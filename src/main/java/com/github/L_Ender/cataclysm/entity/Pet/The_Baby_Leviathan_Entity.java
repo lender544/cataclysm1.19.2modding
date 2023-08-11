@@ -1,5 +1,6 @@
 package com.github.L_Ender.cataclysm.entity.Pet;
 
+import com.github.L_Ender.cataclysm.config.CMConfig;
 import com.github.L_Ender.cataclysm.entity.AI.EntityAINearestTarget3D;
 import com.github.L_Ender.cataclysm.entity.AI.MobAIFindWater;
 import com.github.L_Ender.cataclysm.entity.AI.MobAILeaveWater;
@@ -88,6 +89,7 @@ public class The_Baby_Leviathan_Entity extends AnimationPet implements ISemiAqua
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
         switchNavigator(false);
+        setConfigattribute(this, CMConfig.BabyLeviathanHealthMultiplier, CMConfig.BabyLeviathanDamageMultiplier);
         this.maxUpStep = 1;
     }
 

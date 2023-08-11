@@ -53,6 +53,7 @@ public class CommonConfig {
     public final ForgeConfigSpec.IntValue Lavabombamount;
     public final ForgeConfigSpec.DoubleValue MonstrosityHealthMultiplier;
     public final ForgeConfigSpec.DoubleValue MonstrosityDamageMultiplier;
+    public final ForgeConfigSpec.DoubleValue MonstrosityHealingMultiplier;
     public final ForgeConfigSpec.IntValue MonstrosityDamageCap;
     public final ForgeConfigSpec.DoubleValue MonstrosityLongRangelimit;
     public final ForgeConfigSpec.BooleanValue NetheritemonstrosityBodyBloking;
@@ -65,6 +66,7 @@ public class CommonConfig {
 
     public final ForgeConfigSpec.DoubleValue IgnisHealthMultiplier;
     public final ForgeConfigSpec.DoubleValue IgnisDamageMultiplier;
+    public final ForgeConfigSpec.DoubleValue IgnisHealingMultiplier;
     public final ForgeConfigSpec.IntValue IgnisDamageCap;
     public final ForgeConfigSpec.DoubleValue IgnisLongRangelimit;
     public final ForgeConfigSpec.BooleanValue IgnisBlockBreaking;
@@ -75,6 +77,7 @@ public class CommonConfig {
 
     public final ForgeConfigSpec.DoubleValue HarbingerHealthMultiplier;
     public final ForgeConfigSpec.DoubleValue HarbingerDamageMultiplier;
+    public final ForgeConfigSpec.DoubleValue HarbingerHealingMultiplier;
     public final ForgeConfigSpec.DoubleValue HarbingerLongRangelimit;
     public final ForgeConfigSpec.IntValue HarbingerDamageCap;
     public final ForgeConfigSpec.BooleanValue HarbingerLightFire;
@@ -87,6 +90,9 @@ public class CommonConfig {
     public final ForgeConfigSpec.BooleanValue LeviathanBlockBreaking;
     public final ForgeConfigSpec.BooleanValue LeviathanImmuneOutofWater;
     public final ForgeConfigSpec.DoubleValue LeviathanMusicVolume;
+
+    public final ForgeConfigSpec.DoubleValue BabyLeviathanHealthMultiplier;
+    public final ForgeConfigSpec.DoubleValue BabyLeviathanDamageMultiplier;
 
     public final ForgeConfigSpec.DoubleValue MonstrositysHpdamage;
     public final ForgeConfigSpec.DoubleValue EnderguardianGravityPunchHpdamage;
@@ -172,6 +178,7 @@ public class CommonConfig {
         Lavabombamount = buildInt(builder, "Lavabombamount", "all", 3, 1, 1000000, "Monstrosity's Lavabomb amount" );
         MonstrosityHealthMultiplier = buildDouble(builder, "MonstrosityHealthMultiplier", "all", 1.0D, 0D, 1000000D, "Monstrosity's Health Multiplier");
         MonstrosityDamageMultiplier = buildDouble(builder, "MonstrosityDamageMultiplier", "all", 1.0D, 0D, 1000000D, "Monstrosity's Damage Multiplier");
+        MonstrosityHealingMultiplier = buildDouble(builder, "MonstrosityHealingMultiplier", "all", 1.0D, 0D, 1000000D, "Monstrosity's Healing Multiplier");
         MonstrosityDamageCap = buildInt(builder, "MonstrosityDamageCap", "all", 22, 0, 1000000, "Monstrosity's DamageCap");
         NetheritemonstrosityBodyBloking = buildBoolean(builder, "NetheritemonstrosityBodyBloking", "all", true, "Monstrosity's bodyBlocking verdict");
         MonstrositysHpdamage = buildDouble(builder, "Monstrosity's attack Hp Damage", "all", 0.08D, 0.0D, 1.0D, "Monstrosity's attack Hp Damage");
@@ -189,6 +196,7 @@ public class CommonConfig {
         builder.push("Ignis");
         IgnisHealthMultiplier = buildDouble(builder, "IgnisHealthMultiplier", "all", 1.0D, 0D, 1000000D, "Ignis's Health Multiplier");
         IgnisDamageMultiplier = buildDouble(builder, "IgnisDamageMultiplier", "all", 1.0D, 0D, 1000000D, "Ignis's Damage Multiplier");
+        IgnisHealingMultiplier = buildDouble(builder, "IgnisHealingMultiplier", "all", 1.0D, 0D, 1000000D, "Ignis's Healing Multiplier");
         IgnisLongRangelimit = buildDouble(builder, "Ignis's prevent attacks from far away Range", "all", 15.0D, 1D, 1000000D, "Ignis's Immune to Long distance attack range.");
         IgnisDamageCap = buildInt(builder, "IgnisDamageCap", "all", 20, 0, 1000000, "Ignis's DamageCap");
         IgnisBlockBreaking = buildBoolean(builder, "IgnisBlockBreaking", "all", true, "Ignis's cracked block breaking ignore the MobGriefing");
@@ -203,6 +211,7 @@ public class CommonConfig {
         builder.push("The Harbinger");
         HarbingerHealthMultiplier = buildDouble(builder, "HarbingerHealthMultiplier", "all", 1.0D, 0D, 1000000D, "Harbinger's Health Multiplier");
         HarbingerDamageMultiplier = buildDouble(builder, "HarbingerDamageMultiplier", "all", 1.0D, 0D, 1000000D, "Harbinger's Damage Multiplier");
+        HarbingerHealingMultiplier = buildDouble(builder, "HarbingerHealingMultiplier", "all", 1.0D, 0D, 1000000D, "Harbinger's Healing Multiplier");
         HarbingerLongRangelimit = buildDouble(builder, "The Harbinger's prevent attacks from far away Range", "all", 35D, 1D, 1000000D, "Harbinger's Immune to Long distance attack range.");
         HarbingerDamageCap = buildInt(builder, "The Harbinger DamageCap", "all", 22, 0, 1000000, "Harbinger's DamageCap");
         HarbingerLightFire = buildBoolean(builder, "The Harbinger Light A Fire", "all", true, "Harbinger's lasers can light a fire in MobGriefing");
@@ -224,6 +233,10 @@ public class CommonConfig {
         LeviathanMusicVolume = buildDouble(builder, "The Leviathan's Music Volume", "all", 0.5D, 0.0D, 1.0D, "The Leviathan's music volume");
         builder.pop();
 
+        builder.push("The Baby Leviathan");
+        BabyLeviathanHealthMultiplier = buildDouble(builder, "BabyLeviathanHealthMultiplier", "all", 1.0D, 0D, 1000000D, "BabyLeviathan's Health Multiplier");
+        BabyLeviathanDamageMultiplier  = buildDouble(builder, "BabyLeviathanDamageMultiplier", "all", 1.0D, 0D, 1000000D, "BabyLeviathan's Damage Multiplier");
+        builder.pop();
 
         builder.push("spawning");
         DeeplingSpawnWeight = buildInt(builder, "DeeplingSpawnWeight", "spawns", CMConfig.DeeplingSpawnWeight, 0, 1000, "Spawn Weight, added to a pool of other mobs for each biome. Higher number = higher chance of spawning. 0 = disable spawn");

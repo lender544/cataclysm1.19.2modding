@@ -1,5 +1,6 @@
 package com.github.L_Ender.cataclysm.entity.projectile;
 
+import com.github.L_Ender.cataclysm.config.CMConfig;
 import com.github.L_Ender.cataclysm.entity.BossMonster.Ignis_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.Cm_Falling_Block_Entity;
 import com.github.L_Ender.cataclysm.init.ModEffect;
@@ -102,7 +103,11 @@ public class Ignis_Abyss_Fireball_Entity extends AbstractHurtingProjectile {
                 }
                 if (flag) {
                     this.doEnchantDamageEffects(owner, entity);
-                    owner.heal(5.0F);
+                    if(owner instanceof Ignis_Entity) {
+                        owner.heal(5.0F * (float) CMConfig.IgnisHealingMultiplier);
+                    }else{
+                        owner.heal(5.0F);
+                    }
                 }
             } else {
                 flag = entity.hurt(DamageSource.MAGIC, 5.0F);

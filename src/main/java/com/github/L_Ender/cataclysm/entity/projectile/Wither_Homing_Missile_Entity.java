@@ -189,7 +189,11 @@ public class Wither_Homing_Missile_Entity extends Projectile {
                     if (entity.isAlive()) {
                         this.doEnchantDamageEffects(livingentity, entity);
                     } else {
-                        livingentity.heal(5.0F);
+                        if(entity1 instanceof The_Harbinger_Entity) {
+                            livingentity.heal(5.0F * (float) CMConfig.HarbingerHealingMultiplier);
+                        }else{
+                            livingentity.heal(5.0F);
+                        }
                     }
                 }
             } else {

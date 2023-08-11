@@ -83,6 +83,9 @@ public class CMConfig {
     public static double LeviathanHealthMultiplier = 1D;
     public static double LeviathanDamageMultiplier = 1D;
 
+    public static double BabyLeviathanHealthMultiplier = 1D;
+    public static double BabyLeviathanDamageMultiplier = 1D;
+
     public static double MonstrosityLongRangelimit = 18D;
     public static double EnderguardianLongRangelimit = 12D;
     public static double EndergolemLongRangelimit = 6D;
@@ -169,6 +172,7 @@ public class CMConfig {
             EndergolemBlockBreaking = ConfigHolder.COMMON.EndergolemBlockBreaking.get();
             MonstrosityHealthMultiplier = ConfigHolder.COMMON.MonstrosityHealthMultiplier.get();
             MonstrosityDamageMultiplier = ConfigHolder.COMMON.MonstrosityDamageMultiplier.get();
+            MonstrosityHealingMultiplier = ConfigHolder.COMMON.MonstrosityHealingMultiplier.get();
 
             EnderguardianHealthMultiplier = ConfigHolder.COMMON.EnderguardianHealthMultiplier.get();
             EnderguardianDamageMultiplier = ConfigHolder.COMMON.EnderguardianDamageMultiplier.get();
@@ -178,6 +182,7 @@ public class CMConfig {
 
             HarbingerHealthMultiplier = ConfigHolder.COMMON.HarbingerHealthMultiplier.get();
             HarbingerDamageMultiplier = ConfigHolder.COMMON.HarbingerDamageMultiplier.get();
+            HarbingerHealingMultiplier = ConfigHolder.COMMON.HarbingerHealingMultiplier.get();
             HarbingerLightFire = ConfigHolder.COMMON.HarbingerLightFire.get();
 
             IgnisBlockBreaking = ConfigHolder.COMMON.IgnisBlockBreaking.get();
@@ -187,6 +192,7 @@ public class CMConfig {
 
             IgnisHealthMultiplier = ConfigHolder.COMMON.IgnisHealthMultiplier.get();
             IgnisDamageMultiplier = ConfigHolder.COMMON.IgnisDamageMultiplier.get();
+            IgnisHealingMultiplier = ConfigHolder.COMMON.IgnisHealingMultiplier.get();
 
             MonstrosityLongRangelimit = ConfigHolder.COMMON.MonstrosityLongRangelimit.get();
             EnderguardianLongRangelimit = ConfigHolder.COMMON.EnderguardianLongRangelimit.get();
@@ -213,6 +219,9 @@ public class CMConfig {
             LeviathanBlockBreaking = ConfigHolder.COMMON.LeviathanBlockBreaking.get();
             LeviathanDamageCap = ConfigHolder.COMMON.LeviathanDamageCap.get();
             LeviathanImmuneOutofWater = ConfigHolder.COMMON.LeviathanImmuneOutofWater.get();
+
+            BabyLeviathanHealthMultiplier = ConfigHolder.COMMON.BabyLeviathanHealthMultiplier.get();
+            BabyLeviathanDamageMultiplier = ConfigHolder.COMMON.BabyLeviathanDamageMultiplier.get();
 
             Armor_Infinity_Durability = ConfigHolder.COMMON.Armor_Infinity_Durability.get();
 

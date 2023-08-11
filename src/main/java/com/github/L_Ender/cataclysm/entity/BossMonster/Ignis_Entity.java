@@ -1464,7 +1464,7 @@ public class Ignis_Entity extends Boss_monster {
                             i = Mth.clamp(i, 0, 4);
                             MobEffectInstance effectinstance = new MobEffectInstance(ModEffect.EFFECTBLAZING_BRAND.get(), brandticks, i, false, true, true);
                             entityHit.addEffect(effectinstance);
-                            this.heal(heal * (i + 1));
+                            this.heal(heal * (float) CMConfig.IgnisHealingMultiplier * (i + 1));
                         }
                         if (combo) {
                             if (!Combo) {
@@ -2006,7 +2006,7 @@ public class Ignis_Entity extends Boss_monster {
                             i = Mth.clamp(i, 0, 4);
                             MobEffectInstance effectinstance = new MobEffectInstance(ModEffect.EFFECTBLAZING_BRAND.get(), 240, i, false, true, true);
                             target.addEffect(effectinstance);
-                            this.heal(2f * (i + 1));
+                            this.heal(2f * (float) CMConfig.IgnisHealingMultiplier * (i + 1));
                         }
                     }
                 }

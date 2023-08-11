@@ -1,6 +1,7 @@
 package com.github.L_Ender.cataclysm.entity.projectile;
 
 import com.github.L_Ender.cataclysm.config.CMConfig;
+import com.github.L_Ender.cataclysm.entity.BossMonster.The_Harbinger_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.Wither_Smoke_Effect_Entity;
 import net.minecraft.core.particles.ParticleTypes;
@@ -66,7 +67,11 @@ public class Wither_Howitzer_Entity extends ThrowableProjectile {
                     if (entity.isAlive()) {
                         this.doEnchantDamageEffects(livingentity, entity);
                     } else {
-                        livingentity.heal(5.0F);
+                        if(entity1 instanceof The_Harbinger_Entity) {
+                            livingentity.heal(5.0F * (float) CMConfig.HarbingerHealingMultiplier);
+                        }else{
+                            livingentity.heal(5.0F);
+                        }
                     }
                 }
             } else {

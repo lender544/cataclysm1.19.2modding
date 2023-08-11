@@ -329,17 +329,17 @@ public class Netherite_Monstrosity_Entity extends Boss_monster implements Enemy 
                     this.lavabombmagazine = CMConfig.Lavabombmagazine;
                     this.doAbsorptionEffects(4,1,4);
                     this.playSound(SoundEvents.BUCKET_FILL_LAVA, 6f, 0.5F);
-                    this.heal(15F);
+                    this.heal(15F * (float) CMConfig.MonstrosityHealingMultiplier);
                 }
                 if (this.getAnimationTick() == 44) {
                     this.doAbsorptionEffects(8,2,8);
                     this.playSound(SoundEvents.BUCKET_FILL_LAVA, 6f, 0.5F);
-                    this.heal(15F);
+                    this.heal(15F * (float) CMConfig.MonstrosityHealingMultiplier);
                 }
                 if (this.getAnimationTick() == 54) {
                     this.doAbsorptionEffects(16,4,16);
                     this.playSound(SoundEvents.BUCKET_FILL_LAVA, 6f, 0.5F);
-                    this.heal(15F);
+                    this.heal(15F * (float) CMConfig.MonstrosityHealingMultiplier);
             }
         }
         if (this.getAnimation() == MONSTROSITY_BERSERK) {
