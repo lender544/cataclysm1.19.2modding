@@ -238,4 +238,15 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> CORALSSUS_DEATH = SOUNDS.register("coralssus_death",
             () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"coralssus_death")));
+
+    public static final RegistryObject<SoundEvent> CRAB_DEATH = SOUNDS.register("crab_death",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"crab_death")));
+
+    public static final RegistryObject<SoundEvent> CRAB_HURT = SOUNDS.register("crab_hurt",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"crab_hurt")));
+
+    public static final RegistryObject<SoundEvent> CRAB_BITE = SOUNDS.register("crab_bite",
+            () -> new SoundEvent(new ResourceLocation(cataclysm.MODID,"crab_bite")));
+
+
 }

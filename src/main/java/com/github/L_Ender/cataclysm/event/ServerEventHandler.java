@@ -129,20 +129,6 @@ public class ServerEventHandler {
     //}
 
     @SubscribeEvent
-    public void onLivingSetTargetEvent(LivingSetAttackTargetEvent  event) {
-        if (event.getTarget() != null && event.getEntity() instanceof Mob) {
-            if (event.getEntity().hasEffect(ModEffect.EFFECTSTUN.get())) {
-                ((Mob) event.getEntity()).setTarget(null);
-            }
-            if (event.getTarget() instanceof The_Harbinger_Entity harbinger) {
-                if (!harbinger.getIsAct()) {
-                    ((Mob) event.getEntity()).setTarget(null);
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent
     public void onLivingJump(LivingEvent.LivingJumpEvent event) {
         LivingEntity entity = event.getEntity();
         if (entity.getEffect(ModEffect.EFFECTSTUN.get()) != null){

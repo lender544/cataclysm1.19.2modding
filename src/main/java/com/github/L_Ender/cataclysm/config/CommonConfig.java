@@ -35,6 +35,7 @@ public class CommonConfig {
     public final ForgeConfigSpec.DoubleValue AbyssBlastdamage;
     public final ForgeConfigSpec.DoubleValue AbyssBlastHpdamage;
     public final ForgeConfigSpec.DoubleValue DimensionalRiftDamage;
+    public final ForgeConfigSpec.DoubleValue AmethystClusterdamage;
 
     public final ForgeConfigSpec.BooleanValue ScreenShake;
     public final ForgeConfigSpec.BooleanValue BossMusic;
@@ -93,6 +94,9 @@ public class CommonConfig {
 
     public final ForgeConfigSpec.DoubleValue BabyLeviathanHealthMultiplier;
     public final ForgeConfigSpec.DoubleValue BabyLeviathanDamageMultiplier;
+
+    public final ForgeConfigSpec.DoubleValue AmethystCrabHealthMultiplier;
+    public final ForgeConfigSpec.DoubleValue AmethystCrabDamageMultiplier;
 
     public final ForgeConfigSpec.DoubleValue MonstrositysHpdamage;
     public final ForgeConfigSpec.DoubleValue EnderguardianGravityPunchHpdamage;
@@ -153,6 +157,7 @@ public class CommonConfig {
         AbyssBlastHpdamage = buildDouble(builder, "AbyssBlastHpdamage", "all", 0.1, 0.0D, 1.0D, "Abyss Blast's Hp Damage");
         AbyssOrbdamage = buildDouble(builder, "AbyssOrbdamage", "all", 4, 0, 1000000, "Abyss Orb's Damage");
         Lavabombradius = buildInt(builder, "Lavabombradius", "all", 2, 1, 7, "Lava bomb's Radius");
+        AmethystClusterdamage = buildDouble(builder, "Amethyst Cluster Damage", "all", 12, 0, 1000000, "Amethyst Cluster's Damage");
         builder.pop();
 
         builder.push("Ender Guardian");
@@ -236,6 +241,11 @@ public class CommonConfig {
         builder.push("The Baby Leviathan");
         BabyLeviathanHealthMultiplier = buildDouble(builder, "BabyLeviathanHealthMultiplier", "all", 1.0D, 0D, 1000000D, "BabyLeviathan's Health Multiplier");
         BabyLeviathanDamageMultiplier  = buildDouble(builder, "BabyLeviathanDamageMultiplier", "all", 1.0D, 0D, 1000000D, "BabyLeviathan's Damage Multiplier");
+        builder.pop();
+
+        builder.push("Amethyst Crab");
+        AmethystCrabHealthMultiplier = buildDouble(builder, "AmethystCrabHealthMultiplier", "all", 1.0D, 0D, 1000000D, "Amethyst Crab's Health Multiplier");
+        AmethystCrabDamageMultiplier  = buildDouble(builder, "AmethystCrabDamageMultiplier", "all", 1.0D, 0D, 1000000D, "Amethyst Crab's Damage Multiplier");
         builder.pop();
 
         builder.push("spawning");

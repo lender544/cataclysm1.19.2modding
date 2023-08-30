@@ -119,6 +119,7 @@ public class ClientProxy extends CommonProxy {
         EntityRenderers.register(ModEntities.LIONFISH.get(), RendererLionfish::new);
         EntityRenderers.register(ModEntities.AMETHYST_CRAB.get(), RendererAmethyst_Crab::new);
         EntityRenderers.register(ModEntities.EARTHQUAKE.get(), RendererNull::new);
+        EntityRenderers.register(ModEntities.AMETHYST_CLUSTER_PROJECTILE.get(), RendererAmethyst_Cluster_Projectile::new);
         EntityRenderers.register(ModEntities.VOID_SHARD.get(), (render) -> {
             return new ThrownItemRenderer<>(render, 0.75F, true);
         });

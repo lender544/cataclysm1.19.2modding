@@ -360,6 +360,14 @@ public class ModEntities {
             .sized(0.5f, 0.5f)
             .build(cataclysm.MODID + ":earthquake"));
 
+    public static final RegistryObject<EntityType<Amethyst_Cluster_Projectile_Entity>> AMETHYST_CLUSTER_PROJECTILE = ENTITY_TYPE.register("amethyst_cluster_projectile", () -> EntityType.Builder.<Amethyst_Cluster_Projectile_Entity>of(Amethyst_Cluster_Projectile_Entity::new, MobCategory.MISC)
+            .sized(0.5f, 0.0f)
+            .fireImmune()
+            .setShouldReceiveVelocityUpdates(true)
+            .setUpdateInterval(20)
+            .build(cataclysm.MODID + ":amethyst_cluster_projectile"));
+
+
     public static Predicate<LivingEntity> buildPredicateFromTag(TagKey<EntityType<?>> entityTag){
         if(entityTag == null){
             return Predicates.alwaysFalse();

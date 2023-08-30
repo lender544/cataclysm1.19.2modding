@@ -33,6 +33,7 @@ public class CMConfig {
     public static double AbyssOrbdamage = 4;
     public static double AbyssBlastdamage = 10;
     public static double AbyssBlastHpdamage = 0.1D;
+    public static double AmethystClusterdamage = 12D;
     public static int Lavabombradius = 2;
 
     public static boolean ScreenShake = true;
@@ -85,6 +86,9 @@ public class CMConfig {
 
     public static double BabyLeviathanHealthMultiplier = 1D;
     public static double BabyLeviathanDamageMultiplier = 1D;
+
+    public static double AmethystCrabHealthMultiplier = 1D;
+    public static double AmethystCrabDamageMultiplier = 1D;
 
     public static double MonstrosityLongRangelimit = 18D;
     public static double EnderguardianLongRangelimit = 12D;
@@ -154,6 +158,7 @@ public class CMConfig {
             AbyssOrbdamage = ConfigHolder.COMMON.AbyssOrbdamage.get();
             AbyssBlastdamage = ConfigHolder.COMMON.AbyssBlastdamage.get();
             AbyssBlastHpdamage = ConfigHolder.COMMON.AbyssBlastHpdamage.get();
+            AmethystClusterdamage = ConfigHolder.COMMON.AmethystClusterdamage.get();
 
             Lavabombradius = ConfigHolder.COMMON.Lavabombradius.get();
             ScreenShake = ConfigHolder.COMMON.ScreenShake.get();
@@ -222,6 +227,9 @@ public class CMConfig {
 
             BabyLeviathanHealthMultiplier = ConfigHolder.COMMON.BabyLeviathanHealthMultiplier.get();
             BabyLeviathanDamageMultiplier = ConfigHolder.COMMON.BabyLeviathanDamageMultiplier.get();
+
+            AmethystCrabHealthMultiplier = ConfigHolder.COMMON.AmethystCrabDamageMultiplier.get();
+            AmethystCrabDamageMultiplier = ConfigHolder.COMMON.AmethystCrabHealthMultiplier.get();
 
             Armor_Infinity_Durability = ConfigHolder.COMMON.Armor_Infinity_Durability.get();
 

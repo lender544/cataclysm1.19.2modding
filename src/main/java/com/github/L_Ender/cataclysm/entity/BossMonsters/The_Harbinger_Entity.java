@@ -244,6 +244,9 @@ public class The_Harbinger_Entity extends Boss_monster implements RangedAttackMo
         }
     }
 
+    public boolean canBeSeenAsEnemy() {
+        return this.getIsAct() && super.canBeSeenAsEnemy();
+    }
 
     public void startSeenByPlayer(ServerPlayer player) {
         super.startSeenByPlayer(player);
