@@ -6,7 +6,10 @@
   "refmap": "cataclysm.refmap.json",
   "mixins": [
     "ItemMixin",
-    "LivingEntityMixin"
+    "LivingEntityMixin",
+    "NoBasaltColumnsInStructuresMixin",
+    "NoDeltasInStructuresMixin",
+    "WorldGenRegionAccessor"
   ],
   "client": [
   ],

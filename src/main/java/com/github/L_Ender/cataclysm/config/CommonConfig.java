@@ -118,6 +118,8 @@ public class CommonConfig {
     public final ForgeConfigSpec.IntValue DeeplingBruteSpawnRolls;
     public final ForgeConfigSpec.IntValue DeeplingAnglerSpawnWeight;
     public final ForgeConfigSpec.IntValue DeeplingAnglerSpawnRolls;
+    public final ForgeConfigSpec.IntValue AmethystCrabSpawnWeight;
+    public final ForgeConfigSpec.IntValue AmethystCrabSpawnRolls;
 
     public CommonConfig(final ForgeConfigSpec.Builder builder) {
         builder.push("Etc");
@@ -257,6 +259,9 @@ public class CommonConfig {
 
         DeeplingAnglerSpawnWeight = buildInt(builder, "DeeplingAnglerSpawnWeight", "spawns", CMConfig.DeeplingAnglerSpawnWeight, 0, 1000, "Spawn Weight, added to a pool of other mobs for each biome. Higher number = higher chance of spawning. 0 = disable spawn");
         DeeplingAnglerSpawnRolls = buildInt(builder, "DeeplingAnglerSpawnRolls", "spawns", CMConfig.DeeplingAnglerSpawnRolls, 0, Integer.MAX_VALUE, "Random roll chance to enable mob spawning. Higher number = lower chance of spawning");
+
+        AmethystCrabSpawnWeight = buildInt(builder, "AmethystCrabSpawnWeight", "spawns", CMConfig.AmethystCrabSpawnWeight, 0, 1000, "Spawn Weight, added to a pool of other mobs for each biome. Higher number = higher chance of spawning. 0 = disable spawn");
+        AmethystCrabSpawnRolls = buildInt(builder, "AmethystCrabSpawnRolls", "spawns", CMConfig.AmethystCrabSpawnRolls, 0, Integer.MAX_VALUE, "Random roll chance to enable mob spawning. Higher number = lower chance of spawning");
 
 
         builder.pop();

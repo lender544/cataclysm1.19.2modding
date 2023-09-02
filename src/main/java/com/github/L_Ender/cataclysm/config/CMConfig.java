@@ -128,6 +128,9 @@ public class CMConfig {
     public static int DeeplingAnglerSpawnWeight = 2;
     public static int DeeplingAnglerSpawnRolls = 30;
 
+    public static int AmethystCrabSpawnWeight = 1;
+    public static int AmethystCrabSpawnRolls = 100;
+
     public static void bake(ModConfig config) {
         try {
             LavaVisionOpacity = ConfigHolder.COMMON.LavaVisionOpacity.get();
@@ -247,6 +250,9 @@ public class CMConfig {
 
             DeeplingAnglerSpawnWeight = ConfigHolder.COMMON.DeeplingAnglerSpawnWeight.get();
             DeeplingAnglerSpawnRolls = ConfigHolder.COMMON.DeeplingAnglerSpawnRolls.get();
+
+            AmethystCrabSpawnWeight = ConfigHolder.COMMON.AmethystCrabSpawnWeight.get();
+            AmethystCrabSpawnRolls = ConfigHolder.COMMON.AmethystCrabSpawnRolls.get();
 
         } catch (Exception e) {
             cataclysm.LOGGER.warn("An exception was caused trying to load the config for CM");

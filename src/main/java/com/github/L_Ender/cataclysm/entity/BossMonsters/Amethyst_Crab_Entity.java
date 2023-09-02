@@ -38,6 +38,7 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
@@ -143,6 +144,10 @@ public class Amethyst_Crab_Entity extends Boss_monster implements NeutralMob {
 
 
         return super.hurt(source, damage);
+    }
+
+    public boolean checkSpawnRules(LevelAccessor worldIn, MobSpawnType spawnReasonIn) {
+        return ModEntities.rollSpawn(CMConfig.AmethystCrabSpawnRolls, this.getRandom(), spawnReasonIn);
     }
 
     public void tick() {

@@ -36,21 +36,23 @@ public class BossBarEvent {
             if (!BOSSES.isEmpty()) {
                 int i = minecraft.getWindow().getGuiScaledWidth();
                 for (Mob boss : BOSSES) {
-                    if (event.getBossEvent().getId() == boss.getUUID()) {
-                        event.setCanceled(true);
-                        int k = i / 2 - 94;
-                        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                        //  RenderSystem.setShaderTexture(0, GUI_BARS_LOCATION);
+                    if (boss != null) {
+                        if (event.getBossEvent().getId() == boss.getUUID()) {
+                            event.setCanceled(true);
+                            int k = i / 2 - 94;
+                            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                            //  RenderSystem.setShaderTexture(0, GUI_BARS_LOCATION);
 
-                        drawBar(event.getPoseStack(), k, event.getY() - 2, boss);
-                        Component itextcomponent = boss.getDisplayName();
-                        int l = minecraft.font.width(itextcomponent);
-                        int i1 = i / 2 - l / 2;
-                        minecraft.font.drawShadow(event.getPoseStack(), itextcomponent, (float) i1, (float) event.getY() - 9, 16777215);
-                        if (event.getY() >= minecraft.getWindow().getGuiScaledHeight() / 3) {
-                            break;
+                            drawBar(event.getPoseStack(), k, event.getY() - 2, boss);
+                            Component itextcomponent = boss.getDisplayName();
+                            int l = minecraft.font.width(itextcomponent);
+                            int i1 = i / 2 - l / 2;
+                            minecraft.font.drawShadow(event.getPoseStack(), itextcomponent, (float) i1, (float) event.getY() - 9, 16777215);
+                            if (event.getY() >= minecraft.getWindow().getGuiScaledHeight() / 3) {
+                                break;
+                            }
+                            event.setIncrement(12 + minecraft.font.lineHeight);
                         }
-                        event.setIncrement(12 + minecraft.font.lineHeight);
                     }
                 }
 
