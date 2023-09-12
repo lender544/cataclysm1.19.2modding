@@ -1,5 +1,6 @@
 package com.github.L_Ender.cataclysm.client.event;
 
+import com.github.L_Ender.cataclysm.capabilities.Bloom_Stone_PauldronsCapability;
 import com.github.L_Ender.cataclysm.client.render.CMItemstackRenderer;
 import com.github.L_Ender.cataclysm.client.render.CMRenderTypes;
 import com.github.L_Ender.cataclysm.client.render.etc.LavaVisionFluidRenderer;
@@ -7,6 +8,7 @@ import com.github.L_Ender.cataclysm.config.CMConfig;
 import com.github.L_Ender.cataclysm.entity.BossMonsters.Ignis_Entity;
 import com.github.L_Ender.cataclysm.entity.BossMonsters.The_Leviathan.The_Leviathan_Entity;
 import com.github.L_Ender.cataclysm.entity.effect.ScreenShake_Entity;
+import com.github.L_Ender.cataclysm.init.ModCapabilities;
 import com.github.L_Ender.cataclysm.init.ModEffect;
 import com.github.L_Ender.cataclysm.init.ModItems;
 import com.github.alexthe666.citadel.client.event.EventGetFluidRenderType;
@@ -28,6 +30,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -152,6 +155,33 @@ public class ClientEvent {
             matrixStackIn.popPose();
         }
     }
+
+    @SubscribeEvent
+    @OnlyIn(Dist.CLIENT)
+    public void onPreRenderPlayer(RenderPlayerEvent.Pre event) {
+        Player player = event.getEntity();
+        Bloom_Stone_PauldronsCapability.IBloom_Stone_PauldronsCapability chargeCapability = ModCapabilities.getCapability(player, ModCapabilities.BLOOM_STONE_PAULDRONS_CAPABILITY_CAPABILITY);
+        if (chargeCapability != null) {
+            if(chargeCapability.isBurrow()) {
+                event.getPoseStack().pushPose();
+                event.getPoseStack().translate(0.0D, -event.getEntity().getBbHeight(), 0.0D);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    @OnlyIn(Dist.CLIENT)
+    public void onPostRenderPlayer(RenderPlayerEvent.Post event) {
+        Player player = event.getEntity();
+        Bloom_Stone_PauldronsCapability.IBloom_Stone_PauldronsCapability chargeCapability = ModCapabilities.getCapability(player, ModCapabilities.BLOOM_STONE_PAULDRONS_CAPABILITY_CAPABILITY);
+        if (chargeCapability != null) {
+            if(chargeCapability.isBurrow()) {
+                event.getPoseStack().popPose();
+            }
+        }
+    }
+
+
 
     public void drawVertex(Matrix4f p_229039_1_, Matrix3f p_229039_2_, VertexConsumer p_229039_3_, int p_229039_4_, int p_229039_5_, int p_229039_6_, float p_229039_7_, float p_229039_8_, int p_229039_9_, int p_229039_10_, int p_229039_11_, int p_229039_12_) {
         p_229039_3_.vertex(p_229039_1_, (float) p_229039_4_, (float) p_229039_5_, (float) p_229039_6_).color(255, 255, 255, 255).uv(p_229039_7_, p_229039_8_).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(p_229039_12_).normal(p_229039_2_, (float) p_229039_9_, (float) p_229039_11_, (float) p_229039_10_).endVertex();
@@ -300,5 +330,6 @@ public class ClientEvent {
         RenderSystem.disableBlend();
         RenderSystem.setShaderTexture(0, GuiComponent.GUI_ICONS_LOCATION);
     }
+
 
 }

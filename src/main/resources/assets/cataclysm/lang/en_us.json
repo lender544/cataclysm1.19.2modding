@@ -82,6 +82,8 @@
   "item.cataclysm.crystallized_coral": "Crystallized Coral",
   "item.cataclysm.abyssal_sacrifice": "Abyssal Sacrifice",
   "item.cataclysm.the_baby_leviathan_bucket": "Bucket of The Baby Leviathan",
+  "item.cataclysm.bloom_stone_pauldrons": "Bloom Stone Pauldrons",
+
   "item.cataclysm.endermaptera_spawn_egg": "Endermaptera Spawn Egg",
   "item.cataclysm.ender_golem_spawn_egg": "Ender Golem Spawn Egg",
   "item.cataclysm.ender_guardian_spawn_egg": "Ender Guardian Spawn Egg",
@@ -190,6 +192,7 @@
   "entity.cataclysm.portal_abyss_blast": "Portal's Abyss Blast",
   "entity.cataclysm.lionfish_spike": "Lionfish's Spike",
   "item.cataclysm.amethyst_crab_meat": "Amethyst Crab Meat",
+  "item.cataclysm.amethyst_crab_shell": "Amethyst Crab Shell",
   "entity.cataclysm.tidal_tentacle": "Tidal Tentacle",
   "entity.cataclysm.tidal_hook": "Tidal Hook",
   "entity.cataclysm.amethyst_crab": "Amethyst Crab",

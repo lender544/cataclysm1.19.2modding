@@ -30,6 +30,7 @@
   "item.cataclysm.gauntlet_of_bulwark.desc2": "사용을 멈추면 돌진을 하며 적들에게 피해를 준다.",
   "item.cataclysm.tidal_claws.desc": "우클릭:그래플링 훅을 사용할 수 있다.",
   "item.cataclysm.tidal_claws.desc2": "좌클릭:타이달 촉수를 소환해 여러대상을 공격 할 수 있다.",
+
   "you_cant_escape": "넌 벗어날 수 없다.",
   "cataclysm.container.weapon_fusion": "§c무기 융합",
 
@@ -74,7 +75,6 @@
   "item.cataclysm.coral_bardiche": "산호 바르디슈",
   "item.cataclysm.lionfish": "쏠배감펭",
   "item.cataclysm.lionfish_spike": "쏠배감펭의 가시",
-  "item.cataclysm.amethyst_crab_meat": "자수정 게살",
   "item.cataclysm.abyssal_egg": "심연의 알",
   "item.cataclysm.athame": "의식용 단검",
   "item.cataclysm.tidal_claws": "타이달 클로",
@@ -82,6 +82,7 @@
   "item.cataclysm.crystallized_coral": "결정화된 산호",
   "item.cataclysm.abyssal_sacrifice": "심연의 제물",
   "item.cataclysm.the_baby_leviathan_bucket": "아기 레비아탄이 담긴 양동이",
+  "item.cataclysm.bloom_stone_pauldrons": "개화의 돌 견갑",
 
   "item.cataclysm.endermaptera_spawn_egg": "엔더마프테라 생성 알",
   "item.cataclysm.ender_golem_spawn_egg": "엔더 골렘 생성 알",
@@ -102,6 +103,7 @@
   "item.cataclysm.amethyst_crab_spawn_egg": "자수정 게 생성 알",
 
   "itemGroup.cataclysm": "대격변",
+
   "block.cataclysm.witherite_block": "위더라이트 블록",
   "block.cataclysm.enderite_block": "엔더라이트 블록",
   "block.cataclysm.ignitium_block": "이그니티움 블록",
@@ -189,6 +191,8 @@
   "entity.cataclysm.abyss_orb": "심연 구체",
   "entity.cataclysm.portal_abyss_blast": "포탈의 심연 열선",
   "entity.cataclysm.lionfish_spike": "쏠배감펭의 가시",
+  "item.cataclysm.amethyst_crab_meat": "자수정 게살",
+  "item.cataclysm.amethyst_crab_shell": "자수정 게 껍데기",
   "entity.cataclysm.tidal_tentacle": "타이달 촉수",
   "entity.cataclysm.tidal_hook": "타이달 갈고리",
   "entity.cataclysm.amethyst_crab": "자수정 게",
@@ -197,6 +201,7 @@
   "entity.cataclysm.all.command_0": "%s 이(가) 돌아다니는 중",
   "entity.cataclysm.all.command_1": "%s 이(가) 따라오는 중",
   "entity.cataclysm.all.command_2": "%s 이(가) 대기중",
+
 
   "effect.cataclysm.monstrous": "괴력",
   "effect.cataclysm.blazing_brand": "불타는 낙인",
@@ -229,8 +234,8 @@
   "voidrunerising.sub": "공허의 룬이 솟아남",
   "revenant_idle.sub": "레버넌트가 신음함",
   "revenant_hurt.sub": "레버넌트가 상처를 입음",
-  "revenant_breath.sub": "레버넌트가 재의 숨결을 내뱉음",
   "revenant_death.sub": "레버넌트가 죽음",
+  "revenant_breath.sub": "레버넌트가 재의 숨결을 내뱉음",
   "ignis_ambient.sub": "이그니스가 불타오름",
   "ignis_hurt.sub": "이그니스가 상처를 입음",
   "strongswingattack.sub": "이그니스가 참격을 날림",
@@ -305,7 +310,6 @@
   "death.attack.cataclysm.deathlaser": "%s는 %s의 레이저에 의해 말살되었습니다.",
   "death.attack.cataclysm.emp": "%s는 전기구이 통닭이 되버렸습니다.",
   "death.attack.cataclysm.emp.player": "%s는 전기구이 통닭이 되버렸습니다.",
-
   "death.attack.cataclysm.abyssal_burn": "%s가 차원을 떠났습니다",
   "death.attack.cataclysm.abyssal_burn.player": "%s가 차원을 떠났습니다"
 }

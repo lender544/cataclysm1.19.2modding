@@ -230,6 +230,9 @@ public class ModItems {
     public static final RegistryObject<Item> MONSTROUS_HELM = ITEMS.register("monstrous_helm",
             () -> new Monstrous_Helm(ArmorMaterials.NETHERITE, EquipmentSlot.HEAD, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).fireResistant().rarity(Rarity.EPIC)));
 
+    public static final RegistryObject<Item> BLOOM_STONE_PAULDRONS = ITEMS.register("bloom_stone_pauldrons",
+            () -> new Bloom_Stone_Pauldrons(Armortier.CRAB, EquipmentSlot.CHEST, new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).fireResistant().rarity(Rarity.EPIC)));
+
     public static final RegistryObject<Item> BURNING_ASHES = ITEMS.register("burning_ashes",
             () -> new Item(new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).fireResistant().rarity(Rarity.RARE)));
 
@@ -247,7 +250,6 @@ public class ModItems {
 
     public static final RegistryObject<Item> MUSIC_DISC_THE_LEVIATHAN = ITEMS.register("music_disc_the_leviathan",
             () -> new RecordItem(14, ModSounds.LEVIATHAN_MUSIC,new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).stacksTo(1).rarity(Rarity.EPIC).fireResistant(), 200 * 20));
-
 
     public static final RegistryObject<Item> MECH_EYE = ITEMS.register("mech_eye",
             () -> new MechEyeItem(new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).fireResistant()));
@@ -269,6 +271,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> AMETHYST_CRAB_MEAT = ITEMS.register("amethyst_crab_meat",
             () -> new Item(new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).food(new FoodProperties.Builder().nutrition(6).saturationMod(1.2F).effect(new MobEffectInstance(MobEffects.REGENERATION, 100, 0), 1.0F).build())));
+
+    public static final RegistryObject<Item> AMETHYST_CRAB_SHELL = ITEMS.register("amethyst_crab_shell",
+            () -> new Item(new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
 
     public static final RegistryObject<Item> LIONFISH_SPIKE = ITEMS.register("lionfish_spike",
             () -> new Item(new Item.Properties()));
