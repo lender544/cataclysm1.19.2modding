@@ -30,6 +30,7 @@
   "item.cataclysm.gauntlet_of_bulwark.desc2": "Release to charge forward and damage entities in front",
   "item.cataclysm.tidal_claws.desc": "Right click to fire a grappling hook",
   "item.cataclysm.tidal_claws.desc2": "Left click to shoot a tentacle that damages entities",
+  "item.cataclysm.blessed_amethyst_crab_meat.desc": "Be affected by the blessing effect. It is immune to darkness, abyssal fear and abyssal burn during the blessing effect",
   
   "you_cant_escape": "You can't escape",
   "cataclysm.container.weapon_fusion": "§cWeapon Fusion",
@@ -192,6 +193,7 @@
   "entity.cataclysm.portal_abyss_blast": "Portal's Abyss Blast",
   "entity.cataclysm.lionfish_spike": "Lionfish's Spike",
   "item.cataclysm.amethyst_crab_meat": "Amethyst Crab Meat",
+  "item.cataclysm.blessed_amethyst_crab_meat": "Blessed Amethyst Crab Meat",
   "item.cataclysm.amethyst_crab_shell": "Amethyst Crab Shell",
   "entity.cataclysm.tidal_tentacle": "Tidal Tentacle",
   "entity.cataclysm.tidal_hook": "Tidal Hook",
@@ -210,6 +212,7 @@
   "effect.cataclysm.bone_fracture": "Bone Fracture",
   "effect.cataclysm.abyssal_fear": "Abyssal Fear",
   "effect.cataclysm.abyssal_curse": "Abyssal Curse",
+  "effect.cataclysm.blessing_of_amethyst": "Blessing Of Amethyst",
   
   "golemhurt.sub": "Ender Golem hurts",
   "golemdeath.sub": "Ender Golem dies",
@@ -311,5 +314,7 @@
   "death.attack.cataclysm.emp": "%1$s was electrocuted",
   "death.attack.cataclysm.emp.player": "%1$s was electrocuted by %2$s",
   "death.attack.cataclysm.abyssal_burn": "%1$s faded away from this dimension",
-  "death.attack.cataclysm.abyssal_burn.player": "%s faded away from this dimension"
+  "death.attack.cataclysm.abyssal_burn.player": "%s faded away from this dimension",
+
+  "cataclysm.gui.altar_of_amethyst_blessing": "Blessing"
 }

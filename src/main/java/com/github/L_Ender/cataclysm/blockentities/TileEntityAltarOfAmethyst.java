@@ -1,6 +1,7 @@
 package com.github.L_Ender.cataclysm.blockentities;
 
 import com.github.L_Ender.cataclysm.cataclysm;
+import com.github.L_Ender.cataclysm.crafting.AltarOfAmethystRecipe;
 import com.github.L_Ender.cataclysm.init.ModTileentites;
 import com.github.L_Ender.cataclysm.message.MessageUpdateblockentity;
 import net.minecraft.core.BlockPos;
@@ -10,6 +11,7 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -23,6 +25,10 @@ public class TileEntityAltarOfAmethyst extends BaseContainerBlockEntity {
     public int tickCount;
     private static final int NUM_SLOTS = 1;
     private NonNullList<ItemStack> stacks = NonNullList.withSize(NUM_SLOTS, ItemStack.EMPTY);
+    public boolean brightThisTick = false;
+    private AltarOfAmethystRecipe lastRecipe = null;
+    private int blessingtime = 0;
+
 
     public TileEntityAltarOfAmethyst(BlockPos pos, BlockState state) {
         super(ModTileentites.ALTAR_OF_AMETHYST.get(), pos, state);
@@ -35,8 +41,29 @@ public class TileEntityAltarOfAmethyst extends BaseContainerBlockEntity {
 
     public void tick() {
         tickCount++;
+        brightThisTick = false;
+        if (!this.getItem(0).isEmpty()) {
+            if(lastRecipe != null && lastRecipe.matches(this.getItem(0))){
+                brightThisTick = true;
+                if(blessingtime > lastRecipe.getTime()) {
+                    ItemStack current = this.getItem(0).copy();
+                    current.shrink(1);
+                    if(!current.isEmpty()){
+                        ItemEntity itemEntity = new ItemEntity(this.level, this.getBlockPos().getX() + 0.5F, this.getBlockPos().getY() + 0.5F, this.getBlockPos().getZ() + 0.5F, current);
+                        if(!level.isClientSide){
+                            level.addFreshEntity(itemEntity);
+                        }
+                    }
+                    this.setItem(0, lastRecipe.getResult().copy());
+                }
+            }
+        }
+        if(!brightThisTick){
+            blessingtime = 0;
+        }else{
+            blessingtime++;
+        }
     }
-
     @Override
     public int getContainerSize() {
         return this.stacks.size();
@@ -76,6 +103,7 @@ public class TileEntityAltarOfAmethyst extends BaseContainerBlockEntity {
         if (!stack.isEmpty() && stack.getCount() > this.getMaxStackSize()) {
             stack.setCount(this.getMaxStackSize());
         }
+        lastRecipe = cataclysm.PROXY.getAltarOfAmethystRecipeManager().getRecipeFor(stack);
         this.saveAdditional(this.getUpdateTag());
         if (!level.isClientSide) {
             cataclysm.sendMSGToAll(new MessageUpdateblockentity(this.getBlockPos().asLong(), stacks.get(0)));

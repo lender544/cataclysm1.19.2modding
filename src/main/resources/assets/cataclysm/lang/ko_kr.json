@@ -30,6 +30,7 @@
   "item.cataclysm.gauntlet_of_bulwark.desc2": "사용을 멈추면 돌진을 하며 적들에게 피해를 준다.",
   "item.cataclysm.tidal_claws.desc": "우클릭:그래플링 훅을 사용할 수 있다.",
   "item.cataclysm.tidal_claws.desc2": "좌클릭:타이달 촉수를 소환해 여러대상을 공격 할 수 있다.",
+  "item.cataclysm.blessed_amethyst_crab_meat.desc": "축복 효과를 받는다. 축복 동안 어둠,심연의 공포,심연의 화상에 면역이 된다.",
 
   "you_cant_escape": "넌 벗어날 수 없다.",
   "cataclysm.container.weapon_fusion": "§c무기 융합",
@@ -192,6 +193,7 @@
   "entity.cataclysm.portal_abyss_blast": "포탈의 심연 열선",
   "entity.cataclysm.lionfish_spike": "쏠배감펭의 가시",
   "item.cataclysm.amethyst_crab_meat": "자수정 게살",
+  "item.cataclysm.blessed_amethyst_crab_meat": "축복 받은 자수정 게살",
   "item.cataclysm.amethyst_crab_shell": "자수정 게 껍데기",
   "entity.cataclysm.tidal_tentacle": "타이달 촉수",
   "entity.cataclysm.tidal_hook": "타이달 갈고리",
@@ -210,6 +212,7 @@
   "effect.cataclysm.bone_fracture": "골절",
   "effect.cataclysm.abyssal_fear": "심연의 공포",
   "effect.cataclysm.abyssal_curse": "심연의 저주",
+  "effect.cataclysm.blessing_of_amethyst": "자수정의 축복",
 
   "golemhurt.sub": "엔더 골렘이 상처를 입음",
   "golemdeath.sub": "엔더 골렘이 죽음",
@@ -311,5 +314,7 @@
   "death.attack.cataclysm.emp": "%s는 전기구이 통닭이 되버렸습니다.",
   "death.attack.cataclysm.emp.player": "%s는 전기구이 통닭이 되버렸습니다.",
   "death.attack.cataclysm.abyssal_burn": "%s가 차원을 떠났습니다",
-  "death.attack.cataclysm.abyssal_burn.player": "%s가 차원을 떠났습니다"
+  "death.attack.cataclysm.abyssal_burn.player": "%s가 차원을 떠났습니다",
+
+  "cataclysm.gui.altar_of_amethyst_blessing": "축복"
 }

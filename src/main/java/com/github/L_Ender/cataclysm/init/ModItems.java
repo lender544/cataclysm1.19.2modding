@@ -272,6 +272,13 @@ public class ModItems {
     public static final RegistryObject<Item> AMETHYST_CRAB_MEAT = ITEMS.register("amethyst_crab_meat",
             () -> new Item(new Item.Properties().tab(cataclysm.CATACLYSM_GROUP).food(new FoodProperties.Builder().nutrition(6).saturationMod(1.2F).effect(new MobEffectInstance(MobEffects.REGENERATION, 100, 0), 1.0F).build())));
 
+    public static final RegistryObject<Item> BLESSED_AMETHYST_CRAB_MEAT = ITEMS.register("blessed_amethyst_crab_meat",
+            () -> new Blessed_Amethyst_Crab_Meat(new Item.Properties().rarity(Rarity.EPIC).tab(cataclysm.CATACLYSM_GROUP).food(new FoodProperties.Builder().nutrition(6).saturationMod(1.2F)
+                    .effect(new MobEffectInstance(MobEffects.REGENERATION, 100, 0), 1.0F)
+                    .effect(new MobEffectInstance(ModEffect.EFFECTABYSSAL_BLESSING_OF_AMETHYST.get(), 1800, 0), 1.0F)
+                    .alwaysEat()
+                    .build())));
+
     public static final RegistryObject<Item> AMETHYST_CRAB_SHELL = ITEMS.register("amethyst_crab_shell",
             () -> new Item(new Item.Properties().tab(cataclysm.CATACLYSM_GROUP)));
 
